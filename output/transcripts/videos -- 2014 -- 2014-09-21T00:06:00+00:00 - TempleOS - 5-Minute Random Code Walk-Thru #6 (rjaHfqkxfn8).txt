@@ -1,0 +1,82 @@
+========================================================================
+FILE        : videos/2014/2014-09-21T00:06:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #6 (rjaHfqkxfn8).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-09-21T00:06:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #6 (rjaHfqkxfn8).mkv
+FORMAT      : Matroska
+SIZE        : 37,176,236 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:08:12.020
+TRANSCRIBED: 2026-05-08T15:24:28.678518+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+Okay, this is Temple OS 5-minute random code walkthrough episode number six and I'm your host Terry Davis. So here we go, Alt-B to find some random code. And where are we? We are in GR bitmap. Okay, what this code is is for blotting bitmap. So what we have is a there's a destination device context and a source device context. This is the destination, this is the source. So what we're dealing with is a device context is a structure. It has a width, a height, then it has a body which is, it has a, it has some other stuff, a pen width, a color, a brush. It's a device context. Then it has a body and this is a, this is a an array of U8s. So there's one, there's one byte per pixel and it can be 16 colors or it can be transparent. We can't, it's not 256 colors. It's not 256 colors. It's only it's 16 colors or FF is transparent. So when, when we blot, let's see what we have to do. Well, basically we, we trim the width and height based on overlap, get that figured out so that we have W, H2 and W2 for width and height. And we go through the standard startup for each graphics routine. If it's a, we record the extents. There's a, this is a feature of the, you can turn on record extents and then it'll, it'll, it'll expand a bounding rectangle. And if we want, if you set don't draw on the device context, we return early. Otherwise we, we basically, we, we process eight pixels at a time with some leading and some trailing. We have some leading pixel, we align to an eight byte boundary and we have leading pixels and trailing pixels. Now let's see color, color is determined by the image. Let's see how we, how we handle eight pixels at a time. Um, there's raster operations. We can check for collisions. We can, we can convert, uh, a mono image into a color. What that does is let's say you want to draw a mono image in yellow. Then, um, what it does is it, uh, it uses some, um, arrays of, uh, let's see. You can see it's, uh, transferring, um, 64 at a time, uh, color mask. Let's see. So if we're doing a mono, the color mask is set by two eight colors. What two eight colors is, is, uh, um, this is a, um, uh, let's say dump gr two eight colors. This is an array of, um, it's eight zeros, eight ones, eight twos, eight threes, eight fours, eight fives. So, um, the, there are only 16 are used plus the transparent. So it, um, it makes, uh, um, it just, we want to process eight at a time. So this, uh, loads in eight of a certain, um, value. And, uh, then we, we, uh, we, we do the leading, uh, pixels. Then we do the, the, the, then we do the pixels eight at a time. Then we do the trailing pixels. You know, this is, uh, pretty close to the, uh, it's not that many orders of magnitude different from the, uh, 640. So if we do a rectangle that's 40, then that means we probably have five leading, five trailing and, uh, and only two, two chunks of eight. So that's, if it's a, if it's a mono, we, uh, we basically do a Boolean to test, uh, oh, we're dealing with Z buffer as well. Um, when you, uh, when you deal with three dimensions, um, if you have a Z buffer, um, this, this, this part of the if is if it's a Z buffer. And, uh, that means we check against the, uh, the, uh, um, oh, this is the window Z buffer. This is not the graphic Z buffer. Um, we don't use the graphic Z buffer on this. Um, when we have, uh, um, we don't have a bitmap for each, uh, window. We just have one master bitmap and, um, all windows are on an eight by eight, uh, pixel grid. You can see when I move this around, it moves up a text character. So, uh, the, the window Z buffer is, um, the, uh, that's, that's, um, that's just to see if, uh, um, let's say over here we say, uh, GR, this is similar, GR rectangle, uh, Oh, CDC star DC GR alias. DC alias. Then we say GR rectangle rectangle DC comma. Let's say, let's set the color, uh, DC color equals red GR rectangle DC 100. Let's do, uh, 300 comma 200 comma 200 comma 200 comma 200. Oh, wow. That's not what I expected. I expected it to obey the, uh, Oh, that's for the persistent layer. I don't know what happened. Anyway, um, sometimes it obeys the, uh, the window, I guess persistently or doesn't obey it. Maybe that's a bug. I don't know. Anyway, uh, I was expecting it to, uh, um, obey the Z buffer for the window. Um, Oh, well, well, that sucks. Oh, maybe I'll have to investigate that. DC fill. So, uh, Oops. Anyway, so, uh, that's what that Z buffer's supposed to be. I don't know what happened. Maybe the persistent layer doesn't, it should obey it. Anyway, uh, Uh, and, uh, if we have, uh, um, Well, anyway, so it has leading and trailing that, uh, align to a, uh, 64 byte, 64 bit, um, 8 pixel. Uh, So we transfer eight at a time. Um, we do leading and trailing, and then we transfer eight at a time during the middle. So that's, that's what this is.
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:05.920]  Okay, this is Temple OS 5-minute random code walkthrough episode number six and
+[00:00:05.920 -> 00:00:14.800]  I'm your host Terry Davis. So here we go, Alt-B to find some random code. And where
+[00:00:14.800 -> 00:00:27.480]  are we? We are in GR bitmap. Okay, what this code is is for blotting bitmap. So
+[00:00:27.480 -> 00:00:34.440]  what we have is a there's a destination device context and a source device
+[00:00:34.440 -> 00:00:41.340]  context. This is the destination, this is the source. So what we're dealing with is
+[00:00:41.340 -> 00:00:51.700]  a device context is a structure. It has a width, a height, then it has a body which
+[00:00:51.700 -> 00:01:00.820]  is, it has a, it has some other stuff, a pen width, a color, a brush. It's a
+[00:01:00.820 -> 00:01:10.140]  device context. Then it has a body and this is a, this is a an array of U8s. So
+[00:01:10.140 -> 00:01:17.420]  there's one, there's one byte per pixel and it can be 16 colors or it can be
+[00:01:17.420 -> 00:01:25.320]  transparent. We can't, it's not 256 colors. It's not 256 colors. It's only it's 16
+[00:01:25.320 -> 00:01:33.300]  colors or FF is transparent. So when, when we blot, let's see what we have to do.
+[00:01:35.740 -> 00:01:45.320]  Well, basically we, we trim the width and height based on overlap, get that figured
+[00:01:45.320 -> 00:01:53.500]  out so that we have W, H2 and W2 for width and height. And we go through the standard
+[00:01:53.500 -> 00:02:03.260]  startup for each graphics routine. If it's a, we record the extents. There's a, this is a
+[00:02:03.260 -> 00:02:10.560]  feature of the, you can turn on record extents and then it'll, it'll, it'll expand
+[00:02:10.560 -> 00:02:17.660]  a bounding rectangle. And if we want, if you set don't draw on the device context, we
+[00:02:17.660 -> 00:02:26.260]  return early. Otherwise we, we basically, we, we process eight pixels at a time with
+[00:02:26.260 -> 00:02:33.200]  some leading and some trailing. We have some leading pixel, we align to an eight
+[00:02:33.200 -> 00:02:41.120]  byte boundary and we have leading pixels and trailing pixels. Now let's see color,
+[00:02:41.120 -> 00:02:46.780]  color is determined by the image. Let's see how we, how we handle eight pixels at a
+[00:02:46.780 -> 00:02:53.140]  time. Um, there's raster operations. We can check for collisions. We can, we can
+[00:02:53.140 -> 00:02:59.780]  convert, uh, a mono image into a color. What that does is let's say you want to draw a
+[00:02:59.780 -> 00:03:11.340]  mono image in yellow. Then, um, what it does is it, uh, it uses some, um, arrays of, uh, let's
+[00:03:11.340 -> 00:03:25.400]  see. You can see it's, uh, transferring, um, 64 at a time, uh, color mask. Let's see. So if we're
+[00:03:25.400 -> 00:03:35.360]  doing a mono, the color mask is set by two eight colors. What two eight colors is, is, uh, um, this is a, um,
+[00:03:38.820 -> 00:04:04.100]  uh, let's say dump gr two eight colors. This is an array of, um, it's eight zeros, eight ones, eight twos, eight threes, eight fours, eight fives. So, um, the, there are only 16 are used plus the transparent.
+[00:04:04.100 -> 00:04:16.060]  So it, um, it makes, uh, um, it just, we want to process eight at a time. So this, uh, loads in eight of a certain, um, value.
+[00:04:16.980 -> 00:04:37.240]  And, uh, then we, we, uh, we, we do the leading, uh, pixels. Then we do the, the, the, then we do the pixels eight at a time. Then we do the trailing pixels. You know, this is, uh, pretty close to the, uh, it's not that many orders of magnitude different from the, uh, 640.
+[00:04:38.140 -> 00:04:49.660]  So if we do a rectangle that's 40, then that means we probably have five leading, five trailing and, uh, and only two, two chunks of eight.
+[00:04:51.120 -> 00:05:14.060]  So that's, if it's a, if it's a mono, we, uh, we basically do a Boolean to test, uh, oh, we're dealing with Z buffer as well. Um, when you, uh, when you deal with three dimensions, um, if you have a Z buffer, um, this, this, this part of the if is if it's a Z buffer.
+[00:05:14.680 -> 00:05:36.220]  And, uh, that means we check against the, uh, the, uh, um, oh, this is the window Z buffer. This is not the graphic Z buffer. Um, we don't use the graphic Z buffer on this. Um, when we have, uh, um, we don't have a bitmap for each, uh, window.
+[00:05:36.220 -> 00:05:46.940]  We just have one master bitmap and, um, all windows are on an eight by eight, uh, pixel grid. You can see when I move this around, it moves up a text character.
+[00:05:47.940 -> 00:06:05.720]  So, uh, the, the window Z buffer is, um, the, uh, that's, that's, um, that's just to see if, uh, um, let's say over here we say, uh, GR, this is similar, GR rectangle, uh,
+[00:06:06.220 -> 00:06:12.860]  Oh, CDC star DC GR alias.
+[00:06:17.980 -> 00:06:19.640]  DC alias.
+[00:06:20.720 -> 00:06:22.980]  Then we say GR rectangle
+[00:06:25.160 -> 00:06:27.840]  rectangle DC comma.
+[00:06:28.240 -> 00:06:32.000]  Let's say, let's set the color, uh, DC
+[00:06:32.000 -> 00:06:35.220]  color equals red
+[00:06:35.220 -> 00:06:38.580]  GR rectangle DC 100.
+[00:06:39.140 -> 00:06:45.340]  Let's do, uh, 300 comma 200 comma 200 comma 200 comma 200.
+[00:06:45.880 -> 00:06:47.440]  Oh, wow.
+[00:06:47.860 -> 00:06:49.180]  That's not what I expected.
+[00:06:49.520 -> 00:06:52.020]  I expected it to obey the, uh,
+[00:06:53.880 -> 00:06:55.740]  Oh, that's for the persistent layer.
+[00:06:58.820 -> 00:07:00.340]  I don't know what happened.
+[00:07:00.340 -> 00:07:07.080]  Anyway, um, sometimes it obeys the, uh, the window, I guess persistently or doesn't obey it.
+[00:07:07.180 -> 00:07:07.840]  Maybe that's a bug.
+[00:07:08.140 -> 00:07:08.880]  I don't know.
+[00:07:09.200 -> 00:07:12.640]  Anyway, uh, I was expecting it to, uh, um,
+[00:07:13.020 -> 00:07:15.600]  obey the Z buffer for the window.
+[00:07:16.380 -> 00:07:16.900]  Um,
+[00:07:18.500 -> 00:07:20.500]  Oh, well, well, that sucks.
+[00:07:21.580 -> 00:07:23.720]  Oh, maybe I'll have to investigate that.
+[00:07:24.360 -> 00:07:25.060]  DC fill.
+[00:07:25.780 -> 00:07:26.460]  So, uh,
+[00:07:28.300 -> 00:07:28.580]  Oops.
+[00:07:31.960 -> 00:07:34.980]  Anyway, so, uh, that's what that Z buffer's supposed to be.
+[00:07:35.200 -> 00:07:36.180]  I don't know what happened.
+[00:07:36.320 -> 00:07:39.120]  Maybe the persistent layer doesn't, it should obey it.
+[00:07:39.560 -> 00:07:40.340]  Anyway, uh,
+[00:07:40.340 -> 00:07:44.820]  Uh, and, uh, if we have, uh, um,
+[00:07:47.760 -> 00:07:57.560]  Well, anyway, so it has leading and trailing that, uh, align to a, uh, 64 byte, 64 bit, um, 8 pixel.
+[00:07:58.460 -> 00:07:58.980]  Uh,
+[00:08:01.420 -> 00:08:03.680]  So we transfer eight at a time.
+[00:08:03.680 -> 00:08:09.480]  Um, we do leading and trailing, and then we transfer eight at a time during the middle.
+[00:08:09.760 -> 00:08:12.020]  So that's, that's what this is.

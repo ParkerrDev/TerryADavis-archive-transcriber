@@ -1,0 +1,213 @@
+========================================================================
+FILE        : videos/2016/2016-04-19T00:00:00+00:00 - Terry A Davis Live Stream (jZMICGA1hyI).mp4
+SOURCE URL  : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2016/2016-04-19T00:00:00+00:00 - Terry A Davis Live Stream (jZMICGA1hyI).mp4
+DERIVATIVE  : (none — streamed from video)
+FORMAT      : MPEG4
+SIZE        : 249,659,899 bytes
+LANGUAGE    : en
+MODEL       : large-v3
+BACKEND     : faster_whisper
+PLATFORM    : Linux / x86_64
+DURATION    : 00:37:20.440
+TRANSCRIBED : 2026-05-23T14:48:18.605683+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+I'm going to uh I'm going to go to OS dev to see what kind of trouble I can get in let's see what they uh uh they probably uh misunderstood something so let's see what we have here okay what's new we'll start with uh dt problem when I initialize my idt I don't use uh stubs or you can see this guy has some uh idt set entry okay um you see how he has what I do is uh so the first 20 are uh false for the first uh first yeah 20 hex first 32 um what I do to initialize is to uh for the first 20 I do it like that um for the rest of them um I compile a uh wait each do you see here right here it is it is compiling code so the reason I don't have stubs is because uh this this is the machine code for a push then I pushed the number of the interrupt or the vector and this is the this is a jump and then I push a relative offset it's the address of int fault minus destination destination is the uh it's a relative branch so that's the current location so this is how you this compiles basically more or less so that's what I do for the fault what do I do for the rest of them uh the first 20 are false and the other the others I I start I initialize the others to no op acknowledges all interrupts and uh so that's anyway so that wasn't very interesting debugging os on real hardware you have you have to make a debugger so in my operating system um my my compiler I wrote an unassembler and the way it I have a file that has all the op codes and addressing modes I had to type this in by hand and what it does is uh to unassemble it uh it does a binary search in a uh the the tricky part is the um the machine the machine code instructions are uh variable length so what you have to do is you have to make a way of sorting the code and then you have to make a way of sorting the code and then you have to make a way of Sorting the machine code instructions and then once you have a sorted list then you can You can do a binary search So in my unassembled I came up with a way of comparing two instructions Once you have a way to compare then you can do a sort And make a table and then once you have a table you can do a binary search so That's how that works. I have symbolic debugging because I have symbol tables and my compiler Is designed to make symbol tables that my debugger can use you can say debug this brings you to my debugger The best thing it has is a stack trace you see how it Gave a stack trace You have to be sure to to use RBP For your stack frame, and then it can do a stack trace anyway So I have a native debugger But I mostly do printf debugging if you're making an operating system you start with well You don't have an assembler at first the first thing you make when you're starting on on native hardware You make it don't you make a dump instruction That's the first thing you make Once you have that the next thing you make is Dump registers then once you have that You start making your serial communication console routines and stuff anyway, I think I have Dump address this is for the stack so It tells What the what the addresses? Correspond to anyway, that's off the stack. I have caller report that gives a stack trace So dumping dumping an address Dumps the hex and looks up the symbols the caller report Climbs the stack you can see the This is going by eight This goes by you know a couple hundred and stuff I don't know how many how much room on the stack each Function takes anyway, okay. This is a nightmare. I don't even do any of this Yeah, someone wanted to know if I was gonna do other keyboards that's really a nightmare because there's There are there's a hundred international keyboards, I don't know I'm just saying it's a lot and and I don't want to do that. I don't want that crap in my operating system So what somebody from each country needs to needs to? Why don't you make a version for your country, and I'll post a link on my webpage I Don't want to do that. I Don't want my version what I want is the whole purpose is to for it to be simple like a Commodore 64 was so Your country should have the simple version for your country Once it starts getting Ugly and messy then that's that's it's not how it's supposed to be it's supposed to be like a Commodore 64 was was so I Don't want to do international. I'll do two fonts There's acrylic font that I heard about This has Russian symbols in the upper 128 What I want is I'll have it switched between two fonts standard and Okay, I don't see anything here anyway Now my operating system is not symmetric multi-tasking symmetric multi-core on mine each Each application has to explicitly create slave processes on the other cores slave tasks So I'm going to do that So on mine if you make a flight simulator, it's using eight cores and Each core is assigned a different strip, so it's not multi-core Other operating systems move the tasks around from core to core We don't do any of that nonsense you just explicitly create a task on each core and What you need to know for multi-core is uh you need to know mp count is the multi-core account You need to know spawn Spawn works both for Regular tasks and multi-core tasks you specify the CPU Minus one is the current CPU So you need spawn you need mp count and then the other thing you need is a tat CPU record The CPU record has the core number GS points to the CPU record the only thing you need from there is the core number so let's let's do a little multi-core application So MP whatever okay, it takes one Let's let's make this MP count that's multi processor count and here this is basically standard standard out I'm passing standard out as okay let's look at the arguments you pass the address of the function you pass a data that gets passed to the function you pass a name and a core okay so this is the name and then we give the core and inside here we say doc print and GS num is the core so what do you think this is gonna do okay so it printed out all the cores now um let's just do a little example so we're gonna have eight cores increment of low a global variable okay so what do you think is gonna go wrong okay so what did we get we got two million it should be eight million any idea what the problem is well the problem is when you're doing multi-core um you have to lock if you're accessing in the same location you have to lock the cash line so well so this puts shit maybe we didn't wait long enough okay hold on let's let's let's back up okay we got 12 million let's wait a little bit longer okay we got 16 million longer we almost got 20 million longer we got 19 million I'm counting to 1 million oh we still have those tasks going no no we don't what the hell is going on oh we didn't I'm an idiot kid 3 million let's try again 3 million let's kick it up okay 3 minutes so we get 3 million we want 8 million let's try it again 3 million we want 8 million so put a lock on here I bet you can count to a billion without much problem I was pretty stupid look at that exactly 8 million isn't that beautiful so that's from um we should unassemble it it's using it a machine code locker determined lock prefix so if we unassemble function MP so it's using the machine code lock prefix so what I do let me I like to do this exactly the same MP I call it okay okay so let's so the as a matter of fact you don't want to I have a couple warnings when you're doing MP code I have a couple warnings one warning is don't exit while the MP tasks are running because when you exit your task the memory gets freed and you the memory for this function has to be kept safe so long as the MP cores are running so you don't want to yank that memory out from underneath them so that's one warning I'm going to show the standard way for doing MPs and so you have flags for as long as it's not done you set let's look at this this if we have eight cores it takes one to the eighth which is 256 minus one 255 so that's equal to zero that's equal to binary uh that's like eight one I don't know I just want to show that it's it's got eight ones and um locked bit test and reset this has a lock prefix it's it's the same sort of lock as that and it's a bit test and reset uh if you're wondering where I came up with bit test and reset if you go to the um Intel data sheets architectural manual 2A this has the assembly code the machine code the assembly code instructions uh and if you'll notice bit test and reset is is the x86 instruction bit test and reset bit test and set bit test and complement bit test and uh Temple OS is um only for x86 um so um I I I don't think twice about um making incompat un unportable I don't worry about portability I worry about x86 alone so so this well anyway oh so at one time I made an option for uh uh less than all the cores so that particular never mind okay so you see it's pretty damn fast so just just for your information if you're doing something with a lock on it um I think it's not faster with multi-core because if it's if it's you can only do one thing at a time and if it's got a lock I have a feeling it takes equal time to do it with one core or eight cores um so you got to be doing other stuff that other than locked things you understand what I'm saying I think if you measured the time for eight million locked you want to do that we could we got nothing better to do after 64 t0 I like to do it this way I guess we should t0 equals something like that so it takes uh 1500s of a second so let's do the same thing with uh I think this takes us exactly the same time more or less well it's even worse um that's not too surprising now if you don't have a lock it's it's probably nanoseconds okay I'm surprised it's not even worse so this is not a good argument for multi-core uh anyway um let's see if anybody's here is there anybody listening hello I'm not I'm not really a communist socialist those crazy socialist hippies so what else is there to talk about so how can we tell how many people are here is it not very many oh well uh so you want to do a miracle let's do a miracle okay Mr God say hello God says okay well I don't really have much to talk about let's see let's go to uh drudge God why are you flooding Texas is Texas evil I'm just kidding I was on the air for nine hours so you want me to work on the circuit simulator um he gads I haven't touched that in a while um so you can you can find it okay so you can find it on my website I can show you where but it's not it's not any use so we're going to place a resistor replace a capacitor place capacitor resistor let's do it inductor and then you can connect the components and it tries to figure out the lines let's put a resistor okay so now you move them around and much luck I couldn't even get my circuit layout let alone do any analysis this is hard you think it's easy it's not easy um CPZ um but if a file ends in Z it's compressed and otherwise it's a I call them C plus plus um it's actually holy C but I didn't want to uh how do I put this uh if you make it foreign um people don't like it technically I should have my own text file I should say doll doc or DD I should do something like DD but I don't really want to uh I don't want to be that strange even though it's not a text file I say it's text even though it's not C++ it's uh it's it's like C plus plus but it's not so um I do it you know maybe maybe you can call me uh for not making my own but uh it's kind of like uh I call it a kernel at first I used to call I used I have a kernel even though it's not really a kernel um it's not the whole thing is ring zero so there's really no kernel it doesn't really um fit I mean it does but um basically um you know if I if I were really if I were were really famous I would worry less about uh what people think so if I if I had a guarantee of being famous then I would I would go ahead and change it I would go ahead and change it I would change these to HC for holy C but um I don't want to do that at this stage those should be HC files holy C and the text files should be uh doll doc or something like DD or something HC and DD but um I would really uh that would be a bad political move um at this stage I can't afford to be that's that's from a popularity standpoint I would I would lose too many people so okay well that's enough
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:19.340 -> 00:00:27.540]  I'm going to uh I'm going to go to OS dev to see what kind of trouble I can get in let's see what
+[00:00:27.540 -> 00:00:40.620]  they uh uh they probably uh misunderstood something so let's see what we have here okay
+[00:00:50.340 -> 00:01:19.290]  what's new we'll start with uh dt problem when I initialize my idt I don't use uh stubs or
+[00:01:19.290 -> 00:01:46.640]  you can see this guy has some uh idt set entry okay um you see how he has what I do is uh
+[00:01:46.640 -> 00:02:16.560]  so the first 20 are uh false for the first uh first yeah 20 hex first 32 um
+[00:02:18.950 -> 00:02:34.900]  what I do to initialize is to uh for the first 20 I do it like that
+[00:02:34.900 -> 00:02:35.320]  um
+[00:02:35.340 -> 00:02:58.960]  for the rest of them um I compile a uh wait each do you see here right here it is
+[00:02:58.960 -> 00:03:07.400]  it is compiling code so the reason I don't have stubs is because uh
+[00:03:08.800 -> 00:03:12.520]  this this is the machine code for a push
+[00:03:14.040 -> 00:03:19.640]  then I pushed the number of the interrupt or the vector
+[00:03:20.440 -> 00:03:28.200]  and this is the this is a jump and then I push a relative offset it's the address of int fault
+[00:03:28.200 -> 00:03:36.280]  minus destination destination is the uh it's a relative branch so that's the current location
+[00:03:36.280 -> 00:03:49.230]  so this is how you this compiles basically more or less so that's what I do for the fault
+[00:03:49.230 -> 00:03:56.300]  what do I do for the rest of them uh the first 20 are false
+[00:03:57.260 -> 00:04:09.030]  and the other the others I I start I initialize the others to no op
+[00:04:11.970 -> 00:04:18.570]  acknowledges all interrupts and uh so that's
+[00:04:18.570 -> 00:04:34.910]  anyway so that wasn't very interesting debugging os on real hardware you have you have to make a
+[00:04:34.910 -> 00:04:49.620]  debugger so in my operating system um my my compiler I wrote an unassembler
+[00:04:49.920 -> 00:04:55.580]  and the way it I have a file that has all the op codes and addressing modes
+[00:04:55.580 -> 00:05:10.960]  I had to type this in by hand and what it does is uh to unassemble it uh it does a binary search
+[00:05:11.980 -> 00:05:20.700]  in a uh the the tricky part is the um the machine the machine code instructions are uh
+[00:05:20.700 -> 00:05:24.920]  variable length so what you have to do is you have to make a way of
+[00:05:24.920 -> 00:05:25.020]  sorting the code and then you have to make a way of sorting the code and then you have to make a way of
+[00:05:25.040 -> 00:05:32.460]  Sorting the machine code instructions and then once you have a sorted list then you can
+[00:05:33.950 -> 00:05:36.380]  You can do a binary search
+[00:05:37.080 -> 00:05:42.120]  So in my unassembled I came up with a way of comparing two instructions
+[00:05:42.780 -> 00:05:46.100]  Once you have a way to compare then you can do a sort
+[00:05:46.680 -> 00:05:53.220]  And make a table and then once you have a table you can do a binary search
+[00:05:53.220 -> 00:05:54.000]  so
+[00:05:57.840 -> 00:06:05.500]  That's how that works. I have symbolic debugging because I have symbol tables
+[00:06:06.520 -> 00:06:07.280]  and
+[00:06:08.140 -> 00:06:09.420]  my compiler
+[00:06:10.360 -> 00:06:20.300]  Is designed to make symbol tables that my debugger can use you can say debug this brings you to my debugger
+[00:06:20.940 -> 00:06:25.220]  The best thing it has is a stack trace you see how it
+[00:06:25.980 -> 00:06:27.140]  Gave a stack trace
+[00:06:27.140 -> 00:06:30.640]  You have to be sure to
+[00:06:30.640 -> 00:06:32.880]  to use RBP
+[00:06:33.780 -> 00:06:38.400]  For your stack frame, and then it can do a stack trace anyway
+[00:06:39.140 -> 00:06:41.320]  So I have a native debugger
+[00:06:43.970 -> 00:06:50.890]  But I mostly do printf debugging if you're making an operating system you start with well
+[00:06:50.890 -> 00:06:57.610]  You don't have an assembler at first the first thing you make when you're starting on
+[00:06:58.570 -> 00:06:59.910]  on native hardware
+[00:06:59.910 -> 00:07:02.690]  You make it don't you make a dump instruction
+[00:07:03.570 -> 00:07:05.030]  That's the first thing you make
+[00:07:06.570 -> 00:07:09.750]  Once you have that the next thing you make is
+[00:07:11.590 -> 00:07:16.400]  Dump registers then once you have that
+[00:07:18.410 -> 00:07:29.290]  You start making your serial communication console routines and stuff anyway, I think I have
+[00:07:33.300 -> 00:07:37.280]  Dump address this is for the stack so
+[00:07:57.490 -> 00:07:57.990]  It tells
+[00:07:57.990 -> 00:08:01.980]  What the what the addresses?
+[00:08:02.800 -> 00:08:12.030]  Correspond to anyway, that's off the stack. I have caller report that gives a stack trace
+[00:08:15.310 -> 00:08:17.410]  So dumping dumping an address
+[00:08:18.870 -> 00:08:25.070]  Dumps the hex and looks up the symbols the caller report
+[00:08:26.050 -> 00:08:30.460]  Climbs the stack you can see the
+[00:08:30.460 -> 00:08:33.420]  This is going by eight
+[00:08:34.540 -> 00:08:37.860]  This goes by you know a couple hundred and stuff
+[00:08:38.600 -> 00:08:41.240]  I don't know how many how much room on the stack each
+[00:08:42.600 -> 00:08:54.420]  Function takes anyway, okay. This is a nightmare. I don't even do any of this
+[00:09:24.490 -> 00:09:28.010]  Yeah, someone wanted to know if I was gonna do other keyboards
+[00:09:28.970 -> 00:09:31.650]  that's really a nightmare because there's
+[00:09:39.630 -> 00:09:50.170]  There are there's a hundred international keyboards, I don't know I'm just saying it's a lot and
+[00:09:51.470 -> 00:09:52.030]  and
+[00:09:53.490 -> 00:09:58.210]  I don't want to do that. I don't want that crap in my operating system
+[00:09:58.730 -> 00:10:05.850]  So what somebody from each country needs to needs to?
+[00:10:06.310 -> 00:10:10.610]  Why don't you make a version for your country, and I'll post a link
+[00:10:11.910 -> 00:10:14.430]  on my webpage I
+[00:10:14.430 -> 00:10:16.610]  Don't want to do that. I
+[00:10:16.610 -> 00:10:24.030]  Don't want my version what I want is the whole purpose is to for it to be simple like a Commodore 64 was so
+[00:10:24.030 -> 00:10:27.670]  Your country should have the simple version for your country
+[00:10:29.900 -> 00:10:31.480]  Once it starts getting
+[00:10:33.640 -> 00:10:42.200]  Ugly and messy then that's that's it's not how it's supposed to be it's supposed to be like a Commodore 64 was was so I
+[00:10:44.390 -> 00:10:48.270]  Don't want to do international. I'll do two fonts
+[00:10:48.970 -> 00:10:52.050]  There's acrylic font that I heard about
+[00:11:02.910 -> 00:11:05.990]  This has Russian symbols in the upper 128
+[00:11:05.990 -> 00:11:17.380]  What I want is I'll have it switched between two fonts
+[00:11:17.380 -> 00:11:21.720]  standard and
+[00:11:21.720 -> 00:11:36.020]  Okay, I don't see anything here anyway
+[00:11:36.960 -> 00:11:57.040]  Now my operating system is not symmetric
+[00:11:57.040 -> 00:11:59.000]  multi-tasking
+[00:11:59.000 -> 00:12:01.380]  symmetric multi-core
+[00:12:02.480 -> 00:12:04.360]  on mine each
+[00:12:04.360 -> 00:12:07.780]  Each application has to explicitly
+[00:12:07.780 -> 00:12:14.340]  create slave processes on the other cores slave tasks
+[00:12:14.340 -> 00:12:14.600]  So I'm going to do that
+[00:12:14.600 -> 00:12:37.750]  So on mine if you make a flight simulator, it's using eight cores and
+[00:12:39.070 -> 00:12:50.050]  Each core is assigned a different strip, so it's not multi-core
+[00:12:51.010 -> 00:12:55.450]  Other operating systems move the tasks around from core to core
+[00:12:56.290 -> 00:12:58.010]  We don't do any of that nonsense
+[00:12:58.690 -> 00:13:03.770]  you just explicitly create a task on each core and
+[00:13:06.770 -> 00:13:13.230]  What you need to know for multi-core is uh you need to know mp count is the multi-core account
+[00:13:15.600 -> 00:13:17.260]  You need to know spawn
+[00:13:18.580 -> 00:13:20.140]  Spawn works both for
+[00:13:21.800 -> 00:13:27.320]  Regular tasks and multi-core tasks you specify the CPU
+[00:13:29.040 -> 00:13:30.600]  Minus one is the current CPU
+[00:13:32.240 -> 00:13:37.840]  So you need spawn you need mp count and then the other thing you need is a tat CPU
+[00:13:38.500 -> 00:13:38.980]  record
+[00:13:40.060 -> 00:13:41.940]  The CPU record has
+[00:13:42.680 -> 00:13:44.040]  the core number
+[00:13:45.180 -> 00:13:52.900]  GS points to the CPU record the only thing you need from there is the core number so let's let's do a little multi-core
+[00:13:53.700 -> 00:13:54.020]  application
+[00:13:54.940 -> 00:13:55.580]  So
+[00:14:06.680 -> 00:14:14.680]  MP whatever okay, it takes one
+[00:14:21.690 -> 00:14:22.930]  Let's let's make this
+[00:14:34.730 -> 00:14:51.630]  MP count that's multi processor count and here
+[00:14:51.630 -> 00:14:52.730]  this is
+[00:14:52.730 -> 00:14:59.910]  basically standard standard out I'm passing standard out as okay let's look
+[00:14:59.910 -> 00:15:06.410]  at the arguments you pass the address of the function you pass a data that gets
+[00:15:06.410 -> 00:15:15.670]  passed to the function you pass a name and a core okay so this is the name and
+[00:15:16.980 -> 00:15:45.090]  then we give the core and inside here we say doc print and GS num is the core so
+[00:15:45.090 -> 00:15:52.890]  what do you think this is gonna do okay so it printed out all the cores now um
+[00:16:08.720 -> 00:16:22.420]  let's just do a little example so we're gonna have eight cores increment of low
+[00:16:22.420 -> 00:16:39.640]  a global variable okay so what do you think is gonna go wrong
+[00:16:41.260 -> 00:16:50.580]  okay so what did we get we got two million it should be eight million any
+[00:16:51.860 -> 00:16:57.540]  idea what the problem is well the problem is when you're doing multi-core
+[00:16:57.540 -> 00:17:04.600]  um you have to lock if you're accessing in the same location you have to lock
+[00:17:04.600 -> 00:17:18.660]  the cash line so well so this puts shit maybe we didn't wait long enough okay
+[00:17:18.660 -> 00:17:19.000]  hold on
+[00:17:19.000 -> 00:17:19.200]  let's
+[00:17:19.200 -> 00:17:19.520]  let's
+[00:17:20.060 -> 00:17:41.950]  let's back up okay we got 12 million let's wait a little bit longer okay we
+[00:17:41.950 -> 00:18:03.850]  got 16 million longer we almost got 20 million longer we got 19 million I'm
+[00:18:08.040 -> 00:18:13.500]  counting to 1 million oh we still have those tasks going no no we don't what
+[00:18:13.500 -> 00:18:31.960]  the hell is going on oh we didn't I'm an idiot kid 3 million let's try again 3
+[00:18:31.960 -> 00:18:38.480]  million let's kick it up okay 3 minutes so we get 3
+[00:18:38.480 -> 00:18:47.720]  million we want 8 million let's try it again 3 million we want 8 million so
+[00:18:47.720 -> 00:18:57.700]  put a lock on here I bet you can count to a billion without much problem I was
+[00:18:57.700 -> 00:19:03.320]  pretty stupid look at that exactly 8 million isn't that beautiful so that's
+[00:19:03.320 -> 00:19:10.160]  from um we should unassemble it it's using it a machine code locker determined
+[00:19:10.160 -> 00:19:25.260]  lock prefix so if we unassemble function MP so it's using the machine code lock
+[00:19:25.260 -> 00:19:55.780]  prefix so what I do let me I like to do this exactly the same MP I call it okay
+[00:20:11.020 -> 00:20:57.680]  okay so let's so the as a matter of fact you don't want to I have a couple warnings when
+[00:20:57.680 -> 00:21:13.060]  you're doing MP code I have a couple warnings one warning is don't exit while the MP tasks
+[00:21:13.060 -> 00:21:18.580]  are running because when you exit your task the memory gets freed
+[00:21:18.580 -> 00:21:19.240]  and
+[00:21:20.520 -> 00:21:21.280]  you
+[00:21:21.280 -> 00:21:31.540]  the memory for this function has to be kept safe so long as the MP cores are running so you don't
+[00:21:31.540 -> 00:21:44.110]  want to yank that memory out from underneath them so that's one warning I'm going to show
+[00:21:44.110 -> 00:21:57.210]  the standard way for doing MPs and so you have flags for as long as it's not done you set let's
+[00:21:57.210 -> 00:21:57.630]  look at this
+[00:21:57.650 -> 00:22:05.530]  this if we have eight cores it takes one to the eighth which is 256 minus one 255 so that's equal
+[00:22:05.530 -> 00:22:16.870]  to zero that's equal to binary uh that's like eight one I don't know I just want to show that
+[00:22:16.870 -> 00:22:28.170]  it's it's got eight ones and um locked bit test and reset this has a lock prefix it's it's the
+[00:22:28.170 -> 00:22:32.630]  same sort of lock as that and it's a bit test and reset uh
+[00:22:33.370 -> 00:22:34.110]  if you're
+[00:22:34.370 -> 00:22:43.120]  wondering where I came up with bit test and reset if you go to the um Intel data sheets
+[00:22:43.120 -> 00:22:57.610]  architectural manual 2A this has the assembly code the machine code the assembly code instructions
+[00:22:59.570 -> 00:23:06.550]  uh and if you'll notice bit test and reset is is the x86 instruction
+[00:23:07.350 -> 00:23:12.110]  bit test and reset bit test and set bit test and complement
+[00:23:12.110 -> 00:23:23.530]  bit test and uh Temple OS is um only for x86 um so um I I I don't think twice about
+[00:23:23.530 -> 00:23:36.290]  um making incompat un unportable I don't worry about portability I worry about x86 alone so
+[00:23:36.290 -> 00:23:52.660]  so this well anyway oh so at one time I made an option for uh
+[00:23:52.660 -> 00:24:00.400]  uh less than all the cores so that particular never mind okay so you see it's pretty damn fast
+[00:24:01.000 -> 00:24:10.660]  so just just for your information if you're doing something with a lock on it
+[00:24:10.660 -> 00:24:18.680]  um I think it's not faster with multi-core because if it's if it's you can only do one
+[00:24:18.680 -> 00:24:25.740]  thing at a time and if it's got a lock I have a feeling it takes equal time to do it with one core
+[00:24:26.020 -> 00:24:32.600]  or eight cores um so you got to be doing other stuff that other than locked things you understand
+[00:24:32.600 -> 00:24:40.060]  what I'm saying I think if you measured the time for eight million locked you want to do that we
+[00:24:40.060 -> 00:25:01.880]  could we got nothing better to do after 64 t0 I like to do it this way I guess we should t0 equals
+[00:25:01.880 -> 00:25:27.020]  something like that so it takes
+[00:25:30.160 -> 00:25:59.900]  uh 1500s of a second so let's do the same thing with uh I think this takes us exactly the same
+[00:25:59.900 -> 00:26:20.480]  time more or less well it's even worse um that's not too surprising now if you don't have a lock
+[00:26:25.390 -> 00:26:35.650]  it's it's probably nanoseconds okay I'm surprised it's not even worse
+[00:26:36.930 -> 00:26:54.470]  so this is not a good argument for multi-core uh anyway um let's see if anybody's here
+[00:26:55.310 -> 00:28:03.520]  is there anybody listening hello I'm not I'm not really a communist socialist those crazy
+[00:28:03.520 -> 00:29:12.240]  socialist hippies so what else is there to talk about so how can we tell how many people are here
+[00:29:12.240 -> 00:29:17.160]  is it not very many oh well
+[00:29:18.460 -> 00:30:04.640]  uh so you want to do a miracle let's do a miracle okay Mr God say hello God says okay well I don't
+[00:30:12.380 -> 00:30:24.160]  really have much to talk about let's see let's go to uh drudge God why are you flooding Texas
+[00:30:26.590 -> 00:31:41.200]  is Texas evil I'm just kidding I was on the air for nine hours so you want me to work on the circuit
+[00:31:41.200 -> 00:31:42.080]  simulator
+[00:31:43.300 -> 00:32:02.240]  um he gads I haven't touched that in a while um so you can you can find it okay so
+[00:32:03.000 -> 00:32:09.340]  you can find it on my website I can show you where but it's not it's not any use so we're
+[00:32:09.340 -> 00:32:19.480]  going to place a resistor replace a capacitor place capacitor resistor let's do it inductor
+[00:32:20.560 -> 00:32:21.460]  and then
+[00:32:23.700 -> 00:32:33.570]  you can connect the components and it tries to figure out the lines let's put a resistor
+[00:32:43.590 -> 00:33:10.540]  okay so now you move them around and much luck I couldn't even get my circuit layout let alone do
+[00:33:10.540 -> 00:33:49.910]  any analysis this is hard you think it's easy it's not easy um CPZ um but if a file ends in Z it's
+[00:33:49.910 -> 00:33:52.630]  compressed and otherwise it's a
+[00:33:52.990 -> 00:34:06.770]  I call them C plus plus um it's actually holy C but I didn't want to uh how do I put this uh if
+[00:34:12.790 -> 00:34:20.450]  you make it foreign um people don't like it technically I should have my own text file I
+[00:34:20.450 -> 00:34:27.990]  should say doll doc or DD I should do something like DD but I don't really want to uh I don't
+[00:34:27.990 -> 00:34:30.470]  want to be that strange
+[00:34:32.210 -> 00:34:45.260]  even though it's not a text file I say it's text even though it's not C++ it's uh it's it's like C
+[00:34:45.260 -> 00:35:05.080]  plus plus but it's not so um I do it you know maybe maybe you can call me uh for not making my
+[00:35:05.080 -> 00:35:14.620]  own but uh it's kind of like uh I call it a kernel at first I used to call I used I have a kernel
+[00:35:15.780 -> 00:35:22.260]  even though it's not really a kernel um it's not the whole thing is ring zero so there's really no
+[00:35:24.230 -> 00:35:39.190]  kernel it doesn't really um fit I mean it does but um basically um you know if I if I were really if
+[00:35:39.190 -> 00:35:49.740]  I were were really famous I would worry less about uh what people think so if I if I had a guarantee
+[00:35:49.740 -> 00:35:52.640]  of being famous then I would I would go ahead and change it I would go ahead and change it I would
+[00:35:52.660 -> 00:36:01.620]  change these to HC for holy C but um I don't want to do that at this stage those should be
+[00:36:01.620 -> 00:36:11.080]  HC files holy C and the text files should be uh doll doc or something like DD or something HC and
+[00:36:11.080 -> 00:36:27.160]  DD but um I would really uh that would be a bad political move um at this stage I can't
+[00:36:27.580 -> 00:36:37.400]  afford to be that's that's from a popularity standpoint I would I would lose too many people
+[00:36:48.030 -> 00:37:20.440]  so okay well that's enough

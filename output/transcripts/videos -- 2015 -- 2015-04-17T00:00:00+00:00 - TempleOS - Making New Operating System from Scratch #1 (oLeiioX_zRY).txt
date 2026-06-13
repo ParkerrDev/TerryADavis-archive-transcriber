@@ -1,0 +1,346 @@
+========================================================================
+FILE        : videos/2015/2015-04-17T00:00:00+00:00 - TempleOS - Making New Operating System from Scratch #1 (oLeiioX_zRY).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2015/2015-04-17T00:00:00+00:00 - TempleOS - Making New Operating System from Scratch #1 (oLeiioX_zRY).mp4
+FORMAT      : MPEG4
+SIZE        : 53,763,267 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:18:22.660
+TRANSCRIBED: 2026-05-10T21:35:00.398810+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay I'm gonna cover getting started on making a new operating system launched from temple OS or yeah okay so what we're gonna do is let's see drive so we have a see a C drive that were booted to we're gonna we're gonna modify the D drive so that when you boot the D drive it it boots our new operating system so there's a master bootloader that that we're gonna use the temple OS master bootloader so if we do reboot I hit I booted C so the first block of the partition is the is the bootloader for the partition when we're we have fat 32 we're gonna use a BIOS so um what we want to do is let's we're gonna make an install OS install OS so we want to write the boot block so ASM the the BIOS loads the master boot that we're gonna use and then the master boot loads the partition boot sector and it executes it in real mode so real mode is 16-bit so we're gonna do 16-bit assembly let's see just to be safe we're gonna turn off interrupts we're going to set up the stack so so uh xor ax I think I wonder if we can do SP I don't know and move ax now the way the memory map is uh we have 640 K but um 640 K is 10 times 64 so 640 K is uh a however the BIOS uses some of the high memory so um we uh oh you know we have to do okay anyway okay so we're gonna put the stack at uh let's just be safe and go with uh 80 thousand is a nice number so we we want the stack at 80,000 now um we want 64 K less than that um so uh or not 64 K yeah I might okay 64 K less than that is going to be um set 70,000 yeah that's what I think okay so 70,000 so we're gonna stick this in the segment register so move SS comma ax so um by loading zero that's the stupid people do it wrong we're gonna set it to zero and it loops around the first number it pushes is gonna be um 80,000 or just 7 7 f f f f f e whatever okay STI so that's how we set up the stack um so we call this uh os s s 1 uh start colon colon colon makes an export sim label s 1 end colon colon okay so we have some assembly code that's gonna be put into memory when we pound include this okay uh so well unfortunately we have a difficulty uh not unfortunately uh okay uh we want uh fat boot fat 32 boot uh oh okay let's go find out uh okay go to the kernel our main header let's look for boot boot boot boot boot boot boot! that's the master boot record we're not going to modify that we want to modify let's go ahead okay i'm going to uh i'm just going to shove this in here we don't have to just so we can look at it so uh just to show you that we're not using that this this is already in memory we we have that anyway um so c fat 32 boot br boot record now what do we do we uh let's read it so we say okay um let's install on a drive equals quote d we want to install on the d drive and just to be so the partition oh c drive what do i say dv i think i like to use standard uh letter letter letter to drive okay so drc i think i call this a letter uh all my api uses the same variable names okay so uh we want to install on the d drive and uh this is the uh okay we have a boot record structure so we say read blocks drive buffer block count drive buffer block we want block uh oh okay dv so base base offset is uh uh this is the uh uh uh base offset it used to be just offset okay drive buffer block! uh comma count we want one block let's go ahead and dump class rep class rep address br okay i feel like getting rid of this okay so we're gonna so this has the fat 32 information that we need and it has the boot! code goes in these 420 bytes so and then we want the signature so uh we have why don't we uh format the drive okay so first of all let's just do this quick and dirty okay so we just don't everything looks good signature a a 55 so uh just to be um i don't want to use any information that was already there so for that let's format let's go ahead and uh format the drive so we say fmt! letter quick confirm type okay letter letter quick confirm false drv the default is fat 32 dvt fat 32 drive type fat 32 okay so we just formatted and now the the old boot record is destroyed so uh the uh let's see how we're doing on the jump and no op that looks correct so the jump and no op looks good just to be thorough um it's it's jumping 58 no no yes jumping 58 bytes ahead and uh hopefully that's the location of code um let's go ahead and okay code jump and no op okay e okay let's say br dot jump and no op this is kind of unnecessary but just to be thorough 58 and let's say let's just review the offset of code offset code offset i'm just going to print that out and we want uh offset br i wonder if that'll work no let's not do that at 32 boot code we just want to see if the 58 is correct so we do this what do we have here jump and no op okay i'm going kind of slow am i not okay offset 5a oh offset 5a and then it's okay try that again okay 5a so why was it 58 that's because the two bytes of the instruction um you start counting after the instruction so 58 is correct okay and uh so we're good uh now you know what we do we copy the uh code into the correct location so uh mem copy and we want to copy to address br code comma s1 start now my 16-bit assembler does not support segmentation you might say what well that just means that you have to do it by hand anyway you'll see so uh s1 end minus s1 start another interesting thing is my my assembler doesn't really do 16-bit correctly it it uses the 32-bit addressing modes so it's wasting a byte on each instruction but it's it makes my assembler a lot shorter and uh we only we don't really need a lot of 16-bit code so that's why it's better not to make my it's not worth modifying my assembler to make it too efficient 16-bit prefix 0x67 that makes it use the 32-bit addressing mode and i just use that on all of them just about so i have an extra byte on all my instructions anyway uh so uh let's see here now we want to start doing stuff so we say move ax b8 move yes the x move uh uh u32 yes colon zero comma let's put os we're writing to uh the text memory the text memory is uh let's go ahead and uh let's uh two zero zero zero zero zero we're getting weird delays plus we're getting Urban Urban Urban Urban Urban Urban Urban Urban Urban!
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:08.380]  okay I'm gonna cover getting started on making a new operating system launched
+[00:00:08.380 -> 00:00:26.680]  from temple OS or yeah okay so what we're gonna do is let's see drive so we have a
+[00:00:26.680 -> 00:00:35.520]  see a C drive that were booted to we're gonna we're gonna modify the D drive so
+[00:00:35.520 -> 00:00:43.480]  that when you boot the D drive it it boots our new operating system so there's a
+[00:00:43.480 -> 00:00:50.200]  master bootloader that that we're gonna use the temple OS master bootloader so
+[00:00:50.200 -> 00:01:03.820]  if we do reboot I hit I booted C so the first block of the partition is the is
+[00:01:03.820 -> 00:01:12.940]  the bootloader for the partition when we're we have fat 32 we're gonna use a BIOS so
+[00:01:12.940 -> 00:01:27.160]  um what we want to do is let's we're gonna make an install OS
+[00:01:30.400 -> 00:01:56.760]  install OS so we want to write the boot block so ASM the the BIOS loads the
+[00:01:56.760 -> 00:02:04.280]  master boot that we're gonna use and then the master boot loads the partition
+[00:02:04.280 -> 00:02:17.100]  boot sector and it executes it in real mode so real mode is 16-bit so we're gonna do
+[00:02:17.100 -> 00:02:31.020]  16-bit assembly let's see just to be safe we're gonna turn off interrupts we're going to set up the stack
+[00:02:33.940 -> 00:02:46.580]  so so uh xor ax I think I wonder if we can do SP
+[00:02:49.380 -> 00:03:10.260]  I don't know and move ax now the way the memory map is uh we have 640 K but um 640 K is 10 times 64
+[00:03:13.220 -> 00:03:29.220]  so 640 K is uh a however the BIOS uses some of the high memory so um we uh oh you know we have to do okay
+[00:03:29.220 -> 00:03:40.120]  anyway okay so we're gonna put the stack at uh let's just be safe and go with uh 80 thousand is a nice number so we
+[00:03:40.120 -> 00:03:55.340]  we want the stack at 80,000 now um we want 64 K less than that um so uh or
+[00:03:57.660 -> 00:04:07.480]  not 64 K yeah I might okay 64 K less than that is going to be um set 70,000
+[00:04:10.040 -> 00:04:16.360]  yeah that's what I think okay so 70,000 so we're gonna stick this in the segment register
+[00:04:17.220 -> 00:04:20.400]  so move SS comma ax
+[00:04:23.480 -> 00:04:32.080]  so um by loading zero that's the stupid people do it wrong we're gonna set it to zero
+[00:04:32.080 -> 00:04:44.960]  and it loops around the first number it pushes is gonna be um 80,000 or just 7 7 f f f f f e whatever okay
+[00:04:44.960 -> 00:04:54.260]  STI so that's how we set up the stack um so we call this uh os
+[00:04:57.180 -> 00:05:12.320]  s s 1 uh start colon colon colon makes an export sim label s 1 end colon colon
+[00:05:14.100 -> 00:05:20.280]  okay so we have some assembly code that's gonna be put into memory
+[00:05:21.740 -> 00:05:24.680]  when we pound include this
+[00:05:25.940 -> 00:05:29.880]  okay uh so
+[00:05:31.200 -> 00:05:35.780]  well unfortunately we have a difficulty
+[00:05:35.780 -> 00:05:43.160]  uh not unfortunately uh okay uh we want uh fat
+[00:05:46.020 -> 00:05:46.280]  boot
+[00:05:50.660 -> 00:05:56.760]  fat 32 boot uh oh okay let's go find out uh
+[00:06:01.300 -> 00:06:11.540]  okay go to the kernel our main header let's look for boot boot boot boot boot boot boot
+[00:06:12.040 -> 00:06:18.300]  ! that's the master boot record we're not going to modify that we want to modify let's go ahead
+[00:06:18.300 -> 00:06:23.220]  okay i'm going to uh
+[00:06:28.960 -> 00:06:35.160]  i'm just going to shove this in here we don't have to just so we can look at it
+[00:06:37.200 -> 00:06:38.040]  so uh
+[00:06:41.000 -> 00:06:51.440]  just to show you that we're not using that this this is already in memory we we have that anyway um
+[00:06:52.520 -> 00:06:56.020]  so c fat 32 boot
+[00:06:58.280 -> 00:07:00.400]  br boot record
+[00:07:01.920 -> 00:07:04.080]  now what do we do we uh
+[00:07:06.140 -> 00:07:15.140]  let's read it so we say okay um let's install on a drive
+[00:07:16.140 -> 00:07:24.420]  equals quote d we want to install on the d drive and just to be
+[00:07:27.660 -> 00:07:32.520]  so the partition oh c drive
+[00:07:36.900 -> 00:07:41.540]  what do i say dv i think i like to use standard uh
+[00:07:45.320 -> 00:07:46.220]  letter
+[00:07:48.020 -> 00:07:54.740]  letter letter to drive okay so drc
+[00:07:54.740 -> 00:08:02.060]  i think i call this a letter
+[00:08:04.100 -> 00:08:05.020]  uh
+[00:08:07.580 -> 00:08:25.020]  all my api uses the same variable names okay so uh we want to install on the d drive and uh this is the uh
+[00:08:25.020 -> 00:08:25.020]  
+[00:08:28.940 -> 00:08:35.520]  okay we have a boot record structure so we say read blocks
+[00:08:39.980 -> 00:08:42.040]  drive buffer block count
+[00:08:44.060 -> 00:08:44.540]  drive
+[00:08:47.200 -> 00:08:48.320]  buffer
+[00:08:52.220 -> 00:08:59.480]  block we want block uh oh okay dv
+[00:09:05.360 -> 00:09:10.080]  so base base offset is uh
+[00:09:10.080 -> 00:09:10.080]  
+[00:09:15.600 -> 00:09:16.380]  uh
+[00:09:16.380 -> 00:09:17.400]  this is the uh
+[00:09:17.400 -> 00:09:18.740]  uh
+[00:09:18.740 -> 00:09:19.260]  uh
+[00:09:19.260 -> 00:09:22.180]  base offset it used to be just offset okay
+[00:09:23.900 -> 00:09:26.740]  drive buffer block
+[00:09:27.120 -> 00:09:27.900]  !
+[00:09:31.960 -> 00:09:32.740]  uh
+[00:09:32.740 -> 00:09:37.180]  comma count we want one block let's go ahead and dump
+[00:09:38.640 -> 00:09:40.120]  class rep
+[00:09:43.580 -> 00:09:44.360]  class rep
+[00:09:44.360 -> 00:09:45.960]  address br
+[00:09:46.940 -> 00:09:47.320]  okay
+[00:09:47.320 -> 00:09:54.780]  i feel like getting rid of this okay so we're gonna
+[00:09:55.340 -> 00:09:57.920]  so this has the fat 32 information
+[00:09:58.780 -> 00:09:59.860]  that we need
+[00:10:01.740 -> 00:10:02.420]  and it has
+[00:10:06.620 -> 00:10:07.580]  the boot
+[00:10:08.540 -> 00:10:09.220]  !
+[00:10:09.220 -> 00:10:10.120]  code
+[00:10:10.120 -> 00:10:13.180]  goes in these 420 bytes
+[00:10:13.180 -> 00:10:14.660]  so and then we want the signature
+[00:10:15.720 -> 00:10:16.700]  so uh
+[00:10:16.700 -> 00:10:19.320]  we have
+[00:10:19.320 -> 00:10:20.980]  why don't we uh format
+[00:10:22.060 -> 00:10:22.500]  the drive
+[00:10:24.900 -> 00:10:25.580]  okay
+[00:10:25.580 -> 00:10:28.080]  so first of all let's just do this quick and dirty
+[00:10:30.300 -> 00:10:31.700]  okay
+[00:10:32.480 -> 00:10:34.240]  so we just don't
+[00:10:41.040 -> 00:10:42.140]  everything looks good
+[00:10:43.120 -> 00:10:44.760]  signature a a 55
+[00:10:46.160 -> 00:10:46.960]  so uh
+[00:10:46.960 -> 00:10:46.960]  
+[00:10:51.060 -> 00:10:52.940]  just to be um
+[00:10:55.760 -> 00:10:56.880]  i don't want to
+[00:10:57.600 -> 00:10:58.860]  use any information
+[00:10:59.440 -> 00:11:00.680]  that was already there
+[00:11:01.760 -> 00:11:02.020]  so
+[00:11:03.600 -> 00:11:04.420]  for that
+[00:11:05.120 -> 00:11:06.200]  let's format
+[00:11:08.160 -> 00:11:11.080]  let's go ahead and uh format the drive
+[00:11:14.040 -> 00:11:16.780]  so we say fmt
+[00:11:19.400 -> 00:11:19.740]  !
+[00:11:19.740 -> 00:11:20.400]  letter
+[00:11:20.400 -> 00:11:20.680]  quick
+[00:11:21.200 -> 00:11:21.720]  confirm type
+[00:11:23.980 -> 00:11:24.040]  okay
+[00:11:26.040 -> 00:11:27.440]  letter
+[00:11:27.440 -> 00:11:27.480]  letter
+[00:11:30.020 -> 00:11:31.420]  quick
+[00:11:31.420 -> 00:11:35.320]  confirm false
+[00:11:34.440 -> 00:11:35.240]  drv
+[00:11:35.320 -> 00:11:39.080]  the default is fat 32
+[00:11:40.440 -> 00:11:42.460]  dvt fat 32
+[00:11:44.200 -> 00:11:45.100]  drive type
+[00:11:46.120 -> 00:11:47.520]  fat 32
+[00:11:48.840 -> 00:11:49.200]  okay
+[00:11:50.600 -> 00:11:52.180]  so we just formatted
+[00:11:52.840 -> 00:11:55.920]  and now the the old boot record is destroyed
+[00:11:59.080 -> 00:11:59.360]  so
+[00:11:59.360 -> 00:11:59.980]  uh
+[00:12:01.400 -> 00:12:01.680]  the
+[00:12:01.680 -> 00:12:02.000]  uh
+[00:12:04.140 -> 00:12:07.040]  let's see how we're doing on the jump and no op
+[00:12:07.840 -> 00:12:09.000]  that looks correct
+[00:12:10.020 -> 00:12:10.600]  so
+[00:12:15.900 -> 00:12:18.000]  the jump and no op looks good
+[00:12:18.560 -> 00:12:19.660]  just to be thorough
+[00:12:20.360 -> 00:12:20.940]  um
+[00:12:24.940 -> 00:12:27.280]  it's it's jumping 58
+[00:12:27.280 -> 00:12:28.300]  no no
+[00:12:28.300 -> 00:12:31.900]  yes jumping 58 bytes ahead
+[00:12:34.860 -> 00:12:35.740]  and uh
+[00:12:37.180 -> 00:12:39.820]  hopefully that's the location of code
+[00:12:42.220 -> 00:12:42.520]  um
+[00:12:42.520 -> 00:12:45.080]  let's go ahead and okay code
+[00:12:50.460 -> 00:12:52.260]  jump and no op okay
+[00:12:52.260 -> 00:12:52.920]  e
+[00:12:59.200 -> 00:13:00.600]  okay
+[00:13:00.600 -> 00:13:01.660]  let's say
+[00:13:02.540 -> 00:13:04.040]  br dot
+[00:13:04.940 -> 00:13:05.300]  jump
+[00:13:07.020 -> 00:13:07.460]  and
+[00:13:07.460 -> 00:13:08.620]  no op
+[00:13:11.000 -> 00:13:13.820]  this is kind of
+[00:13:13.820 -> 00:13:15.000]  unnecessary
+[00:13:17.020 -> 00:13:18.620]  but just to be thorough
+[00:13:21.020 -> 00:13:21.500]  58
+[00:13:24.460 -> 00:13:26.240]  and let's say
+[00:13:32.140 -> 00:13:33.140]  let's just review
+[00:13:34.460 -> 00:13:35.800]  the offset of
+[00:13:37.260 -> 00:13:38.160]  code offset
+[00:13:40.060 -> 00:13:40.900]  code offset
+[00:13:41.740 -> 00:13:43.220]  i'm just going to print that out
+[00:13:43.220 -> 00:13:45.280]  and we want uh
+[00:13:45.940 -> 00:13:46.460]  offset
+[00:13:49.200 -> 00:13:49.920]  br
+[00:13:49.920 -> 00:13:51.420]  i wonder if that'll work
+[00:13:51.420 -> 00:13:53.180]  no let's not do that
+[00:13:56.160 -> 00:13:57.360]  at 32
+[00:13:57.360 -> 00:13:57.900]  boot
+[00:13:59.560 -> 00:14:00.280]  code
+[00:14:01.060 -> 00:14:03.620]  we just want to see if the 58 is correct
+[00:14:04.400 -> 00:14:05.780]  so we do this
+[00:14:15.000 -> 00:14:16.300]  what do we have here
+[00:14:17.780 -> 00:14:18.360]  jump
+[00:14:18.360 -> 00:14:19.460]  and no op
+[00:14:19.460 -> 00:14:19.940]  okay
+[00:14:24.500 -> 00:14:26.060]  i'm going kind of slow
+[00:14:26.060 -> 00:14:27.100]  am i not
+[00:14:30.380 -> 00:14:31.340]  okay
+[00:14:31.340 -> 00:14:31.940]  offset
+[00:14:33.440 -> 00:14:34.400]  5a
+[00:14:35.660 -> 00:14:35.980]  oh
+[00:14:35.980 -> 00:14:37.080]  offset 5a
+[00:14:37.080 -> 00:14:37.920]  and then it's
+[00:14:38.860 -> 00:14:39.280]  okay
+[00:14:41.100 -> 00:14:41.900]  try that again
+[00:14:42.700 -> 00:14:43.780]  okay 5a
+[00:14:43.780 -> 00:14:44.420]  so
+[00:14:45.020 -> 00:14:46.340]  why was it 58
+[00:14:46.940 -> 00:14:49.700]  that's because the two bytes of the instruction
+[00:14:50.620 -> 00:14:50.920]  um
+[00:14:52.220 -> 00:14:54.360]  you start counting after the instruction
+[00:14:54.360 -> 00:14:56.340]  so 58 is
+[00:14:57.560 -> 00:14:57.940]  correct
+[00:14:58.760 -> 00:14:59.100]  okay
+[00:15:00.520 -> 00:15:01.340]  and uh
+[00:15:01.880 -> 00:15:02.900]  so we're good
+[00:15:03.880 -> 00:15:04.120]  uh
+[00:15:06.600 -> 00:15:07.460]  now you know what we do
+[00:15:07.460 -> 00:15:08.680]  we copy
+[00:15:09.320 -> 00:15:09.880]  the uh
+[00:15:09.880 -> 00:15:10.500]  code
+[00:15:11.320 -> 00:15:12.320]  into the correct
+[00:15:12.320 -> 00:15:13.260]  location
+[00:15:14.200 -> 00:15:14.960]  so uh
+[00:15:16.760 -> 00:15:17.120]  mem
+[00:15:17.120 -> 00:15:17.880]  copy
+[00:15:20.200 -> 00:15:22.380]  and we want to copy to address
+[00:15:23.980 -> 00:15:24.900]  br
+[00:15:24.900 -> 00:15:25.700]  code
+[00:15:26.780 -> 00:15:27.700]  comma
+[00:15:28.760 -> 00:15:29.680]  s1
+[00:15:30.860 -> 00:15:31.280]  start
+[00:15:32.140 -> 00:15:32.380]  now
+[00:15:32.380 -> 00:15:34.240]  my 16-bit
+[00:15:34.940 -> 00:15:38.300]  assembler does not support segmentation
+[00:15:39.740 -> 00:15:40.500]  you might say
+[00:15:41.020 -> 00:15:41.300]  what
+[00:15:41.900 -> 00:15:44.480]  well that just means that you have to do it by hand
+[00:15:45.580 -> 00:15:46.000]  anyway
+[00:15:46.700 -> 00:15:47.260]  you'll see
+[00:15:48.960 -> 00:15:50.920]  so uh
+[00:15:50.920 -> 00:15:51.660]  s1
+[00:15:52.860 -> 00:15:53.200]  end
+[00:15:53.740 -> 00:15:55.200]  minus s1
+[00:15:56.300 -> 00:15:56.680]  start
+[00:15:56.680 -> 00:15:59.680]  another interesting thing is my
+[00:16:02.460 -> 00:16:02.760]  my
+[00:16:05.020 -> 00:16:05.740]  assembler
+[00:16:08.700 -> 00:16:11.700]  doesn't really do 16-bit correctly
+[00:16:12.600 -> 00:16:13.280]  it
+[00:16:13.280 -> 00:16:16.220]  it uses the 32-bit addressing modes
+[00:16:16.820 -> 00:16:19.340]  so it's wasting a byte on each instruction
+[00:16:20.240 -> 00:16:24.240]  but it's it makes my assembler a lot shorter
+[00:16:24.940 -> 00:16:25.880]  and uh
+[00:16:26.660 -> 00:16:30.060]  we only we don't really need a lot of 16-bit code
+[00:16:30.820 -> 00:16:34.420]  so that's why it's better not to make my
+[00:16:35.460 -> 00:16:40.140]  it's not worth modifying my assembler to make it too efficient 16-bit
+[00:16:51.200 -> 00:16:52.280]  prefix 0x67
+[00:16:53.240 -> 00:16:56.620]  that makes it use the 32-bit addressing mode
+[00:16:57.220 -> 00:16:59.600]  and i just use that on all of them just about
+[00:17:06.540 -> 00:17:08.780]  so i have an extra byte on all my instructions
+[00:17:09.440 -> 00:17:10.160]  anyway uh
+[00:17:10.960 -> 00:17:12.640]  so uh let's see here
+[00:17:13.320 -> 00:17:15.700]  now we want to start doing stuff
+[00:17:15.700 -> 00:17:17.720]  so we say move
+[00:17:18.900 -> 00:17:19.540]  ax
+[00:17:20.740 -> 00:17:21.600]  b8
+[00:17:25.620 -> 00:17:25.920]  move
+[00:17:27.300 -> 00:17:27.900]  yes
+[00:17:28.900 -> 00:17:29.600]  the x
+[00:17:31.380 -> 00:17:31.740]  move
+[00:17:31.740 -> 00:17:33.980]  uh
+[00:17:35.780 -> 00:17:37.180]  uh
+[00:17:39.300 -> 00:17:40.700]  u32
+[00:17:47.340 -> 00:17:47.860]  yes
+[00:17:49.100 -> 00:17:49.520]  colon
+[00:17:50.380 -> 00:17:50.780]  zero
+[00:17:52.700 -> 00:17:53.200]  comma
+[00:17:54.460 -> 00:17:55.400]  let's put os
+[00:17:56.140 -> 00:17:58.840]  we're writing to uh the text memory
+[00:17:58.840 -> 00:18:01.320]  the text memory is uh
+[00:18:04.920 -> 00:18:06.560]  let's go ahead and uh
+[00:18:07.980 -> 00:18:08.280]  let's
+[00:18:13.160 -> 00:18:13.380]  uh
+[00:18:13.380 -> 00:18:15.660]  two zero zero zero
+[00:18:17.960 -> 00:18:20.220]  zero zero we're getting weird delays
+[00:18:21.160 -> 00:18:21.540]  plus
+[00:18:21.540 -> 00:18:21.540]  
+[00:18:21.540 -> 00:18:21.820]  we're getting
+[00:18:21.820 -> 00:18:21.840]  Urban
+[00:18:21.840 -> 00:18:21.860]  Urban
+[00:18:21.860 -> 00:18:21.880]  Urban
+[00:18:21.880 -> 00:18:21.900]  Urban
+[00:18:21.900 -> 00:18:21.920]  Urban
+[00:18:21.920 -> 00:18:21.980]  Urban
+[00:18:21.980 -> 00:18:21.980]  
+[00:18:22.120 -> 00:18:22.200]  Urban
+[00:18:22.200 -> 00:18:22.200]  
+[00:18:22.380 -> 00:18:22.460]  Urban
+[00:18:22.580 -> 00:18:22.660]  Urban
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.660]  
+[00:18:22.660 -> 00:18:22.680]  !
+[00:18:22.680 -> 00:18:22.680]  
+[00:18:22.680 -> 00:18:22.680]  
+[00:18:22.680 -> 00:18:22.680]  
+[00:18:22.680 -> 00:18:22.680]  
+[00:18:22.680 -> 00:18:22.680]  
+[00:18:22.680 -> 00:18:22.680]  
+[00:18:22.680 -> 00:18:22.680]  
+[00:18:22.680 -> 00:18:22.680]  
+[00:18:22.680 -> 00:18:22.680]  
+[00:18:22.680 -> 00:18:22.680]  
+[00:18:22.680 -> 00:18:22.680]  
+[00:18:35.140 -> 00:18:35.140]  
+[00:18:35.140 -> 00:18:35.140]  
+[00:18:35.140 -> 00:18:35.140]  
+[00:18:35.140 -> 00:18:35.140]  
+[00:18:35.140 -> 00:18:35.140]  
+[00:18:35.140 -> 00:18:35.140]  
+[00:18:35.140 -> 00:18:35.140]  
+[00:18:35.140 -> 00:18:35.140]  
+[00:18:35.140 -> 00:18:35.140]  
+[00:18:35.140 -> 00:18:35.140]  
+[00:18:35.140 -> 00:18:35.140]  
+[00:18:35.140 -> 00:18:35.140]  
+[00:18:35.140 -> 00:18:35.140]  
+[00:18:22.660 -> 00:18:22.660]  

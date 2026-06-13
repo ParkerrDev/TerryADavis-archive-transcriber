@@ -1,0 +1,6237 @@
+{
+  "source": {
+    "archive_identifier": "TerryADavis_TempleOS_Archive",
+    "filename": "videos/2015/2015-02-16T00:00:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #100 (SMopNzzZGY4).mkv",
+    "source_url": "https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2015/2015-02-16T00:00:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #100 (SMopNzzZGY4).mkv",
+    "file_format": "Matroska",
+    "file_size_bytes": 36189665
+  },
+  "transcription": {
+    "model": "mlx-community/whisper-large-v3-turbo",
+    "language_detected": "en",
+    "transcribed_at_utc": "2026-05-10T21:23:18.420412+00:00",
+    "duration_seconds": 541.22
+  },
+  "full_text": "okay this is temple OS 5-minute random code walkthrough episode 100 and I'm your host Terry Davis and we are in the hard drive ATA code ATA probe okay so there are IO ports which there's 16 bits 65536 different IO ports there's memory and then there's IO memory space and then there's IO space so an IO port is 16 bits one on two four different values and a hard drive or CD-ROM the old style you accessed with two sets of IO ports in okay so I have to identify which port I have to identify when it boots I don't know the the CD-ROM drive that it booted from and I have to probe in order to determine there's a ATA probe is used when I try to test for a CD-ROM so basically there's a two sets of ports and what this routine does is it gets device ID okay for a certain I I make a guess at the IO ports and then I read them it's a little bit dangerous because a wrong guess could screw something up not it's not likely to corrupt anything but it can crash but there's some standard port locations such as well first it tries to get them the correct way and then it tries to check this old standard primary master and secondary primary and secondary IDE anyway one one F03 F6 was that was is the primary IDE and one seven zero three seven six is the secondary IDE and it turns out that when you boot with the BIOS that's different from UH you UEFI is the new way of booting with the old way of booting you use interrupt 13 and you use interrupt 13 where's interrupt 13 here it is you use interrupt 13 and you pass the drive number in DL so it starts in 16 bit mode and DL when it calls your boot loader when the BIOS calls your boot loader DL is the has the this is the BIOS number for the CD-ROM but there's no way to convert the BIOS CD-ROM to IO ports the BIOS CD-ROM number in DL is no good for accessing IO ports and so basically we have to probe all the different let's see if I think this is only used for finding the CD-ROM or it could be wrong but I think so so oh no it's used there too okay probing so notice what I did F is a really that's your best friend FATA you can quickly scan all the code so there's an ATA report probe this it checks I have a primary IDE and secondary IDE TAPI TAPI is CD-ROM and ATA is hard drive anyway so I think it it checked there's unit 0 and unit 1 and when I probed I determined that unit 1 did not exist so I determined that unit 1 did not exist ATA rep checks primary it tries to make an entry for primary oh let's see first it tries to find them there's what's called a PCI BIOS and what that is is a 32-bit BIOS that has a handful of where would that be the PCI BIOS has a handful of you can read config space or you can write config space or you can try and find a device class that's what we're trying to do we're trying to find the CD-ROM the correct way with this find PCI class you have to know the codes if you look on the internet for PCI or for PCI class codes then you can call this and it will identify a device class like SATA or ATA or IDE and all three of those can be for ATA devices anyway so that then you read the config space in order to find out the port numbers and then from then on you can just use the port numbers and not use PCI there's PCI rep this tells us let's see if we identify the SATA let's see where SATA is or ATA there's a SCSI is that what I'm using? I don't think I'm using SCSI how can I be using SCSI? I don't even know which one of these maybe we didn't find it anyway VMware allows primary and secondary IDE to function I don't even know which PCI device it is actually anyway so when you boot on native hardware it it might ask you for the port numbers for the CD-ROM if it can't find it it asks you for the port numbers and anyway so oh well we can name it we can name it we can name it we can name it we can name it we can name it name it name it name it name it",
+  "segments": [
+    {
+      "id": 0,
+      "start": 1.5,
+      "end": 7.54,
+      "text": "okay this is temple OS 5-minute random code walkthrough episode 100 and I'm your host Terry",
+      "words": [
+        {
+          "word": "okay",
+          "start": 1.5,
+          "end": 2.46,
+          "probability": 0.4167
+        },
+        {
+          "word": "this",
+          "start": 2.46,
+          "end": 2.72,
+          "probability": 0.9795
+        },
+        {
+          "word": "is",
+          "start": 2.72,
+          "end": 2.84,
+          "probability": 0.9961
+        },
+        {
+          "word": "temple",
+          "start": 2.84,
+          "end": 3.08,
+          "probability": 0.6772
+        },
+        {
+          "word": "OS",
+          "start": 3.08,
+          "end": 3.4,
+          "probability": 0.4832
+        },
+        {
+          "word": "5",
+          "start": 3.4,
+          "end": 3.66,
+          "probability": 0.6729
+        },
+        {
+          "word": "-minute",
+          "start": 3.66,
+          "end": 3.92,
+          "probability": 0.7344
+        },
+        {
+          "word": "random",
+          "start": 3.92,
+          "end": 4.26,
+          "probability": 0.9189
+        },
+        {
+          "word": "code",
+          "start": 4.26,
+          "end": 4.6,
+          "probability": 0.9858
+        },
+        {
+          "word": "walkthrough",
+          "start": 4.6,
+          "end": 5.08,
+          "probability": 0.875
+        },
+        {
+          "word": "episode",
+          "start": 5.08,
+          "end": 5.74,
+          "probability": 0.978
+        },
+        {
+          "word": "100",
+          "start": 5.74,
+          "end": 6.28,
+          "probability": 0.9951
+        },
+        {
+          "word": "and",
+          "start": 6.28,
+          "end": 6.8,
+          "probability": 0.9868
+        },
+        {
+          "word": "I'm",
+          "start": 6.8,
+          "end": 6.96,
+          "probability": 0.8105
+        },
+        {
+          "word": "your",
+          "start": 6.96,
+          "end": 7.06,
+          "probability": 0.9985
+        },
+        {
+          "word": "host",
+          "start": 7.06,
+          "end": 7.28,
+          "probability": 0.998
+        },
+        {
+          "word": "Terry",
+          "start": 7.28,
+          "end": 7.54,
+          "probability": 0.9526
+        }
+      ],
+      "avg_logprob": -0.2157,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 1,
+      "start": 7.54,
+      "end": 26.56,
+      "text": "Davis and we are in the hard drive ATA code ATA probe okay so there are IO ports which there's",
+      "words": [
+        {
+          "word": "Davis",
+          "start": 7.54,
+          "end": 7.88,
+          "probability": 0.9883
+        },
+        {
+          "word": "and",
+          "start": 7.88,
+          "end": 10.98,
+          "probability": 0.9336
+        },
+        {
+          "word": "we",
+          "start": 10.98,
+          "end": 11.18,
+          "probability": 0.999
+        },
+        {
+          "word": "are",
+          "start": 11.18,
+          "end": 11.44,
+          "probability": 0.9995
+        },
+        {
+          "word": "in",
+          "start": 11.44,
+          "end": 11.8,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 11.8,
+          "end": 13.72,
+          "probability": 0.9971
+        },
+        {
+          "word": "hard",
+          "start": 13.72,
+          "end": 14.56,
+          "probability": 0.9829
+        },
+        {
+          "word": "drive",
+          "start": 14.56,
+          "end": 15.08,
+          "probability": 0.979
+        },
+        {
+          "word": "ATA",
+          "start": 15.08,
+          "end": 15.98,
+          "probability": 0.8384
+        },
+        {
+          "word": "code",
+          "start": 15.98,
+          "end": 17.0,
+          "probability": 0.9927
+        },
+        {
+          "word": "ATA",
+          "start": 17.0,
+          "end": 18.64,
+          "probability": 0.8164
+        },
+        {
+          "word": "probe",
+          "start": 18.64,
+          "end": 19.14,
+          "probability": 0.9336
+        },
+        {
+          "word": "okay",
+          "start": 19.14,
+          "end": 19.7,
+          "probability": 0.8569
+        },
+        {
+          "word": "so",
+          "start": 19.7,
+          "end": 20.62,
+          "probability": 0.9932
+        },
+        {
+          "word": "there",
+          "start": 20.62,
+          "end": 23.18,
+          "probability": 0.6455
+        },
+        {
+          "word": "are",
+          "start": 23.18,
+          "end": 23.5,
+          "probability": 0.9961
+        },
+        {
+          "word": "IO",
+          "start": 23.5,
+          "end": 23.96,
+          "probability": 0.4878
+        },
+        {
+          "word": "ports",
+          "start": 23.96,
+          "end": 24.62,
+          "probability": 0.9961
+        },
+        {
+          "word": "which",
+          "start": 24.62,
+          "end": 25.22,
+          "probability": 0.9907
+        },
+        {
+          "word": "there's",
+          "start": 25.22,
+          "end": 26.56,
+          "probability": 0.9629
+        }
+      ],
+      "avg_logprob": -0.2157,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 2,
+      "start": 26.56,
+      "end": 38.52,
+      "text": "16 bits 65536 different IO ports there's memory and then there's IO memory space and then there's",
+      "words": [
+        {
+          "word": "16",
+          "start": 26.56,
+          "end": 27.28,
+          "probability": 0.9521
+        },
+        {
+          "word": "bits",
+          "start": 27.28,
+          "end": 27.66,
+          "probability": 0.7915
+        },
+        {
+          "word": "65536",
+          "start": 27.66,
+          "end": 29.36,
+          "probability": 0.6323
+        },
+        {
+          "word": "different",
+          "start": 29.36,
+          "end": 30.34,
+          "probability": 0.959
+        },
+        {
+          "word": "IO",
+          "start": 30.34,
+          "end": 30.62,
+          "probability": 0.2925
+        },
+        {
+          "word": "ports",
+          "start": 30.62,
+          "end": 31.08,
+          "probability": 0.9966
+        },
+        {
+          "word": "there's",
+          "start": 31.08,
+          "end": 34.56,
+          "probability": 0.7686
+        },
+        {
+          "word": "memory",
+          "start": 34.56,
+          "end": 34.98,
+          "probability": 0.9805
+        },
+        {
+          "word": "and",
+          "start": 34.98,
+          "end": 35.66,
+          "probability": 0.9746
+        },
+        {
+          "word": "then",
+          "start": 35.66,
+          "end": 35.82,
+          "probability": 0.9932
+        },
+        {
+          "word": "there's",
+          "start": 35.82,
+          "end": 36.12,
+          "probability": 0.9961
+        },
+        {
+          "word": "IO",
+          "start": 36.12,
+          "end": 36.54,
+          "probability": 0.958
+        },
+        {
+          "word": "memory",
+          "start": 36.54,
+          "end": 37.4,
+          "probability": 0.8657
+        },
+        {
+          "word": "space",
+          "start": 37.4,
+          "end": 37.84,
+          "probability": 0.9961
+        },
+        {
+          "word": "and",
+          "start": 37.84,
+          "end": 38.16,
+          "probability": 0.9888
+        },
+        {
+          "word": "then",
+          "start": 38.16,
+          "end": 38.3,
+          "probability": 0.9795
+        },
+        {
+          "word": "there's",
+          "start": 38.3,
+          "end": 38.52,
+          "probability": 0.999
+        }
+      ],
+      "avg_logprob": -0.1876,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 3,
+      "start": 38.52,
+      "end": 50.24,
+      "text": "IO space so an IO port is 16 bits one on two four different values and a hard drive",
+      "words": [
+        {
+          "word": "IO",
+          "start": 38.52,
+          "end": 38.8,
+          "probability": 0.9839
+        },
+        {
+          "word": "space",
+          "start": 38.8,
+          "end": 39.34,
+          "probability": 0.9985
+        },
+        {
+          "word": "so",
+          "start": 39.34,
+          "end": 40.46,
+          "probability": 0.833
+        },
+        {
+          "word": "an",
+          "start": 40.46,
+          "end": 41.46,
+          "probability": 0.9873
+        },
+        {
+          "word": "IO",
+          "start": 41.46,
+          "end": 41.74,
+          "probability": 0.9937
+        },
+        {
+          "word": "port",
+          "start": 41.74,
+          "end": 42.14,
+          "probability": 0.9985
+        },
+        {
+          "word": "is",
+          "start": 42.14,
+          "end": 42.54,
+          "probability": 0.9976
+        },
+        {
+          "word": "16",
+          "start": 42.54,
+          "end": 43.2,
+          "probability": 0.9971
+        },
+        {
+          "word": "bits",
+          "start": 43.2,
+          "end": 43.76,
+          "probability": 0.9922
+        },
+        {
+          "word": "one",
+          "start": 43.76,
+          "end": 45.72,
+          "probability": 0.1904
+        },
+        {
+          "word": "on",
+          "start": 45.72,
+          "end": 45.88,
+          "probability": 0.5928
+        },
+        {
+          "word": "two",
+          "start": 45.88,
+          "end": 46.04,
+          "probability": 0.9956
+        },
+        {
+          "word": "four",
+          "start": 46.04,
+          "end": 46.36,
+          "probability": 0.6011
+        },
+        {
+          "word": "different",
+          "start": 46.36,
+          "end": 47.1,
+          "probability": 0.9985
+        },
+        {
+          "word": "values",
+          "start": 47.1,
+          "end": 47.88,
+          "probability": 0.998
+        },
+        {
+          "word": "and",
+          "start": 47.88,
+          "end": 48.96,
+          "probability": 0.9941
+        },
+        {
+          "word": "a",
+          "start": 48.96,
+          "end": 49.38,
+          "probability": 0.9995
+        },
+        {
+          "word": "hard",
+          "start": 49.38,
+          "end": 49.76,
+          "probability": 0.999
+        },
+        {
+          "word": "drive",
+          "start": 49.76,
+          "end": 50.24,
+          "probability": 0.9961
+        }
+      ],
+      "avg_logprob": -0.1876,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 4,
+      "start": 53.42,
+      "end": 66.6,
+      "text": "or CD-ROM the old style you accessed with two sets of IO ports in",
+      "words": [
+        {
+          "word": "or",
+          "start": 53.42,
+          "end": 54.5,
+          "probability": 0.7432
+        },
+        {
+          "word": "CD",
+          "start": 54.5,
+          "end": 55.26,
+          "probability": 0.7568
+        },
+        {
+          "word": "-ROM",
+          "start": 55.26,
+          "end": 55.74,
+          "probability": 0.9326
+        },
+        {
+          "word": "the",
+          "start": 55.74,
+          "end": 58.66,
+          "probability": 0.5029
+        },
+        {
+          "word": "old",
+          "start": 58.66,
+          "end": 58.98,
+          "probability": 0.9961
+        },
+        {
+          "word": "style",
+          "start": 58.98,
+          "end": 59.44,
+          "probability": 0.7705
+        },
+        {
+          "word": "you",
+          "start": 59.44,
+          "end": 61.46,
+          "probability": 0.8667
+        },
+        {
+          "word": "accessed",
+          "start": 61.46,
+          "end": 62.0,
+          "probability": 0.9321
+        },
+        {
+          "word": "with",
+          "start": 62.0,
+          "end": 62.32,
+          "probability": 0.998
+        },
+        {
+          "word": "two",
+          "start": 62.32,
+          "end": 63.38,
+          "probability": 0.9766
+        },
+        {
+          "word": "sets",
+          "start": 63.38,
+          "end": 63.78,
+          "probability": 0.9985
+        },
+        {
+          "word": "of",
+          "start": 63.78,
+          "end": 63.98,
+          "probability": 0.9971
+        },
+        {
+          "word": "IO",
+          "start": 63.98,
+          "end": 64.26,
+          "probability": 0.8052
+        },
+        {
+          "word": "ports",
+          "start": 64.26,
+          "end": 64.82,
+          "probability": 0.9629
+        },
+        {
+          "word": "in",
+          "start": 64.82,
+          "end": 66.6,
+          "probability": 0.6748
+        }
+      ],
+      "avg_logprob": -0.2087,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 5,
+      "start": 73.82,
+      "end": 86.3,
+      "text": "okay so I have to identify which port I have to identify when it boots I don't know the the CD-ROM",
+      "words": [
+        {
+          "word": "okay",
+          "start": 73.82,
+          "end": 74.6,
+          "probability": 0.4573
+        },
+        {
+          "word": "so",
+          "start": 74.6,
+          "end": 75.02,
+          "probability": 0.957
+        },
+        {
+          "word": "I",
+          "start": 75.02,
+          "end": 77.24,
+          "probability": 0.8389
+        },
+        {
+          "word": "have",
+          "start": 77.24,
+          "end": 77.46,
+          "probability": 0.9966
+        },
+        {
+          "word": "to",
+          "start": 77.46,
+          "end": 77.62,
+          "probability": 0.999
+        },
+        {
+          "word": "identify",
+          "start": 77.62,
+          "end": 78.14,
+          "probability": 0.9985
+        },
+        {
+          "word": "which",
+          "start": 78.14,
+          "end": 78.62,
+          "probability": 0.9907
+        },
+        {
+          "word": "port",
+          "start": 78.62,
+          "end": 79.1,
+          "probability": 0.981
+        },
+        {
+          "word": "I",
+          "start": 79.1,
+          "end": 81.22,
+          "probability": 0.8765
+        },
+        {
+          "word": "have",
+          "start": 81.22,
+          "end": 81.36,
+          "probability": 0.998
+        },
+        {
+          "word": "to",
+          "start": 81.36,
+          "end": 81.5,
+          "probability": 0.998
+        },
+        {
+          "word": "identify",
+          "start": 81.5,
+          "end": 81.9,
+          "probability": 0.9922
+        },
+        {
+          "word": "when",
+          "start": 81.9,
+          "end": 83.04,
+          "probability": 0.9512
+        },
+        {
+          "word": "it",
+          "start": 83.04,
+          "end": 83.2,
+          "probability": 0.9878
+        },
+        {
+          "word": "boots",
+          "start": 83.2,
+          "end": 83.52,
+          "probability": 0.9756
+        },
+        {
+          "word": "I",
+          "start": 83.52,
+          "end": 83.74,
+          "probability": 0.5322
+        },
+        {
+          "word": "don't",
+          "start": 83.74,
+          "end": 84.24,
+          "probability": 0.856
+        },
+        {
+          "word": "know",
+          "start": 84.24,
+          "end": 84.5,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 84.5,
+          "end": 84.86,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 84.86,
+          "end": 85.56,
+          "probability": 0.5288
+        },
+        {
+          "word": "CD",
+          "start": 85.56,
+          "end": 85.92,
+          "probability": 0.7954
+        },
+        {
+          "word": "-ROM",
+          "start": 85.92,
+          "end": 86.3,
+          "probability": 0.8511
+        }
+      ],
+      "avg_logprob": -0.1397,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 6,
+      "start": 86.3,
+      "end": 94.94,
+      "text": "drive that it booted from and I have to probe in order to determine there's a",
+      "words": [
+        {
+          "word": "drive",
+          "start": 86.3,
+          "end": 86.66,
+          "probability": 0.6694
+        },
+        {
+          "word": "that",
+          "start": 86.66,
+          "end": 86.84,
+          "probability": 0.9893
+        },
+        {
+          "word": "it",
+          "start": 86.84,
+          "end": 86.94,
+          "probability": 0.9858
+        },
+        {
+          "word": "booted",
+          "start": 86.94,
+          "end": 87.3,
+          "probability": 0.9912
+        },
+        {
+          "word": "from",
+          "start": 87.3,
+          "end": 87.58,
+          "probability": 0.9985
+        },
+        {
+          "word": "and",
+          "start": 87.58,
+          "end": 88.36,
+          "probability": 0.9912
+        },
+        {
+          "word": "I",
+          "start": 88.36,
+          "end": 88.5,
+          "probability": 0.8809
+        },
+        {
+          "word": "have",
+          "start": 88.5,
+          "end": 88.76,
+          "probability": 0.999
+        },
+        {
+          "word": "to",
+          "start": 88.76,
+          "end": 89.02,
+          "probability": 0.9941
+        },
+        {
+          "word": "probe",
+          "start": 89.02,
+          "end": 89.96,
+          "probability": 0.9404
+        },
+        {
+          "word": "in",
+          "start": 89.96,
+          "end": 90.6,
+          "probability": 0.9976
+        },
+        {
+          "word": "order",
+          "start": 90.6,
+          "end": 90.88,
+          "probability": 0.999
+        },
+        {
+          "word": "to",
+          "start": 90.88,
+          "end": 91.26,
+          "probability": 1.0
+        },
+        {
+          "word": "determine",
+          "start": 91.26,
+          "end": 92.46,
+          "probability": 0.9937
+        },
+        {
+          "word": "there's",
+          "start": 92.46,
+          "end": 94.76,
+          "probability": 0.9644
+        },
+        {
+          "word": "a",
+          "start": 94.76,
+          "end": 94.94,
+          "probability": 0.644
+        }
+      ],
+      "avg_logprob": -0.181,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 7,
+      "start": 101.6,
+      "end": 108.64,
+      "text": "ATA probe is used when I try to test for a CD-ROM so",
+      "words": [
+        {
+          "word": "ATA",
+          "start": 101.6,
+          "end": 102.24,
+          "probability": 0.5479
+        },
+        {
+          "word": "probe",
+          "start": 102.24,
+          "end": 102.62,
+          "probability": 0.9272
+        },
+        {
+          "word": "is",
+          "start": 102.62,
+          "end": 103.7,
+          "probability": 0.9966
+        },
+        {
+          "word": "used",
+          "start": 103.7,
+          "end": 104.4,
+          "probability": 0.9897
+        },
+        {
+          "word": "when",
+          "start": 104.4,
+          "end": 104.64,
+          "probability": 0.9844
+        },
+        {
+          "word": "I",
+          "start": 104.64,
+          "end": 104.78,
+          "probability": 0.9585
+        },
+        {
+          "word": "try",
+          "start": 104.78,
+          "end": 105.0,
+          "probability": 0.8159
+        },
+        {
+          "word": "to",
+          "start": 105.0,
+          "end": 105.24,
+          "probability": 0.9946
+        },
+        {
+          "word": "test",
+          "start": 105.24,
+          "end": 106.1,
+          "probability": 0.9688
+        },
+        {
+          "word": "for",
+          "start": 106.1,
+          "end": 106.34,
+          "probability": 0.9888
+        },
+        {
+          "word": "a",
+          "start": 106.34,
+          "end": 106.5,
+          "probability": 0.7969
+        },
+        {
+          "word": "CD",
+          "start": 106.5,
+          "end": 106.74,
+          "probability": 0.6294
+        },
+        {
+          "word": "-ROM",
+          "start": 106.74,
+          "end": 107.16,
+          "probability": 0.8521
+        },
+        {
+          "word": "so",
+          "start": 107.16,
+          "end": 108.64,
+          "probability": 0.9673
+        }
+      ],
+      "avg_logprob": -0.181,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 8,
+      "start": 112.26,
+      "end": 127.3,
+      "text": "basically there's a two sets of ports and what this routine does is it gets device ID okay for a",
+      "words": [
+        {
+          "word": "basically",
+          "start": 112.26,
+          "end": 113.06,
+          "probability": 0.6699
+        },
+        {
+          "word": "there's",
+          "start": 113.06,
+          "end": 113.7,
+          "probability": 0.9512
+        },
+        {
+          "word": "a",
+          "start": 113.7,
+          "end": 113.92,
+          "probability": 0.4546
+        },
+        {
+          "word": "two",
+          "start": 113.92,
+          "end": 114.52,
+          "probability": 0.9761
+        },
+        {
+          "word": "sets",
+          "start": 114.52,
+          "end": 114.8,
+          "probability": 0.9663
+        },
+        {
+          "word": "of",
+          "start": 114.8,
+          "end": 115.02,
+          "probability": 0.9971
+        },
+        {
+          "word": "ports",
+          "start": 115.02,
+          "end": 115.36,
+          "probability": 0.9678
+        },
+        {
+          "word": "and",
+          "start": 115.36,
+          "end": 116.58,
+          "probability": 0.9766
+        },
+        {
+          "word": "what",
+          "start": 116.58,
+          "end": 117.54,
+          "probability": 0.9746
+        },
+        {
+          "word": "this",
+          "start": 117.54,
+          "end": 117.88,
+          "probability": 0.9995
+        },
+        {
+          "word": "routine",
+          "start": 117.88,
+          "end": 118.58,
+          "probability": 0.9946
+        },
+        {
+          "word": "does",
+          "start": 118.58,
+          "end": 118.94,
+          "probability": 0.9985
+        },
+        {
+          "word": "is",
+          "start": 118.94,
+          "end": 120.38,
+          "probability": 0.9878
+        },
+        {
+          "word": "it",
+          "start": 120.38,
+          "end": 121.04,
+          "probability": 0.9883
+        },
+        {
+          "word": "gets",
+          "start": 121.04,
+          "end": 123.38,
+          "probability": 0.8682
+        },
+        {
+          "word": "device",
+          "start": 123.38,
+          "end": 123.84,
+          "probability": 0.9556
+        },
+        {
+          "word": "ID",
+          "start": 123.84,
+          "end": 124.32,
+          "probability": 0.9639
+        },
+        {
+          "word": "okay",
+          "start": 124.32,
+          "end": 125.36,
+          "probability": 0.7061
+        },
+        {
+          "word": "for",
+          "start": 125.36,
+          "end": 127.1,
+          "probability": 0.8745
+        },
+        {
+          "word": "a",
+          "start": 127.1,
+          "end": 127.3,
+          "probability": 0.5449
+        }
+      ],
+      "avg_logprob": -0.1215,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 9,
+      "start": 127.3,
+      "end": 137.1,
+      "text": "certain I I make a guess at the IO ports and then I read them it's a little bit dangerous because a",
+      "words": [
+        {
+          "word": "certain",
+          "start": 127.3,
+          "end": 127.48,
+          "probability": 0.7095
+        },
+        {
+          "word": "I",
+          "start": 127.48,
+          "end": 128.26,
+          "probability": 0.8569
+        },
+        {
+          "word": "I",
+          "start": 128.26,
+          "end": 128.62,
+          "probability": 0.5601
+        },
+        {
+          "word": "make",
+          "start": 128.62,
+          "end": 130.5,
+          "probability": 0.7578
+        },
+        {
+          "word": "a",
+          "start": 130.5,
+          "end": 130.68,
+          "probability": 0.9741
+        },
+        {
+          "word": "guess",
+          "start": 130.68,
+          "end": 131.12,
+          "probability": 0.9907
+        },
+        {
+          "word": "at",
+          "start": 131.12,
+          "end": 131.46,
+          "probability": 0.9961
+        },
+        {
+          "word": "the",
+          "start": 131.46,
+          "end": 131.6,
+          "probability": 0.9775
+        },
+        {
+          "word": "IO",
+          "start": 131.6,
+          "end": 131.9,
+          "probability": 0.6758
+        },
+        {
+          "word": "ports",
+          "start": 131.9,
+          "end": 132.42,
+          "probability": 0.9858
+        },
+        {
+          "word": "and",
+          "start": 132.42,
+          "end": 133.26,
+          "probability": 0.9971
+        },
+        {
+          "word": "then",
+          "start": 133.26,
+          "end": 133.4,
+          "probability": 0.9995
+        },
+        {
+          "word": "I",
+          "start": 133.4,
+          "end": 133.58,
+          "probability": 0.9766
+        },
+        {
+          "word": "read",
+          "start": 133.58,
+          "end": 133.92,
+          "probability": 0.9995
+        },
+        {
+          "word": "them",
+          "start": 133.92,
+          "end": 134.26,
+          "probability": 0.9995
+        },
+        {
+          "word": "it's",
+          "start": 134.26,
+          "end": 135.06,
+          "probability": 0.9951
+        },
+        {
+          "word": "a",
+          "start": 135.06,
+          "end": 135.16,
+          "probability": 1.0
+        },
+        {
+          "word": "little",
+          "start": 135.16,
+          "end": 135.3,
+          "probability": 0.9995
+        },
+        {
+          "word": "bit",
+          "start": 135.3,
+          "end": 135.48,
+          "probability": 0.9995
+        },
+        {
+          "word": "dangerous",
+          "start": 135.48,
+          "end": 135.98,
+          "probability": 0.9995
+        },
+        {
+          "word": "because",
+          "start": 135.98,
+          "end": 136.8,
+          "probability": 0.999
+        },
+        {
+          "word": "a",
+          "start": 136.8,
+          "end": 137.1,
+          "probability": 0.769
+        }
+      ],
+      "avg_logprob": -0.1215,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 10,
+      "start": 137.1,
+      "end": 145.84,
+      "text": "wrong guess could screw something up not it's not likely to corrupt anything but it can crash",
+      "words": [
+        {
+          "word": "wrong",
+          "start": 137.1,
+          "end": 137.6,
+          "probability": 0.1987
+        },
+        {
+          "word": "guess",
+          "start": 137.6,
+          "end": 138.02,
+          "probability": 0.7124
+        },
+        {
+          "word": "could",
+          "start": 138.02,
+          "end": 138.46,
+          "probability": 0.9746
+        },
+        {
+          "word": "screw",
+          "start": 138.46,
+          "end": 139.82,
+          "probability": 0.9492
+        },
+        {
+          "word": "something",
+          "start": 139.82,
+          "end": 140.2,
+          "probability": 0.998
+        },
+        {
+          "word": "up",
+          "start": 140.2,
+          "end": 140.48,
+          "probability": 0.9966
+        },
+        {
+          "word": "not",
+          "start": 140.48,
+          "end": 141.76,
+          "probability": 0.7725
+        },
+        {
+          "word": "it's",
+          "start": 141.76,
+          "end": 142.4,
+          "probability": 0.9731
+        },
+        {
+          "word": "not",
+          "start": 142.4,
+          "end": 142.54,
+          "probability": 0.9985
+        },
+        {
+          "word": "likely",
+          "start": 142.54,
+          "end": 142.86,
+          "probability": 0.998
+        },
+        {
+          "word": "to",
+          "start": 142.86,
+          "end": 143.18,
+          "probability": 0.9985
+        },
+        {
+          "word": "corrupt",
+          "start": 143.18,
+          "end": 143.66,
+          "probability": 0.9976
+        },
+        {
+          "word": "anything",
+          "start": 143.66,
+          "end": 144.26,
+          "probability": 0.9971
+        },
+        {
+          "word": "but",
+          "start": 144.26,
+          "end": 145.08,
+          "probability": 0.9937
+        },
+        {
+          "word": "it",
+          "start": 145.08,
+          "end": 145.22,
+          "probability": 0.998
+        },
+        {
+          "word": "can",
+          "start": 145.22,
+          "end": 145.38,
+          "probability": 0.541
+        },
+        {
+          "word": "crash",
+          "start": 145.38,
+          "end": 145.84,
+          "probability": 0.9937
+        }
+      ],
+      "avg_logprob": -0.1298,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 11,
+      "start": 147.72,
+      "end": 159.16,
+      "text": "but there's some standard port locations such as well first it tries to get them the correct way and",
+      "words": [
+        {
+          "word": "but",
+          "start": 147.72,
+          "end": 148.6,
+          "probability": 0.9263
+        },
+        {
+          "word": "there's",
+          "start": 148.6,
+          "end": 149.48,
+          "probability": 0.9717
+        },
+        {
+          "word": "some",
+          "start": 149.48,
+          "end": 149.62,
+          "probability": 0.999
+        },
+        {
+          "word": "standard",
+          "start": 149.62,
+          "end": 150.1,
+          "probability": 0.9971
+        },
+        {
+          "word": "port",
+          "start": 150.1,
+          "end": 150.54,
+          "probability": 0.9878
+        },
+        {
+          "word": "locations",
+          "start": 150.54,
+          "end": 151.44,
+          "probability": 0.9961
+        },
+        {
+          "word": "such",
+          "start": 151.44,
+          "end": 153.78,
+          "probability": 0.9897
+        },
+        {
+          "word": "as",
+          "start": 153.78,
+          "end": 154.34,
+          "probability": 0.9985
+        },
+        {
+          "word": "well",
+          "start": 154.34,
+          "end": 154.68,
+          "probability": 0.9956
+        },
+        {
+          "word": "first",
+          "start": 154.68,
+          "end": 154.98,
+          "probability": 0.9976
+        },
+        {
+          "word": "it",
+          "start": 154.98,
+          "end": 155.16,
+          "probability": 0.9976
+        },
+        {
+          "word": "tries",
+          "start": 155.16,
+          "end": 155.48,
+          "probability": 0.9971
+        },
+        {
+          "word": "to",
+          "start": 155.48,
+          "end": 155.78,
+          "probability": 0.9995
+        },
+        {
+          "word": "get",
+          "start": 155.78,
+          "end": 156.82,
+          "probability": 0.9551
+        },
+        {
+          "word": "them",
+          "start": 156.82,
+          "end": 157.08,
+          "probability": 0.9961
+        },
+        {
+          "word": "the",
+          "start": 157.08,
+          "end": 157.34,
+          "probability": 0.9468
+        },
+        {
+          "word": "correct",
+          "start": 157.34,
+          "end": 157.78,
+          "probability": 0.999
+        },
+        {
+          "word": "way",
+          "start": 157.78,
+          "end": 158.16,
+          "probability": 0.999
+        },
+        {
+          "word": "and",
+          "start": 158.16,
+          "end": 159.16,
+          "probability": 0.9751
+        }
+      ],
+      "avg_logprob": -0.1298,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 12,
+      "start": 159.16,
+      "end": 170.58,
+      "text": "then it tries to check this old standard primary master and secondary primary and secondary IDE",
+      "words": [
+        {
+          "word": "then",
+          "start": 159.16,
+          "end": 159.3,
+          "probability": 0.2917
+        },
+        {
+          "word": "it",
+          "start": 159.3,
+          "end": 159.44,
+          "probability": 0.9834
+        },
+        {
+          "word": "tries",
+          "start": 159.44,
+          "end": 159.8,
+          "probability": 0.9927
+        },
+        {
+          "word": "to",
+          "start": 159.8,
+          "end": 160.12,
+          "probability": 0.9971
+        },
+        {
+          "word": "check",
+          "start": 160.12,
+          "end": 160.68,
+          "probability": 0.9932
+        },
+        {
+          "word": "this",
+          "start": 160.68,
+          "end": 161.0,
+          "probability": 0.582
+        },
+        {
+          "word": "old",
+          "start": 161.0,
+          "end": 161.46,
+          "probability": 0.9829
+        },
+        {
+          "word": "standard",
+          "start": 161.46,
+          "end": 162.06,
+          "probability": 0.9526
+        },
+        {
+          "word": "primary",
+          "start": 162.06,
+          "end": 163.82,
+          "probability": 0.7329
+        },
+        {
+          "word": "master",
+          "start": 163.82,
+          "end": 164.4,
+          "probability": 0.9609
+        },
+        {
+          "word": "and",
+          "start": 164.4,
+          "end": 165.36,
+          "probability": 0.894
+        },
+        {
+          "word": "secondary",
+          "start": 165.36,
+          "end": 166.3,
+          "probability": 0.9888
+        },
+        {
+          "word": "primary",
+          "start": 166.3,
+          "end": 169.18,
+          "probability": 0.9482
+        },
+        {
+          "word": "and",
+          "start": 169.18,
+          "end": 169.58,
+          "probability": 0.9863
+        },
+        {
+          "word": "secondary",
+          "start": 169.58,
+          "end": 170.1,
+          "probability": 0.9971
+        },
+        {
+          "word": "IDE",
+          "start": 170.1,
+          "end": 170.58,
+          "probability": 0.6504
+        }
+      ],
+      "avg_logprob": -0.278,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 13,
+      "start": 175.34,
+      "end": 188.52,
+      "text": "anyway one one F03 F6 was that was is the primary IDE and one seven zero three seven six is the secondary IDE",
+      "words": [
+        {
+          "word": "anyway",
+          "start": 175.34,
+          "end": 176.26,
+          "probability": 0.7959
+        },
+        {
+          "word": "one",
+          "start": 176.26,
+          "end": 177.18,
+          "probability": 0.3826
+        },
+        {
+          "word": "one",
+          "start": 177.18,
+          "end": 177.6,
+          "probability": 0.3091
+        },
+        {
+          "word": "F03",
+          "start": 177.6,
+          "end": 178.28,
+          "probability": 0.4338
+        },
+        {
+          "word": "F6",
+          "start": 178.28,
+          "end": 178.92,
+          "probability": 0.7378
+        },
+        {
+          "word": "was",
+          "start": 178.92,
+          "end": 179.26,
+          "probability": 0.9136
+        },
+        {
+          "word": "that",
+          "start": 179.26,
+          "end": 179.5,
+          "probability": 0.8149
+        },
+        {
+          "word": "was",
+          "start": 179.5,
+          "end": 180.02,
+          "probability": 0.748
+        },
+        {
+          "word": "is",
+          "start": 180.02,
+          "end": 180.42,
+          "probability": 0.9517
+        },
+        {
+          "word": "the",
+          "start": 180.42,
+          "end": 180.64,
+          "probability": 0.999
+        },
+        {
+          "word": "primary",
+          "start": 180.64,
+          "end": 182.0,
+          "probability": 0.9805
+        },
+        {
+          "word": "IDE",
+          "start": 182.0,
+          "end": 182.94,
+          "probability": 0.9365
+        },
+        {
+          "word": "and",
+          "start": 182.94,
+          "end": 184.42,
+          "probability": 0.8511
+        },
+        {
+          "word": "one",
+          "start": 184.42,
+          "end": 184.88,
+          "probability": 0.6274
+        },
+        {
+          "word": "seven",
+          "start": 184.88,
+          "end": 185.22,
+          "probability": 0.9277
+        },
+        {
+          "word": "zero",
+          "start": 185.22,
+          "end": 185.54,
+          "probability": 0.9819
+        },
+        {
+          "word": "three",
+          "start": 185.54,
+          "end": 185.88,
+          "probability": 0.9951
+        },
+        {
+          "word": "seven",
+          "start": 185.88,
+          "end": 186.26,
+          "probability": 0.9961
+        },
+        {
+          "word": "six",
+          "start": 186.26,
+          "end": 186.6,
+          "probability": 0.9956
+        },
+        {
+          "word": "is",
+          "start": 186.6,
+          "end": 186.94,
+          "probability": 0.9746
+        },
+        {
+          "word": "the",
+          "start": 186.94,
+          "end": 187.68,
+          "probability": 0.9922
+        },
+        {
+          "word": "secondary",
+          "start": 187.68,
+          "end": 188.18,
+          "probability": 0.9956
+        },
+        {
+          "word": "IDE",
+          "start": 188.18,
+          "end": 188.52,
+          "probability": 0.8809
+        }
+      ],
+      "avg_logprob": -0.278,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 14,
+      "start": 191.8,
+      "end": 214.52,
+      "text": "and it turns out that when you boot with the BIOS that's different from UH you UEFI is the new way of booting with the old way of booting you use interrupt 13 and",
+      "words": [
+        {
+          "word": "and",
+          "start": 191.8,
+          "end": 192.5,
+          "probability": 0.6055
+        },
+        {
+          "word": "it",
+          "start": 192.5,
+          "end": 193.2,
+          "probability": 0.73
+        },
+        {
+          "word": "turns",
+          "start": 193.2,
+          "end": 193.46,
+          "probability": 0.999
+        },
+        {
+          "word": "out",
+          "start": 193.46,
+          "end": 193.74,
+          "probability": 0.9995
+        },
+        {
+          "word": "that",
+          "start": 193.74,
+          "end": 194.0,
+          "probability": 0.9868
+        },
+        {
+          "word": "when",
+          "start": 194.0,
+          "end": 195.76,
+          "probability": 0.731
+        },
+        {
+          "word": "you",
+          "start": 195.76,
+          "end": 195.96,
+          "probability": 0.999
+        },
+        {
+          "word": "boot",
+          "start": 195.96,
+          "end": 196.38,
+          "probability": 0.9932
+        },
+        {
+          "word": "with",
+          "start": 196.38,
+          "end": 198.86,
+          "probability": 0.9619
+        },
+        {
+          "word": "the",
+          "start": 198.86,
+          "end": 199.04,
+          "probability": 0.9956
+        },
+        {
+          "word": "BIOS",
+          "start": 199.04,
+          "end": 199.66,
+          "probability": 0.9263
+        },
+        {
+          "word": "that's",
+          "start": 199.66,
+          "end": 201.0,
+          "probability": 0.916
+        },
+        {
+          "word": "different",
+          "start": 201.0,
+          "end": 201.3,
+          "probability": 0.9966
+        },
+        {
+          "word": "from",
+          "start": 201.3,
+          "end": 201.56,
+          "probability": 0.98
+        },
+        {
+          "word": "UH",
+          "start": 201.56,
+          "end": 202.02,
+          "probability": 0.2698
+        },
+        {
+          "word": "you",
+          "start": 202.02,
+          "end": 204.48,
+          "probability": 0.5366
+        },
+        {
+          "word": "UEFI",
+          "start": 204.48,
+          "end": 206.74,
+          "probability": 0.8447
+        },
+        {
+          "word": "is",
+          "start": 206.74,
+          "end": 207.08,
+          "probability": 0.9814
+        },
+        {
+          "word": "the",
+          "start": 207.08,
+          "end": 207.28,
+          "probability": 0.938
+        },
+        {
+          "word": "new",
+          "start": 207.28,
+          "end": 207.5,
+          "probability": 0.9971
+        },
+        {
+          "word": "way",
+          "start": 207.5,
+          "end": 207.74,
+          "probability": 0.9912
+        },
+        {
+          "word": "of",
+          "start": 207.74,
+          "end": 207.94,
+          "probability": 0.998
+        },
+        {
+          "word": "booting",
+          "start": 207.94,
+          "end": 208.32,
+          "probability": 0.9961
+        },
+        {
+          "word": "with",
+          "start": 208.32,
+          "end": 210.0,
+          "probability": 0.9458
+        },
+        {
+          "word": "the",
+          "start": 210.0,
+          "end": 210.16,
+          "probability": 0.9946
+        },
+        {
+          "word": "old",
+          "start": 210.16,
+          "end": 210.32,
+          "probability": 0.9985
+        },
+        {
+          "word": "way",
+          "start": 210.32,
+          "end": 210.54,
+          "probability": 0.9956
+        },
+        {
+          "word": "of",
+          "start": 210.54,
+          "end": 210.7,
+          "probability": 0.9951
+        },
+        {
+          "word": "booting",
+          "start": 210.7,
+          "end": 211.12,
+          "probability": 0.9961
+        },
+        {
+          "word": "you",
+          "start": 211.12,
+          "end": 212.68,
+          "probability": 0.9668
+        },
+        {
+          "word": "use",
+          "start": 212.68,
+          "end": 213.04,
+          "probability": 0.8682
+        },
+        {
+          "word": "interrupt",
+          "start": 213.04,
+          "end": 213.36,
+          "probability": 0.9316
+        },
+        {
+          "word": "13",
+          "start": 213.36,
+          "end": 213.96,
+          "probability": 0.9536
+        },
+        {
+          "word": "and",
+          "start": 213.96,
+          "end": 214.52,
+          "probability": 0.9844
+        }
+      ],
+      "avg_logprob": -0.2314,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 15,
+      "start": 221.46,
+      "end": 244.5,
+      "text": "you use interrupt 13 where's interrupt 13 here it is you use interrupt 13 and you pass the drive number in DL so it starts in 16 bit mode and DL when it calls your boot loader when the BIOS calls your boot loader DL is the",
+      "words": [
+        {
+          "word": "you",
+          "start": 221.46,
+          "end": 222.18,
+          "probability": 0.0785
+        },
+        {
+          "word": "use",
+          "start": 222.18,
+          "end": 222.8,
+          "probability": 0.9414
+        },
+        {
+          "word": "interrupt",
+          "start": 222.8,
+          "end": 223.2,
+          "probability": 0.8516
+        },
+        {
+          "word": "13",
+          "start": 223.2,
+          "end": 223.96,
+          "probability": 0.9214
+        },
+        {
+          "word": "where's",
+          "start": 223.96,
+          "end": 224.52,
+          "probability": 0.646
+        },
+        {
+          "word": "interrupt",
+          "start": 224.52,
+          "end": 224.7,
+          "probability": 0.4268
+        },
+        {
+          "word": "13",
+          "start": 224.7,
+          "end": 225.2,
+          "probability": 0.9746
+        },
+        {
+          "word": "here",
+          "start": 225.2,
+          "end": 226.72,
+          "probability": 0.7949
+        },
+        {
+          "word": "it",
+          "start": 226.72,
+          "end": 226.86,
+          "probability": 0.9941
+        },
+        {
+          "word": "is",
+          "start": 226.86,
+          "end": 227.02,
+          "probability": 0.999
+        },
+        {
+          "word": "you",
+          "start": 227.02,
+          "end": 227.92,
+          "probability": 0.9565
+        },
+        {
+          "word": "use",
+          "start": 227.92,
+          "end": 228.2,
+          "probability": 0.9956
+        },
+        {
+          "word": "interrupt",
+          "start": 228.2,
+          "end": 228.5,
+          "probability": 0.9785
+        },
+        {
+          "word": "13",
+          "start": 228.5,
+          "end": 228.96,
+          "probability": 0.9912
+        },
+        {
+          "word": "and",
+          "start": 228.96,
+          "end": 229.42,
+          "probability": 0.9941
+        },
+        {
+          "word": "you",
+          "start": 229.42,
+          "end": 229.62,
+          "probability": 0.9976
+        },
+        {
+          "word": "pass",
+          "start": 229.62,
+          "end": 229.98,
+          "probability": 0.9795
+        },
+        {
+          "word": "the",
+          "start": 229.98,
+          "end": 230.24,
+          "probability": 0.9995
+        },
+        {
+          "word": "drive",
+          "start": 230.24,
+          "end": 230.6,
+          "probability": 0.9707
+        },
+        {
+          "word": "number",
+          "start": 230.6,
+          "end": 231.02,
+          "probability": 0.9985
+        },
+        {
+          "word": "in",
+          "start": 231.02,
+          "end": 231.3,
+          "probability": 0.9932
+        },
+        {
+          "word": "DL",
+          "start": 231.3,
+          "end": 231.86,
+          "probability": 0.7437
+        },
+        {
+          "word": "so",
+          "start": 231.86,
+          "end": 235.58,
+          "probability": 0.8442
+        },
+        {
+          "word": "it",
+          "start": 235.58,
+          "end": 236.6,
+          "probability": 0.9722
+        },
+        {
+          "word": "starts",
+          "start": 236.6,
+          "end": 236.96,
+          "probability": 0.999
+        },
+        {
+          "word": "in",
+          "start": 236.96,
+          "end": 237.12,
+          "probability": 0.998
+        },
+        {
+          "word": "16",
+          "start": 237.12,
+          "end": 237.6,
+          "probability": 0.9941
+        },
+        {
+          "word": "bit",
+          "start": 237.6,
+          "end": 237.84,
+          "probability": 0.4231
+        },
+        {
+          "word": "mode",
+          "start": 237.84,
+          "end": 238.3,
+          "probability": 0.9941
+        },
+        {
+          "word": "and",
+          "start": 238.3,
+          "end": 239.3,
+          "probability": 0.7744
+        },
+        {
+          "word": "DL",
+          "start": 239.3,
+          "end": 239.88,
+          "probability": 0.9629
+        },
+        {
+          "word": "when",
+          "start": 239.88,
+          "end": 240.7,
+          "probability": 0.9824
+        },
+        {
+          "word": "it",
+          "start": 240.7,
+          "end": 240.84,
+          "probability": 0.9922
+        },
+        {
+          "word": "calls",
+          "start": 240.84,
+          "end": 241.16,
+          "probability": 0.9927
+        },
+        {
+          "word": "your",
+          "start": 241.16,
+          "end": 241.4,
+          "probability": 0.9956
+        },
+        {
+          "word": "boot",
+          "start": 241.4,
+          "end": 241.64,
+          "probability": 0.9941
+        },
+        {
+          "word": "loader",
+          "start": 241.64,
+          "end": 242.1,
+          "probability": 0.5952
+        },
+        {
+          "word": "when",
+          "start": 242.1,
+          "end": 242.56,
+          "probability": 0.9814
+        },
+        {
+          "word": "the",
+          "start": 242.56,
+          "end": 242.68,
+          "probability": 0.998
+        },
+        {
+          "word": "BIOS",
+          "start": 242.68,
+          "end": 243.04,
+          "probability": 0.8931
+        },
+        {
+          "word": "calls",
+          "start": 243.04,
+          "end": 243.3,
+          "probability": 0.9521
+        },
+        {
+          "word": "your",
+          "start": 243.3,
+          "end": 243.5,
+          "probability": 0.9902
+        },
+        {
+          "word": "boot",
+          "start": 243.5,
+          "end": 243.74,
+          "probability": 0.9932
+        },
+        {
+          "word": "loader",
+          "start": 243.74,
+          "end": 244.06,
+          "probability": 0.8682
+        },
+        {
+          "word": "DL",
+          "start": 244.06,
+          "end": 244.5,
+          "probability": 0.9556
+        },
+        {
+          "word": "is",
+          "start": 244.5,
+          "end": 244.5,
+          "probability": 0.3123
+        },
+        {
+          "word": "the",
+          "start": 244.5,
+          "end": 244.5,
+          "probability": 0.0558
+        }
+      ],
+      "avg_logprob": -0.2567,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 16,
+      "start": 244.5,
+      "end": 254.22,
+      "text": "has the this is the BIOS number for the CD-ROM but there's no way to convert the BIOS CD-ROM to IO ports",
+      "words": [
+        {
+          "word": "has",
+          "start": 244.5,
+          "end": 244.9,
+          "probability": 0.8145
+        },
+        {
+          "word": "the",
+          "start": 244.9,
+          "end": 245.26,
+          "probability": 0.9692
+        },
+        {
+          "word": "this",
+          "start": 245.26,
+          "end": 246.3,
+          "probability": 0.7432
+        },
+        {
+          "word": "is",
+          "start": 246.3,
+          "end": 246.44,
+          "probability": 0.9985
+        },
+        {
+          "word": "the",
+          "start": 246.44,
+          "end": 246.62,
+          "probability": 0.998
+        },
+        {
+          "word": "BIOS",
+          "start": 246.62,
+          "end": 247.26,
+          "probability": 0.9019
+        },
+        {
+          "word": "number",
+          "start": 247.26,
+          "end": 247.76,
+          "probability": 0.9907
+        },
+        {
+          "word": "for",
+          "start": 247.76,
+          "end": 248.1,
+          "probability": 0.9927
+        },
+        {
+          "word": "the",
+          "start": 248.1,
+          "end": 248.24,
+          "probability": 0.9912
+        },
+        {
+          "word": "CD",
+          "start": 248.24,
+          "end": 248.74,
+          "probability": 0.79
+        },
+        {
+          "word": "-ROM",
+          "start": 248.74,
+          "end": 249.2,
+          "probability": 0.9287
+        },
+        {
+          "word": "but",
+          "start": 249.2,
+          "end": 250.12,
+          "probability": 0.9355
+        },
+        {
+          "word": "there's",
+          "start": 250.12,
+          "end": 250.38,
+          "probability": 0.9966
+        },
+        {
+          "word": "no",
+          "start": 250.38,
+          "end": 250.5,
+          "probability": 0.9995
+        },
+        {
+          "word": "way",
+          "start": 250.5,
+          "end": 250.66,
+          "probability": 0.9995
+        },
+        {
+          "word": "to",
+          "start": 250.66,
+          "end": 250.8,
+          "probability": 0.9995
+        },
+        {
+          "word": "convert",
+          "start": 250.8,
+          "end": 251.22,
+          "probability": 0.9976
+        },
+        {
+          "word": "the",
+          "start": 251.22,
+          "end": 251.44,
+          "probability": 0.9849
+        },
+        {
+          "word": "BIOS",
+          "start": 251.44,
+          "end": 252.04,
+          "probability": 0.9844
+        },
+        {
+          "word": "CD",
+          "start": 252.04,
+          "end": 252.36,
+          "probability": 0.9209
+        },
+        {
+          "word": "-ROM",
+          "start": 252.36,
+          "end": 252.88,
+          "probability": 0.9868
+        },
+        {
+          "word": "to",
+          "start": 252.88,
+          "end": 253.38,
+          "probability": 0.8979
+        },
+        {
+          "word": "IO",
+          "start": 253.38,
+          "end": 253.7,
+          "probability": 0.3794
+        },
+        {
+          "word": "ports",
+          "start": 253.7,
+          "end": 254.22,
+          "probability": 0.8862
+        }
+      ],
+      "avg_logprob": -0.1948,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 17,
+      "start": 256.48,
+      "end": 270.38,
+      "text": "the BIOS CD-ROM number in DL is no good for accessing IO ports and so basically we have to probe all the different",
+      "words": [
+        {
+          "word": "the",
+          "start": 256.48,
+          "end": 257.22,
+          "probability": 0.7554
+        },
+        {
+          "word": "BIOS",
+          "start": 257.22,
+          "end": 257.66,
+          "probability": 0.9814
+        },
+        {
+          "word": "CD",
+          "start": 257.66,
+          "end": 257.9,
+          "probability": 0.98
+        },
+        {
+          "word": "-ROM",
+          "start": 257.9,
+          "end": 258.28,
+          "probability": 0.9937
+        },
+        {
+          "word": "number",
+          "start": 258.28,
+          "end": 258.64,
+          "probability": 0.9873
+        },
+        {
+          "word": "in",
+          "start": 258.64,
+          "end": 259.0,
+          "probability": 0.9238
+        },
+        {
+          "word": "DL",
+          "start": 259.0,
+          "end": 259.44,
+          "probability": 0.9336
+        },
+        {
+          "word": "is",
+          "start": 259.44,
+          "end": 259.7,
+          "probability": 0.9961
+        },
+        {
+          "word": "no",
+          "start": 259.7,
+          "end": 259.94,
+          "probability": 0.998
+        },
+        {
+          "word": "good",
+          "start": 259.94,
+          "end": 260.32,
+          "probability": 0.999
+        },
+        {
+          "word": "for",
+          "start": 260.32,
+          "end": 261.4,
+          "probability": 0.999
+        },
+        {
+          "word": "accessing",
+          "start": 261.4,
+          "end": 263.98,
+          "probability": 0.9897
+        },
+        {
+          "word": "IO",
+          "start": 263.98,
+          "end": 264.36,
+          "probability": 0.8892
+        },
+        {
+          "word": "ports",
+          "start": 264.36,
+          "end": 264.88,
+          "probability": 0.9351
+        },
+        {
+          "word": "and",
+          "start": 264.88,
+          "end": 265.92,
+          "probability": 0.9629
+        },
+        {
+          "word": "so",
+          "start": 265.92,
+          "end": 266.2,
+          "probability": 0.9995
+        },
+        {
+          "word": "basically",
+          "start": 266.2,
+          "end": 267.88,
+          "probability": 0.9712
+        },
+        {
+          "word": "we",
+          "start": 267.88,
+          "end": 269.02,
+          "probability": 0.9863
+        },
+        {
+          "word": "have",
+          "start": 269.02,
+          "end": 269.18,
+          "probability": 0.9995
+        },
+        {
+          "word": "to",
+          "start": 269.18,
+          "end": 269.32,
+          "probability": 0.9995
+        },
+        {
+          "word": "probe",
+          "start": 269.32,
+          "end": 269.64,
+          "probability": 0.9448
+        },
+        {
+          "word": "all",
+          "start": 269.64,
+          "end": 269.88,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 269.88,
+          "end": 270.06,
+          "probability": 0.999
+        },
+        {
+          "word": "different",
+          "start": 270.06,
+          "end": 270.38,
+          "probability": 0.9927
+        }
+      ],
+      "avg_logprob": -0.1948,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 18,
+      "start": 272.86,
+      "end": 282.54,
+      "text": "let's see if I think this is only used for finding the CD-ROM or it could be wrong but I think so",
+      "words": [
+        {
+          "word": "let's",
+          "start": 272.86,
+          "end": 273.46,
+          "probability": 0.5542
+        },
+        {
+          "word": "see",
+          "start": 273.46,
+          "end": 273.62,
+          "probability": 0.9956
+        },
+        {
+          "word": "if",
+          "start": 273.62,
+          "end": 273.8,
+          "probability": 0.9897
+        },
+        {
+          "word": "I",
+          "start": 273.8,
+          "end": 273.9,
+          "probability": 0.7012
+        },
+        {
+          "word": "think",
+          "start": 273.9,
+          "end": 274.34,
+          "probability": 0.0024
+        },
+        {
+          "word": "this",
+          "start": 274.34,
+          "end": 276.46,
+          "probability": 0.981
+        },
+        {
+          "word": "is",
+          "start": 276.46,
+          "end": 276.62,
+          "probability": 0.9893
+        },
+        {
+          "word": "only",
+          "start": 276.62,
+          "end": 276.9,
+          "probability": 0.9873
+        },
+        {
+          "word": "used",
+          "start": 276.9,
+          "end": 277.32,
+          "probability": 0.9692
+        },
+        {
+          "word": "for",
+          "start": 277.32,
+          "end": 277.56,
+          "probability": 0.9629
+        },
+        {
+          "word": "finding",
+          "start": 277.56,
+          "end": 278.0,
+          "probability": 0.9927
+        },
+        {
+          "word": "the",
+          "start": 278.0,
+          "end": 278.3,
+          "probability": 0.9429
+        },
+        {
+          "word": "CD",
+          "start": 278.3,
+          "end": 278.58,
+          "probability": 0.8477
+        },
+        {
+          "word": "-ROM",
+          "start": 278.58,
+          "end": 279.08,
+          "probability": 0.896
+        },
+        {
+          "word": "or",
+          "start": 279.08,
+          "end": 280.44,
+          "probability": 0.7871
+        },
+        {
+          "word": "it",
+          "start": 280.44,
+          "end": 281.0,
+          "probability": 0.4587
+        },
+        {
+          "word": "could",
+          "start": 281.0,
+          "end": 281.1,
+          "probability": 0.999
+        },
+        {
+          "word": "be",
+          "start": 281.1,
+          "end": 281.26,
+          "probability": 0.999
+        },
+        {
+          "word": "wrong",
+          "start": 281.26,
+          "end": 281.54,
+          "probability": 0.9902
+        },
+        {
+          "word": "but",
+          "start": 281.54,
+          "end": 281.92,
+          "probability": 0.7412
+        },
+        {
+          "word": "I",
+          "start": 281.92,
+          "end": 282.04,
+          "probability": 0.9536
+        },
+        {
+          "word": "think",
+          "start": 282.04,
+          "end": 282.22,
+          "probability": 0.999
+        },
+        {
+          "word": "so",
+          "start": 282.22,
+          "end": 282.54,
+          "probability": 0.9946
+        }
+      ],
+      "avg_logprob": -0.3544,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 19,
+      "start": 284.18,
+      "end": 287.86,
+      "text": "so oh no it's used there too okay",
+      "words": [
+        {
+          "word": "so",
+          "start": 284.18,
+          "end": 284.78,
+          "probability": 0.5225
+        },
+        {
+          "word": "oh",
+          "start": 284.78,
+          "end": 285.38,
+          "probability": 0.853
+        },
+        {
+          "word": "no",
+          "start": 285.38,
+          "end": 285.58,
+          "probability": 0.9922
+        },
+        {
+          "word": "it's",
+          "start": 285.58,
+          "end": 285.82,
+          "probability": 0.9863
+        },
+        {
+          "word": "used",
+          "start": 285.82,
+          "end": 286.06,
+          "probability": 0.9722
+        },
+        {
+          "word": "there",
+          "start": 286.06,
+          "end": 286.46,
+          "probability": 0.979
+        },
+        {
+          "word": "too",
+          "start": 286.46,
+          "end": 286.78,
+          "probability": 0.7241
+        },
+        {
+          "word": "okay",
+          "start": 286.78,
+          "end": 287.86,
+          "probability": 0.7266
+        }
+      ],
+      "avg_logprob": -0.3544,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 20,
+      "start": 294.6,
+      "end": 302.96,
+      "text": "probing so notice what I did F is a really that's your best friend FATA you can quickly scan all the code",
+      "words": [
+        {
+          "word": "probing",
+          "start": 294.6,
+          "end": 295.28,
+          "probability": 0.6235
+        },
+        {
+          "word": "so",
+          "start": 295.28,
+          "end": 295.96,
+          "probability": 0.7383
+        },
+        {
+          "word": "notice",
+          "start": 295.96,
+          "end": 296.32,
+          "probability": 0.9907
+        },
+        {
+          "word": "what",
+          "start": 296.32,
+          "end": 296.5,
+          "probability": 0.9976
+        },
+        {
+          "word": "I",
+          "start": 296.5,
+          "end": 296.62,
+          "probability": 0.7891
+        },
+        {
+          "word": "did",
+          "start": 296.62,
+          "end": 296.82,
+          "probability": 0.9985
+        },
+        {
+          "word": "F",
+          "start": 296.82,
+          "end": 297.2,
+          "probability": 0.5088
+        },
+        {
+          "word": "is",
+          "start": 297.2,
+          "end": 297.54,
+          "probability": 0.9526
+        },
+        {
+          "word": "a",
+          "start": 297.54,
+          "end": 297.68,
+          "probability": 0.9551
+        },
+        {
+          "word": "really",
+          "start": 297.68,
+          "end": 297.94,
+          "probability": 0.9937
+        },
+        {
+          "word": "that's",
+          "start": 297.94,
+          "end": 298.38,
+          "probability": 0.9746
+        },
+        {
+          "word": "your",
+          "start": 298.38,
+          "end": 298.5,
+          "probability": 0.9985
+        },
+        {
+          "word": "best",
+          "start": 298.5,
+          "end": 298.74,
+          "probability": 0.9995
+        },
+        {
+          "word": "friend",
+          "start": 298.74,
+          "end": 299.1,
+          "probability": 0.9985
+        },
+        {
+          "word": "FATA",
+          "start": 299.1,
+          "end": 300.46,
+          "probability": 0.3867
+        },
+        {
+          "word": "you",
+          "start": 300.46,
+          "end": 300.98,
+          "probability": 0.9204
+        },
+        {
+          "word": "can",
+          "start": 300.98,
+          "end": 301.18,
+          "probability": 0.9995
+        },
+        {
+          "word": "quickly",
+          "start": 301.18,
+          "end": 301.72,
+          "probability": 0.999
+        },
+        {
+          "word": "scan",
+          "start": 301.72,
+          "end": 302.2,
+          "probability": 0.999
+        },
+        {
+          "word": "all",
+          "start": 302.2,
+          "end": 302.44,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 302.44,
+          "end": 302.62,
+          "probability": 0.9976
+        },
+        {
+          "word": "code",
+          "start": 302.62,
+          "end": 302.96,
+          "probability": 0.9849
+        }
+      ],
+      "avg_logprob": -0.1969,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 21,
+      "start": 308.76,
+      "end": 311.88,
+      "text": "so there's an ATA report",
+      "words": [
+        {
+          "word": "so",
+          "start": 308.76,
+          "end": 309.72,
+          "probability": 0.1844
+        },
+        {
+          "word": "there's",
+          "start": 309.72,
+          "end": 310.68,
+          "probability": 0.8516
+        },
+        {
+          "word": "an",
+          "start": 310.68,
+          "end": 310.8,
+          "probability": 0.9648
+        },
+        {
+          "word": "ATA",
+          "start": 310.8,
+          "end": 311.3,
+          "probability": 0.8516
+        },
+        {
+          "word": "report",
+          "start": 311.3,
+          "end": 311.88,
+          "probability": 0.9771
+        }
+      ],
+      "avg_logprob": -0.2919,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 22,
+      "start": 315.34,
+      "end": 316.3,
+      "text": "probe",
+      "words": [
+        {
+          "word": "probe",
+          "start": 315.34,
+          "end": 316.3,
+          "probability": 0.9429
+        }
+      ],
+      "avg_logprob": -0.2919,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 23,
+      "start": 318.44,
+      "end": 319.4,
+      "text": "this",
+      "words": [
+        {
+          "word": "this",
+          "start": 318.44,
+          "end": 319.4,
+          "probability": 0.7729
+        }
+      ],
+      "avg_logprob": -0.2919,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 24,
+      "start": 319.4,
+      "end": 321.16,
+      "text": "it checks",
+      "words": [
+        {
+          "word": "it",
+          "start": 319.4,
+          "end": 320.82,
+          "probability": 0.7305
+        },
+        {
+          "word": "checks",
+          "start": 320.82,
+          "end": 321.16,
+          "probability": 0.9492
+        }
+      ],
+      "avg_logprob": -0.2919,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 25,
+      "start": 321.16,
+      "end": 324.26,
+      "text": "I have a primary IDE and secondary IDE",
+      "words": [
+        {
+          "word": "I",
+          "start": 321.16,
+          "end": 321.82,
+          "probability": 0.8618
+        },
+        {
+          "word": "have",
+          "start": 321.82,
+          "end": 322.08,
+          "probability": 0.9985
+        },
+        {
+          "word": "a",
+          "start": 322.08,
+          "end": 322.24,
+          "probability": 0.8999
+        },
+        {
+          "word": "primary",
+          "start": 322.24,
+          "end": 322.66,
+          "probability": 0.9922
+        },
+        {
+          "word": "IDE",
+          "start": 322.66,
+          "end": 323.04,
+          "probability": 0.6147
+        },
+        {
+          "word": "and",
+          "start": 323.04,
+          "end": 323.36,
+          "probability": 0.9009
+        },
+        {
+          "word": "secondary",
+          "start": 323.36,
+          "end": 323.78,
+          "probability": 0.9844
+        },
+        {
+          "word": "IDE",
+          "start": 323.78,
+          "end": 324.26,
+          "probability": 0.7988
+        }
+      ],
+      "avg_logprob": -0.2919,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 26,
+      "start": 326.66,
+      "end": 327.38,
+      "text": "TAPI",
+      "words": [
+        {
+          "word": "TAPI",
+          "start": 326.66,
+          "end": 327.38,
+          "probability": 0.5659
+        }
+      ],
+      "avg_logprob": -0.2324,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 27,
+      "start": 327.38,
+      "end": 328.2,
+      "text": "TAPI is CD-ROM",
+      "words": [
+        {
+          "word": "TAPI",
+          "start": 327.38,
+          "end": 327.48,
+          "probability": 0.6631
+        },
+        {
+          "word": "is",
+          "start": 327.48,
+          "end": 327.52,
+          "probability": 0.854
+        },
+        {
+          "word": "CD",
+          "start": 327.52,
+          "end": 327.78,
+          "probability": 0.9395
+        },
+        {
+          "word": "-ROM",
+          "start": 327.78,
+          "end": 328.2,
+          "probability": 0.9727
+        }
+      ],
+      "avg_logprob": -0.2324,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 28,
+      "start": 328.2,
+      "end": 330.7,
+      "text": "and ATA is hard drive",
+      "words": [
+        {
+          "word": "and",
+          "start": 328.2,
+          "end": 329.0,
+          "probability": 0.686
+        },
+        {
+          "word": "ATA",
+          "start": 329.0,
+          "end": 329.54,
+          "probability": 0.9561
+        },
+        {
+          "word": "is",
+          "start": 329.54,
+          "end": 329.88,
+          "probability": 0.9609
+        },
+        {
+          "word": "hard",
+          "start": 329.88,
+          "end": 330.34,
+          "probability": 0.9575
+        },
+        {
+          "word": "drive",
+          "start": 330.34,
+          "end": 330.7,
+          "probability": 0.9956
+        }
+      ],
+      "avg_logprob": -0.2324,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 29,
+      "start": 331.98,
+      "end": 332.7,
+      "text": "anyway",
+      "words": [
+        {
+          "word": "anyway",
+          "start": 331.98,
+          "end": 332.7,
+          "probability": 0.2549
+        }
+      ],
+      "avg_logprob": -0.2324,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 30,
+      "start": 332.7,
+      "end": 333.26,
+      "text": "so",
+      "words": [
+        {
+          "word": "so",
+          "start": 332.7,
+          "end": 333.26,
+          "probability": 0.9077
+        }
+      ],
+      "avg_logprob": -0.2324,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 31,
+      "start": 334.36,
+      "end": 335.62,
+      "text": "I think it",
+      "words": [
+        {
+          "word": "I",
+          "start": 334.36,
+          "end": 335.08,
+          "probability": 0.9692
+        },
+        {
+          "word": "think",
+          "start": 335.08,
+          "end": 335.34,
+          "probability": 0.998
+        },
+        {
+          "word": "it",
+          "start": 335.34,
+          "end": 335.62,
+          "probability": 0.9941
+        }
+      ],
+      "avg_logprob": -0.2324,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 32,
+      "start": 335.62,
+      "end": 336.98,
+      "text": "it checked",
+      "words": [
+        {
+          "word": "it",
+          "start": 335.62,
+          "end": 336.62,
+          "probability": 0.7095
+        },
+        {
+          "word": "checked",
+          "start": 336.62,
+          "end": 336.98,
+          "probability": 0.9897
+        }
+      ],
+      "avg_logprob": -0.2324,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 33,
+      "start": 337.78,
+      "end": 340.06,
+      "text": "there's unit 0 and unit 1",
+      "words": [
+        {
+          "word": "there's",
+          "start": 337.78,
+          "end": 338.5,
+          "probability": 0.979
+        },
+        {
+          "word": "unit",
+          "start": 338.5,
+          "end": 338.78,
+          "probability": 0.9331
+        },
+        {
+          "word": "0",
+          "start": 338.78,
+          "end": 339.24,
+          "probability": 0.7026
+        },
+        {
+          "word": "and",
+          "start": 339.24,
+          "end": 339.48,
+          "probability": 0.9468
+        },
+        {
+          "word": "unit",
+          "start": 339.48,
+          "end": 339.72,
+          "probability": 0.9746
+        },
+        {
+          "word": "1",
+          "start": 339.72,
+          "end": 340.06,
+          "probability": 0.8965
+        }
+      ],
+      "avg_logprob": -0.2324,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 34,
+      "start": 340.06,
+      "end": 345.02,
+      "text": "and when I probed I determined that unit 1 did not exist",
+      "words": [
+        {
+          "word": "and",
+          "start": 340.06,
+          "end": 341.0,
+          "probability": 0.9775
+        },
+        {
+          "word": "when",
+          "start": 341.0,
+          "end": 341.34,
+          "probability": 0.98
+        },
+        {
+          "word": "I",
+          "start": 341.34,
+          "end": 341.48,
+          "probability": 0.9683
+        },
+        {
+          "word": "probed",
+          "start": 341.48,
+          "end": 342.0,
+          "probability": 0.9917
+        },
+        {
+          "word": "I",
+          "start": 342.0,
+          "end": 342.14,
+          "probability": 0.9609
+        },
+        {
+          "word": "determined",
+          "start": 342.14,
+          "end": 342.68,
+          "probability": 0.9937
+        },
+        {
+          "word": "that",
+          "start": 342.68,
+          "end": 343.12,
+          "probability": 0.9897
+        },
+        {
+          "word": "unit",
+          "start": 343.12,
+          "end": 343.58,
+          "probability": 0.9814
+        },
+        {
+          "word": "1",
+          "start": 343.58,
+          "end": 343.92,
+          "probability": 0.8408
+        },
+        {
+          "word": "did",
+          "start": 343.92,
+          "end": 344.2,
+          "probability": 0.9941
+        },
+        {
+          "word": "not",
+          "start": 344.2,
+          "end": 344.44,
+          "probability": 0.9995
+        },
+        {
+          "word": "exist",
+          "start": 344.44,
+          "end": 345.02,
+          "probability": 0.9976
+        }
+      ],
+      "avg_logprob": -0.2324,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 35,
+      "start": 346.04,
+      "end": 346.76,
+      "text": "so",
+      "words": [
+        {
+          "word": "so",
+          "start": 346.04,
+          "end": 346.76,
+          "probability": 0.9561
+        }
+      ],
+      "avg_logprob": -0.2324,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 36,
+      "start": 349.44,
+      "end": 352.52,
+      "text": "I determined that unit 1 did not exist",
+      "words": [
+        {
+          "word": "I",
+          "start": 349.44,
+          "end": 350.16,
+          "probability": 0.9644
+        },
+        {
+          "word": "determined",
+          "start": 350.16,
+          "end": 350.88,
+          "probability": 0.9844
+        },
+        {
+          "word": "that",
+          "start": 350.88,
+          "end": 351.12,
+          "probability": 0.9849
+        },
+        {
+          "word": "unit",
+          "start": 351.12,
+          "end": 351.4,
+          "probability": 0.9907
+        },
+        {
+          "word": "1",
+          "start": 351.4,
+          "end": 351.68,
+          "probability": 0.9087
+        },
+        {
+          "word": "did",
+          "start": 351.68,
+          "end": 351.88,
+          "probability": 0.998
+        },
+        {
+          "word": "not",
+          "start": 351.88,
+          "end": 352.08,
+          "probability": 0.9995
+        },
+        {
+          "word": "exist",
+          "start": 352.08,
+          "end": 352.52,
+          "probability": 0.999
+        }
+      ],
+      "avg_logprob": -0.2324,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 37,
+      "start": 355.34,
+      "end": 359.42,
+      "text": "ATA rep checks primary",
+      "words": [
+        {
+          "word": "ATA",
+          "start": 355.34,
+          "end": 356.06,
+          "probability": 0.5947
+        },
+        {
+          "word": "rep",
+          "start": 356.06,
+          "end": 356.42,
+          "probability": 0.7554
+        },
+        {
+          "word": "checks",
+          "start": 356.42,
+          "end": 357.24,
+          "probability": 0.979
+        },
+        {
+          "word": "primary",
+          "start": 357.24,
+          "end": 359.42,
+          "probability": 0.7266
+        }
+      ],
+      "avg_logprob": -0.2368,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 38,
+      "start": 360.54,
+      "end": 364.7,
+      "text": "it tries to make an entry for primary",
+      "words": [
+        {
+          "word": "it",
+          "start": 360.54,
+          "end": 361.26,
+          "probability": 0.5933
+        },
+        {
+          "word": "tries",
+          "start": 361.26,
+          "end": 361.52,
+          "probability": 0.9941
+        },
+        {
+          "word": "to",
+          "start": 361.52,
+          "end": 361.72,
+          "probability": 0.9995
+        },
+        {
+          "word": "make",
+          "start": 361.72,
+          "end": 361.92,
+          "probability": 0.9966
+        },
+        {
+          "word": "an",
+          "start": 361.92,
+          "end": 362.16,
+          "probability": 0.3176
+        },
+        {
+          "word": "entry",
+          "start": 362.16,
+          "end": 362.62,
+          "probability": 0.999
+        },
+        {
+          "word": "for",
+          "start": 362.62,
+          "end": 364.12,
+          "probability": 0.9844
+        },
+        {
+          "word": "primary",
+          "start": 364.12,
+          "end": 364.7,
+          "probability": 0.98
+        }
+      ],
+      "avg_logprob": -0.2368,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 39,
+      "start": 365.9,
+      "end": 367.1,
+      "text": "oh let's see",
+      "words": [
+        {
+          "word": "oh",
+          "start": 365.9,
+          "end": 366.62,
+          "probability": 0.3733
+        },
+        {
+          "word": "let's",
+          "start": 366.62,
+          "end": 366.92,
+          "probability": 0.9438
+        },
+        {
+          "word": "see",
+          "start": 366.92,
+          "end": 367.1,
+          "probability": 0.999
+        }
+      ],
+      "avg_logprob": -0.2368,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 40,
+      "start": 369.34,
+      "end": 371.22,
+      "text": "first it tries to find them",
+      "words": [
+        {
+          "word": "first",
+          "start": 369.34,
+          "end": 370.06,
+          "probability": 0.9214
+        },
+        {
+          "word": "it",
+          "start": 370.06,
+          "end": 370.22,
+          "probability": 0.9902
+        },
+        {
+          "word": "tries",
+          "start": 370.22,
+          "end": 370.46,
+          "probability": 0.9985
+        },
+        {
+          "word": "to",
+          "start": 370.46,
+          "end": 370.66,
+          "probability": 0.9995
+        },
+        {
+          "word": "find",
+          "start": 370.66,
+          "end": 370.96,
+          "probability": 0.998
+        },
+        {
+          "word": "them",
+          "start": 370.96,
+          "end": 371.22,
+          "probability": 0.9727
+        }
+      ],
+      "avg_logprob": -0.2368,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 41,
+      "start": 371.22,
+      "end": 374.48,
+      "text": "there's what's called a PCI BIOS",
+      "words": [
+        {
+          "word": "there's",
+          "start": 371.22,
+          "end": 372.54,
+          "probability": 0.981
+        },
+        {
+          "word": "what's",
+          "start": 372.54,
+          "end": 372.78,
+          "probability": 0.9961
+        },
+        {
+          "word": "called",
+          "start": 372.78,
+          "end": 372.98,
+          "probability": 0.999
+        },
+        {
+          "word": "a",
+          "start": 372.98,
+          "end": 373.14,
+          "probability": 0.9434
+        },
+        {
+          "word": "PCI",
+          "start": 373.14,
+          "end": 373.82,
+          "probability": 0.9307
+        },
+        {
+          "word": "BIOS",
+          "start": 373.82,
+          "end": 374.48,
+          "probability": 0.9243
+        }
+      ],
+      "avg_logprob": -0.2368,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 42,
+      "start": 374.48,
+      "end": 380.68,
+      "text": "and what that is is a 32-bit BIOS",
+      "words": [
+        {
+          "word": "and",
+          "start": 374.48,
+          "end": 375.82,
+          "probability": 0.9819
+        },
+        {
+          "word": "what",
+          "start": 375.82,
+          "end": 376.08,
+          "probability": 0.998
+        },
+        {
+          "word": "that",
+          "start": 376.08,
+          "end": 376.38,
+          "probability": 0.999
+        },
+        {
+          "word": "is",
+          "start": 376.38,
+          "end": 376.78,
+          "probability": 0.999
+        },
+        {
+          "word": "is",
+          "start": 376.78,
+          "end": 377.04,
+          "probability": 0.8042
+        },
+        {
+          "word": "a",
+          "start": 377.04,
+          "end": 378.12,
+          "probability": 0.5176
+        },
+        {
+          "word": "32",
+          "start": 378.12,
+          "end": 378.48,
+          "probability": 0.3887
+        },
+        {
+          "word": "-bit",
+          "start": 378.48,
+          "end": 379.0,
+          "probability": 0.8359
+        },
+        {
+          "word": "BIOS",
+          "start": 379.0,
+          "end": 380.68,
+          "probability": 0.9194
+        }
+      ],
+      "avg_logprob": -0.2368,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 43,
+      "start": 380.68,
+      "end": 383.34,
+      "text": "that has a handful of",
+      "words": [
+        {
+          "word": "that",
+          "start": 380.68,
+          "end": 381.84,
+          "probability": 0.9375
+        },
+        {
+          "word": "has",
+          "start": 381.84,
+          "end": 382.26,
+          "probability": 0.999
+        },
+        {
+          "word": "a",
+          "start": 382.26,
+          "end": 382.44,
+          "probability": 0.9995
+        },
+        {
+          "word": "handful",
+          "start": 382.44,
+          "end": 382.86,
+          "probability": 0.9961
+        },
+        {
+          "word": "of",
+          "start": 382.86,
+          "end": 383.34,
+          "probability": 0.9966
+        }
+      ],
+      "avg_logprob": -0.2654,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 44,
+      "start": 386.92,
+      "end": 388.74,
+      "text": "where would that be",
+      "words": [
+        {
+          "word": "where",
+          "start": 386.92,
+          "end": 387.76,
+          "probability": 0.2793
+        },
+        {
+          "word": "would",
+          "start": 387.76,
+          "end": 388.1,
+          "probability": 0.9985
+        },
+        {
+          "word": "that",
+          "start": 388.1,
+          "end": 388.36,
+          "probability": 0.998
+        },
+        {
+          "word": "be",
+          "start": 388.36,
+          "end": 388.74,
+          "probability": 0.9956
+        }
+      ],
+      "avg_logprob": -0.2654,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 45,
+      "start": 390.84,
+      "end": 393.8,
+      "text": "the PCI BIOS has a handful of",
+      "words": [
+        {
+          "word": "the",
+          "start": 390.84,
+          "end": 391.68,
+          "probability": 0.4639
+        },
+        {
+          "word": "PCI",
+          "start": 391.68,
+          "end": 392.18,
+          "probability": 0.9043
+        },
+        {
+          "word": "BIOS",
+          "start": 392.18,
+          "end": 392.62,
+          "probability": 0.9512
+        },
+        {
+          "word": "has",
+          "start": 392.62,
+          "end": 392.84,
+          "probability": 0.9922
+        },
+        {
+          "word": "a",
+          "start": 392.84,
+          "end": 392.98,
+          "probability": 0.9995
+        },
+        {
+          "word": "handful",
+          "start": 392.98,
+          "end": 393.38,
+          "probability": 0.998
+        },
+        {
+          "word": "of",
+          "start": 393.38,
+          "end": 393.8,
+          "probability": 0.9897
+        }
+      ],
+      "avg_logprob": -0.2654,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 46,
+      "start": 394.84,
+      "end": 398.1,
+      "text": "you can read config space",
+      "words": [
+        {
+          "word": "you",
+          "start": 394.84,
+          "end": 395.68,
+          "probability": 0.8784
+        },
+        {
+          "word": "can",
+          "start": 395.68,
+          "end": 395.86,
+          "probability": 0.9995
+        },
+        {
+          "word": "read",
+          "start": 395.86,
+          "end": 396.26,
+          "probability": 0.999
+        },
+        {
+          "word": "config",
+          "start": 396.26,
+          "end": 397.48,
+          "probability": 0.9868
+        },
+        {
+          "word": "space",
+          "start": 397.48,
+          "end": 398.1,
+          "probability": 0.9873
+        }
+      ],
+      "avg_logprob": -0.2654,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 47,
+      "start": 400.68,
+      "end": 401.16,
+      "text": "or",
+      "words": [
+        {
+          "word": "or",
+          "start": 400.68,
+          "end": 401.16,
+          "probability": 0.5376
+        }
+      ],
+      "avg_logprob": -0.1538,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 48,
+      "start": 405.22,
+      "end": 406.94,
+      "text": "you can write config space",
+      "words": [
+        {
+          "word": "you",
+          "start": 405.22,
+          "end": 405.7,
+          "probability": 0.8574
+        },
+        {
+          "word": "can",
+          "start": 405.7,
+          "end": 405.88,
+          "probability": 0.9995
+        },
+        {
+          "word": "write",
+          "start": 405.88,
+          "end": 406.12,
+          "probability": 0.9927
+        },
+        {
+          "word": "config",
+          "start": 406.12,
+          "end": 406.44,
+          "probability": 0.9795
+        },
+        {
+          "word": "space",
+          "start": 406.44,
+          "end": 406.94,
+          "probability": 0.9697
+        }
+      ],
+      "avg_logprob": -0.1538,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 49,
+      "start": 406.94,
+      "end": 409.62,
+      "text": "or you can try and find a device class",
+      "words": [
+        {
+          "word": "or",
+          "start": 406.94,
+          "end": 407.74,
+          "probability": 0.6641
+        },
+        {
+          "word": "you",
+          "start": 407.74,
+          "end": 407.92,
+          "probability": 0.9995
+        },
+        {
+          "word": "can",
+          "start": 407.92,
+          "end": 408.06,
+          "probability": 1.0
+        },
+        {
+          "word": "try",
+          "start": 408.06,
+          "end": 408.24,
+          "probability": 0.9995
+        },
+        {
+          "word": "and",
+          "start": 408.24,
+          "end": 408.44,
+          "probability": 0.998
+        },
+        {
+          "word": "find",
+          "start": 408.44,
+          "end": 408.66,
+          "probability": 0.9995
+        },
+        {
+          "word": "a",
+          "start": 408.66,
+          "end": 408.82,
+          "probability": 0.9917
+        },
+        {
+          "word": "device",
+          "start": 408.82,
+          "end": 409.18,
+          "probability": 0.998
+        },
+        {
+          "word": "class",
+          "start": 409.18,
+          "end": 409.62,
+          "probability": 0.9995
+        }
+      ],
+      "avg_logprob": -0.1538,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 50,
+      "start": 411.14,
+      "end": 412.54,
+      "text": "that's what we're trying to do",
+      "words": [
+        {
+          "word": "that's",
+          "start": 411.14,
+          "end": 411.62,
+          "probability": 0.665
+        },
+        {
+          "word": "what",
+          "start": 411.62,
+          "end": 411.76,
+          "probability": 0.9995
+        },
+        {
+          "word": "we're",
+          "start": 411.76,
+          "end": 411.96,
+          "probability": 0.9976
+        },
+        {
+          "word": "trying",
+          "start": 411.96,
+          "end": 412.16,
+          "probability": 1.0
+        },
+        {
+          "word": "to",
+          "start": 412.16,
+          "end": 412.38,
+          "probability": 0.9995
+        },
+        {
+          "word": "do",
+          "start": 412.38,
+          "end": 412.54,
+          "probability": 0.999
+        }
+      ],
+      "avg_logprob": -0.1538,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 51,
+      "start": 412.54,
+      "end": 415.24,
+      "text": "we're trying to find the CD-ROM the correct way",
+      "words": [
+        {
+          "word": "we're",
+          "start": 412.54,
+          "end": 412.76,
+          "probability": 0.9136
+        },
+        {
+          "word": "trying",
+          "start": 412.76,
+          "end": 412.96,
+          "probability": 1.0
+        },
+        {
+          "word": "to",
+          "start": 412.96,
+          "end": 413.12,
+          "probability": 1.0
+        },
+        {
+          "word": "find",
+          "start": 413.12,
+          "end": 413.36,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 413.36,
+          "end": 413.56,
+          "probability": 0.9956
+        },
+        {
+          "word": "CD",
+          "start": 413.56,
+          "end": 413.82,
+          "probability": 0.3486
+        },
+        {
+          "word": "-ROM",
+          "start": 413.82,
+          "end": 414.22,
+          "probability": 0.9692
+        },
+        {
+          "word": "the",
+          "start": 414.22,
+          "end": 414.42,
+          "probability": 0.9907
+        },
+        {
+          "word": "correct",
+          "start": 414.42,
+          "end": 414.8,
+          "probability": 0.9976
+        },
+        {
+          "word": "way",
+          "start": 414.8,
+          "end": 415.24,
+          "probability": 0.9995
+        }
+      ],
+      "avg_logprob": -0.1538,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 52,
+      "start": 415.76,
+      "end": 419.28,
+      "text": "with this find PCI class",
+      "words": [
+        {
+          "word": "with",
+          "start": 415.76,
+          "end": 416.24,
+          "probability": 0.9966
+        },
+        {
+          "word": "this",
+          "start": 416.24,
+          "end": 416.54,
+          "probability": 0.9995
+        },
+        {
+          "word": "find",
+          "start": 416.54,
+          "end": 417.0,
+          "probability": 0.8301
+        },
+        {
+          "word": "PCI",
+          "start": 417.0,
+          "end": 418.58,
+          "probability": 0.9189
+        },
+        {
+          "word": "class",
+          "start": 418.58,
+          "end": 419.28,
+          "probability": 0.9971
+        }
+      ],
+      "avg_logprob": -0.1538,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 53,
+      "start": 420.22,
+      "end": 422.02,
+      "text": "you have to know the codes",
+      "words": [
+        {
+          "word": "you",
+          "start": 420.22,
+          "end": 420.94,
+          "probability": 0.426
+        },
+        {
+          "word": "have",
+          "start": 420.94,
+          "end": 421.1,
+          "probability": 0.9932
+        },
+        {
+          "word": "to",
+          "start": 421.1,
+          "end": 421.22,
+          "probability": 0.9995
+        },
+        {
+          "word": "know",
+          "start": 421.22,
+          "end": 421.38,
+          "probability": 0.9976
+        },
+        {
+          "word": "the",
+          "start": 421.38,
+          "end": 421.56,
+          "probability": 0.9985
+        },
+        {
+          "word": "codes",
+          "start": 421.56,
+          "end": 422.02,
+          "probability": 0.9824
+        }
+      ],
+      "avg_logprob": -0.1628,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 54,
+      "start": 422.02,
+      "end": 424.52,
+      "text": "if you look on the internet for PCI",
+      "words": [
+        {
+          "word": "if",
+          "start": 422.02,
+          "end": 422.26,
+          "probability": 0.957
+        },
+        {
+          "word": "you",
+          "start": 422.26,
+          "end": 422.38,
+          "probability": 0.9995
+        },
+        {
+          "word": "look",
+          "start": 422.38,
+          "end": 422.58,
+          "probability": 0.9985
+        },
+        {
+          "word": "on",
+          "start": 422.58,
+          "end": 422.72,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 422.72,
+          "end": 422.86,
+          "probability": 1.0
+        },
+        {
+          "word": "internet",
+          "start": 422.86,
+          "end": 423.16,
+          "probability": 0.9604
+        },
+        {
+          "word": "for",
+          "start": 423.16,
+          "end": 423.52,
+          "probability": 0.9937
+        },
+        {
+          "word": "PCI",
+          "start": 423.52,
+          "end": 424.52,
+          "probability": 0.6885
+        }
+      ],
+      "avg_logprob": -0.1628,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 55,
+      "start": 424.52,
+      "end": 429.56,
+      "text": "or for PCI class codes",
+      "words": [
+        {
+          "word": "or",
+          "start": 424.52,
+          "end": 425.28,
+          "probability": 0.8315
+        },
+        {
+          "word": "for",
+          "start": 425.28,
+          "end": 425.58,
+          "probability": 0.9336
+        },
+        {
+          "word": "PCI",
+          "start": 425.58,
+          "end": 427.4,
+          "probability": 0.9673
+        },
+        {
+          "word": "class",
+          "start": 427.4,
+          "end": 429.04,
+          "probability": 0.9717
+        },
+        {
+          "word": "codes",
+          "start": 429.04,
+          "end": 429.56,
+          "probability": 0.9639
+        }
+      ],
+      "avg_logprob": -0.1628,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 56,
+      "start": 429.56,
+      "end": 434.08,
+      "text": "then you can call this and it will identify a device class",
+      "words": [
+        {
+          "word": "then",
+          "start": 429.56,
+          "end": 430.86,
+          "probability": 0.8643
+        },
+        {
+          "word": "you",
+          "start": 430.86,
+          "end": 431.3,
+          "probability": 0.9365
+        },
+        {
+          "word": "can",
+          "start": 431.3,
+          "end": 431.48,
+          "probability": 0.998
+        },
+        {
+          "word": "call",
+          "start": 431.48,
+          "end": 431.76,
+          "probability": 0.999
+        },
+        {
+          "word": "this",
+          "start": 431.76,
+          "end": 432.02,
+          "probability": 0.998
+        },
+        {
+          "word": "and",
+          "start": 432.02,
+          "end": 432.22,
+          "probability": 0.9795
+        },
+        {
+          "word": "it",
+          "start": 432.22,
+          "end": 432.36,
+          "probability": 0.9761
+        },
+        {
+          "word": "will",
+          "start": 432.36,
+          "end": 432.74,
+          "probability": 0.876
+        },
+        {
+          "word": "identify",
+          "start": 432.74,
+          "end": 433.16,
+          "probability": 0.9966
+        },
+        {
+          "word": "a",
+          "start": 433.16,
+          "end": 433.4,
+          "probability": 0.9829
+        },
+        {
+          "word": "device",
+          "start": 433.4,
+          "end": 433.7,
+          "probability": 0.9912
+        },
+        {
+          "word": "class",
+          "start": 433.7,
+          "end": 434.08,
+          "probability": 0.9927
+        }
+      ],
+      "avg_logprob": -0.1628,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 57,
+      "start": 434.08,
+      "end": 438.8,
+      "text": "like SATA or ATA or IDE",
+      "words": [
+        {
+          "word": "like",
+          "start": 434.08,
+          "end": 434.98,
+          "probability": 0.9907
+        },
+        {
+          "word": "SATA",
+          "start": 434.98,
+          "end": 435.78,
+          "probability": 0.8945
+        },
+        {
+          "word": "or",
+          "start": 435.78,
+          "end": 436.18,
+          "probability": 0.9849
+        },
+        {
+          "word": "ATA",
+          "start": 436.18,
+          "end": 437.5,
+          "probability": 0.8809
+        },
+        {
+          "word": "or",
+          "start": 437.5,
+          "end": 438.42,
+          "probability": 0.9683
+        },
+        {
+          "word": "IDE",
+          "start": 438.42,
+          "end": 438.8,
+          "probability": 0.9673
+        }
+      ],
+      "avg_logprob": -0.1628,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 58,
+      "start": 441.4,
+      "end": 445.94,
+      "text": "and all three of those can be for ATA devices",
+      "words": [
+        {
+          "word": "and",
+          "start": 441.4,
+          "end": 441.92,
+          "probability": 0.7983
+        },
+        {
+          "word": "all",
+          "start": 441.92,
+          "end": 442.44,
+          "probability": 0.9756
+        },
+        {
+          "word": "three",
+          "start": 442.44,
+          "end": 442.7,
+          "probability": 0.9858
+        },
+        {
+          "word": "of",
+          "start": 442.7,
+          "end": 442.86,
+          "probability": 0.9858
+        },
+        {
+          "word": "those",
+          "start": 442.86,
+          "end": 443.08,
+          "probability": 0.9995
+        },
+        {
+          "word": "can",
+          "start": 443.08,
+          "end": 443.5,
+          "probability": 0.9941
+        },
+        {
+          "word": "be",
+          "start": 443.5,
+          "end": 443.76,
+          "probability": 0.999
+        },
+        {
+          "word": "for",
+          "start": 443.76,
+          "end": 444.24,
+          "probability": 0.9019
+        },
+        {
+          "word": "ATA",
+          "start": 444.24,
+          "end": 445.38,
+          "probability": 0.7593
+        },
+        {
+          "word": "devices",
+          "start": 445.38,
+          "end": 445.94,
+          "probability": 0.979
+        }
+      ],
+      "avg_logprob": -0.0915,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 59,
+      "start": 445.94,
+      "end": 447.46,
+      "text": "anyway so that",
+      "words": [
+        {
+          "word": "anyway",
+          "start": 445.94,
+          "end": 446.94,
+          "probability": 0.6226
+        },
+        {
+          "word": "so",
+          "start": 446.94,
+          "end": 447.2,
+          "probability": 0.9741
+        },
+        {
+          "word": "that",
+          "start": 447.2,
+          "end": 447.46,
+          "probability": 0.9478
+        }
+      ],
+      "avg_logprob": -0.0915,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 60,
+      "start": 447.46,
+      "end": 449.72,
+      "text": "then you read the config space",
+      "words": [
+        {
+          "word": "then",
+          "start": 447.46,
+          "end": 448.42,
+          "probability": 0.9761
+        },
+        {
+          "word": "you",
+          "start": 448.42,
+          "end": 448.58,
+          "probability": 0.9995
+        },
+        {
+          "word": "read",
+          "start": 448.58,
+          "end": 448.8,
+          "probability": 0.9985
+        },
+        {
+          "word": "the",
+          "start": 448.8,
+          "end": 448.96,
+          "probability": 0.9927
+        },
+        {
+          "word": "config",
+          "start": 448.96,
+          "end": 449.3,
+          "probability": 0.9858
+        },
+        {
+          "word": "space",
+          "start": 449.3,
+          "end": 449.72,
+          "probability": 0.9727
+        }
+      ],
+      "avg_logprob": -0.0915,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 61,
+      "start": 450.36,
+      "end": 453.86,
+      "text": "in order to find out the port numbers",
+      "words": [
+        {
+          "word": "in",
+          "start": 450.36,
+          "end": 450.88,
+          "probability": 0.9941
+        },
+        {
+          "word": "order",
+          "start": 450.88,
+          "end": 451.16,
+          "probability": 0.9995
+        },
+        {
+          "word": "to",
+          "start": 451.16,
+          "end": 451.54,
+          "probability": 0.9995
+        },
+        {
+          "word": "find",
+          "start": 451.54,
+          "end": 452.74,
+          "probability": 0.9912
+        },
+        {
+          "word": "out",
+          "start": 452.74,
+          "end": 452.92,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 452.92,
+          "end": 453.08,
+          "probability": 0.9995
+        },
+        {
+          "word": "port",
+          "start": 453.08,
+          "end": 453.38,
+          "probability": 0.9941
+        },
+        {
+          "word": "numbers",
+          "start": 453.38,
+          "end": 453.86,
+          "probability": 0.9951
+        }
+      ],
+      "avg_logprob": -0.0915,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 62,
+      "start": 454.56,
+      "end": 457.64,
+      "text": "and then from then on you can just use the port numbers",
+      "words": [
+        {
+          "word": "and",
+          "start": 454.56,
+          "end": 455.08,
+          "probability": 0.9917
+        },
+        {
+          "word": "then",
+          "start": 455.08,
+          "end": 455.28,
+          "probability": 0.9971
+        },
+        {
+          "word": "from",
+          "start": 455.28,
+          "end": 455.54,
+          "probability": 0.999
+        },
+        {
+          "word": "then",
+          "start": 455.54,
+          "end": 455.74,
+          "probability": 0.9946
+        },
+        {
+          "word": "on",
+          "start": 455.74,
+          "end": 455.96,
+          "probability": 0.9976
+        },
+        {
+          "word": "you",
+          "start": 455.96,
+          "end": 456.18,
+          "probability": 0.9961
+        },
+        {
+          "word": "can",
+          "start": 456.18,
+          "end": 456.34,
+          "probability": 0.9995
+        },
+        {
+          "word": "just",
+          "start": 456.34,
+          "end": 456.56,
+          "probability": 0.9985
+        },
+        {
+          "word": "use",
+          "start": 456.56,
+          "end": 456.8,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 456.8,
+          "end": 456.98,
+          "probability": 0.9985
+        },
+        {
+          "word": "port",
+          "start": 456.98,
+          "end": 457.24,
+          "probability": 0.9966
+        },
+        {
+          "word": "numbers",
+          "start": 457.24,
+          "end": 457.64,
+          "probability": 0.9976
+        }
+      ],
+      "avg_logprob": -0.0915,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 63,
+      "start": 457.64,
+      "end": 459.16,
+      "text": "and not use PCI",
+      "words": [
+        {
+          "word": "and",
+          "start": 457.64,
+          "end": 457.86,
+          "probability": 0.7974
+        },
+        {
+          "word": "not",
+          "start": 457.86,
+          "end": 458.1,
+          "probability": 0.9897
+        },
+        {
+          "word": "use",
+          "start": 458.1,
+          "end": 458.44,
+          "probability": 0.9922
+        },
+        {
+          "word": "PCI",
+          "start": 458.44,
+          "end": 459.16,
+          "probability": 0.9434
+        }
+      ],
+      "avg_logprob": -0.211,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 64,
+      "start": 462.28,
+      "end": 464.2,
+      "text": "there's PCI rep",
+      "words": [
+        {
+          "word": "there's",
+          "start": 462.28,
+          "end": 463.18,
+          "probability": 0.6309
+        },
+        {
+          "word": "PCI",
+          "start": 463.18,
+          "end": 463.8,
+          "probability": 0.9346
+        },
+        {
+          "word": "rep",
+          "start": 463.8,
+          "end": 464.2,
+          "probability": 0.8149
+        }
+      ],
+      "avg_logprob": -0.211,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 65,
+      "start": 468.42,
+      "end": 470.08,
+      "text": "this tells us",
+      "words": [
+        {
+          "word": "this",
+          "start": 468.42,
+          "end": 469.32,
+          "probability": 0.9575
+        },
+        {
+          "word": "tells",
+          "start": 469.32,
+          "end": 469.64,
+          "probability": 0.9961
+        },
+        {
+          "word": "us",
+          "start": 469.64,
+          "end": 470.08,
+          "probability": 0.9985
+        }
+      ],
+      "avg_logprob": -0.211,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 66,
+      "start": 470.08,
+      "end": 472.32,
+      "text": "let's see if we identify",
+      "words": [
+        {
+          "word": "let's",
+          "start": 470.08,
+          "end": 470.9,
+          "probability": 0.9487
+        },
+        {
+          "word": "see",
+          "start": 470.9,
+          "end": 471.1,
+          "probability": 0.999
+        },
+        {
+          "word": "if",
+          "start": 471.1,
+          "end": 471.48,
+          "probability": 0.9941
+        },
+        {
+          "word": "we",
+          "start": 471.48,
+          "end": 471.72,
+          "probability": 0.999
+        },
+        {
+          "word": "identify",
+          "start": 471.72,
+          "end": 472.32,
+          "probability": 0.9941
+        }
+      ],
+      "avg_logprob": -0.211,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 67,
+      "start": 472.32,
+      "end": 474.6,
+      "text": "the SATA",
+      "words": [
+        {
+          "word": "the",
+          "start": 472.32,
+          "end": 473.94,
+          "probability": 0.7163
+        },
+        {
+          "word": "SATA",
+          "start": 473.94,
+          "end": 474.6,
+          "probability": 0.8945
+        }
+      ],
+      "avg_logprob": -0.211,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 68,
+      "start": 474.6,
+      "end": 476.1,
+      "text": "let's see where SATA is",
+      "words": [
+        {
+          "word": "let's",
+          "start": 474.6,
+          "end": 475.08,
+          "probability": 0.9072
+        },
+        {
+          "word": "see",
+          "start": 475.08,
+          "end": 475.18,
+          "probability": 0.9976
+        },
+        {
+          "word": "where",
+          "start": 475.18,
+          "end": 475.38,
+          "probability": 0.979
+        },
+        {
+          "word": "SATA",
+          "start": 475.38,
+          "end": 475.84,
+          "probability": 0.9707
+        },
+        {
+          "word": "is",
+          "start": 475.84,
+          "end": 476.1,
+          "probability": 0.9863
+        }
+      ],
+      "avg_logprob": -0.211,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 69,
+      "start": 476.64,
+      "end": 478.3,
+      "text": "or ATA",
+      "words": [
+        {
+          "word": "or",
+          "start": 476.64,
+          "end": 477.82,
+          "probability": 0.7959
+        },
+        {
+          "word": "ATA",
+          "start": 477.82,
+          "end": 478.3,
+          "probability": 0.8877
+        }
+      ],
+      "avg_logprob": -0.211,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 70,
+      "start": 483.72,
+      "end": 484.88,
+      "text": "there's a SCSI",
+      "words": [
+        {
+          "word": "there's",
+          "start": 483.72,
+          "end": 484.3,
+          "probability": 0.5737
+        },
+        {
+          "word": "a",
+          "start": 484.3,
+          "end": 484.4,
+          "probability": 0.9912
+        },
+        {
+          "word": "SCSI",
+          "start": 484.4,
+          "end": 484.88,
+          "probability": 0.6099
+        }
+      ],
+      "avg_logprob": -0.1339,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 71,
+      "start": 484.88,
+      "end": 486.62,
+      "text": "is that what I'm using?",
+      "words": [
+        {
+          "word": "is",
+          "start": 484.88,
+          "end": 485.82,
+          "probability": 0.7031
+        },
+        {
+          "word": "that",
+          "start": 485.82,
+          "end": 485.96,
+          "probability": 0.9985
+        },
+        {
+          "word": "what",
+          "start": 485.96,
+          "end": 486.1,
+          "probability": 0.9976
+        },
+        {
+          "word": "I'm",
+          "start": 486.1,
+          "end": 486.28,
+          "probability": 0.9658
+        },
+        {
+          "word": "using?",
+          "start": 486.28,
+          "end": 486.62,
+          "probability": 0.9995
+        }
+      ],
+      "avg_logprob": -0.1339,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 72,
+      "start": 486.86,
+      "end": 488.36,
+      "text": "I don't think I'm using SCSI",
+      "words": [
+        {
+          "word": "I",
+          "start": 486.86,
+          "end": 486.94,
+          "probability": 0.9917
+        },
+        {
+          "word": "don't",
+          "start": 486.94,
+          "end": 487.14,
+          "probability": 0.999
+        },
+        {
+          "word": "think",
+          "start": 487.14,
+          "end": 487.3,
+          "probability": 0.9995
+        },
+        {
+          "word": "I'm",
+          "start": 487.3,
+          "end": 487.54,
+          "probability": 0.9863
+        },
+        {
+          "word": "using",
+          "start": 487.54,
+          "end": 487.82,
+          "probability": 0.9995
+        },
+        {
+          "word": "SCSI",
+          "start": 487.82,
+          "end": 488.36,
+          "probability": 0.9731
+        }
+      ],
+      "avg_logprob": -0.1339,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 73,
+      "start": 488.36,
+      "end": 490.74,
+      "text": "how can I be using SCSI?",
+      "words": [
+        {
+          "word": "how",
+          "start": 488.36,
+          "end": 489.5,
+          "probability": 0.542
+        },
+        {
+          "word": "can",
+          "start": 489.5,
+          "end": 489.68,
+          "probability": 0.9106
+        },
+        {
+          "word": "I",
+          "start": 489.68,
+          "end": 489.8,
+          "probability": 0.9868
+        },
+        {
+          "word": "be",
+          "start": 489.8,
+          "end": 489.96,
+          "probability": 0.998
+        },
+        {
+          "word": "using",
+          "start": 489.96,
+          "end": 490.26,
+          "probability": 0.9995
+        },
+        {
+          "word": "SCSI?",
+          "start": 490.26,
+          "end": 490.74,
+          "probability": 0.9941
+        }
+      ],
+      "avg_logprob": -0.1339,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 74,
+      "start": 493.48,
+      "end": 495.36,
+      "text": "I don't even know which one of these",
+      "words": [
+        {
+          "word": "I",
+          "start": 493.48,
+          "end": 494.06,
+          "probability": 0.9883
+        },
+        {
+          "word": "don't",
+          "start": 494.06,
+          "end": 494.22,
+          "probability": 1.0
+        },
+        {
+          "word": "even",
+          "start": 494.22,
+          "end": 494.38,
+          "probability": 0.999
+        },
+        {
+          "word": "know",
+          "start": 494.38,
+          "end": 494.58,
+          "probability": 1.0
+        },
+        {
+          "word": "which",
+          "start": 494.58,
+          "end": 494.82,
+          "probability": 0.9995
+        },
+        {
+          "word": "one",
+          "start": 494.82,
+          "end": 495.0,
+          "probability": 1.0
+        },
+        {
+          "word": "of",
+          "start": 495.0,
+          "end": 495.12,
+          "probability": 0.9995
+        },
+        {
+          "word": "these",
+          "start": 495.12,
+          "end": 495.36,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.1339,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 75,
+      "start": 496.66,
+      "end": 498.44,
+      "text": "maybe we didn't find it",
+      "words": [
+        {
+          "word": "maybe",
+          "start": 496.66,
+          "end": 497.24,
+          "probability": 0.9375
+        },
+        {
+          "word": "we",
+          "start": 497.24,
+          "end": 497.46,
+          "probability": 1.0
+        },
+        {
+          "word": "didn't",
+          "start": 497.46,
+          "end": 497.8,
+          "probability": 1.0
+        },
+        {
+          "word": "find",
+          "start": 497.8,
+          "end": 498.12,
+          "probability": 0.9995
+        },
+        {
+          "word": "it",
+          "start": 498.12,
+          "end": 498.44,
+          "probability": 0.9995
+        }
+      ],
+      "avg_logprob": -0.1339,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 76,
+      "start": 499.92,
+      "end": 500.5,
+      "text": "anyway",
+      "words": [
+        {
+          "word": "anyway",
+          "start": 499.92,
+          "end": 500.5,
+          "probability": 0.8501
+        }
+      ],
+      "avg_logprob": -0.1339,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 77,
+      "start": 501.5,
+      "end": 502.08,
+      "text": "VMware",
+      "words": [
+        {
+          "word": "VMware",
+          "start": 501.5,
+          "end": 502.08,
+          "probability": 0.5586
+        }
+      ],
+      "avg_logprob": -0.1339,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 78,
+      "start": 504.12,
+      "end": 504.7,
+      "text": "allows",
+      "words": [
+        {
+          "word": "allows",
+          "start": 504.12,
+          "end": 504.7,
+          "probability": 0.9917
+        }
+      ],
+      "avg_logprob": -0.1339,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 79,
+      "start": 505.46,
+      "end": 508.12,
+      "text": "primary and secondary IDE to function",
+      "words": [
+        {
+          "word": "primary",
+          "start": 505.46,
+          "end": 506.04,
+          "probability": 0.9839
+        },
+        {
+          "word": "and",
+          "start": 506.04,
+          "end": 506.34,
+          "probability": 0.9995
+        },
+        {
+          "word": "secondary",
+          "start": 506.34,
+          "end": 506.84,
+          "probability": 0.9995
+        },
+        {
+          "word": "IDE",
+          "start": 506.84,
+          "end": 507.22,
+          "probability": 0.9839
+        },
+        {
+          "word": "to",
+          "start": 507.22,
+          "end": 507.68,
+          "probability": 0.9995
+        },
+        {
+          "word": "function",
+          "start": 507.68,
+          "end": 508.12,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.1339,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 80,
+      "start": 508.12,
+      "end": 512.18,
+      "text": "I don't even know which PCI device it is actually",
+      "words": [
+        {
+          "word": "I",
+          "start": 508.12,
+          "end": 509.18,
+          "probability": 0.8037
+        },
+        {
+          "word": "don't",
+          "start": 509.18,
+          "end": 509.3,
+          "probability": 0.9814
+        },
+        {
+          "word": "even",
+          "start": 509.3,
+          "end": 509.48,
+          "probability": 0.9971
+        },
+        {
+          "word": "know",
+          "start": 509.48,
+          "end": 509.68,
+          "probability": 0.999
+        },
+        {
+          "word": "which",
+          "start": 509.68,
+          "end": 509.94,
+          "probability": 0.9971
+        },
+        {
+          "word": "PCI",
+          "start": 509.94,
+          "end": 510.48,
+          "probability": 0.9946
+        },
+        {
+          "word": "device",
+          "start": 510.48,
+          "end": 511.28,
+          "probability": 0.9834
+        },
+        {
+          "word": "it",
+          "start": 511.28,
+          "end": 511.48,
+          "probability": 0.9932
+        },
+        {
+          "word": "is",
+          "start": 511.48,
+          "end": 511.74,
+          "probability": 0.9995
+        },
+        {
+          "word": "actually",
+          "start": 511.74,
+          "end": 512.18,
+          "probability": 0.5195
+        }
+      ],
+      "avg_logprob": -0.1993,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 81,
+      "start": 513.5,
+      "end": 514.16,
+      "text": "anyway",
+      "words": [
+        {
+          "word": "anyway",
+          "start": 513.5,
+          "end": 514.16,
+          "probability": 0.0963
+        }
+      ],
+      "avg_logprob": -0.1993,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 82,
+      "start": 515.22,
+      "end": 515.88,
+      "text": "so",
+      "words": [
+        {
+          "word": "so",
+          "start": 515.22,
+          "end": 515.88,
+          "probability": 0.7388
+        }
+      ],
+      "avg_logprob": -0.1993,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 83,
+      "start": 515.88,
+      "end": 518.54,
+      "text": "when you boot on native hardware",
+      "words": [
+        {
+          "word": "when",
+          "start": 515.88,
+          "end": 516.56,
+          "probability": 0.9897
+        },
+        {
+          "word": "you",
+          "start": 516.56,
+          "end": 516.74,
+          "probability": 0.999
+        },
+        {
+          "word": "boot",
+          "start": 516.74,
+          "end": 517.02,
+          "probability": 0.9956
+        },
+        {
+          "word": "on",
+          "start": 517.02,
+          "end": 517.6,
+          "probability": 0.9937
+        },
+        {
+          "word": "native",
+          "start": 517.6,
+          "end": 517.96,
+          "probability": 0.9756
+        },
+        {
+          "word": "hardware",
+          "start": 517.96,
+          "end": 518.54,
+          "probability": 0.9849
+        }
+      ],
+      "avg_logprob": -0.1993,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 84,
+      "start": 519.72,
+      "end": 520.38,
+      "text": "it",
+      "words": [
+        {
+          "word": "it",
+          "start": 519.72,
+          "end": 520.38,
+          "probability": 0.5742
+        }
+      ],
+      "avg_logprob": -0.1993,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 85,
+      "start": 522.38,
+      "end": 523.04,
+      "text": "it",
+      "words": [
+        {
+          "word": "it",
+          "start": 522.38,
+          "end": 523.04,
+          "probability": 0.3022
+        }
+      ],
+      "avg_logprob": -0.1993,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 86,
+      "start": 523.88,
+      "end": 526.38,
+      "text": "might ask you for the port numbers",
+      "words": [
+        {
+          "word": "might",
+          "start": 523.88,
+          "end": 524.54,
+          "probability": 0.9326
+        },
+        {
+          "word": "ask",
+          "start": 524.54,
+          "end": 524.98,
+          "probability": 0.9946
+        },
+        {
+          "word": "you",
+          "start": 524.98,
+          "end": 525.18,
+          "probability": 0.9878
+        },
+        {
+          "word": "for",
+          "start": 525.18,
+          "end": 525.42,
+          "probability": 0.9985
+        },
+        {
+          "word": "the",
+          "start": 525.42,
+          "end": 525.62,
+          "probability": 0.9985
+        },
+        {
+          "word": "port",
+          "start": 525.62,
+          "end": 525.9,
+          "probability": 0.9956
+        },
+        {
+          "word": "numbers",
+          "start": 525.9,
+          "end": 526.38,
+          "probability": 0.9932
+        }
+      ],
+      "avg_logprob": -0.1993,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 87,
+      "start": 526.38,
+      "end": 526.78,
+      "text": "for",
+      "words": [
+        {
+          "word": "for",
+          "start": 526.38,
+          "end": 526.78,
+          "probability": 0.9883
+        }
+      ],
+      "avg_logprob": -0.1993,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 88,
+      "start": 528.82,
+      "end": 530.56,
+      "text": "the CD-ROM",
+      "words": [
+        {
+          "word": "the",
+          "start": 528.82,
+          "end": 529.48,
+          "probability": 0.9712
+        },
+        {
+          "word": "CD",
+          "start": 529.48,
+          "end": 530.08,
+          "probability": 0.8794
+        },
+        {
+          "word": "-ROM",
+          "start": 530.08,
+          "end": 530.56,
+          "probability": 0.916
+        }
+      ],
+      "avg_logprob": -0.1993,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 89,
+      "start": 531.84,
+      "end": 533.4,
+      "text": "if it can't find it",
+      "words": [
+        {
+          "word": "if",
+          "start": 531.84,
+          "end": 532.5,
+          "probability": 0.875
+        },
+        {
+          "word": "it",
+          "start": 532.5,
+          "end": 532.62,
+          "probability": 0.9839
+        },
+        {
+          "word": "can't",
+          "start": 532.62,
+          "end": 532.92,
+          "probability": 0.999
+        },
+        {
+          "word": "find",
+          "start": 532.92,
+          "end": 533.18,
+          "probability": 0.998
+        },
+        {
+          "word": "it",
+          "start": 533.18,
+          "end": 533.4,
+          "probability": 0.9951
+        }
+      ],
+      "avg_logprob": -0.1993,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 90,
+      "start": 533.4,
+      "end": 535.02,
+      "text": "it asks you for the port numbers",
+      "words": [
+        {
+          "word": "it",
+          "start": 533.4,
+          "end": 533.56,
+          "probability": 0.7329
+        },
+        {
+          "word": "asks",
+          "start": 533.56,
+          "end": 533.82,
+          "probability": 0.7979
+        },
+        {
+          "word": "you",
+          "start": 533.82,
+          "end": 534.02,
+          "probability": 0.9741
+        },
+        {
+          "word": "for",
+          "start": 534.02,
+          "end": 534.2,
+          "probability": 0.9985
+        },
+        {
+          "word": "the",
+          "start": 534.2,
+          "end": 534.34,
+          "probability": 0.999
+        },
+        {
+          "word": "port",
+          "start": 534.34,
+          "end": 534.6,
+          "probability": 0.9971
+        },
+        {
+          "word": "numbers",
+          "start": 534.6,
+          "end": 535.02,
+          "probability": 0.9961
+        }
+      ],
+      "avg_logprob": -0.1993,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 91,
+      "start": 535.02,
+      "end": 536.2,
+      "text": "and",
+      "words": [
+        {
+          "word": "and",
+          "start": 535.02,
+          "end": 536.2,
+          "probability": 0.8608
+        }
+      ],
+      "avg_logprob": -0.1993,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 92,
+      "start": 536.2,
+      "end": 537.38,
+      "text": "anyway",
+      "words": [
+        {
+          "word": "anyway",
+          "start": 536.2,
+          "end": 537.38,
+          "probability": 0.1036
+        }
+      ],
+      "avg_logprob": -0.52,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 93,
+      "start": 537.38,
+      "end": 538.24,
+      "text": "so",
+      "words": [
+        {
+          "word": "so",
+          "start": 537.38,
+          "end": 538.24,
+          "probability": 0.3701
+        }
+      ],
+      "avg_logprob": -0.52,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 94,
+      "start": 538.24,
+      "end": 538.94,
+      "text": "oh well",
+      "words": [
+        {
+          "word": "oh",
+          "start": 538.24,
+          "end": 538.76,
+          "probability": 0.791
+        },
+        {
+          "word": "well",
+          "start": 538.76,
+          "end": 538.94,
+          "probability": 0.9961
+        }
+      ],
+      "avg_logprob": -0.52,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 95,
+      "start": 538.94,
+      "end": 538.94,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 96,
+      "start": 538.94,
+      "end": 538.96,
+      "text": "we can name it",
+      "words": [
+        {
+          "word": "we",
+          "start": 538.94,
+          "end": 538.96,
+          "probability": 0.0068
+        },
+        {
+          "word": "can",
+          "start": 538.96,
+          "end": 538.96,
+          "probability": 0.7183
+        },
+        {
+          "word": "name",
+          "start": 538.96,
+          "end": 538.96,
+          "probability": 0.8579
+        },
+        {
+          "word": "it",
+          "start": 538.96,
+          "end": 538.96,
+          "probability": 0.9189
+        }
+      ],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 97,
+      "start": 538.96,
+      "end": 538.96,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 98,
+      "start": 538.96,
+      "end": 538.96,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 99,
+      "start": 538.96,
+      "end": 538.96,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 100,
+      "start": 538.96,
+      "end": 538.96,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 101,
+      "start": 538.96,
+      "end": 538.96,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 102,
+      "start": 538.96,
+      "end": 538.96,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 103,
+      "start": 538.96,
+      "end": 538.96,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 104,
+      "start": 538.96,
+      "end": 538.96,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 105,
+      "start": 538.96,
+      "end": 538.96,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 106,
+      "start": 538.96,
+      "end": 538.96,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 107,
+      "start": 538.96,
+      "end": 538.96,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 108,
+      "start": 538.96,
+      "end": 538.96,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 109,
+      "start": 538.96,
+      "end": 538.96,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 110,
+      "start": 538.96,
+      "end": 538.96,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 111,
+      "start": 538.96,
+      "end": 538.96,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 112,
+      "start": 538.96,
+      "end": 538.96,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 113,
+      "start": 538.96,
+      "end": 539.04,
+      "text": "we can name it",
+      "words": [
+        {
+          "word": "we",
+          "start": 538.96,
+          "end": 539.0,
+          "probability": 0.7808
+        },
+        {
+          "word": "can",
+          "start": 539.0,
+          "end": 539.04,
+          "probability": 0.9795
+        },
+        {
+          "word": "name",
+          "start": 539.04,
+          "end": 539.04,
+          "probability": 0.9932
+        },
+        {
+          "word": "it",
+          "start": 539.04,
+          "end": 539.04,
+          "probability": 0.9917
+        }
+      ],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 114,
+      "start": 539.04,
+      "end": 539.04,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 115,
+      "start": 539.04,
+      "end": 539.1,
+      "text": "we can name it",
+      "words": [
+        {
+          "word": "we",
+          "start": 539.04,
+          "end": 539.04,
+          "probability": 0.812
+        },
+        {
+          "word": "can",
+          "start": 539.04,
+          "end": 539.1,
+          "probability": 0.9829
+        },
+        {
+          "word": "name",
+          "start": 539.1,
+          "end": 539.1,
+          "probability": 0.9927
+        },
+        {
+          "word": "it",
+          "start": 539.1,
+          "end": 539.1,
+          "probability": 0.9922
+        }
+      ],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 116,
+      "start": 539.1,
+      "end": 539.1,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 117,
+      "start": 539.1,
+      "end": 539.1,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 118,
+      "start": 539.1,
+      "end": 539.1,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 119,
+      "start": 539.1,
+      "end": 539.1,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 120,
+      "start": 539.1,
+      "end": 539.1,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 121,
+      "start": 539.1,
+      "end": 539.1,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 122,
+      "start": 539.1,
+      "end": 539.3,
+      "text": "we can name it",
+      "words": [
+        {
+          "word": "we",
+          "start": 539.1,
+          "end": 539.1,
+          "probability": 0.8853
+        },
+        {
+          "word": "can",
+          "start": 539.1,
+          "end": 539.1,
+          "probability": 0.9897
+        },
+        {
+          "word": "name",
+          "start": 539.1,
+          "end": 539.3,
+          "probability": 0.9907
+        },
+        {
+          "word": "it",
+          "start": 539.3,
+          "end": 539.3,
+          "probability": 0.9932
+        }
+      ],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 123,
+      "start": 539.3,
+      "end": 539.54,
+      "text": "we can name it",
+      "words": [
+        {
+          "word": "we",
+          "start": 539.3,
+          "end": 539.3,
+          "probability": 0.895
+        },
+        {
+          "word": "can",
+          "start": 539.3,
+          "end": 539.38,
+          "probability": 0.9902
+        },
+        {
+          "word": "name",
+          "start": 539.38,
+          "end": 539.54,
+          "probability": 0.9902
+        },
+        {
+          "word": "it",
+          "start": 539.54,
+          "end": 539.54,
+          "probability": 0.9932
+        }
+      ],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 124,
+      "start": 539.54,
+      "end": 539.92,
+      "text": "we can name it",
+      "words": [
+        {
+          "word": "we",
+          "start": 539.54,
+          "end": 539.54,
+          "probability": 0.8955
+        },
+        {
+          "word": "can",
+          "start": 539.54,
+          "end": 539.8,
+          "probability": 0.9902
+        },
+        {
+          "word": "name",
+          "start": 539.8,
+          "end": 539.92,
+          "probability": 0.9902
+        },
+        {
+          "word": "it",
+          "start": 539.92,
+          "end": 539.92,
+          "probability": 0.9932
+        }
+      ],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 125,
+      "start": 539.92,
+      "end": 539.94,
+      "text": "name it",
+      "words": [
+        {
+          "word": "name",
+          "start": 539.92,
+          "end": 539.92,
+          "probability": 0.0104
+        },
+        {
+          "word": "it",
+          "start": 539.92,
+          "end": 539.94,
+          "probability": 0.9712
+        }
+      ],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 126,
+      "start": 539.94,
+      "end": 540.12,
+      "text": "name it",
+      "words": [
+        {
+          "word": "name",
+          "start": 539.94,
+          "end": 540.12,
+          "probability": 0.0586
+        },
+        {
+          "word": "it",
+          "start": 540.12,
+          "end": 540.12,
+          "probability": 0.9448
+        }
+      ],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 127,
+      "start": 540.12,
+      "end": 540.12,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 128,
+      "start": 540.12,
+      "end": 540.12,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 129,
+      "start": 540.12,
+      "end": 540.32,
+      "text": "name it",
+      "words": [
+        {
+          "word": "name",
+          "start": 540.12,
+          "end": 540.32,
+          "probability": 0.874
+        },
+        {
+          "word": "it",
+          "start": 540.32,
+          "end": 540.32,
+          "probability": 0.9351
+        }
+      ],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 130,
+      "start": 540.32,
+      "end": 540.32,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 131,
+      "start": 540.32,
+      "end": 540.32,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 132,
+      "start": 540.32,
+      "end": 540.32,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 133,
+      "start": 540.32,
+      "end": 540.32,
+      "text": "",
+      "words": [],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 134,
+      "start": 540.32,
+      "end": 541.24,
+      "text": "name it",
+      "words": [
+        {
+          "word": "name",
+          "start": 540.32,
+          "end": 540.32,
+          "probability": 0.979
+        },
+        {
+          "word": "it",
+          "start": 540.32,
+          "end": 541.24,
+          "probability": 0.9429
+        }
+      ],
+      "avg_logprob": NaN,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 135,
+      "start": 541.22,
+      "end": 541.22,
+      "text": "",
+      "words": [],
+      "avg_logprob": -0.8143,
+      "no_speech_prob": 0.0
+    }
+  ]
+}

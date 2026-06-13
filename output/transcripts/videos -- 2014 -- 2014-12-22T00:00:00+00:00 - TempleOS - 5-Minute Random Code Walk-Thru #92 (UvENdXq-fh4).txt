@@ -1,0 +1,149 @@
+========================================================================
+FILE        : videos/2014/2014-12-22T00:00:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #92 (UvENdXq-fh4).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-12-22T00:00:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #92 (UvENdXq-fh4).mp4
+FORMAT      : MPEG4
+SIZE        : 21,346,109 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:05:46.720
+TRANSCRIBED: 2026-05-10T20:36:53.963618+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+This is Temple OS 5-Minute Random Code Walkthrough Episode 92 and I'm your host Terry Davis. And where are we today? We are in Pig 3D. Okay, this is an application that is a demo. It shows you that you can locate and move around these 3D markers. So, at the top we have the markers. They're meshes. So if you hit Control R, you want to go down, put it on top of the mesh, and then click on Edit 3D Mesh. Don't do Shiftable. Anyway, then Control Z, Control Z, Control Z, and then you can rotate with the... Anyway, so... So I'm going to bail out of that. So those are sprites, just like any other sprite. It's not very easy to edit and create those sprites. The editor, it's really tedious. There's just not a good way to do it, I don't think. I don't know what they do on other systems. So, we have objects. The objects are in a circular queue. And it has a union of these point, circle, line, sprite. And when we init, we... Somewhere here it randomly picks one. Oh, it does... No, it's a fixed limit. It does 50 points, 20 circles, 20 lines. And it's kind of like C++, the way it's laid out. I learned C++, but I don't... I didn't... The compiler doesn't do C++. So I kind of... I do it manually. You can see how this would be like a C++. So we use... We don't use the new operator. There's no such thing in TempleOS. You object... You allocate with malloc in free... Or calloc if you want. That's for clear alloc. Like, that's... That... Sets it to zero. So, when we draw, we... Well... For the 3D meshes, we have to set a... Set transformation. I think we have to... When you're dealing with 3D, you have to do allocate depth buffer at some point. And then... It's drawing it with the transformation on. We're doing a rotation, I do believe. Where are we rotating? Oh, no. Now I'm confused. Okay, here's where... We're updating the rotation. Where are we doing that? Updated each refresh. Not guaranteed to be uniform. Rounding error. Okay, well... Oh, here's where we're setting the rotation. Old R. Where is R? There's R. So we're setting up a 4x4 matrix. Where are we doing that? R. Old R and R. I don't see it. Where is it? I'll keep depth buffer. Oh, whoa. It looks like each object has a rotation matrix. And then we... We wrote... We... It looks like we... Oh, we have a derivative of the rotation in a rotation. That's so that each object can rotate at a different speed in a different direction. Let's see if that's how it works. So let's see, for example. Can we tell... This one is tumbling over and over. It looks like they're the same speed, though, doesn't it? So where are we doing that? Initialize. Then we set an identity. And then we... We rotate randomly. Let's see what happens if we modify this just for fun. How about times 10? You can see they're rotating faster. Some of them are spinning fast and slow. Okay. Well, that's an interesting idea. How about times 10? How about times 10? How about times 10? How about times 10? How about times 10? Thank you.
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:06.440]  This is Temple OS 5-Minute Random Code Walkthrough Episode 92 and I'm your host Terry Davis.
+[00:00:08.500 -> 00:00:11.840]  And where are we today? We are in Pig 3D.
+[00:00:13.880 -> 00:00:20.600]  Okay, this is an application that is a demo.
+[00:00:20.600 -> 00:00:29.000]  It shows you that you can locate and move around these 3D markers.
+[00:00:31.260 -> 00:00:34.560]  So, at the top we have the markers.
+[00:00:40.160 -> 00:00:41.280]  They're meshes.
+[00:00:41.580 -> 00:00:47.560]  So if you hit Control R, you want to go down, put it on top of the mesh,
+[00:00:48.180 -> 00:00:53.220]  and then click on Edit 3D Mesh.
+[00:00:53.360 -> 00:00:54.260]  Don't do Shiftable.
+[00:00:54.680 -> 00:00:57.580]  Anyway, then Control Z, Control Z, Control Z,
+[00:00:57.580 -> 00:01:00.580]  and then you can rotate with the...
+[00:01:03.280 -> 00:01:04.400]  Anyway, so...
+[00:01:12.700 -> 00:01:14.260]  So I'm going to bail out of that.
+[00:01:14.900 -> 00:01:17.980]  So those are sprites, just like any other sprite.
+[00:01:20.840 -> 00:01:24.760]  It's not very easy to edit and create those sprites.
+[00:01:27.640 -> 00:01:29.500]  The editor, it's really tedious.
+[00:01:30.300 -> 00:01:32.720]  There's just not a good way to do it, I don't think.
+[00:01:33.000 -> 00:01:35.380]  I don't know what they do on other systems.
+[00:01:37.560 -> 00:01:40.000]  So, we have objects.
+[00:01:47.380 -> 00:01:49.740]  The objects are in a circular queue.
+[00:01:52.860 -> 00:01:59.120]  And it has a union of these point, circle, line, sprite.
+[00:02:00.320 -> 00:02:04.260]  And when we init, we...
+[00:02:07.560 -> 00:02:09.900]  Somewhere here it randomly picks one.
+[00:02:11.060 -> 00:02:12.340]  Oh, it does...
+[00:02:12.340 -> 00:02:13.320]  No, it's a fixed limit.
+[00:02:13.600 -> 00:02:18.540]  It does 50 points, 20 circles, 20 lines.
+[00:02:22.040 -> 00:02:26.200]  And it's kind of like C++, the way it's laid out.
+[00:02:26.820 -> 00:02:29.560]  I learned C++, but I don't...
+[00:02:29.560 -> 00:02:30.320]  I didn't...
+[00:02:30.320 -> 00:02:32.020]  The compiler doesn't do C++.
+[00:02:33.420 -> 00:02:35.540]  So I kind of...
+[00:02:35.540 -> 00:02:36.880]  I do it manually.
+[00:02:37.500 -> 00:02:39.660]  You can see how this would be like a C++.
+[00:02:44.200 -> 00:02:46.360]  So we use...
+[00:02:46.360 -> 00:02:48.060]  We don't use the new operator.
+[00:02:48.380 -> 00:02:50.980]  There's no such thing in TempleOS.
+[00:02:51.380 -> 00:02:52.100]  You object...
+[00:02:52.760 -> 00:02:57.220]  You allocate with malloc in free...
+[00:02:57.220 -> 00:02:58.780]  Or calloc if you want.
+[00:02:58.980 -> 00:03:01.200]  That's for clear alloc.
+[00:03:01.200 -> 00:03:01.860]  Like, that's...
+[00:03:01.860 -> 00:03:02.400]  That...
+[00:03:02.400 -> 00:03:03.800]  Sets it to zero.
+[00:03:06.460 -> 00:03:09.660]  So, when we draw, we...
+[00:03:12.660 -> 00:03:12.820]  Well...
+[00:03:14.100 -> 00:03:17.360]  For the 3D meshes, we have to set a...
+[00:03:17.360 -> 00:03:18.200]  Set transformation.
+[00:03:18.560 -> 00:03:19.680]  I think we have to...
+[00:03:19.680 -> 00:03:25.060]  When you're dealing with 3D, you have to do allocate depth buffer at some point.
+[00:03:26.300 -> 00:03:27.020]  And then...
+[00:03:30.460 -> 00:03:33.060]  It's drawing it with the transformation on.
+[00:03:34.900 -> 00:03:37.060]  We're doing a rotation, I do believe.
+[00:03:37.540 -> 00:03:38.920]  Where are we rotating?
+[00:03:39.160 -> 00:03:39.540]  Oh, no.
+[00:03:40.820 -> 00:03:41.980]  Now I'm confused.
+[00:03:45.200 -> 00:03:46.900]  Okay, here's where...
+[00:03:49.440 -> 00:03:51.460]  We're updating the rotation.
+[00:03:51.880 -> 00:03:53.120]  Where are we doing that?
+[00:03:56.440 -> 00:03:58.000]  Updated each refresh.
+[00:03:58.260 -> 00:04:00.340]  Not guaranteed to be uniform.
+[00:04:00.840 -> 00:04:01.480]  Rounding error.
+[00:04:02.100 -> 00:04:03.520]  Okay, well...
+[00:04:06.440 -> 00:04:08.560]  Oh, here's where we're setting the rotation.
+[00:04:11.940 -> 00:04:12.800]  Old R.
+[00:04:15.320 -> 00:04:16.440]  Where is R?
+[00:04:17.600 -> 00:04:18.380]  There's R.
+[00:04:18.620 -> 00:04:20.660]  So we're setting up a 4x4 matrix.
+[00:04:20.660 -> 00:04:21.880]  Where are we doing that?
+[00:04:22.760 -> 00:04:23.280]  R.
+[00:04:25.580 -> 00:04:26.760]  Old R and R.
+[00:04:26.760 -> 00:04:27.540]  I don't see it.
+[00:04:27.620 -> 00:04:28.200]  Where is it?
+[00:04:29.100 -> 00:04:30.180]  I'll keep depth buffer.
+[00:04:34.740 -> 00:04:36.420]  Oh, whoa.
+[00:04:36.960 -> 00:04:39.900]  It looks like each object has a rotation matrix.
+[00:04:40.460 -> 00:04:41.760]  And then we...
+[00:04:41.760 -> 00:04:43.200]  We wrote...
+[00:04:43.200 -> 00:04:43.800]  We...
+[00:04:43.800 -> 00:04:45.820]  It looks like we...
+[00:04:52.160 -> 00:04:56.000]  Oh, we have a derivative of the rotation in a rotation.
+[00:04:56.480 -> 00:05:00.140]  That's so that each object can rotate at a different speed in a different direction.
+[00:05:00.360 -> 00:05:01.400]  Let's see if that's how it works.
+[00:05:02.400 -> 00:05:03.980]  So let's see, for example.
+[00:05:04.360 -> 00:05:05.120]  Can we tell...
+[00:05:05.120 -> 00:05:06.840]  This one is tumbling over and over.
+[00:05:08.100 -> 00:05:10.400]  It looks like they're the same speed, though, doesn't it?
+[00:05:13.100 -> 00:05:14.460]  So where are we doing that?
+[00:05:17.740 -> 00:05:18.300]  Initialize.
+[00:05:18.420 -> 00:05:19.640]  Then we set an identity.
+[00:05:20.520 -> 00:05:21.180]  And then we...
+[00:05:23.700 -> 00:05:25.460]  We rotate randomly.
+[00:05:26.060 -> 00:05:29.700]  Let's see what happens if we modify this just for fun.
+[00:05:31.520 -> 00:05:32.940]  How about times 10?
+[00:05:34.400 -> 00:05:36.360]  You can see they're rotating faster.
+[00:05:36.580 -> 00:05:39.120]  Some of them are spinning fast and slow.
+[00:05:40.500 -> 00:05:41.060]  Okay.
+[00:05:41.320 -> 00:05:44.880]  Well, that's an interesting idea.
+[00:05:45.820 -> 00:05:45.900]  How about times 10?
+[00:05:45.900 -> 00:05:45.920]  How about times 10?
+[00:05:45.920 -> 00:05:45.920]  
+[00:05:45.920 -> 00:05:45.940]  How about times 10?
+[00:05:45.940 -> 00:05:45.940]  
+[00:05:45.940 -> 00:05:45.940]  
+[00:05:46.020 -> 00:05:46.020]  
+[00:05:46.020 -> 00:05:46.020]  
+[00:05:46.020 -> 00:05:46.020]  
+[00:05:46.020 -> 00:05:46.020]  
+[00:05:46.020 -> 00:05:46.020]  
+[00:05:46.020 -> 00:05:46.020]  
+[00:05:46.040 -> 00:05:46.040]  
+[00:05:46.040 -> 00:05:46.040]  
+[00:05:46.040 -> 00:05:46.040]  
+[00:05:46.040 -> 00:05:46.040]  
+[00:05:46.040 -> 00:05:46.040]  
+[00:05:46.160 -> 00:05:46.280]  How about times 10?
+[00:05:46.280 -> 00:05:46.280]  
+[00:05:46.280 -> 00:05:46.280]  
+[00:05:46.280 -> 00:05:46.280]  
+[00:05:46.280 -> 00:05:46.280]  
+[00:05:46.280 -> 00:05:46.280]  
+[00:05:46.280 -> 00:05:46.280]  
+[00:05:46.280 -> 00:05:46.360]  How about times 10?
+[00:05:46.600 -> 00:05:46.600]  
+[00:05:46.600 -> 00:05:46.600]  
+[00:05:46.600 -> 00:05:46.600]  
+[00:05:46.600 -> 00:05:46.600]  
+[00:05:46.600 -> 00:05:46.600]  
+[00:05:46.600 -> 00:05:46.600]  
+[00:05:46.360 -> 00:05:46.360]  
+[00:05:46.360 -> 00:05:46.360]  
+[00:05:46.360 -> 00:05:46.360]  
+[00:05:46.360 -> 00:05:46.360]  
+[00:05:46.360 -> 00:05:46.360]  
+[00:05:46.600 -> 00:05:46.720]  Thank you.

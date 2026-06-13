@@ -1,0 +1,355 @@
+========================================================================
+FILE        : videos/2014/2014-10-31T00:07:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #70 (ci5RDCkIdP4).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-10-31T00:07:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #70 (ci5RDCkIdP4).mp4
+FORMAT      : MPEG4
+SIZE        : 45,042,665 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:10:40.380
+TRANSCRIBED: 2026-05-10T18:49:07.007835+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+Okay, this is Temple OS 5-Minute Random Code Walkthrough Episode 70, and I'm your host, Terry Davis. And where are we today? We are in the Fat32 driver. I don't want to talk about this, but I guess I have to. This is, I hope to get rid of fat and have just Red Sea. You know, I just overhauled Red Sea. I want to get rid of this. I should talk about Red Sea. Oh well. So, uh, Find Files. So what this does is, uh, I don't have a Find First, Find Next. I have Find Files, and it gets a list of all the files matching the mask. You give it a mask. This is called by Find Files. Files, uh, Files Find, I should say. Files Find is, uh, whoops. Oh, there's even another level of indirection. Okay. Files Find calls SysFilesFind, and that breaks it down by, uh, by, uh, file system type. So we want to get rid of FAT32 and ISO 9.660, and if we do that, then suddenly the code gets much simpler in addition to everything else. So, um, in addition to removing this, um, so, the FAT32 has a, uh, short name and long name, and the long name is, uh, spread out over multiple directory entries. The directories have, uh, I think it's 32 byte entries. And, uh, so I guess I'll walk through this. So we set up, um, so we go linear, we go linearly, we traverse the directory from start to end, and, uh, we construct a long name out of, uh, gradually, out of a couple short, out of a couple entries, 32 byte entries. Directory cluster, okay, so I have a routine that gives us the cluster of the directory, scans down from root, goes from root down, down to what it is. And, uh, uh, we allocate a block, then we read the first cluster of the, uh, directory. On red C, a cluster is exactly a block all the time. In fat 32, a cluster is, uh, usually multiple blocks. They, they do that so that they don't, uh, have so many little tiny allocations. Anyway, so, uh, then we go through the directory. I guess the, the directory is terminated when it gets a zero. Um, so, uh, get the attribute. So it's either a long name or it's a, uh, I don't remember this. I'm just guessing. So if it's a, if it's, if the, if the first character is E5, it's a long name, I guess. So this is crazy, the way this, uh, the, the, the, the name is split up over, uh, um, the name is split up over bytes in the, in the entry. Anyway, so let's see what I do there. So, uh, we go through and, uh, we keep adding to the name over multiple entries. Uh, so, is that what we're doing? What's D E Ored? D E is fat 32 Ored. I thought the fat 30, fat 32 directory long. Let's see what this is. Yeah, it's got the name split up. They broke the name up into three pieces. Um, oh, well, whatever. I want to get rid of it. I really want to get rid of it. I did not do the short name correctly. When you're writing a new directory entry, you're supposed to, if it's a short name, it's abbreviated with the, um, something like name tilde one. Let's suppose you have a long name, uh, two long names. You, you start doing this stuff. And, uh, in order to do this, you have to check if there's another one that exists. And so that's, that's just too much effort. I want to get rid of this. It's temporary. So, uh, anyway, um, so, uh, and then it's got some, the attributes are not very pretty. Um, it combines, it has some, it has, uh, eight attribute bits. You can look at the fat 32 spec. So, um, fat 32 has eight. I added some more to my, um, I added some more attributes. They do combinations of attributes to make different meanings. Long name is this combination. Long, this is how you, well, you have to end it and then see if it equals this. So, as I read the entries, I build up a long name if it's encountering multiple short names. And, uh, so when I finally finish making an entry, I add it to the linked list. This is a tree. It's got a, the directories have a sub tree. Otherwise they have a linked list to the next entry. And, uh, I, I'm very nice. When you call my, um, my find files, I give you the full path name allocated off of a member just for convenience. So you don't need to make your own. You do have to unallocate it though. Free it. Um, change directory. What is this? What are we doing? So this is if it's a directory, I guess. If directory fill, if it's a directory and we have recursion, then we, uh, we add to the sub directory. I don't see where I'm checking recursion. Oh, there's where I'm checking recursion. Although now, um, it has an attribute of directory that we mark. If it's a directory versus a file, they don't have to be sorted in the, well, they are not sorted. They're just, anyway. So, uh, when we finish all of that, um, we read the next cluster. And, uh, when we finish all of that, we, uh, have, have a sort. I do believe, I, I give some special, so file, files find is the, is the user. That's the public, uh, public routine. And, uh, it's either set up to look for a single file. If you give it a mask saying single file, otherwise we call sys files find. Um, now what this does after it collects them, if, uh, I have an option to flatten the tree. So if you want to take all those recursive files, and flatten them into a single linked list, that's what this does. And it eliminates, it gets rid of the directories, since they're not meaningful anymore. The directories after you flatten the tree are meaningless. It's just files. And then I have an option to sort by cluster. Um, ordered IO is when you, um, when you keep the disk head from jumping around. If you're accessing multiple files, you probably want to go in the order they, to move the head smoothly across the disk. So this will, uh, sort based on, uh, the order. I don't have a name sort option. Um, anyway, so, when you, when you do a directory listing, it sorts it. But anyway, so this, this sorts by cluster number. I want to get rid of FAT32. And I want to have, and I want ISO 9660 to just be a, um, a Red Sea image. Red Sea is like FAT32, but it's just, it's contiguous files, and it's a bit, it's a bunch of bits instead of FAT table. It's got an allocation for each block. A bit for allocating each block. And, uh, once we do that, um, I like eliminating terminology. I'm going to get rid of the word cluster, and we will just have blocks. And, you know what, just today I thought of, I want to get rid of the name sector, and just use the word blocks. This is, um, doing, that's what, I, that's my highest goal, is to, uh, simplify. Anyway, so if I can get rid of the word sector and cluster, so that new, new kids will just have to learn what a block is, that's what I, that's my, uh, goal. So,
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.780 -> 00:00:07.100]  Okay, this is Temple OS 5-Minute Random Code Walkthrough Episode 70, and I'm your host, Terry Davis.
+[00:00:08.840 -> 00:00:14.000]  And where are we today? We are in the Fat32 driver.
+[00:00:16.580 -> 00:00:19.080]  I don't want to talk about this, but I guess I have to.
+[00:00:20.420 -> 00:00:27.020]  This is, I hope to get rid of fat and have just Red Sea.
+[00:00:27.680 -> 00:00:33.040]  You know, I just overhauled Red Sea. I want to get rid of this. I should talk about Red Sea.
+[00:00:33.780 -> 00:00:34.600]  Oh well.
+[00:00:36.960 -> 00:00:45.020]  So, uh, Find Files. So what this does is, uh, I don't have a Find First, Find Next.
+[00:00:45.280 -> 00:00:51.220]  I have Find Files, and it gets a list of all the files matching the mask.
+[00:00:51.540 -> 00:00:55.340]  You give it a mask. This is called by Find Files.
+[00:00:55.340 -> 00:00:57.940]  Files, uh, Files Find, I should say.
+[00:01:01.300 -> 00:01:02.420]  Files Find
+[00:01:04.460 -> 00:01:06.580]  is, uh, whoops.
+[00:01:07.960 -> 00:01:10.680]  Oh, there's even another level of indirection.
+[00:01:11.180 -> 00:01:11.480]  Okay.
+[00:01:12.480 -> 00:01:15.000]  Files Find calls SysFilesFind,
+[00:01:15.140 -> 00:01:17.300]  and that breaks it down by, uh,
+[00:01:18.540 -> 00:01:19.060]  by, uh,
+[00:01:19.060 -> 00:01:20.540]  file system type.
+[00:01:22.000 -> 00:01:24.640]  So we want to get rid of
+[00:01:24.640 -> 00:01:27.900]  FAT32 and ISO 9.660,
+[00:01:28.160 -> 00:01:29.900]  and if we do that,
+[00:01:30.560 -> 00:01:31.980]  then suddenly
+[00:01:31.980 -> 00:01:34.160]  the code
+[00:01:34.160 -> 00:01:36.960]  gets much simpler in addition to
+[00:01:36.960 -> 00:01:38.680]  everything else.
+[00:01:39.920 -> 00:01:41.000]  So, um,
+[00:01:42.260 -> 00:01:44.240]  in addition to removing this,
+[00:01:44.500 -> 00:01:44.940]  um,
+[00:01:46.300 -> 00:01:46.820]  so,
+[00:01:47.280 -> 00:01:49.760]  the FAT32 has a, uh,
+[00:01:50.560 -> 00:01:52.100]  short name and long name,
+[00:01:52.280 -> 00:01:54.220]  and the long name is, uh,
+[00:01:54.680 -> 00:01:56.900]  spread out over multiple directory entries.
+[00:01:57.260 -> 00:01:59.080]  The directories have, uh,
+[00:01:59.740 -> 00:02:02.440]  I think it's 32 byte entries.
+[00:02:03.620 -> 00:02:04.440]  And, uh,
+[00:02:06.440 -> 00:02:08.140]  so I guess I'll walk through this.
+[00:02:08.340 -> 00:02:09.500]  So we set up,
+[00:02:09.860 -> 00:02:10.020]  um,
+[00:02:12.060 -> 00:02:12.920]  so we go linear,
+[00:02:13.040 -> 00:02:13.800]  we go linearly,
+[00:02:14.280 -> 00:02:15.620]  we traverse the directory
+[00:02:15.620 -> 00:02:16.740]  from start to end,
+[00:02:17.480 -> 00:02:18.360]  and, uh,
+[00:02:19.740 -> 00:02:22.020]  we construct a long name
+[00:02:22.020 -> 00:02:23.880]  out of, uh,
+[00:02:25.360 -> 00:02:25.480]  gradually,
+[00:02:25.960 -> 00:02:27.260]  out of a couple short,
+[00:02:27.260 -> 00:02:28.740]  out of a couple entries,
+[00:02:28.940 -> 00:02:29.980]  32 byte entries.
+[00:02:32.260 -> 00:02:33.280]  Directory cluster,
+[00:02:33.560 -> 00:02:33.780]  okay,
+[00:02:33.980 -> 00:02:34.960]  so I have a routine
+[00:02:34.960 -> 00:02:36.120]  that gives us the cluster
+[00:02:36.120 -> 00:02:37.100]  of the directory,
+[00:02:37.840 -> 00:02:39.840]  scans down from root,
+[00:02:40.020 -> 00:02:41.040]  goes from root down,
+[00:02:41.200 -> 00:02:42.220]  down to what it is.
+[00:02:43.700 -> 00:02:44.640]  And, uh,
+[00:02:45.340 -> 00:02:45.720]  uh,
+[00:02:46.500 -> 00:02:47.860]  we allocate a block,
+[00:02:48.120 -> 00:02:50.320]  then we read the first cluster
+[00:02:50.320 -> 00:02:51.300]  of the, uh,
+[00:02:52.160 -> 00:02:52.560]  directory.
+[00:02:54.800 -> 00:02:55.840]  On red C,
+[00:02:55.840 -> 00:02:58.040]  a cluster is exactly a block
+[00:02:58.040 -> 00:02:59.400]  all the time.
+[00:02:59.720 -> 00:03:01.000]  In fat 32,
+[00:03:01.300 -> 00:03:02.360]  a cluster is, uh,
+[00:03:02.700 -> 00:03:04.060]  usually multiple blocks.
+[00:03:04.380 -> 00:03:04.980]  They,
+[00:03:04.980 -> 00:03:06.580]  they do that so that they don't,
+[00:03:06.640 -> 00:03:06.800]  uh,
+[00:03:06.800 -> 00:03:09.140]  have so many little tiny allocations.
+[00:03:09.660 -> 00:03:10.020]  Anyway,
+[00:03:10.240 -> 00:03:10.620]  so, uh,
+[00:03:12.040 -> 00:03:12.040]  
+[00:03:12.340 -> 00:03:14.200]  then we go through the directory.
+[00:03:14.200 -> 00:03:15.080]  I guess the,
+[00:03:15.140 -> 00:03:17.500]  the directory is terminated
+[00:03:17.500 -> 00:03:18.520]  when it gets a zero.
+[00:03:19.360 -> 00:03:19.640]  Um,
+[00:03:20.560 -> 00:03:21.200]  so, uh,
+[00:03:23.260 -> 00:03:24.240]  get the attribute.
+[00:03:24.240 -> 00:03:26.140]  So it's either a long name
+[00:03:26.140 -> 00:03:27.080]  or it's a,
+[00:03:27.140 -> 00:03:27.340]  uh,
+[00:03:27.580 -> 00:03:29.200]  I don't remember this.
+[00:03:29.340 -> 00:03:30.100]  I'm just guessing.
+[00:03:32.420 -> 00:03:33.560]  So if it's a,
+[00:03:33.660 -> 00:03:34.240]  if it's,
+[00:03:35.620 -> 00:03:36.260]  if the,
+[00:03:36.800 -> 00:03:38.960]  if the first character is E5,
+[00:03:38.960 -> 00:03:40.000]  it's a long name,
+[00:03:40.200 -> 00:03:41.340]  I guess.
+[00:03:41.940 -> 00:03:43.360]  So this is crazy,
+[00:03:43.360 -> 00:03:44.180]  the way this,
+[00:03:44.340 -> 00:03:44.460]  uh,
+[00:03:46.720 -> 00:03:47.200]  the,
+[00:03:47.880 -> 00:03:48.360]  the,
+[00:03:48.400 -> 00:03:48.600]  the,
+[00:03:48.660 -> 00:03:48.660]  
+[00:03:48.840 -> 00:03:50.600]  the name is split up over,
+[00:03:50.820 -> 00:03:50.940]  uh,
+[00:03:53.400 -> 00:03:53.720]  um,
+[00:03:57.700 -> 00:03:59.340]  the name is split up
+[00:03:59.900 -> 00:04:00.860]  over bytes
+[00:04:01.620 -> 00:04:02.240]  in the,
+[00:04:02.320 -> 00:04:03.040]  in the entry.
+[00:04:04.400 -> 00:04:04.880]  Anyway,
+[00:04:05.120 -> 00:04:06.660]  so let's see what I do there.
+[00:04:07.260 -> 00:04:08.000]  So, uh,
+[00:04:08.060 -> 00:04:08.860]  we go through
+[00:04:08.860 -> 00:04:09.740]  and,
+[00:04:10.100 -> 00:04:10.220]  uh,
+[00:04:11.440 -> 00:04:14.240]  we keep adding to the name
+[00:04:14.240 -> 00:04:15.860]  over multiple entries.
+[00:04:17.880 -> 00:04:18.760]  Uh,
+[00:04:21.820 -> 00:04:22.260]  so,
+[00:04:22.780 -> 00:04:23.740]  is that what we're doing?
+[00:04:32.160 -> 00:04:33.840]  What's D E Ored?
+[00:04:35.540 -> 00:04:36.420]  D E
+[00:04:36.420 -> 00:04:37.980]  is fat 32
+[00:04:39.180 -> 00:04:39.700]  Ored.
+[00:04:41.540 -> 00:04:42.940]  I thought the fat 30,
+[00:04:43.080 -> 00:04:45.300]  fat 32 directory long.
+[00:04:45.960 -> 00:04:47.280]  Let's see what this is.
+[00:04:48.680 -> 00:04:49.200]  Yeah,
+[00:04:49.360 -> 00:04:51.000]  it's got the name split up.
+[00:04:51.160 -> 00:04:52.160]  They broke the name up
+[00:04:52.160 -> 00:04:53.360]  into three pieces.
+[00:04:55.660 -> 00:04:56.180]  Um,
+[00:04:57.340 -> 00:04:57.540]  oh,
+[00:04:57.620 -> 00:04:57.740]  well,
+[00:04:58.440 -> 00:04:58.720]  whatever.
+[00:04:58.720 -> 00:04:59.960]  I want to get rid of it.
+[00:05:00.140 -> 00:05:01.540]  I really want to get rid of it.
+[00:05:01.600 -> 00:05:03.380]  I did not do the short name
+[00:05:03.380 -> 00:05:04.440]  correctly.
+[00:05:06.020 -> 00:05:07.060]  When you're writing
+[00:05:07.060 -> 00:05:08.900]  a new directory entry,
+[00:05:09.180 -> 00:05:10.100]  you're supposed to,
+[00:05:10.720 -> 00:05:12.060]  if it's a short name,
+[00:05:12.080 -> 00:05:13.440]  it's abbreviated with the,
+[00:05:13.500 -> 00:05:13.760]  um,
+[00:05:14.600 -> 00:05:16.500]  something like name tilde one.
+[00:05:17.480 -> 00:05:19.180]  Let's suppose you have a long name,
+[00:05:19.500 -> 00:05:19.620]  uh,
+[00:05:21.100 -> 00:05:22.000]  two long names.
+[00:05:23.720 -> 00:05:24.260]  You,
+[00:05:24.280 -> 00:05:25.720]  you start doing this stuff.
+[00:05:26.540 -> 00:05:27.080]  And,
+[00:05:27.240 -> 00:05:27.260]  uh,
+[00:05:27.520 -> 00:05:28.720]  in order to do this,
+[00:05:28.900 -> 00:05:31.260]  you have to check if there's another one that exists.
+[00:05:31.840 -> 00:05:33.060]  And so that's,
+[00:05:33.060 -> 00:05:35.040]  that's just too much effort.
+[00:05:35.520 -> 00:05:36.880]  I want to get rid of this.
+[00:05:37.020 -> 00:05:37.540]  It's temporary.
+[00:05:38.800 -> 00:05:38.880]  So,
+[00:05:39.020 -> 00:05:39.160]  uh,
+[00:05:40.220 -> 00:05:40.620]  anyway,
+[00:05:41.020 -> 00:05:41.260]  um,
+[00:05:42.480 -> 00:05:42.780]  so,
+[00:05:46.160 -> 00:05:46.620]  uh,
+[00:05:47.200 -> 00:05:48.120]  and then it's got some,
+[00:05:48.280 -> 00:05:50.120]  the attributes are not very pretty.
+[00:05:50.860 -> 00:05:50.940]  Um,
+[00:05:51.060 -> 00:05:51.760]  it combines,
+[00:05:51.960 -> 00:05:52.480]  it has some,
+[00:05:52.660 -> 00:05:53.340]  it has,
+[00:05:53.440 -> 00:05:53.540]  uh,
+[00:05:53.820 -> 00:05:55.160]  eight attribute bits.
+[00:05:55.160 -> 00:05:57.660]  You can look at the fat 32 spec.
+[00:05:59.080 -> 00:05:59.800]  So,
+[00:05:59.980 -> 00:06:00.240]  um,
+[00:06:02.000 -> 00:06:03.300]  fat 32 has eight.
+[00:06:03.620 -> 00:06:05.920]  I added some more to my,
+[00:06:06.080 -> 00:06:06.440]  um,
+[00:06:08.280 -> 00:06:09.520]  I added some more attributes.
+[00:06:09.920 -> 00:06:13.740]  They do combinations of attributes to make different meanings.
+[00:06:14.500 -> 00:06:16.580]  Long name is this combination.
+[00:06:17.860 -> 00:06:18.380]  Long,
+[00:06:18.540 -> 00:06:19.940]  this is how you,
+[00:06:20.920 -> 00:06:21.440]  well,
+[00:06:21.580 -> 00:06:23.920]  you have to end it and then see if it equals this.
+[00:06:26.460 -> 00:06:26.980]  So,
+[00:06:26.980 -> 00:06:28.240]  as I read the entries,
+[00:06:28.280 -> 00:06:32.760]  I build up a long name if it's encountering multiple short names.
+[00:06:34.580 -> 00:06:35.100]  And,
+[00:06:35.220 -> 00:06:35.500]  uh,
+[00:06:35.500 -> 00:06:39.300]  so when I finally finish making an entry,
+[00:06:39.580 -> 00:06:41.700]  I add it to the linked list.
+[00:06:41.820 -> 00:06:42.560]  This is a tree.
+[00:06:42.960 -> 00:06:43.380]  It's got a,
+[00:06:43.580 -> 00:06:45.780]  the directories have a sub tree.
+[00:06:46.140 -> 00:06:49.040]  Otherwise they have a linked list to the next entry.
+[00:06:50.020 -> 00:06:50.620]  And,
+[00:06:50.760 -> 00:06:50.900]  uh,
+[00:06:51.220 -> 00:06:51.540]  I,
+[00:06:51.640 -> 00:06:52.760]  I'm very nice.
+[00:06:53.020 -> 00:06:54.480]  When you call my,
+[00:06:54.660 -> 00:06:54.800]  um,
+[00:06:55.180 -> 00:06:57.480]  my find files,
+[00:06:57.760 -> 00:07:05.340]  I give you the full path name allocated off of a member just for convenience.
+[00:07:05.780 -> 00:07:07.660]  So you don't need to make your own.
+[00:07:09.040 -> 00:07:11.040]  You do have to unallocate it though.
+[00:07:11.260 -> 00:07:11.640]  Free it.
+[00:07:12.960 -> 00:07:13.040]  Um,
+[00:07:13.360 -> 00:07:14.200]  change directory.
+[00:07:15.160 -> 00:07:16.100]  What is this?
+[00:07:16.240 -> 00:07:16.700]  What are we doing?
+[00:07:18.300 -> 00:07:20.240]  So this is if it's a directory,
+[00:07:20.540 -> 00:07:20.920]  I guess.
+[00:07:22.380 -> 00:07:23.600]  If directory fill,
+[00:07:23.740 -> 00:07:26.920]  if it's a directory and we have recursion,
+[00:07:27.160 -> 00:07:27.740]  then we,
+[00:07:27.820 -> 00:07:27.980]  uh,
+[00:07:29.000 -> 00:07:30.500]  we add to the sub directory.
+[00:07:30.700 -> 00:07:32.580]  I don't see where I'm checking recursion.
+[00:07:32.700 -> 00:07:32.820]  Oh,
+[00:07:32.840 -> 00:07:34.260]  there's where I'm checking recursion.
+[00:07:35.500 -> 00:07:36.260]  Although now,
+[00:07:36.540 -> 00:07:36.700]  um,
+[00:07:36.700 -> 00:07:39.120]  it has an attribute of directory that we mark.
+[00:07:39.500 -> 00:07:41.900]  If it's a directory versus a file,
+[00:07:42.080 -> 00:07:44.280]  they don't have to be sorted in the,
+[00:07:44.980 -> 00:07:45.460]  well,
+[00:07:45.540 -> 00:07:46.560]  they are not sorted.
+[00:07:46.740 -> 00:07:47.080]  They're just,
+[00:07:47.860 -> 00:07:48.340]  anyway.
+[00:07:48.640 -> 00:07:48.800]  So,
+[00:07:48.980 -> 00:07:49.080]  uh,
+[00:07:49.780 -> 00:07:51.660]  when we finish all of that,
+[00:07:52.160 -> 00:07:52.260]  um,
+[00:07:52.480 -> 00:07:54.140]  we read the next cluster.
+[00:07:54.960 -> 00:07:55.560]  And,
+[00:07:55.560 -> 00:07:55.880]  uh,
+[00:07:57.100 -> 00:07:58.920]  when we finish all of that,
+[00:07:59.300 -> 00:07:59.420]  we,
+[00:07:59.600 -> 00:07:59.720]  uh,
+[00:08:01.340 -> 00:08:01.640]  have,
+[00:08:01.800 -> 00:08:02.500]  have a sort.
+[00:08:03.220 -> 00:08:04.260]  I do believe,
+[00:08:04.440 -> 00:08:04.800]  I,
+[00:08:04.800 -> 00:08:06.240]  I give some special,
+[00:08:07.240 -> 00:08:08.240]  so file,
+[00:08:08.300 -> 00:08:09.720]  files find is the,
+[00:08:09.860 -> 00:08:10.800]  is the user.
+[00:08:11.140 -> 00:08:12.220]  That's the public,
+[00:08:12.440 -> 00:08:12.700]  uh,
+[00:08:12.700 -> 00:08:12.700]  
+[00:08:14.880 -> 00:08:15.520]  public routine.
+[00:08:16.520 -> 00:08:17.080]  And,
+[00:08:17.240 -> 00:08:17.380]  uh,
+[00:08:19.120 -> 00:08:21.620]  it's either set up to look for a single file.
+[00:08:21.840 -> 00:08:23.640]  If you give it a mask saying single file,
+[00:08:23.940 -> 00:08:26.600]  otherwise we call sys files find.
+[00:08:27.240 -> 00:08:27.700]  Um,
+[00:08:29.380 -> 00:08:31.420]  now what this does after it collects them,
+[00:08:32.000 -> 00:08:32.560]  if,
+[00:08:32.820 -> 00:08:32.920]  uh,
+[00:08:33.260 -> 00:08:35.620]  I have an option to flatten the tree.
+[00:08:36.340 -> 00:08:38.940]  So if you want to take all those recursive files,
+[00:08:39.140 -> 00:08:41.740]  and flatten them into a single linked list,
+[00:08:42.540 -> 00:08:44.100]  that's what this does.
+[00:08:44.440 -> 00:08:45.100]  And it eliminates,
+[00:08:45.400 -> 00:08:46.700]  it gets rid of the directories,
+[00:08:46.740 -> 00:08:48.300]  since they're not meaningful anymore.
+[00:08:48.720 -> 00:08:51.600]  The directories after you flatten the tree are meaningless.
+[00:08:51.980 -> 00:08:53.040]  It's just files.
+[00:08:53.720 -> 00:08:57.200]  And then I have an option to sort by cluster.
+[00:08:58.000 -> 00:08:58.480]  Um,
+[00:08:58.980 -> 00:09:00.520]  ordered IO is when you,
+[00:09:00.680 -> 00:09:00.900]  um,
+[00:09:01.440 -> 00:09:03.780]  when you keep the disk head from jumping around.
+[00:09:03.780 -> 00:09:06.420]  If you're accessing multiple files,
+[00:09:06.640 -> 00:09:08.620]  you probably want to go in the order they,
+[00:09:08.840 -> 00:09:11.460]  to move the head smoothly across the disk.
+[00:09:12.000 -> 00:09:13.140]  So this will,
+[00:09:13.220 -> 00:09:13.360]  uh,
+[00:09:13.500 -> 00:09:14.560]  sort based on,
+[00:09:14.760 -> 00:09:14.860]  uh,
+[00:09:16.100 -> 00:09:16.620]  the order.
+[00:09:16.920 -> 00:09:19.840]  I don't have a name sort option.
+[00:09:20.800 -> 00:09:21.080]  Um,
+[00:09:21.640 -> 00:09:21.980]  anyway,
+[00:09:22.220 -> 00:09:22.380]  so,
+[00:09:23.440 -> 00:09:24.120]  when you,
+[00:09:24.120 -> 00:09:25.680]  when you do a directory listing,
+[00:09:25.900 -> 00:09:26.560]  it sorts it.
+[00:09:26.760 -> 00:09:27.260]  But anyway,
+[00:09:27.800 -> 00:09:28.560]  so this,
+[00:09:28.600 -> 00:09:30.200]  this sorts by cluster number.
+[00:09:30.800 -> 00:09:32.340]  I want to get rid of
+[00:09:33.180 -> 00:09:33.660]  FAT32.
+[00:09:34.400 -> 00:09:35.000]  And I want to have,
+[00:09:35.180 -> 00:09:35.880]  and I want
+[00:09:37.100 -> 00:09:38.980]  ISO 9660 to just be a,
+[00:09:38.980 -> 00:09:39.240]  um,
+[00:09:39.880 -> 00:09:41.380]  a Red Sea image.
+[00:09:41.700 -> 00:09:43.480]  Red Sea is like FAT32,
+[00:09:43.680 -> 00:09:44.220]  but it's just,
+[00:09:44.360 -> 00:09:45.720]  it's contiguous files,
+[00:09:45.780 -> 00:09:46.500]  and it's a bit,
+[00:09:46.660 -> 00:09:48.300]  it's a bunch of bits instead of
+[00:09:48.300 -> 00:09:49.260]  FAT table.
+[00:09:50.560 -> 00:09:52.720]  It's got an allocation for each block.
+[00:09:53.260 -> 00:09:55.680]  A bit for allocating each block.
+[00:09:56.560 -> 00:09:57.040]  And,
+[00:09:57.180 -> 00:09:57.220]  uh,
+[00:09:57.400 -> 00:09:58.480]  once we do that,
+[00:09:59.060 -> 00:09:59.160]  um,
+[00:09:59.160 -> 00:10:01.180]  I like eliminating terminology.
+[00:10:01.680 -> 00:10:04.280]  I'm going to get rid of the word cluster,
+[00:10:04.300 -> 00:10:06.420]  and we will just have blocks.
+[00:10:07.880 -> 00:10:08.080]  And,
+[00:10:08.140 -> 00:10:08.980]  you know what,
+[00:10:09.060 -> 00:10:10.360]  just today I thought of,
+[00:10:10.540 -> 00:10:12.360]  I want to get rid of the name sector,
+[00:10:12.920 -> 00:10:14.900]  and just use the word blocks.
+[00:10:15.760 -> 00:10:16.360]  This is,
+[00:10:16.600 -> 00:10:16.820]  um,
+[00:10:18.780 -> 00:10:19.080]  doing,
+[00:10:19.440 -> 00:10:20.280]  that's what,
+[00:10:21.740 -> 00:10:22.260]  I,
+[00:10:22.500 -> 00:10:23.940]  that's my highest goal,
+[00:10:24.300 -> 00:10:24.820]  is to,
+[00:10:24.860 -> 00:10:25.080]  uh,
+[00:10:25.620 -> 00:10:26.140]  simplify.
+[00:10:26.960 -> 00:10:27.480]  Anyway,
+[00:10:27.860 -> 00:10:30.540]  so if I can get rid of the word sector and cluster,
+[00:10:30.820 -> 00:10:31.780]  so that new,
+[00:10:31.780 -> 00:10:34.580]  new kids will just have to learn what a block is,
+[00:10:35.120 -> 00:10:35.960]  that's what I,
+[00:10:37.040 -> 00:10:37.880]  that's my,
+[00:10:37.880 -> 00:10:38.140]  uh,
+[00:10:39.200 -> 00:10:39.460]  goal.
+[00:10:40.220 -> 00:10:40.380]  So,
+[00:10:40.380 -> 00:10:40.380]  

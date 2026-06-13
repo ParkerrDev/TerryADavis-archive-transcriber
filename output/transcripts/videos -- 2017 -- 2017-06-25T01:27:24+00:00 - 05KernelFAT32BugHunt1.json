@@ -1,0 +1,5684 @@
+{
+  "source": {
+    "archive_identifier": "TerryADavis_TempleOS_Archive",
+    "filename": "videos/2017/2017-06-25T01:27:24+00:00 - 05KernelFAT32BugHunt1.mp4",
+    "source_url": "https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2017/2017-06-25T01%3A27%3A24%2B00%3A00%20-%2005KernelFAT32BugHunt1.mp4",
+    "derivative_url": null,
+    "file_format": "MPEG4",
+    "file_size_bytes": 45514070
+  },
+  "transcription": {
+    "model": "large-v3",
+    "backend": "faster_whisper",
+    "language_detected": "en",
+    "transcribed_at_utc": "2026-06-05T02:25:24.965802+00:00",
+    "duration_seconds": 692.09,
+    "platform": "Linux",
+    "machine": "x86_64"
+  },
+  "full_text": "Okay, so I just found a bug in my fat file system. I decided to screencast in order to enlighten people on kernel development. So here's the issue. So let me show you how I found out the bug. I did a disk check and I started getting an error. What disk check does is it checks the allocation map to see if all the correct blocks are allocated and there aren't any extra blocks allocated. And so this is finding a block that's not supposed to be allocated. And the cluster number is 3C51. So the way I found out what was going on, first... My first thought was, okay, we got a corruption. So I have a utility that will copy. First, I, well, I have a utility that will copy my files, copy drive. I'm going to copy C onto D. So this was my first reaction was, well, actually, I thought. Actually, I didn't do this first. I took it slowly. I didn't copy the whole disk. I just went directory by directory onto the D drive. I formatted the D, and then I copied directory by directory because I was expecting a corrupted file in one of the directories. That's usually what it is. If you shut down or something like that, then you can get a corruption. So after I copied directory by directory, then I realized it was safe to use my copy drive script. So once I copied the drive, then I had to find out where that disk block was coming from. Okay, so I just copied the C drive over to the D drive, and then I can copy it back. That's normally what you do. So first of all, you want to make sure the D drive compiles. Okay, so it compiles, and we're going to boot the D drive. So the D drive compiles and boots, so it looks pretty good. First I did it directory by directory, and then I knew it was safe to use this utility. So now we're going to investigate. First I wanted to check if the disk was fixed. So I copied this. I was getting an error on the C drive, and I copied over to the D drive. Oh, no, we're still getting an error. Now, in a normal situation, this would never happen. But we have a compiler, or we have a kernel bug. Actually, it's probably a bug in the disk check. Okay, so 3C51. Now, I was going to modify the disk check utility to... print the file but uh i could do that um what we're going to do instead is uh we're going to do a directory of the root directory we're going to do a full we're going to do a a full directory so looking at this three when you when you copy the drive from one disk to the other then it um it reallocates everything in a sequence And so you can see how the cluster numbers are increasing. So 3C51, that's in the home directory. So now we want to look at the home directory. So 3C51, it's in the supplemental. On my disk, I have the supplemental disk stored in the home directory. And look at that, 3C51. It's the second block. after the hems. So, okay, now it becomes obvious what's happening. This is a pretty big directory, and that's a clue. So 3C5O is the current directory block. These are clusters, not blocks. So it looks like this is what happened. just recently I added another hem and when I added that hem the directory expanded into a new cluster and so now it requires another cluster and apparently at this point I would imagine the kernel puts a zero block The kernel puts a terminating zero directory entry. Just to be safe, I think there's a cluster that is all zero. And I think the, now this is kind of weird. Okay, 3C51. So at this point, let's do a cluster dump. Cluster 3C50. Oh, cluster. Okay, so depend looks like the last. This looks like it has a lot of clusters, doesn't it? It looks like it already has multiple clusters. Uh-oh, this is something worse than I thought. So the dot cluster is, we have to find out the size of the, where's the size of the file stored? I'm actually kind of alarmed. How come that's 3C5? Oh, uh-oh, this is bad. I don't think they're contiguous. Are they not contiguous? So you can follow the next cluster in the chain. Write number. Okay, so we don't want to write the cluster. And we want cluster, the first, I think zero is the first one and then one is the second one. So it should be after depend. So it should start with E. Okay, yeah, or determine. Wait, there it is. Wait, abiding? Oh, it inserted ahead of it. Okay, yeah. So, which block is this? Which cluster is this? 3C60. Okay, so this is allocating them. Maybe it looks like it freed the... Do you think it freed a... Let's see what's in the cluster. Oh, I'm a genius. Okay, let's see what's in the cluster. Cluster is all zero. So, we have quite a mystery. Okay, I'm going to stop here. Maybe I'll go research and then come back when I know what's going on. I thought I knew what was going on. I don't.",
+  "segments": [
+    {
+      "id": 1,
+      "start": 0.66,
+      "end": 38.34,
+      "text": "Okay, so I just found a bug in my fat file system. I decided to screencast in order to enlighten people on kernel development. So here's the issue. So let me show you how I found out the bug. I did a disk check and I started getting an error.",
+      "words": [
+        {
+          "word": "Okay,",
+          "start": 0.66,
+          "end": 1.08,
+          "probability": 0.708
+        },
+        {
+          "word": "so",
+          "start": 1.14,
+          "end": 1.32,
+          "probability": 0.9912
+        },
+        {
+          "word": "I",
+          "start": 1.32,
+          "end": 2.24,
+          "probability": 0.9502
+        },
+        {
+          "word": "just",
+          "start": 2.24,
+          "end": 2.54,
+          "probability": 0.9946
+        },
+        {
+          "word": "found",
+          "start": 2.54,
+          "end": 2.82,
+          "probability": 0.9985
+        },
+        {
+          "word": "a",
+          "start": 2.82,
+          "end": 2.98,
+          "probability": 0.9536
+        },
+        {
+          "word": "bug",
+          "start": 2.98,
+          "end": 3.2,
+          "probability": 0.9971
+        },
+        {
+          "word": "in",
+          "start": 3.2,
+          "end": 3.42,
+          "probability": 0.998
+        },
+        {
+          "word": "my",
+          "start": 3.42,
+          "end": 3.64,
+          "probability": 0.9956
+        },
+        {
+          "word": "fat",
+          "start": 3.64,
+          "end": 4.64,
+          "probability": 0.6855
+        },
+        {
+          "word": "file",
+          "start": 4.64,
+          "end": 4.92,
+          "probability": 0.9307
+        },
+        {
+          "word": "system.",
+          "start": 4.92,
+          "end": 5.42,
+          "probability": 0.9966
+        },
+        {
+          "word": "I",
+          "start": 6.76,
+          "end": 7.4,
+          "probability": 0.8438
+        },
+        {
+          "word": "decided",
+          "start": 8.93,
+          "end": 9.87,
+          "probability": 0.8711
+        },
+        {
+          "word": "to",
+          "start": 9.87,
+          "end": 10.15,
+          "probability": 0.998
+        },
+        {
+          "word": "screencast",
+          "start": 10.15,
+          "end": 10.81,
+          "probability": 0.9124
+        },
+        {
+          "word": "in",
+          "start": 10.81,
+          "end": 11.63,
+          "probability": 0.9653
+        },
+        {
+          "word": "order",
+          "start": 11.63,
+          "end": 12.15,
+          "probability": 0.9995
+        },
+        {
+          "word": "to",
+          "start": 12.15,
+          "end": 12.43,
+          "probability": 0.999
+        },
+        {
+          "word": "enlighten",
+          "start": 12.43,
+          "end": 14.21,
+          "probability": 0.959
+        },
+        {
+          "word": "people",
+          "start": 14.21,
+          "end": 14.43,
+          "probability": 0.999
+        },
+        {
+          "word": "on",
+          "start": 14.43,
+          "end": 14.83,
+          "probability": 0.9966
+        },
+        {
+          "word": "kernel",
+          "start": 14.83,
+          "end": 15.93,
+          "probability": 0.9678
+        },
+        {
+          "word": "development.",
+          "start": 17.47,
+          "end": 18.45,
+          "probability": 0.9902
+        },
+        {
+          "word": "So",
+          "start": 18.97,
+          "end": 19.61,
+          "probability": 0.8506
+        },
+        {
+          "word": "here's",
+          "start": 19.61,
+          "end": 21.11,
+          "probability": 0.8586
+        },
+        {
+          "word": "the",
+          "start": 22.07,
+          "end": 22.19,
+          "probability": 0.9995
+        },
+        {
+          "word": "issue.",
+          "start": 22.19,
+          "end": 22.59,
+          "probability": 0.999
+        },
+        {
+          "word": "So",
+          "start": 23.61,
+          "end": 24.25,
+          "probability": 0.9341
+        },
+        {
+          "word": "let",
+          "start": 24.25,
+          "end": 24.71,
+          "probability": 0.959
+        },
+        {
+          "word": "me",
+          "start": 24.71,
+          "end": 25.33,
+          "probability": 1.0
+        },
+        {
+          "word": "show",
+          "start": 25.33,
+          "end": 25.81,
+          "probability": 1.0
+        },
+        {
+          "word": "you",
+          "start": 25.81,
+          "end": 25.97,
+          "probability": 1.0
+        },
+        {
+          "word": "how",
+          "start": 25.97,
+          "end": 26.13,
+          "probability": 0.9995
+        },
+        {
+          "word": "I",
+          "start": 26.13,
+          "end": 26.29,
+          "probability": 0.9985
+        },
+        {
+          "word": "found",
+          "start": 26.29,
+          "end": 26.57,
+          "probability": 0.999
+        },
+        {
+          "word": "out",
+          "start": 26.57,
+          "end": 26.85,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 26.85,
+          "end": 27.39,
+          "probability": 0.9971
+        },
+        {
+          "word": "bug.",
+          "start": 27.39,
+          "end": 27.61,
+          "probability": 0.9995
+        },
+        {
+          "word": "I",
+          "start": 28.48,
+          "end": 29.12,
+          "probability": 0.9946
+        },
+        {
+          "word": "did",
+          "start": 29.12,
+          "end": 29.74,
+          "probability": 0.9995
+        },
+        {
+          "word": "a",
+          "start": 29.74,
+          "end": 29.96,
+          "probability": 0.9995
+        },
+        {
+          "word": "disk",
+          "start": 29.96,
+          "end": 31.38,
+          "probability": 0.9463
+        },
+        {
+          "word": "check",
+          "start": 31.64,
+          "end": 32.08,
+          "probability": 0.9985
+        },
+        {
+          "word": "and",
+          "start": 32.08,
+          "end": 32.82,
+          "probability": 0.6758
+        },
+        {
+          "word": "I",
+          "start": 36.88,
+          "end": 37.2,
+          "probability": 0.9985
+        },
+        {
+          "word": "started",
+          "start": 37.2,
+          "end": 37.44,
+          "probability": 0.9995
+        },
+        {
+          "word": "getting",
+          "start": 37.44,
+          "end": 37.68,
+          "probability": 0.9995
+        },
+        {
+          "word": "an",
+          "start": 37.68,
+          "end": 38.02,
+          "probability": 1.0
+        },
+        {
+          "word": "error.",
+          "start": 38.02,
+          "end": 38.34,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.0758,
+      "no_speech_prob": 0.0134
+    },
+    {
+      "id": 2,
+      "start": 38.92,
+      "end": 69.39,
+      "text": "What disk check does is it checks the allocation map to see if all the correct blocks are allocated and there aren't any extra blocks allocated. And so this is finding a block that's not supposed to be allocated. And the cluster number is 3C51. So the way I found out what was going on, first...",
+      "words": [
+        {
+          "word": "What",
+          "start": 38.92,
+          "end": 39.34,
+          "probability": 0.6753
+        },
+        {
+          "word": "disk",
+          "start": 39.34,
+          "end": 39.66,
+          "probability": 0.5195
+        },
+        {
+          "word": "check",
+          "start": 39.66,
+          "end": 40.08,
+          "probability": 0.8599
+        },
+        {
+          "word": "does",
+          "start": 40.08,
+          "end": 40.66,
+          "probability": 0.9878
+        },
+        {
+          "word": "is",
+          "start": 40.66,
+          "end": 41.14,
+          "probability": 0.9253
+        },
+        {
+          "word": "it",
+          "start": 41.14,
+          "end": 41.44,
+          "probability": 0.9453
+        },
+        {
+          "word": "checks",
+          "start": 41.44,
+          "end": 41.84,
+          "probability": 0.9946
+        },
+        {
+          "word": "the",
+          "start": 41.84,
+          "end": 42.04,
+          "probability": 0.998
+        },
+        {
+          "word": "allocation",
+          "start": 42.04,
+          "end": 42.42,
+          "probability": 0.9912
+        },
+        {
+          "word": "map",
+          "start": 42.42,
+          "end": 43.0,
+          "probability": 0.9966
+        },
+        {
+          "word": "to",
+          "start": 43.0,
+          "end": 43.98,
+          "probability": 0.9189
+        },
+        {
+          "word": "see",
+          "start": 44.18,
+          "end": 44.46,
+          "probability": 0.9961
+        },
+        {
+          "word": "if",
+          "start": 44.46,
+          "end": 44.66,
+          "probability": 0.9971
+        },
+        {
+          "word": "all",
+          "start": 44.66,
+          "end": 45.68,
+          "probability": 0.979
+        },
+        {
+          "word": "the",
+          "start": 45.9,
+          "end": 46.14,
+          "probability": 0.9937
+        },
+        {
+          "word": "correct",
+          "start": 46.14,
+          "end": 46.64,
+          "probability": 0.9956
+        },
+        {
+          "word": "blocks",
+          "start": 46.64,
+          "end": 47.08,
+          "probability": 0.9946
+        },
+        {
+          "word": "are",
+          "start": 47.08,
+          "end": 47.38,
+          "probability": 0.999
+        },
+        {
+          "word": "allocated",
+          "start": 47.38,
+          "end": 47.76,
+          "probability": 0.9961
+        },
+        {
+          "word": "and",
+          "start": 47.76,
+          "end": 48.78,
+          "probability": 0.8877
+        },
+        {
+          "word": "there",
+          "start": 48.78,
+          "end": 50.12,
+          "probability": 0.5869
+        },
+        {
+          "word": "aren't",
+          "start": 50.12,
+          "end": 50.42,
+          "probability": 0.9939
+        },
+        {
+          "word": "any",
+          "start": 50.42,
+          "end": 50.6,
+          "probability": 0.999
+        },
+        {
+          "word": "extra",
+          "start": 51.27,
+          "end": 52.91,
+          "probability": 0.8057
+        },
+        {
+          "word": "blocks",
+          "start": 52.91,
+          "end": 53.29,
+          "probability": 0.9907
+        },
+        {
+          "word": "allocated.",
+          "start": 53.29,
+          "end": 53.79,
+          "probability": 0.9951
+        },
+        {
+          "word": "And",
+          "start": 54.13,
+          "end": 54.63,
+          "probability": 0.7261
+        },
+        {
+          "word": "so",
+          "start": 54.63,
+          "end": 54.77,
+          "probability": 0.9917
+        },
+        {
+          "word": "this",
+          "start": 54.77,
+          "end": 54.99,
+          "probability": 0.9487
+        },
+        {
+          "word": "is",
+          "start": 54.99,
+          "end": 55.11,
+          "probability": 0.998
+        },
+        {
+          "word": "finding",
+          "start": 55.11,
+          "end": 55.53,
+          "probability": 0.999
+        },
+        {
+          "word": "a",
+          "start": 55.53,
+          "end": 55.73,
+          "probability": 0.9971
+        },
+        {
+          "word": "block",
+          "start": 55.73,
+          "end": 56.03,
+          "probability": 0.9995
+        },
+        {
+          "word": "that's",
+          "start": 56.03,
+          "end": 56.31,
+          "probability": 0.9844
+        },
+        {
+          "word": "not",
+          "start": 56.31,
+          "end": 56.53,
+          "probability": 0.999
+        },
+        {
+          "word": "supposed",
+          "start": 56.53,
+          "end": 56.75,
+          "probability": 0.9961
+        },
+        {
+          "word": "to",
+          "start": 56.75,
+          "end": 56.97,
+          "probability": 0.9995
+        },
+        {
+          "word": "be",
+          "start": 56.97,
+          "end": 57.03,
+          "probability": 1.0
+        },
+        {
+          "word": "allocated.",
+          "start": 57.03,
+          "end": 57.37,
+          "probability": 0.998
+        },
+        {
+          "word": "And",
+          "start": 57.73,
+          "end": 58.45,
+          "probability": 0.9658
+        },
+        {
+          "word": "the",
+          "start": 58.45,
+          "end": 58.63,
+          "probability": 0.8428
+        },
+        {
+          "word": "cluster",
+          "start": 58.63,
+          "end": 59.23,
+          "probability": 0.9668
+        },
+        {
+          "word": "number",
+          "start": 59.23,
+          "end": 59.61,
+          "probability": 0.9941
+        },
+        {
+          "word": "is",
+          "start": 59.61,
+          "end": 59.95,
+          "probability": 0.998
+        },
+        {
+          "word": "3C51.",
+          "start": 59.95,
+          "end": 60.89,
+          "probability": 0.9292
+        },
+        {
+          "word": "So",
+          "start": 62.82,
+          "end": 63.54,
+          "probability": 0.9756
+        },
+        {
+          "word": "the",
+          "start": 63.54,
+          "end": 64.1,
+          "probability": 0.9087
+        },
+        {
+          "word": "way",
+          "start": 65.19,
+          "end": 66.09,
+          "probability": 0.9995
+        },
+        {
+          "word": "I",
+          "start": 66.09,
+          "end": 66.31,
+          "probability": 0.999
+        },
+        {
+          "word": "found",
+          "start": 66.31,
+          "end": 66.85,
+          "probability": 0.4934
+        },
+        {
+          "word": "out",
+          "start": 66.85,
+          "end": 67.81,
+          "probability": 1.0
+        },
+        {
+          "word": "what",
+          "start": 67.81,
+          "end": 67.97,
+          "probability": 0.9995
+        },
+        {
+          "word": "was",
+          "start": 67.97,
+          "end": 68.13,
+          "probability": 1.0
+        },
+        {
+          "word": "going",
+          "start": 68.13,
+          "end": 68.31,
+          "probability": 1.0
+        },
+        {
+          "word": "on,",
+          "start": 68.31,
+          "end": 68.65,
+          "probability": 0.9995
+        },
+        {
+          "word": "first...",
+          "start": 68.75,
+          "end": 69.39,
+          "probability": 0.8145
+        }
+      ],
+      "avg_logprob": -0.1087,
+      "no_speech_prob": 0.0156
+    },
+    {
+      "id": 3,
+      "start": 69.72,
+      "end": 102.97,
+      "text": "My first thought was, okay, we got a corruption. So I have a utility that will copy. First, I, well, I have a utility that will copy my files, copy drive. I'm going to copy C onto D. So this was my first reaction was, well, actually, I thought.",
+      "words": [
+        {
+          "word": "My",
+          "start": 69.72,
+          "end": 70.04,
+          "probability": 0.6328
+        },
+        {
+          "word": "first",
+          "start": 70.04,
+          "end": 70.34,
+          "probability": 0.9961
+        },
+        {
+          "word": "thought",
+          "start": 70.34,
+          "end": 70.66,
+          "probability": 0.9912
+        },
+        {
+          "word": "was,",
+          "start": 70.66,
+          "end": 71.06,
+          "probability": 0.9937
+        },
+        {
+          "word": "okay,",
+          "start": 71.06,
+          "end": 71.34,
+          "probability": 0.5425
+        },
+        {
+          "word": "we",
+          "start": 71.44,
+          "end": 71.76,
+          "probability": 0.9961
+        },
+        {
+          "word": "got",
+          "start": 71.76,
+          "end": 71.92,
+          "probability": 0.7134
+        },
+        {
+          "word": "a",
+          "start": 71.92,
+          "end": 72.04,
+          "probability": 0.9956
+        },
+        {
+          "word": "corruption.",
+          "start": 72.04,
+          "end": 72.42,
+          "probability": 0.9932
+        },
+        {
+          "word": "So",
+          "start": 72.84,
+          "end": 73.48,
+          "probability": 0.8579
+        },
+        {
+          "word": "I",
+          "start": 73.48,
+          "end": 73.8,
+          "probability": 0.6123
+        },
+        {
+          "word": "have",
+          "start": 73.8,
+          "end": 75.22,
+          "probability": 0.999
+        },
+        {
+          "word": "a",
+          "start": 75.89,
+          "end": 76.09,
+          "probability": 0.9985
+        },
+        {
+          "word": "utility",
+          "start": 76.09,
+          "end": 77.53,
+          "probability": 0.98
+        },
+        {
+          "word": "that",
+          "start": 77.53,
+          "end": 78.09,
+          "probability": 0.999
+        },
+        {
+          "word": "will",
+          "start": 78.09,
+          "end": 78.25,
+          "probability": 0.9985
+        },
+        {
+          "word": "copy.",
+          "start": 78.25,
+          "end": 78.65,
+          "probability": 0.999
+        },
+        {
+          "word": "First,",
+          "start": 80.51,
+          "end": 81.15,
+          "probability": 0.6074
+        },
+        {
+          "word": "I,",
+          "start": 81.45,
+          "end": 81.45,
+          "probability": 0.8433
+        },
+        {
+          "word": "well,",
+          "start": 81.45,
+          "end": 82.55,
+          "probability": 0.9985
+        },
+        {
+          "word": "I",
+          "start": 86.17,
+          "end": 86.81,
+          "probability": 1.0
+        },
+        {
+          "word": "have",
+          "start": 86.81,
+          "end": 86.99,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 86.99,
+          "end": 87.05,
+          "probability": 1.0
+        },
+        {
+          "word": "utility",
+          "start": 87.05,
+          "end": 87.37,
+          "probability": 1.0
+        },
+        {
+          "word": "that",
+          "start": 87.37,
+          "end": 87.77,
+          "probability": 1.0
+        },
+        {
+          "word": "will",
+          "start": 87.77,
+          "end": 87.91,
+          "probability": 1.0
+        },
+        {
+          "word": "copy",
+          "start": 87.91,
+          "end": 88.29,
+          "probability": 1.0
+        },
+        {
+          "word": "my",
+          "start": 88.29,
+          "end": 89.45,
+          "probability": 0.998
+        },
+        {
+          "word": "files,",
+          "start": 90.19,
+          "end": 91.77,
+          "probability": 0.998
+        },
+        {
+          "word": "copy",
+          "start": 92.24,
+          "end": 93.2,
+          "probability": 0.9897
+        },
+        {
+          "word": "drive.",
+          "start": 94.23,
+          "end": 94.57,
+          "probability": 0.9937
+        },
+        {
+          "word": "I'm",
+          "start": 95.21,
+          "end": 95.85,
+          "probability": 0.999
+        },
+        {
+          "word": "going",
+          "start": 95.85,
+          "end": 95.87,
+          "probability": 0.9263
+        },
+        {
+          "word": "to",
+          "start": 95.87,
+          "end": 95.93,
+          "probability": 1.0
+        },
+        {
+          "word": "copy",
+          "start": 95.93,
+          "end": 96.21,
+          "probability": 1.0
+        },
+        {
+          "word": "C",
+          "start": 96.21,
+          "end": 96.55,
+          "probability": 0.9941
+        },
+        {
+          "word": "onto",
+          "start": 96.55,
+          "end": 97.07,
+          "probability": 0.938
+        },
+        {
+          "word": "D.",
+          "start": 97.07,
+          "end": 97.37,
+          "probability": 1.0
+        },
+        {
+          "word": "So",
+          "start": 97.71,
+          "end": 98.35,
+          "probability": 0.9995
+        },
+        {
+          "word": "this",
+          "start": 98.35,
+          "end": 98.55,
+          "probability": 0.999
+        },
+        {
+          "word": "was",
+          "start": 98.55,
+          "end": 98.71,
+          "probability": 1.0
+        },
+        {
+          "word": "my",
+          "start": 98.71,
+          "end": 98.91,
+          "probability": 1.0
+        },
+        {
+          "word": "first",
+          "start": 98.91,
+          "end": 99.27,
+          "probability": 1.0
+        },
+        {
+          "word": "reaction",
+          "start": 99.27,
+          "end": 100.35,
+          "probability": 1.0
+        },
+        {
+          "word": "was,",
+          "start": 100.35,
+          "end": 100.79,
+          "probability": 0.9805
+        },
+        {
+          "word": "well,",
+          "start": 100.97,
+          "end": 102.17,
+          "probability": 0.999
+        },
+        {
+          "word": "actually,",
+          "start": 102.25,
+          "end": 102.51,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 102.55,
+          "end": 102.73,
+          "probability": 1.0
+        },
+        {
+          "word": "thought.",
+          "start": 102.73,
+          "end": 102.97,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.0983,
+      "no_speech_prob": 0.0432
+    },
+    {
+      "id": 4,
+      "start": 105.28,
+      "end": 134.49,
+      "text": "Actually, I didn't do this first. I took it slowly. I didn't copy the whole disk. I just went directory by directory onto the D drive. I formatted the D, and then I copied directory by directory because I was expecting a corrupted file in one of the directories. That's usually what it is. If you shut down or something like that, then you can get a corruption.",
+      "words": [
+        {
+          "word": "Actually,",
+          "start": 105.28,
+          "end": 105.74,
+          "probability": 0.7764
+        },
+        {
+          "word": "I",
+          "start": 105.76,
+          "end": 105.88,
+          "probability": 0.9961
+        },
+        {
+          "word": "didn't",
+          "start": 105.88,
+          "end": 106.06,
+          "probability": 0.9973
+        },
+        {
+          "word": "do",
+          "start": 106.06,
+          "end": 106.2,
+          "probability": 0.998
+        },
+        {
+          "word": "this",
+          "start": 106.2,
+          "end": 106.38,
+          "probability": 0.998
+        },
+        {
+          "word": "first.",
+          "start": 106.38,
+          "end": 106.68,
+          "probability": 0.9858
+        },
+        {
+          "word": "I",
+          "start": 106.8,
+          "end": 107.12,
+          "probability": 0.998
+        },
+        {
+          "word": "took",
+          "start": 107.12,
+          "end": 107.56,
+          "probability": 0.9961
+        },
+        {
+          "word": "it",
+          "start": 107.56,
+          "end": 107.72,
+          "probability": 0.998
+        },
+        {
+          "word": "slowly.",
+          "start": 107.72,
+          "end": 108.0,
+          "probability": 0.9956
+        },
+        {
+          "word": "I",
+          "start": 108.24,
+          "end": 108.36,
+          "probability": 0.999
+        },
+        {
+          "word": "didn't",
+          "start": 108.36,
+          "end": 108.56,
+          "probability": 0.9995
+        },
+        {
+          "word": "copy",
+          "start": 108.56,
+          "end": 108.82,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 108.82,
+          "end": 109.0,
+          "probability": 0.9995
+        },
+        {
+          "word": "whole",
+          "start": 109.0,
+          "end": 109.14,
+          "probability": 0.999
+        },
+        {
+          "word": "disk.",
+          "start": 109.14,
+          "end": 109.44,
+          "probability": 0.8677
+        },
+        {
+          "word": "I",
+          "start": 109.48,
+          "end": 109.66,
+          "probability": 0.999
+        },
+        {
+          "word": "just",
+          "start": 109.66,
+          "end": 109.8,
+          "probability": 0.9971
+        },
+        {
+          "word": "went",
+          "start": 109.8,
+          "end": 110.02,
+          "probability": 0.9995
+        },
+        {
+          "word": "directory",
+          "start": 110.02,
+          "end": 110.82,
+          "probability": 0.9961
+        },
+        {
+          "word": "by",
+          "start": 110.82,
+          "end": 111.06,
+          "probability": 0.9873
+        },
+        {
+          "word": "directory",
+          "start": 111.06,
+          "end": 111.68,
+          "probability": 0.998
+        },
+        {
+          "word": "onto",
+          "start": 111.68,
+          "end": 113.08,
+          "probability": 0.979
+        },
+        {
+          "word": "the",
+          "start": 113.08,
+          "end": 113.32,
+          "probability": 1.0
+        },
+        {
+          "word": "D",
+          "start": 113.32,
+          "end": 113.48,
+          "probability": 0.957
+        },
+        {
+          "word": "drive.",
+          "start": 113.48,
+          "end": 113.74,
+          "probability": 0.9243
+        },
+        {
+          "word": "I",
+          "start": 113.84,
+          "end": 114.04,
+          "probability": 0.9995
+        },
+        {
+          "word": "formatted",
+          "start": 114.04,
+          "end": 114.56,
+          "probability": 0.9983
+        },
+        {
+          "word": "the",
+          "start": 114.56,
+          "end": 114.76,
+          "probability": 0.9995
+        },
+        {
+          "word": "D,",
+          "start": 114.76,
+          "end": 115.0,
+          "probability": 0.9971
+        },
+        {
+          "word": "and",
+          "start": 115.16,
+          "end": 115.58,
+          "probability": 0.999
+        },
+        {
+          "word": "then",
+          "start": 115.58,
+          "end": 115.7,
+          "probability": 0.9995
+        },
+        {
+          "word": "I",
+          "start": 115.7,
+          "end": 115.8,
+          "probability": 0.9995
+        },
+        {
+          "word": "copied",
+          "start": 115.8,
+          "end": 116.2,
+          "probability": 1.0
+        },
+        {
+          "word": "directory",
+          "start": 116.2,
+          "end": 117.12,
+          "probability": 0.999
+        },
+        {
+          "word": "by",
+          "start": 117.12,
+          "end": 117.66,
+          "probability": 1.0
+        },
+        {
+          "word": "directory",
+          "start": 117.66,
+          "end": 118.14,
+          "probability": 1.0
+        },
+        {
+          "word": "because",
+          "start": 118.14,
+          "end": 119.4,
+          "probability": 0.7603
+        },
+        {
+          "word": "I",
+          "start": 119.66,
+          "end": 120.0,
+          "probability": 0.9951
+        },
+        {
+          "word": "was",
+          "start": 120.0,
+          "end": 121.16,
+          "probability": 1.0
+        },
+        {
+          "word": "expecting",
+          "start": 121.58,
+          "end": 121.94,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 121.94,
+          "end": 122.4,
+          "probability": 0.9995
+        },
+        {
+          "word": "corrupted",
+          "start": 122.4,
+          "end": 123.78,
+          "probability": 0.9995
+        },
+        {
+          "word": "file",
+          "start": 123.81,
+          "end": 124.25,
+          "probability": 1.0
+        },
+        {
+          "word": "in",
+          "start": 124.25,
+          "end": 124.67,
+          "probability": 0.9995
+        },
+        {
+          "word": "one",
+          "start": 124.67,
+          "end": 124.85,
+          "probability": 1.0
+        },
+        {
+          "word": "of",
+          "start": 124.85,
+          "end": 124.93,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 124.93,
+          "end": 125.05,
+          "probability": 1.0
+        },
+        {
+          "word": "directories.",
+          "start": 125.05,
+          "end": 125.65,
+          "probability": 0.9998
+        },
+        {
+          "word": "That's",
+          "start": 125.91,
+          "end": 126.37,
+          "probability": 0.9995
+        },
+        {
+          "word": "usually",
+          "start": 126.37,
+          "end": 126.59,
+          "probability": 0.9761
+        },
+        {
+          "word": "what",
+          "start": 126.59,
+          "end": 127.65,
+          "probability": 1.0
+        },
+        {
+          "word": "it",
+          "start": 127.65,
+          "end": 127.81,
+          "probability": 1.0
+        },
+        {
+          "word": "is.",
+          "start": 127.81,
+          "end": 127.99,
+          "probability": 1.0
+        },
+        {
+          "word": "If",
+          "start": 128.87,
+          "end": 129.33,
+          "probability": 0.9995
+        },
+        {
+          "word": "you",
+          "start": 129.33,
+          "end": 129.51,
+          "probability": 1.0
+        },
+        {
+          "word": "shut",
+          "start": 129.51,
+          "end": 129.75,
+          "probability": 0.9961
+        },
+        {
+          "word": "down",
+          "start": 129.75,
+          "end": 129.95,
+          "probability": 1.0
+        },
+        {
+          "word": "or",
+          "start": 129.95,
+          "end": 130.35,
+          "probability": 0.9985
+        },
+        {
+          "word": "something",
+          "start": 130.35,
+          "end": 130.59,
+          "probability": 1.0
+        },
+        {
+          "word": "like",
+          "start": 130.59,
+          "end": 130.85,
+          "probability": 1.0
+        },
+        {
+          "word": "that,",
+          "start": 130.85,
+          "end": 131.07,
+          "probability": 1.0
+        },
+        {
+          "word": "then",
+          "start": 131.19,
+          "end": 131.73,
+          "probability": 0.999
+        },
+        {
+          "word": "you",
+          "start": 131.73,
+          "end": 131.91,
+          "probability": 1.0
+        },
+        {
+          "word": "can",
+          "start": 131.91,
+          "end": 132.11,
+          "probability": 1.0
+        },
+        {
+          "word": "get",
+          "start": 132.11,
+          "end": 132.33,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 132.33,
+          "end": 132.53,
+          "probability": 1.0
+        },
+        {
+          "word": "corruption.",
+          "start": 132.53,
+          "end": 134.49,
+          "probability": 0.999
+        }
+      ],
+      "avg_logprob": -0.025,
+      "no_speech_prob": 0.0229
+    },
+    {
+      "id": 5,
+      "start": 136.24,
+      "end": 179.62,
+      "text": "So after I copied directory by directory, then I realized it was safe to use my copy drive script. So once I copied the drive, then I had to find out where that disk block was coming from. Okay, so I just copied the C drive over to the D drive, and then I can copy it back.",
+      "words": [
+        {
+          "word": "So",
+          "start": 136.24,
+          "end": 136.72,
+          "probability": 0.6621
+        },
+        {
+          "word": "after",
+          "start": 136.72,
+          "end": 137.18,
+          "probability": 0.5269
+        },
+        {
+          "word": "I",
+          "start": 143.48,
+          "end": 144.44,
+          "probability": 0.9819
+        },
+        {
+          "word": "copied",
+          "start": 144.44,
+          "end": 145.38,
+          "probability": 0.9204
+        },
+        {
+          "word": "directory",
+          "start": 145.38,
+          "end": 145.7,
+          "probability": 0.9849
+        },
+        {
+          "word": "by",
+          "start": 145.7,
+          "end": 146.18,
+          "probability": 0.9795
+        },
+        {
+          "word": "directory,",
+          "start": 146.18,
+          "end": 146.7,
+          "probability": 0.999
+        },
+        {
+          "word": "then",
+          "start": 146.96,
+          "end": 147.62,
+          "probability": 0.9575
+        },
+        {
+          "word": "I",
+          "start": 147.62,
+          "end": 147.8,
+          "probability": 0.998
+        },
+        {
+          "word": "realized",
+          "start": 147.8,
+          "end": 148.26,
+          "probability": 0.9951
+        },
+        {
+          "word": "it",
+          "start": 148.26,
+          "end": 148.54,
+          "probability": 0.9795
+        },
+        {
+          "word": "was",
+          "start": 148.54,
+          "end": 148.7,
+          "probability": 0.9995
+        },
+        {
+          "word": "safe",
+          "start": 148.7,
+          "end": 149.06,
+          "probability": 0.9985
+        },
+        {
+          "word": "to",
+          "start": 149.06,
+          "end": 149.46,
+          "probability": 0.998
+        },
+        {
+          "word": "use",
+          "start": 149.46,
+          "end": 150.78,
+          "probability": 0.9141
+        },
+        {
+          "word": "my",
+          "start": 151.07,
+          "end": 151.55,
+          "probability": 0.9985
+        },
+        {
+          "word": "copy",
+          "start": 151.55,
+          "end": 152.83,
+          "probability": 0.9478
+        },
+        {
+          "word": "drive",
+          "start": 155.8,
+          "end": 156.08,
+          "probability": 0.9756
+        },
+        {
+          "word": "script.",
+          "start": 156.08,
+          "end": 157.18,
+          "probability": 0.9976
+        },
+        {
+          "word": "So",
+          "start": 162.52,
+          "end": 163.2,
+          "probability": 0.9604
+        },
+        {
+          "word": "once",
+          "start": 163.2,
+          "end": 163.8,
+          "probability": 0.9785
+        },
+        {
+          "word": "I",
+          "start": 164.12,
+          "end": 165.28,
+          "probability": 0.9995
+        },
+        {
+          "word": "copied",
+          "start": 165.28,
+          "end": 166.24,
+          "probability": 0.9985
+        },
+        {
+          "word": "the",
+          "start": 166.24,
+          "end": 166.44,
+          "probability": 0.9995
+        },
+        {
+          "word": "drive,",
+          "start": 166.44,
+          "end": 166.7,
+          "probability": 0.999
+        },
+        {
+          "word": "then",
+          "start": 166.84,
+          "end": 167.18,
+          "probability": 0.9893
+        },
+        {
+          "word": "I",
+          "start": 167.18,
+          "end": 168.34,
+          "probability": 0.998
+        },
+        {
+          "word": "had",
+          "start": 169.24,
+          "end": 169.54,
+          "probability": 0.9995
+        },
+        {
+          "word": "to",
+          "start": 169.54,
+          "end": 169.66,
+          "probability": 1.0
+        },
+        {
+          "word": "find",
+          "start": 169.66,
+          "end": 169.9,
+          "probability": 0.9995
+        },
+        {
+          "word": "out",
+          "start": 169.9,
+          "end": 170.08,
+          "probability": 0.9995
+        },
+        {
+          "word": "where",
+          "start": 170.08,
+          "end": 170.42,
+          "probability": 0.999
+        },
+        {
+          "word": "that",
+          "start": 170.42,
+          "end": 171.18,
+          "probability": 0.9746
+        },
+        {
+          "word": "disk",
+          "start": 171.18,
+          "end": 171.74,
+          "probability": 0.978
+        },
+        {
+          "word": "block",
+          "start": 171.74,
+          "end": 172.02,
+          "probability": 0.9922
+        },
+        {
+          "word": "was",
+          "start": 172.02,
+          "end": 172.32,
+          "probability": 1.0
+        },
+        {
+          "word": "coming",
+          "start": 172.32,
+          "end": 172.62,
+          "probability": 1.0
+        },
+        {
+          "word": "from.",
+          "start": 172.62,
+          "end": 173.02,
+          "probability": 1.0
+        },
+        {
+          "word": "Okay,",
+          "start": 173.36,
+          "end": 173.78,
+          "probability": 0.7812
+        },
+        {
+          "word": "so",
+          "start": 173.82,
+          "end": 173.98,
+          "probability": 0.9995
+        },
+        {
+          "word": "I",
+          "start": 173.98,
+          "end": 174.52,
+          "probability": 0.999
+        },
+        {
+          "word": "just",
+          "start": 174.52,
+          "end": 174.68,
+          "probability": 1.0
+        },
+        {
+          "word": "copied",
+          "start": 174.68,
+          "end": 175.02,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 175.02,
+          "end": 175.16,
+          "probability": 0.9995
+        },
+        {
+          "word": "C",
+          "start": 175.16,
+          "end": 175.34,
+          "probability": 0.9961
+        },
+        {
+          "word": "drive",
+          "start": 175.34,
+          "end": 175.62,
+          "probability": 0.9971
+        },
+        {
+          "word": "over",
+          "start": 175.62,
+          "end": 176.0,
+          "probability": 0.9995
+        },
+        {
+          "word": "to",
+          "start": 176.0,
+          "end": 176.2,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 176.2,
+          "end": 176.36,
+          "probability": 1.0
+        },
+        {
+          "word": "D",
+          "start": 176.36,
+          "end": 176.56,
+          "probability": 1.0
+        },
+        {
+          "word": "drive,",
+          "start": 176.56,
+          "end": 176.92,
+          "probability": 0.9995
+        },
+        {
+          "word": "and",
+          "start": 177.02,
+          "end": 177.58,
+          "probability": 1.0
+        },
+        {
+          "word": "then",
+          "start": 177.58,
+          "end": 177.78,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 177.78,
+          "end": 177.92,
+          "probability": 1.0
+        },
+        {
+          "word": "can",
+          "start": 177.92,
+          "end": 178.48,
+          "probability": 0.999
+        },
+        {
+          "word": "copy",
+          "start": 178.48,
+          "end": 179.22,
+          "probability": 1.0
+        },
+        {
+          "word": "it",
+          "start": 179.22,
+          "end": 179.36,
+          "probability": 1.0
+        },
+        {
+          "word": "back.",
+          "start": 179.36,
+          "end": 179.62,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.0425,
+      "no_speech_prob": 0.0209
+    },
+    {
+      "id": 6,
+      "start": 180.46,
+      "end": 219.36,
+      "text": "That's normally what you do. So first of all, you want to make sure the D drive compiles. Okay, so it compiles, and we're going to boot the D drive. So the D drive compiles and boots, so it looks pretty good. First I did it directory by directory, and then I knew it was safe to use this utility. So now we're going to investigate. First I wanted to check if the disk was fixed.",
+      "words": [
+        {
+          "word": "That's",
+          "start": 180.46,
+          "end": 180.86,
+          "probability": 0.7002
+        },
+        {
+          "word": "normally",
+          "start": 180.86,
+          "end": 181.16,
+          "probability": 0.9829
+        },
+        {
+          "word": "what",
+          "start": 181.16,
+          "end": 181.4,
+          "probability": 0.9966
+        },
+        {
+          "word": "you",
+          "start": 181.4,
+          "end": 181.54,
+          "probability": 0.9912
+        },
+        {
+          "word": "do.",
+          "start": 181.54,
+          "end": 181.66,
+          "probability": 0.979
+        },
+        {
+          "word": "So",
+          "start": 181.76,
+          "end": 181.82,
+          "probability": 0.6699
+        },
+        {
+          "word": "first",
+          "start": 181.82,
+          "end": 182.76,
+          "probability": 0.6484
+        },
+        {
+          "word": "of",
+          "start": 182.76,
+          "end": 182.94,
+          "probability": 0.9951
+        },
+        {
+          "word": "all,",
+          "start": 182.94,
+          "end": 183.1,
+          "probability": 0.9995
+        },
+        {
+          "word": "you",
+          "start": 183.12,
+          "end": 183.2,
+          "probability": 0.9971
+        },
+        {
+          "word": "want",
+          "start": 183.2,
+          "end": 183.32,
+          "probability": 0.9219
+        },
+        {
+          "word": "to",
+          "start": 183.32,
+          "end": 183.42,
+          "probability": 0.9995
+        },
+        {
+          "word": "make",
+          "start": 183.42,
+          "end": 183.56,
+          "probability": 0.9995
+        },
+        {
+          "word": "sure",
+          "start": 183.56,
+          "end": 183.72,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 183.72,
+          "end": 183.86,
+          "probability": 0.8628
+        },
+        {
+          "word": "D",
+          "start": 183.86,
+          "end": 184.02,
+          "probability": 0.9219
+        },
+        {
+          "word": "drive",
+          "start": 184.02,
+          "end": 184.24,
+          "probability": 0.7778
+        },
+        {
+          "word": "compiles.",
+          "start": 184.24,
+          "end": 185.42,
+          "probability": 0.9958
+        },
+        {
+          "word": "Okay,",
+          "start": 188.79,
+          "end": 189.19,
+          "probability": 0.7793
+        },
+        {
+          "word": "so",
+          "start": 189.25,
+          "end": 189.39,
+          "probability": 0.998
+        },
+        {
+          "word": "it",
+          "start": 189.39,
+          "end": 189.55,
+          "probability": 0.998
+        },
+        {
+          "word": "compiles,",
+          "start": 189.55,
+          "end": 190.49,
+          "probability": 0.999
+        },
+        {
+          "word": "and",
+          "start": 190.51,
+          "end": 191.13,
+          "probability": 0.9995
+        },
+        {
+          "word": "we're",
+          "start": 191.13,
+          "end": 191.91,
+          "probability": 0.9978
+        },
+        {
+          "word": "going",
+          "start": 191.91,
+          "end": 191.95,
+          "probability": 0.9722
+        },
+        {
+          "word": "to",
+          "start": 191.95,
+          "end": 192.05,
+          "probability": 1.0
+        },
+        {
+          "word": "boot",
+          "start": 192.05,
+          "end": 192.29,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 192.29,
+          "end": 192.47,
+          "probability": 0.9995
+        },
+        {
+          "word": "D",
+          "start": 192.47,
+          "end": 192.65,
+          "probability": 0.9976
+        },
+        {
+          "word": "drive.",
+          "start": 192.65,
+          "end": 192.95,
+          "probability": 0.9985
+        },
+        {
+          "word": "So",
+          "start": 194.71,
+          "end": 195.11,
+          "probability": 0.9956
+        },
+        {
+          "word": "the",
+          "start": 195.11,
+          "end": 195.25,
+          "probability": 0.998
+        },
+        {
+          "word": "D",
+          "start": 195.25,
+          "end": 195.39,
+          "probability": 0.9995
+        },
+        {
+          "word": "drive",
+          "start": 195.39,
+          "end": 195.63,
+          "probability": 0.999
+        },
+        {
+          "word": "compiles",
+          "start": 195.63,
+          "end": 196.23,
+          "probability": 0.9998
+        },
+        {
+          "word": "and",
+          "start": 196.23,
+          "end": 196.33,
+          "probability": 0.9995
+        },
+        {
+          "word": "boots,",
+          "start": 196.33,
+          "end": 196.65,
+          "probability": 0.9932
+        },
+        {
+          "word": "so",
+          "start": 196.67,
+          "end": 196.83,
+          "probability": 0.9995
+        },
+        {
+          "word": "it",
+          "start": 196.83,
+          "end": 196.99,
+          "probability": 1.0
+        },
+        {
+          "word": "looks",
+          "start": 196.99,
+          "end": 197.27,
+          "probability": 1.0
+        },
+        {
+          "word": "pretty",
+          "start": 197.27,
+          "end": 197.51,
+          "probability": 1.0
+        },
+        {
+          "word": "good.",
+          "start": 197.51,
+          "end": 197.81,
+          "probability": 1.0
+        },
+        {
+          "word": "First",
+          "start": 198.07,
+          "end": 198.47,
+          "probability": 0.999
+        },
+        {
+          "word": "I",
+          "start": 198.47,
+          "end": 198.71,
+          "probability": 0.7373
+        },
+        {
+          "word": "did",
+          "start": 198.71,
+          "end": 198.85,
+          "probability": 1.0
+        },
+        {
+          "word": "it",
+          "start": 198.85,
+          "end": 198.97,
+          "probability": 1.0
+        },
+        {
+          "word": "directory",
+          "start": 198.97,
+          "end": 199.29,
+          "probability": 0.9995
+        },
+        {
+          "word": "by",
+          "start": 199.29,
+          "end": 199.61,
+          "probability": 0.9912
+        },
+        {
+          "word": "directory,",
+          "start": 199.61,
+          "end": 200.09,
+          "probability": 1.0
+        },
+        {
+          "word": "and",
+          "start": 200.29,
+          "end": 200.49,
+          "probability": 0.9995
+        },
+        {
+          "word": "then",
+          "start": 200.49,
+          "end": 200.69,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 200.69,
+          "end": 200.83,
+          "probability": 1.0
+        },
+        {
+          "word": "knew",
+          "start": 200.83,
+          "end": 201.43,
+          "probability": 0.9961
+        },
+        {
+          "word": "it",
+          "start": 201.43,
+          "end": 201.61,
+          "probability": 1.0
+        },
+        {
+          "word": "was",
+          "start": 201.61,
+          "end": 201.77,
+          "probability": 1.0
+        },
+        {
+          "word": "safe",
+          "start": 201.77,
+          "end": 202.05,
+          "probability": 1.0
+        },
+        {
+          "word": "to",
+          "start": 202.05,
+          "end": 202.25,
+          "probability": 1.0
+        },
+        {
+          "word": "use",
+          "start": 202.25,
+          "end": 202.59,
+          "probability": 1.0
+        },
+        {
+          "word": "this",
+          "start": 202.59,
+          "end": 202.79,
+          "probability": 1.0
+        },
+        {
+          "word": "utility.",
+          "start": 202.79,
+          "end": 203.17,
+          "probability": 1.0
+        },
+        {
+          "word": "So",
+          "start": 203.75,
+          "end": 204.15,
+          "probability": 0.9775
+        },
+        {
+          "word": "now",
+          "start": 204.15,
+          "end": 205.41,
+          "probability": 0.9937
+        },
+        {
+          "word": "we're",
+          "start": 208.39,
+          "end": 208.63,
+          "probability": 0.9998
+        },
+        {
+          "word": "going",
+          "start": 208.63,
+          "end": 208.69,
+          "probability": 0.9995
+        },
+        {
+          "word": "to",
+          "start": 208.69,
+          "end": 208.85,
+          "probability": 1.0
+        },
+        {
+          "word": "investigate.",
+          "start": 208.85,
+          "end": 209.35,
+          "probability": 0.9995
+        },
+        {
+          "word": "First",
+          "start": 214.06,
+          "end": 214.46,
+          "probability": 0.9995
+        },
+        {
+          "word": "I",
+          "start": 214.46,
+          "end": 214.76,
+          "probability": 0.9175
+        },
+        {
+          "word": "wanted",
+          "start": 214.76,
+          "end": 214.94,
+          "probability": 0.9995
+        },
+        {
+          "word": "to",
+          "start": 214.94,
+          "end": 215.1,
+          "probability": 1.0
+        },
+        {
+          "word": "check",
+          "start": 215.1,
+          "end": 215.32,
+          "probability": 0.8623
+        },
+        {
+          "word": "if",
+          "start": 215.32,
+          "end": 217.62,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 217.82,
+          "end": 218.0,
+          "probability": 1.0
+        },
+        {
+          "word": "disk",
+          "start": 218.0,
+          "end": 218.28,
+          "probability": 0.9961
+        },
+        {
+          "word": "was",
+          "start": 218.28,
+          "end": 218.54,
+          "probability": 1.0
+        },
+        {
+          "word": "fixed.",
+          "start": 218.54,
+          "end": 219.36,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.0508,
+      "no_speech_prob": 0.0325
+    },
+    {
+      "id": 7,
+      "start": 220.72,
+      "end": 251.47,
+      "text": "So I copied this. I was getting an error on the C drive, and I copied over to the D drive. Oh, no, we're still getting an error. Now, in a normal situation, this would never happen. But we have a compiler, or we have a kernel bug. Actually, it's probably a bug in the disk check. Okay, so 3C51. Now, I was going to modify the disk check utility to...",
+      "words": [
+        {
+          "word": "So",
+          "start": 220.72,
+          "end": 221.1,
+          "probability": 0.8374
+        },
+        {
+          "word": "I",
+          "start": 221.1,
+          "end": 221.26,
+          "probability": 0.7793
+        },
+        {
+          "word": "copied",
+          "start": 221.26,
+          "end": 221.6,
+          "probability": 0.8677
+        },
+        {
+          "word": "this.",
+          "start": 221.6,
+          "end": 221.8,
+          "probability": 0.9937
+        },
+        {
+          "word": "I",
+          "start": 221.9,
+          "end": 222.1,
+          "probability": 0.999
+        },
+        {
+          "word": "was",
+          "start": 222.1,
+          "end": 222.28,
+          "probability": 1.0
+        },
+        {
+          "word": "getting",
+          "start": 222.28,
+          "end": 222.48,
+          "probability": 1.0
+        },
+        {
+          "word": "an",
+          "start": 222.48,
+          "end": 222.6,
+          "probability": 0.8413
+        },
+        {
+          "word": "error",
+          "start": 222.6,
+          "end": 222.9,
+          "probability": 1.0
+        },
+        {
+          "word": "on",
+          "start": 222.9,
+          "end": 223.12,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 223.12,
+          "end": 223.26,
+          "probability": 0.9995
+        },
+        {
+          "word": "C",
+          "start": 223.26,
+          "end": 223.44,
+          "probability": 0.9966
+        },
+        {
+          "word": "drive,",
+          "start": 223.44,
+          "end": 223.8,
+          "probability": 0.9902
+        },
+        {
+          "word": "and",
+          "start": 224.0,
+          "end": 224.46,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 224.46,
+          "end": 224.58,
+          "probability": 0.9995
+        },
+        {
+          "word": "copied",
+          "start": 224.58,
+          "end": 224.92,
+          "probability": 1.0
+        },
+        {
+          "word": "over",
+          "start": 224.92,
+          "end": 225.1,
+          "probability": 0.978
+        },
+        {
+          "word": "to",
+          "start": 225.1,
+          "end": 225.24,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 225.24,
+          "end": 225.38,
+          "probability": 1.0
+        },
+        {
+          "word": "D",
+          "start": 225.38,
+          "end": 225.58,
+          "probability": 1.0
+        },
+        {
+          "word": "drive.",
+          "start": 225.58,
+          "end": 225.84,
+          "probability": 0.9995
+        },
+        {
+          "word": "Oh,",
+          "start": 226.1,
+          "end": 226.54,
+          "probability": 0.9995
+        },
+        {
+          "word": "no,",
+          "start": 226.64,
+          "end": 226.86,
+          "probability": 1.0
+        },
+        {
+          "word": "we're",
+          "start": 226.98,
+          "end": 227.16,
+          "probability": 0.9993
+        },
+        {
+          "word": "still",
+          "start": 227.16,
+          "end": 227.36,
+          "probability": 1.0
+        },
+        {
+          "word": "getting",
+          "start": 227.36,
+          "end": 227.62,
+          "probability": 1.0
+        },
+        {
+          "word": "an",
+          "start": 227.62,
+          "end": 227.8,
+          "probability": 1.0
+        },
+        {
+          "word": "error.",
+          "start": 227.8,
+          "end": 228.04,
+          "probability": 1.0
+        },
+        {
+          "word": "Now,",
+          "start": 228.36,
+          "end": 228.8,
+          "probability": 0.9995
+        },
+        {
+          "word": "in",
+          "start": 228.92,
+          "end": 229.06,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 229.06,
+          "end": 229.2,
+          "probability": 1.0
+        },
+        {
+          "word": "normal",
+          "start": 229.2,
+          "end": 229.48,
+          "probability": 1.0
+        },
+        {
+          "word": "situation,",
+          "start": 229.48,
+          "end": 229.82,
+          "probability": 1.0
+        },
+        {
+          "word": "this",
+          "start": 230.24,
+          "end": 230.78,
+          "probability": 1.0
+        },
+        {
+          "word": "would",
+          "start": 230.78,
+          "end": 230.96,
+          "probability": 1.0
+        },
+        {
+          "word": "never",
+          "start": 230.96,
+          "end": 231.22,
+          "probability": 1.0
+        },
+        {
+          "word": "happen.",
+          "start": 231.22,
+          "end": 231.72,
+          "probability": 1.0
+        },
+        {
+          "word": "But",
+          "start": 232.81,
+          "end": 233.25,
+          "probability": 0.9995
+        },
+        {
+          "word": "we",
+          "start": 233.25,
+          "end": 233.45,
+          "probability": 0.999
+        },
+        {
+          "word": "have",
+          "start": 233.45,
+          "end": 233.67,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 233.67,
+          "end": 233.85,
+          "probability": 1.0
+        },
+        {
+          "word": "compiler,",
+          "start": 233.85,
+          "end": 234.23,
+          "probability": 0.9829
+        },
+        {
+          "word": "or",
+          "start": 234.47,
+          "end": 234.69,
+          "probability": 1.0
+        },
+        {
+          "word": "we",
+          "start": 234.69,
+          "end": 234.83,
+          "probability": 1.0
+        },
+        {
+          "word": "have",
+          "start": 234.83,
+          "end": 234.99,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 234.99,
+          "end": 235.11,
+          "probability": 1.0
+        },
+        {
+          "word": "kernel",
+          "start": 235.11,
+          "end": 235.35,
+          "probability": 0.9995
+        },
+        {
+          "word": "bug.",
+          "start": 235.35,
+          "end": 235.65,
+          "probability": 1.0
+        },
+        {
+          "word": "Actually,",
+          "start": 239.01,
+          "end": 239.45,
+          "probability": 0.9834
+        },
+        {
+          "word": "it's",
+          "start": 239.53,
+          "end": 239.67,
+          "probability": 1.0
+        },
+        {
+          "word": "probably",
+          "start": 239.67,
+          "end": 239.93,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 239.93,
+          "end": 240.19,
+          "probability": 1.0
+        },
+        {
+          "word": "bug",
+          "start": 240.19,
+          "end": 240.43,
+          "probability": 1.0
+        },
+        {
+          "word": "in",
+          "start": 240.43,
+          "end": 240.63,
+          "probability": 0.9976
+        },
+        {
+          "word": "the",
+          "start": 240.63,
+          "end": 241.27,
+          "probability": 0.9941
+        },
+        {
+          "word": "disk",
+          "start": 241.27,
+          "end": 241.65,
+          "probability": 0.9893
+        },
+        {
+          "word": "check.",
+          "start": 241.65,
+          "end": 242.55,
+          "probability": 0.9961
+        },
+        {
+          "word": "Okay,",
+          "start": 243.54,
+          "end": 243.98,
+          "probability": 0.9443
+        },
+        {
+          "word": "so",
+          "start": 244.04,
+          "end": 244.22,
+          "probability": 1.0
+        },
+        {
+          "word": "3C51.",
+          "start": 245.05,
+          "end": 246.77,
+          "probability": 0.9701
+        },
+        {
+          "word": "Now,",
+          "start": 247.09,
+          "end": 247.53,
+          "probability": 0.9961
+        },
+        {
+          "word": "I",
+          "start": 247.61,
+          "end": 247.71,
+          "probability": 1.0
+        },
+        {
+          "word": "was",
+          "start": 247.71,
+          "end": 247.89,
+          "probability": 1.0
+        },
+        {
+          "word": "going",
+          "start": 247.89,
+          "end": 247.99,
+          "probability": 0.9966
+        },
+        {
+          "word": "to",
+          "start": 247.99,
+          "end": 248.13,
+          "probability": 1.0
+        },
+        {
+          "word": "modify",
+          "start": 248.13,
+          "end": 248.51,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 248.51,
+          "end": 248.95,
+          "probability": 1.0
+        },
+        {
+          "word": "disk",
+          "start": 248.95,
+          "end": 249.93,
+          "probability": 0.999
+        },
+        {
+          "word": "check",
+          "start": 249.93,
+          "end": 250.29,
+          "probability": 0.9995
+        },
+        {
+          "word": "utility",
+          "start": 250.29,
+          "end": 250.71,
+          "probability": 0.9995
+        },
+        {
+          "word": "to...",
+          "start": 250.71,
+          "end": 251.47,
+          "probability": 0.8391
+        }
+      ],
+      "avg_logprob": -0.0391,
+      "no_speech_prob": 0.0194
+    },
+    {
+      "id": 8,
+      "start": 252.02,
+      "end": 288.8,
+      "text": "print the file but uh i could do that um what we're going to do instead is uh we're going to do a directory of the root directory we're going to do a full we're going to do a a full directory so looking at this three when you when you copy the drive from one disk to the other then it um it reallocates everything in a sequence",
+      "words": [
+        {
+          "word": "print",
+          "start": 252.02,
+          "end": 252.34,
+          "probability": 0.8823
+        },
+        {
+          "word": "the",
+          "start": 252.34,
+          "end": 252.5,
+          "probability": 0.9917
+        },
+        {
+          "word": "file",
+          "start": 252.5,
+          "end": 252.9,
+          "probability": 0.9897
+        },
+        {
+          "word": "but",
+          "start": 252.9,
+          "end": 254.12,
+          "probability": 0.7168
+        },
+        {
+          "word": "uh",
+          "start": 254.12,
+          "end": 254.32,
+          "probability": 0.6328
+        },
+        {
+          "word": "i",
+          "start": 254.32,
+          "end": 255.12,
+          "probability": 0.6836
+        },
+        {
+          "word": "could",
+          "start": 257.62,
+          "end": 257.92,
+          "probability": 0.9995
+        },
+        {
+          "word": "do",
+          "start": 257.92,
+          "end": 258.16,
+          "probability": 0.9995
+        },
+        {
+          "word": "that",
+          "start": 258.16,
+          "end": 258.44,
+          "probability": 0.9995
+        },
+        {
+          "word": "um",
+          "start": 258.44,
+          "end": 259.4,
+          "probability": 0.8198
+        },
+        {
+          "word": "what",
+          "start": 259.46,
+          "end": 260.1,
+          "probability": 0.998
+        },
+        {
+          "word": "we're",
+          "start": 260.1,
+          "end": 260.28,
+          "probability": 1.0
+        },
+        {
+          "word": "going",
+          "start": 260.28,
+          "end": 260.36,
+          "probability": 0.6753
+        },
+        {
+          "word": "to",
+          "start": 260.36,
+          "end": 260.48,
+          "probability": 0.9971
+        },
+        {
+          "word": "do",
+          "start": 260.48,
+          "end": 260.62,
+          "probability": 1.0
+        },
+        {
+          "word": "instead",
+          "start": 260.62,
+          "end": 260.9,
+          "probability": 0.9995
+        },
+        {
+          "word": "is",
+          "start": 260.9,
+          "end": 261.36,
+          "probability": 0.9995
+        },
+        {
+          "word": "uh",
+          "start": 261.36,
+          "end": 261.48,
+          "probability": 0.9648
+        },
+        {
+          "word": "we're",
+          "start": 261.48,
+          "end": 262.22,
+          "probability": 0.9998
+        },
+        {
+          "word": "going",
+          "start": 262.22,
+          "end": 262.24,
+          "probability": 0.9888
+        },
+        {
+          "word": "to",
+          "start": 262.24,
+          "end": 262.32,
+          "probability": 0.998
+        },
+        {
+          "word": "do",
+          "start": 262.32,
+          "end": 262.48,
+          "probability": 0.9995
+        },
+        {
+          "word": "a",
+          "start": 262.48,
+          "end": 262.6,
+          "probability": 1.0
+        },
+        {
+          "word": "directory",
+          "start": 262.6,
+          "end": 263.06,
+          "probability": 0.9912
+        },
+        {
+          "word": "of",
+          "start": 263.06,
+          "end": 264.26,
+          "probability": 0.9907
+        },
+        {
+          "word": "the",
+          "start": 266.12,
+          "end": 266.26,
+          "probability": 0.9985
+        },
+        {
+          "word": "root",
+          "start": 266.26,
+          "end": 266.68,
+          "probability": 0.9575
+        },
+        {
+          "word": "directory",
+          "start": 266.68,
+          "end": 267.32,
+          "probability": 0.9995
+        },
+        {
+          "word": "we're",
+          "start": 267.32,
+          "end": 268.14,
+          "probability": 0.7986
+        },
+        {
+          "word": "going",
+          "start": 268.14,
+          "end": 268.18,
+          "probability": 0.9863
+        },
+        {
+          "word": "to",
+          "start": 268.18,
+          "end": 268.26,
+          "probability": 0.999
+        },
+        {
+          "word": "do",
+          "start": 268.26,
+          "end": 268.4,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 268.4,
+          "end": 268.54,
+          "probability": 0.9995
+        },
+        {
+          "word": "full",
+          "start": 268.54,
+          "end": 268.92,
+          "probability": 0.9976
+        },
+        {
+          "word": "we're",
+          "start": 268.92,
+          "end": 269.46,
+          "probability": 0.9944
+        },
+        {
+          "word": "going",
+          "start": 269.46,
+          "end": 269.52,
+          "probability": 0.9888
+        },
+        {
+          "word": "to",
+          "start": 269.52,
+          "end": 269.64,
+          "probability": 0.9961
+        },
+        {
+          "word": "do",
+          "start": 269.64,
+          "end": 269.84,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 269.84,
+          "end": 269.98,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 269.98,
+          "end": 270.22,
+          "probability": 0.5142
+        },
+        {
+          "word": "full",
+          "start": 270.22,
+          "end": 271.22,
+          "probability": 0.9966
+        },
+        {
+          "word": "directory",
+          "start": 271.22,
+          "end": 271.76,
+          "probability": 0.9995
+        },
+        {
+          "word": "so",
+          "start": 271.76,
+          "end": 272.88,
+          "probability": 0.9907
+        },
+        {
+          "word": "looking",
+          "start": 278.22,
+          "end": 278.74,
+          "probability": 1.0
+        },
+        {
+          "word": "at",
+          "start": 278.74,
+          "end": 279.02,
+          "probability": 1.0
+        },
+        {
+          "word": "this",
+          "start": 279.02,
+          "end": 279.32,
+          "probability": 1.0
+        },
+        {
+          "word": "three",
+          "start": 279.32,
+          "end": 279.78,
+          "probability": 0.9839
+        },
+        {
+          "word": "when",
+          "start": 279.78,
+          "end": 280.66,
+          "probability": 0.9985
+        },
+        {
+          "word": "you",
+          "start": 280.66,
+          "end": 280.86,
+          "probability": 1.0
+        },
+        {
+          "word": "when",
+          "start": 280.86,
+          "end": 281.12,
+          "probability": 0.998
+        },
+        {
+          "word": "you",
+          "start": 281.12,
+          "end": 281.26,
+          "probability": 1.0
+        },
+        {
+          "word": "copy",
+          "start": 281.26,
+          "end": 281.6,
+          "probability": 0.9976
+        },
+        {
+          "word": "the",
+          "start": 281.6,
+          "end": 281.8,
+          "probability": 1.0
+        },
+        {
+          "word": "drive",
+          "start": 281.8,
+          "end": 282.1,
+          "probability": 0.9995
+        },
+        {
+          "word": "from",
+          "start": 282.1,
+          "end": 282.8,
+          "probability": 1.0
+        },
+        {
+          "word": "one",
+          "start": 282.8,
+          "end": 283.08,
+          "probability": 1.0
+        },
+        {
+          "word": "disk",
+          "start": 283.08,
+          "end": 283.32,
+          "probability": 0.769
+        },
+        {
+          "word": "to",
+          "start": 283.32,
+          "end": 283.56,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 283.56,
+          "end": 283.68,
+          "probability": 1.0
+        },
+        {
+          "word": "other",
+          "start": 283.68,
+          "end": 284.0,
+          "probability": 1.0
+        },
+        {
+          "word": "then",
+          "start": 284.0,
+          "end": 284.82,
+          "probability": 0.9985
+        },
+        {
+          "word": "it",
+          "start": 284.82,
+          "end": 285.02,
+          "probability": 0.999
+        },
+        {
+          "word": "um",
+          "start": 285.02,
+          "end": 285.3,
+          "probability": 0.9927
+        },
+        {
+          "word": "it",
+          "start": 285.3,
+          "end": 286.4,
+          "probability": 0.9976
+        },
+        {
+          "word": "reallocates",
+          "start": 286.4,
+          "end": 287.46,
+          "probability": 0.9734
+        },
+        {
+          "word": "everything",
+          "start": 287.46,
+          "end": 287.8,
+          "probability": 1.0
+        },
+        {
+          "word": "in",
+          "start": 287.8,
+          "end": 288.28,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 288.28,
+          "end": 288.42,
+          "probability": 1.0
+        },
+        {
+          "word": "sequence",
+          "start": 288.42,
+          "end": 288.8,
+          "probability": 0.9995
+        }
+      ],
+      "avg_logprob": -0.0478,
+      "no_speech_prob": 0.0517
+    },
+    {
+      "id": 9,
+      "start": 289.56,
+      "end": 322.64,
+      "text": "And so you can see how the cluster numbers are increasing. So 3C51, that's in the home directory. So now we want to look at the home directory. So 3C51, it's in the supplemental. On my disk, I have the supplemental disk stored in the home directory. And look at that, 3C51. It's the second block.",
+      "words": [
+        {
+          "word": "And",
+          "start": 289.56,
+          "end": 289.88,
+          "probability": 0.6182
+        },
+        {
+          "word": "so",
+          "start": 289.88,
+          "end": 289.98,
+          "probability": 0.9766
+        },
+        {
+          "word": "you",
+          "start": 289.98,
+          "end": 290.08,
+          "probability": 0.9023
+        },
+        {
+          "word": "can",
+          "start": 290.08,
+          "end": 290.22,
+          "probability": 0.9985
+        },
+        {
+          "word": "see",
+          "start": 290.22,
+          "end": 290.42,
+          "probability": 0.9985
+        },
+        {
+          "word": "how",
+          "start": 290.42,
+          "end": 290.52,
+          "probability": 0.9971
+        },
+        {
+          "word": "the",
+          "start": 290.52,
+          "end": 290.66,
+          "probability": 0.3726
+        },
+        {
+          "word": "cluster",
+          "start": 290.66,
+          "end": 291.48,
+          "probability": 0.9849
+        },
+        {
+          "word": "numbers",
+          "start": 291.48,
+          "end": 291.84,
+          "probability": 0.9976
+        },
+        {
+          "word": "are",
+          "start": 291.84,
+          "end": 292.16,
+          "probability": 0.999
+        },
+        {
+          "word": "increasing.",
+          "start": 292.16,
+          "end": 292.68,
+          "probability": 0.9985
+        },
+        {
+          "word": "So",
+          "start": 293.54,
+          "end": 294.1,
+          "probability": 0.9751
+        },
+        {
+          "word": "3C51,",
+          "start": 294.1,
+          "end": 295.9,
+          "probability": 0.8942
+        },
+        {
+          "word": "that's",
+          "start": 296.02,
+          "end": 298.24,
+          "probability": 0.9851
+        },
+        {
+          "word": "in",
+          "start": 298.24,
+          "end": 298.36,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 298.36,
+          "end": 298.5,
+          "probability": 1.0
+        },
+        {
+          "word": "home",
+          "start": 298.5,
+          "end": 298.7,
+          "probability": 0.9775
+        },
+        {
+          "word": "directory.",
+          "start": 298.7,
+          "end": 298.98,
+          "probability": 1.0
+        },
+        {
+          "word": "So",
+          "start": 299.4,
+          "end": 299.96,
+          "probability": 0.9971
+        },
+        {
+          "word": "now",
+          "start": 299.96,
+          "end": 300.14,
+          "probability": 0.998
+        },
+        {
+          "word": "we",
+          "start": 300.14,
+          "end": 300.3,
+          "probability": 0.9985
+        },
+        {
+          "word": "want",
+          "start": 300.3,
+          "end": 300.48,
+          "probability": 0.9746
+        },
+        {
+          "word": "to",
+          "start": 300.48,
+          "end": 300.6,
+          "probability": 1.0
+        },
+        {
+          "word": "look",
+          "start": 300.6,
+          "end": 301.34,
+          "probability": 0.9971
+        },
+        {
+          "word": "at",
+          "start": 301.34,
+          "end": 301.58,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 301.58,
+          "end": 301.78,
+          "probability": 1.0
+        },
+        {
+          "word": "home",
+          "start": 301.78,
+          "end": 303.18,
+          "probability": 0.999
+        },
+        {
+          "word": "directory.",
+          "start": 303.54,
+          "end": 303.84,
+          "probability": 1.0
+        },
+        {
+          "word": "So",
+          "start": 306.8,
+          "end": 307.36,
+          "probability": 0.9956
+        },
+        {
+          "word": "3C51,",
+          "start": 307.36,
+          "end": 308.82,
+          "probability": 0.9987
+        },
+        {
+          "word": "it's",
+          "start": 308.9,
+          "end": 309.1,
+          "probability": 0.9995
+        },
+        {
+          "word": "in",
+          "start": 309.1,
+          "end": 309.2,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 309.2,
+          "end": 309.3,
+          "probability": 1.0
+        },
+        {
+          "word": "supplemental.",
+          "start": 309.3,
+          "end": 309.68,
+          "probability": 0.9971
+        },
+        {
+          "word": "On",
+          "start": 310.14,
+          "end": 310.7,
+          "probability": 0.9956
+        },
+        {
+          "word": "my",
+          "start": 310.7,
+          "end": 310.98,
+          "probability": 1.0
+        },
+        {
+          "word": "disk,",
+          "start": 310.98,
+          "end": 311.32,
+          "probability": 0.9956
+        },
+        {
+          "word": "I",
+          "start": 311.42,
+          "end": 311.54,
+          "probability": 1.0
+        },
+        {
+          "word": "have",
+          "start": 311.54,
+          "end": 311.68,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 311.68,
+          "end": 312.24,
+          "probability": 0.9995
+        },
+        {
+          "word": "supplemental",
+          "start": 312.24,
+          "end": 312.68,
+          "probability": 1.0
+        },
+        {
+          "word": "disk",
+          "start": 312.68,
+          "end": 313.12,
+          "probability": 0.9966
+        },
+        {
+          "word": "stored",
+          "start": 313.12,
+          "end": 313.82,
+          "probability": 0.9995
+        },
+        {
+          "word": "in",
+          "start": 313.82,
+          "end": 314.88,
+          "probability": 0.9961
+        },
+        {
+          "word": "the",
+          "start": 315.74,
+          "end": 315.8,
+          "probability": 1.0
+        },
+        {
+          "word": "home",
+          "start": 315.8,
+          "end": 316.0,
+          "probability": 1.0
+        },
+        {
+          "word": "directory.",
+          "start": 316.0,
+          "end": 316.32,
+          "probability": 1.0
+        },
+        {
+          "word": "And",
+          "start": 317.82,
+          "end": 318.38,
+          "probability": 0.999
+        },
+        {
+          "word": "look",
+          "start": 318.38,
+          "end": 319.42,
+          "probability": 0.9995
+        },
+        {
+          "word": "at",
+          "start": 319.42,
+          "end": 319.54,
+          "probability": 1.0
+        },
+        {
+          "word": "that,",
+          "start": 319.54,
+          "end": 319.7,
+          "probability": 1.0
+        },
+        {
+          "word": "3C51.",
+          "start": 319.78,
+          "end": 320.54,
+          "probability": 1.0
+        },
+        {
+          "word": "It's",
+          "start": 321.02,
+          "end": 321.58,
+          "probability": 0.9993
+        },
+        {
+          "word": "the",
+          "start": 321.58,
+          "end": 321.72,
+          "probability": 1.0
+        },
+        {
+          "word": "second",
+          "start": 321.72,
+          "end": 322.18,
+          "probability": 0.9985
+        },
+        {
+          "word": "block.",
+          "start": 322.18,
+          "end": 322.64,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.0348,
+      "no_speech_prob": 0.013
+    },
+    {
+      "id": 10,
+      "start": 323.63,
+      "end": 371.3,
+      "text": "after the hems. So, okay, now it becomes obvious what's happening. This is a pretty big directory, and that's a clue. So 3C5O is the current directory block. These are clusters, not blocks. So it looks like this is what happened.",
+      "words": [
+        {
+          "word": "after",
+          "start": 323.63,
+          "end": 324.37,
+          "probability": 0.751
+        },
+        {
+          "word": "the",
+          "start": 324.37,
+          "end": 324.71,
+          "probability": 0.9927
+        },
+        {
+          "word": "hems.",
+          "start": 324.71,
+          "end": 326.41,
+          "probability": 0.7805
+        },
+        {
+          "word": "So,",
+          "start": 326.57,
+          "end": 327.37,
+          "probability": 0.5674
+        },
+        {
+          "word": "okay,",
+          "start": 329.51,
+          "end": 330.57,
+          "probability": 0.7739
+        },
+        {
+          "word": "now",
+          "start": 346.25,
+          "end": 346.53,
+          "probability": 0.998
+        },
+        {
+          "word": "it",
+          "start": 346.53,
+          "end": 346.87,
+          "probability": 0.9907
+        },
+        {
+          "word": "becomes",
+          "start": 346.87,
+          "end": 347.19,
+          "probability": 0.9976
+        },
+        {
+          "word": "obvious",
+          "start": 347.19,
+          "end": 347.71,
+          "probability": 0.999
+        },
+        {
+          "word": "what's",
+          "start": 347.71,
+          "end": 348.35,
+          "probability": 0.9951
+        },
+        {
+          "word": "happening.",
+          "start": 348.35,
+          "end": 348.67,
+          "probability": 0.9995
+        },
+        {
+          "word": "This",
+          "start": 348.89,
+          "end": 349.49,
+          "probability": 0.999
+        },
+        {
+          "word": "is",
+          "start": 349.49,
+          "end": 349.67,
+          "probability": 0.9995
+        },
+        {
+          "word": "a",
+          "start": 349.67,
+          "end": 349.79,
+          "probability": 0.9995
+        },
+        {
+          "word": "pretty",
+          "start": 349.79,
+          "end": 350.01,
+          "probability": 0.9995
+        },
+        {
+          "word": "big",
+          "start": 350.01,
+          "end": 350.33,
+          "probability": 1.0
+        },
+        {
+          "word": "directory,",
+          "start": 350.33,
+          "end": 350.95,
+          "probability": 0.999
+        },
+        {
+          "word": "and",
+          "start": 351.07,
+          "end": 352.03,
+          "probability": 0.9995
+        },
+        {
+          "word": "that's",
+          "start": 352.03,
+          "end": 352.35,
+          "probability": 0.9998
+        },
+        {
+          "word": "a",
+          "start": 352.35,
+          "end": 352.43,
+          "probability": 0.9995
+        },
+        {
+          "word": "clue.",
+          "start": 352.43,
+          "end": 352.83,
+          "probability": 0.999
+        },
+        {
+          "word": "So",
+          "start": 354.03,
+          "end": 354.83,
+          "probability": 0.9834
+        },
+        {
+          "word": "3C5O",
+          "start": 355.6,
+          "end": 358.08,
+          "probability": 0.7484
+        },
+        {
+          "word": "is",
+          "start": 358.08,
+          "end": 359.08,
+          "probability": 0.9976
+        },
+        {
+          "word": "the",
+          "start": 359.08,
+          "end": 359.62,
+          "probability": 0.9995
+        },
+        {
+          "word": "current",
+          "start": 359.62,
+          "end": 360.86,
+          "probability": 0.9922
+        },
+        {
+          "word": "directory",
+          "start": 360.86,
+          "end": 361.2,
+          "probability": 0.9995
+        },
+        {
+          "word": "block.",
+          "start": 361.2,
+          "end": 361.78,
+          "probability": 0.9995
+        },
+        {
+          "word": "These",
+          "start": 362.52,
+          "end": 363.32,
+          "probability": 0.999
+        },
+        {
+          "word": "are",
+          "start": 363.32,
+          "end": 363.52,
+          "probability": 1.0
+        },
+        {
+          "word": "clusters,",
+          "start": 363.52,
+          "end": 363.98,
+          "probability": 0.9995
+        },
+        {
+          "word": "not",
+          "start": 364.12,
+          "end": 364.54,
+          "probability": 1.0
+        },
+        {
+          "word": "blocks.",
+          "start": 364.54,
+          "end": 365.04,
+          "probability": 1.0
+        },
+        {
+          "word": "So",
+          "start": 365.06,
+          "end": 365.68,
+          "probability": 0.9849
+        },
+        {
+          "word": "it",
+          "start": 365.68,
+          "end": 367.06,
+          "probability": 0.8823
+        },
+        {
+          "word": "looks",
+          "start": 367.19,
+          "end": 367.93,
+          "probability": 0.9995
+        },
+        {
+          "word": "like",
+          "start": 367.93,
+          "end": 368.29,
+          "probability": 1.0
+        },
+        {
+          "word": "this",
+          "start": 368.29,
+          "end": 370.13,
+          "probability": 0.9526
+        },
+        {
+          "word": "is",
+          "start": 370.54,
+          "end": 370.72,
+          "probability": 1.0
+        },
+        {
+          "word": "what",
+          "start": 370.72,
+          "end": 370.88,
+          "probability": 1.0
+        },
+        {
+          "word": "happened.",
+          "start": 370.88,
+          "end": 371.3,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.0805,
+      "no_speech_prob": 0.1417
+    },
+    {
+      "id": 11,
+      "start": 372.32,
+      "end": 411.4,
+      "text": "just recently I added another hem and when I added that hem the directory expanded into a new cluster and so now it requires another cluster and apparently at this point I would imagine the kernel puts a zero block",
+      "words": [
+        {
+          "word": "just",
+          "start": 372.32,
+          "end": 373.28,
+          "probability": 0.2179
+        },
+        {
+          "word": "recently",
+          "start": 374.05,
+          "end": 374.63,
+          "probability": 0.9976
+        },
+        {
+          "word": "I",
+          "start": 374.63,
+          "end": 374.87,
+          "probability": 0.8623
+        },
+        {
+          "word": "added",
+          "start": 374.87,
+          "end": 375.21,
+          "probability": 0.9927
+        },
+        {
+          "word": "another",
+          "start": 375.21,
+          "end": 375.61,
+          "probability": 0.9922
+        },
+        {
+          "word": "hem",
+          "start": 375.61,
+          "end": 376.03,
+          "probability": 0.5273
+        },
+        {
+          "word": "and",
+          "start": 376.03,
+          "end": 377.03,
+          "probability": 0.6367
+        },
+        {
+          "word": "when",
+          "start": 377.57,
+          "end": 378.75,
+          "probability": 0.9014
+        },
+        {
+          "word": "I",
+          "start": 380.03,
+          "end": 380.15,
+          "probability": 0.981
+        },
+        {
+          "word": "added",
+          "start": 380.15,
+          "end": 380.51,
+          "probability": 0.9961
+        },
+        {
+          "word": "that",
+          "start": 380.51,
+          "end": 380.73,
+          "probability": 0.9951
+        },
+        {
+          "word": "hem",
+          "start": 380.73,
+          "end": 381.03,
+          "probability": 0.9741
+        },
+        {
+          "word": "the",
+          "start": 381.03,
+          "end": 382.07,
+          "probability": 0.7007
+        },
+        {
+          "word": "directory",
+          "start": 382.39,
+          "end": 382.89,
+          "probability": 0.9893
+        },
+        {
+          "word": "expanded",
+          "start": 382.89,
+          "end": 383.51,
+          "probability": 0.9917
+        },
+        {
+          "word": "into",
+          "start": 383.51,
+          "end": 384.93,
+          "probability": 0.9731
+        },
+        {
+          "word": "a",
+          "start": 385.19,
+          "end": 385.41,
+          "probability": 0.9971
+        },
+        {
+          "word": "new",
+          "start": 385.41,
+          "end": 385.59,
+          "probability": 0.999
+        },
+        {
+          "word": "cluster",
+          "start": 385.59,
+          "end": 386.11,
+          "probability": 0.9917
+        },
+        {
+          "word": "and",
+          "start": 386.11,
+          "end": 387.05,
+          "probability": 0.603
+        },
+        {
+          "word": "so",
+          "start": 387.21,
+          "end": 387.47,
+          "probability": 0.9829
+        },
+        {
+          "word": "now",
+          "start": 387.47,
+          "end": 387.83,
+          "probability": 0.9951
+        },
+        {
+          "word": "it",
+          "start": 387.83,
+          "end": 388.93,
+          "probability": 0.9526
+        },
+        {
+          "word": "requires",
+          "start": 389.51,
+          "end": 389.95,
+          "probability": 0.9956
+        },
+        {
+          "word": "another",
+          "start": 389.95,
+          "end": 390.39,
+          "probability": 0.9956
+        },
+        {
+          "word": "cluster",
+          "start": 390.39,
+          "end": 391.03,
+          "probability": 0.9971
+        },
+        {
+          "word": "and",
+          "start": 391.03,
+          "end": 391.91,
+          "probability": 0.8682
+        },
+        {
+          "word": "apparently",
+          "start": 391.91,
+          "end": 392.37,
+          "probability": 0.9883
+        },
+        {
+          "word": "at",
+          "start": 392.37,
+          "end": 394.23,
+          "probability": 0.417
+        },
+        {
+          "word": "this",
+          "start": 395.63,
+          "end": 397.07,
+          "probability": 0.998
+        },
+        {
+          "word": "point",
+          "start": 402.51,
+          "end": 402.75,
+          "probability": 0.999
+        },
+        {
+          "word": "I",
+          "start": 402.75,
+          "end": 403.01,
+          "probability": 0.9355
+        },
+        {
+          "word": "would",
+          "start": 403.01,
+          "end": 403.21,
+          "probability": 0.9922
+        },
+        {
+          "word": "imagine",
+          "start": 403.21,
+          "end": 403.49,
+          "probability": 0.9878
+        },
+        {
+          "word": "the",
+          "start": 403.49,
+          "end": 404.13,
+          "probability": 0.9678
+        },
+        {
+          "word": "kernel",
+          "start": 404.13,
+          "end": 405.89,
+          "probability": 0.8662
+        },
+        {
+          "word": "puts",
+          "start": 408.07,
+          "end": 409.41,
+          "probability": 0.9766
+        },
+        {
+          "word": "a",
+          "start": 409.7,
+          "end": 409.94,
+          "probability": 0.9878
+        },
+        {
+          "word": "zero",
+          "start": 409.94,
+          "end": 410.9,
+          "probability": 0.6367
+        },
+        {
+          "word": "block",
+          "start": 410.9,
+          "end": 411.4,
+          "probability": 0.9873
+        }
+      ],
+      "avg_logprob": -0.1397,
+      "no_speech_prob": 0.0674
+    },
+    {
+      "id": 12,
+      "start": 416.11,
+      "end": 454.14,
+      "text": "The kernel puts a terminating zero directory entry. Just to be safe, I think there's a cluster that is all zero. And I think the, now this is kind of weird. Okay, 3C51. So at this point, let's do a cluster dump. Cluster 3C50. Oh, cluster.",
+      "words": [
+        {
+          "word": "The",
+          "start": 416.11,
+          "end": 416.51,
+          "probability": 0.7183
+        },
+        {
+          "word": "kernel",
+          "start": 416.51,
+          "end": 416.81,
+          "probability": 0.9829
+        },
+        {
+          "word": "puts",
+          "start": 416.81,
+          "end": 417.27,
+          "probability": 0.9824
+        },
+        {
+          "word": "a",
+          "start": 417.27,
+          "end": 417.47,
+          "probability": 0.9917
+        },
+        {
+          "word": "terminating",
+          "start": 417.47,
+          "end": 419.07,
+          "probability": 0.8054
+        },
+        {
+          "word": "zero",
+          "start": 419.07,
+          "end": 419.49,
+          "probability": 0.5483
+        },
+        {
+          "word": "directory",
+          "start": 419.49,
+          "end": 420.27,
+          "probability": 0.9873
+        },
+        {
+          "word": "entry.",
+          "start": 420.27,
+          "end": 421.03,
+          "probability": 0.9961
+        },
+        {
+          "word": "Just",
+          "start": 421.97,
+          "end": 422.57,
+          "probability": 0.9922
+        },
+        {
+          "word": "to",
+          "start": 422.57,
+          "end": 422.81,
+          "probability": 0.9971
+        },
+        {
+          "word": "be",
+          "start": 422.81,
+          "end": 422.91,
+          "probability": 1.0
+        },
+        {
+          "word": "safe,",
+          "start": 422.91,
+          "end": 423.35,
+          "probability": 0.9995
+        },
+        {
+          "word": "I",
+          "start": 423.47,
+          "end": 424.17,
+          "probability": 0.9946
+        },
+        {
+          "word": "think",
+          "start": 424.17,
+          "end": 425.45,
+          "probability": 1.0
+        },
+        {
+          "word": "there's",
+          "start": 425.9,
+          "end": 426.26,
+          "probability": 0.99
+        },
+        {
+          "word": "a",
+          "start": 426.26,
+          "end": 426.36,
+          "probability": 0.9995
+        },
+        {
+          "word": "cluster",
+          "start": 426.36,
+          "end": 428.26,
+          "probability": 0.9771
+        },
+        {
+          "word": "that",
+          "start": 428.26,
+          "end": 428.82,
+          "probability": 0.9995
+        },
+        {
+          "word": "is",
+          "start": 428.82,
+          "end": 429.02,
+          "probability": 0.9995
+        },
+        {
+          "word": "all",
+          "start": 429.02,
+          "end": 429.28,
+          "probability": 0.999
+        },
+        {
+          "word": "zero.",
+          "start": 429.28,
+          "end": 429.88,
+          "probability": 0.9961
+        },
+        {
+          "word": "And",
+          "start": 430.58,
+          "end": 430.88,
+          "probability": 0.5654
+        },
+        {
+          "word": "I",
+          "start": 430.88,
+          "end": 431.4,
+          "probability": 0.9858
+        },
+        {
+          "word": "think",
+          "start": 431.4,
+          "end": 432.72,
+          "probability": 1.0
+        },
+        {
+          "word": "the,",
+          "start": 434.55,
+          "end": 434.73,
+          "probability": 0.9966
+        },
+        {
+          "word": "now",
+          "start": 434.85,
+          "end": 435.67,
+          "probability": 0.3735
+        },
+        {
+          "word": "this",
+          "start": 435.67,
+          "end": 435.89,
+          "probability": 0.9907
+        },
+        {
+          "word": "is",
+          "start": 435.89,
+          "end": 436.01,
+          "probability": 0.9995
+        },
+        {
+          "word": "kind",
+          "start": 436.01,
+          "end": 436.17,
+          "probability": 0.9961
+        },
+        {
+          "word": "of",
+          "start": 436.17,
+          "end": 436.27,
+          "probability": 1.0
+        },
+        {
+          "word": "weird.",
+          "start": 436.27,
+          "end": 436.47,
+          "probability": 1.0
+        },
+        {
+          "word": "Okay,",
+          "start": 436.53,
+          "end": 436.71,
+          "probability": 0.6982
+        },
+        {
+          "word": "3C51.",
+          "start": 436.81,
+          "end": 437.89,
+          "probability": 0.937
+        },
+        {
+          "word": "So",
+          "start": 437.89,
+          "end": 438.27,
+          "probability": 0.9951
+        },
+        {
+          "word": "at",
+          "start": 438.27,
+          "end": 438.43,
+          "probability": 0.9004
+        },
+        {
+          "word": "this",
+          "start": 438.43,
+          "end": 438.59,
+          "probability": 1.0
+        },
+        {
+          "word": "point,",
+          "start": 438.59,
+          "end": 438.89,
+          "probability": 1.0
+        },
+        {
+          "word": "let's",
+          "start": 438.95,
+          "end": 439.83,
+          "probability": 1.0
+        },
+        {
+          "word": "do",
+          "start": 439.83,
+          "end": 439.97,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 439.97,
+          "end": 440.15,
+          "probability": 0.9521
+        },
+        {
+          "word": "cluster",
+          "start": 440.15,
+          "end": 440.77,
+          "probability": 0.9961
+        },
+        {
+          "word": "dump.",
+          "start": 440.77,
+          "end": 441.17,
+          "probability": 0.9287
+        },
+        {
+          "word": "Cluster",
+          "start": 442.31,
+          "end": 442.91,
+          "probability": 0.8162
+        },
+        {
+          "word": "3C50.",
+          "start": 445.82,
+          "end": 448.26,
+          "probability": 0.988
+        },
+        {
+          "word": "Oh,",
+          "start": 451.59,
+          "end": 452.19,
+          "probability": 0.8779
+        },
+        {
+          "word": "cluster.",
+          "start": 453.24,
+          "end": 454.14,
+          "probability": 0.5151
+        }
+      ],
+      "avg_logprob": -0.1116,
+      "no_speech_prob": 0.0674
+    },
+    {
+      "id": 13,
+      "start": 457.55,
+      "end": 527.17,
+      "text": "Okay, so depend looks like the last. This looks like it has a lot of clusters, doesn't it? It looks like it already has multiple clusters. Uh-oh, this is something worse than I thought. So the dot cluster is, we have to find out the size of the, where's the size of the file stored? I'm actually kind of alarmed. How come that's 3C5? Oh, uh-oh, this is bad.",
+      "words": [
+        {
+          "word": "Okay,",
+          "start": 457.55,
+          "end": 457.99,
+          "probability": 0.8584
+        },
+        {
+          "word": "so",
+          "start": 458.07,
+          "end": 458.33,
+          "probability": 0.999
+        },
+        {
+          "word": "depend",
+          "start": 458.33,
+          "end": 459.67,
+          "probability": 0.6782
+        },
+        {
+          "word": "looks",
+          "start": 462.13,
+          "end": 462.81,
+          "probability": 0.9854
+        },
+        {
+          "word": "like",
+          "start": 462.81,
+          "end": 463.11,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 463.11,
+          "end": 463.29,
+          "probability": 0.9985
+        },
+        {
+          "word": "last.",
+          "start": 463.29,
+          "end": 463.61,
+          "probability": 1.0
+        },
+        {
+          "word": "This",
+          "start": 464.11,
+          "end": 464.59,
+          "probability": 0.9956
+        },
+        {
+          "word": "looks",
+          "start": 470.9,
+          "end": 471.1,
+          "probability": 1.0
+        },
+        {
+          "word": "like",
+          "start": 471.1,
+          "end": 471.28,
+          "probability": 1.0
+        },
+        {
+          "word": "it",
+          "start": 471.28,
+          "end": 471.4,
+          "probability": 1.0
+        },
+        {
+          "word": "has",
+          "start": 471.4,
+          "end": 471.58,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 471.58,
+          "end": 471.7,
+          "probability": 1.0
+        },
+        {
+          "word": "lot",
+          "start": 471.7,
+          "end": 471.9,
+          "probability": 1.0
+        },
+        {
+          "word": "of",
+          "start": 471.9,
+          "end": 472.04,
+          "probability": 1.0
+        },
+        {
+          "word": "clusters,",
+          "start": 472.04,
+          "end": 472.36,
+          "probability": 1.0
+        },
+        {
+          "word": "doesn't",
+          "start": 472.52,
+          "end": 472.8,
+          "probability": 1.0
+        },
+        {
+          "word": "it?",
+          "start": 472.8,
+          "end": 472.96,
+          "probability": 1.0
+        },
+        {
+          "word": "It",
+          "start": 473.24,
+          "end": 473.72,
+          "probability": 0.999
+        },
+        {
+          "word": "looks",
+          "start": 473.72,
+          "end": 473.92,
+          "probability": 1.0
+        },
+        {
+          "word": "like",
+          "start": 473.92,
+          "end": 474.02,
+          "probability": 1.0
+        },
+        {
+          "word": "it",
+          "start": 474.02,
+          "end": 474.14,
+          "probability": 1.0
+        },
+        {
+          "word": "already",
+          "start": 474.14,
+          "end": 474.34,
+          "probability": 1.0
+        },
+        {
+          "word": "has",
+          "start": 474.34,
+          "end": 474.62,
+          "probability": 1.0
+        },
+        {
+          "word": "multiple",
+          "start": 474.62,
+          "end": 474.98,
+          "probability": 1.0
+        },
+        {
+          "word": "clusters.",
+          "start": 474.98,
+          "end": 475.5,
+          "probability": 1.0
+        },
+        {
+          "word": "Uh",
+          "start": 475.92,
+          "end": 476.3,
+          "probability": 0.9829
+        },
+        {
+          "word": "-oh,",
+          "start": 476.3,
+          "end": 476.6,
+          "probability": 0.9812
+        },
+        {
+          "word": "this",
+          "start": 476.66,
+          "end": 477.3,
+          "probability": 1.0
+        },
+        {
+          "word": "is",
+          "start": 477.3,
+          "end": 477.46,
+          "probability": 1.0
+        },
+        {
+          "word": "something",
+          "start": 477.46,
+          "end": 477.7,
+          "probability": 1.0
+        },
+        {
+          "word": "worse",
+          "start": 477.7,
+          "end": 478.08,
+          "probability": 1.0
+        },
+        {
+          "word": "than",
+          "start": 478.08,
+          "end": 478.26,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 478.26,
+          "end": 478.38,
+          "probability": 1.0
+        },
+        {
+          "word": "thought.",
+          "start": 478.38,
+          "end": 478.64,
+          "probability": 1.0
+        },
+        {
+          "word": "So",
+          "start": 481.94,
+          "end": 482.42,
+          "probability": 0.9966
+        },
+        {
+          "word": "the",
+          "start": 482.42,
+          "end": 482.6,
+          "probability": 0.9731
+        },
+        {
+          "word": "dot",
+          "start": 482.6,
+          "end": 482.9,
+          "probability": 0.8296
+        },
+        {
+          "word": "cluster",
+          "start": 482.9,
+          "end": 483.76,
+          "probability": 0.9995
+        },
+        {
+          "word": "is,",
+          "start": 483.76,
+          "end": 484.24,
+          "probability": 0.9937
+        },
+        {
+          "word": "we",
+          "start": 484.44,
+          "end": 485.32,
+          "probability": 0.9854
+        },
+        {
+          "word": "have",
+          "start": 490.25,
+          "end": 490.39,
+          "probability": 1.0
+        },
+        {
+          "word": "to",
+          "start": 490.39,
+          "end": 490.51,
+          "probability": 1.0
+        },
+        {
+          "word": "find",
+          "start": 490.51,
+          "end": 490.73,
+          "probability": 1.0
+        },
+        {
+          "word": "out",
+          "start": 490.73,
+          "end": 490.89,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 490.89,
+          "end": 491.07,
+          "probability": 0.9995
+        },
+        {
+          "word": "size",
+          "start": 491.07,
+          "end": 491.33,
+          "probability": 1.0
+        },
+        {
+          "word": "of",
+          "start": 491.33,
+          "end": 491.57,
+          "probability": 0.9995
+        },
+        {
+          "word": "the,",
+          "start": 491.57,
+          "end": 491.73,
+          "probability": 1.0
+        },
+        {
+          "word": "where's",
+          "start": 491.85,
+          "end": 492.89,
+          "probability": 0.8208
+        },
+        {
+          "word": "the",
+          "start": 499.45,
+          "end": 499.59,
+          "probability": 1.0
+        },
+        {
+          "word": "size",
+          "start": 499.59,
+          "end": 499.91,
+          "probability": 1.0
+        },
+        {
+          "word": "of",
+          "start": 499.91,
+          "end": 500.11,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 500.11,
+          "end": 500.17,
+          "probability": 1.0
+        },
+        {
+          "word": "file",
+          "start": 500.17,
+          "end": 500.51,
+          "probability": 0.9111
+        },
+        {
+          "word": "stored?",
+          "start": 500.51,
+          "end": 500.85,
+          "probability": 0.9995
+        },
+        {
+          "word": "I'm",
+          "start": 515.19,
+          "end": 515.67,
+          "probability": 0.991
+        },
+        {
+          "word": "actually",
+          "start": 515.67,
+          "end": 515.91,
+          "probability": 1.0
+        },
+        {
+          "word": "kind",
+          "start": 515.91,
+          "end": 516.17,
+          "probability": 1.0
+        },
+        {
+          "word": "of",
+          "start": 516.17,
+          "end": 516.35,
+          "probability": 1.0
+        },
+        {
+          "word": "alarmed.",
+          "start": 516.35,
+          "end": 516.85,
+          "probability": 1.0
+        },
+        {
+          "word": "How",
+          "start": 517.09,
+          "end": 517.57,
+          "probability": 0.9995
+        },
+        {
+          "word": "come",
+          "start": 522.85,
+          "end": 523.07,
+          "probability": 1.0
+        },
+        {
+          "word": "that's",
+          "start": 523.07,
+          "end": 523.43,
+          "probability": 1.0
+        },
+        {
+          "word": "3C5?",
+          "start": 523.43,
+          "end": 524.07,
+          "probability": 0.9569
+        },
+        {
+          "word": "Oh,",
+          "start": 524.43,
+          "end": 524.91,
+          "probability": 0.9883
+        },
+        {
+          "word": "uh",
+          "start": 525.03,
+          "end": 525.75,
+          "probability": 0.9932
+        },
+        {
+          "word": "-oh,",
+          "start": 525.75,
+          "end": 525.99,
+          "probability": 1.0
+        },
+        {
+          "word": "this",
+          "start": 525.99,
+          "end": 526.75,
+          "probability": 1.0
+        },
+        {
+          "word": "is",
+          "start": 526.75,
+          "end": 526.95,
+          "probability": 1.0
+        },
+        {
+          "word": "bad.",
+          "start": 526.95,
+          "end": 527.17,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.0266,
+      "no_speech_prob": 0.0236
+    },
+    {
+      "id": 14,
+      "start": 537.03,
+      "end": 593.8,
+      "text": "I don't think they're contiguous. Are they not contiguous? So you can follow the next cluster in the chain. Write number. Okay, so we don't want to write the cluster. And we want cluster, the first, I think zero is the first one and then one is the second one. So it should be after depend. So it should start with E. Okay, yeah, or determine. Wait, there it is.",
+      "words": [
+        {
+          "word": "I",
+          "start": 537.03,
+          "end": 537.27,
+          "probability": 0.7812
+        },
+        {
+          "word": "don't",
+          "start": 537.27,
+          "end": 537.49,
+          "probability": 0.9985
+        },
+        {
+          "word": "think",
+          "start": 537.49,
+          "end": 537.65,
+          "probability": 0.9985
+        },
+        {
+          "word": "they're",
+          "start": 537.65,
+          "end": 537.83,
+          "probability": 0.9734
+        },
+        {
+          "word": "contiguous.",
+          "start": 537.83,
+          "end": 538.37,
+          "probability": 0.9976
+        },
+        {
+          "word": "Are",
+          "start": 538.45,
+          "end": 538.71,
+          "probability": 0.9966
+        },
+        {
+          "word": "they",
+          "start": 538.71,
+          "end": 538.89,
+          "probability": 0.9995
+        },
+        {
+          "word": "not",
+          "start": 538.89,
+          "end": 539.23,
+          "probability": 0.9985
+        },
+        {
+          "word": "contiguous?",
+          "start": 539.23,
+          "end": 539.77,
+          "probability": 0.9988
+        },
+        {
+          "word": "So",
+          "start": 547.36,
+          "end": 547.84,
+          "probability": 0.9097
+        },
+        {
+          "word": "you",
+          "start": 547.84,
+          "end": 548.0,
+          "probability": 0.8457
+        },
+        {
+          "word": "can",
+          "start": 548.0,
+          "end": 548.18,
+          "probability": 1.0
+        },
+        {
+          "word": "follow",
+          "start": 548.18,
+          "end": 548.48,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 548.48,
+          "end": 548.72,
+          "probability": 0.999
+        },
+        {
+          "word": "next",
+          "start": 548.72,
+          "end": 548.98,
+          "probability": 0.9995
+        },
+        {
+          "word": "cluster",
+          "start": 548.98,
+          "end": 549.62,
+          "probability": 0.998
+        },
+        {
+          "word": "in",
+          "start": 549.62,
+          "end": 549.94,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 549.94,
+          "end": 550.1,
+          "probability": 1.0
+        },
+        {
+          "word": "chain.",
+          "start": 550.1,
+          "end": 550.38,
+          "probability": 0.9995
+        },
+        {
+          "word": "Write",
+          "start": 560.51,
+          "end": 560.99,
+          "probability": 0.9658
+        },
+        {
+          "word": "number.",
+          "start": 560.99,
+          "end": 561.69,
+          "probability": 0.9595
+        },
+        {
+          "word": "Okay,",
+          "start": 563.16,
+          "end": 563.64,
+          "probability": 0.8096
+        },
+        {
+          "word": "so",
+          "start": 563.68,
+          "end": 563.9,
+          "probability": 1.0
+        },
+        {
+          "word": "we",
+          "start": 563.9,
+          "end": 564.98,
+          "probability": 0.96
+        },
+        {
+          "word": "don't",
+          "start": 567.06,
+          "end": 567.36,
+          "probability": 1.0
+        },
+        {
+          "word": "want",
+          "start": 567.36,
+          "end": 567.54,
+          "probability": 1.0
+        },
+        {
+          "word": "to",
+          "start": 567.54,
+          "end": 567.72,
+          "probability": 1.0
+        },
+        {
+          "word": "write",
+          "start": 567.72,
+          "end": 567.98,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 567.98,
+          "end": 568.22,
+          "probability": 1.0
+        },
+        {
+          "word": "cluster.",
+          "start": 568.22,
+          "end": 568.6,
+          "probability": 1.0
+        },
+        {
+          "word": "And",
+          "start": 569.12,
+          "end": 569.6,
+          "probability": 0.978
+        },
+        {
+          "word": "we",
+          "start": 569.6,
+          "end": 569.74,
+          "probability": 0.9995
+        },
+        {
+          "word": "want",
+          "start": 569.74,
+          "end": 570.0,
+          "probability": 1.0
+        },
+        {
+          "word": "cluster,",
+          "start": 570.0,
+          "end": 570.5,
+          "probability": 0.9976
+        },
+        {
+          "word": "the",
+          "start": 570.64,
+          "end": 570.84,
+          "probability": 0.9751
+        },
+        {
+          "word": "first,",
+          "start": 570.84,
+          "end": 571.2,
+          "probability": 0.9995
+        },
+        {
+          "word": "I",
+          "start": 571.34,
+          "end": 572.36,
+          "probability": 0.9995
+        },
+        {
+          "word": "think",
+          "start": 572.94,
+          "end": 573.16,
+          "probability": 1.0
+        },
+        {
+          "word": "zero",
+          "start": 573.16,
+          "end": 573.5,
+          "probability": 0.6211
+        },
+        {
+          "word": "is",
+          "start": 573.5,
+          "end": 573.74,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 573.74,
+          "end": 573.88,
+          "probability": 1.0
+        },
+        {
+          "word": "first",
+          "start": 573.88,
+          "end": 574.14,
+          "probability": 1.0
+        },
+        {
+          "word": "one",
+          "start": 574.14,
+          "end": 574.34,
+          "probability": 1.0
+        },
+        {
+          "word": "and",
+          "start": 574.34,
+          "end": 574.5,
+          "probability": 0.4539
+        },
+        {
+          "word": "then",
+          "start": 574.5,
+          "end": 574.64,
+          "probability": 0.9834
+        },
+        {
+          "word": "one",
+          "start": 574.64,
+          "end": 575.26,
+          "probability": 0.999
+        },
+        {
+          "word": "is",
+          "start": 575.26,
+          "end": 575.4,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 575.4,
+          "end": 575.5,
+          "probability": 1.0
+        },
+        {
+          "word": "second",
+          "start": 575.5,
+          "end": 575.74,
+          "probability": 1.0
+        },
+        {
+          "word": "one.",
+          "start": 575.74,
+          "end": 575.92,
+          "probability": 1.0
+        },
+        {
+          "word": "So",
+          "start": 575.98,
+          "end": 576.08,
+          "probability": 0.9922
+        },
+        {
+          "word": "it",
+          "start": 576.08,
+          "end": 576.34,
+          "probability": 0.9966
+        },
+        {
+          "word": "should",
+          "start": 576.34,
+          "end": 576.56,
+          "probability": 1.0
+        },
+        {
+          "word": "be",
+          "start": 576.56,
+          "end": 576.74,
+          "probability": 1.0
+        },
+        {
+          "word": "after",
+          "start": 576.74,
+          "end": 577.0,
+          "probability": 0.9995
+        },
+        {
+          "word": "depend.",
+          "start": 577.0,
+          "end": 577.64,
+          "probability": 0.9912
+        },
+        {
+          "word": "So",
+          "start": 579.3,
+          "end": 579.78,
+          "probability": 0.998
+        },
+        {
+          "word": "it",
+          "start": 579.78,
+          "end": 579.94,
+          "probability": 1.0
+        },
+        {
+          "word": "should",
+          "start": 579.94,
+          "end": 580.1,
+          "probability": 1.0
+        },
+        {
+          "word": "start",
+          "start": 580.1,
+          "end": 580.42,
+          "probability": 1.0
+        },
+        {
+          "word": "with",
+          "start": 580.42,
+          "end": 580.66,
+          "probability": 1.0
+        },
+        {
+          "word": "E.",
+          "start": 580.66,
+          "end": 580.92,
+          "probability": 0.9043
+        },
+        {
+          "word": "Okay,",
+          "start": 587.36,
+          "end": 587.84,
+          "probability": 0.9985
+        },
+        {
+          "word": "yeah,",
+          "start": 587.92,
+          "end": 588.1,
+          "probability": 0.9995
+        },
+        {
+          "word": "or",
+          "start": 588.12,
+          "end": 588.26,
+          "probability": 0.9771
+        },
+        {
+          "word": "determine.",
+          "start": 588.26,
+          "end": 588.62,
+          "probability": 0.9614
+        },
+        {
+          "word": "Wait,",
+          "start": 589.95,
+          "end": 590.43,
+          "probability": 0.9995
+        },
+        {
+          "word": "there",
+          "start": 590.55,
+          "end": 591.37,
+          "probability": 1.0
+        },
+        {
+          "word": "it",
+          "start": 593.52,
+          "end": 593.66,
+          "probability": 1.0
+        },
+        {
+          "word": "is.",
+          "start": 593.66,
+          "end": 593.8,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.0499,
+      "no_speech_prob": 0.1453
+    },
+    {
+      "id": 15,
+      "start": 594.29,
+      "end": 650.87,
+      "text": "Wait, abiding? Oh, it inserted ahead of it. Okay, yeah. So, which block is this? Which cluster is this? 3C60. Okay, so this is allocating them. Maybe it looks like it freed the... Do you think it freed a... Let's see what's in the cluster. Oh, I'm a genius. Okay, let's see what's in the cluster.",
+      "words": [
+        {
+          "word": "Wait,",
+          "start": 594.29,
+          "end": 594.69,
+          "probability": 0.6934
+        },
+        {
+          "word": "abiding?",
+          "start": 594.73,
+          "end": 595.11,
+          "probability": 0.9392
+        },
+        {
+          "word": "Oh,",
+          "start": 595.97,
+          "end": 596.49,
+          "probability": 0.9961
+        },
+        {
+          "word": "it",
+          "start": 596.59,
+          "end": 596.71,
+          "probability": 0.999
+        },
+        {
+          "word": "inserted",
+          "start": 596.71,
+          "end": 596.99,
+          "probability": 0.9976
+        },
+        {
+          "word": "ahead",
+          "start": 596.99,
+          "end": 597.41,
+          "probability": 0.9741
+        },
+        {
+          "word": "of",
+          "start": 597.41,
+          "end": 597.65,
+          "probability": 1.0
+        },
+        {
+          "word": "it.",
+          "start": 597.65,
+          "end": 597.73,
+          "probability": 0.9995
+        },
+        {
+          "word": "Okay,",
+          "start": 597.79,
+          "end": 598.01,
+          "probability": 0.9595
+        },
+        {
+          "word": "yeah.",
+          "start": 598.07,
+          "end": 598.23,
+          "probability": 0.9995
+        },
+        {
+          "word": "So,",
+          "start": 599.4,
+          "end": 599.92,
+          "probability": 0.9702
+        },
+        {
+          "word": "which",
+          "start": 599.92,
+          "end": 601.1,
+          "probability": 0.9995
+        },
+        {
+          "word": "block",
+          "start": 601.23,
+          "end": 601.65,
+          "probability": 0.9995
+        },
+        {
+          "word": "is",
+          "start": 601.65,
+          "end": 601.93,
+          "probability": 1.0
+        },
+        {
+          "word": "this?",
+          "start": 601.93,
+          "end": 602.19,
+          "probability": 1.0
+        },
+        {
+          "word": "Which",
+          "start": 602.27,
+          "end": 602.79,
+          "probability": 0.999
+        },
+        {
+          "word": "cluster",
+          "start": 602.79,
+          "end": 603.17,
+          "probability": 1.0
+        },
+        {
+          "word": "is",
+          "start": 603.17,
+          "end": 603.47,
+          "probability": 1.0
+        },
+        {
+          "word": "this?",
+          "start": 603.47,
+          "end": 603.71,
+          "probability": 1.0
+        },
+        {
+          "word": "3C60.",
+          "start": 608.49,
+          "end": 609.01,
+          "probability": 0.9456
+        },
+        {
+          "word": "Okay,",
+          "start": 609.71,
+          "end": 610.23,
+          "probability": 0.9878
+        },
+        {
+          "word": "so",
+          "start": 610.35,
+          "end": 610.55,
+          "probability": 1.0
+        },
+        {
+          "word": "this",
+          "start": 610.55,
+          "end": 611.73,
+          "probability": 0.7334
+        },
+        {
+          "word": "is",
+          "start": 612.01,
+          "end": 612.17,
+          "probability": 1.0
+        },
+        {
+          "word": "allocating",
+          "start": 612.17,
+          "end": 612.75,
+          "probability": 0.999
+        },
+        {
+          "word": "them.",
+          "start": 612.75,
+          "end": 612.99,
+          "probability": 0.8564
+        },
+        {
+          "word": "Maybe",
+          "start": 621.44,
+          "end": 621.96,
+          "probability": 0.9868
+        },
+        {
+          "word": "it",
+          "start": 621.96,
+          "end": 622.2,
+          "probability": 0.999
+        },
+        {
+          "word": "looks",
+          "start": 622.2,
+          "end": 622.66,
+          "probability": 0.853
+        },
+        {
+          "word": "like",
+          "start": 622.66,
+          "end": 622.92,
+          "probability": 1.0
+        },
+        {
+          "word": "it",
+          "start": 622.92,
+          "end": 623.06,
+          "probability": 1.0
+        },
+        {
+          "word": "freed",
+          "start": 623.06,
+          "end": 623.62,
+          "probability": 1.0
+        },
+        {
+          "word": "the...",
+          "start": 623.62,
+          "end": 625.06,
+          "probability": 0.6328
+        },
+        {
+          "word": "Do",
+          "start": 625.06,
+          "end": 625.84,
+          "probability": 0.9761
+        },
+        {
+          "word": "you",
+          "start": 637.07,
+          "end": 637.17,
+          "probability": 1.0
+        },
+        {
+          "word": "think",
+          "start": 637.17,
+          "end": 637.43,
+          "probability": 1.0
+        },
+        {
+          "word": "it",
+          "start": 637.43,
+          "end": 637.61,
+          "probability": 1.0
+        },
+        {
+          "word": "freed",
+          "start": 637.61,
+          "end": 638.01,
+          "probability": 1.0
+        },
+        {
+          "word": "a...",
+          "start": 638.01,
+          "end": 638.97,
+          "probability": 0.9946
+        },
+        {
+          "word": "Let's",
+          "start": 638.97,
+          "end": 639.99,
+          "probability": 0.9993
+        },
+        {
+          "word": "see",
+          "start": 643.07,
+          "end": 643.17,
+          "probability": 1.0
+        },
+        {
+          "word": "what's",
+          "start": 643.17,
+          "end": 643.45,
+          "probability": 0.9998
+        },
+        {
+          "word": "in",
+          "start": 643.45,
+          "end": 643.63,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 643.63,
+          "end": 643.81,
+          "probability": 1.0
+        },
+        {
+          "word": "cluster.",
+          "start": 643.81,
+          "end": 644.15,
+          "probability": 1.0
+        },
+        {
+          "word": "Oh,",
+          "start": 644.49,
+          "end": 645.01,
+          "probability": 0.9995
+        },
+        {
+          "word": "I'm",
+          "start": 645.39,
+          "end": 645.93,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 645.93,
+          "end": 645.97,
+          "probability": 1.0
+        },
+        {
+          "word": "genius.",
+          "start": 645.97,
+          "end": 646.31,
+          "probability": 1.0
+        },
+        {
+          "word": "Okay,",
+          "start": 646.43,
+          "end": 646.93,
+          "probability": 0.9839
+        },
+        {
+          "word": "let's",
+          "start": 647.07,
+          "end": 648.09,
+          "probability": 1.0
+        },
+        {
+          "word": "see",
+          "start": 649.85,
+          "end": 649.95,
+          "probability": 1.0
+        },
+        {
+          "word": "what's",
+          "start": 649.95,
+          "end": 650.15,
+          "probability": 1.0
+        },
+        {
+          "word": "in",
+          "start": 650.15,
+          "end": 650.35,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 650.35,
+          "end": 650.51,
+          "probability": 1.0
+        },
+        {
+          "word": "cluster.",
+          "start": 650.51,
+          "end": 650.87,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.0486,
+      "no_speech_prob": 0.0822
+    },
+    {
+      "id": 16,
+      "start": 665.77,
+      "end": 692.09,
+      "text": "Cluster is all zero. So, we have quite a mystery. Okay, I'm going to stop here. Maybe I'll go research and then come back when I know what's going on. I thought I knew what was going on. I don't.",
+      "words": [
+        {
+          "word": "Cluster",
+          "start": 665.77,
+          "end": 666.15,
+          "probability": 0.8098
+        },
+        {
+          "word": "is",
+          "start": 666.15,
+          "end": 666.29,
+          "probability": 0.9146
+        },
+        {
+          "word": "all",
+          "start": 666.29,
+          "end": 666.47,
+          "probability": 0.9971
+        },
+        {
+          "word": "zero.",
+          "start": 666.47,
+          "end": 666.91,
+          "probability": 0.936
+        },
+        {
+          "word": "So,",
+          "start": 671.69,
+          "end": 672.07,
+          "probability": 0.9878
+        },
+        {
+          "word": "we",
+          "start": 672.23,
+          "end": 673.29,
+          "probability": 0.9971
+        },
+        {
+          "word": "have",
+          "start": 674.54,
+          "end": 674.68,
+          "probability": 0.999
+        },
+        {
+          "word": "quite",
+          "start": 674.68,
+          "end": 674.96,
+          "probability": 0.9995
+        },
+        {
+          "word": "a",
+          "start": 674.96,
+          "end": 675.1,
+          "probability": 0.9995
+        },
+        {
+          "word": "mystery.",
+          "start": 675.1,
+          "end": 675.54,
+          "probability": 0.9995
+        },
+        {
+          "word": "Okay,",
+          "start": 680.6,
+          "end": 680.98,
+          "probability": 0.8228
+        },
+        {
+          "word": "I'm",
+          "start": 680.98,
+          "end": 681.04,
+          "probability": 0.8508
+        },
+        {
+          "word": "going",
+          "start": 681.04,
+          "end": 681.12,
+          "probability": 0.7993
+        },
+        {
+          "word": "to",
+          "start": 681.12,
+          "end": 681.18,
+          "probability": 1.0
+        },
+        {
+          "word": "stop",
+          "start": 681.18,
+          "end": 681.34,
+          "probability": 0.9995
+        },
+        {
+          "word": "here.",
+          "start": 681.34,
+          "end": 681.58,
+          "probability": 0.999
+        },
+        {
+          "word": "Maybe",
+          "start": 681.64,
+          "end": 681.88,
+          "probability": 0.999
+        },
+        {
+          "word": "I'll",
+          "start": 681.88,
+          "end": 682.06,
+          "probability": 0.9988
+        },
+        {
+          "word": "go",
+          "start": 682.06,
+          "end": 682.2,
+          "probability": 0.999
+        },
+        {
+          "word": "research",
+          "start": 682.2,
+          "end": 682.54,
+          "probability": 0.9976
+        },
+        {
+          "word": "and",
+          "start": 682.54,
+          "end": 683.54,
+          "probability": 0.8989
+        },
+        {
+          "word": "then",
+          "start": 683.54,
+          "end": 683.84,
+          "probability": 0.9995
+        },
+        {
+          "word": "come",
+          "start": 683.84,
+          "end": 684.06,
+          "probability": 1.0
+        },
+        {
+          "word": "back",
+          "start": 684.06,
+          "end": 684.42,
+          "probability": 1.0
+        },
+        {
+          "word": "when",
+          "start": 684.42,
+          "end": 685.54,
+          "probability": 0.9717
+        },
+        {
+          "word": "I",
+          "start": 685.54,
+          "end": 685.68,
+          "probability": 1.0
+        },
+        {
+          "word": "know",
+          "start": 685.68,
+          "end": 685.82,
+          "probability": 1.0
+        },
+        {
+          "word": "what's",
+          "start": 685.82,
+          "end": 686.0,
+          "probability": 0.9995
+        },
+        {
+          "word": "going",
+          "start": 686.0,
+          "end": 686.1,
+          "probability": 1.0
+        },
+        {
+          "word": "on.",
+          "start": 686.1,
+          "end": 686.36,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 689.83,
+          "end": 690.21,
+          "probability": 0.999
+        },
+        {
+          "word": "thought",
+          "start": 690.21,
+          "end": 690.47,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 690.47,
+          "end": 690.61,
+          "probability": 1.0
+        },
+        {
+          "word": "knew",
+          "start": 690.61,
+          "end": 690.77,
+          "probability": 1.0
+        },
+        {
+          "word": "what",
+          "start": 690.77,
+          "end": 690.89,
+          "probability": 1.0
+        },
+        {
+          "word": "was",
+          "start": 690.89,
+          "end": 691.05,
+          "probability": 1.0
+        },
+        {
+          "word": "going",
+          "start": 691.05,
+          "end": 691.21,
+          "probability": 1.0
+        },
+        {
+          "word": "on.",
+          "start": 691.21,
+          "end": 691.49,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 691.53,
+          "end": 691.73,
+          "probability": 0.999
+        },
+        {
+          "word": "don't.",
+          "start": 691.73,
+          "end": 692.09,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.0473,
+      "no_speech_prob": 0.0041
+    }
+  ]
+}

@@ -1,0 +1,293 @@
+========================================================================
+FILE        : videos/2014/2014-11-25T00:01:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #83 (mILn4H-UehQ).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-11-25T00:01:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #83 (mILn4H-UehQ).mp4
+FORMAT      : MPEG4
+SIZE        : 47,515,397 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:15:30.300
+TRANSCRIBED: 2026-05-10T20:07:39.676837+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+Okay, this is Temple OS 5-Minute Random Code Walkthrough Episode 83, and I'm your host Terry Davis. And today we are in...oh, isn't that special? Okay. This is an optimization on text documents. This is an excellent place to start if we want to...this is an excellent teaching. Okay, so what we have is a utility that you give it a doc opt, you give it a file mask, and it sets the flag for recurse and text files only. Everyone needs to...one of the first things you have to get familiar with is...well, the find files routine. Find files...you have...when you want to look for files that match a name in a directory, you give it flags usually. All the utilities that use this, you can give them flags for... plus R is recurse. That means to send into the directories, all the subdirectories, and then all the sub-subdirectories. Anyway, my...I have the ability to filter, to limit to just text files, source files, ahead of time, just in time, graphics files. Anyway, uh...so, uh...um...so what this does is, uh, this first sets flags, turns on the R and the T, and then it sets the flags based on the text that you, um, when you do this file, uh, the argument. You give it a text argument. So, for example, you might say at the command line...well, let me...uh...you might say, uh, doc opt...well, you...you're probably gonna do it on all files. Slash star, comma, and then you give it options. You can...you can turn off recurse, since that's turned on by default, and you can turn on, uh, just in...just in time. Something like that. Anyway, uh...so then it, uh, calls this routine, and it passes, uh...you know, I wonder why I made a...oh, that's why. Okay. So it passes a, uh, um, a, uh... Find files is, uh, um... Find files gets the, uh, the, the files in a mask, and so it makes a, a linked list, uh, it, it returns a linked list of directory structures. So a, a directory entry has a link to the next one in the chain. It goes up to the parent, if there is one, or it goes to subdirectories. So when you...the way you traverse a linked list is you, uh, you, you do...you do a loop with, uh...so this will, uh, traverse a linked list. Uh, uh, and then, as you're going, you traverse down. This is recursive, and you do the subdirectory, and then it's going to, when it gets to this point, it's going to jump in, and now it's, um, into itself, and now it's doing the linked list again. So that's how you traverse a, uh, tree. Anyway, um, we delete the entry with, uh, that it... Find files gave us the entry, and we delete it here. And we, we get the next one ahead of time before we delete it, so that we, um, you don't access it after you delete it. Anyway, uh, so, uh, now each...we process each, each directory. If it's, if it's an attribute directory, you don't press. You, you, uh, recurse. If it's a file, you, um, you call optimize file. And, uh, we're giving a...it returns a count of changes. I do believe that's the number of optimizers. And so this optimizes a file. Now, in Temple OS, someone said, in, in, in Unix, everything's a file. In Temple OS, everything's a document. The command line is a document that we're editing. The, uh, the...everything you see is pretty much a document. And, um, so you need to learn this document format. It's a linked list, a circular linked list. And, uh, anyway, we read the whole document, and this gives us a, uh, a, uh... Okay. We, we call up optimize, optimize document. And we print the, uh, the number that we...if, if we got some changes, then we write the document. Then we delete the document. So here's how we traverse the document. We start at the root. I don't like the word head. Anyway, I call it the root... Most people would call it the head of a queue. I call it the root of a queue. Anyway, uh, so it has a next and the last. And then we go in a circle around the queue. Just like we...well, it's similar to how we went in the linked list. Except with a queue, you, you search for the beginning. When you get to the beginning, again, that's the, uh, end. Anyway, so when you get back to the beginning, that's the end. It's a, it's a circle. So, uh, now we, we optimized a document entry. So the documents, uh, have, uh, well, it's... So the documents have, uh, a type for each, uh, entry. So someone, where, where's the type? Okay, so you can have a text entry. You can have a new line, a soft new line. When you're doing Word Wrap, it distinguishes soft and hard new lines. And when it saves the file, it saves the cursor position. So that when, when you have an IDE, it'll pull up the file with the... And put the cursor in the same spot it was saved. Um, anyway, a tab. If you do a clear entry, that will, uh, I can show you what happens. I'm gonna do dollar sign. You can't see this, but dollar sign, C L dollar sign. And it clears it. So if it hits a clear entry, it clears it. That, that almost never happens. Page break. So, uh, we can hit, uh, control return is a page break. And anyway, um, page length. If you notice, this was, it's 66 lines. If you do a page length, control L will do, um, some of the, will let you put, uh, let's put page settings. Let's put page length. Let's set it to, uh, 20. Now, if I say control, control carriage return, we're about 20 lines down, about 20 lines down. Anyway, um, left margin, right margin, footer, word wrap. So, getting back to what our business is, we want to optimize entries. What are some of the optimizations we can do? If it's a link, then what we do is we, uh, we check if it starts with FI. So, the, uh, one of the other things you have to learn to be a user of Temple OS is, uh, the, uh, is it in here? The link types. FI is a file. FA is jump to an anchor in a file. Jump to a string. FF is jump to a string in a file. Jump, jump to the second occurrence of a string in a file. Jump to a line number in a file. Now, if it's just a file name by itself, that's the same as a FI. So, uh, what we do here is we check for FI and get, get rid of the FI. If it's a, we, we see if we can get rid of FI. And down here, we see if it has a .z and we get rid of .z. And then when I'm doing this, well, let me, well, when I'm doing this, I, I uncomment these and, uh, do some dangerous optimizations, uh, if my, uh, if my, uh, okay. So, so a link, uh, control T L K has a tag and an auxiliary string. That's the link. So, um, when it, if this document entry has an auxiliary string, this is for entries besides links as, as well as links. And, um, so this is kind of dangerous. We, uh, we get rid of the .z because, um, as a matter of fact, our file system will search when you, when you try to read a file, it tries to find whatever file name. And then if it doesn't find it, it checks for the same thing with a .z or anyway. Uh, so if it has a .z in the tag, so this is just, uh, basically all I'm doing with my optimizing is getting rid of FI when it's just a file name by itself. And I'm getting rid of some of the .z's. But conceivably, we might have more optimizations, um, down the road. And when they get put in there, you would benefit if you see what I, what I do when I distribute my, uh, actually, I don't think I do that. Do it. Maybe I do. When I make a distribution, you know what? I don't think I do that. Um, let me look for .z. Okay. Well, that answers that. Um, I sometimes, okay. Well, anyway, so, uh, I don't do that. I don't do it every distribution, but once in a while I, uh, I optimize. So that's that. Now, what I should show you is, uh, why don't we show you, uh, that's lovely. Anyway, uh, why don't I show you, uh, let's see how we're doing on time. 11 minutes. Okay. Okay. Uh, so, uh, cdoc entry, um, star D E. C. Oh, that's not what I want to do. Let's do, uh, cdir entry. That's what I have, mate. Um, star D E. Good temp. I always use the same files. Files find about, uh, slash, uh, atom slash star, uh, CPP. That'll work. Um, and then I say, uh, we can say plus R. And, uh, now what I do is, uh, D E one. And then what I do is I go through my list. And. And. Then when I get done. I say dirt. Dirt tree. Dirt tree delete. Okay. So I hope it doesn't crash and ruin my video. So this will. I'm going to hit F5. And it didn't do anything. We got an FUF exception. Oh, you know what? That's kind of fortunate. Oh, dang. We almost screwed up. I tried to pass it a text. It's looking for a binary flag. Would I? Oh, I almost crashed my video. Okay. FUF recurse. And you know what we do? We pass it. FUF just files. If you say just files, it flattens the tree. So nothing. What happened? Uh, FU. Oh, no, no. Oh, oh, oh. No, no, no. What? Let's. Let's. Let's do this. Oh, they're all dot Z's. That's what it is. Okay. Adam slash star CPP dot Z. Okay. Boy, I was getting worried. I got a little bit lucky. Okay. So you can see it recursed into subdirectories. And it. We got all the files. So we can just play with this. Let's say. No file. Okay. Let's see. You see this. Utils. No. How about. You see. Let's say no files that begin with T. If we say semicolon tilde. This is not the same as Unix. You know. Maybe I should change it. But anyway. No file that begins with. Uh. How about. I wonder what this will do. We have no file that has a T. Anyway. Uh. It's. Uh. It only lets you start with one directory. So this is kind of. Allows. Unix is kind of. Uh. Perfect. Or. Complex. Ours is kind of simplified for. Beginners. You can only specify one directory. In other words. You can't say. Semicolon. And then another directory. It's kind of a. Weird. You have a single directory. And then you have a file mask. And you can. You can do subdirectories. So. This flat. This just files actually. Flattens it to a. Uh. Just a single linked list. Otherwise we would have directory. Anyway. This gets rid of directory entries. And so. And then. What we did in the. Optimize is. Open up the. Load in each document. We're not going to do that. So how about that. Okay. So.inaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinação
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:06.760]  Okay, this is Temple OS 5-Minute Random Code Walkthrough Episode 83, and I'm your host Terry Davis.
+[00:00:07.900 -> 00:00:12.900]  And today we are in...oh, isn't that special? Okay.
+[00:00:16.240 -> 00:00:20.460]  This is an optimization on text documents.
+[00:00:21.060 -> 00:00:28.040]  This is an excellent place to start if we want to...this is an excellent teaching.
+[00:00:32.220 -> 00:00:47.140]  Okay, so what we have is a utility that you give it a doc opt, you give it a file mask, and it sets the flag for recurse and text files only.
+[00:00:47.140 -> 00:00:56.000]  Everyone needs to...one of the first things you have to get familiar with is...well, the find files routine.
+[00:01:00.560 -> 00:01:07.020]  Find files...you have...when you want to look for files that match a name in a directory,
+[00:01:09.160 -> 00:01:11.640]  you give it flags usually.
+[00:01:12.020 -> 00:01:16.980]  All the utilities that use this, you can give them flags for...
+[00:01:16.980 -> 00:01:18.960]  plus R is recurse.
+[00:01:19.480 -> 00:01:27.240]  That means to send into the directories, all the subdirectories, and then all the sub-subdirectories.
+[00:01:27.240 -> 00:01:40.320]  Anyway, my...I have the ability to filter, to limit to just text files, source files, ahead of time, just in time, graphics files.
+[00:01:42.320 -> 00:01:54.660]  Anyway, uh...so, uh...um...so what this does is, uh, this first sets flags, turns on the R and the T,
+[00:01:54.900 -> 00:02:03.300]  and then it sets the flags based on the text that you, um, when you do this file, uh, the argument.
+[00:02:03.300 -> 00:02:05.140]  You give it a text argument.
+[00:02:05.420 -> 00:02:19.000]  So, for example, you might say at the command line...well, let me...uh...you might say, uh, doc opt...well, you...you're probably gonna do it on all files.
+[00:02:19.920 -> 00:02:24.080]  Slash star, comma, and then you give it options.
+[00:02:24.280 -> 00:02:30.260]  You can...you can turn off recurse, since that's turned on by default,
+[00:02:31.280 -> 00:02:35.520]  and you can turn on, uh, just in...just in time.
+[00:02:36.280 -> 00:02:37.380]  Something like that.
+[00:02:39.760 -> 00:02:42.440]  Anyway, uh...so then it, uh, calls this routine,
+[00:02:42.800 -> 00:02:48.820]  and it passes, uh...you know, I wonder why I made a...oh, that's why.
+[00:02:48.960 -> 00:02:49.240]  Okay.
+[00:02:49.820 -> 00:02:54.880]  So it passes a, uh, um, a, uh...
+[00:02:54.880 -> 00:02:57.600]  Find files is, uh, um...
+[00:03:02.200 -> 00:03:06.320]  Find files gets the, uh, the, the files in a mask,
+[00:03:06.320 -> 00:03:12.980]  and so it makes a, a linked list, uh, it, it returns a linked list of directory structures.
+[00:03:13.340 -> 00:03:17.800]  So a, a directory entry has a link to the next one in the chain.
+[00:03:18.340 -> 00:03:23.320]  It goes up to the parent, if there is one, or it goes to subdirectories.
+[00:03:24.100 -> 00:03:27.400]  So when you...the way you traverse a linked list is you, uh,
+[00:03:28.100 -> 00:03:34.260]  you, you do...you do a loop with, uh...so this will, uh, traverse a linked list.
+[00:03:34.620 -> 00:03:38.620]  Uh, uh, and then, as you're going, you traverse down.
+[00:03:39.380 -> 00:03:42.760]  This is recursive, and you do the subdirectory,
+[00:03:42.940 -> 00:03:46.380]  and then it's going to, when it gets to this point, it's going to jump in,
+[00:03:46.480 -> 00:03:50.820]  and now it's, um, into itself, and now it's doing the linked list again.
+[00:03:51.320 -> 00:03:54.020]  So that's how you traverse a, uh, tree.
+[00:03:55.620 -> 00:04:00.340]  Anyway, um, we delete the entry with, uh, that it...
+[00:04:00.340 -> 00:04:03.600]  Find files gave us the entry, and we delete it here.
+[00:04:03.600 -> 00:04:08.500]  And we, we get the next one ahead of time before we delete it,
+[00:04:08.600 -> 00:04:14.280]  so that we, um, you don't access it after you delete it.
+[00:04:14.540 -> 00:04:21.140]  Anyway, uh, so, uh, now each...we process each, each directory.
+[00:04:21.140 -> 00:04:23.880]  If it's, if it's an attribute directory, you don't press.
+[00:04:24.360 -> 00:04:26.540]  You, you, uh, recurse.
+[00:04:26.760 -> 00:04:31.260]  If it's a file, you, um, you call optimize file.
+[00:04:31.880 -> 00:04:36.980]  And, uh, we're giving a...it returns a count of changes.
+[00:04:36.980 -> 00:04:39.300]  I do believe that's the number of optimizers.
+[00:04:39.660 -> 00:04:41.760]  And so this optimizes a file.
+[00:04:42.080 -> 00:04:46.660]  Now, in Temple OS, someone said, in, in, in Unix, everything's a file.
+[00:04:46.920 -> 00:04:49.140]  In Temple OS, everything's a document.
+[00:04:49.440 -> 00:04:52.240]  The command line is a document that we're editing.
+[00:04:52.960 -> 00:04:58.100]  The, uh, the...everything you see is pretty much a document.
+[00:04:58.100 -> 00:05:01.140]  And, um, so you need to learn this document format.
+[00:05:01.560 -> 00:05:04.400]  It's a linked list, a circular linked list.
+[00:05:04.640 -> 00:05:12.100]  And, uh, anyway, we read the whole document, and this gives us a, uh, a, uh...
+[00:05:13.160 -> 00:05:13.720]  Okay.
+[00:05:14.140 -> 00:05:18.280]  We, we call up optimize, optimize document.
+[00:05:19.180 -> 00:05:25.660]  And we print the, uh, the number that we...if, if we got some changes, then we write the document.
+[00:05:25.880 -> 00:05:26.880]  Then we delete the document.
+[00:05:28.120 -> 00:05:29.980]  So here's how we traverse the document.
+[00:05:30.280 -> 00:05:31.720]  We start at the root.
+[00:05:31.920 -> 00:05:33.000]  I don't like the word head.
+[00:05:33.360 -> 00:05:35.320]  Anyway, I call it the root...
+[00:05:35.320 -> 00:05:36.920]  Most people would call it the head of a queue.
+[00:05:37.160 -> 00:05:38.920]  I call it the root of a queue.
+[00:05:40.040 -> 00:05:42.840]  Anyway, uh, so it has a next and the last.
+[00:05:42.840 -> 00:05:46.360]  And then we go in a circle around the queue.
+[00:05:46.840 -> 00:05:49.900]  Just like we...well, it's similar to how we went in the linked list.
+[00:05:49.920 -> 00:05:53.100]  Except with a queue, you, you search for the beginning.
+[00:05:53.560 -> 00:05:57.700]  When you get to the beginning, again, that's the, uh, end.
+[00:05:58.280 -> 00:06:01.100]  Anyway, so when you get back to the beginning, that's the end.
+[00:06:01.260 -> 00:06:02.040]  It's a, it's a circle.
+[00:06:02.400 -> 00:06:06.220]  So, uh, now we, we optimized a document entry.
+[00:06:06.220 -> 00:06:12.520]  So the documents, uh, have, uh, well, it's...
+[00:06:14.520 -> 00:06:21.860]  So the documents have, uh, a type for each, uh, entry.
+[00:06:22.600 -> 00:06:25.220]  So someone, where, where's the type?
+[00:06:25.920 -> 00:06:28.040]  Okay, so you can have a text entry.
+[00:06:28.040 -> 00:06:30.940]  You can have a new line, a soft new line.
+[00:06:31.100 -> 00:06:34.460]  When you're doing Word Wrap, it distinguishes soft and hard new lines.
+[00:06:35.040 -> 00:06:38.760]  And when it saves the file, it saves the cursor position.
+[00:06:38.760 -> 00:06:42.820]  So that when, when you have an IDE, it'll pull up the file with the...
+[00:06:42.820 -> 00:06:45.440]  And put the cursor in the same spot it was saved.
+[00:06:46.360 -> 00:06:48.900]  Um, anyway, a tab.
+[00:06:49.820 -> 00:06:54.260]  If you do a clear entry, that will, uh, I can show you what happens.
+[00:06:54.620 -> 00:06:56.320]  I'm gonna do dollar sign.
+[00:06:56.400 -> 00:07:00.420]  You can't see this, but dollar sign, C L dollar sign.
+[00:07:00.620 -> 00:07:01.380]  And it clears it.
+[00:07:01.380 -> 00:07:03.980]  So if it hits a clear entry, it clears it.
+[00:07:04.500 -> 00:07:06.220]  That, that almost never happens.
+[00:07:06.220 -> 00:07:06.900]  Page break.
+[00:07:07.220 -> 00:07:12.540]  So, uh, we can hit, uh, control return is a page break.
+[00:07:13.760 -> 00:07:18.040]  And anyway, um, page length.
+[00:07:18.480 -> 00:07:21.460]  If you notice, this was, it's 66 lines.
+[00:07:21.700 -> 00:07:28.200]  If you do a page length, control L will do, um, some of the, will let you put, uh, let's put page settings.
+[00:07:28.200 -> 00:07:29.560]  Let's put page length.
+[00:07:29.840 -> 00:07:31.620]  Let's set it to, uh, 20.
+[00:07:32.280 -> 00:07:39.340]  Now, if I say control, control carriage return, we're about 20 lines down, about 20 lines down.
+[00:07:39.760 -> 00:07:43.400]  Anyway, um, left margin, right margin, footer, word wrap.
+[00:07:43.400 -> 00:07:47.840]  So, getting back to what our business is, we want to optimize entries.
+[00:07:49.120 -> 00:07:51.380]  What are some of the optimizations we can do?
+[00:07:51.720 -> 00:07:58.520]  If it's a link, then what we do is we, uh, we check if it starts with FI.
+[00:07:59.040 -> 00:08:12.740]  So, the, uh, one of the other things you have to learn to be a user of Temple OS is, uh, the, uh, is it in here?
+[00:08:14.140 -> 00:08:15.360]  The link types.
+[00:08:15.840 -> 00:08:16.900]  FI is a file.
+[00:08:17.060 -> 00:08:19.660]  FA is jump to an anchor in a file.
+[00:08:20.300 -> 00:08:21.460]  Jump to a string.
+[00:08:21.640 -> 00:08:23.740]  FF is jump to a string in a file.
+[00:08:24.140 -> 00:08:27.020]  Jump, jump to the second occurrence of a string in a file.
+[00:08:27.200 -> 00:08:29.020]  Jump to a line number in a file.
+[00:08:29.520 -> 00:08:33.020]  Now, if it's just a file name by itself, that's the same as a FI.
+[00:08:33.660 -> 00:08:39.080]  So, uh, what we do here is we check for FI and get, get rid of the FI.
+[00:08:39.320 -> 00:08:42.740]  If it's a, we, we see if we can get rid of FI.
+[00:08:43.640 -> 00:08:47.340]  And down here, we see if it has a .z and we get rid of .z.
+[00:08:47.340 -> 00:08:53.500]  And then when I'm doing this, well, let me, well, when I'm doing this, I, I uncomment these
+[00:08:53.500 -> 00:09:00.860]  and, uh, do some dangerous optimizations, uh, if my, uh, if my, uh, okay.
+[00:09:01.080 -> 00:09:14.140]  So, so a link, uh, control T L K has a tag and an auxiliary string.
+[00:09:14.680 -> 00:09:15.740]  That's the link.
+[00:09:17.240 -> 00:09:24.180]  So, um, when it, if this document entry has an auxiliary string, this is for entries besides
+[00:09:24.180 -> 00:09:26.120]  links as, as well as links.
+[00:09:26.600 -> 00:09:28.600]  And, um, so this is kind of dangerous.
+[00:09:28.600 -> 00:09:36.140]  We, uh, we get rid of the .z because, um, as a matter of fact, our file system will search
+[00:09:36.140 -> 00:09:41.380]  when you, when you try to read a file, it tries to find whatever file name.
+[00:09:41.380 -> 00:09:47.880]  And then if it doesn't find it, it checks for the same thing with a .z or anyway.
+[00:09:48.360 -> 00:09:56.720]  Uh, so if it has a .z in the tag, so this is just, uh, basically all I'm doing with my
+[00:09:56.720 -> 00:10:01.900]  optimizing is getting rid of FI when it's just a file name by itself.
+[00:10:01.900 -> 00:10:04.320]  And I'm getting rid of some of the .z's.
+[00:10:04.720 -> 00:10:10.580]  But conceivably, we might have more optimizations, um, down the road.
+[00:10:11.360 -> 00:10:16.860]  And when they get put in there, you would benefit if you see what I, what I do when I
+[00:10:16.860 -> 00:10:19.500]  distribute my, uh, actually, I don't think I do that.
+[00:10:19.620 -> 00:10:19.760]  Do it.
+[00:10:19.840 -> 00:10:20.340]  Maybe I do.
+[00:10:20.840 -> 00:10:25.240]  When I make a distribution, you know what?
+[00:10:25.240 -> 00:10:26.240]  I don't think I do that.
+[00:10:27.180 -> 00:10:30.260]  Um, let me look for .z.
+[00:10:32.560 -> 00:10:32.880]  Okay.
+[00:10:35.040 -> 00:10:36.880]  Well, that answers that.
+[00:10:39.060 -> 00:10:42.620]  Um, I sometimes, okay.
+[00:10:42.860 -> 00:10:45.800]  Well, anyway, so, uh, I don't do that.
+[00:10:46.160 -> 00:10:51.820]  I don't do it every distribution, but once in a while I, uh, I optimize.
+[00:10:51.820 -> 00:10:53.220]  So that's that.
+[00:10:53.700 -> 00:10:58.940]  Now, what I should show you is, uh, why don't we show you, uh, that's lovely.
+[00:10:59.220 -> 00:11:03.660]  Anyway, uh, why don't I show you, uh, let's see how we're doing on time.
+[00:11:03.820 -> 00:11:04.340]  11 minutes.
+[00:11:04.820 -> 00:11:05.180]  Okay.
+[00:11:05.480 -> 00:11:05.580]  Okay.
+[00:11:05.580 -> 00:11:15.020]  Uh, so, uh, cdoc entry, um, star D E.
+[00:11:16.680 -> 00:11:17.160]  C.
+[00:11:17.360 -> 00:11:20.080]  Oh, that's not what I want to do.
+[00:11:20.080 -> 00:11:23.340]  Let's do, uh, cdir entry.
+[00:11:23.580 -> 00:11:24.260]  That's what I have, mate.
+[00:11:25.120 -> 00:11:26.540]  Um, star D E.
+[00:11:27.540 -> 00:11:27.820]  Good temp.
+[00:11:28.260 -> 00:11:32.300]  I always use the same files.
+[00:11:32.880 -> 00:11:43.960]  Files find about, uh, slash, uh, atom slash star, uh, CPP.
+[00:11:45.280 -> 00:11:46.400]  That'll work.
+[00:11:46.960 -> 00:11:50.700]  Um, and then I say, uh, we can say plus R.
+[00:11:52.540 -> 00:12:02.200]  And, uh, now what I do is, uh, D E one.
+[00:12:04.000 -> 00:12:06.980]  And then what I do is I go through my list.
+[00:12:11.540 -> 00:12:12.140]  And.
+[00:12:12.140 -> 00:12:12.480]  And.
+[00:12:17.800 -> 00:12:19.240]  Then when I get done.
+[00:12:19.880 -> 00:12:20.760]  I say dirt.
+[00:12:21.720 -> 00:12:22.820]  Dirt tree.
+[00:12:24.560 -> 00:12:25.900]  Dirt tree delete.
+[00:12:29.500 -> 00:12:30.160]  Okay.
+[00:12:30.740 -> 00:12:33.240]  So I hope it doesn't crash and ruin my video.
+[00:12:39.380 -> 00:12:40.660]  So this will.
+[00:12:40.760 -> 00:12:41.740]  I'm going to hit F5.
+[00:12:42.360 -> 00:12:43.780]  And it didn't do anything.
+[00:12:44.240 -> 00:12:45.780]  We got an FUF exception.
+[00:12:46.500 -> 00:12:48.080]  Oh, you know what?
+[00:12:48.180 -> 00:12:49.540]  That's kind of fortunate.
+[00:12:50.320 -> 00:12:52.240]  Oh, dang.
+[00:12:52.240 -> 00:12:53.620]  We almost screwed up.
+[00:12:53.800 -> 00:12:55.500]  I tried to pass it a text.
+[00:12:55.740 -> 00:12:57.700]  It's looking for a binary flag.
+[00:12:58.340 -> 00:12:58.560]  Would I?
+[00:12:58.780 -> 00:13:00.600]  Oh, I almost crashed my video.
+[00:13:00.600 -> 00:13:01.300]  Okay.
+[00:13:01.580 -> 00:13:02.540]  FUF recurse.
+[00:13:04.220 -> 00:13:05.660]  And you know what we do?
+[00:13:05.900 -> 00:13:07.400]  We pass it.
+[00:13:08.400 -> 00:13:10.380]  FUF just files.
+[00:13:10.820 -> 00:13:13.760]  If you say just files, it flattens the tree.
+[00:13:14.540 -> 00:13:15.840]  So nothing.
+[00:13:22.580 -> 00:13:24.000]  What happened?
+[00:13:24.480 -> 00:13:25.040]  Uh, FU.
+[00:13:26.700 -> 00:13:27.620]  Oh, no, no.
+[00:13:27.800 -> 00:13:28.380]  Oh, oh, oh.
+[00:13:28.540 -> 00:13:29.200]  No, no, no.
+[00:13:29.740 -> 00:13:30.040]  What?
+[00:13:32.280 -> 00:13:32.640]  Let's.
+[00:13:32.840 -> 00:13:33.200]  Let's.
+[00:13:34.700 -> 00:13:35.460]  Let's do this.
+[00:13:38.960 -> 00:13:40.480]  Oh, they're all dot Z's.
+[00:13:40.640 -> 00:13:41.220]  That's what it is.
+[00:13:41.660 -> 00:13:41.940]  Okay.
+[00:13:42.540 -> 00:13:45.780]  Adam slash star CPP dot Z.
+[00:13:47.100 -> 00:13:47.460]  Okay.
+[00:13:47.780 -> 00:13:48.820]  Boy, I was getting worried.
+[00:13:49.100 -> 00:13:50.280]  I got a little bit lucky.
+[00:13:50.280 -> 00:13:50.680]  Okay.
+[00:13:50.840 -> 00:13:53.300]  So you can see it recursed into subdirectories.
+[00:13:53.700 -> 00:13:54.440]  And it.
+[00:13:55.980 -> 00:13:57.360]  We got all the files.
+[00:13:57.620 -> 00:13:59.260]  So we can just play with this.
+[00:13:59.720 -> 00:14:00.640]  Let's say.
+[00:14:01.260 -> 00:14:02.220]  No file.
+[00:14:02.580 -> 00:14:02.920]  Okay.
+[00:14:03.000 -> 00:14:03.360]  Let's see.
+[00:14:03.520 -> 00:14:04.140]  You see this.
+[00:14:04.900 -> 00:14:05.420]  Utils.
+[00:14:05.980 -> 00:14:06.140]  No.
+[00:14:06.200 -> 00:14:06.500]  How about.
+[00:14:07.580 -> 00:14:08.540]  You see.
+[00:14:10.180 -> 00:14:12.480]  Let's say no files that begin with T.
+[00:14:12.980 -> 00:14:14.960]  If we say semicolon tilde.
+[00:14:14.960 -> 00:14:17.580]  This is not the same as Unix.
+[00:14:17.860 -> 00:14:18.280]  You know.
+[00:14:18.400 -> 00:14:19.500]  Maybe I should change it.
+[00:14:20.200 -> 00:14:20.600]  But anyway.
+[00:14:20.840 -> 00:14:21.980]  No file that begins with.
+[00:14:23.080 -> 00:14:23.560]  Uh.
+[00:14:24.020 -> 00:14:24.300]  How about.
+[00:14:24.460 -> 00:14:25.420]  I wonder what this will do.
+[00:14:27.860 -> 00:14:29.620]  We have no file that has a T.
+[00:14:30.760 -> 00:14:31.240]  Anyway.
+[00:14:31.540 -> 00:14:31.620]  Uh.
+[00:14:33.360 -> 00:14:33.840]  It's.
+[00:14:33.940 -> 00:14:34.020]  Uh.
+[00:14:34.020 -> 00:14:36.320]  It only lets you start with one directory.
+[00:14:36.860 -> 00:14:37.980]  So this is kind of.
+[00:14:38.440 -> 00:14:38.920]  Allows.
+[00:14:39.440 -> 00:14:40.980]  Unix is kind of.
+[00:14:41.220 -> 00:14:41.440]  Uh.
+[00:14:41.660 -> 00:14:42.140]  Perfect.
+[00:14:42.440 -> 00:14:42.540]  Or.
+[00:14:42.880 -> 00:14:43.360]  Complex.
+[00:14:43.360 -> 00:14:45.800]  Ours is kind of simplified for.
+[00:14:46.040 -> 00:14:46.600]  Beginners.
+[00:14:46.860 -> 00:14:48.920]  You can only specify one directory.
+[00:14:49.120 -> 00:14:49.540]  In other words.
+[00:14:49.680 -> 00:14:50.500]  You can't say.
+[00:14:50.940 -> 00:14:50.940]  
+[00:14:51.580 -> 00:14:52.140]  Semicolon.
+[00:14:52.460 -> 00:14:53.400]  And then another directory.
+[00:14:53.920 -> 00:14:55.160]  It's kind of a.
+[00:14:55.780 -> 00:14:56.340]  Weird.
+[00:14:56.900 -> 00:14:58.440]  You have a single directory.
+[00:14:58.700 -> 00:14:59.920]  And then you have a file mask.
+[00:15:00.560 -> 00:15:01.520]  And you can.
+[00:15:01.640 -> 00:15:03.240]  You can do subdirectories.
+[00:15:03.880 -> 00:15:04.160]  So.
+[00:15:04.600 -> 00:15:04.600]  
+[00:15:06.020 -> 00:15:06.640]  This flat.
+[00:15:06.820 -> 00:15:08.440]  This just files actually.
+[00:15:08.860 -> 00:15:08.860]  
+[00:15:09.320 -> 00:15:10.360]  Flattens it to a.
+[00:15:10.500 -> 00:15:10.720]  Uh.
+[00:15:11.140 -> 00:15:12.320]  Just a single linked list.
+[00:15:12.320 -> 00:15:13.800]  Otherwise we would have directory.
+[00:15:14.360 -> 00:15:14.840]  Anyway.
+[00:15:15.000 -> 00:15:16.700]  This gets rid of directory entries.
+[00:15:18.120 -> 00:15:18.880]  And so.
+[00:15:19.260 -> 00:15:19.260]  
+[00:15:19.860 -> 00:15:20.040]  And then.
+[00:15:20.240 -> 00:15:21.600]  What we did in the.
+[00:15:21.840 -> 00:15:21.840]  
+[00:15:22.660 -> 00:15:23.380]  Optimize is.
+[00:15:23.660 -> 00:15:23.660]  
+[00:15:24.440 -> 00:15:25.100]  Open up the.
+[00:15:25.380 -> 00:15:26.740]  Load in each document.
+[00:15:27.080 -> 00:15:27.880]  We're not going to do that.
+[00:15:28.280 -> 00:15:28.920]  So how about that.
+[00:15:29.380 -> 00:15:29.480]  Okay.
+[00:15:29.760 -> 00:15:30.240]  So.
+[00:15:30.240 -> 00:15:30.240]  
+[00:15:30.240 -> 00:15:30.320]  inaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinação
+[00:15:30.300 -> 00:15:30.300]  

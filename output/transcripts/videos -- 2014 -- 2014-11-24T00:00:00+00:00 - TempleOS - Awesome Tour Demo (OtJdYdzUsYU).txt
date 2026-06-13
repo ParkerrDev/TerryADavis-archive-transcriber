@@ -1,0 +1,244 @@
+========================================================================
+FILE        : videos/2014/2014-11-24T00:00:00+00:00 - TempleOS - Awesome Tour Demo (OtJdYdzUsYU).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-11-24T00:00:00+00:00 - TempleOS - Awesome Tour Demo (OtJdYdzUsYU).mp4
+FORMAT      : MPEG4
+SIZE        : 126,569,184 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:30:22.290
+TRANSCRIBED: 2026-05-10T23:23:28.355617+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay I'm just going to talk about some of the neat features I've covered this in other videos but I'm just gonna whatever comes to mind okay so I want people to get familiar with this is the directory structure there's 20,000 lines in the compiler 24,000 lines in the kernel those are the only two binary files you never need to make objects or executables or anything you just run from source just in time in the demo directory for example we can go in and try a game so we go in a bomber golf we have graphics and source and we hit f5 and this is counting keystrokes to destroy the tank all 10 tanks anyway so you you if you hit it's command line driven it but it feeds into a C compiler so if you say I 64 count I 64 n I 64 I for I equal one semicolon I less or equal in semicolon I plus plus percent the carriage return this is a print I have my own language and a string by itself is print f I can say if you do a statement outside of a function it's executed immediately so oh I didn't return a value oh well it didn't mind so let's do unassemble function count it's 64-bit assembly it's it's a true compiler not an interpreter even though it's just in time it uses register variables these rdi is n rsi is is I and when if we say c trace on that'll trace the compiler as it's doing statement so if I say one plus two that loads of three and returns it if I say count 10 it pushes 10 it the the call I have my own calling convention the it uses the return and pop so that you know the caller doesn't read doesn't pop the the function pops the arguments anyway pushes 10 calls that function if you want to say who minus minus minus r we have we have one local variable I can make a global I 64 I I equals five it's a moving five into the global location this happens to be a RSP relative I put it I have two all all code goes in the lowest two gig you'll notice these addresses probably look strange to you I think I only the lowest two gig is the code heat is if anyway so I don't have kernel if if we if we do a memory map you can get this on my website alphabetic order numeric order so this is a numeric order when it loads in the module it loads in at 7c and we have we have some local variables and uh the boot the boot the boot is at the beginning um it's assembly and uh so we have this loads into the low 640 and I I just leave it there I identity map so I have no reason to to move it um then when it starts uh when it starts up it starts compiling and putting on the code heap the code heap allocates off the top it slices off off the bottom off the bottom of a of a slab or no the top of a slab I'm sorry and uh so when it allocates uh for just in time it just calls malloc so some people think it's address randomization no it's just malloc and uh these are all functions that are in memory you can use unassembled I wrote my own compiler end assembler and unassembler so uh that's that um so um we can go uh we can do mem bios rep this is uh the uh this is from the bios during boot it boots in real mode and it calls the bios to get some information and then it switches to 64-bit mode and um since I have identity mapping my physical memory is the same as my virtual memory so all of these I have gaps and stuff that it's fragmented that's just the way it goes anyway so uh so uh my operating system can use call relative 32 because I put all code in the lowest 2 gig all my code is in this chunk right here anyway uh um so uh when it starts up uh so I have my own boot loaders and stuff I have a cd-rom hard disk boot loaders um those uh what those do is they uh they're really really simple they don't navigate the file system um what I do is when you when you run my I have a professional install script that installs my operating system onto the disk anyway and when it installs it uh it locates the uh the block address of the um of the uh if we change to uh in the root directory is kernel.bin um it locates the block address and it puts it into the boot loader so uh the boot loader has a hard coded uh patch that has the block address and it just uses uh interrupt 1342 and it loads in block by block one block at a time I'm conservative I the biggest challenge is compatibility and uh you don't want some stupid reason to make it not work because biases are all different anyway then it jumps in real mode to uh to my kernel um my it loads in the kernel it starts at kernel start I have a um a uh run level uh I just tick off bits it's not it's not like linux so it starts in 16 bit mode ticks that off enables enables vga enables 32 bit mode long mode then um my uh all my code is position independent because I have because I patch I I I have a I have a ridiculous table that's used to patch the absolute addresses but it's okay um I switched to 64 bit so I have to self patch before you can run the code I have to um add a uh the module start to all the um absolute addresses um I switched to 64 bit mode um I get my I have a preliminary heap that's not quite the full heap and then I enable the full heap um I have uh so the memory has the code memory and the data memory anyway um I enable raw um black and white uh um output to the console so there's no console until this bit is flipped so if you're debugging um don't use the the console output until this bit in the boot up process then it enables interrupts and enables multi-core um I don't do symmetric multi-core I do at master slave so all applications run on core zero um and when they want they just spawn they just explicitly spawn tasks on uh other cores it's a lot better um you can do things like a real-time flight simulator where each task is doing a strip if the if you have smp um it might decide to not to schedule and suddenly you would have a a glitch because suddenly instead of instead of seven instead of seven slaves doing instead of eight cores doing a strip um let me show you my my uh I got sidetracked oh well we're not in any hurry so uh instead of uh when we do my my uh so this is updating uh 30 times a second but you're only seeing a video of eight times a second believe it or not I'm writing the the frames to disk eight times a second and uh so uh um my multi-core is not symmetric because I have a master slave um that if if you if it if the scheduler decided to bump two tasks on one core suddenly it would take twice as many it would take twice as long and you'd have a glitch so you just don't want the scheduler to touch it you just want to put it there and uh keep it simple so uh only tasks on core zero can have windows and um only applications can run from core zero that's not really enforced but there's locks on heaps and and and discs and stuff so that you can do multi-core um anyway uh I enabled the uh the disk the disk code gets started up and then I load the compiler that's a separate module the first module is a kernel then I load in the compiler compiler those are the only two binaries you ever need everything else can run just in time where it just mallocs code and shoves it in there and patches it and it's ready to go um this is my uh it enables the document framework that's what has the um editor the tree widgets and links and all that uh I have a task for the window manager um that's what uh 30 times a second no matter what it redraws the screen I can show you that uh it logs into my account loads loads my registry file registry files for high scores you can delete it and uh it defaults to uh safe values just delete the registry and it'll be the policy is it's supposed to default to safe values um it's really easy to uh to make high scores in the registry file um and um so adam2 um adam is the like adam and eve it's the first task and uh he all to all tasks are children of adam and uh it starts in the kernel directory and then it goes into the adam directory and compiles in the kernel directory it compiles headers in the atom directory it uh compiles code and uh then it goes into a server mode adam um adam is this uh adam is this uh window here this is adam you don't directly uh you give you don't directly type in adam he's a server you tell him to uh print hello um um i just made him print hello if you want system-wide code you tell adam to compile the code and to you include with adam um it feeds into a c compiler so the way you uh execute at the command line is you pound include so for example when we run a game um let's run wenceslas um i can oh well i'll show you there's a you can right click and do it fast or you can say since it feeds into a c compiler and any statement outside a function executes immediately so look at this at the bottom it says wenceslas that's a statement to execute the code i could hit f5 but we're going to do it like this um f5 causes a new task this is the same task so um anyway i'm going to execute this i need a semicolon just because oh it's showing i told it to trace the compiler output so we're getting uh that's kind of weird uh uh i think we have some data or something anyway so in this good king wenceslas uh um um led the peasants he had a guy walking his footprints because it was cold and uh so uh you try and make these people go to a tree for warmth or go inside the uh the house um they they follow your footprints and your footprints disappear anyway so watch here he's going to go in the house he went in the house this guy's warming himself by the fire so you got to get all 10 so uh i try to be original if it's not original it's not worth doing oh i'm really proud of my new game my new game is called uh chestnet um so uh this is supposed to be like uh well the idea was armies with computer link computer bandwidth links and trying to isolate uh so the the each side tries to step on the uh the the midpoint of the link and uh if you isolate the king then you win um it's actually uh i haven't figured out how to play it it's uh i can tell it takes uh it's an intelligent game um some of it is estimating the midpoint after you do it that's kind of uh not fun maybe i don't know maybe it's fun um the nice thing is uh it's good for a reversal all the way until the end um if you screw up you can you can have a big reversal like this guy goes and he goes and steps on um if he's uh walloping the other guy then there can be a big reversal um where he anyway so uh i'm curious to see what strategies happen it's an exciting new game we can test your iq see if you can figure out how to play it anyway uh so uh uh where were we so we go in the startup directory and uh um in kernel start it it uh calls the bios does some initialization and then at the end it uh or it patches and then it um it uh at the it changes to 32 bit and then to 64 bit mode i wrote my own assembler so and linker there's not a linker i can mix 32 bit 64 bit 16 bit and uh um so somewhere in here it jumps to uh kernel main so this is uh kernel main is in k end and this is where it's i can't use the c compiler at this i can't use c at the beginning because uh it's my c compiler is only 64 bit i don't use the standard uh argument uh passing i don't use the register i don't use register arguments for passing into my routines i i use 16 64 bit has 16 registers that's actually easier to make a compiler for anyway you can look at the videos on my compiler so when it initializes i told you all those uh initializations here's where it loads the compiler module and then it uh it starts executing code in atom 1 and each task has an environment symbol table i told you about um so these are all the environment these are all the symbols in the symbol table um you need to stop thinking of uh scripting as a as a uh as a amateur language um this is uh optimize c it's uh if we unassemble these things unassemble function um optimize let's look at uh let's look at some code oh let's look at functions uh wenceslaus no that's too big uh what's another one song task let's get song task it's sitting in memory um so it's it's optimized uh 64-bit code this is even though it it just pound included remember we pound included uh wenceslaus so uh um it's uh it's all in memory and uh uh my songs are um just a simple uh one voice uh it's a delightful language just the note the note middle c octave three eighth note c c um and uh it's really easy to spawn tasks so there's no distinction between thread process or task everything is a uh it's identity mapped so it's single address map so and honestly it's kind of like for one video game at a time and that video game can have multiple threads um it doesn't share the disc uh so if i do a long disc operation it doesn't share it doesn't break it in pieces so it's not good for uh a server or something like that but uh it it my vision is a commodore 64 you don't need to play two video games at once um so i i call it one process with multiple threads um that's the even though it is multiple processes but uh anyway um i don't want to oversell it um so uh so fs is the fs segment register um i just it just compiled to uh to fetch fs this is the um the fs segment register points to the current task record um this uh up at the top you see up here at the top the uh 3fd5 all that that's the the current task record um we have a feature called word stack which uh or not word stack it used to be called word stack now it's just autocomplete so we can click on c task and it's a um our my vision is a commodore 64 and that was open access the the kids are supposed to have fun everybody's supposed to have fun playing around with the code um so uh we just directly access it that's the whole point it's supposed to be fun linux is too ugly and complicated i want i want i want everybody to uh to not be intimidated press f1 and just go through the list of all the uh go through the list of all the api functions my dates are 64 bit um it's uh based on ad0 is 0 um so uh in the upper 32 bits are days since ad0 so uh you can and the lower 32 bits are fractions of a day so you can add and subtract numbers um and and at times work so it's date time anyway uh so uh i want you to go through and get familiar with all these uh once you i don't want it to be intimidating i want you to see the light at the end of the tunnel and uh anyway so uh um it looks like it's a text mode but check this out um the apple 2 used to have a really simple way to draw graphics and i i said you know um we need to think like we're making a 1040 easy tax form um a 1040 easy tax form is uh really simple and it's a big deal if you make it more complicated you would fire somebody who made an extra box on the 1040 easy tax form so we want this simple so that it's it's painful for it's just like filling out taxes an extra box on a tax if you have to uh do something so uh i streamline it uh and uh i i i keep it purposely simple anyway so uh um if you want to see the uh um right now on the wallpaper is all the tasks that we have we have uh um uh there's a exec there's a seth task on each core that's the manager for that core adam is the seth task on core zero anyway uh we're we're doing uh we can do fourth out for four million swaps a second we're um i uh update the screen 60 times a second no matter what for 30 times a second no matter what there's a um there's a window manager um the standard tasks that you always have are the atom task and the window manager and you'll also have the auto complete and then there's just a couple consoles i try to i try to keep the task down to a minimum so my window manager um does some uh all the all the miscellaneous stuff the window manager does you know technically the uh the window manager window is the wallpaper and it's ordered according to the z uh buffer order the order in the task queue um it's just a round robin the order in the task queue is uh the windows z buffer order so it's really simple and uh so we were talking about um during boot uh it goes in and it starts compiling atom one this is like auto exec basically during startup it compiles uh um it is compiled 50 000 lines look down here there's 50 000 lines of code that have been compiled um that's during boot that's what we're looking at right here during boot it goes through and does all these includes of the header kernel you have two binary modules a kernel and the compiler it includes a header for that and then it goes into the atom directory and starts compiling we have 50 000 lines we compiled during boot that's the headers and and then the uh um the atom directory is uh all this code gets compiled during boot it starts with atom 2 and it includes the the graphics library the window manager the um and uh the editor and uh then when it's done at the bottom it goes into atom 3 which is your this is your this is your home directory and then it and then it starts compiling code in your home directory um your uh now uh files if they're not found it searches the parent directory so um my my home directory uh you'll notice uh there's there's default files here if if i have a there's an atom 3 localized that overrides the uh the uh defaults if if i if it if i make my own you can copy these into your own directory and then it's overriding it um the file system uh doesn't have a path it uh it searches the current directory for a file and if it's not found it searches the parent you can see what the path doesn't make sense because uh we're feeding into a c compiler um if i say for i equals 0 i less than 10 i plus plus percent d comma i oops that didn't work i think we had i don't know what happened i better control c i don't want to ruin my video anyway uh so uh uh so where was i uh so if you go to f1 you get to the help there's a really big demo index this is uh full of all kinds of um beginner advanced this is how you learn the api you just work your way through all the games i've decided that i fully tested this is a proven operating system it works for what it was designed for i have uh modest goals and uh anyway it works for what i i intended it anyway so uh um let's see uh so gs is the uh cpu um the current cp core there's a cpu uh structure um it has a um you do debugging and stuff at the command line like i can say dump 10 000 and this dumps that's a hex dump if you say dock dump 10 000 uh this is a variation and it's uh it's a live widget we have uh live widgets at the command line um so uh there's class rep it knows the uh type of the we have all the compiler information is retained in memory we have source debugging this is kind of like how you debug so we're going to dump uh the the fs segment register so this is a this is the record and all the stuff in it so this is like your ide i used to have anyway so the way you develop is you uh you oops alt m so uh you uh what you do is you uh you uh use zero main uh let's do i could do it even less let's say hello main then you uh hit carriage return you use the cursor keys it's really delightful and then include and it said hello there uh we can uh put some carriage returns in here um so carriage turn hello okay so uh um we have graphics at the source um if you hit ctrl r you can make a sprite um let's do a couple circles i'm just it's vector graphics but you can convert them a bit to bitmap um we're making a series of vectors over here um so uh let's do color green light green circle and then let's do a dithered uh light green flood fill and then uh let's let's just call that good let's edit it and there's an origin there's no bounding box um shift origin um shift origin okay so uh it's gonna it has an origin now we uh we come down here and we can say uh i'm just gonna the the simplest you don't normally do this but uh control r is your sprite menu and we want binary numbers we have uh graphics in source code um so uh i'm gonna kind of cheat here let's do this now we now we have graphics on the command line now notice the flood fills are done as vectors so we don't really want that let's convert it to a to bitmap this is a critical thing we're convert to bitmap use a transparent background use these extents yes exit okay now it's a bitmap um so the flood fill flood fills are okay now anyway now the flood fill does not interact with the under if you notice here the flood fill interacted with the underneath now the flood fill doesn't interact anyway so that's my uh introduction
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.840 -> 00:00:06.740]  okay I'm just going to talk about some of the neat features I've covered this in other videos but I'm
+[00:00:06.740 -> 00:00:24.560]  just gonna whatever comes to mind okay so I want people to get familiar with this is the directory
+[00:00:24.560 -> 00:00:32.760]  structure there's 20,000 lines in the compiler 24,000 lines in the kernel those are the only two
+[00:00:32.760 -> 00:00:38.740]  binary files you never need to make objects or executables or anything you just run from source
+[00:00:38.740 -> 00:00:46.900]  just in time in the demo directory for example we can go in and try a game so we go in a bomber golf
+[00:00:46.900 -> 00:00:59.240]  we have graphics and source and we hit f5 and this is counting keystrokes to destroy the tank all 10
+[00:00:59.240 -> 00:01:14.880]  tanks anyway so you you if you hit it's command line driven it but it feeds into a C compiler so if you
+[00:01:14.880 -> 00:01:29.420]  say I 64 count I 64 n I 64 I for I equal one semicolon I less or equal in semicolon I plus plus
+[00:01:32.140 -> 00:01:44.040]  percent the carriage return this is a print I have my own language and a string by itself is print f I
+[00:01:44.270 -> 00:01:54.350]  can say if you do a statement outside of a function it's executed immediately so oh I didn't return
+[00:01:54.350 -> 00:02:07.470]  a value oh well it didn't mind so let's do unassemble function count it's 64-bit assembly it's it's a true
+[00:02:07.470 -> 00:02:13.670]  compiler not an interpreter even though it's just in time it uses register variables these
+[00:02:13.670 -> 00:02:26.610]  rdi is n rsi is is I and when if we say c trace on that'll trace the compiler as it's doing statement
+[00:02:26.610 -> 00:02:39.370]  so if I say one plus two that loads of three and returns it if I say count 10 it pushes 10 it the the call I
+[00:02:39.370 -> 00:02:49.150]  have my own calling convention the it uses the return and pop so that you know the caller doesn't read
+[00:02:49.150 -> 00:02:58.870]  doesn't pop the the function pops the arguments anyway pushes 10 calls that function if you want to say who
+[00:03:00.610 -> 00:03:14.230]  minus minus minus r we have we have one local variable I can make a global I 64 I I equals five it's a
+[00:03:15.250 -> 00:03:28.470]  moving five into the global location this happens to be a RSP relative I put it I have two
+[00:03:29.570 -> 00:03:36.090]  all all code goes in the lowest two gig you'll notice these addresses probably look strange to you I
+[00:03:37.010 -> 00:03:50.830]  think I only the lowest two gig is the code heat is if anyway so I don't have kernel if if we if we do a
+[00:03:50.830 -> 00:03:58.810]  memory map you can get this on my website alphabetic order numeric order so this is a
+[00:04:01.210 -> 00:04:11.570]  numeric order when it loads in the module it loads in at 7c and we have we have some local variables and
+[00:04:11.570 -> 00:04:20.250]  uh the boot the boot the boot is at the beginning um it's assembly and uh so we have this loads into the
+[00:04:20.250 -> 00:04:27.890]  low 640 and I I just leave it there I identity map so I have no reason to to move it um then when it
+[00:04:27.890 -> 00:04:34.570]  starts uh when it starts up it starts compiling and putting on the code heap the code heap allocates off
+[00:04:34.570 -> 00:04:43.630]  the top it slices off off the bottom off the bottom of a of a slab or no the top of a slab I'm sorry
+[00:04:44.190 -> 00:04:52.110]  and uh so when it allocates uh for just in time it just calls malloc so some people think it's address
+[00:04:52.710 -> 00:04:59.610]  randomization no it's just malloc and uh these are all functions that are in memory you can use
+[00:04:59.610 -> 00:05:10.870]  unassembled I wrote my own compiler end assembler and unassembler so uh that's that um so
+[00:05:14.690 -> 00:05:26.090]  um we can go uh we can do mem bios rep this is uh the uh this is from the bios during boot it boots in
+[00:05:26.090 -> 00:05:32.330]  real mode and it calls the bios to get some information and then it switches to 64-bit mode
+[00:05:32.330 -> 00:05:40.250]  and um since I have identity mapping my physical memory is the same as my virtual memory so all of
+[00:05:40.250 -> 00:05:46.870]  these I have gaps and stuff that it's fragmented that's just the way it goes anyway so uh
+[00:05:48.350 -> 00:05:55.490]  so uh my operating system can use call relative 32 because I put all code in the lowest 2 gig
+[00:05:55.490 -> 00:06:06.770]  all my code is in this chunk right here anyway uh um so uh when it starts up uh so I have my own
+[00:06:06.770 -> 00:06:14.870]  boot loaders and stuff I have a cd-rom hard disk boot loaders um those uh what those do is they uh
+[00:06:15.650 -> 00:06:22.410]  they're really really simple they don't navigate the file system um what I do is when you when you run my
+[00:06:22.410 -> 00:06:30.330]  I have a professional install script that installs my operating system onto the disk anyway and when
+[00:06:30.330 -> 00:06:39.490]  it installs it uh it locates the uh the block address of the um of the uh if we change to uh
+[00:06:41.530 -> 00:06:44.130]  in the root directory is kernel.bin
+[00:06:45.530 -> 00:06:55.390]  um it locates the block address and it puts it into the boot loader so uh the boot loader has a hard
+[00:06:55.390 -> 00:07:04.950]  coded uh patch that has the block address and it just uses uh interrupt 1342 and it loads in block by
+[00:07:04.950 -> 00:07:11.570]  block one block at a time I'm conservative I the biggest challenge is compatibility and uh you don't
+[00:07:11.570 -> 00:07:17.610]  want some stupid reason to make it not work because biases are all different anyway then it jumps in
+[00:07:17.610 -> 00:07:29.430]  real mode to uh to my kernel um my it loads in the kernel it starts at kernel start I have a um a uh run level
+[00:07:29.430 -> 00:07:38.050]  uh I just tick off bits it's not it's not like linux so it starts in 16 bit mode ticks that off
+[00:07:38.050 -> 00:07:47.850]  enables enables vga enables 32 bit mode long mode then um my uh all my code is position independent
+[00:07:47.850 -> 00:07:55.230]  because I have because I patch I I I have a I have a ridiculous table that's used to patch the absolute
+[00:07:55.230 -> 00:08:02.470]  addresses but it's okay um I switched to 64 bit so I have to self patch before you can run the code
+[00:08:02.470 -> 00:08:12.370]  I have to um add a uh the module start to all the um absolute addresses um I switched to 64 bit mode
+[00:08:12.370 -> 00:08:20.570]  um I get my I have a preliminary heap that's not quite the full heap and then I enable the full heap
+[00:08:20.570 -> 00:08:29.590]  um I have uh so the memory has the code memory and the data memory anyway um I enable raw um black and white
+[00:08:29.590 -> 00:08:39.670]  uh um output to the console so there's no console until this bit is flipped so if you're debugging um
+[00:08:39.670 -> 00:08:46.890]  don't use the the console output until this bit in the boot up process then it enables interrupts and
+[00:08:46.890 -> 00:08:55.210]  enables multi-core um I don't do symmetric multi-core I do at master slave so all applications run on core
+[00:08:55.210 -> 00:09:03.150]  zero um and when they want they just spawn they just explicitly spawn tasks on uh other cores
+[00:09:04.010 -> 00:09:11.410]  it's a lot better um you can do things like a real-time flight simulator where each task is doing a strip
+[00:09:11.410 -> 00:09:20.630]  if the if you have smp um it might decide to not to schedule and suddenly you would have a a glitch
+[00:09:20.630 -> 00:09:27.370]  because suddenly instead of instead of seven instead of seven slaves doing instead of eight cores doing a strip
+[00:09:27.370 -> 00:09:36.710]  um let me show you my my uh I got sidetracked oh well we're not in any hurry so uh instead of uh
+[00:09:36.710 -> 00:09:38.430]  when we do my my uh
+[00:09:41.170 -> 00:09:47.070]  so this is updating uh 30 times a second but you're only seeing a video of eight times a second
+[00:09:47.070 -> 00:09:54.470]  believe it or not I'm writing the the frames to disk eight times a second and uh
+[00:09:55.970 -> 00:10:05.710]  so uh um my multi-core is not symmetric because I have a master slave um that if if you if it if the
+[00:10:05.710 -> 00:10:12.070]  scheduler decided to bump two tasks on one core suddenly it would take twice as many it would take
+[00:10:12.070 -> 00:10:16.950]  twice as long and you'd have a glitch so you just don't want the scheduler to touch it you just want
+[00:10:16.950 -> 00:10:26.350]  to put it there and uh keep it simple so uh only tasks on core zero can have windows and um only
+[00:10:26.350 -> 00:10:32.330]  applications can run from core zero that's not really enforced but there's locks on heaps and and
+[00:10:32.330 -> 00:10:41.710]  and discs and stuff so that you can do multi-core um anyway uh I enabled the uh the disk the disk code
+[00:10:41.710 -> 00:10:47.390]  gets started up and then I load the compiler that's a separate module the first module is a kernel
+[00:10:47.390 -> 00:10:52.910]  then I load in the compiler compiler those are the only two binaries you ever need everything else can
+[00:10:52.910 -> 00:10:58.750]  run just in time where it just mallocs code and shoves it in there and patches it and it's ready to go
+[00:11:00.090 -> 00:11:08.270]  um this is my uh it enables the document framework that's what has the um editor the tree widgets and
+[00:11:08.270 -> 00:11:15.350]  links and all that uh I have a task for the window manager um that's what uh 30 times a second no
+[00:11:15.350 -> 00:11:22.650]  matter what it redraws the screen I can show you that uh it logs into my account loads loads my registry
+[00:11:22.650 -> 00:11:30.830]  file registry files for high scores you can delete it and uh it defaults to uh safe values just delete the
+[00:11:30.830 -> 00:11:35.170]  registry and it'll be the policy is it's supposed to default to safe values
+[00:11:35.170 -> 00:11:46.110]  um it's really easy to uh to make high scores in the registry file um and um so adam2 um adam is the
+[00:11:46.110 -> 00:11:54.610]  like adam and eve it's the first task and uh he all to all tasks are children of adam and uh it starts
+[00:11:54.610 -> 00:12:00.530]  in the kernel directory and then it goes into the adam directory and compiles in the kernel directory it
+[00:12:00.530 -> 00:12:08.870]  compiles headers in the atom directory it uh compiles code and uh then it goes into a server mode adam
+[00:12:08.870 -> 00:12:23.530]  um adam is this uh adam is this uh window here this is adam you don't directly uh you give you don't
+[00:12:23.530 -> 00:12:28.710]  directly type in adam he's a server you tell him to uh print hello
+[00:12:31.370 -> 00:12:31.990]  um
+[00:12:31.990 -> 00:12:32.410]  um
+[00:12:34.570 -> 00:12:42.290]  i just made him print hello if you want system-wide code you tell adam to compile the code and to you
+[00:12:42.290 -> 00:12:50.330]  include with adam um it feeds into a c compiler so the way you uh execute at the command line is you
+[00:12:50.330 -> 00:13:01.850]  pound include so for example when we run a game um let's run wenceslas um i can oh well i'll show you
+[00:13:01.850 -> 00:13:10.730]  there's a you can right click and do it fast or you can say since it feeds into a c compiler
+[00:13:10.730 -> 00:13:16.390]  and any statement outside a function executes immediately so look at this at the bottom it
+[00:13:16.390 -> 00:13:21.630]  says wenceslas that's a statement to execute the code i could hit f5 but we're going to do it like
+[00:13:21.630 -> 00:13:31.090]  this um f5 causes a new task this is the same task so um anyway i'm going to execute this i need a
+[00:13:31.090 -> 00:13:36.710]  semicolon just because oh it's showing i told it to trace the compiler output so we're getting uh
+[00:13:38.190 -> 00:13:40.410]  that's kind of weird uh
+[00:13:40.410 -> 00:13:44.630]  uh i think we have some data or something
+[00:13:46.310 -> 00:13:52.090]  anyway so in this good king wenceslas uh um
+[00:13:52.090 -> 00:13:59.010]  um led the peasants he had a guy walking his footprints because it was cold
+[00:13:59.010 -> 00:14:06.310]  and uh so uh you try and make these people go to a tree for warmth or go inside the uh
+[00:14:06.930 -> 00:14:07.790]  the house
+[00:14:09.250 -> 00:14:13.990]  um they they follow your footprints and your footprints disappear
+[00:14:14.610 -> 00:14:17.750]  anyway so watch here he's going to go in the house
+[00:14:20.050 -> 00:14:21.210]  he went in the house
+[00:14:21.210 -> 00:14:24.670]  this guy's warming himself by the fire so you got to get all 10
+[00:14:24.670 -> 00:14:30.490]  so uh i try to be original if it's not original it's not worth doing
+[00:14:30.490 -> 00:14:35.850]  oh i'm really proud of my new game my new game is called uh chestnet
+[00:14:35.850 -> 00:14:40.790]  um so uh this is supposed to be like uh
+[00:14:42.190 -> 00:14:49.610]  well the idea was armies with computer link computer bandwidth links and trying to isolate
+[00:14:49.610 -> 00:14:57.370]  uh so the the each side tries to step on the uh the the midpoint of the link
+[00:14:57.370 -> 00:15:01.810]  and uh if you isolate the king then you win
+[00:15:01.810 -> 00:15:07.530]  um it's actually uh i haven't figured out how to play it it's uh
+[00:15:08.350 -> 00:15:12.470]  i can tell it takes uh it's an intelligent game
+[00:15:13.610 -> 00:15:17.730]  um some of it is estimating the midpoint after you do it
+[00:15:17.730 -> 00:15:22.570]  that's kind of uh not fun
+[00:15:23.530 -> 00:15:25.070]  maybe i don't know maybe it's fun
+[00:15:25.070 -> 00:15:32.490]  um the nice thing is uh it's good for a reversal all the way until the end
+[00:15:33.570 -> 00:15:37.770]  um if you screw up you can you can have a big reversal
+[00:15:37.770 -> 00:15:41.390]  like this guy goes and he goes and steps on
+[00:15:43.930 -> 00:15:46.850]  um if he's uh walloping the other guy
+[00:15:48.450 -> 00:15:50.290]  then there can be a big reversal
+[00:15:52.490 -> 00:15:53.770]  um where he
+[00:15:53.770 -> 00:15:58.650]  anyway so uh i'm curious to see what strategies
+[00:16:00.670 -> 00:16:03.110]  happen it's an exciting new game we can
+[00:16:03.110 -> 00:16:06.350]  test your iq see if you can figure out how to play it
+[00:16:06.350 -> 00:16:13.090]  anyway uh so uh uh where were we so we go in the startup directory
+[00:16:13.090 -> 00:16:20.810]  and uh um in kernel start it it uh calls the bios does some initialization
+[00:16:20.810 -> 00:16:27.330]  and then at the end it uh or it patches and then it um it uh at the
+[00:16:29.010 -> 00:16:34.410]  it changes to 32 bit and then to 64 bit mode i wrote my own assembler so
+[00:16:34.410 -> 00:16:39.630]  and linker there's not a linker i can mix 32 bit 64 bit 16 bit
+[00:16:39.630 -> 00:16:42.730]  and uh um so
+[00:16:42.730 -> 00:16:46.390]  somewhere in here it jumps to uh
+[00:16:46.390 -> 00:16:47.810]  kernel main
+[00:16:48.970 -> 00:16:56.610]  so this is uh kernel main is in k end and this is where it's i can't use the c compiler at this i
+[00:16:56.610 -> 00:17:05.210]  can't use c at the beginning because uh it's my c compiler is only 64 bit i don't use the standard uh
+[00:17:05.210 -> 00:17:12.070]  argument uh passing i don't use the register i don't use register arguments for passing into my
+[00:17:12.070 -> 00:17:19.730]  routines i i use 16 64 bit has 16 registers that's actually easier to make a compiler for
+[00:17:19.730 -> 00:17:25.890]  anyway you can look at the videos on my compiler so when it initializes i told you all those
+[00:17:25.890 -> 00:17:32.250]  uh initializations here's where it loads the compiler module and then it uh it starts executing
+[00:17:32.250 -> 00:17:37.350]  code in atom 1 and each task has an environment symbol table i told you about
+[00:17:37.350 -> 00:17:44.270]  um so these are all the environment these are all the symbols in the symbol table
+[00:17:44.270 -> 00:17:53.570]  um you need to stop thinking of uh scripting as a as a uh as a amateur language
+[00:17:53.570 -> 00:18:01.310]  um this is uh optimize c it's uh if we unassemble these things unassemble function
+[00:18:01.310 -> 00:18:07.170]  um optimize let's look at uh let's look at some code oh let's look at functions
+[00:18:07.170 -> 00:18:15.210]  uh wenceslaus no that's too big uh what's another one song task let's get song task
+[00:18:16.210 -> 00:18:25.350]  it's sitting in memory um so it's it's optimized uh 64-bit code this is even though it it just
+[00:18:25.350 -> 00:18:35.590]  pound included remember we pound included uh wenceslaus so uh um it's uh it's all in memory and uh
+[00:18:35.590 -> 00:18:44.290]  uh my songs are um just a simple uh one voice uh it's a delightful language just the note the note
+[00:18:44.290 -> 00:18:53.730]  middle c octave three eighth note c c um and uh it's really easy to spawn tasks so there's no distinction
+[00:18:53.730 -> 00:19:03.550]  between thread process or task everything is a uh it's identity mapped so it's single address map so
+[00:19:04.430 -> 00:19:12.050]  and honestly it's kind of like for one video game at a time and that video game can have multiple threads
+[00:19:12.050 -> 00:19:20.430]  um it doesn't share the disc uh so if i do a long disc operation it doesn't share it doesn't break it in pieces
+[00:19:20.430 -> 00:19:29.570]  so it's not good for uh a server or something like that but uh it it my vision is a commodore 64 you
+[00:19:29.570 -> 00:19:35.670]  don't need to play two video games at once um so i i call it one process with multiple threads
+[00:19:35.670 -> 00:19:43.170]  um that's the even though it is multiple processes but uh anyway um i don't want to oversell it
+[00:19:43.170 -> 00:19:57.510]  um so uh so fs is the fs segment register um i just it just compiled to uh to fetch fs this is the um
+[00:19:57.510 -> 00:20:04.810]  the fs segment register points to the current task record um this uh up at the top you see up here at the
+[00:20:04.810 -> 00:20:13.090]  top the uh 3fd5 all that that's the the current task record um we have a feature called word stack
+[00:20:13.090 -> 00:20:18.470]  which uh or not word stack it used to be called word stack now it's just autocomplete so we can click
+[00:20:18.470 -> 00:20:26.830]  on c task and it's a um our my vision is a commodore 64 and that was open access the the kids are
+[00:20:26.830 -> 00:20:33.150]  supposed to have fun everybody's supposed to have fun playing around with the code um so uh we just
+[00:20:33.150 -> 00:20:38.450]  directly access it that's the whole point it's supposed to be fun linux is too ugly and complicated
+[00:20:38.450 -> 00:20:47.230]  i want i want i want everybody to uh to not be intimidated press f1 and just go through the list
+[00:20:47.230 -> 00:20:58.150]  of all the uh go through the list of all the api functions my dates are 64 bit um it's uh based on
+[00:20:58.150 -> 00:21:11.450]  ad0 is 0 um so uh in the upper 32 bits are days since ad0 so uh you can and the lower 32 bits are
+[00:21:11.450 -> 00:21:18.210]  fractions of a day so you can add and subtract numbers um and and at times work so it's date time
+[00:21:18.210 -> 00:21:26.730]  anyway uh so uh i want you to go through and get familiar with all these uh once you i don't want it
+[00:21:26.730 -> 00:21:32.230]  to be intimidating i want you to see the light at the end of the tunnel and uh anyway so uh
+[00:21:33.030 -> 00:21:42.550]  um it looks like it's a text mode but check this out um the apple 2 used to have a really simple way
+[00:21:42.550 -> 00:21:50.530]  to draw graphics and i i said you know um we need to think like we're making a 1040 easy tax form
+[00:21:52.210 -> 00:22:00.830]  um a 1040 easy tax form is uh really simple and it's a big deal if you make it more complicated
+[00:22:00.830 -> 00:22:08.950]  you would fire somebody who made an extra box on the 1040 easy tax form so we want this simple so that
+[00:22:08.950 -> 00:22:15.330]  it's it's painful for it's just like filling out taxes an extra box on a tax if you have to
+[00:22:15.330 -> 00:22:27.850]  uh do something so uh i streamline it uh and uh i i i keep it purposely simple anyway so uh um if you
+[00:22:27.850 -> 00:22:39.050]  want to see the uh um right now on the wallpaper is all the tasks that we have we have uh um uh there's a
+[00:22:39.050 -> 00:22:46.950]  exec there's a seth task on each core that's the manager for that core adam is the seth task on core
+[00:22:46.950 -> 00:22:56.350]  zero anyway uh we're we're doing uh we can do fourth out for four million swaps a second we're um i uh
+[00:22:56.350 -> 00:23:02.110]  update the screen 60 times a second no matter what for 30 times a second no matter what there's a
+[00:23:02.110 -> 00:23:12.350]  um there's a window manager um the standard tasks that you always have are the atom task
+[00:23:12.350 -> 00:23:18.410]  and the window manager and you'll also have the auto complete and then there's just a couple consoles
+[00:23:18.410 -> 00:23:25.330]  i try to i try to keep the task down to a minimum so my window manager um does some uh all the all the
+[00:23:25.330 -> 00:23:31.670]  miscellaneous stuff the window manager does you know technically the uh the window manager window is the
+[00:23:31.670 -> 00:23:41.510]  wallpaper and it's ordered according to the z uh buffer order the order in the task queue um it's just a round robin
+[00:23:41.510 -> 00:23:49.910]  the order in the task queue is uh the windows z buffer order so it's really simple and uh so we were talking
+[00:23:49.910 -> 00:23:59.570]  about um during boot uh it goes in and it starts compiling atom one this is like auto exec basically during startup
+[00:23:59.570 -> 00:24:07.170]  it compiles uh um it is compiled 50 000 lines look down here there's 50 000 lines of code that have been compiled
+[00:24:07.170 -> 00:24:13.190]  um that's during boot that's what we're looking at right here during boot it goes through and does all these
+[00:24:13.190 -> 00:24:19.750]  includes of the header kernel you have two binary modules a kernel and the compiler it includes a header
+[00:24:19.750 -> 00:24:26.170]  for that and then it goes into the atom directory and starts compiling we have 50 000 lines we compiled
+[00:24:26.170 -> 00:24:35.810]  during boot that's the headers and and then the uh um the atom directory is uh all this code gets compiled
+[00:24:35.810 -> 00:24:44.050]  during boot it starts with atom 2 and it includes the the graphics library the window manager the um
+[00:24:44.610 -> 00:24:51.470]  and uh the editor and uh then when it's done at the bottom it goes into atom 3 which is your
+[00:24:51.470 -> 00:24:56.410]  this is your this is your home directory and then it and then it starts compiling code in your home
+[00:24:56.410 -> 00:25:06.830]  directory um your uh now uh files if they're not found it searches the parent directory so um my my home
+[00:25:06.830 -> 00:25:15.530]  directory uh you'll notice uh there's there's default files here if if i have a there's an atom 3 localized
+[00:25:15.530 -> 00:25:25.130]  that overrides the uh the uh defaults if if i if it if i make my own you can copy these into your own
+[00:25:25.130 -> 00:25:32.370]  directory and then it's overriding it um the file system uh doesn't have a path it uh it searches the
+[00:25:32.370 -> 00:25:38.010]  current directory for a file and if it's not found it searches the parent you can see what the path
+[00:25:38.010 -> 00:25:46.610]  doesn't make sense because uh we're feeding into a c compiler um if i say for i equals 0 i less than 10
+[00:25:46.610 -> 00:25:56.570]  i plus plus percent d comma i oops that didn't work i think we had i don't know what happened i better
+[00:25:56.570 -> 00:26:11.830]  control c i don't want to ruin my video anyway uh so uh uh so where was i uh so if you go to f1 you get
+[00:26:11.830 -> 00:26:19.050]  to the help there's a really big demo index this is uh full of all kinds of um beginner advanced this is
+[00:26:19.050 -> 00:26:25.710]  how you learn the api you just work your way through all the games i've decided that i fully tested
+[00:26:25.710 -> 00:26:32.470]  this is a proven operating system it works for what it was designed for i have uh modest goals
+[00:26:32.470 -> 00:26:45.790]  and uh anyway it works for what i i intended it anyway so uh um let's see uh so gs is the uh cpu
+[00:26:45.790 -> 00:26:57.470]  um the current cp core there's a cpu uh structure um it has a um you do debugging and stuff at the command
+[00:26:57.470 -> 00:27:06.170]  line like i can say dump 10 000 and this dumps that's a hex dump if you say dock dump 10 000
+[00:27:08.770 -> 00:27:16.570]  uh this is a variation and it's uh it's a live widget we have uh live widgets at the command line
+[00:27:17.130 -> 00:27:27.650]  um so uh there's class rep it knows the uh type of the we have all the compiler information is
+[00:27:27.650 -> 00:27:32.390]  retained in memory we have source debugging this is kind of like how you debug
+[00:27:33.490 -> 00:27:41.250]  so we're going to dump uh the the fs segment register so this is a this is the record and all the stuff
+[00:27:41.250 -> 00:27:50.670]  in it so this is like your ide i used to have anyway so the way you develop is you uh you oops alt m
+[00:27:51.490 -> 00:28:02.010]  so uh you uh what you do is you uh you uh use zero main
+[00:28:04.170 -> 00:28:09.310]  uh let's do i could do it even less let's say hello
+[00:28:12.510 -> 00:28:19.530]  main then you uh hit carriage return you use the cursor keys it's really delightful and then include
+[00:28:19.530 -> 00:28:25.030]  and it said hello there uh we can uh put some carriage returns in here
+[00:28:25.030 -> 00:28:26.190]  um
+[00:28:32.450 -> 00:28:40.050]  so carriage turn hello okay so uh um we have graphics at the source um if you hit ctrl r
+[00:28:41.050 -> 00:28:47.710]  you can make a sprite um let's do a couple circles i'm just it's vector graphics but you can convert
+[00:28:47.710 -> 00:28:58.050]  them a bit to bitmap um we're making a series of vectors over here um so uh let's do color green light
+[00:28:58.050 -> 00:29:05.670]  green circle and then let's do a dithered uh light green flood fill
+[00:29:08.030 -> 00:29:14.310]  and then uh let's let's just call that good let's edit it and there's an origin there's no bounding box
+[00:29:14.310 -> 00:29:22.670]  um shift origin um shift origin okay so uh it's gonna it has an origin now we uh we come down here
+[00:29:22.670 -> 00:29:29.110]  and we can say uh i'm just gonna the the simplest you don't normally do this but uh
+[00:29:29.110 -> 00:29:36.690]  control r is your sprite menu and we want binary numbers we have uh graphics in source code
+[00:29:36.690 -> 00:29:45.230]  um so uh i'm gonna kind of cheat here let's do this now we now we have graphics on the command line
+[00:29:45.230 -> 00:29:51.910]  now notice the flood fills are done as vectors so we don't really want that let's convert it to a
+[00:29:52.610 -> 00:30:00.570]  to bitmap this is a critical thing we're convert to bitmap use a transparent background use these extents
+[00:30:00.570 -> 00:30:12.410]  yes exit okay now it's a bitmap um so the flood fill flood fills are okay now anyway now the flood fill
+[00:30:12.410 -> 00:30:17.710]  does not interact with the under if you notice here the flood fill interacted with the underneath
+[00:30:17.710 -> 00:30:22.290]  now the flood fill doesn't interact anyway so that's my uh introduction

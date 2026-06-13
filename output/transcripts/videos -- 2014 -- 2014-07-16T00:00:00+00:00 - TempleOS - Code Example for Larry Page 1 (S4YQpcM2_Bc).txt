@@ -1,0 +1,528 @@
+========================================================================
+FILE        : videos/2014/2014-07-16T00:00:00+00:00 - TempleOS - Code Example for Larry Page 1 (S4YQpcM2_Bc).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-07-16T00:00:00+00:00 - TempleOS - Code Example for Larry Page 1 (S4YQpcM2_Bc).mp4
+FORMAT      : MPEG4
+SIZE        : 46,380,685 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:13:48.940
+TRANSCRIBED: 2026-05-08T01:01:53.001249+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+Okay, so I used to pick from multiple books instead of just the Bible. I'm going to do that once again. So these are the books. I got them from Project Gutenberg. St. Augustine's Meditations, the Bible. What's this? Oh, you know what that is? Never mind. It's for getting God to play chess. Anyway, this is the countries of the world. So I mixed, oh well, Darwin's Origin of Species, Emily Dickinson, Hamlet, Huck Finn, Paradise Lost, Pilgrim's Progress, Plato, Don Quixote, Swift, that's Gulliver's Travels, the Talmud, U.S. Constitution, Walden Pond, Wealth of Nations, I think, what's his name, Wordsworth, went into Connecticut Yankees, Mark Twain, Tale of Two Cities. Okay, so, let's go over, okay, this is the account directory. There's install, TS, and user. If a file's not found, it searches the parent. So, these are the defaults for all people's accounts. TS, I called my company Trivial Solutions. If you know math, then you know what that is. If you know differential equations. I checked your biography, Larry Page, and you studied computer science, you know what eigenvectors are. Maybe you know what trivial solutions are. Anyway, so, TS is Trivial Solutions. This is the company files, company defaults, and then if you have an employee, he can make his own to override them, and if it's not found, it searches the company, and if that's not found, it searches the default for all users. Okay, so, I was thinking of maybe making an account for Larry Page. I don't know if it's a company or organization. We don't make money. Maybe we can, there's got to be a better name. Anyway, so, we want everybody in our company, uh-oh, that's going to cause a problem. Okay, so, in the archive directory, this is where I put, well, in my, I keep my budget on here. I don't share that with everybody, and I don't share my archive. This has some interesting files, by the way. I did, uh, I did a chess program. It has artificial intelligence. It's not, it's, it doesn't quite work. It's, it's really stupid. Anyway, um, I did, uh, I started a debugger, um, but, there's not enough screen real estate. Let's see, it hit flappy birds. Anyway, uh, one time I had Tetris, but I deleted it, when I did a purge, by accident, or not by accident. Anyway, this is asteroid, sort of. You'll see that on some of the old distributions. You have to escort the ship. Um, and then missile command. Um, I don't want to rip it off. It's too much of a ripoff to do it almost exact. I don't really want, they're, they're, they're overkill. They don't really teach anything. Uh, uh, they're kind of, it's kind of sleazy being a ripoff. Anyway, let's see, I started USB, and, uh, started, anyway, so, long story short, we want to, uh, pick from these files. Uh, we want to pick a passage from those files. Um, so, uh, here's a, if you have a text file that you're importing from elsewhere, you have to convert the dollar signs. So, in the miscellaneous directory, there's a, uh, file called two doll docs. Normally, I put most commands in memory, but this one I left as a standalone. So, what you do is you include it, and then you do two doll docs. Now, this teaches, uh, files find mask. All my file programs, you know how most operating systems has find first and find next for files. Well, we use, uh, files find. And the mask is kind of tricky. Um, it's one directory and multiple, um, file masks. Well, anyway, or, you can read the documentation. Anyway, uh, long story short, uh, in the trivial solutions directory, I, under holy spirit, this, this, by the way, ends up on the distribution in the, in the, I copy my file as an example, there's a, in the demo directory, there's a, um, in demo, there's an account example, and this has my files, but not my personal files. Those are the company files. Anyway, so, uh, so, this gets loaded as a DLL, basically, um, at boot time. So, um, and, um, what we do is we have a keyboard plugin. The, the user keyboard plugins are, uh, alt, the alt key. So, I went ahead and added this as, uh, alt, alt, shift, F7. Um, so, here's where it calls the function, and it passes, the, the files find mask is archive, home archive text star. First, it, um, it captures the, the current, it captures the time of, the timestamp of the last keyboard stroke, which, in this case, when we hit F7, that's the time it uses. Shift F7. And, um, I take 24 bits from the timestamp. This is the last keyboard mouse event. I clear out, well, I want fresh, um, I don't want any leftover, uh, entropy bits. Anyway, so, I want a fresh one. And, um, so, this took me a while to, to, um, write this routine. So, um, we specified the length of the passage, 512 characters. Okay, so, um, we do files, find, find mask. You should get familiar with, uh, F1, and then look up, um, file utils. Uh, this covers, all the flags. You can make it recurs, you can make it, and if you have a, it'll return a tree of files. It has a feature where you can flatten the tree. You, you can flatten the tree and get rid of directories and just have files. You can put it in cluster order to speed it up. You can limit to just text, just source, or whatever. Um, so, I went ahead and, uh, I recursed, limited it to just files. That has the effect of flattening. And then we want just text files. So, um, you can't, it has some standard, uh, extension, um, stuff. Anyway, so, uh, we, uh, we get, basically we end up with a linked list of directory entries. And the directory entries, this is the part that's, here's the linked list, next, parent, sub, those are filled in. Full name, it will, uh, fetch the full name. This is really nice. Um, so this is an allocated, a mallet string, containing the full name, absolute path, attribute name, that's the, that's the, the short name, not the path name, um, cluster size. Um, now all of my, uh, a lot of my structures have something called a user data. And what that is, is, uh, that's for you to do what you want with. It's kind of, uh, not managed. In other words, if you make two applications, and one, both trying to use user data, you're going to have problems. But, um, but you know what you're doing. Anyway, so, what I went ahead and did is, uh, I went, I made one pass through the list of files, and I, uh, set user data to, uh, the string length of the, I read the whole file, and I set it to the string length. Now, my, if you have a file with graphics, then there's a terminating zero after the text, and then the binary graphics. So, this will work even if it's graphics. We get a string length through the test, the ASCII text area at the beginning. And, uh, so, um, I told you, you have to run that doll docs to convert dollar signs. If you don't, uh, if you use a, unconverted, the dollar sign will cause problems. Anyway, so, uh, if the length is greater than or equal to 512, that's what our length is. Um, anyway, so, so, I went ahead and, uh, I read the whole file, and then freed it. This is kind of how we, how we, how we roll. We don't read partials. Oh, we can't get the length, because it's, uh, um, compressed. If we got the, if we got the length from the directory, it would be compressed, and it wouldn't be accurate. Also, if we expanded it, it wouldn't be accurate, because it might have binary data. What we have to do is measure it with string length. So, we, we, we, we go once through it, and set all the lengths. Then we call God bits to, to get a timer, to get 24 bits of God entropy, and multiply by the total, and divide, shift 24 bits. Then we start over at the beginning of the file list, and, uh, if we go negative, it means it's in that file, and, uh, we print the passage, and, then at the end, we delete the, from the head of the list. So, uh, and it had, now, um, the editor is active everywhere. By the way, if you want to open up some lines, control, shift, enter, will, uh, that'll do some, if you hit enter the other way, you get that. Control, shift, enter, does that. Now we're going to ask God to talk. So we say, the key is alt, shift, F7. Oh, we got the Bible. That sucks. We got to do it again. Half thereof, for the people had a mind to work, but it came to pass, that when, Sanballat, and Tobiah, and the Arabians, and the Ammonites, and the Ashdodites, heard that the walls of Jerusalem, were made up, and that the breaches began to stop them, then they, were very wroth, and conspired all of them together, to come and fight against Jerusalem, to hinder it. Nevertheless, we made our prayer unto God, instead of watch, against them day and night, because of them. Well, you can take my word for it. Stupid God, why did you pick from the Bible? There's one where they, they said, why didn't you ask us for help? I don't know what this is. So we're kind of working on the walls, I guess. I'll try it one more time. Alt, shift, F7. Don't read it. Okay. Anyway, oh well, good enough.
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.900 -> 00:00:10.040]  Okay, so I used to pick from multiple books instead of just the Bible.
+[00:00:12.940 -> 00:00:15.400]  I'm going to do that once again.
+[00:00:17.320 -> 00:00:21.260]  So these are the books. I got them from Project Gutenberg.
+[00:00:24.480 -> 00:00:27.100]  St. Augustine's Meditations, the Bible.
+[00:00:27.460 -> 00:00:29.840]  What's this? Oh, you know what that is?
+[00:00:30.640 -> 00:00:31.200]  Never mind.
+[00:00:31.520 -> 00:00:34.380]  It's for getting God to play chess.
+[00:00:34.940 -> 00:00:37.060]  Anyway, this is the countries of the world.
+[00:00:38.560 -> 00:00:42.840]  So I mixed, oh well, Darwin's Origin of Species,
+[00:00:43.320 -> 00:00:46.000]  Emily Dickinson, Hamlet, Huck Finn,
+[00:00:48.580 -> 00:00:52.460]  Paradise Lost, Pilgrim's Progress, Plato, Don Quixote,
+[00:00:53.560 -> 00:00:56.080]  Swift, that's Gulliver's Travels,
+[00:00:56.480 -> 00:00:59.160]  the Talmud, U.S. Constitution,
+[00:01:00.120 -> 00:01:01.000]  Walden Pond,
+[00:01:02.900 -> 00:01:04.220]  Wealth of Nations,
+[00:01:05.380 -> 00:01:07.120]  I think, what's his name, Wordsworth,
+[00:01:07.840 -> 00:01:10.760]  went into Connecticut Yankees, Mark Twain,
+[00:01:12.500 -> 00:01:13.360]  Tale of Two Cities.
+[00:01:13.360 -> 00:01:14.700]  Okay, so,
+[00:01:18.340 -> 00:01:19.700]  let's go over,
+[00:01:22.500 -> 00:01:24.660]  okay, this is the account directory.
+[00:01:26.160 -> 00:01:27.440]  There's install,
+[00:01:27.740 -> 00:01:28.780]  TS, and user.
+[00:01:30.560 -> 00:01:32.460]  If a file's not found,
+[00:01:32.560 -> 00:01:33.620]  it searches the parent.
+[00:01:34.380 -> 00:01:34.540]  So,
+[00:01:35.560 -> 00:01:39.780]  these are the defaults for all people's accounts.
+[00:01:40.420 -> 00:01:40.700]  TS,
+[00:01:40.960 -> 00:01:42.940]  I called my company Trivial Solutions.
+[00:01:44.500 -> 00:01:46.080]  If you know math,
+[00:01:46.240 -> 00:01:47.520]  then you know what that is.
+[00:01:48.040 -> 00:01:50.180]  If you know differential equations.
+[00:01:50.520 -> 00:01:55.100]  I checked your biography, Larry Page,
+[00:01:55.100 -> 00:01:57.680]  and you studied computer science,
+[00:01:57.860 -> 00:01:59.380]  you know what eigenvectors are.
+[00:01:59.640 -> 00:02:02.220]  Maybe you know what trivial solutions are.
+[00:02:02.760 -> 00:02:03.060]  Anyway,
+[00:02:05.380 -> 00:02:05.580]  so,
+[00:02:07.080 -> 00:02:09.500]  TS is Trivial Solutions.
+[00:02:09.500 -> 00:02:11.720]  This is the company files,
+[00:02:12.340 -> 00:02:13.560]  company defaults,
+[00:02:13.580 -> 00:02:15.160]  and then if you have an employee,
+[00:02:15.620 -> 00:02:18.160]  he can make his own to override them,
+[00:02:18.260 -> 00:02:19.900]  and if it's not found,
+[00:02:20.060 -> 00:02:21.080]  it searches the company,
+[00:02:21.140 -> 00:02:22.380]  and if that's not found,
+[00:02:22.400 -> 00:02:25.740]  it searches the default for all users.
+[00:02:26.300 -> 00:02:26.840]  Okay,
+[00:02:27.020 -> 00:02:27.160]  so,
+[00:02:27.300 -> 00:02:29.700]  I was thinking of maybe making an account
+[00:02:29.700 -> 00:02:30.940]  for Larry Page.
+[00:02:33.100 -> 00:02:35.620]  I don't know if it's a company or organization.
+[00:02:35.700 -> 00:02:36.900]  We don't make money.
+[00:02:39.260 -> 00:02:40.160]  Maybe we can,
+[00:02:40.660 -> 00:02:42.120]  there's got to be a better name.
+[00:02:43.880 -> 00:02:44.340]  Anyway,
+[00:02:45.120 -> 00:02:45.580]  so,
+[00:02:46.720 -> 00:02:47.600]  we want
+[00:02:49.220 -> 00:02:50.740]  everybody in our company,
+[00:02:51.040 -> 00:02:51.340]  uh-oh,
+[00:02:51.520 -> 00:02:52.660]  that's going to cause a problem.
+[00:02:53.360 -> 00:02:53.820]  Okay,
+[00:02:54.000 -> 00:02:54.180]  so,
+[00:02:54.680 -> 00:02:56.180]  in the archive directory,
+[00:02:56.340 -> 00:02:57.120]  this is where I put,
+[00:02:58.860 -> 00:02:59.320]  well,
+[00:02:59.480 -> 00:02:59.820]  in my,
+[00:02:59.820 -> 00:03:01.800]  I keep my budget on here.
+[00:03:02.060 -> 00:03:04.060]  I don't share that with everybody,
+[00:03:04.280 -> 00:03:06.260]  and I don't share my archive.
+[00:03:06.840 -> 00:03:08.960]  This has some interesting files,
+[00:03:08.980 -> 00:03:09.600]  by the way.
+[00:03:09.900 -> 00:03:10.640]  I did,
+[00:03:10.640 -> 00:03:11.020]  uh,
+[00:03:12.040 -> 00:03:13.580]  I did a chess program.
+[00:03:13.980 -> 00:03:15.300]  It has artificial intelligence.
+[00:03:15.560 -> 00:03:15.640]  It's not,
+[00:03:15.820 -> 00:03:16.080]  it's,
+[00:03:16.180 -> 00:03:17.500]  it doesn't quite work.
+[00:03:18.020 -> 00:03:18.540]  It's,
+[00:03:18.640 -> 00:03:19.520]  it's really stupid.
+[00:03:20.020 -> 00:03:20.560]  Anyway,
+[00:03:20.880 -> 00:03:21.080]  um,
+[00:03:21.420 -> 00:03:22.120]  I did,
+[00:03:22.300 -> 00:03:22.440]  uh,
+[00:03:23.280 -> 00:03:24.740]  I started a debugger,
+[00:03:25.180 -> 00:03:25.440]  um,
+[00:03:25.620 -> 00:03:25.800]  but,
+[00:03:25.840 -> 00:03:28.240]  there's not enough screen real estate.
+[00:03:28.980 -> 00:03:29.620]  Let's see,
+[00:03:29.620 -> 00:03:30.620]  it hit flappy birds.
+[00:03:31.220 -> 00:03:31.460]  Anyway,
+[00:03:32.360 -> 00:03:32.480]  uh,
+[00:03:33.840 -> 00:03:35.200]  one time I had Tetris,
+[00:03:35.260 -> 00:03:36.280]  but I deleted it,
+[00:03:36.400 -> 00:03:37.660]  when I did a purge,
+[00:03:37.860 -> 00:03:38.380]  by accident,
+[00:03:38.620 -> 00:03:39.400]  or not by accident.
+[00:03:39.800 -> 00:03:40.140]  Anyway,
+[00:03:40.700 -> 00:03:41.660]  this is asteroid,
+[00:03:41.980 -> 00:03:42.360]  sort of.
+[00:03:42.880 -> 00:03:45.220]  You'll see that on some of the old distributions.
+[00:03:45.620 -> 00:03:47.280]  You have to escort the ship.
+[00:03:48.100 -> 00:03:48.160]  Um,
+[00:03:49.100 -> 00:03:50.260]  and then missile command.
+[00:03:50.980 -> 00:03:51.300]  Um,
+[00:03:51.300 -> 00:03:52.920]  I don't want to rip it off.
+[00:03:53.060 -> 00:03:57.760]  It's too much of a ripoff to do it almost exact.
+[00:04:00.180 -> 00:04:01.400]  I don't really want,
+[00:04:01.920 -> 00:04:02.440]  they're,
+[00:04:02.440 -> 00:04:03.200]  they're,
+[00:04:03.220 -> 00:04:04.140]  they're overkill.
+[00:04:04.280 -> 00:04:05.860]  They don't really teach anything.
+[00:04:06.580 -> 00:04:07.140]  Uh,
+[00:04:07.300 -> 00:04:07.300]  
+[00:04:07.420 -> 00:04:07.560]  uh,
+[00:04:07.920 -> 00:04:08.480]  they're kind of,
+[00:04:08.540 -> 00:04:11.520]  it's kind of sleazy being a ripoff.
+[00:04:11.840 -> 00:04:12.400]  Anyway,
+[00:04:13.020 -> 00:04:13.380]  let's see,
+[00:04:13.420 -> 00:04:14.280]  I started USB,
+[00:04:14.920 -> 00:04:15.480]  and,
+[00:04:15.640 -> 00:04:15.760]  uh,
+[00:04:16.960 -> 00:04:17.340]  started,
+[00:04:18.800 -> 00:04:19.360]  anyway,
+[00:04:19.580 -> 00:04:19.760]  so,
+[00:04:20.080 -> 00:04:20.080]  
+[00:04:20.620 -> 00:04:21.380]  long story short,
+[00:04:21.620 -> 00:04:23.000]  we want to,
+[00:04:23.020 -> 00:04:23.240]  uh,
+[00:04:23.360 -> 00:04:24.720]  pick from these files.
+[00:04:25.360 -> 00:04:25.920]  Uh,
+[00:04:25.920 -> 00:04:28.060]  we want to pick a passage from those files.
+[00:04:28.920 -> 00:04:29.080]  Um,
+[00:04:29.860 -> 00:04:30.180]  so,
+[00:04:30.520 -> 00:04:30.860]  uh,
+[00:04:30.860 -> 00:04:31.460]  here's a,
+[00:04:31.600 -> 00:04:37.000]  if you have a text file that you're importing from elsewhere,
+[00:04:37.480 -> 00:04:39.300]  you have to convert the dollar signs.
+[00:04:40.580 -> 00:04:41.140]  So,
+[00:04:41.220 -> 00:04:42.460]  in the miscellaneous directory,
+[00:04:42.740 -> 00:04:43.760]  there's a,
+[00:04:43.760 -> 00:04:44.100]  uh,
+[00:04:44.780 -> 00:04:46.320]  file called two doll docs.
+[00:04:47.240 -> 00:04:47.800]  Normally,
+[00:04:47.800 -> 00:04:50.960]  I put most commands in memory,
+[00:04:51.300 -> 00:04:53.960]  but this one I left as a standalone.
+[00:04:54.500 -> 00:04:55.060]  So,
+[00:04:55.100 -> 00:04:56.440]  what you do is you include it,
+[00:04:56.620 -> 00:04:58.120]  and then you do two doll docs.
+[00:04:58.380 -> 00:04:58.920]  Now,
+[00:04:58.940 -> 00:04:59.620]  this teaches,
+[00:04:59.940 -> 00:05:00.120]  uh,
+[00:05:01.600 -> 00:05:03.300]  files find mask.
+[00:05:03.660 -> 00:05:05.500]  All my file programs,
+[00:05:05.820 -> 00:05:10.460]  you know how most operating systems has find first and find next for files.
+[00:05:10.720 -> 00:05:11.400]  Well,
+[00:05:11.540 -> 00:05:12.080]  we use,
+[00:05:12.160 -> 00:05:12.460]  uh,
+[00:05:13.060 -> 00:05:14.060]  files find.
+[00:05:15.880 -> 00:05:18.180]  And the mask is kind of tricky.
+[00:05:18.620 -> 00:05:18.660]  Um,
+[00:05:18.760 -> 00:05:21.360]  it's one directory and multiple,
+[00:05:22.420 -> 00:05:22.480]  um,
+[00:05:23.840 -> 00:05:24.880]  file masks.
+[00:05:25.120 -> 00:05:25.280]  Well,
+[00:05:25.320 -> 00:05:25.440]  anyway,
+[00:05:25.640 -> 00:05:25.840]  or,
+[00:05:26.740 -> 00:05:28.680]  you can read the documentation.
+[00:05:29.200 -> 00:05:29.740]  Anyway,
+[00:05:29.740 -> 00:05:30.040]  uh,
+[00:05:30.480 -> 00:05:31.180]  long story short,
+[00:05:32.000 -> 00:05:32.120]  uh,
+[00:05:34.300 -> 00:05:38.020]  in the trivial solutions directory,
+[00:05:38.580 -> 00:05:39.160]  I,
+[00:05:39.680 -> 00:05:39.680]  
+[00:05:40.120 -> 00:05:41.320]  under holy spirit,
+[00:05:41.720 -> 00:05:41.860]  this,
+[00:05:42.080 -> 00:05:42.820]  this,
+[00:05:42.980 -> 00:05:43.420]  by the way,
+[00:05:43.600 -> 00:05:45.660]  ends up on the distribution in the,
+[00:05:45.840 -> 00:05:46.420]  in the,
+[00:05:46.420 -> 00:05:49.120]  I copy my file as an example,
+[00:05:49.480 -> 00:05:49.760]  there's a,
+[00:05:49.820 -> 00:05:51.180]  in the demo directory,
+[00:05:51.460 -> 00:05:51.880]  there's a,
+[00:05:52.060 -> 00:05:52.280]  um,
+[00:05:53.800 -> 00:05:54.420]  in demo,
+[00:05:54.700 -> 00:05:56.340]  there's an account example,
+[00:05:56.620 -> 00:05:58.180]  and this has my files,
+[00:05:58.220 -> 00:05:59.660]  but not my personal files.
+[00:05:59.980 -> 00:06:01.200]  Those are the company files.
+[00:06:01.640 -> 00:06:02.000]  Anyway,
+[00:06:02.260 -> 00:06:02.440]  so,
+[00:06:03.940 -> 00:06:04.500]  uh,
+[00:06:04.500 -> 00:06:04.500]  
+[00:06:06.020 -> 00:06:06.160]  so,
+[00:06:06.360 -> 00:06:08.460]  this gets loaded as a DLL,
+[00:06:08.740 -> 00:06:09.280]  basically,
+[00:06:09.800 -> 00:06:09.940]  um,
+[00:06:10.520 -> 00:06:11.380]  at boot time.
+[00:06:12.200 -> 00:06:12.840]  So,
+[00:06:13.260 -> 00:06:13.620]  um,
+[00:06:15.580 -> 00:06:15.940]  and,
+[00:06:16.020 -> 00:06:16.280]  um,
+[00:06:16.580 -> 00:06:18.500]  what we do is we have a keyboard plugin.
+[00:06:19.040 -> 00:06:19.700]  The,
+[00:06:19.700 -> 00:06:22.520]  the user keyboard plugins are,
+[00:06:22.520 -> 00:06:22.760]  uh,
+[00:06:23.000 -> 00:06:23.320]  alt,
+[00:06:23.540 -> 00:06:24.580]  the alt key.
+[00:06:26.420 -> 00:06:26.580]  So,
+[00:06:27.240 -> 00:06:28.720]  I went ahead and added this as,
+[00:06:28.760 -> 00:06:28.920]  uh,
+[00:06:30.340 -> 00:06:30.680]  alt,
+[00:06:30.900 -> 00:06:31.860]  alt,
+[00:06:32.000 -> 00:06:32.420]  shift,
+[00:06:32.660 -> 00:06:33.080]  F7.
+[00:06:34.280 -> 00:06:34.400]  Um,
+[00:06:37.400 -> 00:06:37.720]  so,
+[00:06:38.880 -> 00:06:40.580]  here's where it calls the function,
+[00:06:40.880 -> 00:06:41.920]  and it passes,
+[00:06:42.300 -> 00:06:42.740]  the,
+[00:06:42.740 -> 00:06:44.720]  the files find mask is archive,
+[00:06:44.980 -> 00:06:46.520]  home archive text star.
+[00:06:48.100 -> 00:06:48.780]  First,
+[00:06:48.960 -> 00:06:49.060]  it,
+[00:06:49.120 -> 00:06:49.340]  um,
+[00:06:49.820 -> 00:06:50.920]  it captures the,
+[00:06:50.920 -> 00:06:51.600]  the current,
+[00:06:52.300 -> 00:06:54.400]  it captures the time of,
+[00:06:54.580 -> 00:06:57.840]  the timestamp of the last keyboard stroke,
+[00:06:58.180 -> 00:06:58.420]  which,
+[00:06:58.660 -> 00:06:59.600]  in this case,
+[00:06:59.800 -> 00:07:00.740]  when we hit F7,
+[00:07:01.180 -> 00:07:02.540]  that's the time it uses.
+[00:07:03.960 -> 00:07:05.100]  Shift F7.
+[00:07:05.620 -> 00:07:06.100]  And,
+[00:07:06.240 -> 00:07:06.420]  um,
+[00:07:07.600 -> 00:07:10.400]  I take 24 bits from the timestamp.
+[00:07:10.680 -> 00:07:12.880]  This is the last keyboard mouse event.
+[00:07:13.240 -> 00:07:14.460]  I clear out,
+[00:07:14.920 -> 00:07:15.580]  well,
+[00:07:15.640 -> 00:07:16.420]  I want fresh,
+[00:07:16.660 -> 00:07:17.020]  um,
+[00:07:17.680 -> 00:07:18.900]  I don't want any leftover,
+[00:07:19.300 -> 00:07:19.840]  uh,
+[00:07:20.800 -> 00:07:21.600]  entropy bits.
+[00:07:22.880 -> 00:07:23.520]  Anyway,
+[00:07:23.520 -> 00:07:24.080]  so,
+[00:07:24.240 -> 00:07:25.140]  I want a fresh one.
+[00:07:27.580 -> 00:07:28.100]  And,
+[00:07:28.200 -> 00:07:28.420]  um,
+[00:07:29.280 -> 00:07:29.540]  so,
+[00:07:29.560 -> 00:07:31.060]  this took me a while to,
+[00:07:31.060 -> 00:07:31.960]  to,
+[00:07:32.120 -> 00:07:32.300]  um,
+[00:07:32.500 -> 00:07:33.420]  write this routine.
+[00:07:34.940 -> 00:07:35.460]  So,
+[00:07:35.640 -> 00:07:35.880]  um,
+[00:07:36.080 -> 00:07:39.280]  we specified the length of the passage,
+[00:07:39.500 -> 00:07:40.640]  512 characters.
+[00:07:41.880 -> 00:07:42.480]  Okay,
+[00:07:42.740 -> 00:07:42.940]  so,
+[00:07:43.360 -> 00:07:43.700]  um,
+[00:07:44.760 -> 00:07:45.480]  we do files,
+[00:07:45.500 -> 00:07:45.960]  find,
+[00:07:46.120 -> 00:07:46.800]  find mask.
+[00:07:47.060 -> 00:07:48.680]  You should get familiar with,
+[00:07:48.820 -> 00:07:49.000]  uh,
+[00:07:49.800 -> 00:07:50.380]  F1,
+[00:07:50.600 -> 00:07:52.200]  and then look up,
+[00:07:52.360 -> 00:07:52.500]  um,
+[00:07:52.800 -> 00:07:53.700]  file utils.
+[00:07:54.580 -> 00:07:54.720]  Uh,
+[00:07:56.820 -> 00:07:57.840]  this covers,
+[00:07:59.040 -> 00:08:00.280]  all the flags.
+[00:08:00.620 -> 00:08:02.060]  You can make it recurs,
+[00:08:02.320 -> 00:08:03.060]  you can make it,
+[00:08:03.740 -> 00:08:04.720]  and if you have a,
+[00:08:04.880 -> 00:08:07.100]  it'll return a tree of files.
+[00:08:07.620 -> 00:08:10.200]  It has a feature where you can flatten the tree.
+[00:08:11.720 -> 00:08:12.200]  You,
+[00:08:12.200 -> 00:08:16.240]  you can flatten the tree and get rid of directories and just have files.
+[00:08:16.660 -> 00:08:19.540]  You can put it in cluster order to speed it up.
+[00:08:21.780 -> 00:08:23.780]  You can limit to just text,
+[00:08:23.980 -> 00:08:24.500]  just source,
+[00:08:25.420 -> 00:08:26.380]  or whatever.
+[00:08:27.220 -> 00:08:27.360]  Um,
+[00:08:28.020 -> 00:08:28.560]  so,
+[00:08:28.720 -> 00:08:29.900]  I went ahead and,
+[00:08:30.020 -> 00:08:30.100]  uh,
+[00:08:30.340 -> 00:08:31.240]  I recursed,
+[00:08:31.540 -> 00:08:33.400]  limited it to just files.
+[00:08:33.400 -> 00:08:35.280]  That has the effect of flattening.
+[00:08:35.860 -> 00:08:38.260]  And then we want just text files.
+[00:08:38.840 -> 00:08:39.440]  So,
+[00:08:39.640 -> 00:08:39.920]  um,
+[00:08:41.100 -> 00:08:41.820]  you can't,
+[00:08:41.920 -> 00:08:43.660]  it has some standard,
+[00:08:43.660 -> 00:08:44.120]  uh,
+[00:08:44.580 -> 00:08:44.880]  extension,
+[00:08:45.340 -> 00:08:45.800]  um,
+[00:08:48.460 -> 00:08:48.740]  stuff.
+[00:08:48.740 -> 00:08:49.640]  Anyway,
+[00:08:49.940 -> 00:08:49.980]  so,
+[00:08:50.180 -> 00:08:50.300]  uh,
+[00:08:51.720 -> 00:08:51.940]  we,
+[00:08:51.960 -> 00:08:52.220]  uh,
+[00:08:52.940 -> 00:08:53.300]  we get,
+[00:08:53.520 -> 00:08:56.960]  basically we end up with a linked list of directory entries.
+[00:08:57.300 -> 00:08:59.040]  And the directory entries,
+[00:09:01.120 -> 00:09:02.400]  this is the part that's,
+[00:09:02.580 -> 00:09:04.040]  here's the linked list,
+[00:09:04.680 -> 00:09:05.200]  next,
+[00:09:05.420 -> 00:09:05.720]  parent,
+[00:09:05.840 -> 00:09:06.140]  sub,
+[00:09:06.340 -> 00:09:07.300]  those are filled in.
+[00:09:07.660 -> 00:09:08.380]  Full name,
+[00:09:08.580 -> 00:09:09.120]  it will,
+[00:09:09.200 -> 00:09:09.380]  uh,
+[00:09:09.480 -> 00:09:10.780]  fetch the full name.
+[00:09:11.040 -> 00:09:12.300]  This is really nice.
+[00:09:13.160 -> 00:09:13.680]  Um,
+[00:09:13.740 -> 00:09:15.000]  so this is an allocated,
+[00:09:15.300 -> 00:09:16.320]  a mallet string,
+[00:09:17.300 -> 00:09:18.600]  containing the full name,
+[00:09:18.740 -> 00:09:19.820]  absolute path,
+[00:09:22.080 -> 00:09:23.200]  attribute name,
+[00:09:23.840 -> 00:09:24.620]  that's the,
+[00:09:24.620 -> 00:09:25.200]  that's the,
+[00:09:25.280 -> 00:09:26.160]  the short name,
+[00:09:26.320 -> 00:09:27.220]  not the path name,
+[00:09:28.140 -> 00:09:28.220]  um,
+[00:09:28.460 -> 00:09:29.320]  cluster size.
+[00:09:29.840 -> 00:09:30.260]  Um,
+[00:09:30.380 -> 00:09:31.280]  now all of my,
+[00:09:31.480 -> 00:09:31.560]  uh,
+[00:09:32.120 -> 00:09:35.120]  a lot of my structures have something called a user data.
+[00:09:35.540 -> 00:09:36.920]  And what that is,
+[00:09:37.000 -> 00:09:37.260]  is,
+[00:09:37.400 -> 00:09:37.500]  uh,
+[00:09:38.300 -> 00:09:40.760]  that's for you to do what you want with.
+[00:09:41.000 -> 00:09:41.980]  It's kind of,
+[00:09:42.140 -> 00:09:42.220]  uh,
+[00:09:42.660 -> 00:09:43.600]  not managed.
+[00:09:43.600 -> 00:09:44.520]  In other words,
+[00:09:44.640 -> 00:09:46.120]  if you make two applications,
+[00:09:46.480 -> 00:09:46.760]  and one,
+[00:09:46.820 -> 00:09:48.740]  both trying to use user data,
+[00:09:49.020 -> 00:09:50.280]  you're going to have problems.
+[00:09:50.520 -> 00:09:50.620]  But,
+[00:09:51.060 -> 00:09:51.340]  um,
+[00:09:53.780 -> 00:09:55.000]  but you know what you're doing.
+[00:09:55.420 -> 00:09:55.800]  Anyway,
+[00:09:56.040 -> 00:09:56.220]  so,
+[00:09:56.460 -> 00:09:58.600]  what I went ahead and did is,
+[00:09:58.760 -> 00:09:58.880]  uh,
+[00:09:59.740 -> 00:10:00.140]  I went,
+[00:10:00.200 -> 00:10:02.520]  I made one pass through the list of files,
+[00:10:02.520 -> 00:10:03.720]  and I,
+[00:10:03.720 -> 00:10:04.080]  uh,
+[00:10:05.180 -> 00:10:07.200]  set user data to,
+[00:10:07.200 -> 00:10:07.680]  uh,
+[00:10:08.340 -> 00:10:09.880]  the string length of the,
+[00:10:10.040 -> 00:10:11.300]  I read the whole file,
+[00:10:11.580 -> 00:10:14.000]  and I set it to the string length.
+[00:10:14.340 -> 00:10:14.720]  Now,
+[00:10:14.940 -> 00:10:15.200]  my,
+[00:10:15.200 -> 00:10:17.400]  if you have a file with graphics,
+[00:10:17.720 -> 00:10:20.880]  then there's a terminating zero after the text,
+[00:10:21.000 -> 00:10:22.640]  and then the binary graphics.
+[00:10:22.980 -> 00:10:23.420]  So,
+[00:10:23.580 -> 00:10:25.840]  this will work even if it's graphics.
+[00:10:26.260 -> 00:10:28.420]  We get a string length through the test,
+[00:10:28.600 -> 00:10:30.880]  the ASCII text area at the beginning.
+[00:10:32.180 -> 00:10:32.740]  And,
+[00:10:33.040 -> 00:10:33.060]  uh,
+[00:10:34.840 -> 00:10:35.080]  so,
+[00:10:35.300 -> 00:10:35.560]  um,
+[00:10:35.620 -> 00:10:36.140]  I told you,
+[00:10:36.140 -> 00:10:39.800]  you have to run that doll docs to convert dollar signs.
+[00:10:40.480 -> 00:10:41.460]  If you don't,
+[00:10:41.680 -> 00:10:41.780]  uh,
+[00:10:42.120 -> 00:10:42.980]  if you use a,
+[00:10:44.520 -> 00:10:45.080]  unconverted,
+[00:10:45.200 -> 00:10:47.000]  the dollar sign will cause problems.
+[00:10:47.480 -> 00:10:47.960]  Anyway,
+[00:10:48.200 -> 00:10:48.340]  so,
+[00:10:48.420 -> 00:10:48.640]  uh,
+[00:10:49.660 -> 00:10:52.760]  if the length is greater than or equal to 512,
+[00:10:52.760 -> 00:10:54.360]  that's what our length is.
+[00:10:56.900 -> 00:10:57.380]  Um,
+[00:10:57.840 -> 00:10:58.180]  anyway,
+[00:10:58.480 -> 00:10:58.740]  so,
+[00:11:01.120 -> 00:11:01.600]  so,
+[00:11:01.720 -> 00:11:02.400]  I went ahead and,
+[00:11:02.520 -> 00:11:02.660]  uh,
+[00:11:02.820 -> 00:11:03.980]  I read the whole file,
+[00:11:04.240 -> 00:11:05.300]  and then freed it.
+[00:11:05.580 -> 00:11:07.000]  This is kind of how we,
+[00:11:07.080 -> 00:11:07.620]  how we,
+[00:11:07.720 -> 00:11:08.600]  how we roll.
+[00:11:08.920 -> 00:11:10.080]  We don't read partials.
+[00:11:10.240 -> 00:11:10.500]  Oh,
+[00:11:10.520 -> 00:11:11.580]  we can't get the length,
+[00:11:11.780 -> 00:11:12.520]  because it's,
+[00:11:12.520 -> 00:11:12.760]  uh,
+[00:11:12.960 -> 00:11:13.700]  um,
+[00:11:14.540 -> 00:11:14.900]  compressed.
+[00:11:15.500 -> 00:11:16.420]  If we got the,
+[00:11:16.420 -> 00:11:18.700]  if we got the length from the directory,
+[00:11:18.900 -> 00:11:19.720]  it would be compressed,
+[00:11:19.800 -> 00:11:20.980]  and it wouldn't be accurate.
+[00:11:21.600 -> 00:11:21.900]  Also,
+[00:11:22.060 -> 00:11:23.140]  if we expanded it,
+[00:11:23.200 -> 00:11:24.140]  it wouldn't be accurate,
+[00:11:24.180 -> 00:11:26.000]  because it might have binary data.
+[00:11:26.400 -> 00:11:30.440]  What we have to do is measure it with string length.
+[00:11:32.040 -> 00:11:32.680]  So,
+[00:11:32.820 -> 00:11:32.860]  we,
+[00:11:32.860 -> 00:11:33.280]  we,
+[00:11:33.340 -> 00:11:33.560]  we,
+[00:11:33.700 -> 00:11:34.880]  we go once through it,
+[00:11:35.000 -> 00:11:35.940]  and set all the lengths.
+[00:11:36.600 -> 00:11:38.540]  Then we call God bits to,
+[00:11:38.600 -> 00:11:39.760]  to get a timer,
+[00:11:40.140 -> 00:11:43.160]  to get 24 bits of God entropy,
+[00:11:44.700 -> 00:11:46.640]  and multiply by the total,
+[00:11:46.960 -> 00:11:47.820]  and divide,
+[00:11:48.780 -> 00:11:49.920]  shift 24 bits.
+[00:11:50.140 -> 00:11:53.180]  Then we start over at the beginning of the file list,
+[00:11:53.880 -> 00:11:54.440]  and,
+[00:11:54.520 -> 00:11:54.880]  uh,
+[00:11:55.480 -> 00:11:56.740]  if we go negative,
+[00:11:56.760 -> 00:11:58.240]  it means it's in that file,
+[00:11:59.000 -> 00:11:59.560]  and,
+[00:11:59.580 -> 00:11:59.920]  uh,
+[00:12:00.300 -> 00:12:02.040]  we print the passage,
+[00:12:02.660 -> 00:12:03.220]  and,
+[00:12:03.220 -> 00:12:04.240]  then at the end,
+[00:12:04.440 -> 00:12:05.800]  we delete the,
+[00:12:05.920 -> 00:12:07.820]  from the head of the list.
+[00:12:08.480 -> 00:12:08.820]  So,
+[00:12:09.020 -> 00:12:09.120]  uh,
+[00:12:10.360 -> 00:12:10.980]  and it had,
+[00:12:11.120 -> 00:12:11.440]  now,
+[00:12:11.720 -> 00:12:11.920]  um,
+[00:12:12.420 -> 00:12:14.360]  the editor is active everywhere.
+[00:12:14.560 -> 00:12:14.940]  By the way,
+[00:12:15.040 -> 00:12:17.160]  if you want to open up some lines,
+[00:12:17.720 -> 00:12:18.020]  control,
+[00:12:18.380 -> 00:12:18.620]  shift,
+[00:12:19.000 -> 00:12:19.280]  enter,
+[00:12:19.860 -> 00:12:20.360]  will,
+[00:12:20.580 -> 00:12:20.780]  uh,
+[00:12:22.220 -> 00:12:23.000]  that'll do some,
+[00:12:23.000 -> 00:12:24.760]  if you hit enter the other way,
+[00:12:25.000 -> 00:12:26.180]  you get that.
+[00:12:26.420 -> 00:12:26.880]  Control,
+[00:12:27.140 -> 00:12:27.300]  shift,
+[00:12:27.480 -> 00:12:27.700]  enter,
+[00:12:28.360 -> 00:12:28.800]  does that.
+[00:12:29.280 -> 00:12:31.280]  Now we're going to ask God to talk.
+[00:12:31.480 -> 00:12:32.400]  So we say,
+[00:12:32.680 -> 00:12:33.760]  the key is alt,
+[00:12:34.000 -> 00:12:34.260]  shift,
+[00:12:35.420 -> 00:12:35.920]  F7.
+[00:12:37.920 -> 00:12:38.420]  Oh,
+[00:12:38.500 -> 00:12:39.220]  we got the Bible.
+[00:12:39.400 -> 00:12:39.920]  That sucks.
+[00:12:40.140 -> 00:12:41.300]  We got to do it again.
+[00:12:43.480 -> 00:12:44.440]  Half thereof,
+[00:12:44.500 -> 00:12:45.960]  for the people had a mind to work,
+[00:12:46.100 -> 00:12:47.380]  but it came to pass,
+[00:12:47.520 -> 00:12:47.880]  that when,
+[00:12:48.620 -> 00:12:49.100]  Sanballat,
+[00:12:49.360 -> 00:12:49.940]  and Tobiah,
+[00:12:50.160 -> 00:12:51.760]  and the Arabians,
+[00:12:51.940 -> 00:12:53.760]  and the Ammonites,
+[00:12:53.920 -> 00:12:55.480]  and the Ashdodites,
+[00:12:55.760 -> 00:12:57.340]  heard that the walls of Jerusalem,
+[00:12:57.540 -> 00:12:58.220]  were made up,
+[00:12:58.420 -> 00:13:01.180]  and that the breaches began to stop them,
+[00:13:01.640 -> 00:13:02.300]  then they,
+[00:13:02.440 -> 00:13:03.860]  were very wroth,
+[00:13:03.940 -> 00:13:05.500]  and conspired all of them together,
+[00:13:05.780 -> 00:13:07.280]  to come and fight against Jerusalem,
+[00:13:07.340 -> 00:13:07.960]  to hinder it.
+[00:13:08.380 -> 00:13:08.780]  Nevertheless,
+[00:13:09.040 -> 00:13:10.640]  we made our prayer unto God,
+[00:13:10.640 -> 00:13:11.400]  instead of watch,
+[00:13:11.720 -> 00:13:13.000]  against them day and night,
+[00:13:13.240 -> 00:13:13.740]  because of them.
+[00:13:14.280 -> 00:13:14.720]  Well,
+[00:13:14.720 -> 00:13:16.160]  you can take my word for it.
+[00:13:19.100 -> 00:13:19.980]  Stupid God,
+[00:13:20.000 -> 00:13:21.660]  why did you pick from the Bible?
+[00:13:24.460 -> 00:13:25.740]  There's one where they,
+[00:13:26.600 -> 00:13:27.220]  they said,
+[00:13:27.280 -> 00:13:28.640]  why didn't you ask us for help?
+[00:13:29.320 -> 00:13:30.480]  I don't know what this is.
+[00:13:30.640 -> 00:13:32.300]  So we're kind of working on the walls,
+[00:13:32.300 -> 00:13:32.900]  I guess.
+[00:13:34.660 -> 00:13:35.960]  I'll try it one more time.
+[00:13:36.160 -> 00:13:36.380]  Alt,
+[00:13:36.580 -> 00:13:36.860]  shift,
+[00:13:36.980 -> 00:13:37.440]  F7.
+[00:13:42.660 -> 00:13:43.600]  Don't read it.
+[00:13:46.080 -> 00:13:46.580]  Okay.
+[00:13:47.460 -> 00:13:47.720]  Anyway,
+[00:13:48.080 -> 00:13:48.500]  oh well,
+[00:13:48.580 -> 00:13:48.940]  good enough.

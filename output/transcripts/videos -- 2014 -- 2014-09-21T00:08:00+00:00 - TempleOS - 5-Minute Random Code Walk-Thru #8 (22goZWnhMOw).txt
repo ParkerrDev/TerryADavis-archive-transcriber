@@ -1,0 +1,55 @@
+========================================================================
+FILE        : videos/2014/2014-09-21T00:08:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #8 (22goZWnhMOw).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-09-21T00:08:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #8 (22goZWnhMOw).mkv
+FORMAT      : Matroska
+SIZE        : 26,446,122 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:06:08.440
+TRANSCRIBED: 2026-05-10T15:57:12.867567+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay this is Temple OS 5-minute random code walkthrough episode 8 and I'm your host Terry Davis so here we go we're going for a random code location alt B and where are we HD audio task oh boy guess what this is not on the distribution this is on my uh my this is my personal code I guess we can go ahead and talk about it so this is a PCI device which is where we are actually in the I didn't do interrupts because I was afraid I couldn't get them working on all machines it's very complicated working out PCI interrupt pin numbers you have to know the pin number on the chip that kind of thing anyway so let's go ahead and see what this is doing it's a this is the task that feeds the buffers and it sets up a routine if it dies when this when this task ends it calls this callback and let's see what the callback does the callback basically frees a waveform buffer control a waveform control and it sets I don't even know what SWC stands for anyway so this this is not on the distribution but the the waveform code is on the distribution if you go in the atom sound directory in the audio math this will generate a buffer full of a waveform if you want to see what a waveform looks like let's go look at there's a demo graphics I think it's called a low pass filter math audio demo okay so these are waveforms okay and in the sound directory on this is this is on the distribution I can make a a a I can export a waveform sound file not a waveform a snd file anyway that's why I leave this on the distribution what this does is it picks it starts up a certain at a certain phase in the in the waveform and it uh and it fills the buffer with based on the waveform whether it's random noise I was a Commodore kid and we learned square wave sine waves triangle wave sawtooth what this does is it um this fills in a waveform in a buffer so for uh HD audio you use DMA which is direct memory access basically you put you put the waveform into a buffer and then um you you tell it um it knows the buffer locations and it um sends them to the the speakers what this code does is it checks if uh if the buffer this is the output buffer it checks if the output buffer is in need of new data this checks if the input buffer that's for the microphone um i don't know what it it what does it do i don't know it uh it changes it changes to the next buffer i think you can anyway uh and it sleeps for a millisecond so um these DMA buffers keep it busy for i think i do two milliseconds or something like that and so as long as uh the system's not disrupted then these buffers will get updated and we don't use interrupts so um what's the downside well there's this is uh a lot of people are very are snobs about interrupts and uh this demonstrates that if you have DMA you in big buffers well you there's latency which is an issue which means uh um how fast how far ahead you're filling anyway um god said single audio voice so what god wants is uh only one waveform voice at a time but he in theory in the future maybe we can put this hd audio back into the distribution and give um different waveforms um anyway uh just to see what the waveforms what the buffer sounds like i'm gonna demonstrate a uh this is my favorite song um at the moment okay okay anyway okay okay okay
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:06.980]  okay this is Temple OS 5-minute random code walkthrough episode 8 and I'm your
+[00:00:06.980 -> 00:00:13.960]  host Terry Davis so here we go we're going for a random code location alt B
+[00:00:15.040 -> 00:00:20.520]  and where are we HD audio task oh boy guess what this is not on the
+[00:00:20.520 -> 00:00:27.860]  distribution this is on my uh my this is my personal code I guess we can go ahead
+[00:00:27.860 -> 00:00:46.040]  and talk about it so this is a PCI device which is where we are actually in the I
+[00:00:46.740 -> 00:00:56.580]  didn't do interrupts because I was afraid I couldn't get them working on all
+[00:00:56.580 -> 00:01:05.140]  machines it's very complicated working out PCI interrupt pin numbers you have to
+[00:01:05.140 -> 00:01:12.740]  know the pin number on the chip that kind of thing anyway so let's go ahead and
+[00:01:12.740 -> 00:01:23.520]  see what this is doing it's a this is the task that feeds the buffers and it sets
+[00:01:23.520 -> 00:01:30.740]  up a routine if it dies when this when this task ends it calls this callback and
+[00:01:30.780 -> 00:01:34.500]  let's see what the callback does the callback
+[00:01:39.240 -> 00:01:49.920]  basically frees a waveform buffer control a waveform control and it sets I don't even
+[00:01:49.920 -> 00:01:57.300]  know what SWC stands for anyway so this this is not on the distribution but the
+[00:01:57.300 -> 00:02:10.060]  the waveform code is on the distribution if you go in the atom sound directory in the
+[00:02:11.160 -> 00:02:21.980]  audio math this will generate a buffer full of a waveform if you want to see what a
+[00:02:21.980 -> 00:02:42.580]  waveform looks like let's go look at there's a demo graphics I think it's called a low pass filter math audio demo
+[00:02:42.580 -> 00:03:07.540]  okay so these are waveforms okay and in the sound directory on this is this is on the distribution I can make a a a I can export a waveform sound file not a waveform
+[00:03:07.540 -> 00:03:13.380]  a snd file anyway that's why I leave this on the distribution what this does is it
+[00:03:13.380 -> 00:03:21.860]  picks it starts up a certain at a certain phase in the in the waveform and it uh and
+[00:03:21.860 -> 00:03:27.980]  it fills the buffer with based on the waveform whether it's random noise I was a
+[00:03:27.980 -> 00:03:34.520]  Commodore kid and we learned square wave sine waves triangle wave sawtooth what this
+[00:03:34.520 -> 00:03:44.640]  does is it um this fills in a waveform in a buffer so for uh HD audio you use DMA which
+[00:03:44.640 -> 00:03:53.380]  is direct memory access basically you put you put the waveform into a buffer and then um you you tell
+[00:03:53.380 -> 00:04:03.760]  it um it knows the buffer locations and it um sends them to the the speakers what this code does is it
+[00:04:03.760 -> 00:04:12.140]  checks if uh if the buffer this is the output buffer it checks if the output buffer is in need of new data
+[00:04:13.040 -> 00:04:20.940]  this checks if the input buffer that's for the microphone um i don't know what it it what does it do i don't know
+[00:04:21.680 -> 00:04:29.680]  it uh it changes it changes to the next buffer i think you can anyway uh and it sleeps for a millisecond
+[00:04:29.680 -> 00:04:39.420]  so um these DMA buffers keep it busy for i think i do two milliseconds or something like that and so as long as
+[00:04:39.420 -> 00:04:47.520]  uh the system's not disrupted then these buffers will get updated and we don't use interrupts
+[00:04:48.160 -> 00:04:57.880]  so um what's the downside well there's this is uh a lot of people are very are snobs about interrupts and uh
+[00:04:57.880 -> 00:05:06.540]  this demonstrates that if you have DMA you in big buffers well you there's latency which is an issue
+[00:05:06.540 -> 00:05:17.240]  which means uh um how fast how far ahead you're filling anyway um god said single audio voice so what
+[00:05:17.240 -> 00:05:28.120]  god wants is uh only one waveform voice at a time but he in theory in the future maybe we can put this hd
+[00:05:28.120 -> 00:05:36.880]  audio back into the distribution and give um different waveforms um anyway uh just to see what the waveforms
+[00:05:36.880 -> 00:05:43.740]  what the buffer sounds like i'm gonna demonstrate a uh this is my favorite song um at the moment
+[00:06:07.040 -> 00:06:07.600]  okay
+[00:06:07.600 -> 00:06:08.120]  okay anyway
+[00:06:08.120 -> 00:06:08.240]  okay
+[00:06:08.240 -> 00:06:08.400]  okay
+[00:06:08.400 -> 00:06:08.440]  okay

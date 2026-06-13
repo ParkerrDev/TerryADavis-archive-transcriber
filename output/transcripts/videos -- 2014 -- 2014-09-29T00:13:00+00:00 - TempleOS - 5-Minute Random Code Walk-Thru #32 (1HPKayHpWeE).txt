@@ -1,0 +1,147 @@
+========================================================================
+FILE        : videos/2014/2014-09-29T00:13:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #32 (1HPKayHpWeE).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-09-29T00:13:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #32 (1HPKayHpWeE).mp4
+FORMAT      : MPEG4
+SIZE        : 24,700,531 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:07:06.280
+TRANSCRIBED: 2026-05-10T16:51:25.006433+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+This is Temple OS 5-Minute Random Code Walkthrough, Episode 32, and I'm your host, Terry Davis. Let's see where God takes us. And we are in the Game of Life. This is, what's his name? Is it Connor? Connor's Game of Life? I saw an interview with him. Anyway, so, it freezes when you hold the mouse button down. No, it doesn't. Anyway, you can, this is not the standard rules. The standard rules don't do much. If you want the standard rules, we do this. The standard rules are pretty boring. Not that this is. How about we zoom? Control-Alt-Z. Oh, well. I don't even know if I should, what's there to explain? Okay. So, this is a standard application. Push settings, pop settings. We use the persistent layer, I do believe. So, there are two. I double buffer the device context. And each time, when do I do the change? I don't know. No transparency. I don't know why I do that. It's an optimization. I totally forgot about that optimization. Anyway, GR blot. So, the window manager, we set the callback for the window manager right here. And when the window manager calls, we take our global variable device context and blot it onto the window manager. That's updated 30 times a second. So, we have an animate task. That's where all the work is done. Oh, it's that simple. Okay. Well, this is pretty simple. So, we make two device context for double buffering. We set the current. Then, during our main loop, we respond to key down and left button down. With key down. What do we do with key down? Oh, I over-engineered this. Anyway. Well, we can fix that. Let's get rid of that. Why are we... I think that's to be standard with how everything else is done in the operating system. This has not been worked on. Anyway. So, we draw a line with a fat pen based on the speed of the input pointer. So, if we move... If we go slowly, we draw a thin line. If we go fast, we draw a fat line. Thin is slow. Okay. Anyway. And in the animate task, we have it double buffered. We stay in a loop. And we change... We start over if... If the key... If the... Where do we start over? Start over if... If restart, start over. Okay. Oh, we respond to... Character turn, do we? No, we don't respond. Well, left button down. Restart. Restart. Maybe we have to... We have to... If we interrupt in the middle of a frame of life calculation, that would be bad. So, what we do is we... We have preemption. We didn't turn off preemption. I wonder how we... Oh, well. Maybe it doesn't matter. Or... Oh, we're double buffering. That's why it doesn't matter. If restart. Restart is false. Restart is a global variable. I wonder why we restart. I don't know. We get rid of it. Anyway, so... This counts up the nearest neighbors using... If GR peak... We go through... We go from minus... We go... We do a convolution... I think that's what you call it. Convolution from minus... Minus one to plus one. Minus one to plus one. And if it's green, we increment the count. And then, based on the rule, we either plot on the... You have to use double buffering to hit the next one. Anyway, so it's pretty simple. Um... I think I'm going to clean up some of this overengineering. Some... Sometimes I like putting a, uh... Go to... To jump out... Of the loop. Instead of putting conditions on the loop. Because the conditions are... It's kind of ugly. I like the... Um... Consistency is next to godliness. As far as I'm concerned. In all my other applications... Oh, I'm going to get rid of this overengineering. Oh... I don't know. Maybe we keep it. This is... Oh, well. So, uh... Okay.
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:07.240]  This is Temple OS 5-Minute Random Code Walkthrough, Episode 32, and I'm your host, Terry Davis.
+[00:00:08.840 -> 00:00:10.560]  Let's see where God takes us.
+[00:00:13.280 -> 00:00:18.040]  And we are in the Game of Life.
+[00:00:18.860 -> 00:00:24.260]  This is, what's his name? Is it Connor? Connor's Game of Life?
+[00:00:26.880 -> 00:00:28.920]  I saw an interview with him.
+[00:00:28.920 -> 00:00:36.600]  Anyway, so, it freezes when you hold the mouse button down.
+[00:00:37.060 -> 00:00:37.720]  No, it doesn't.
+[00:00:40.980 -> 00:00:48.100]  Anyway, you can, this is not the standard rules.
+[00:00:51.120 -> 00:00:56.400]  The standard rules don't do much.
+[00:00:56.400 -> 00:00:58.900]  If you want the standard rules, we do this.
+[00:01:03.240 -> 00:01:05.840]  The standard rules are pretty boring.
+[00:01:09.380 -> 00:01:10.380]  Not that this is.
+[00:01:14.520 -> 00:01:15.520]  How about we zoom?
+[00:01:16.020 -> 00:01:16.860]  Control-Alt-Z.
+[00:01:23.220 -> 00:01:23.860]  Oh, well.
+[00:01:25.420 -> 00:01:28.520]  I don't even know if I should, what's there to explain?
+[00:01:32.840 -> 00:01:33.720]  Okay.
+[00:01:34.460 -> 00:01:37.840]  So, this is a standard application.
+[00:01:37.840 -> 00:01:39.840]  Push settings, pop settings.
+[00:01:41.280 -> 00:01:44.480]  We use the persistent layer, I do believe.
+[00:01:47.620 -> 00:01:49.560]  So, there are two.
+[00:01:49.820 -> 00:01:54.260]  I double buffer the device context.
+[00:01:55.040 -> 00:01:59.300]  And each time, when do I do the change?
+[00:01:59.300 -> 00:01:59.820]  I don't know.
+[00:02:03.080 -> 00:02:04.240]  No transparency.
+[00:02:04.700 -> 00:02:05.940]  I don't know why I do that.
+[00:02:05.940 -> 00:02:08.400]  It's an optimization.
+[00:02:10.820 -> 00:02:13.480]  I totally forgot about that optimization.
+[00:02:14.580 -> 00:02:18.640]  Anyway, GR blot.
+[00:02:18.640 -> 00:02:26.900]  So, the window manager, we set the callback for the window manager right here.
+[00:02:27.780 -> 00:02:42.240]  And when the window manager calls, we take our global variable device context and blot it onto the window manager.
+[00:02:43.260 -> 00:02:45.540]  That's updated 30 times a second.
+[00:02:45.800 -> 00:02:48.240]  So, we have an animate task.
+[00:02:50.180 -> 00:02:51.920]  That's where all the work is done.
+[00:02:52.320 -> 00:02:53.740]  Oh, it's that simple.
+[00:02:54.000 -> 00:02:54.280]  Okay.
+[00:02:54.580 -> 00:02:56.040]  Well, this is pretty simple.
+[00:02:56.240 -> 00:03:01.460]  So, we make two device context for double buffering.
+[00:03:01.740 -> 00:03:05.880]  We set the current.
+[00:03:07.760 -> 00:03:19.240]  Then, during our main loop, we respond to key down and left button down.
+[00:03:20.480 -> 00:03:21.280]  With key down.
+[00:03:22.040 -> 00:03:23.800]  What do we do with key down?
+[00:03:25.780 -> 00:03:29.780]  Oh, I over-engineered this.
+[00:03:32.120 -> 00:03:32.880]  Anyway.
+[00:03:33.340 -> 00:03:33.340]  
+[00:03:39.180 -> 00:03:40.520]  Well, we can fix that.
+[00:03:40.660 -> 00:03:41.340]  Let's get rid of that.
+[00:03:41.960 -> 00:03:42.820]  Why are we...
+[00:03:45.340 -> 00:03:49.920]  I think that's to be standard with how everything else is done in the operating system.
+[00:03:50.220 -> 00:03:53.380]  This has not been worked on.
+[00:03:53.820 -> 00:03:54.340]  Anyway.
+[00:03:54.880 -> 00:04:01.880]  So, we draw a line with a fat pen based on the speed of the input pointer.
+[00:04:01.880 -> 00:04:03.300]  So, if we move...
+[00:04:03.300 -> 00:04:05.840]  If we go slowly, we draw a thin line.
+[00:04:06.780 -> 00:04:09.380]  If we go fast, we draw a fat line.
+[00:04:11.180 -> 00:04:12.880]  Thin is slow.
+[00:04:13.660 -> 00:04:14.200]  Okay.
+[00:04:15.000 -> 00:04:15.600]  Anyway.
+[00:04:16.660 -> 00:04:21.020]  And in the animate task, we have it double buffered.
+[00:04:21.260 -> 00:04:22.300]  We stay in a loop.
+[00:04:22.300 -> 00:04:24.300]  And we change...
+[00:04:25.800 -> 00:04:27.300]  We start over if...
+[00:04:28.280 -> 00:04:29.600]  If the key...
+[00:04:29.600 -> 00:04:30.380]  If the...
+[00:04:30.380 -> 00:04:31.640]  Where do we start over?
+[00:04:33.160 -> 00:04:34.760]  Start over if...
+[00:04:34.760 -> 00:04:36.600]  If restart, start over.
+[00:04:37.240 -> 00:04:37.880]  Okay.
+[00:04:38.120 -> 00:04:40.580]  Oh, we respond to...
+[00:04:40.580 -> 00:04:42.500]  Character turn, do we?
+[00:04:42.760 -> 00:04:43.460]  No, we don't respond.
+[00:04:47.340 -> 00:04:48.920]  Well, left button down.
+[00:04:49.120 -> 00:04:49.640]  Restart.
+[00:04:50.440 -> 00:04:50.440]  
+[00:04:51.160 -> 00:04:51.660]  Restart.
+[00:04:53.520 -> 00:04:55.040]  Maybe we have to...
+[00:04:57.300 -> 00:04:59.020]  We have to...
+[00:05:01.420 -> 00:05:08.460]  If we interrupt in the middle of a frame of life calculation, that would be bad.
+[00:05:08.680 -> 00:05:10.540]  So, what we do is we...
+[00:05:12.680 -> 00:05:14.020]  We have preemption.
+[00:05:14.340 -> 00:05:15.740]  We didn't turn off preemption.
+[00:05:16.100 -> 00:05:18.080]  I wonder how we...
+[00:05:18.080 -> 00:05:18.980]  Oh, well.
+[00:05:19.240 -> 00:05:20.460]  Maybe it doesn't matter.
+[00:05:20.460 -> 00:05:21.180]  Or...
+[00:05:21.180 -> 00:05:22.100]  Oh, we're double buffering.
+[00:05:22.200 -> 00:05:23.140]  That's why it doesn't matter.
+[00:05:25.220 -> 00:05:26.020]  If restart.
+[00:05:26.280 -> 00:05:27.260]  Restart is false.
+[00:05:29.960 -> 00:05:31.400]  Restart is a global variable.
+[00:05:31.800 -> 00:05:33.380]  I wonder why we restart.
+[00:05:34.720 -> 00:05:35.600]  I don't know.
+[00:05:36.780 -> 00:05:38.160]  We get rid of it.
+[00:05:38.660 -> 00:05:39.820]  Anyway, so...
+[00:05:39.820 -> 00:05:42.820]  This counts up the nearest neighbors using...
+[00:05:44.600 -> 00:05:45.820]  If GR peak...
+[00:05:46.600 -> 00:05:48.140]  We go through...
+[00:05:51.600 -> 00:05:54.240]  We go from minus...
+[00:05:55.180 -> 00:05:56.080]  We go...
+[00:05:56.080 -> 00:05:57.580]  We do a convolution...
+[00:05:57.580 -> 00:05:59.040]  I think that's what you call it.
+[00:06:01.240 -> 00:06:03.020]  Convolution from minus...
+[00:06:03.020 -> 00:06:04.300]  Minus one to plus one.
+[00:06:04.420 -> 00:06:05.480]  Minus one to plus one.
+[00:06:05.480 -> 00:06:08.500]  And if it's green, we increment the count.
+[00:06:08.840 -> 00:06:13.080]  And then, based on the rule, we either plot on the...
+[00:06:13.080 -> 00:06:15.700]  You have to use double buffering to hit the next one.
+[00:06:16.800 -> 00:06:19.360]  Anyway, so it's pretty simple.
+[00:06:20.680 -> 00:06:21.280]  Um...
+[00:06:21.280 -> 00:06:24.760]  I think I'm going to clean up some of this overengineering.
+[00:06:25.400 -> 00:06:26.000]  Some...
+[00:06:26.000 -> 00:06:28.660]  Sometimes I like putting a, uh...
+[00:06:28.660 -> 00:06:29.640]  Go to...
+[00:06:29.640 -> 00:06:30.780]  To jump out...
+[00:06:30.780 -> 00:06:31.820]  Of the loop.
+[00:06:32.140 -> 00:06:34.380]  Instead of putting conditions on the loop.
+[00:06:34.980 -> 00:06:36.500]  Because the conditions are...
+[00:06:36.500 -> 00:06:37.460]  It's kind of ugly.
+[00:06:37.600 -> 00:06:38.360]  I like the...
+[00:06:40.260 -> 00:06:40.860]  Um...
+[00:06:40.860 -> 00:06:42.800]  Consistency is next to godliness.
+[00:06:43.140 -> 00:06:44.500]  As far as I'm concerned.
+[00:06:45.020 -> 00:06:46.500]  In all my other applications...
+[00:06:47.400 -> 00:06:49.880]  Oh, I'm going to get rid of this overengineering.
+[00:06:51.240 -> 00:06:51.740]  Oh...
+[00:06:51.740 -> 00:06:52.520]  I don't know.
+[00:06:52.740 -> 00:06:53.600]  Maybe we keep it.
+[00:06:55.840 -> 00:06:56.840]  This is...
+[00:06:57.900 -> 00:06:58.620]  Oh, well.
+[00:07:01.420 -> 00:07:02.420]  So, uh...
+[00:07:05.160 -> 00:07:05.660]  Okay.
+[00:07:06.280 -> 00:07:06.280]  

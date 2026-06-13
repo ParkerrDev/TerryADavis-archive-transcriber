@@ -1,0 +1,280 @@
+========================================================================
+FILE        : videos/2015/2015-04-26T00:00:00+00:00 - TempleOS - Tasks, Threads and Processes (l9Ed8hWjnO0).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2015/2015-04-26T00:00:00+00:00 - TempleOS - Tasks, Threads and Processes (l9Ed8hWjnO0).mp4
+FORMAT      : MPEG4
+SIZE        : 124,654,136 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:23:39.040
+TRANSCRIBED: 2026-05-10T21:49:19.428840+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+Okay, I'm going to talk about TempleOS threads. In TempleOS there's no distinction between process, thread, or task. Everybody uses the same address map. Sometimes I say it's multi-threaded but single process. That's because disk requests are not broken in pieces. So if you do a long operation, everybody else has to wait for the disk. So single process but multi-threads is probably the best way to describe it. So TempleOS is unusual because it doesn't change the map, the address map. So if I say while true yield, what this does is swap out the current task and schedule the next task. So if I do this, it can do it four million times a second. Nobody else can come anywhere near that fast. That's because it's single address map. So when we, when we, when it changes tasks, it saves a context and restores a context. The scheduler, the scheduler basically does three things. It saves the registers when, when you save the context. It saves the, it does some bookkeeping for how much time the task is used. It saves the floating point stack, or yeah, floating point registers context. And if there's any break points, each task can have its own break points. And you want to remove those when you, when you swap out a task. So that's why it can do it four million times a second. If you think about it, I have a three gigahertz processor. And if I take three, one, two, three, let's just take that divided by four. I think we're taking a seven 50 cycles. Four million. Well, anyway, so, um, all it has to do is, uh, save 16 registers. The floating point is, uh, I think five 12 bytes. And, uh, there's a, um, I think I, if you have a lock, then that uses a lot of time. Um, a lock is used for multi-core, um, multitasking. It has to do a couple other things, um, when it saves and restores. It, um, checks, it has to schedule. It's a round robin scheduler. Um, but, uh, there's a wake up jiffy on each task that, uh, tells when, when it should be rescheduled. And it has to check if it's ready to be rescheduled when it goes around in the robin. Um, it also checks, uh, there's a flag if it's waiting for a message. So, when you, uh, um, it doesn't spin when you, when you're waiting for a message. It, uh, well, it checks it and skips it if it's waiting for a message. Anyway, so, uh, let's look at, um, a one-core multi-threaded application. Now, it turns out that, um, if I, uh, if you look at the tasks on, there's a, there's a seth task for each core. And then on core zero, this is not very good. Hold on a second. Each core has a seth task. And then on core zero, you have a, uh, window manager. And, uh, anyway, the window manager, um, redraws the screen, um, 30 times a second. So, when you do a game application, we're gonna look at, um, zing. Let's look at, this is a game, uh, you can shoot arrows. Um, so, the, uh, when the game starts, it calls pre-emptive. Um, this turns pre-emption off. Uh, basically what I did for, for all of these little subroutines, um, I made the default argument the most popular. And, the most popular thing you wanna do is turn pre-emption off. Now, Temple OS is, uh, the only operating system that lets you turn pre-emption off. Um, what that means is, uh, it will not schedule another, it will not interrupt you in the middle and schedule another task. So, some people, um, assume that it locks everything out. No. We've, this is cooperative multitasking. And when we call get message, we voluntarily, um, yield the core. And, uh, it schedules the next task. So, uh, so, so, um, first of all, the, uh, the dry it is a callback that the window manager calls. And, uh, it draws, and that draws the arrows. Um, you can look right here. Here's, here's where it draws the arrows. Anyway, uh, so, when, when we start up an application, we, we supply a dry callback. And, uh, we have some, um, some, uh, infrastructure to, uh, when it, well, first of all, the dry it call, gets called 30 times a second. And, um, it can be preempted. So, this gets tricky. Uh, so you don't want to change queue links in the middle of a dry it. Um, so, um, we, we put the arrows in a queue, don't we? Um, and, uh, so, what we do is, uh, this preempt, uh, it's a circular doubly linked queue. Hold on a second. Let me show you what I'm talking about. When we, uh, where's, when we fire an arrow, we make a, we allocate a little chunk. Um, then we, we put it into a doubly linked queue. And then, when we, uh, draw it, um, we go through the next pointers and draw all the arrows. Um, so, uh, you might, you might ask, uh, what would happen if the, if we were interrupted and it, and it hit a bad, uh, pointer for the queue. Well, the reason we can get away with this is because we, uh, we called this preempt off. The preempt off means we're not going to be interrupted in the middle of changing the two pointers. Um, so, the only time we get interrupted is when, when we voluntarily yield at the, uh, get message. So, um, there's another task, um, the animate task. And, uh, this is what, um, changes the X, Y of the arrow. It changes the X, Y of the arrows right here. And, uh, the default is to have preempt off. When you, uh, when you make a new task, when you spawn a new task, the default is preempt off. So, the, uh, we can turn preemption on, but obviously, um, preempt off lets you, protects you during the startup until you turn preemption on. But, for this, uh, for this animate task, um, we, uh, we want to leave preemption off. And, so, what that means is there's mutual exclusion. So, what that means is, uh, we're, we're never going to be interrupted between, uh, X and Y. And, uh, we go ahead and, this window manager, sync, sync, damper. Um, this, this says, uh, wait until the next, uh, time the window manager is scheduled. Um, so, the window manager might be, uh, irregular. So, we, uh, when we, when we update the arrow distance, we want to see how much time has elapsed. And, uh, so, uh, I could just as easily have done sleep, I don't know, let's say 25 milliseconds. But, that's not quite as, uh, um, professional. Well, anyway, um, we only need to, uh, redraw. We only need to change it every time there's a redraw. So, uh, now, uh, the animate task is, uh, we have some infrastructure. There's a routine called settings push and a settings pop. And, what this does is, when you do settings pop, it goes ahead and it kills your animate task. And, um, it, um, it restores preemption to what, remember we changed preemption. So, um, as a matter of fact, when you're at the command line and you say include zing. Um, when we exit, this is the same task. So, if we turn preemption off, um, we would, we would leave the task with preemption off. But, but the, uh, the settings, the settings pop, um, takes care of turning preemption back on. So, um, anyway, so, uh, so let's look at, um, another example, bug bird. Um, okay, so that, it's a little game. Uh, now, this doesn't turn preemption off. It takes a, uh, a different way to do it. Um, we have a flag called, uh, game reset. And, uh, when we start up, we, uh, we, uh, what we call a song task. Uh, that just plays the song over and over. Um, preemption's off. We, that, that's okay. So, uh, and then we call an animate task. And the animate task, um, this is kind of weird. Anyway, it checks the reset, if the reset flag's been set, then it reinitializes the game. Otherwise, it updates the bird, X, Y. The bird only has a Y. So there's really no danger. But, in a normal game, you wouldn't want to update just X and not Y and get preempted. It wouldn't matter that much. But, uh, so I don't think we have any Q links. Q links are the, are a big concern. Anyway, so this, uh, this has a flag. And when, if you restart the game, what it does is it sets the flag. And that tells the animate task to, uh, reinitialize the, uh, the, the game. So, uh, this is just another alternative. Now, uh, so far we've been talking about single core. Um, when we get into multi-core, um, it gets a little trickier. But, uh, um, if we look at the Eagle Dive. Um, what this does is, uh, when it initializes it, I think it's, uh, I'll have to check. Okay, we have an animate task. All that does is update the, uh, the position of the airplane. Or bird, whatever it is. Um, looks like init is, init is putting one task on each core. When we do init, we, we create a draw. These are to assist in drawing the, um, screen. So we put, we go through, MP count is the number of cores. And we, uh, that's kind of funny. We pass the MP count into it. But then we use, I think that's a bug. I think the intent was to, uh, to pass that as a parameter. Oh, well. I'll fix that later. Anyway, so we go through and the spawn has a argument that tells, uh, the first argument is the, uh, address of the, uh, code. That you want to run. The second argument is an, uh, is a data item that, that you're free to choose. And what we're doing is telling, FS is the, uh, the, the, um, parent task. Um, we're basically telling it, um, we're telling it which task is the boss. And, uh, then we have a name. And then this is the core. Um, so you explicitly put a task on each core. And let's go look for AP Eagle Dive. And anyway, so, uh, there's the animate task. Like I said, all it does is updates the, uh, well, I guess it does a couple things. It updates the, uh, the bird location. And it checks to see if you've eaten a fish. Believe it or not, you can eat fish in this game. That's the point. So, uh, the, uh, bootstrap processor is core zero. And what this, what this does is, uh, um, it's, this is the master. And what it does is, it tells the, uh, slave tasks to, uh, draw the screen. We draw on a back, on a, uh, we draw on a memory, um, image. And then the update copies the image onto the screen. Um, and this is in charge of, uh, telling the, uh, the multi-core tasks to start and stop. Or to start, um, where I think it calls this over and over. So, I guess in the game loop, we are, uh, we're checking for a key. And then we're redrawing the screen. And I don't know why we're not, uh, pausing. I guess the pause is in the, uh, maybe this. Where are we, um, pausing? We have to, uh, we can't just go continuously. Okay, there's the window manager sync. So, we're synchronizing with the, uh, screen being redrawn. And, uh, we're writing to a device context the image of the screen. And, and then the, all the draw, all the draw it does, which is the callback. All the draw it does is blot the, uh, the image. So, we're living a little bit dangerously when it comes to, uh, multi-threading. Um, we're, um, the draw it has no, well, anyway, we're, we're updating this live. And, uh, we have no synchronization. We're, we're doing it, um, well, it's synchronized. The window manager sync, um, basically is kind of like, uh, protecting one end. And when it, uh, anyway, I'm getting distracted. Okay, so, we want to talk about the, uh, it created a, a, a boot, an AP. Um, this is, I think it stands for auxiliary processor. B, BP is, uh, BSP is bootstrap processor. Um, AP is the, uh, BSP is the master. AP is the master. And, um, the slaves, uh, draw the screen. BSP is the master. Anyway, um, all I was going to say is, uh, we have bits to keep them in sync. When the application is finished, we want to, uh, to, uh, this is critical. Okay, I'm, I'm going to take the time to explain this. Okay, so, when we start up, it calls init. Init spawns some processes. And, uh, it spawns a process on each core. When we shut down, we have to, uh, when we do the final shutdown. Now, where is that? I'm going to look for MP. Let's see. We have to. App done. Okay, let's see. App not done, app done. So, we have a flag for when the application is done. And, uh, the, uh, the slave processes on the other cores, um, wait until the app is done. And, as long as it's not done, they draw the screen. And then, once it's done, they all have to, uh, they all have to check out. And, uh, we cannot, um, we cannot exit the, uh, we cannot exit the, uh, program until, um, all the applications are done. And, have, we have to wait until, we have to wait until each of them clears its bit. And, uh, as long as app not done, we have to sleep. MP end is called at the end of the pro. Where is it? Maybe it's in cleanup. There it is. Okay. When we do cleanup, we call MP end. And that, the reason you don't just exit this application is because, um, you would yank the code out from underneath the other, uh, the task on the other cores. You don't want to yank the code out from underneath. So, you have to do an orderly shutdown. And, actually, you have to wait until each, uh, core has finished. And, you don't, you don't exit the task until you, uh, um, exit all the, uh, slaves. Anyway, um, otherwise it would crash because you would yank the code out from underneath. I just want to see if I, okay, I accidentally changed that, uh, anyway, that's all I wanted to show you. I made a change to the code. I have to fix that. I know. I know. I know. I know. I know
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:07.920]  Okay, I'm going to talk about TempleOS threads. In TempleOS there's no distinction between process, thread, or task.
+[00:00:08.360 -> 00:00:15.720]  Everybody uses the same address map. Sometimes I say it's multi-threaded but single process.
+[00:00:16.120 -> 00:00:25.360]  That's because disk requests are not broken in pieces. So if you do a long operation, everybody else has to wait for the disk.
+[00:00:26.740 -> 00:00:33.140]  So single process but multi-threads is probably the best way to describe it.
+[00:00:34.140 -> 00:00:45.060]  So TempleOS is unusual because it doesn't change the map, the address map.
+[00:00:45.060 -> 00:00:56.740]  So if I say while true yield, what this does is swap out the current task and schedule the next task.
+[00:00:56.740 -> 00:01:02.440]  So if I do this, it can do it four million times a second.
+[00:01:03.800 -> 00:01:06.980]  Nobody else can come anywhere near that fast.
+[00:01:07.020 -> 00:01:09.400]  That's because it's single address map.
+[00:01:13.580 -> 00:01:22.340]  So when we, when we, when it changes tasks, it saves a context and restores a context.
+[00:01:24.240 -> 00:01:35.560]  The scheduler, the scheduler basically does three things.
+[00:01:35.560 -> 00:01:41.560]  It saves the registers when, when you save the context.
+[00:01:43.080 -> 00:01:52.560]  It saves the, it does some bookkeeping for how much time the task is used.
+[00:01:52.980 -> 00:01:59.380]  It saves the floating point stack, or yeah, floating point registers context.
+[00:02:00.220 -> 00:02:04.980]  And if there's any break points, each task can have its own break points.
+[00:02:05.300 -> 00:02:10.940]  And you want to remove those when you, when you swap out a task.
+[00:02:11.320 -> 00:02:15.200]  So that's why it can do it four million times a second.
+[00:02:15.200 -> 00:02:19.980]  If you think about it, I have a three gigahertz processor.
+[00:02:20.600 -> 00:02:32.520]  And if I take three, one, two, three, let's just take that divided by four.
+[00:02:35.800 -> 00:02:40.380]  I think we're taking a seven 50 cycles.
+[00:02:43.380 -> 00:02:44.240]  Four million.
+[00:02:44.460 -> 00:02:51.820]  Well, anyway, so, um, all it has to do is, uh, save 16 registers.
+[00:02:52.500 -> 00:02:55.680]  The floating point is, uh, I think five 12 bytes.
+[00:02:56.480 -> 00:03:05.460]  And, uh, there's a, um, I think I, if you have a lock, then that uses a lot of time.
+[00:03:05.460 -> 00:03:11.720]  Um, a lock is used for multi-core, um, multitasking.
+[00:03:12.240 -> 00:03:17.080]  It has to do a couple other things, um, when it saves and restores.
+[00:03:17.600 -> 00:03:20.380]  It, um, checks, it has to schedule.
+[00:03:20.720 -> 00:03:22.580]  It's a round robin scheduler.
+[00:03:23.320 -> 00:03:32.600]  Um, but, uh, there's a wake up jiffy on each task that, uh, tells when, when it should be rescheduled.
+[00:03:32.600 -> 00:03:37.980]  And it has to check if it's ready to be rescheduled when it goes around in the robin.
+[00:03:38.640 -> 00:03:45.720]  Um, it also checks, uh, there's a flag if it's waiting for a message.
+[00:03:46.620 -> 00:03:53.080]  So, when you, uh, um, it doesn't spin when you, when you're waiting for a message.
+[00:03:53.080 -> 00:03:58.560]  It, uh, well, it checks it and skips it if it's waiting for a message.
+[00:03:58.940 -> 00:04:06.500]  Anyway, so, uh, let's look at, um, a one-core multi-threaded application.
+[00:04:07.560 -> 00:04:18.640]  Now, it turns out that, um, if I, uh, if you look at the tasks on, there's a, there's a seth task for each core.
+[00:04:19.180 -> 00:04:22.860]  And then on core zero, this is not very good. Hold on a second.
+[00:04:27.040 -> 00:04:29.000]  Each core has a seth task.
+[00:04:29.220 -> 00:04:32.540]  And then on core zero, you have a, uh, window manager.
+[00:04:33.380 -> 00:04:41.160]  And, uh, anyway, the window manager, um, redraws the screen, um, 30 times a second.
+[00:04:42.940 -> 00:04:49.360]  So, when you do a game application, we're gonna look at, um, zing.
+[00:04:50.100 -> 00:04:57.680]  Let's look at, this is a game, uh, you can shoot arrows.
+[00:04:58.540 -> 00:05:11.140]  Um, so, the, uh, when the game starts, it calls pre-emptive.
+[00:05:11.980 -> 00:05:15.740]  Um, this turns pre-emption off.
+[00:05:16.160 -> 00:05:27.140]  Uh, basically what I did for, for all of these little subroutines, um, I made the default argument the most popular.
+[00:05:27.420 -> 00:05:31.380]  And, the most popular thing you wanna do is turn pre-emption off.
+[00:05:32.100 -> 00:05:37.960]  Now, Temple OS is, uh, the only operating system that lets you turn pre-emption off.
+[00:05:37.960 -> 00:05:46.700]  Um, what that means is, uh, it will not schedule another, it will not interrupt you in the middle and schedule another task.
+[00:05:48.380 -> 00:05:53.320]  So, some people, um, assume that it locks everything out.
+[00:05:53.500 -> 00:05:53.720]  No.
+[00:05:54.340 -> 00:05:57.180]  We've, this is cooperative multitasking.
+[00:05:57.460 -> 00:06:03.700]  And when we call get message, we voluntarily, um, yield the core.
+[00:06:04.940 -> 00:06:07.920]  And, uh, it schedules the next task.
+[00:06:08.960 -> 00:06:22.740]  So, uh, so, so, um, first of all, the, uh, the dry it is a callback that the window manager calls.
+[00:06:24.580 -> 00:06:26.260]  And, uh, it draws, and that draws the arrows.
+[00:06:29.080 -> 00:06:30.920]  Um, you can look right here.
+[00:06:31.060 -> 00:06:34.560]  Here's, here's where it draws the arrows.
+[00:06:35.180 -> 00:06:42.900]  Anyway, uh, so, when, when we start up an application, we, we supply a dry callback.
+[00:06:43.580 -> 00:06:56.080]  And, uh, we have some, um, some, uh, infrastructure to, uh, when it, well, first of all, the dry it call, gets called 30 times a second.
+[00:06:56.460 -> 00:06:59.220]  And, um, it can be preempted.
+[00:06:59.380 -> 00:07:00.480]  So, this gets tricky.
+[00:07:00.840 -> 00:07:08.180]  Uh, so you don't want to change queue links in the middle of a dry it.
+[00:07:08.180 -> 00:07:13.680]  Um, so, um, we, we put the arrows in a queue, don't we?
+[00:07:14.240 -> 00:07:25.180]  Um, and, uh, so, what we do is, uh, this preempt, uh, it's a circular doubly linked queue.
+[00:07:25.300 -> 00:07:25.880]  Hold on a second.
+[00:07:26.140 -> 00:07:27.700]  Let me show you what I'm talking about.
+[00:07:28.380 -> 00:07:37.880]  When we, uh, where's, when we fire an arrow, we make a, we allocate a little chunk.
+[00:07:37.880 -> 00:07:41.480]  Um, then we, we put it into a doubly linked queue.
+[00:07:42.020 -> 00:07:51.800]  And then, when we, uh, draw it, um, we go through the next pointers and draw all the arrows.
+[00:07:52.420 -> 00:08:06.540]  Um, so, uh, you might, you might ask, uh, what would happen if the, if we were interrupted and it, and it hit a bad, uh, pointer for the queue.
+[00:08:06.540 -> 00:08:14.120]  Well, the reason we can get away with this is because we, uh, we called this preempt off.
+[00:08:14.700 -> 00:08:21.380]  The preempt off means we're not going to be interrupted in the middle of changing the two pointers.
+[00:08:22.200 -> 00:08:29.460]  Um, so, the only time we get interrupted is when, when we voluntarily yield at the, uh, get message.
+[00:08:31.680 -> 00:08:36.480]  So, um, there's another task, um, the animate task.
+[00:08:37.160 -> 00:08:44.160]  And, uh, this is what, um, changes the X, Y of the arrow.
+[00:08:44.160 -> 00:08:47.280]  It changes the X, Y of the arrows right here.
+[00:08:48.160 -> 00:08:52.860]  And, uh, the default is to have preempt off.
+[00:08:52.860 -> 00:09:00.740]  When you, uh, when you make a new task, when you spawn a new task, the default is preempt off.
+[00:09:01.400 -> 00:09:13.420]  So, the, uh, we can turn preemption on, but obviously, um, preempt off lets you, protects you during the startup until you turn preemption on.
+[00:09:13.420 -> 00:09:23.160]  But, for this, uh, for this animate task, um, we, uh, we want to leave preemption off.
+[00:09:23.680 -> 00:09:27.280]  And, so, what that means is there's mutual exclusion.
+[00:09:29.000 -> 00:09:35.540]  So, what that means is, uh, we're, we're never going to be interrupted between, uh, X and Y.
+[00:09:36.960 -> 00:09:44.480]  And, uh, we go ahead and, this window manager, sync, sync, damper.
+[00:09:46.620 -> 00:09:53.240]  Um, this, this says, uh, wait until the next, uh, time the window manager is scheduled.
+[00:09:53.900 -> 00:10:00.960]  Um, so, the window manager might be, uh, irregular.
+[00:10:01.420 -> 00:10:07.480]  So, we, uh, when we, when we update the arrow distance, we want to see how much time has elapsed.
+[00:10:08.540 -> 00:10:17.400]  And, uh, so, uh, I could just as easily have done sleep, I don't know, let's say 25 milliseconds.
+[00:10:17.720 -> 00:10:21.680]  But, that's not quite as, uh, um, professional.
+[00:10:22.080 -> 00:10:28.620]  Well, anyway, um, we only need to, uh, redraw.
+[00:10:29.000 -> 00:10:32.140]  We only need to change it every time there's a redraw.
+[00:10:33.920 -> 00:10:43.520]  So, uh, now, uh, the animate task is, uh, we have some infrastructure.
+[00:10:45.640 -> 00:10:48.960]  There's a routine called settings push and a settings pop.
+[00:10:49.380 -> 00:10:55.140]  And, what this does is, when you do settings pop, it goes ahead and it kills your animate task.
+[00:10:56.200 -> 00:11:01.700]  And, um, it, um, it restores preemption to what, remember we changed preemption.
+[00:11:01.700 -> 00:11:13.320]  So, um, as a matter of fact, when you're at the command line and you say include zing.
+[00:11:15.940 -> 00:11:19.320]  Um, when we exit, this is the same task.
+[00:11:20.140 -> 00:11:27.200]  So, if we turn preemption off, um, we would, we would leave the task with preemption off.
+[00:11:27.920 -> 00:11:37.120]  But, but the, uh, the settings, the settings pop, um, takes care of turning preemption back on.
+[00:11:40.460 -> 00:11:50.500]  So, um, anyway, so, uh, so let's look at, um, another example, bug bird.
+[00:11:51.400 -> 00:11:58.220]  Um, okay, so that, it's a little game.
+[00:11:58.220 -> 00:12:03.080]  Uh, now, this doesn't turn preemption off.
+[00:12:03.260 -> 00:12:06.280]  It takes a, uh, a different way to do it.
+[00:12:06.780 -> 00:12:10.800]  Um, we have a flag called, uh, game reset.
+[00:12:12.720 -> 00:12:20.680]  And, uh, when we start up, we, uh, we, uh, what we call a song task.
+[00:12:20.680 -> 00:12:28.920]  Uh, that just plays the song over and over.
+[00:12:29.540 -> 00:12:32.600]  Um, preemption's off.
+[00:12:32.780 -> 00:12:34.600]  We, that, that's okay.
+[00:12:36.660 -> 00:12:39.660]  So, uh, and then we call an animate task.
+[00:12:41.140 -> 00:12:46.500]  And the animate task, um, this is kind of weird.
+[00:12:46.500 -> 00:12:53.440]  Anyway, it checks the reset, if the reset flag's been set, then it reinitializes the game.
+[00:12:54.220 -> 00:12:56.740]  Otherwise, it updates the bird, X, Y.
+[00:12:57.240 -> 00:12:58.920]  The bird only has a Y.
+[00:12:59.220 -> 00:13:02.060]  So there's really no danger.
+[00:13:02.700 -> 00:13:10.420]  But, in a normal game, you wouldn't want to update just X and not Y and get preempted.
+[00:13:12.320 -> 00:13:13.940]  It wouldn't matter that much.
+[00:13:13.940 -> 00:13:17.720]  But, uh, so I don't think we have any Q links.
+[00:13:18.060 -> 00:13:20.220]  Q links are the, are a big concern.
+[00:13:21.480 -> 00:13:24.800]  Anyway, so this, uh, this has a flag.
+[00:13:26.300 -> 00:13:30.900]  And when, if you restart the game, what it does is it sets the flag.
+[00:13:30.900 -> 00:13:41.420]  And that tells the animate task to, uh, reinitialize the, uh, the, the game.
+[00:13:42.200 -> 00:13:46.280]  So, uh, this is just another alternative.
+[00:13:46.280 -> 00:13:51.860]  Now, uh, so far we've been talking about single core.
+[00:13:52.200 -> 00:13:58.880]  Um, when we get into multi-core, um, it gets a little trickier.
+[00:13:58.880 -> 00:14:09.000]  But, uh, um, if we look at the Eagle Dive.
+[00:14:16.140 -> 00:14:26.300]  Um, what this does is, uh, when it initializes it, I think it's, uh, I'll have to check.
+[00:14:29.560 -> 00:14:31.660]  Okay, we have an animate task.
+[00:14:31.880 -> 00:14:36.140]  All that does is update the, uh, the position of the airplane.
+[00:14:36.620 -> 00:14:38.680]  Or bird, whatever it is.
+[00:14:39.580 -> 00:14:48.520]  Um, looks like init is, init is putting one task on each core.
+[00:14:49.480 -> 00:14:55.400]  When we do init, we, we create a draw.
+[00:14:55.980 -> 00:15:00.100]  These are to assist in drawing the, um, screen.
+[00:15:00.520 -> 00:15:05.000]  So we put, we go through, MP count is the number of cores.
+[00:15:05.560 -> 00:15:09.040]  And we, uh, that's kind of funny.
+[00:15:09.040 -> 00:15:12.940]  We pass the MP count into it.
+[00:15:13.420 -> 00:15:15.040]  But then we use, I think that's a bug.
+[00:15:16.400 -> 00:15:23.360]  I think the intent was to, uh, to pass that as a parameter.
+[00:15:23.720 -> 00:15:24.220]  Oh, well.
+[00:15:24.500 -> 00:15:25.640]  I'll fix that later.
+[00:15:26.000 -> 00:15:38.780]  Anyway, so we go through and the spawn has a argument that tells, uh, the first argument is the, uh, address of the, uh, code.
+[00:15:38.780 -> 00:15:39.980]  That you want to run.
+[00:15:41.160 -> 00:15:46.600]  The second argument is an, uh, is a data item that, that you're free to choose.
+[00:15:46.920 -> 00:15:52.720]  And what we're doing is telling, FS is the, uh, the, the, um, parent task.
+[00:15:53.960 -> 00:15:58.860]  Um, we're basically telling it, um, we're telling it which task is the boss.
+[00:15:58.860 -> 00:16:02.540]  And, uh, then we have a name.
+[00:16:02.820 -> 00:16:04.520]  And then this is the core.
+[00:16:05.140 -> 00:16:09.520]  Um, so you explicitly put a task on each core.
+[00:16:10.060 -> 00:16:14.220]  And let's go look for AP Eagle Dive.
+[00:16:15.720 -> 00:16:21.280]  And anyway, so, uh, there's the animate task.
+[00:16:21.280 -> 00:16:25.580]  Like I said, all it does is updates the, uh, well, I guess it does a couple things.
+[00:16:25.760 -> 00:16:29.040]  It updates the, uh, the bird location.
+[00:16:30.440 -> 00:16:33.200]  And it checks to see if you've eaten a fish.
+[00:16:34.720 -> 00:16:37.020]  Believe it or not, you can eat fish in this game.
+[00:16:37.200 -> 00:16:37.800]  That's the point.
+[00:16:37.800 -> 00:16:45.620]  So, uh, the, uh, bootstrap processor is core zero.
+[00:16:46.340 -> 00:16:58.540]  And what this, what this does is, uh, um, it's, this is the master.
+[00:16:59.300 -> 00:17:05.180]  And what it does is, it tells the, uh, slave tasks to, uh, draw the screen.
+[00:17:07.020 -> 00:17:12.480]  We draw on a back, on a, uh, we draw on a memory, um, image.
+[00:17:12.740 -> 00:17:16.760]  And then the update copies the image onto the screen.
+[00:17:17.500 -> 00:17:27.800]  Um, and this is in charge of, uh, telling the, uh, the multi-core tasks to start and stop.
+[00:17:27.800 -> 00:17:34.280]  Or to start, um, where I think it calls this over and over.
+[00:17:43.100 -> 00:17:50.680]  So, I guess in the game loop, we are, uh, we're checking for a key.
+[00:17:51.220 -> 00:17:53.280]  And then we're redrawing the screen.
+[00:17:54.940 -> 00:17:59.400]  And I don't know why we're not, uh, pausing.
+[00:17:59.820 -> 00:18:07.060]  I guess the pause is in the, uh, maybe this.
+[00:18:07.200 -> 00:18:09.580]  Where are we, um, pausing?
+[00:18:10.040 -> 00:18:12.940]  We have to, uh, we can't just go continuously.
+[00:18:12.940 -> 00:18:15.040]  Okay, there's the window manager sync.
+[00:18:15.360 -> 00:18:18.880]  So, we're synchronizing with the, uh, screen being redrawn.
+[00:18:19.680 -> 00:18:25.460]  And, uh, we're writing to a device context the image of the screen.
+[00:18:26.800 -> 00:18:33.580]  And, and then the, all the draw, all the draw it does, which is the callback.
+[00:18:36.340 -> 00:18:42.840]  All the draw it does is blot the, uh, the image.
+[00:18:43.080 -> 00:18:49.560]  So, we're living a little bit dangerously when it comes to, uh, multi-threading.
+[00:18:49.560 -> 00:18:58.620]  Um, we're, um, the draw it has no, well, anyway, we're, we're updating this live.
+[00:18:58.820 -> 00:19:04.500]  And, uh, we have no synchronization.
+[00:19:04.980 -> 00:19:09.560]  We're, we're doing it, um, well, it's synchronized.
+[00:19:10.820 -> 00:19:19.480]  The window manager sync, um, basically is kind of like, uh, protecting one end.
+[00:19:19.480 -> 00:19:22.860]  And when it, uh, anyway, I'm getting distracted.
+[00:19:23.280 -> 00:19:29.260]  Okay, so, we want to talk about the, uh, it created a, a, a boot, an AP.
+[00:19:30.140 -> 00:19:32.480]  Um, this is, I think it stands for auxiliary processor.
+[00:19:33.940 -> 00:19:39.240]  B, BP is, uh, BSP is bootstrap processor.
+[00:19:44.700 -> 00:19:49.460]  Um, AP is the, uh, BSP is the master.
+[00:19:49.460 -> 00:19:51.100]  AP is the master.
+[00:19:51.800 -> 00:19:58.220]  And, um, the slaves, uh, draw the screen.
+[00:20:04.100 -> 00:20:05.380]  BSP is the master.
+[00:20:06.200 -> 00:20:12.340]  Anyway, um, all I was going to say is, uh, we have bits to keep them in sync.
+[00:20:13.100 -> 00:20:20.000]  When the application is finished, we want to, uh, to, uh, this is critical.
+[00:20:20.600 -> 00:20:23.180]  Okay, I'm, I'm going to take the time to explain this.
+[00:20:23.520 -> 00:20:27.940]  Okay, so, when we start up, it calls init.
+[00:20:29.500 -> 00:20:31.860]  Init spawns some processes.
+[00:20:35.180 -> 00:20:39.960]  And, uh, it spawns a process on each core.
+[00:20:40.340 -> 00:20:48.200]  When we shut down, we have to, uh, when we do the final shutdown.
+[00:20:48.200 -> 00:20:49.060]  Now, where is that?
+[00:20:53.200 -> 00:20:54.700]  I'm going to look for MP.
+[00:21:06.440 -> 00:21:07.160]  Let's see.
+[00:21:07.700 -> 00:21:08.220]  We have to.
+[00:21:10.760 -> 00:21:11.840]  App done.
+[00:21:12.180 -> 00:21:13.260]  Okay, let's see.
+[00:21:14.340 -> 00:21:15.880]  App not done, app done.
+[00:21:33.760 -> 00:21:37.820]  So, we have a flag for when the application is done.
+[00:21:38.560 -> 00:21:47.240]  And, uh, the, uh, the slave processes on the other cores, um, wait until the app is done.
+[00:21:47.500 -> 00:21:50.220]  And, as long as it's not done, they draw the screen.
+[00:21:50.600 -> 00:21:55.900]  And then, once it's done, they all have to, uh, they all have to check out.
+[00:21:55.900 -> 00:22:12.720]  And, uh, we cannot, um, we cannot exit the, uh, we cannot exit the, uh, program until, um, all the applications are done.
+[00:22:13.060 -> 00:22:20.740]  And, have, we have to wait until, we have to wait until each of them clears its bit.
+[00:22:21.500 -> 00:22:26.180]  And, uh, as long as app not done, we have to sleep.
+[00:22:26.540 -> 00:22:30.720]  MP end is called at the end of the pro.
+[00:22:30.940 -> 00:22:31.740]  Where is it?
+[00:22:33.180 -> 00:22:34.360]  Maybe it's in cleanup.
+[00:22:35.500 -> 00:22:36.400]  There it is.
+[00:22:36.960 -> 00:22:37.520]  Okay.
+[00:22:38.020 -> 00:22:40.400]  When we do cleanup, we call MP end.
+[00:22:40.400 -> 00:22:54.380]  And that, the reason you don't just exit this application is because, um, you would yank the code out from underneath the other, uh, the task on the other cores.
+[00:22:54.400 -> 00:22:56.840]  You don't want to yank the code out from underneath.
+[00:22:56.840 -> 00:22:59.600]  So, you have to do an orderly shutdown.
+[00:23:00.080 -> 00:23:05.540]  And, actually, you have to wait until each, uh, core has finished.
+[00:23:05.760 -> 00:23:12.680]  And, you don't, you don't exit the task until you, uh, um, exit all the, uh, slaves.
+[00:23:13.560 -> 00:23:20.140]  Anyway, um, otherwise it would crash because you would yank the code out from underneath.
+[00:23:22.460 -> 00:23:33.940]  I just want to see if I, okay, I accidentally changed that, uh, anyway, that's all I wanted to show you.
+[00:23:35.580 -> 00:23:37.200]  I made a change to the code.
+[00:23:37.200 -> 00:23:38.020]  I have to fix that.
+[00:23:38.020 -> 00:23:38.020]  
+[00:23:38.160 -> 00:23:38.700]  I know.
+[00:23:38.700 -> 00:23:38.700]  
+[00:23:38.700 -> 00:23:38.740]  I know.
+[00:23:38.740 -> 00:23:38.740]  
+[00:23:38.740 -> 00:23:38.740]  
+[00:23:38.740 -> 00:23:38.740]  
+[00:23:38.740 -> 00:23:38.740]  
+[00:23:38.740 -> 00:23:38.740]  
+[00:23:38.740 -> 00:23:38.740]  
+[00:23:38.740 -> 00:23:38.740]  
+[00:23:38.740 -> 00:23:38.740]  
+[00:23:38.740 -> 00:23:38.740]  
+[00:23:38.740 -> 00:23:38.740]  
+[00:23:38.740 -> 00:23:38.740]  
+[00:23:38.740 -> 00:23:38.740]  
+[00:23:38.740 -> 00:23:38.740]  
+[00:23:38.740 -> 00:23:38.740]  
+[00:23:38.740 -> 00:23:38.740]  
+[00:23:38.740 -> 00:23:38.740]  
+[00:23:38.740 -> 00:23:38.740]  
+[00:23:38.740 -> 00:23:38.740]  
+[00:23:38.740 -> 00:23:38.740]  
+[00:23:38.740 -> 00:23:38.740]  
+[00:23:38.740 -> 00:23:38.740]  
+[00:23:38.740 -> 00:23:38.740]  
+[00:23:38.740 -> 00:23:38.740]  
+[00:23:38.740 -> 00:23:38.920]  I know.
+[00:23:38.920 -> 00:23:38.920]  
+[00:23:38.920 -> 00:23:38.920]  
+[00:23:38.920 -> 00:23:38.940]  I know.
+[00:23:38.940 -> 00:23:38.940]  
+[00:23:38.940 -> 00:23:38.940]  
+[00:23:38.940 -> 00:23:38.940]  
+[00:23:38.940 -> 00:23:38.940]  
+[00:23:38.940 -> 00:23:38.940]  
+[00:23:38.940 -> 00:23:38.940]  
+[00:23:38.940 -> 00:23:38.940]  
+[00:23:38.940 -> 00:23:38.940]  
+[00:23:38.940 -> 00:23:38.940]  
+[00:23:38.940 -> 00:23:39.060]  I know
+[00:23:39.060 -> 00:23:39.060]  
+[00:23:39.060 -> 00:23:39.060]  
+[00:23:39.060 -> 00:23:39.060]  
+[00:23:39.060 -> 00:23:39.060]  
+[00:23:39.040 -> 00:23:39.040]  

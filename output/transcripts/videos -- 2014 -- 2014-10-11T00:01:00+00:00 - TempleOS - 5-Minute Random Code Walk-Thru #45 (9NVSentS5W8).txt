@@ -1,0 +1,90 @@
+========================================================================
+FILE        : videos/2014/2014-10-11T00:01:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #45 (9NVSentS5W8).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-10-11T00:01:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #45 (9NVSentS5W8).mkv
+FORMAT      : Matroska
+SIZE        : 29,131,219 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:07:12.080
+TRANSCRIBED: 2026-05-10T17:22:03.564593+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+Okay, this is Temple OS 5-Minute Random Code Walkthrough, Episode 45, and I'm your host, Terry Davis. Let's see where God takes us. Okay, we are in the compiler. Looks like floating point convert. Okay, so what this is, is in the compiler on the last pass, each intermediate code can have two... Okay, each intermediate code can have two parameters, and you might need a conversion. Let's look at this. Okay, so for this little program, we push... No, we set... Okay, the variable F is at offset minus 8 off the base pointer. So we take the base pointer, add minus 8, and that's on the stack. So this is on the stack. Then we... Or we add the two. Then we take 3F. 3F is... 3FF is floating point for 1.0. And then we assign 3F to... We assign 3FF to minus 8 off the base pointer. Then we... Then we... Anyway... This... We work our way down. We assign... We set... We set the address of I for the assignment. Then we load F. We load F. We add the two. Then we... We have to dereference the variable F. Dereference the variable F. Add the two. And then assign. So... Once you get to the bottom... You'll notice there's a conversion required... Result to integer. Okay? So what that is, is... First we assign 1 to F. Then we add F and F and convert the result to integer. Then we assign the result to I. So this is... Okay. So the conversion is what we're focused on today. This particular intermediate code needs a conversion of float to integer. okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay where the previous operation is sitting on the floating point stack. So, in this case, it tells it don't pop on the, don't, okay, so there is a, the first operation is the add, and then the second, the first operation is the add, then the second operation is the conversion to integer. So we, we don't pop the result of the first operation, we don't pop the result of the add, and when we do the integer, we don't push the value, it's already been done. So, don't, anyway, that's what that's talking about. So, if not, don't push, okay, so this, okay, so there aren't, there's not a lot, not a lot of code. Um, if, if not, don't push, then you go ahead and push. That's for a, I think that's if it's integer. Um, how do we tell if it's float to int or int to float? Oh, up here, up here we're either converting to integer or we're converting to float. float. And if it's, um, if it's convert to integer, then you F-load and then F-I-S-T-P. Otherwise, you integer load and then float store. So, either you, either you float load and integer store or integer load and float store. And, uh, those two operations are, uh, if it's already on the floating point stack, we don't have to do it. So, in other words, uh, this is only if it's, uh, not on the floating point stack. And then, uh, so, there can be up to, uh, three conversions. Um, if, if you look where this convert is called, F-convert. So, for, for other intermediate codes, if, um, if the first parameter needs a conversion or the second parameter needs a, there's two conversions, to int and to float. And then, finally, if the result needs a conversion. So, let's look at an example of, uh, oh, well, that, that, uh, that's enough.
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.960 -> 00:00:09.320]  Okay, this is Temple OS 5-Minute Random Code Walkthrough, Episode 45, and I'm your host, Terry Davis.
+[00:00:10.820 -> 00:00:12.600]  Let's see where God takes us.
+[00:00:15.600 -> 00:00:20.060]  Okay, we are in the compiler. Looks like floating point convert.
+[00:00:20.060 -> 00:00:43.920]  Okay, so what this is, is in the compiler on the last pass, each intermediate code can have two...
+[00:01:11.420 -> 00:01:18.700]  Okay, each intermediate code can have two parameters,
+[00:01:18.700 -> 00:01:25.160]  and you might need a conversion.
+[00:01:29.120 -> 00:01:30.780]  Let's look at this.
+[00:01:35.360 -> 00:01:45.140]  Okay, so for this little program, we push...
+[00:01:45.140 -> 00:01:46.540]  No, we set...
+[00:01:48.100 -> 00:01:58.120]  Okay, the variable F is at offset minus 8 off the base pointer.
+[00:01:58.560 -> 00:02:04.120]  So we take the base pointer, add minus 8, and that's on the stack.
+[00:02:04.340 -> 00:02:05.460]  So this is on the stack.
+[00:02:05.460 -> 00:02:06.740]  Then we...
+[00:02:07.700 -> 00:02:10.000]  Or we add the two.
+[00:02:10.260 -> 00:02:11.860]  Then we take 3F.
+[00:02:12.000 -> 00:02:13.080]  3F is...
+[00:02:13.080 -> 00:02:16.280]  3FF is floating point for 1.0.
+[00:02:16.580 -> 00:02:20.460]  And then we assign 3F to...
+[00:02:22.400 -> 00:02:27.620]  We assign 3FF to minus 8 off the base pointer.
+[00:02:29.160 -> 00:02:30.280]  Then we...
+[00:02:30.280 -> 00:02:30.880]  Then we...
+[00:02:30.880 -> 00:02:32.020]  Anyway...
+[00:02:33.100 -> 00:02:33.720]  This...
+[00:02:33.720 -> 00:02:34.660]  We work our way down.
+[00:02:34.940 -> 00:02:35.620]  We assign...
+[00:02:37.440 -> 00:02:38.560]  We set...
+[00:02:38.560 -> 00:02:41.180]  We set the address of I for the assignment.
+[00:02:41.500 -> 00:02:42.780]  Then we load F.
+[00:02:42.860 -> 00:02:43.660]  We load F.
+[00:02:43.880 -> 00:02:44.940]  We add the two.
+[00:02:46.320 -> 00:02:47.560]  Then we...
+[00:02:47.560 -> 00:02:51.060]  We have to dereference the variable F.
+[00:02:51.200 -> 00:02:52.580]  Dereference the variable F.
+[00:02:52.800 -> 00:02:53.680]  Add the two.
+[00:02:53.880 -> 00:02:54.580]  And then assign.
+[00:02:56.520 -> 00:02:56.580]  So...
+[00:02:57.280 -> 00:02:59.940]  Once you get to the bottom...
+[00:03:01.340 -> 00:03:04.580]  You'll notice there's a conversion required...
+[00:03:05.180 -> 00:03:07.280]  Result to integer.
+[00:03:07.960 -> 00:03:08.300]  Okay?
+[00:03:08.900 -> 00:03:10.580]  So what that is, is...
+[00:03:13.020 -> 00:03:17.520]  First we assign 1 to F.
+[00:03:17.900 -> 00:03:24.480]  Then we add F and F and convert the result to integer.
+[00:03:24.580 -> 00:03:30.400]  Then we assign the result to I.
+[00:03:32.260 -> 00:03:32.860]  So this is...
+[00:03:32.860 -> 00:03:33.100]  Okay.
+[00:03:34.220 -> 00:03:39.100]  So the conversion is what we're focused on today.
+[00:03:39.980 -> 00:03:46.100]  This particular intermediate code needs a conversion of float to integer.
+[00:03:47.100 -> 00:04:03.300]  okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay
+[00:04:03.300 -> 00:04:08.000]  where the previous operation is sitting on the floating point stack.
+[00:04:08.980 -> 00:04:31.420]  So, in this case, it tells it don't pop on the, don't, okay, so there is a, the first
+[00:04:31.420 -> 00:04:39.260]  operation is the add, and then the second, the first operation is the add, then the second
+[00:04:39.260 -> 00:04:43.000]  operation is the conversion to integer.
+[00:04:46.780 -> 00:04:53.640]  So we, we don't pop the result of the first operation, we don't pop the result of the add,
+[00:04:53.820 -> 00:04:59.560]  and when we do the integer, we don't push the value, it's already been done.
+[00:05:00.360 -> 00:05:04.520]  So, don't, anyway, that's what that's talking about.
+[00:05:08.400 -> 00:05:21.740]  So, if not, don't push, okay, so this, okay, so there aren't, there's not a lot, not a lot
+[00:05:21.740 -> 00:05:22.180]  of code.
+[00:05:23.060 -> 00:05:26.960]  Um, if, if not, don't push, then you go ahead and push.
+[00:05:28.820 -> 00:05:31.380]  That's for a, I think that's if it's integer.
+[00:05:32.160 -> 00:05:38.860]  Um, how do we tell if it's float to int or int to float?
+[00:05:39.060 -> 00:05:43.960]  Oh, up here, up here we're either converting to integer or we're converting to float.
+[00:05:43.960 -> 00:05:44.040]  float.
+[00:05:44.240 -> 00:05:50.680]  And if it's, um, if it's convert to integer, then you F-load and then F-I-S-T-P.
+[00:05:51.260 -> 00:05:56.080]  Otherwise, you integer load and then float store.
+[00:05:56.080 -> 00:06:02.840]  So, either you, either you float load and integer store or integer load and float store.
+[00:06:03.720 -> 00:06:13.400]  And, uh, those two operations are, uh, if it's already on the floating point stack, we don't
+[00:06:13.400 -> 00:06:14.340]  have to do it.
+[00:06:14.740 -> 00:06:21.080]  So, in other words, uh, this is only if it's, uh, not on the floating point stack.
+[00:06:21.080 -> 00:06:35.480]  And then, uh, so, there can be up to, uh, three conversions.
+[00:06:35.920 -> 00:06:44.300]  Um, if, if you look where this convert is called, F-convert.
+[00:06:45.720 -> 00:06:52.720]  So, for, for other intermediate codes, if, um, if the first parameter needs a conversion
+[00:06:52.720 -> 00:06:57.900]  or the second parameter needs a, there's two conversions, to int and to float.
+[00:06:58.700 -> 00:07:04.000]  And then, finally, if the result needs a conversion.
+[00:07:04.660 -> 00:07:12.080]  So, let's look at an example of, uh, oh, well, that, that, uh, that's enough.

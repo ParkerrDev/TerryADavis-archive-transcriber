@@ -1,0 +1,180 @@
+========================================================================
+FILE        : videos/2015/2015-10-18T00:00:00+00:00 - TempleOS - Hilarious Angry Rant, Takes Down MIT. (29g4e-0WYKk).mkv
+SOURCE URL  : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2015/2015-10-18T00:00:00+00:00 - TempleOS - Hilarious Angry Rant, Takes Down MIT. (29g4e-0WYKk).mkv
+DERIVATIVE  : (none — streamed from video)
+FORMAT      : Matroska
+SIZE        : 69,374,332 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:19:22.240
+TRANSCRIBED : 2026-05-11T00:59:08.993432+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+so there's this MIT genius who's giving a lecture on airplane crashes and he said they figured out what was the cause in all but one in the last 40 years or something like that and he he was real proud of core dumps and that was that was his pride and that was his pride was core dumps figuring out core dumps so he starts saying you see the CIA likes to talk to me indirectly and so this little cocky guy from MIT he's swaggering around and he says yeah I saw this one project and they were putting code on the stack so I'm sitting here thinking you know what that dumb fuck nigger my my my code if you if you look at my temple OS is single address map it doesn't use paging for an average MIT nigger they cannot understand they they have their minds crunched into a narrow blinder by the CIA and they only imagine the UNIX address map if you say it's it's no paging they they think no multitasking now if you have no paging then you can't have two tasks using the same stack obviously right in my little humble ASU school we made a scheduler that did multitasking on an 8-bit microcontroller that was one of our final projects a scheduler on an 8-bit microcontroller the MIT person thinks that he thought it was stack because of the address but it's a it's what an idiot and he's an arrogant buffoon so this is a numeric map of my symbols if you want to take a look all of my code is position independent so the the kernel is in the the low 640 it's a module and then everything else is on the stack that's just the numbers so why did i why is it 7FF let me explain that so uh uh uh the addressing modes for the call for the call instruction you can have relative well in in 16-bit mode you can have relative 16-bit you can jump to a register memory 16-bit let me go to the 64-bit long story short in 64-bit mode you can do relative 32-bit or uh register memory 64-bit so what that means is um if you want to jump to a location farther than 2 gig you have to load it into a register and then do a call in other words there's not one okay so 64-bit is uh let me just give an example here um 0x 1 2 3 4 5 6 7 8 9 so this this number is 6 is 64-bit okay um 32-bit is uh half of that so uh they don't have a call instruction that can go to the full range it's only relative 32 to make a long story short i put i made a law that all the code goes in the lowest 2 gig of addresses and 7fff is the lowest 2 gig and uh uh so um that way i i can always use a call relative 32 and that's all i use it's ring zero only so i never do privilege level changes and i this is blazing fucking fast if i say uh well true it's blazing fucking fast it shouldn't be too surprising to a uh lovely let's see okay so it's doing four million task swaps a second that's loading in the registers and uh saving the registers um everybody else is doing about i'm doing four million they're doing about 40 000 i would guess um that's because it's ring zero only it doesn't ever change privilege levels now here's a little pop quiz how often does your privilege level protection get activated in a month any guesses how often does your privilege protection in other words if you had a system that was uh no protection how is there any difference in a month no there's no difference you never get your privilege level dinged okay it doesn't happen that's a myth so um uh so where were we so it just slows you down that's why this is a lot faster because it doesn't have privilege level changes and it doesn't it does now bill gates said 640k was enough well i say two gig is enough now everybody fights the last war and everybody loves to laugh at bill gates you're gonna laugh at me but you know what a nigger sued for a trillion dollars it's because a nigger doesn't know the difference between a trillion and a billion and a million so if you're laughing because i got two gig for my code you're a nigger because you got no clue okay so um little mit nigger i thought it was the stack he's all arrogant and shit anyway so i allocate off the top of the stack off the top of the heap um so how i do just in time code so you might say how can you do a compiler just in time um it's really pretty fucking simple oops i got so tired of the little arrogant mit niggers you don't know how to make a compiler everybody's saying oh you did a back end from gcc no i did a fucking we we took five assembly language courses in school i didn't go to a modern school so uh here's a compiler i got so sick of the little cia pricks who say oh you did a back end from gcc no check this out okay so we got lex this is a uh it this is a stack machine um this is making machine code here okay and it's doing a malloc and it's placing the machine code right in there so this is for expressions one plus two plus three times four times five okay so this is this is a this is a compiler we compiled that integer expression to a machine code doing reverse polish now let's just pretend we wanted to do a system call it said we wanted to call a function somebody's brain would shut down they'd get all nigger niggerlicious all you have to do since it's single address map we just go into our little hash table and we look up in the address map for some symbol let's look for uh i don't i assign this built in let's look for a print let's see if we can find it okay okay well oh here it is so print is uh we just look in our symbol table all my code is position independent how is that possible well guess what i do in my uh in my little compiler i call malloc i put my code there and then when i have a call instruction what do i do well i look in my symbol table and then i do a call and this is a relative 32 bit so we would subtract off the current address and that is how you do a just-in-time compiler it's pretty easy people have been brainwashed anyway so uh your your homework assignment is to download temple os go into the demo lectures this is the mini compiler your homework assignment is why don't you add why don't we why don't you add a function call for print or something i don't know why don't you do that so you gotta look up the opcode i know they don't teach us in mit i'm assuming they don't teach idiots it's so you gotta look up the call instruction i had to type all this stuff in relative 32 so this you want to get the data book for anyway e8 is the opcode and it's a relative 32 so all you would do is uh you just put an e8 and then you'd put a relative rip relative that means you got to subtract the current location it's a little tricky because i relocate i think i do a copy i don't know in my operating system all code is executable um the page tables let you control what's read write and executable i think they do i don't even i set up the page tables once at the beginning because it's a long mode long mode requires paging but my my page tables are identity mapped okay so uh i hope we've laid that to rest so uh the other thing was uh the little niggers uh uh cannot fathom anything other than ascii for source code imagine a pdf as source code now i didn't do that i made it as much ascii as possible but hypothetically imagine pdf as well it's just like uh what's that one wolfram alpha or something he's got some fancy imagine an operating system what well anyway you could get fancy documents nobody okay where are we uh we're going to eagle dot no we're going to the little nigger is making fun of me he thinks this is a flash no that's not flash you know what it is it's a binary this is an editor i made everything i made a fucking editor i made a compiler i made a kernel i made grap i made uh merge check i made uh convert to html i made i made i made everything i've been a graphics library i made a line draw i made a circle i made a uh a uh i did it all from scratch i made a triangle fill you want have you ever the little niggers don't know how to do a triangle fill they're like derp well how do you do a triangle it's fucking algebra nigger little arrogant fuckers fucking algebra to draw to fill a triangle what you do you calculate the slope of one side and the slope of the other and then you step down uh line by line and you do a horizontal line as the uh as as you step down that's how you do it it's algebra but guaranteed i bet nobody for me from i bet no one from mit could do a triangle fill it's algebra they don't teach that anyway so uh so uh where were we uh they can't do a compiler they think it's uh uh that's what this is eight core flight simulator okay i did a uh i did a first person shooter this only uses one core so uh these are these are binary uh scalable vector graphics that are um as a matter of fact when it refreshes it refreshes the whole screen 30 times a second all the time everywhere and all it's doing is uh it's got a rotation matrix that it's uh this is this is not flash it's it's the screen refresh we if you go to the graphics library and screen gr screen screen well no it plots the mesh those are 3d meshes and it draws the triangles algebra it's just all without a gpu and uh i have an editor my documents can have ascii as well as binary graphics and uh when it updates the screen doc recalc let's look for a rotate here it is rotating it's taking the current time times of constant and that's the rotation angle now there's it's doing three combined xyz and they are uh they're supposed to be uh what would you call it uh uh would you say mutually prime or something i don't know what you'd call it anyway these are just not you want to make it spin faster let's do that because the little niggers think it's flash so watch this the just-in-time compiler compiles this during boot so watch this let's kick this up to 100 and watch this now we escape now we reboot we do a fast reboot now we go into my uh i am the best programmer on earth chosen by god now we go into the games and now we go into uh the reason is everybody else fights the last war i see clearly i am not jedi mind tricked everybody you know what there are 2 000 scientists at cern okay so now it's going spastic it's not flash there are 2 000 scientists at cern all of them smarter than tesla and yet look at who got it tesla so uh there are lots of people that the little smart ass nigger thought it was stacked because you can't imagine uh multitasking without paging derp derp derp derp derp derp anyway so that's my video okay you you you you
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:12.020 -> 00:00:20.380]  so there's this MIT genius who's giving a lecture on airplane crashes and he said they figured out
+[00:00:20.380 -> 00:00:50.120]  what was the cause in all but one in the last 40 years or something like that and he he was real proud of core dumps and that was that was his pride and that was his pride was core dumps figuring out core dumps so he starts saying you see the CIA likes to talk to me indirectly
+[00:00:50.120 -> 00:01:08.040]  and so this little cocky guy from MIT he's swaggering around and he says yeah I saw this one project and they were putting code on the stack so I'm sitting here thinking you know what that dumb fuck nigger
+[00:01:11.640 -> 00:01:35.780]  my my my code if you if you look at my temple OS is single address map it doesn't use paging for an average MIT nigger they cannot understand they they have their minds crunched into a narrow blinder by the CIA
+[00:01:35.780 -> 00:01:49.220]  and they only imagine the UNIX address map if you say it's it's no paging they they think no multitasking
+[00:01:51.120 -> 00:02:01.480]  now if you have no paging then you can't have two tasks using the same stack obviously right
+[00:02:01.480 -> 00:02:15.220]  in my little humble ASU school we made a scheduler that did multitasking on an 8-bit microcontroller that was one of our final projects
+[00:02:15.220 -> 00:02:22.960]  a scheduler on an 8-bit microcontroller the MIT person thinks that
+[00:02:24.460 -> 00:02:30.320]  he thought it was stack because of the address but it's a it's
+[00:02:32.280 -> 00:02:39.540]  what an idiot and he's an arrogant buffoon so this is a numeric map of my symbols if you want to take a look
+[00:02:39.540 -> 00:02:42.240]  all of my code is position independent
+[00:02:44.240 -> 00:02:56.400]  so the the kernel is in the the low 640 it's a module and then everything else is on the stack
+[00:02:58.100 -> 00:03:06.020]  that's just the numbers so why did i why is it 7FF let me explain that so
+[00:03:07.620 -> 00:03:10.460]  uh uh uh
+[00:03:13.620 -> 00:03:16.220]  the addressing modes for the call
+[00:03:19.440 -> 00:03:26.340]  for the call instruction you can have relative well in in 16-bit mode you can have relative 16-bit
+[00:03:27.220 -> 00:03:31.360]  you can jump to a register memory 16-bit let me go to the 64-bit
+[00:03:32.080 -> 00:03:38.280]  long story short in 64-bit mode you can do relative 32-bit
+[00:03:39.220 -> 00:03:50.880]  or uh register memory 64-bit so what that means is um if you want to jump to a location
+[00:03:51.760 -> 00:03:57.700]  farther than 2 gig you have to load it into a register and then do a call
+[00:03:59.260 -> 00:04:09.320]  in other words there's not one okay so 64-bit is uh let me just give an example here um 0x
+[00:04:10.440 -> 00:04:13.180]  1 2 3 4 5 6 7 8 9
+[00:04:15.080 -> 00:04:23.680]  so this this number is 6 is 64-bit okay um 32-bit is uh
+[00:04:26.140 -> 00:04:34.080]  half of that so uh they don't have a call instruction that can go to the full range
+[00:04:34.080 -> 00:04:44.680]  it's only relative 32 to make a long story short i put i made a law that all the code goes in the lowest 2 gig
+[00:04:45.360 -> 00:04:52.860]  of addresses and 7fff is the lowest 2 gig and uh
+[00:04:54.480 -> 00:04:56.900]  uh so um
+[00:05:00.540 -> 00:05:09.440]  that way i i can always use a call relative 32 and that's all i use it's ring zero only so i never do
+[00:05:09.440 -> 00:05:18.660]  privilege level changes and i this is blazing fucking fast if i say uh well true
+[00:05:22.580 -> 00:05:29.120]  it's blazing fucking fast it shouldn't be too surprising to a uh
+[00:05:33.760 -> 00:05:42.080]  lovely let's see okay so it's doing four million task swaps a second
+[00:05:43.500 -> 00:05:48.580]  that's loading in the registers and uh saving the registers
+[00:05:51.640 -> 00:05:59.120]  um everybody else is doing about i'm doing four million they're doing about 40 000 i would guess
+[00:06:00.080 -> 00:06:06.840]  um that's because it's ring zero only it doesn't ever change privilege levels now here's a little pop
+[00:06:06.840 -> 00:06:14.620]  quiz how often does your privilege level protection get activated in a month
+[00:06:16.760 -> 00:06:24.480]  any guesses how often does your privilege protection in other words if you had a system that was uh no
+[00:06:24.480 -> 00:06:33.540]  protection how is there any difference in a month no there's no difference you never get your privilege
+[00:06:33.540 -> 00:06:39.100]  level dinged okay it doesn't happen that's a myth
+[00:06:41.480 -> 00:06:49.080]  so um uh so where were we so it just slows you down that's why this is a lot faster because it
+[00:06:49.080 -> 00:06:56.200]  doesn't have privilege level changes and it doesn't it does now bill gates said 640k was enough
+[00:06:57.120 -> 00:07:04.740]  well i say two gig is enough now everybody fights the last war and everybody loves to laugh at bill gates
+[00:07:05.700 -> 00:07:10.740]  you're gonna laugh at me but you know what a nigger sued for a trillion dollars
+[00:07:11.320 -> 00:07:16.300]  it's because a nigger doesn't know the difference between a trillion and a billion and a million
+[00:07:17.000 -> 00:07:23.200]  so if you're laughing because i got two gig for my code you're a nigger because you got no clue
+[00:07:23.200 -> 00:07:36.780]  okay so um little mit nigger i thought it was the stack he's all arrogant and shit anyway so i allocate
+[00:07:36.780 -> 00:07:47.200]  off the top of the stack off the top of the heap um so how i do just in time code so you might say how
+[00:07:47.200 -> 00:07:54.840]  can you do a compiler just in time um it's really pretty fucking simple oops
+[00:07:57.220 -> 00:08:03.960]  i got so tired of the little arrogant mit niggers you don't know how to make a compiler
+[00:08:04.980 -> 00:08:12.060]  everybody's saying oh you did a back end from gcc no i did a fucking we we took five assembly language
+[00:08:12.060 -> 00:08:28.020]  courses in school i didn't go to a modern school so uh here's a compiler i got so sick of the little cia
+[00:08:29.480 -> 00:08:36.660]  pricks who say oh you did a back end from gcc no check this out okay so we got lex
+[00:08:37.940 -> 00:08:48.260]  this is a uh it this is a stack machine um this is making machine code here okay and it's doing a malloc
+[00:08:48.900 -> 00:08:55.760]  and it's placing the machine code right in there so this is for expressions one plus two plus three times
+[00:08:55.760 -> 00:09:04.320]  four times five okay so this is this is a this is a compiler we compiled that integer expression
+[00:09:04.320 -> 00:09:07.860]  to a machine code doing reverse polish
+[00:09:09.820 -> 00:09:14.380]  now let's just pretend we wanted to do a system call it said we wanted to call a function
+[00:09:15.740 -> 00:09:23.060]  somebody's brain would shut down they'd get all nigger niggerlicious all you have to do since it's
+[00:09:23.060 -> 00:09:31.960]  single address map we just go into our little hash table and we look up in the address map for some
+[00:09:31.960 -> 00:09:42.260]  symbol let's look for uh i don't i assign this built in let's look for a print let's see if we can find it okay
+[00:09:45.600 -> 00:09:46.140]  okay
+[00:09:51.920 -> 00:09:57.260]  well oh here it is so print is uh
+[00:09:59.660 -> 00:10:07.500]  we just look in our symbol table all my code is position independent how is that possible well guess what i do
+[00:10:08.760 -> 00:10:21.000]  in my uh in my little compiler i call malloc i put my code there and then when i have a call instruction what do i do
+[00:10:21.660 -> 00:10:30.960]  well i look in my symbol table and then i do a call and this is a relative 32 bit so we would subtract off
+[00:10:32.940 -> 00:10:44.880]  the current address and that is how you do a just-in-time compiler it's pretty easy people have been brainwashed
+[00:10:47.120 -> 00:10:58.160]  anyway so uh your your homework assignment is to download temple os go into the demo lectures
+[00:10:58.160 -> 00:11:03.440]  this is the mini compiler your homework assignment is why don't you add
+[00:11:04.120 -> 00:11:10.940]  why don't we why don't you add a function call for print or something i don't know why don't you do that so
+[00:11:11.680 -> 00:11:14.660]  you gotta look up the opcode i know they don't teach us in mit
+[00:11:15.800 -> 00:11:17.660]  i'm assuming they don't teach
+[00:11:20.300 -> 00:11:20.820]  idiots
+[00:11:20.820 -> 00:11:28.160]  it's so you gotta look up the call instruction i had to type all this stuff in
+[00:11:30.380 -> 00:11:41.680]  relative 32 so this you want to get the data book for anyway e8 is the opcode and it's a relative 32 so
+[00:11:42.520 -> 00:11:44.400]  all you would do is uh
+[00:11:46.960 -> 00:11:54.540]  you just put an e8 and then you'd put a relative rip relative that means you got to subtract the
+[00:11:54.540 -> 00:11:59.860]  current location it's a little tricky because i relocate i think i do a copy i don't know
+[00:12:03.160 -> 00:12:11.760]  in my operating system all code is executable um the page tables let you control what's
+[00:12:11.760 -> 00:12:19.000]  read write and executable i think they do i don't even i set up the page tables once at the beginning
+[00:12:19.680 -> 00:12:21.540]  because it's a long mode
+[00:12:22.860 -> 00:12:31.740]  long mode requires paging but my my page tables are identity mapped okay so uh i hope we've laid that to
+[00:12:31.740 -> 00:12:38.640]  rest so uh the other thing was uh the little niggers uh
+[00:12:38.640 -> 00:12:38.660]  uh
+[00:12:41.200 -> 00:12:49.260]  cannot fathom anything other than ascii for source code imagine a pdf
+[00:12:51.520 -> 00:12:52.680]  as source code
+[00:12:54.720 -> 00:13:02.140]  now i didn't do that i made it as much ascii as possible but hypothetically imagine pdf as well
+[00:13:02.140 -> 00:13:07.700]  it's just like uh what's that one wolfram alpha or something he's got some fancy
+[00:13:08.680 -> 00:13:13.200]  imagine an operating system what well anyway you could get fancy documents
+[00:13:17.240 -> 00:13:21.860]  nobody okay where are we uh we're going to eagle dot no we're going to
+[00:13:23.440 -> 00:13:32.140]  the little nigger is making fun of me he thinks this is a flash no that's not flash you know what it is
+[00:13:32.780 -> 00:13:39.240]  it's a binary this is an editor i made everything i made a fucking editor i made a compiler i made a
+[00:13:39.240 -> 00:13:48.900]  kernel i made grap i made uh merge check i made uh convert to html i made i made i made everything
+[00:13:50.360 -> 00:13:53.880]  i've been a graphics library i made a line draw i made a circle
+[00:13:53.880 -> 00:14:03.440]  i made a uh a uh i did it all from scratch i made a triangle fill you want have you ever the little
+[00:14:03.440 -> 00:14:08.820]  niggers don't know how to do a triangle fill they're like derp well how do you do a triangle it's
+[00:14:08.820 -> 00:14:10.380]  fucking algebra nigger
+[00:14:13.160 -> 00:14:15.060]  little arrogant fuckers
+[00:14:15.960 -> 00:14:17.140]  fucking algebra
+[00:14:20.420 -> 00:14:28.320]  to draw to fill a triangle what you do you calculate the slope of one side and the slope of the other
+[00:14:28.320 -> 00:14:38.220]  and then you step down uh line by line and you do a horizontal line as the uh as as you step down
+[00:14:38.820 -> 00:14:46.440]  that's how you do it it's algebra but guaranteed i bet nobody for me from i bet no one from mit
+[00:14:46.440 -> 00:14:51.160]  could do a triangle fill it's algebra they don't teach that
+[00:14:53.440 -> 00:14:54.920]  anyway so uh
+[00:14:58.720 -> 00:15:04.260]  so uh where were we uh they can't do a compiler they think it's
+[00:15:07.860 -> 00:15:08.780]  uh
+[00:15:08.780 -> 00:15:10.540]  uh
+[00:15:14.500 -> 00:15:15.780]  that's what this is
+[00:15:19.060 -> 00:15:20.460]  eight core flight simulator
+[00:15:22.820 -> 00:15:23.840]  okay i did
+[00:15:25.380 -> 00:15:26.180]  a uh
+[00:15:29.260 -> 00:15:31.720]  i did a first person shooter
+[00:15:34.100 -> 00:15:35.620]  this only uses one core
+[00:15:44.340 -> 00:15:51.340]  so uh these are these are binary uh scalable vector graphics that are um
+[00:15:52.640 -> 00:15:58.400]  as a matter of fact when it refreshes it refreshes the whole screen 30 times a second all the time
+[00:15:58.940 -> 00:16:07.240]  everywhere and all it's doing is uh it's got a rotation matrix that it's uh this is this is not flash
+[00:16:08.100 -> 00:16:13.080]  it's it's the screen refresh we if you go to the graphics library
+[00:16:14.560 -> 00:16:18.160]  and screen gr screen screen
+[00:16:21.320 -> 00:16:22.120]  well no
+[00:16:23.640 -> 00:16:25.020]  it plots the mesh
+[00:16:26.920 -> 00:16:28.400]  those are 3d meshes
+[00:16:29.320 -> 00:16:31.340]  and it draws the triangles
+[00:16:32.360 -> 00:16:40.500]  algebra it's just
+[00:16:40.500 -> 00:16:41.660]  all without a gpu
+[00:16:45.220 -> 00:16:46.420]  and uh
+[00:16:47.380 -> 00:16:52.520]  i have an editor my documents can have ascii as well as binary graphics
+[00:16:53.540 -> 00:16:56.560]  and uh when it updates the screen
+[00:16:57.460 -> 00:16:58.620]  doc recalc
+[00:16:59.220 -> 00:17:01.280]  let's look for a rotate
+[00:17:02.860 -> 00:17:07.200]  here it is rotating it's taking the current time
+[00:17:07.960 -> 00:17:09.440]  times of constant
+[00:17:10.260 -> 00:17:12.740]  and that's the rotation angle
+[00:17:13.480 -> 00:17:16.960]  now there's it's doing three combined xyz
+[00:17:17.660 -> 00:17:24.780]  and they are uh they're supposed to be uh what would you call it uh uh
+[00:17:26.780 -> 00:17:30.980]  would you say mutually prime or something i don't know what you'd call it anyway
+[00:17:31.840 -> 00:17:36.260]  these are just not you want to make it spin faster let's do that because the little niggers think it's flash
+[00:17:36.800 -> 00:17:41.420]  so watch this the just-in-time compiler compiles this during boot
+[00:17:42.080 -> 00:17:51.240]  so watch this let's kick this up to 100 and watch this now we escape now we reboot we do a fast reboot
+[00:17:52.200 -> 00:17:55.680]  now we go into my uh
+[00:17:59.280 -> 00:18:04.200]  i am the best programmer on earth chosen by god
+[00:18:05.200 -> 00:18:09.900]  now we go into the games and now we go into uh
+[00:18:11.300 -> 00:18:17.380]  the reason is everybody else fights the last war i see clearly i am not
+[00:18:19.280 -> 00:18:26.260]  jedi mind tricked everybody you know what there are 2 000 scientists at cern
+[00:18:26.260 -> 00:18:29.080]  okay so now it's going spastic
+[00:18:30.860 -> 00:18:35.840]  it's not flash there are 2 000 scientists at cern
+[00:18:37.040 -> 00:18:39.700]  all of them smarter than tesla
+[00:18:39.700 -> 00:18:44.020]  and yet look at who got it tesla
+[00:18:49.860 -> 00:18:50.560]  so uh
+[00:18:54.040 -> 00:19:00.260]  there are lots of people that the little smart ass nigger thought it was stacked because you can't
+[00:19:00.260 -> 00:19:05.440]  imagine uh multitasking without paging
+[00:19:05.440 -> 00:19:11.720]  derp derp derp derp derp derp anyway so that's my video
+[00:19:11.720 -> 00:19:12.120]  okay
+[00:19:12.120 -> 00:19:12.680]  you
+[00:19:12.680 -> 00:19:12.700]  you
+[00:19:12.700 -> 00:19:12.720]  you
+[00:19:12.720 -> 00:19:12.720]  
+[00:19:12.720 -> 00:19:12.780]  you
+[00:19:12.780 -> 00:19:12.780]  
+[00:19:12.780 -> 00:19:12.780]  
+[00:19:12.780 -> 00:19:12.780]  
+[00:19:22.240 -> 00:19:22.240]  
+[00:19:22.240 -> 00:19:22.240]  
+[00:19:22.240 -> 00:19:22.240]  
+[00:19:22.240 -> 00:19:22.240]  
+[00:19:22.240 -> 00:19:22.240]  
+[00:19:22.240 -> 00:19:22.240]  

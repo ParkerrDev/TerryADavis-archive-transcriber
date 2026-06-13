@@ -1,0 +1,134 @@
+========================================================================
+FILE        : videos/2014/2014-09-21T00:09:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #9 (mzkLAlYlbbo).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-09-21T00:09:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #9 (mzkLAlYlbbo).mkv
+FORMAT      : Matroska
+SIZE        : 31,393,924 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:06:52.930
+TRANSCRIBED: 2026-05-10T15:58:02.285101+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+Okay, this is Temple OS 5-minute random code walkthrough episode 9 and I'm Terry Davis your host And we're gonna do a random code jump Okay, expand buffer this is in the Kernel compression routine Basically, this is an LZW compression The there's a ARC compress is a Structure And This is not the ARC control. This is compress. Okay This is the When you call compress buffer It gives you a pointer to a chunk of memory that has the The compressed Data and As part of there's a header on that compressed data that tells the size So if you if you compress data Then you probably want the size of the chunk you just got handed and And so what you do is you You It's a ARC compress Structure And it has compressed size and expanded size So The only interest the only interesting thing is If you want to do a partial compress Compress to do part of a buffer and then and then do some more and then do some more and in multiple pieces if you want to do multiple pieces Then you then you you create an ARC control and And Well, let's see. I guess we would talk about compression actually you can do compression or expansion And how does this work? I think you have to set the Well Finish compression I think you have to set a pointer. I don't remember look at it Anyway, you you you compress it in a partial buffer And I think you have to tell it the partial buffer size and And So I just compress whole files at once with Compress buffer compresses a whole file at once and expand buffer expands a whole file at once So it doesn't do partial It doesn't do a stream a pipe. It doesn't do a pipe doesn't do a stream. It does a whole one And if you want to know what LZW compression is like basically what it uses is a LZW uses a table and Let me see if I remember this let's say you have a b c C b a b c What it does is it um sticks a in a table Then it sticks b in a table. No, it's it's Um it builds up a string of uh It um it Um At the offset of uh It's got to the 256 lowest um values, uh have uh The single character and then when it starts getting a b It adds an a with the this adds an a with the b with the c this adds an a with the b with the c I don't remember. I think I think you get an a b And then you get an a b c In your table, um Um, it goes 12 bits. Um, so the first 256 are single character And then uh Then it goes up to uh, what's 12 bits? 40 4096 That's the maximum table size Each time it each time it adds one it um It uh It adds to the previous one more letter Something like that. I'm not I don't remember All I know is that you end up with an a b then you end up with an a b c and uh anyway, so um The uh, the c version is right there and then there's the assembly version I did it in assembly just because I want it fast even though I don't When I hand assemble it's not as good as a as gcc probably But it's better than my compiler So don't don't hand assemble if you have a good compiler if you have my compiler you might want to hand assemble anyway um so, uh the only there's a uh a slight uh um There's a trick if it if it finds all characters are less than 128 then it uses uh remember I said the first starts with 256 um Well, it starts with 128 in it um anyway, uh If if if all the care if you only use the um 7-bit ascii then it starts with uh it starts with uh 128 size table or something like that so anyway, uh I originally did this when I worked at ticketmaster Somebody handed me a magazine with lzw algorithm And this is the algorithm coded and uh For ticketmaster, I did a multiple file archive This is just a single file Single buffer You can use this for any buffer. It's pretty nice. I use it in a couple spots. I use it on the uh on the graphics file Um The gra file I Um If you had 24-bit color you couldn't use this compression This is good if you have 16 color um Because it's bite oriented This compression is bite oriented uh so, uh And uh anyway, so it's it's good for 16 color graphics Um, that's four bits anyway, so uh that's that
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:07.680]  Okay, this is Temple OS 5-minute random code walkthrough episode 9 and I'm Terry Davis your host
+[00:00:09.280 -> 00:00:11.660]  And we're gonna do a random code jump
+[00:00:13.140 -> 00:00:16.280]  Okay, expand buffer this is in the
+[00:00:18.400 -> 00:00:20.480]  Kernel compression routine
+[00:00:23.420 -> 00:00:27.120]  Basically, this is an LZW compression
+[00:00:30.980 -> 00:00:32.420]  The there's a
+[00:00:32.420 -> 00:00:35.760]  ARC compress is a
+[00:00:38.240 -> 00:00:38.840]  Structure
+[00:00:40.420 -> 00:00:41.020]  And
+[00:00:43.240 -> 00:00:46.980]  This is not the ARC control. This is compress. Okay
+[00:00:50.240 -> 00:00:51.400]  This is the
+[00:00:52.420 -> 00:00:54.560]  When you call compress buffer
+[00:00:54.560 -> 00:00:59.560]  It gives you a pointer to a chunk of memory that has the
+[00:01:00.820 -> 00:01:02.300]  The compressed
+[00:01:02.800 -> 00:01:04.720]  Data and
+[00:01:04.720 -> 00:01:10.040]  As part of there's a header on that compressed data that tells the size
+[00:01:10.800 -> 00:01:13.360]  So if you if you compress data
+[00:01:13.360 -> 00:01:17.800]  Then you probably want the size of the chunk you just got handed and
+[00:01:17.870 -> 00:01:20.130]  And so what you do is you
+[00:01:20.130 -> 00:01:20.290]  You
+[00:01:21.330 -> 00:01:22.170]  It's a
+[00:01:22.170 -> 00:01:23.290]  ARC compress
+[00:01:24.390 -> 00:01:25.070]  Structure
+[00:01:27.090 -> 00:01:30.290]  And it has compressed size and expanded size
+[00:01:31.650 -> 00:01:32.330]  So
+[00:01:33.410 -> 00:01:37.130]  The only interest the only interesting thing is
+[00:01:37.130 -> 00:01:40.110]  If you want to do a partial compress
+[00:01:40.450 -> 00:01:49.990]  Compress to do part of a buffer and then and then do some more and then do some more and in multiple pieces if you want to do multiple pieces
+[00:01:51.190 -> 00:01:55.830]  Then you then you you create an ARC control and
+[00:01:56.450 -> 00:01:57.010]  And
+[00:01:58.770 -> 00:02:03.570]  Well, let's see. I guess we would talk about compression actually you can do compression or expansion
+[00:02:03.570 -> 00:02:07.490]  And how does this work? I think you have to set the
+[00:02:08.730 -> 00:02:09.290]  Well
+[00:02:10.250 -> 00:02:11.370]  Finish compression
+[00:02:14.210 -> 00:02:18.930]  I think you have to set a pointer. I don't remember look at it
+[00:02:20.270 -> 00:02:25.550]  Anyway, you you you compress it in a partial buffer
+[00:02:25.550 -> 00:02:28.510]  And I think you have to tell it the partial buffer size and
+[00:02:29.330 -> 00:02:29.550]  And
+[00:02:30.930 -> 00:02:31.490]  So
+[00:02:31.490 -> 00:02:34.830]  I just compress whole files at once with
+[00:02:34.830 -> 00:02:41.390]  Compress buffer compresses a whole file at once and expand buffer expands a whole file at once
+[00:02:42.490 -> 00:02:44.870]  So it doesn't do partial
+[00:02:44.870 -> 00:02:51.150]  It doesn't do a stream a pipe. It doesn't do a pipe doesn't do a stream. It does a whole one
+[00:02:51.150 -> 00:02:54.950]  And if you want to know what LZW compression
+[00:02:54.950 -> 00:02:58.950]  is like basically what it uses is a
+[00:02:59.990 -> 00:03:01.570]  LZW uses a
+[00:03:04.350 -> 00:03:05.790]  table and
+[00:03:07.270 -> 00:03:11.650]  Let me see if I remember this let's say you have a b c
+[00:03:12.790 -> 00:03:15.510]  C b a b c
+[00:03:15.510 -> 00:03:19.570]  What it does is it um sticks a in a table
+[00:03:20.410 -> 00:03:23.630]  Then it sticks b in a table. No, it's it's
+[00:03:26.110 -> 00:03:29.910]  Um it builds up a string of uh
+[00:03:31.190 -> 00:03:32.410]  It um it
+[00:03:34.250 -> 00:03:34.830]  Um
+[00:03:35.790 -> 00:03:37.870]  At the offset of uh
+[00:03:37.870 -> 00:03:43.630]  It's got to the 256 lowest um values, uh have uh
+[00:03:45.150 -> 00:03:49.110]  The single character and then when it starts getting a b
+[00:03:49.710 -> 00:03:55.810]  It adds an a with the this adds an a with the b with the c this adds an a with the b with the c
+[00:03:55.810 -> 00:03:58.470]  I don't remember. I think I think you get an a b
+[00:03:59.070 -> 00:04:00.410]  And then you get an a b c
+[00:04:01.410 -> 00:04:03.070]  In your table, um
+[00:04:03.070 -> 00:04:09.030]  Um, it goes 12 bits. Um, so the first 256 are single character
+[00:04:09.710 -> 00:04:10.530]  And then uh
+[00:04:11.150 -> 00:04:14.270]  Then it goes up to uh, what's 12 bits? 40
+[00:04:15.210 -> 00:04:15.810]  4096
+[00:04:16.350 -> 00:04:18.810]  That's the maximum table size
+[00:04:19.550 -> 00:04:22.190]  Each time it each time it adds one it um
+[00:04:22.830 -> 00:04:23.330]  It uh
+[00:04:23.870 -> 00:04:26.290]  It adds to the previous one more letter
+[00:04:26.910 -> 00:04:29.490]  Something like that. I'm not I don't remember
+[00:04:31.790 -> 00:04:35.610]  All I know is that you end up with an a b then you end up with an a b c
+[00:04:36.330 -> 00:04:37.150]  and uh
+[00:04:37.710 -> 00:04:39.170]  anyway, so um
+[00:04:40.730 -> 00:04:45.310]  The uh, the c version is right there and then there's the assembly version
+[00:04:45.970 -> 00:04:50.030]  I did it in assembly just because I want it fast even though I don't
+[00:04:51.490 -> 00:04:57.290]  When I hand assemble it's not as good as a as gcc probably
+[00:04:58.090 -> 00:04:59.950]  But it's better than my compiler
+[00:05:01.610 -> 00:05:07.650]  So don't don't hand assemble if you have a good compiler if you have my compiler you might want to hand assemble
+[00:05:08.330 -> 00:05:08.670]  anyway
+[00:05:09.370 -> 00:05:09.690]  um
+[00:05:11.490 -> 00:05:12.650]  so, uh
+[00:05:12.650 -> 00:05:15.230]  the only there's a uh a slight
+[00:05:15.230 -> 00:05:15.870]  uh
+[00:05:17.210 -> 00:05:17.790]  um
+[00:05:17.790 -> 00:05:26.270]  There's a trick if it if it finds all characters are less than 128 then it uses uh remember I said the first starts with
+[00:05:26.270 -> 00:05:27.850]  256 um
+[00:05:27.850 -> 00:05:30.910]  Well, it starts with 128 in it um
+[00:05:31.630 -> 00:05:32.710]  anyway, uh
+[00:05:34.390 -> 00:05:37.650]  If if if all the care if you only use the um
+[00:05:38.270 -> 00:05:40.650]  7-bit ascii then it starts with uh
+[00:05:41.470 -> 00:05:42.770]  it starts with uh
+[00:05:43.470 -> 00:05:44.070]  128
+[00:05:44.970 -> 00:05:47.330]  size table or something like that
+[00:05:48.110 -> 00:05:49.190]  so anyway, uh
+[00:05:50.310 -> 00:05:53.030]  I originally did this when I worked at ticketmaster
+[00:05:53.030 -> 00:05:57.090]  Somebody handed me a magazine with lzw algorithm
+[00:05:57.750 -> 00:05:59.490]  And this is the algorithm
+[00:06:00.090 -> 00:06:00.650]  coded
+[00:06:01.450 -> 00:06:02.330]  and uh
+[00:06:02.330 -> 00:06:05.410]  For ticketmaster, I did a multiple file
+[00:06:05.990 -> 00:06:06.350]  archive
+[00:06:07.030 -> 00:06:08.810]  This is just a single file
+[00:06:09.410 -> 00:06:10.490]  Single buffer
+[00:06:11.110 -> 00:06:16.350]  You can use this for any buffer. It's pretty nice. I use it in a couple spots. I use it on the uh
+[00:06:17.110 -> 00:06:18.890]  on the graphics file
+[00:06:18.890 -> 00:06:19.430]  Um
+[00:06:19.430 -> 00:06:21.550]  The gra file I
+[00:06:21.550 -> 00:06:22.430]  Um
+[00:06:23.210 -> 00:06:26.970]  If you had 24-bit color you couldn't use this compression
+[00:06:27.930 -> 00:06:30.510]  This is good if you have 16 color
+[00:06:30.510 -> 00:06:31.470]  um
+[00:06:33.070 -> 00:06:35.090]  Because it's bite oriented
+[00:06:35.690 -> 00:06:38.030]  This compression is bite oriented
+[00:06:38.030 -> 00:06:38.630]  uh
+[00:06:38.630 -> 00:06:40.430]  so, uh
+[00:06:41.490 -> 00:06:46.890]  And uh anyway, so it's it's good for 16 color graphics
+[00:06:46.890 -> 00:06:49.130]  Um, that's four bits
+[00:06:50.010 -> 00:06:51.510]  anyway, so uh
+[00:06:52.330 -> 00:06:52.930]  that's that

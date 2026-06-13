@@ -1,0 +1,174 @@
+========================================================================
+FILE        : videos/2016/2016-03-01T00:00:00+00:00 - TempleOS - Talking SETI's Demands on the Industry (RvL7T4gIJN8).mkv
+SOURCE URL  : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2016/2016-03-01T00:00:00+00:00 - TempleOS - Talking SETI's Demands on the Industry (RvL7T4gIJN8).mkv
+DERIVATIVE  : (none — streamed from video)
+FORMAT      : Matroska
+SIZE        : 45,430,190 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:13:30.220
+TRANSCRIBED : 2026-05-11T01:05:03.945355+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+so in 1997 there was a movie called contact where a space alien uh civilization sent us designs for a machine guess what god talks and the design is temple os just like the bible is the inspired word of god temple os is the inspired word of god so you need to write your congressman and tell them to command microsoft and vmware and linux to do some demands for do some changes forgot so the the main thing we need is uh or one thing we need is the red c file system currently we support three file systems fat32 iso9 660 for cd-rom and red c i created red c it's a it's designed to be simple um so it has fixed length 64 byte directory entries um and just uh just a fixed maximum file name length and uh it has an allocation table instead of a fat table um in temple os we do whole whole file access so we read or write whole files so here's some source code with some graphics and uh if i say dump vroom.cpp it has uh binary graphics at the bottom of the file and it has text at the top so if you tried to grow this file by just adding text to it the text would come after the graphics and that's not allowed so you have to write read and write the whole file and and also we we do file compression these files are compressed if they have a dot c ending and so uh those need to be whole file access too you can't do a partial access with compression so we need uh so the red c file system is optimized for whole file access it only has a allocation bitmap instead of a fat table this is simple for kids um that's our philosophy is uh not using paging paging is just like fat tables and we we use physical addresses not virtual addresses so uh and we use uh an allocation bitmap map not a fat table so that's that's that's the way we roll anyway so there's one other thing that um that that one other benefit um we use uh block addresses for the red c instead of clusters um they put they cluster together like 32 blocks and uh i want to eliminate the concept of a cluster right now we have read blocks read cluster write blocks write clusters anyway i want to eliminate the concept of a cluster cluster um and uh a cluster start starts numbering at uh the beginning of the data area of the partition we want uh block numbers for the kids microsoft needs to cancel secure boot we need to boot alongside linux or windows and secure boot was designed not to allow others to boot so they need to cancel that vmware has a handful of bugs um they need to support direct access to cd-rom um adapt be direct access they have a bug stretching the screen they have uh once in a while you get a multi-core startup glitch um they might have fixed that anyway um the speaker has too much distortion if you listen to songs too much distortion it's good for video games but it's not good for songs on video games uh you like some distortion but it's it's not good for songs so uh why don't you make the distortion distortion adjustable and why don't you make uh reverb an option um technically that's cheating we we normally the intention is to support just pc speaker anyway so uh they need to list temple os as an official 64-bit operating system now i'm i'm going to uh command the industry to redo the hardware uh to clean it up over the centuries uh god's temple must be perfect in the meantime you could start by putting the c the hard drive at primary ide and the cd at secondary ide right now i have to spend a lot of effort trying to figure out what ports the uh the hard drive and cd-rom are located i tried to do it the correct way with the pci bios it's a real mess just we want to i set a limit of 100 000 lines of code and um by getting rid of these other file systems and this other stuff we can save a lot of lines of code so uh the bios needs support ps2 emulation um there's a intel makes ps2 emulation possible with usb devices but the bios sometimes doesn't doesn't follow through we want fast in out port instructions they intentionally put a delay to be compatible with the original devices um we want a new uh interrupt new type of interrupt right now there's tasks and gates and or traps and gates and uh there's a couple different types of interrupts in the interrupt table um we want just a regular call 32 call relative 32 well there's a call instruction that's the fastest and if we could go ahead and um cause software interrupts to not change rings and not save stack and if you could make them just as fast as a call at 32 that'd be great i guess it can't be quite as fast but uh um so what happened is the original in out instructions were beautiful feature of the architecture but now they do pci memory map register access device access and also they use a sys call instead of the instead of the original software interrupts so we're going to bring back the original put those we're going to redo the cpu to make those useful again so i don't use paging i want intel to make a long mode that doesn't use paging it it's faster if you don't use paging ideally uh you can make it slower but it should be faster anyway so uh uh we want a reset button on all desktops so you press the reset button and that boots temple os the normal power on will boot the uefi um right now there's a 8-bit font that's part of the vga um i guess we don't use text mode anyway but we need to the industry needs a new 8-bit font i'm not doing you variable font with variable character uh utf we're not we're not doing that we're doing 8-bit the oriental countries are just screwed uh anyway so uh i guess there's a russian uh 8-bit where they put the russian characters in the upper range um we need to design one that has hebrew and greek and russian actually i have a second font you can toggle with ctrl alt f just like the commodore had two fonts so gimp and paint need to support gra files bmp files are clusterfucked and also it's uh it's not good using uh you can use lzw compression if you have 16 colors because um there's a high likelihood that one pixel next to another pixel is going to be the same colors but if you have an image that's uh 20 or 24-bit then you don't have a likelihood of identical colors and so they start doing lossy we want lzw because we also use it for the file system and we want to save lines of code so uh right now i have a a webster dictionary i got from project gutenberg um if linux or if some billionaire can donate a dictionary that'd be great um also we want a good spell check um so unix has a linux has a uh a good spell check file i can't use it because it's gpl and my operating system is public domain so if they could donate that to the public domain that'd be great and maybe an intern can write a spell check or something i don't know anyway so uh i can do the spell check so uh i have plans for the industry we're going to get rid of usb and we're going to replace it with a super simple high speed serial that's like rs232 except uh um high speed uh we want to um um right now usb has human interface device reports and stuff what we're going to do is we're going to make a standard pc for the industry sell it in quantity 400 million it's going to be a standard desktop instead of flexible it's going to be all locked down into a single standard um so there's going to be two button mice with a wheel and that's it when we were kids we could write a joystick driver for the commoner 64. um once we convert this to generic rs232 or it's not rs232 but generic serial we're going to get rid of the endpoints from usb we're going to get rid of the reports it's just going to be simple enough for it's going to be a lot better you know how trump says you're going to win so much anyway uh we're going to make this so beautiful anyway so uh we want a block super simple block device we might as well do that it's going to have read block write block get capacity get model serial number eject and that's it um we're not going to have read multiple blocks we're just going to have read single block now there's going to be a mode that's done with in out instructions it's a simple mode then they can do their own other mode and peace with pci memory mapped registers they can do that but we're going to have a simple mode all all temple os io is done with uh in out instructions so uh maybe we want to renumber the uh in out instructions we can change the uh the the the the uh cpu so that it has a uh a mode with uh with renumbered in out instructions renumbered ports to clean them up and also what else do we want uh uh i'm forgetting something anyway uh we're going to standardize to 4k one single monitor except for temple os we use 640 by 480 i know that's a little bit uh having two modes is not the same as having one mode but anyway uh we're going to win so much you're going to get tired of winning uh uh so we're going to get god to uh authorize servos bogs i think he's talking about uh um drones or something mo flintstone cutting me grass uh reverse catering subject curricula hob anyway so uh write to your congressman and tell them to command the industry i guess apple's having to do some government work um i'm going to have authority to uh boss intel and microsoft so anyway the business the business the business the business the business the business the business the business the business the business the business the business
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:12.220 -> 00:00:20.780]  so in 1997 there was a movie called contact where a space alien uh civilization sent us
+[00:00:20.780 -> 00:00:31.340]  designs for a machine guess what god talks and the design is temple os just like the bible is the
+[00:00:31.340 -> 00:00:38.340]  inspired word of god temple os is the inspired word of god so you need to write your congressman
+[00:00:38.340 -> 00:00:48.540]  and tell them to command microsoft and vmware and linux to do some demands for do some changes
+[00:00:51.220 -> 00:00:56.340]  forgot so the the main thing we need is uh or one thing we need is the red c file system
+[00:00:57.440 -> 00:01:06.660]  currently we support three file systems fat32 iso9 660 for cd-rom and red c i created red c it's a
+[00:01:06.660 -> 00:01:17.740]  it's designed to be simple um so it has fixed length 64 byte directory entries um and just uh
+[00:01:18.300 -> 00:01:25.920]  just a fixed maximum file name length and uh it has an allocation table instead of a fat table
+[00:01:26.460 -> 00:01:36.660]  um in temple os we do whole whole file access so we read or write whole files so here's some source code
+[00:01:36.660 -> 00:01:40.060]  with some graphics and uh if i say dump
+[00:01:42.920 -> 00:01:43.960]  vroom.cpp
+[00:01:46.900 -> 00:01:50.200]  it has uh binary graphics at the bottom of the file
+[00:01:50.820 -> 00:01:57.720]  and it has text at the top so if you tried to grow this file by just adding text to it the text would
+[00:01:57.720 -> 00:02:03.220]  come after the graphics and that's not allowed so you have to write read and write the whole file and
+[00:02:03.220 -> 00:02:06.040]  and also we we do file compression
+[00:02:07.760 -> 00:02:14.660]  these files are compressed if they have a dot c ending and so uh those need to be whole file access
+[00:02:14.660 -> 00:02:17.740]  too you can't do a partial access with compression
+[00:02:18.440 -> 00:02:27.020]  so we need uh so the red c file system is optimized for whole file access it only has a allocation bitmap instead of a fat table
+[00:02:28.640 -> 00:02:32.460]  this is simple for kids um that's
+[00:02:32.460 -> 00:02:41.680]  our philosophy is uh not using paging paging is just like fat tables and we we use physical addresses not virtual addresses
+[00:02:42.300 -> 00:02:50.460]  so uh and we use uh an allocation bitmap map not a fat table so that's that's that's the way we roll
+[00:02:50.460 -> 00:03:02.020]  anyway so there's one other thing that um that that one other benefit um we use uh block addresses for the red c instead of clusters
+[00:03:02.620 -> 00:03:10.760]  um they put they cluster together like 32 blocks and uh i want to eliminate the concept of a cluster
+[00:03:12.200 -> 00:03:19.020]  right now we have read blocks read cluster write blocks write clusters anyway i want to eliminate the concept of a cluster
+[00:03:19.020 -> 00:03:27.000]  cluster um and uh a cluster start starts numbering at uh the beginning of the data area of the partition
+[00:03:27.660 -> 00:03:37.160]  we want uh block numbers for the kids microsoft needs to cancel secure boot we need to boot alongside linux or windows
+[00:03:37.740 -> 00:03:41.860]  and secure boot was designed not to allow others to boot
+[00:03:42.560 -> 00:03:46.220]  so they need to cancel that vmware has a handful of bugs
+[00:03:46.220 -> 00:03:54.680]  um they need to support direct access to cd-rom um adapt be direct access they have a bug stretching the screen
+[00:03:54.680 -> 00:04:02.300]  they have uh once in a while you get a multi-core startup glitch um they might have fixed that anyway um
+[00:04:02.300 -> 00:04:06.200]  the speaker has too much distortion if you listen to songs
+[00:04:09.540 -> 00:04:16.200]  too much distortion it's good for video games but it's not good for songs on video games uh you like
+[00:04:16.200 -> 00:04:27.420]  some distortion but it's it's not good for songs so uh why don't you make the distortion distortion
+[00:04:27.420 -> 00:04:35.020]  adjustable and why don't you make uh reverb an option um technically that's cheating we we normally
+[00:04:35.880 -> 00:04:44.620]  the intention is to support just pc speaker anyway so uh they need to list temple os as an official 64-bit
+[00:04:44.620 -> 00:04:52.660]  operating system now i'm i'm going to uh command the industry to redo the hardware uh to clean it up over
+[00:04:52.660 -> 00:05:02.720]  the centuries uh god's temple must be perfect in the meantime you could start by putting the c the hard
+[00:05:02.720 -> 00:05:10.960]  drive at primary ide and the cd at secondary ide right now i have to spend a lot of effort trying to
+[00:05:10.960 -> 00:05:18.280]  figure out what ports the uh the hard drive and cd-rom are located i tried to do it the correct way with
+[00:05:18.280 -> 00:05:26.860]  the pci bios it's a real mess just we want to i set a limit of 100 000 lines of code and um by getting rid
+[00:05:26.860 -> 00:05:35.960]  of these other file systems and this other stuff we can save a lot of lines of code so uh the bios needs
+[00:05:35.960 -> 00:05:46.280]  support ps2 emulation um there's a intel makes ps2 emulation possible with usb devices but the bios
+[00:05:46.280 -> 00:05:54.560]  sometimes doesn't doesn't follow through we want fast in out port instructions they intentionally put a
+[00:05:54.560 -> 00:05:59.540]  delay to be compatible with the original devices
+[00:06:02.000 -> 00:06:11.300]  um we want a new uh interrupt new type of interrupt right now there's tasks and gates and or traps and
+[00:06:11.300 -> 00:06:15.880]  gates and uh there's a couple different types of interrupts in the interrupt table
+[00:06:16.500 -> 00:06:21.940]  um we want just a regular call 32 call relative 32 well
+[00:06:23.880 -> 00:06:30.040]  there's a call instruction that's the fastest and if we could go ahead and um cause software
+[00:06:30.040 -> 00:06:36.060]  interrupts to not change rings and not save stack and if you could make them just as fast as a call
+[00:06:36.060 -> 00:06:45.160]  at 32 that'd be great i guess it can't be quite as fast but uh um so what happened is the original in
+[00:06:45.160 -> 00:06:50.600]  out instructions were beautiful feature of the architecture but now they do pci memory map
+[00:06:51.940 -> 00:06:59.000]  register access device access and also they use a sys call instead of the instead of the original
+[00:06:59.000 -> 00:07:04.660]  software interrupts so we're going to bring back the original put those we're going to redo the cpu
+[00:07:04.660 -> 00:07:14.320]  to make those useful again so i don't use paging i want intel to make a long mode that doesn't use paging
+[00:07:15.140 -> 00:07:25.600]  it it's faster if you don't use paging ideally uh you can make it slower but it should be faster anyway so
+[00:07:25.600 -> 00:07:32.900]  uh uh we want a reset button on all desktops so you press the reset button and that boots temple os
+[00:07:32.900 -> 00:07:44.580]  the normal power on will boot the uefi um right now there's a 8-bit font that's part of the vga um
+[00:07:46.080 -> 00:07:52.380]  i guess we don't use text mode anyway but we need to the industry needs a new 8-bit font i'm not doing
+[00:07:52.380 -> 00:08:00.040]  you variable font with variable character uh utf we're not we're not doing that we're doing 8-bit
+[00:08:00.680 -> 00:08:10.640]  the oriental countries are just screwed uh anyway so uh i guess there's a russian uh 8-bit where they
+[00:08:10.640 -> 00:08:17.400]  put the russian characters in the upper range um we need to design one that has hebrew and greek and
+[00:08:17.400 -> 00:08:24.580]  russian actually i have a second font you can toggle with ctrl alt f just like the commodore had two fonts
+[00:08:24.580 -> 00:08:34.140]  so gimp and paint need to support gra files bmp files are clusterfucked and also it's uh it's not good
+[00:08:34.140 -> 00:08:43.460]  using uh you can use lzw compression if you have 16 colors because um there's a high likelihood that one
+[00:08:43.460 -> 00:08:50.800]  pixel next to another pixel is going to be the same colors but if you have an image that's uh 20 or 24-bit
+[00:08:51.360 -> 00:08:56.740]  then you don't have a likelihood of identical colors and so they start doing lossy
+[00:08:58.660 -> 00:09:06.720]  we want lzw because we also use it for the file system and we want to save lines of code so uh
+[00:09:07.520 -> 00:09:08.640]  right now i have a
+[00:09:10.700 -> 00:09:14.320]  a webster dictionary i got from project gutenberg
+[00:09:15.800 -> 00:09:23.020]  um if linux or if some billionaire can donate a dictionary that'd be great um also we want a good
+[00:09:23.020 -> 00:09:30.540]  spell check um so unix has a linux has a uh a good spell check file i can't use it because it's
+[00:09:31.380 -> 00:09:38.860]  gpl and my operating system is public domain so if they could donate that to the public domain that'd be
+[00:09:38.860 -> 00:09:43.860]  great and maybe an intern can write a spell check or something i don't know anyway so uh
+[00:09:46.260 -> 00:09:47.620]  i can do the spell check
+[00:09:50.680 -> 00:09:58.860]  so uh i have plans for the industry we're going to get rid of usb and we're going to replace it with a
+[00:09:58.860 -> 00:10:07.840]  super simple high speed serial that's like rs232 except uh um high speed uh we want to um
+[00:10:11.880 -> 00:10:12.420]  um
+[00:10:12.420 -> 00:10:18.640]  right now usb has human interface device reports and stuff what we're going to do is we're going
+[00:10:18.640 -> 00:10:26.620]  to make a standard pc for the industry sell it in quantity 400 million it's going to be a standard
+[00:10:26.620 -> 00:10:31.000]  desktop instead of flexible it's going to be all locked down into a single standard
+[00:10:31.000 -> 00:10:37.700]  um so there's going to be two button mice with a wheel and that's it when we were kids we could write
+[00:10:37.700 -> 00:10:46.780]  a joystick driver for the commoner 64. um once we convert this to generic rs232 or it's not rs232 but
+[00:10:46.780 -> 00:10:53.580]  generic serial we're going to get rid of the endpoints from usb we're going to get rid of the reports it's
+[00:10:53.580 -> 00:11:01.060]  just going to be simple enough for it's going to be a lot better you know how trump says you're going
+[00:11:01.060 -> 00:11:11.720]  to win so much anyway uh we're going to make this so beautiful anyway so uh we want a block super
+[00:11:11.720 -> 00:11:16.420]  simple block device we might as well do that it's going to have read block write block get capacity
+[00:11:16.420 -> 00:11:21.980]  get model serial number eject and that's it um we're not going to have read multiple blocks we're just going
+[00:11:21.980 -> 00:11:27.000]  to have read single block now there's going to be a mode that's done with in out instructions it's
+[00:11:27.000 -> 00:11:36.040]  a simple mode then they can do their own other mode and peace with pci memory mapped registers they
+[00:11:36.040 -> 00:11:42.700]  can do that but we're going to have a simple mode all all temple os io is done with uh in out instructions
+[00:11:44.160 -> 00:11:50.940]  so uh maybe we want to renumber the uh in out instructions we can change the uh
+[00:11:50.940 -> 00:12:02.300]  the the the the uh cpu so that it has a uh a mode with uh with renumbered in out instructions
+[00:12:02.940 -> 00:12:08.240]  renumbered ports to clean them up and also what else do we want uh
+[00:12:08.240 -> 00:12:23.340]  uh i'm forgetting something anyway uh we're going to standardize to 4k one single monitor
+[00:12:24.240 -> 00:12:28.580]  except for temple os we use 640 by 480 i know that's a little bit
+[00:12:31.720 -> 00:12:37.880]  uh having two modes is not the same as having one mode but anyway uh
+[00:12:40.520 -> 00:12:44.040]  we're going to win so much you're going to get tired of winning uh
+[00:12:44.040 -> 00:12:50.380]  uh so we're going to get god to uh authorize
+[00:12:53.280 -> 00:13:00.440]  servos bogs i think he's talking about uh um drones or something mo flintstone
+[00:13:01.760 -> 00:13:11.680]  cutting me grass uh reverse catering subject curricula hob anyway so
+[00:13:11.680 -> 00:13:19.520]  uh write to your congressman and tell them to command the industry i guess apple's having to do some
+[00:13:19.520 -> 00:13:29.240]  government work um i'm going to have authority to uh boss intel and microsoft so anyway
+[00:13:29.240 -> 00:13:29.260]  the business
+[00:13:29.260 -> 00:13:29.260]  
+[00:13:29.260 -> 00:13:29.260]  
+[00:13:29.260 -> 00:13:29.360]  the business
+[00:13:29.360 -> 00:13:29.420]  the business
+[00:13:29.420 -> 00:13:29.440]  the business
+[00:13:29.500 -> 00:13:29.540]  the business
+[00:13:29.540 -> 00:13:29.560]  the business
+[00:13:30.060 -> 00:13:30.100]  the business
+[00:13:30.100 -> 00:13:30.100]  
+[00:13:30.100 -> 00:13:30.100]  
+[00:13:30.100 -> 00:13:30.100]  
+[00:13:30.100 -> 00:13:30.100]  
+[00:13:30.100 -> 00:13:30.100]  
+[00:13:30.100 -> 00:13:30.140]  the business
+[00:13:30.140 -> 00:13:30.140]  
+[00:13:30.140 -> 00:13:30.140]  
+[00:13:30.140 -> 00:13:30.140]  
+[00:13:30.140 -> 00:13:30.140]  
+[00:13:30.140 -> 00:13:30.140]  
+[00:13:30.140 -> 00:13:30.140]  
+[00:13:30.140 -> 00:13:30.140]  
+[00:13:30.140 -> 00:13:30.140]  
+[00:13:30.140 -> 00:13:30.140]  
+[00:13:30.140 -> 00:13:30.140]  
+[00:13:30.140 -> 00:13:30.160]  the business
+[00:13:30.160 -> 00:13:30.160]  
+[00:13:30.160 -> 00:13:30.160]  
+[00:13:30.160 -> 00:13:30.160]  
+[00:13:30.160 -> 00:13:30.160]  
+[00:13:30.160 -> 00:13:30.160]  
+[00:13:30.160 -> 00:13:30.160]  
+[00:13:30.160 -> 00:13:30.160]  
+[00:13:30.160 -> 00:13:30.160]  
+[00:13:30.160 -> 00:13:30.160]  
+[00:13:30.160 -> 00:13:30.160]  
+[00:13:30.160 -> 00:13:30.160]  
+[00:13:30.160 -> 00:13:30.160]  
+[00:13:30.160 -> 00:13:30.200]  the business
+[00:13:30.200 -> 00:13:30.220]  the business
+[00:13:30.220 -> 00:13:30.220]  
+[00:13:30.220 -> 00:13:30.220]  
+[00:13:30.220 -> 00:13:30.220]  
+[00:13:30.220 -> 00:13:30.220]  
+[00:13:30.220 -> 00:13:30.220]  
+[00:13:30.220 -> 00:13:30.220]  
+[00:13:30.220 -> 00:13:30.220]  
+[00:13:30.220 -> 00:13:30.220]  
+[00:13:30.220 -> 00:13:30.220]  
+[00:13:30.220 -> 00:13:30.240]  the business
+[00:13:30.240 -> 00:13:30.240]  
+[00:13:30.240 -> 00:13:30.240]  
+[00:13:30.240 -> 00:13:30.240]  
+[00:13:30.240 -> 00:13:30.240]  
+[00:13:30.240 -> 00:13:30.240]  
+[00:13:30.220 -> 00:13:30.220]  

@@ -1,0 +1,408 @@
+========================================================================
+FILE        : videos/2014/2014-11-23T00:00:00+00:00 - TempleOS - Demands on Microsoft, Linux and VMware (Old_Video) (EalSFnq9GsY).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-11-23T00:00:00+00:00 - TempleOS - Demands on Microsoft, Linux and VMware (Old_Video) (EalSFnq9GsY).mp4
+FORMAT      : MPEG4
+SIZE        : 90,101,946 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:23:39.210
+TRANSCRIBED: 2026-05-10T20:03:13.809849+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+Okay, when God claims this temple publicly, we want to make some demands on hardware companies in Microsoft and Linux. VMware needs to again support PC speaker and provide emulation if there is no PC speaker. They deliberately took removed support. Windows, Linux, and VMware need to support the Red Sea file system so that we can get rid of 2,000 lines of redundant blemished code, FAT32 and ISO 9660. God's temple must be perfect. Redundant code for multiple file systems is imperfect. For this operating system, we want low line count. More than one file system type is bad. So, this is the Red Sea file system driver. You're welcome to use that code Microsoft and Linux. I could do the Linux driver, but I don't want to. It would be a whole bunch of extra learning. Anyway, so we want God's temple beautiful and blemish free. So, the Red Sea is, you can say it's like FAT32 a little bit, except it has, it's all cleaned up. And the main difference is it uses contiguous files, not a FAT table. It uses an allocation bitmap, and so files have to be contiguous. In Temple OS, we load and save whole files almost exclusively. We don't have to handle all applications. We can just tell people to use Windows or Linux. And, uh, doing whole files makes it clean. That's what we, that's what we want. Nice, pretty code. Um, so, uh, the, the directory entries are 64 byte fixed size. There's a fixed file name length of 38, and it has to include the, um, the zero terminator. When, um, when it, uh, when it reads off the disk, it just, uh, it, it reads in bulk. Um, anyway, I have my own date time where, uh, um, AD0 is zero, and it's 64 bit. And, uh, the upper 32 are the, uh, the day since AD0, January AD0. So, um, anyway, uh, the, uh, the boot sector, um, I, at the moment, I mark it to look like FAT32 in the, uh, master boot record. Um, I, uh, boot loaders will not boot, uh, undefined, uh, an unusual, uh, boot record type. So, um, uh, we want, we want our own boot record, um, category. I guess that's UEFI is different, but I got, we're going to get rid of UEFI. UEFI anyway. Um, so, uh, the logic here is we want this like a, you know, a 1040 easy tax program or coat. If you were designing the 1040 easy tax form, you would not just add without thinking. It would be a, it's a major ordeal for somebody for the next thousand years to have to fill in one of these things. Um, so we want, we, we want to be conservative like a 1040 easy tax form. Some people go hog wild when they make up a standard and they, they do all kinds of ridiculous stuff. Anyway, but that's not how we operate. So, um, it uses, uh, if the file ends in .Z, we use a LZW compression. It's, let's see, the compression takes up to expand and contract or compresses 300 lines of code. You're welcome to use it. So, the, uh, the file system implementation will automatically expand or compress if it ends in .Z. Um, now a subtle, um, well anyway, um, on our, on our file system, if it doesn't find a file in, in one directory, it searches parent directories. I guess Windows and Linux don't, don't need to do that. Anyway, um, what we want to do for, uh, the ISO CD-ROM, um, we want, uh, we want to put the, the image of the partition directly onto the CD-ROM. Um, and, uh, then we can just use our, the same, uh, the same driver for the Red C. Um, anyway, so, uh, um, it turns out, um, then I won't have to make my own ISO, um, type. Um, it turns out that a lot of the, I still need a lot of code in order to burn a, or to generate an ISO file. It, um, you have to, you have to go through, figure out the size and all that anyway. Um, so, but it saves a lot of code if we can, um, get rid of the ISO 9, 6, 60. And then it also saves code all over the place. I have, uh, I have these switch statements for, uh, ISO 9, 6, 60. Um, you can see I, every, on, in each of these all over the place, I get to reduce the code down significantly. And it gets really pretty. And the other thing is, the Red C is blocks, not clusters. So, um, so what's going to happen is, uh, when we, uh, when, when we get rid of F32 and ISO 9, 6, 60, when Microsoft supports Red C, at that point, we get to get rid of all these, uh, all the cluster routines. It, it's just blocks. So we get to clean up, we get to do a huge clean, clean up. All we need is read blocks, not read clusters. And it will be beautiful. Think of the children. Anyway, so, um, Microsoft needs to cancel secure boot so that we can dual boot. Um, this operating system does not have networking. So, um, it, it, it needs to dual boot alongside the others. Um, in practice, you can boot it by itself, but it's, it's a isolated machine at that point. Not, it's kind of, anyway. So, um, real hardware is like the difference between looking through a telescope eyepiece and just looking at some image. It makes a difference. We want, uh, we want, uh, we want to, we want to dual boot and run natively. That makes a difference. Um, it's just, uh, it's, it matters. And, um, God said, uh, the C64 generation of Americans, it's our ancestral lands, um, um, the, the, to own the hardware. They, they lock the hood shut. They, they weld the hood shut. But we want to, uh, to have access. Um, anyway, um, VMware is like being put on an Indian reservation. And, uh, that's not going to stand because God's going to, in this case, God's going to intervene. PCR hardware manufacturers have to support, uh, ATA, Atape, Port.io. Um, sometimes they, uh, disable it. We need port, we need, um, and they need to put the, uh, let's put the, um, we need to use the standard IDE port addresses. Hard disk could be on primary master. And CD-ROM should be on secondary master. IDE secondary master. And, um, see what you can do to get, to get flash memory sticks to appear like ATA, Atape. Um, so once we, uh, once we get rid of, once we put them on the standard, then we can eliminate a lot of extra code that, um, it's really ugly code that's trying to figure out where they are. Um, we could even get rid of the PC BIOS. But I think we still want that just in case somebody. We are not doing, here's the deal. We are doing, um, first generation hardware, which is like, or maybe it's second generation. I don't know. We're doing PS2 keyboard and mouse. And we're doing, um, port IO to do it, ATA, Atape instead of PCI. We're not doing PCI. So here's what's going to happen over the next thousand years. At the moment, we have, um, dual, dual operation, um, PS2 and USB. In the future, we're going to have an, um, we're going to improve the PS2. We're going to improve the simple. We are still going to have two modes of operation, simple and advanced. But we're going to actually improve the simple to, to be perfect and beautiful in the future. Over the next thousand years. We want minimum lines of code. So at some point, the hardware is going to get fixed. And we're going to have an even simpler PS2. We're going to have even simpler ATA, Atape. It's kind of ugly at the moment. There's no reason for a Tappi. We could, um, why don't we, we want to clean that up. Um, God's temple needs to be beautiful. But we, like, uh, who was it? Rumsfeld said, you go to war with the army you have, not the army you want. Um, we are not, we work on actual hardware that exists. Um, as a matter of fact, from about 2003 to 2010, it probably works. But, uh, they're, they're, they're moving away. Anyway, so, uh, and then you have to run in VMware. VMware needs to allow an Atape interface to the actual CD-ROM. Right now, they don't allow it. Um, we need, uh, Intel and maybe Intel and VMware can, uh, can make a faster than standard in-out instruction. Um, right now, it, uh, it uses, uh, in-out for, uh, to transfer blocks. And, uh, that's, um, the ISA, um, the, the old-fashioned in-out instructions are, um, bandwidth limited compared to PCI. So we need to, uh, the, the old in-out instructions are a fixed speed that's kind of slow. And we need to get that, if we can get that fixed. If we could do that, there would be no, um, inferiority in, in our, um, hard drive access. It would be cutting edge. You can do databases, except we don't have networking. Computers need to have a reset switch and a fast boot. And as a matter of fact, why don't we just replace UEFI with TempleOS? Um, and that's kind of like poetic justice. These bastards defined it. They use ELF files and they use proprietary graphics files. Well, guess what? God's here and you guys need to use TempleOS. No, I, I'm not supporting ELF. That's, that's the wrong direction. We want to, uh, we want to beautify God's Temple, not add a bunch of shit to it like ELF in some crappy formats. VMware and others should list TempleOS as an official 64-bit operating system. Okay. Um, Windows and Linux need support. If you've ever looked at the BMP format, it's garbage. They made it flexible and now it's a laughing stock. It's really crappy. So I invent, I'm, I'm proposing a simple GRA. Think of this, the little kids filling out 1040 easy tax forms. That's how you should define, you should make it simple. Um, so this, my GRA files, this is a replacement for BMP. It's right side up. We want it unblemished. God's Temple must be perfect. It's, uh, 8 bits per pixel. So God said 640 by 480 16 color is, is a covenant like circumcision. So this has, uh, 8 bits so that we can have transparency. And I don't even have a palette. Um, I, I, I think we just want to never change. Oh, I allow you to change the palette. But, um, for the most part, you shouldn't do that. Um, we don't want that in the graphics file, by the way. So the compression for the GRA is the same LZW compression. and you can look at my implementations if you want. And we want a nice dictionary. So we need to get that fixed. If you're wondering why it's 18 meg, most of that space is the dictionary. Otherwise, it's like 2 meg. Well, the Bible's another 4 meg. Anyway, so... If you can get on that, that'd be great. So we want a committee at some point to govern. This is going to last longer than Windows or Linux. It's going to last thousands of years. We have some ground rules. We can go into the charter, I guess. God said 640 by 480, 16 color. Another single audio voice. He said a single audio voice. I guess that means we can change waveform. So I guess we'll use... I don't want MIDI. I want this to be... This is down the road. For now, we just want PC speaker. But somewhere down the road, we want a simple... We don't even need interrupts, as it turns out. If you have a DMA... I did this with HD audio. I don't know that that matters. The problem with interrupts is trying to identify them. It takes artificial intelligence and a bunch of code. I can't believe they made it so crappy. Anyway, God's temple must be perfect. We never think twice about breaking compatibility. And the... Okay, the vision is the same usage model as the Commodore 64. It's a networked simple machine where programming was the goal, not just a means to an end. However, it's modern. It's 64-bit, multi-chord. It's also special purpose, not general purpose. So some things it will not do. Also, it's a kayak, not a Titanic. And if you look at the Commodore User's Manual, Chapter 6, they actually expect everybody to make graphics with binary numbers. It's... That was entertainment, learning about computers and stuff. We don't put any hooks for future changes. If you look at the Windows BMP format, you see what happens. It became nasty. The Catholic Church figured out to last for thousands of years, you need to not change. Anyway, we want... Low line count is the highest goal. Highest... So when you're trying to make a decision, when the committee's trying to make a decision, opt for low line count. I want them to fight over features. And I don't want melodramatic code. I want... I set a limit of 100,000 lines of code. And code comments count. We don't want third-party libraries because those circumvent the intent of this limit. Plus, it would get unbearable at hellish. The vision is at Commodore 64 ROM where the applications bring everything except the ROM with them. Currently, we're at 80,000 lines of code, 80,500. So the committee can go ahead and expand it up to 100,000. Maybe we want another couple thousand code comments and it has to be cleaned up a little bit, I guess. Minimal abstraction is a goal. So like we want... We don't use paging. We don't use paging for the most part. It's identity mapped. So an address is an address. And we want to do raw blocks on the file system so that you don't have to deal with clusters. It's really a lot nicer for learners than for... You know, Linux is open source, but you know what's tragic? Nobody... The kids don't use it. They don't... How are they going to learn? It's too complicated and ugly. So this is going to make open source actually significant. Nobody uses... Almost nobody uses Linux to actually modify the code. Anyway, so we want one platform, x86, 64. If there are other... If other platforms in other countries, we have one. We have just English. The way you do that, we don't add ifdef. We keep one architecture. They just have to modify to get their own version. It's 100,000 lines of code, so Japan needs to make their own version with their stuff. So if you want to be a franchise or something, then make it perfect for one platform. So we don't want ifdef's in the code. We want one platform. Each version is one platform. So this stuff's going to get set in stone for a thousand years, and so it's not a problem. It's not like with other systems, it's a nightmare doing the changes over and over. But this is 100,000 lines of code. It's kind of like a CD-ROM. I'm sorry. It's kind of like a Commodore ROM. It'll settle down, and it'll stop changing. We want one driver for each device. We don't want an abstraction layer with multiple drivers. So what does USB gain? You can't use a three-button mouse because a three-button mouse is like a leg you can't put weight on. So we don't... It frays when you make multiple drivers. Like if I show you my HD audio driver, suddenly all the code all the way up the stack has to support flexibility. So now you need 16 bits, 24 bits, 32 bits, 8 bits, 1 channel, 2 channel, 3 channel, 4 channel. You have a bunch of widgets and stuff. It's a nightmare. It's kind of like a rope that gets frayed when you have different hardware. So we want one hardware. This operating system is Ring Zero only. Everything runs in kernel. The Vision is a C64. It's kind of like... Linux is a semi-truck. Windows is a car. Linux has 20 gears, and that's what file permissions are. And this is a motorcycle. And on a motorcycle, if you lean over on a motorcycle, you fall over. Well, don't do that. So in Temple OS, if you lean over, it'll crash. Don't do that. It's just like DOS or C64. They're perfectly usable. Anyway, we want full access to everything. When I was a kid, I had a book called Mapping the Commodore 64, and it told what everything did. The reason for the 100,000 is so that when you hit F1, you can look at the API, and I want you to expand each one of these and say, you know what? I can learn the whole thing. You can learn the whole thing. And if you can see the light at the end of the tunnel, that makes all the difference. So we have a limit of 100,000. And I want this to be, to have the comfort of having the whole thing so that it's not intimidating. And if you can't see the light at the end of the tunnel, it's a huge morale problem. So we want single address map, like paging's not used. No networking, so there won't be malware or key loggers or something. So no encryption or passwords. The memory is accessible. So if you start putting, it's just not going to handle encryption or passwords because everything's accessible. Don't do that. This is like a Commodore 64. It's not a banking, you know, anyway. It's free in public domain. 100% open source. Documents are not for printing. I could show you some of the things the documents do. As a matter of fact, we don't have a standard in and standard out because it's, you have to get out of the normal mindset a little bit. You almost have a standard in and standard out. We want one fixed size font. No Unicode. If you have a country that needs Unicode, you can deal with that. I'm not dealing with that. We use 8-bit ASCII. It's extended ASCII. No multimedia. That's because I don't want, well, the whole thing will fall apart if you do multimedia. It's for, we have memory fragmentation because it's single address map and we load whole files and it's, I don't like multimedia to be quite honest. I don't want, I like the Commodore 64 sound where you do frequency. I don't like a recording studio for sound and the Windows expects you to do WAV files. That's, no, no, no. We want it like where you set a frequency. Okay.
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:11.680]  Okay, when God claims this temple publicly, we want to make some demands on hardware companies in Microsoft and Linux.
+[00:00:13.680 -> 00:00:22.100]  VMware needs to again support PC speaker and provide emulation if there is no PC speaker.
+[00:00:22.100 -> 00:00:39.720]  They deliberately took removed support. Windows, Linux, and VMware need to support the Red Sea file system so that we can get rid of 2,000 lines of redundant blemished code, FAT32 and ISO 9660.
+[00:00:40.120 -> 00:00:44.760]  God's temple must be perfect. Redundant code for multiple file systems is imperfect.
+[00:00:45.100 -> 00:00:51.300]  For this operating system, we want low line count. More than one file system type is bad.
+[00:00:53.660 -> 00:01:01.400]  So, this is the Red Sea file system driver. You're welcome to use that code Microsoft and Linux.
+[00:01:01.840 -> 00:01:08.520]  I could do the Linux driver, but I don't want to. It would be a whole bunch of extra learning.
+[00:01:09.160 -> 00:01:15.200]  Anyway, so we want God's temple beautiful and blemish free.
+[00:01:15.200 -> 00:01:29.400]  So, the Red Sea is, you can say it's like FAT32 a little bit, except it has, it's all cleaned up.
+[00:01:29.820 -> 00:01:38.240]  And the main difference is it uses contiguous files, not a FAT table.
+[00:01:38.240 -> 00:01:42.900]  It uses an allocation bitmap, and so files have to be contiguous.
+[00:01:43.660 -> 00:01:48.960]  In Temple OS, we load and save whole files almost exclusively.
+[00:01:49.800 -> 00:01:53.140]  We don't have to handle all applications.
+[00:01:53.760 -> 00:01:56.380]  We can just tell people to use Windows or Linux.
+[00:01:58.460 -> 00:02:02.760]  And, uh, doing whole files makes it clean.
+[00:02:03.180 -> 00:02:05.660]  That's what we, that's what we want.
+[00:02:05.800 -> 00:02:06.660]  Nice, pretty code.
+[00:02:07.740 -> 00:02:14.740]  Um, so, uh, the, the directory entries are 64 byte fixed size.
+[00:02:14.740 -> 00:02:21.680]  There's a fixed file name length of 38, and it has to include the, um, the zero terminator.
+[00:02:21.900 -> 00:02:31.040]  When, um, when it, uh, when it reads off the disk, it just, uh, it, it reads in bulk.
+[00:02:31.720 -> 00:02:42.880]  Um, anyway, I have my own date time where, uh, um, AD0 is zero, and it's 64 bit.
+[00:02:42.880 -> 00:02:51.680]  And, uh, the upper 32 are the, uh, the day since AD0, January AD0.
+[00:02:52.160 -> 00:03:03.000]  So, um, anyway, uh, the, uh, the boot sector, um, I, at the moment, I mark it to look like
+[00:03:03.000 -> 00:03:06.680]  FAT32 in the, uh, master boot record.
+[00:03:08.260 -> 00:03:17.800]  Um, I, uh, boot loaders will not boot, uh, undefined, uh, an unusual, uh, boot record type.
+[00:03:18.500 -> 00:03:25.100]  So, um, uh, we want, we want our own boot record, um, category.
+[00:03:25.460 -> 00:03:29.680]  I guess that's UEFI is different, but I got, we're going to get rid of UEFI.
+[00:03:29.790 -> 00:03:30.970]  UEFI anyway.
+[00:03:31.590 -> 00:03:41.150]  Um, so, uh, the logic here is we want this like a, you know, a 1040 easy tax program or coat.
+[00:03:41.370 -> 00:03:48.990]  If you were designing the 1040 easy tax form, you would not just add without thinking.
+[00:03:48.990 -> 00:03:55.130]  It would be a, it's a major ordeal for somebody for the next thousand years to have to fill in
+[00:03:55.130 -> 00:03:56.630]  one of these things.
+[00:03:57.150 -> 00:04:02.370]  Um, so we want, we, we want to be conservative like a 1040 easy tax form.
+[00:04:02.590 -> 00:04:08.270]  Some people go hog wild when they make up a standard and they, they do all kinds of ridiculous stuff.
+[00:04:08.590 -> 00:04:10.570]  Anyway, but that's not how we operate.
+[00:04:12.050 -> 00:04:19.650]  So, um, it uses, uh, if the file ends in .Z, we use a LZW compression.
+[00:04:20.330 -> 00:04:27.230]  It's, let's see, the compression takes up to expand and contract or compresses 300 lines of code.
+[00:04:27.430 -> 00:04:28.910]  You're welcome to use it.
+[00:04:29.170 -> 00:04:37.510]  So, the, uh, the file system implementation will automatically expand or compress if it ends in .Z.
+[00:04:38.450 -> 00:04:47.530]  Um, now a subtle, um, well anyway, um, on our, on our file system, if it doesn't find a file in,
+[00:04:47.530 -> 00:04:50.350]  in one directory, it searches parent directories.
+[00:04:50.530 -> 00:04:54.210]  I guess Windows and Linux don't, don't need to do that.
+[00:04:55.870 -> 00:05:05.630]  Anyway, um, what we want to do for, uh, the ISO CD-ROM, um, we want, uh, we want to put the,
+[00:05:05.630 -> 00:05:09.410]  the image of the partition directly onto the CD-ROM.
+[00:05:09.410 -> 00:05:16.150]  Um, and, uh, then we can just use our, the same, uh, the same driver for the Red C.
+[00:05:16.690 -> 00:05:28.450]  Um, anyway, so, uh, um, it turns out, um, then I won't have to make my own ISO, um, type.
+[00:05:28.750 -> 00:05:36.150]  Um, it turns out that a lot of the, I still need a lot of code in order to burn a, or to generate an ISO file.
+[00:05:36.150 -> 00:05:41.810]  It, um, you have to, you have to go through, figure out the size and all that anyway.
+[00:05:42.190 -> 00:05:47.810]  Um, so, but it saves a lot of code if we can, um, get rid of the ISO 9, 6, 60.
+[00:05:49.290 -> 00:05:53.010]  And then it also saves code all over the place.
+[00:05:53.010 -> 00:05:58.850]  I have, uh, I have these switch statements for, uh, ISO 9, 6, 60.
+[00:05:59.410 -> 00:06:07.430]  Um, you can see I, every, on, in each of these all over the place, I get to reduce the code down significantly.
+[00:06:08.090 -> 00:06:09.630]  And it gets really pretty.
+[00:06:09.910 -> 00:06:14.210]  And the other thing is, the Red C is blocks, not clusters.
+[00:06:14.610 -> 00:06:24.030]  So, um, so what's going to happen is, uh, when we, uh, when, when we get rid of F32 and ISO 9, 6, 60,
+[00:06:24.030 -> 00:06:32.710]  when Microsoft supports Red C, at that point, we get to get rid of all these, uh, all the cluster routines.
+[00:06:33.150 -> 00:06:34.570]  It, it's just blocks.
+[00:06:34.850 -> 00:06:39.530]  So we get to clean up, we get to do a huge clean, clean up.
+[00:06:39.930 -> 00:06:42.790]  All we need is read blocks, not read clusters.
+[00:06:43.570 -> 00:06:45.230]  And it will be beautiful.
+[00:06:45.610 -> 00:06:46.470]  Think of the children.
+[00:06:46.850 -> 00:06:53.850]  Anyway, so, um, Microsoft needs to cancel secure boot so that we can dual boot.
+[00:06:54.030 -> 00:06:57.450]  Um, this operating system does not have networking.
+[00:06:57.590 -> 00:07:02.110]  So, um, it, it, it needs to dual boot alongside the others.
+[00:07:02.370 -> 00:07:09.330]  Um, in practice, you can boot it by itself, but it's, it's a isolated machine at that point.
+[00:07:09.510 -> 00:07:10.950]  Not, it's kind of, anyway.
+[00:07:11.650 -> 00:07:18.150]  So, um, real hardware is like the difference between looking through a telescope eyepiece
+[00:07:18.150 -> 00:07:19.910]  and just looking at some image.
+[00:07:20.030 -> 00:07:21.170]  It makes a difference.
+[00:07:21.170 -> 00:07:26.110]  We want, uh, we want, uh, we want to, we want to dual boot and run natively.
+[00:07:26.390 -> 00:07:27.730]  That makes a difference.
+[00:07:28.170 -> 00:07:31.770]  Um, it's just, uh, it's, it matters.
+[00:07:32.350 -> 00:07:41.210]  And, um, God said, uh, the C64 generation of Americans, it's our ancestral lands, um,
+[00:07:41.210 -> 00:07:44.490]  um, the, the, to own the hardware.
+[00:07:45.250 -> 00:07:46.770]  They, they lock the hood shut.
+[00:07:46.990 -> 00:07:48.510]  They, they weld the hood shut.
+[00:07:48.790 -> 00:07:51.170]  But we want to, uh, to have access.
+[00:07:51.830 -> 00:07:56.370]  Um, anyway, um, VMware is like being put on an Indian reservation.
+[00:07:56.370 -> 00:08:03.050]  And, uh, that's not going to stand because God's going to, in this case, God's going to intervene.
+[00:08:04.890 -> 00:08:11.410]  PCR hardware manufacturers have to support, uh, ATA, Atape, Port.io.
+[00:08:12.010 -> 00:08:15.090]  Um, sometimes they, uh, disable it.
+[00:08:15.090 -> 00:08:25.250]  We need port, we need, um, and they need to put the, uh, let's put the, um, we need to use the standard IDE port addresses.
+[00:08:25.690 -> 00:08:27.670]  Hard disk could be on primary master.
+[00:08:28.030 -> 00:08:30.470]  And CD-ROM should be on secondary master.
+[00:08:30.950 -> 00:08:32.210]  IDE secondary master.
+[00:08:32.210 -> 00:08:39.050]  And, um, see what you can do to get, to get flash memory sticks to appear like ATA, Atape.
+[00:08:39.770 -> 00:08:53.070]  Um, so once we, uh, once we get rid of, once we put them on the standard, then we can eliminate a lot of extra code that, um, it's really ugly code that's trying to figure out where they are.
+[00:08:53.790 -> 00:08:56.350]  Um, we could even get rid of the PC BIOS.
+[00:08:56.470 -> 00:08:59.070]  But I think we still want that just in case somebody.
+[00:08:59.230 -> 00:09:01.730]  We are not doing, here's the deal.
+[00:09:01.730 -> 00:09:07.590]  We are doing, um, first generation hardware, which is like, or maybe it's second generation.
+[00:09:07.790 -> 00:09:08.010]  I don't know.
+[00:09:08.210 -> 00:09:10.530]  We're doing PS2 keyboard and mouse.
+[00:09:10.650 -> 00:09:17.530]  And we're doing, um, port IO to do it, ATA, Atape instead of PCI.
+[00:09:17.670 -> 00:09:18.810]  We're not doing PCI.
+[00:09:19.010 -> 00:09:21.970]  So here's what's going to happen over the next thousand years.
+[00:09:22.230 -> 00:09:30.130]  At the moment, we have, um, dual, dual operation, um, PS2 and USB.
+[00:09:30.130 -> 00:09:36.150]  In the future, we're going to have an, um, we're going to improve the PS2.
+[00:09:36.390 -> 00:09:38.130]  We're going to improve the simple.
+[00:09:38.770 -> 00:09:42.970]  We are still going to have two modes of operation, simple and advanced.
+[00:09:42.970 -> 00:09:49.270]  But we're going to actually improve the simple to, to be perfect and beautiful in the future.
+[00:09:49.530 -> 00:09:50.710]  Over the next thousand years.
+[00:09:50.930 -> 00:09:52.590]  We want minimum lines of code.
+[00:09:52.810 -> 00:09:55.830]  So at some point, the hardware is going to get fixed.
+[00:09:56.050 -> 00:09:58.510]  And we're going to have an even simpler PS2.
+[00:09:59.050 -> 00:10:01.910]  We're going to have even simpler ATA, Atape.
+[00:10:02.270 -> 00:10:04.170]  It's kind of ugly at the moment.
+[00:10:04.310 -> 00:10:05.570]  There's no reason for a Tappi.
+[00:10:05.570 -> 00:10:09.110]  We could, um, why don't we, we want to clean that up.
+[00:10:09.570 -> 00:10:11.870]  Um, God's temple needs to be beautiful.
+[00:10:13.250 -> 00:10:15.770]  But we, like, uh, who was it?
+[00:10:15.830 -> 00:10:19.730]  Rumsfeld said, you go to war with the army you have, not the army you want.
+[00:10:20.470 -> 00:10:25.790]  Um, we are not, we work on actual hardware that exists.
+[00:10:26.650 -> 00:10:33.430]  Um, as a matter of fact, from about 2003 to 2010, it probably works.
+[00:10:34.150 -> 00:10:39.170]  But, uh, they're, they're, they're moving away.
+[00:10:39.570 -> 00:10:43.950]  Anyway, so, uh, and then you have to run in VMware.
+[00:10:44.570 -> 00:10:49.530]  VMware needs to allow an Atape interface to the actual CD-ROM.
+[00:10:49.790 -> 00:10:51.470]  Right now, they don't allow it.
+[00:10:52.370 -> 00:11:01.930]  Um, we need, uh, Intel and maybe Intel and VMware can, uh, can make a faster than standard in-out instruction.
+[00:11:01.930 -> 00:11:09.850]  Um, right now, it, uh, it uses, uh, in-out for, uh, to transfer blocks.
+[00:11:10.070 -> 00:11:21.310]  And, uh, that's, um, the ISA, um, the, the old-fashioned in-out instructions are, um, bandwidth limited compared to PCI.
+[00:11:21.310 -> 00:11:27.290]  So we need to, uh, the, the old in-out instructions are a fixed speed that's kind of slow.
+[00:11:27.570 -> 00:11:30.570]  And we need to get that, if we can get that fixed.
+[00:11:30.930 -> 00:11:40.070]  If we could do that, there would be no, um, inferiority in, in our, um, hard drive access.
+[00:11:40.070 -> 00:11:42.510]  It would be cutting edge.
+[00:11:43.330 -> 00:11:45.710]  You can do databases, except we don't have networking.
+[00:11:47.570 -> 00:11:50.530]  Computers need to have a reset switch and a fast boot.
+[00:11:50.830 -> 00:11:55.730]  And as a matter of fact, why don't we just replace UEFI with TempleOS?
+[00:11:56.030 -> 00:11:59.050]  Um, and that's kind of like poetic justice.
+[00:11:59.330 -> 00:12:01.430]  These bastards defined it.
+[00:12:01.770 -> 00:12:05.930]  They use ELF files and they use proprietary graphics files.
+[00:12:05.930 -> 00:12:07.050]  Well, guess what?
+[00:12:07.190 -> 00:12:10.150]  God's here and you guys need to use TempleOS.
+[00:12:10.470 -> 00:12:12.550]  No, I, I'm not supporting ELF.
+[00:12:12.850 -> 00:12:14.690]  That's, that's the wrong direction.
+[00:12:14.730 -> 00:12:23.330]  We want to, uh, we want to beautify God's Temple, not add a bunch of shit to it like ELF in some crappy formats.
+[00:12:24.470 -> 00:12:29.010]  VMware and others should list TempleOS as an official 64-bit operating system.
+[00:12:29.210 -> 00:12:29.470]  Okay.
+[00:12:30.350 -> 00:12:31.870]  Um, Windows and Linux need support.
+[00:12:32.270 -> 00:12:35.750]  If you've ever looked at the BMP format, it's garbage.
+[00:12:35.930 -> 00:12:39.170]  They made it flexible and now it's a laughing stock.
+[00:12:39.490 -> 00:12:40.350]  It's really crappy.
+[00:12:41.150 -> 00:12:44.330]  So I invent, I'm, I'm proposing a simple GRA.
+[00:12:44.670 -> 00:12:48.490]  Think of this, the little kids filling out 1040 easy tax forms.
+[00:12:48.990 -> 00:12:51.750]  That's how you should define, you should make it simple.
+[00:12:52.570 -> 00:12:56.830]  Um, so this, my GRA files, this is a replacement for BMP.
+[00:12:57.090 -> 00:12:58.250]  It's right side up.
+[00:12:58.410 -> 00:12:59.610]  We want it unblemished.
+[00:12:59.750 -> 00:13:00.950]  God's Temple must be perfect.
+[00:13:01.490 -> 00:13:03.130]  It's, uh, 8 bits per pixel.
+[00:13:03.130 -> 00:13:08.590]  So God said 640 by 480 16 color is, is a covenant like circumcision.
+[00:13:09.790 -> 00:13:13.310]  So this has, uh, 8 bits so that we can have transparency.
+[00:13:15.150 -> 00:13:16.650]  And I don't even have a palette.
+[00:13:17.030 -> 00:13:19.710]  Um, I, I, I think we just want to never change.
+[00:13:20.350 -> 00:13:22.690]  Oh, I allow you to change the palette.
+[00:13:23.030 -> 00:13:26.330]  But, um, for the most part, you shouldn't do that.
+[00:13:27.190 -> 00:13:29.650]  Um, we don't want that in the graphics file, by the way.
+[00:13:30.730 -> 00:13:34.730]  So the compression for the GRA is the same LZW compression.
+[00:13:34.730 -> 00:13:39.190]  and you can look at my implementations if you want.
+[00:13:40.230 -> 00:13:41.970]  And we want a nice dictionary.
+[00:13:43.130 -> 00:13:46.230]  So we need to get that fixed.
+[00:13:46.470 -> 00:13:49.970]  If you're wondering why it's 18 meg,
+[00:13:50.270 -> 00:13:52.450]  most of that space is the dictionary.
+[00:13:52.810 -> 00:13:54.570]  Otherwise, it's like 2 meg.
+[00:13:54.910 -> 00:13:56.870]  Well, the Bible's another 4 meg.
+[00:13:57.210 -> 00:13:58.430]  Anyway, so...
+[00:14:03.790 -> 00:14:05.850]  If you can get on that, that'd be great.
+[00:14:06.330 -> 00:14:11.010]  So we want a committee at some point to govern.
+[00:14:13.230 -> 00:14:16.030]  This is going to last longer than Windows or Linux.
+[00:14:16.290 -> 00:14:18.110]  It's going to last thousands of years.
+[00:14:18.790 -> 00:14:20.650]  We have some ground rules.
+[00:14:21.550 -> 00:14:23.570]  We can go into the charter, I guess.
+[00:14:24.450 -> 00:14:27.370]  God said 640 by 480, 16 color.
+[00:14:27.370 -> 00:14:29.130]  Another single audio voice.
+[00:14:29.450 -> 00:14:31.250]  He said a single audio voice.
+[00:14:31.450 -> 00:14:33.810]  I guess that means we can change waveform.
+[00:14:36.190 -> 00:14:37.830]  So I guess we'll use...
+[00:14:37.830 -> 00:14:38.770]  I don't want MIDI.
+[00:14:39.130 -> 00:14:40.870]  I want this to be...
+[00:14:40.870 -> 00:14:42.510]  This is down the road.
+[00:14:42.970 -> 00:14:44.990]  For now, we just want PC speaker.
+[00:14:45.330 -> 00:14:47.950]  But somewhere down the road, we want a simple...
+[00:14:48.650 -> 00:14:51.130]  We don't even need interrupts, as it turns out.
+[00:14:51.150 -> 00:14:52.330]  If you have a DMA...
+[00:14:52.330 -> 00:14:54.130]  I did this with HD audio.
+[00:14:55.170 -> 00:14:56.670]  I don't know that that matters.
+[00:14:56.670 -> 00:15:00.390]  The problem with interrupts is trying to identify them.
+[00:15:00.570 -> 00:15:02.930]  It takes artificial intelligence and a bunch of code.
+[00:15:04.030 -> 00:15:06.610]  I can't believe they made it so crappy.
+[00:15:06.950 -> 00:15:09.270]  Anyway, God's temple must be perfect.
+[00:15:09.510 -> 00:15:12.150]  We never think twice about breaking compatibility.
+[00:15:13.210 -> 00:15:13.610]  And the...
+[00:15:13.610 -> 00:15:16.930]  Okay, the vision is the same usage model as the Commodore 64.
+[00:15:17.870 -> 00:15:21.750]  It's a networked simple machine where programming was the goal,
+[00:15:21.990 -> 00:15:23.570]  not just a means to an end.
+[00:15:23.570 -> 00:15:24.830]  However, it's modern.
+[00:15:25.050 -> 00:15:26.550]  It's 64-bit, multi-chord.
+[00:15:26.710 -> 00:15:29.390]  It's also special purpose, not general purpose.
+[00:15:29.550 -> 00:15:30.930]  So some things it will not do.
+[00:15:31.450 -> 00:15:33.670]  Also, it's a kayak, not a Titanic.
+[00:15:33.670 -> 00:15:38.570]  And if you look at the Commodore User's Manual, Chapter 6,
+[00:15:38.790 -> 00:15:44.610]  they actually expect everybody to make graphics with binary numbers.
+[00:15:46.090 -> 00:15:46.890]  It's...
+[00:15:46.890 -> 00:15:51.210]  That was entertainment, learning about computers and stuff.
+[00:15:52.190 -> 00:15:54.930]  We don't put any hooks for future changes.
+[00:15:55.030 -> 00:15:58.390]  If you look at the Windows BMP format, you see what happens.
+[00:15:58.550 -> 00:15:59.470]  It became nasty.
+[00:16:00.110 -> 00:16:03.450]  The Catholic Church figured out to last for thousands of years,
+[00:16:03.470 -> 00:16:04.850]  you need to not change.
+[00:16:05.570 -> 00:16:06.670]  Anyway, we want...
+[00:16:06.670 -> 00:16:08.410]  Low line count is the highest goal.
+[00:16:09.870 -> 00:16:10.410]  Highest...
+[00:16:10.410 -> 00:16:12.830]  So when you're trying to make a decision,
+[00:16:13.050 -> 00:16:14.630]  when the committee's trying to make a decision,
+[00:16:14.870 -> 00:16:16.650]  opt for low line count.
+[00:16:16.930 -> 00:16:20.930]  I want them to fight over features.
+[00:16:21.450 -> 00:16:23.430]  And I don't want melodramatic code.
+[00:16:23.570 -> 00:16:24.010]  I want...
+[00:16:24.010 -> 00:16:26.550]  I set a limit of 100,000 lines of code.
+[00:16:26.970 -> 00:16:29.350]  And code comments count.
+[00:16:29.710 -> 00:16:32.090]  We don't want third-party libraries
+[00:16:32.090 -> 00:16:35.130]  because those circumvent the intent of this limit.
+[00:16:35.130 -> 00:16:38.350]  Plus, it would get unbearable at hellish.
+[00:16:38.790 -> 00:16:40.850]  The vision is at Commodore 64 ROM
+[00:16:40.850 -> 00:16:44.450]  where the applications bring everything
+[00:16:44.450 -> 00:16:46.170]  except the ROM with them.
+[00:16:47.050 -> 00:16:50.330]  Currently, we're at 80,000 lines of code, 80,500.
+[00:16:50.710 -> 00:16:54.990]  So the committee can go ahead and expand it up to 100,000.
+[00:16:55.150 -> 00:16:58.650]  Maybe we want another couple thousand code comments
+[00:16:58.650 -> 00:17:01.970]  and it has to be cleaned up a little bit, I guess.
+[00:17:02.630 -> 00:17:04.490]  Minimal abstraction is a goal.
+[00:17:05.770 -> 00:17:07.350]  So like we want...
+[00:17:07.350 -> 00:17:09.610]  We don't use paging.
+[00:17:11.350 -> 00:17:13.810]  We don't use paging for the most part.
+[00:17:13.990 -> 00:17:14.810]  It's identity mapped.
+[00:17:15.050 -> 00:17:16.870]  So an address is an address.
+[00:17:17.130 -> 00:17:20.890]  And we want to do raw blocks on the file system
+[00:17:20.890 -> 00:17:23.250]  so that you don't have to deal with clusters.
+[00:17:24.390 -> 00:17:28.850]  It's really a lot nicer for learners than for...
+[00:17:29.570 -> 00:17:32.510]  You know, Linux is open source,
+[00:17:32.570 -> 00:17:33.790]  but you know what's tragic?
+[00:17:34.670 -> 00:17:35.230]  Nobody...
+[00:17:35.230 -> 00:17:37.310]  The kids don't use it.
+[00:17:37.450 -> 00:17:37.790]  They don't...
+[00:17:37.790 -> 00:17:38.630]  How are they going to learn?
+[00:17:38.770 -> 00:17:40.410]  It's too complicated and ugly.
+[00:17:40.710 -> 00:17:46.350]  So this is going to make open source actually significant.
+[00:17:47.730 -> 00:17:49.090]  Nobody uses...
+[00:17:49.090 -> 00:17:53.090]  Almost nobody uses Linux to actually modify the code.
+[00:17:53.750 -> 00:17:59.730]  Anyway, so we want one platform, x86, 64.
+[00:18:00.110 -> 00:18:01.710]  If there are other...
+[00:18:01.710 -> 00:18:05.250]  If other platforms in other countries, we have one.
+[00:18:05.390 -> 00:18:06.570]  We have just English.
+[00:18:06.970 -> 00:18:10.210]  The way you do that, we don't add ifdef.
+[00:18:10.210 -> 00:18:12.070]  We keep one architecture.
+[00:18:12.390 -> 00:18:16.490]  They just have to modify to get their own version.
+[00:18:16.730 -> 00:18:18.050]  It's 100,000 lines of code,
+[00:18:18.050 -> 00:18:21.890]  so Japan needs to make their own version with their stuff.
+[00:18:22.310 -> 00:18:25.190]  So if you want to be a franchise or something,
+[00:18:25.470 -> 00:18:31.510]  then make it perfect for one platform.
+[00:18:31.510 -> 00:18:35.470]  So we don't want ifdef's in the code.
+[00:18:35.670 -> 00:18:37.570]  We want one platform.
+[00:18:37.890 -> 00:18:39.790]  Each version is one platform.
+[00:18:41.190 -> 00:18:44.870]  So this stuff's going to get set in stone for a thousand years,
+[00:18:44.950 -> 00:18:46.210]  and so it's not a problem.
+[00:18:46.710 -> 00:18:49.350]  It's not like with other systems,
+[00:18:49.370 -> 00:18:52.650]  it's a nightmare doing the changes over and over.
+[00:18:52.650 -> 00:18:55.330]  But this is 100,000 lines of code.
+[00:18:55.490 -> 00:18:56.990]  It's kind of like a CD-ROM.
+[00:18:57.570 -> 00:18:58.430]  I'm sorry.
+[00:18:58.530 -> 00:19:01.210]  It's kind of like a Commodore ROM.
+[00:19:02.550 -> 00:19:05.430]  It'll settle down, and it'll stop changing.
+[00:19:05.710 -> 00:19:08.030]  We want one driver for each device.
+[00:19:08.030 -> 00:19:11.570]  We don't want an abstraction layer with multiple drivers.
+[00:19:12.090 -> 00:19:16.610]  So what does USB gain?
+[00:19:17.030 -> 00:19:19.730]  You can't use a three-button mouse
+[00:19:19.730 -> 00:19:26.290]  because a three-button mouse is like a leg you can't put weight on.
+[00:19:28.030 -> 00:19:29.990]  So we don't...
+[00:19:29.990 -> 00:19:34.650]  It frays when you make multiple drivers.
+[00:19:34.650 -> 00:19:37.050]  Like if I show you my HD audio driver,
+[00:19:42.130 -> 00:19:45.570]  suddenly all the code all the way up the stack
+[00:19:45.570 -> 00:19:50.190]  has to support flexibility.
+[00:19:50.630 -> 00:19:56.170]  So now you need 16 bits, 24 bits, 32 bits, 8 bits,
+[00:19:56.990 -> 00:19:59.370]  1 channel, 2 channel, 3 channel, 4 channel.
+[00:19:59.590 -> 00:20:01.530]  You have a bunch of widgets and stuff.
+[00:20:01.670 -> 00:20:02.990]  It's a nightmare.
+[00:20:03.370 -> 00:20:05.550]  It's kind of like a rope that gets frayed
+[00:20:05.550 -> 00:20:08.150]  when you have different hardware.
+[00:20:08.150 -> 00:20:10.130]  So we want one hardware.
+[00:20:12.950 -> 00:20:15.350]  This operating system is Ring Zero only.
+[00:20:15.530 -> 00:20:16.510]  Everything runs in kernel.
+[00:20:17.110 -> 00:20:18.570]  The Vision is a C64.
+[00:20:19.110 -> 00:20:19.750]  It's kind of like...
+[00:20:19.750 -> 00:20:24.470]  Linux is a semi-truck.
+[00:20:25.470 -> 00:20:26.850]  Windows is a car.
+[00:20:27.410 -> 00:20:29.110]  Linux has 20 gears,
+[00:20:29.170 -> 00:20:31.830]  and that's what file permissions are.
+[00:20:31.830 -> 00:20:33.730]  And this is a motorcycle.
+[00:20:34.130 -> 00:20:35.030]  And on a motorcycle,
+[00:20:35.350 -> 00:20:37.070]  if you lean over on a motorcycle,
+[00:20:37.070 -> 00:20:38.370]  you fall over.
+[00:20:38.690 -> 00:20:40.330]  Well, don't do that.
+[00:20:40.690 -> 00:20:42.610]  So in Temple OS,
+[00:20:42.830 -> 00:20:43.770]  if you lean over,
+[00:20:44.630 -> 00:20:45.730]  it'll crash.
+[00:20:45.870 -> 00:20:46.710]  Don't do that.
+[00:20:47.350 -> 00:20:49.810]  It's just like DOS or C64.
+[00:20:50.910 -> 00:20:52.570]  They're perfectly usable.
+[00:20:53.250 -> 00:20:53.770]  Anyway,
+[00:20:54.330 -> 00:20:55.930]  we want full access to everything.
+[00:20:55.930 -> 00:20:57.050]  When I was a kid,
+[00:20:57.170 -> 00:20:59.830]  I had a book called Mapping the Commodore 64,
+[00:20:59.930 -> 00:21:01.410]  and it told what everything did.
+[00:21:02.250 -> 00:21:04.050]  The reason for the 100,000
+[00:21:04.050 -> 00:21:05.910]  is so that when you hit F1,
+[00:21:06.150 -> 00:21:08.390]  you can look at the API,
+[00:21:08.830 -> 00:21:11.510]  and I want you to expand each one of these
+[00:21:11.510 -> 00:21:12.790]  and say,
+[00:21:12.930 -> 00:21:13.530]  you know what?
+[00:21:13.530 -> 00:21:15.290]  I can learn the whole thing.
+[00:21:16.390 -> 00:21:18.230]  You can learn the whole thing.
+[00:21:18.650 -> 00:21:21.030]  And if you can see the light
+[00:21:21.030 -> 00:21:22.050]  at the end of the tunnel,
+[00:21:22.790 -> 00:21:24.350]  that makes all the difference.
+[00:21:25.670 -> 00:21:28.330]  So we have a limit of 100,000.
+[00:21:28.330 -> 00:21:29.290]  And I want this to be,
+[00:21:30.010 -> 00:21:33.890]  to have the comfort of having the whole thing
+[00:21:34.970 -> 00:21:36.810]  so that it's not intimidating.
+[00:21:36.890 -> 00:21:39.730]  And if you can't see the light
+[00:21:39.730 -> 00:21:40.650]  at the end of the tunnel,
+[00:21:40.690 -> 00:21:45.850]  it's a huge morale problem.
+[00:21:46.990 -> 00:21:49.350]  So we want single address map,
+[00:21:49.510 -> 00:21:51.010]  like paging's not used.
+[00:21:51.450 -> 00:21:52.470]  No networking,
+[00:21:53.030 -> 00:21:54.590]  so there won't be malware
+[00:21:54.590 -> 00:21:57.770]  or key loggers or something.
+[00:21:59.950 -> 00:22:02.550]  So no encryption or passwords.
+[00:22:03.430 -> 00:22:05.190]  The memory is accessible.
+[00:22:05.190 -> 00:22:06.530]  So if you start putting,
+[00:22:06.890 -> 00:22:08.850]  it's just not going to handle
+[00:22:08.850 -> 00:22:10.210]  encryption or passwords
+[00:22:12.010 -> 00:22:13.810]  because everything's accessible.
+[00:22:14.030 -> 00:22:14.590]  Don't do that.
+[00:22:14.590 -> 00:22:16.030]  This is like a Commodore 64.
+[00:22:16.330 -> 00:22:17.850]  It's not a banking,
+[00:22:18.330 -> 00:22:18.950]  you know,
+[00:22:19.410 -> 00:22:19.630]  anyway.
+[00:22:20.170 -> 00:22:21.850]  It's free in public domain.
+[00:22:23.050 -> 00:22:24.450]  100% open source.
+[00:22:25.830 -> 00:22:27.270]  Documents are not for printing.
+[00:22:28.450 -> 00:22:29.490]  I could show you
+[00:22:29.490 -> 00:22:31.070]  some of the things the documents do.
+[00:22:31.330 -> 00:22:32.150]  As a matter of fact,
+[00:22:32.170 -> 00:22:33.970]  we don't have a standard in
+[00:22:33.970 -> 00:22:34.810]  and standard out
+[00:22:35.670 -> 00:22:36.630]  because it's,
+[00:22:37.970 -> 00:22:39.110]  you have to get out
+[00:22:39.110 -> 00:22:40.570]  of the normal mindset a little bit.
+[00:22:40.670 -> 00:22:41.990]  You almost have a standard in
+[00:22:41.990 -> 00:22:43.170]  and standard out.
+[00:22:43.170 -> 00:22:45.870]  We want one fixed size font.
+[00:22:46.070 -> 00:22:47.230]  No Unicode.
+[00:22:47.670 -> 00:22:49.250]  If you have a country
+[00:22:49.250 -> 00:22:50.310]  that needs Unicode,
+[00:22:50.390 -> 00:22:51.470]  you can deal with that.
+[00:22:51.550 -> 00:22:52.610]  I'm not dealing with that.
+[00:22:52.910 -> 00:22:54.650]  We use 8-bit ASCII.
+[00:22:54.850 -> 00:22:55.970]  It's extended ASCII.
+[00:22:57.730 -> 00:22:58.810]  No multimedia.
+[00:23:00.410 -> 00:23:01.450]  That's because
+[00:23:02.950 -> 00:23:04.110]  I don't want,
+[00:23:04.310 -> 00:23:05.270]  well, the whole thing
+[00:23:05.270 -> 00:23:05.910]  will fall apart
+[00:23:05.910 -> 00:23:07.050]  if you do multimedia.
+[00:23:07.390 -> 00:23:07.970]  It's for,
+[00:23:09.610 -> 00:23:12.230]  we have memory fragmentation
+[00:23:12.230 -> 00:23:13.850]  because it's single address map
+[00:23:13.850 -> 00:23:16.090]  and we load whole files
+[00:23:16.090 -> 00:23:17.690]  and it's,
+[00:23:18.130 -> 00:23:19.950]  I don't like multimedia
+[00:23:19.950 -> 00:23:20.870]  to be quite honest.
+[00:23:21.070 -> 00:23:21.450]  I don't want,
+[00:23:21.550 -> 00:23:23.690]  I like the Commodore 64 sound
+[00:23:23.690 -> 00:23:25.050]  where you do frequency.
+[00:23:25.330 -> 00:23:27.590]  I don't like a recording studio
+[00:23:27.590 -> 00:23:28.550]  for sound
+[00:23:28.550 -> 00:23:30.950]  and the Windows expects you
+[00:23:30.950 -> 00:23:32.830]  to do WAV files.
+[00:23:33.250 -> 00:23:33.470]  That's,
+[00:23:33.750 -> 00:23:34.570]  no, no, no.
+[00:23:34.570 -> 00:23:35.630]  We want it like
+[00:23:35.630 -> 00:23:37.190]  where you set a frequency.
+[00:23:38.670 -> 00:23:39.210]  Okay.

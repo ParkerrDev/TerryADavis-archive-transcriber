@@ -1,0 +1,151 @@
+========================================================================
+FILE        : videos/2015/2015-02-16T00:00:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #100 (SMopNzzZGY4).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2015/2015-02-16T00:00:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #100 (SMopNzzZGY4).mkv
+FORMAT      : Matroska
+SIZE        : 36,189,665 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:09:01.220
+TRANSCRIBED: 2026-05-10T21:23:18.420412+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay this is temple OS 5-minute random code walkthrough episode 100 and I'm your host Terry Davis and we are in the hard drive ATA code ATA probe okay so there are IO ports which there's 16 bits 65536 different IO ports there's memory and then there's IO memory space and then there's IO space so an IO port is 16 bits one on two four different values and a hard drive or CD-ROM the old style you accessed with two sets of IO ports in okay so I have to identify which port I have to identify when it boots I don't know the the CD-ROM drive that it booted from and I have to probe in order to determine there's a ATA probe is used when I try to test for a CD-ROM so basically there's a two sets of ports and what this routine does is it gets device ID okay for a certain I I make a guess at the IO ports and then I read them it's a little bit dangerous because a wrong guess could screw something up not it's not likely to corrupt anything but it can crash but there's some standard port locations such as well first it tries to get them the correct way and then it tries to check this old standard primary master and secondary primary and secondary IDE anyway one one F03 F6 was that was is the primary IDE and one seven zero three seven six is the secondary IDE and it turns out that when you boot with the BIOS that's different from UH you UEFI is the new way of booting with the old way of booting you use interrupt 13 and you use interrupt 13 where's interrupt 13 here it is you use interrupt 13 and you pass the drive number in DL so it starts in 16 bit mode and DL when it calls your boot loader when the BIOS calls your boot loader DL is the has the this is the BIOS number for the CD-ROM but there's no way to convert the BIOS CD-ROM to IO ports the BIOS CD-ROM number in DL is no good for accessing IO ports and so basically we have to probe all the different let's see if I think this is only used for finding the CD-ROM or it could be wrong but I think so so oh no it's used there too okay probing so notice what I did F is a really that's your best friend FATA you can quickly scan all the code so there's an ATA report probe this it checks I have a primary IDE and secondary IDE TAPI TAPI is CD-ROM and ATA is hard drive anyway so I think it it checked there's unit 0 and unit 1 and when I probed I determined that unit 1 did not exist so I determined that unit 1 did not exist ATA rep checks primary it tries to make an entry for primary oh let's see first it tries to find them there's what's called a PCI BIOS and what that is is a 32-bit BIOS that has a handful of where would that be the PCI BIOS has a handful of you can read config space or you can write config space or you can try and find a device class that's what we're trying to do we're trying to find the CD-ROM the correct way with this find PCI class you have to know the codes if you look on the internet for PCI or for PCI class codes then you can call this and it will identify a device class like SATA or ATA or IDE and all three of those can be for ATA devices anyway so that then you read the config space in order to find out the port numbers and then from then on you can just use the port numbers and not use PCI there's PCI rep this tells us let's see if we identify the SATA let's see where SATA is or ATA there's a SCSI is that what I'm using? I don't think I'm using SCSI how can I be using SCSI? I don't even know which one of these maybe we didn't find it anyway VMware allows primary and secondary IDE to function I don't even know which PCI device it is actually anyway so when you boot on native hardware it it might ask you for the port numbers for the CD-ROM if it can't find it it asks you for the port numbers and anyway so oh well we can name it we can name it we can name it we can name it we can name it we can name it name it name it name it name it
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:01.500 -> 00:00:07.540]  okay this is temple OS 5-minute random code walkthrough episode 100 and I'm your host Terry
+[00:00:07.540 -> 00:00:26.560]  Davis and we are in the hard drive ATA code ATA probe okay so there are IO ports which there's
+[00:00:26.560 -> 00:00:38.520]  16 bits 65536 different IO ports there's memory and then there's IO memory space and then there's
+[00:00:38.520 -> 00:00:50.240]  IO space so an IO port is 16 bits one on two four different values and a hard drive
+[00:00:53.420 -> 00:01:06.600]  or CD-ROM the old style you accessed with two sets of IO ports in
+[00:01:13.820 -> 00:01:26.300]  okay so I have to identify which port I have to identify when it boots I don't know the the CD-ROM
+[00:01:26.300 -> 00:01:34.940]  drive that it booted from and I have to probe in order to determine there's a
+[00:01:41.600 -> 00:01:48.640]  ATA probe is used when I try to test for a CD-ROM so
+[00:01:52.260 -> 00:02:07.300]  basically there's a two sets of ports and what this routine does is it gets device ID okay for a
+[00:02:07.300 -> 00:02:17.100]  certain I I make a guess at the IO ports and then I read them it's a little bit dangerous because a
+[00:02:17.100 -> 00:02:25.840]  wrong guess could screw something up not it's not likely to corrupt anything but it can crash
+[00:02:27.720 -> 00:02:39.160]  but there's some standard port locations such as well first it tries to get them the correct way and
+[00:02:39.160 -> 00:02:50.580]  then it tries to check this old standard primary master and secondary primary and secondary IDE
+[00:02:55.340 -> 00:03:08.520]  anyway one one F03 F6 was that was is the primary IDE and one seven zero three seven six is the secondary IDE
+[00:03:11.800 -> 00:03:34.520]  and it turns out that when you boot with the BIOS that's different from UH you UEFI is the new way of booting with the old way of booting you use interrupt 13 and
+[00:03:41.460 -> 00:04:04.500]  you use interrupt 13 where's interrupt 13 here it is you use interrupt 13 and you pass the drive number in DL so it starts in 16 bit mode and DL when it calls your boot loader when the BIOS calls your boot loader DL is the
+[00:04:04.500 -> 00:04:14.220]  has the this is the BIOS number for the CD-ROM but there's no way to convert the BIOS CD-ROM to IO ports
+[00:04:16.480 -> 00:04:30.380]  the BIOS CD-ROM number in DL is no good for accessing IO ports and so basically we have to probe all the different
+[00:04:32.860 -> 00:04:42.540]  let's see if I think this is only used for finding the CD-ROM or it could be wrong but I think so
+[00:04:44.180 -> 00:04:47.860]  so oh no it's used there too okay
+[00:04:54.600 -> 00:05:02.960]  probing so notice what I did F is a really that's your best friend FATA you can quickly scan all the code
+[00:05:08.760 -> 00:05:11.880]  so there's an ATA report
+[00:05:15.340 -> 00:05:16.300]  probe
+[00:05:18.440 -> 00:05:19.400]  this
+[00:05:19.400 -> 00:05:21.160]  it checks
+[00:05:21.160 -> 00:05:24.260]  I have a primary IDE and secondary IDE
+[00:05:26.660 -> 00:05:27.380]  TAPI
+[00:05:27.380 -> 00:05:28.200]  TAPI is CD-ROM
+[00:05:28.200 -> 00:05:30.700]  and ATA is hard drive
+[00:05:31.980 -> 00:05:32.700]  anyway
+[00:05:32.700 -> 00:05:33.260]  so
+[00:05:34.360 -> 00:05:35.620]  I think it
+[00:05:35.620 -> 00:05:36.980]  it checked
+[00:05:37.780 -> 00:05:40.060]  there's unit 0 and unit 1
+[00:05:40.060 -> 00:05:45.020]  and when I probed I determined that unit 1 did not exist
+[00:05:46.040 -> 00:05:46.760]  so
+[00:05:49.440 -> 00:05:52.520]  I determined that unit 1 did not exist
+[00:05:55.340 -> 00:05:59.420]  ATA rep checks primary
+[00:06:00.540 -> 00:06:04.700]  it tries to make an entry for primary
+[00:06:05.900 -> 00:06:07.100]  oh let's see
+[00:06:09.340 -> 00:06:11.220]  first it tries to find them
+[00:06:11.220 -> 00:06:14.480]  there's what's called a PCI BIOS
+[00:06:14.480 -> 00:06:20.680]  and what that is is a 32-bit BIOS
+[00:06:20.680 -> 00:06:23.340]  that has a handful of
+[00:06:26.920 -> 00:06:28.740]  where would that be
+[00:06:30.840 -> 00:06:33.800]  the PCI BIOS has a handful of
+[00:06:34.840 -> 00:06:38.100]  you can read config space
+[00:06:40.680 -> 00:06:41.160]  or
+[00:06:45.220 -> 00:06:46.940]  you can write config space
+[00:06:46.940 -> 00:06:49.620]  or you can try and find a device class
+[00:06:51.140 -> 00:06:52.540]  that's what we're trying to do
+[00:06:52.540 -> 00:06:55.240]  we're trying to find the CD-ROM the correct way
+[00:06:55.760 -> 00:06:59.280]  with this find PCI class
+[00:07:00.220 -> 00:07:02.020]  you have to know the codes
+[00:07:02.020 -> 00:07:04.520]  if you look on the internet for PCI
+[00:07:04.520 -> 00:07:09.560]  or for PCI class codes
+[00:07:09.560 -> 00:07:14.080]  then you can call this and it will identify a device class
+[00:07:14.080 -> 00:07:18.800]  like SATA or ATA or IDE
+[00:07:21.400 -> 00:07:25.940]  and all three of those can be for ATA devices
+[00:07:25.940 -> 00:07:27.460]  anyway so that
+[00:07:27.460 -> 00:07:29.720]  then you read the config space
+[00:07:30.360 -> 00:07:33.860]  in order to find out the port numbers
+[00:07:34.560 -> 00:07:37.640]  and then from then on you can just use the port numbers
+[00:07:37.640 -> 00:07:39.160]  and not use PCI
+[00:07:42.280 -> 00:07:44.200]  there's PCI rep
+[00:07:48.420 -> 00:07:50.080]  this tells us
+[00:07:50.080 -> 00:07:52.320]  let's see if we identify
+[00:07:52.320 -> 00:07:54.600]  the SATA
+[00:07:54.600 -> 00:07:56.100]  let's see where SATA is
+[00:07:56.640 -> 00:07:58.300]  or ATA
+[00:08:03.720 -> 00:08:04.880]  there's a SCSI
+[00:08:04.880 -> 00:08:06.620]  is that what I'm using?
+[00:08:06.860 -> 00:08:08.360]  I don't think I'm using SCSI
+[00:08:08.360 -> 00:08:10.740]  how can I be using SCSI?
+[00:08:13.480 -> 00:08:15.360]  I don't even know which one of these
+[00:08:16.660 -> 00:08:18.440]  maybe we didn't find it
+[00:08:19.920 -> 00:08:20.500]  anyway
+[00:08:21.500 -> 00:08:22.080]  VMware
+[00:08:24.120 -> 00:08:24.700]  allows
+[00:08:25.460 -> 00:08:28.120]  primary and secondary IDE to function
+[00:08:28.120 -> 00:08:32.180]  I don't even know which PCI device it is actually
+[00:08:33.500 -> 00:08:34.160]  anyway
+[00:08:35.220 -> 00:08:35.880]  so
+[00:08:35.880 -> 00:08:38.540]  when you boot on native hardware
+[00:08:39.720 -> 00:08:40.380]  it
+[00:08:42.380 -> 00:08:43.040]  it
+[00:08:43.880 -> 00:08:46.380]  might ask you for the port numbers
+[00:08:46.380 -> 00:08:46.780]  for
+[00:08:48.820 -> 00:08:50.560]  the CD-ROM
+[00:08:51.840 -> 00:08:53.400]  if it can't find it
+[00:08:53.400 -> 00:08:55.020]  it asks you for the port numbers
+[00:08:55.020 -> 00:08:56.200]  and
+[00:08:56.200 -> 00:08:57.380]  anyway
+[00:08:57.380 -> 00:08:58.240]  so
+[00:08:58.240 -> 00:08:58.940]  oh well
+[00:08:58.940 -> 00:08:58.940]  
+[00:08:58.940 -> 00:08:58.960]  we can name it
+[00:08:58.960 -> 00:08:58.960]  
+[00:08:58.960 -> 00:08:58.960]  
+[00:08:58.960 -> 00:08:58.960]  
+[00:08:58.960 -> 00:08:58.960]  
+[00:08:58.960 -> 00:08:58.960]  
+[00:08:58.960 -> 00:08:58.960]  
+[00:08:58.960 -> 00:08:58.960]  
+[00:08:58.960 -> 00:08:58.960]  
+[00:08:58.960 -> 00:08:58.960]  
+[00:08:58.960 -> 00:08:58.960]  
+[00:08:58.960 -> 00:08:58.960]  
+[00:08:58.960 -> 00:08:58.960]  
+[00:08:58.960 -> 00:08:58.960]  
+[00:08:58.960 -> 00:08:58.960]  
+[00:08:58.960 -> 00:08:58.960]  
+[00:08:58.960 -> 00:08:58.960]  
+[00:08:58.960 -> 00:08:59.040]  we can name it
+[00:08:59.040 -> 00:08:59.040]  
+[00:08:59.040 -> 00:08:59.100]  we can name it
+[00:08:59.100 -> 00:08:59.100]  
+[00:08:59.100 -> 00:08:59.100]  
+[00:08:59.100 -> 00:08:59.100]  
+[00:08:59.100 -> 00:08:59.100]  
+[00:08:59.100 -> 00:08:59.100]  
+[00:08:59.100 -> 00:08:59.100]  
+[00:08:59.100 -> 00:08:59.300]  we can name it
+[00:08:59.300 -> 00:08:59.540]  we can name it
+[00:08:59.540 -> 00:08:59.920]  we can name it
+[00:08:59.920 -> 00:08:59.940]  name it
+[00:08:59.940 -> 00:09:00.120]  name it
+[00:09:00.120 -> 00:09:00.120]  
+[00:09:00.120 -> 00:09:00.120]  
+[00:09:00.120 -> 00:09:00.320]  name it
+[00:09:00.320 -> 00:09:00.320]  
+[00:09:00.320 -> 00:09:00.320]  
+[00:09:00.320 -> 00:09:00.320]  
+[00:09:00.320 -> 00:09:00.320]  
+[00:09:00.320 -> 00:09:01.240]  name it
+[00:09:01.220 -> 00:09:01.220]  

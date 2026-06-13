@@ -1,0 +1,35 @@
+# TempleOS Archive Transcriber — Python dependencies
+# Install:  pip install -r requirements.txt
+#
+# Also required (not pip-installable):
+#   ffmpeg          # brew install ffmpeg / sudo pacman -S ffmpeg / sudo apt install ffmpeg
+#   ia configure    # optional: archive.org S3 keys for higher rate limits
+#
+# Optional recovery tooling (auto-detected; only needed to recover corrupt sources):
+#   untrunc         # rebuilds truncated MP4s missing their moov index.  Easiest via
+#                   #   docker:  git clone https://github.com/anthwlock/untrunc /tmp/untrunc
+#                   #            docker build -t untrunc-local /tmp/untrunc
+#                   #   (or install an `untrunc` binary on PATH)
+
+# Archive.org item access
+internetarchive[speedups]
+
+# Re-fetch the original audio from YouTube for files that still carry a video id
+# (recovery tier 3).  Optional — recovery degrades gracefully without it.
+yt-dlp
+
+# ── Whisper backend ──────────────────────────────────────────────────────────
+# faster-whisper is the cross-platform default: NVIDIA CUDA *or* CPU, any OS.
+# It is the only backend left uncommented so `pip install -r requirements.txt`
+# always yields a working setup.
+faster-whisper
+
+# Apple Silicon (M-series) Macs — uncomment for a big speedup:
+# mlx-whisper
+
+# Pure-CPU last resort (slowest) — uncomment only if you can't use the above:
+# openai-whisper
+
+# Terminal UI
+rich
+tqdm

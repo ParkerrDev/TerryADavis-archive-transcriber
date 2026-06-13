@@ -1,0 +1,261 @@
+========================================================================
+FILE        : videos/2014/2014-11-17T00:00:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #76 (cW7AcQgR-tg).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-11-17T00:00:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #76 (cW7AcQgR-tg).mp4
+FORMAT      : MPEG4
+SIZE        : 34,778,653 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:11:44.680
+TRANSCRIBED: 2026-05-10T19:48:16.187825+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay this is Temple OS 5-minute random code walkthrough episode 67 and I'm your host Terry Davis and it looks like we are in we are in the math library inside of in the atom directory math is that where it is no that's not where it is oh it's in the graphics inside the graph graphics math graphics okay so this is the circle routine and I'll tell you how it works it uses scaled integer math so you can imagine that as well let's suppose let's suppose we just to show what scaled integer math is like well let's suppose we okay so so look at this I stepped by 80 and if we break this up it if you can imagine this is a decimal place okay do you see how that's going by a half well that's the way fixed point math works so floating point is different anyway so for these operations we scale by 24 bits it looks like so 24 bits is a couple less than 32 anyway so it's a it's something like that now what do I do I find the sine in the cosine of uh uh uh t one over the radius well uh so let's see let's think about this um if we're drawing a circle um it's uh two two pi r is the circumference and uh if we want to uh uh we want to step by uh uh we want to step by one pixel so uh let's see apparently it's one over the radius is the uh we're rotating by a tiny angle let me explain this uh uh how do I explain this um in electrical engineering uh you have a mag magnitude at angle one complex numbers you say magnitude and uh you use a an angle symbol now if you imagine complex numbers and if you multiply these two complex numbers it equals uh m1 m2 at angle one plus angle two now what if we uh what if we define m1 and m2 to be uh oh i guess uh the radius we want m1 equal to the radius and m2 equal to one 1.0 and we want the angle to be uh um we want to so this is a vector notation that i just showed right here but when you do it as complex numbers it's uh it's x1 plus y1i x1 plus y1i or j if you're an electrical engineer times x2 plus y2i equals and uh when we expand this x1 x2 uh plus i1 x2 plus um y2 x1 i and then we i think we minus uh y1 y2 so um if you do the math uh you get complex numbers like this and uh so what we're going to do is uh let me draw this um we we have a vector and we're going to rotate by we want one pixel rotated and then we're going to keep rotating the result and we're going to go around in a circle okay so um the total distance is going to be um anyway so we the circumference is uh anyway okay so what do we do um um i have to convince myself why this is one over r this is the angle we um we rotate r the radius okay well anyway um so we take we scaled the uh remember we talked about scaled arithmetic we uh we rotate by an an angle of uh one over r radians and we have um two values uh we have um oh oh oh if step is greater or less than zero anyway uh so we start at a distance of uh we we get the x y at at an initial position on the circle edge and then we go through one of length which is uh radians times radius okay so this is um 2 pi r is the length and each time we step we step one over r radians which i guess is one pixel that's one pixel i guess and then we do this cosine okay so uh this angle this angle is uh um oh you know what i think we want the other we want cosine x plus i sine x so this is the uh multiplied by uh okay well anyway that's uh oh shucks cosine we have plus and minus and this is using fixed uh point arithmetic! so the new x is uh cosine so the new x is uh this value and this value the new y is this value and this value and i'm not explaining this very well am i okay um so um! first we we get x and y to be um we have x plus i y and then we multiply by uh the the angle we want to rotate multiplied by this and that yields uh cosine x minus i sine y that's um minus um sine minus sine y so that that's what that yields cosine plus and then we do the cross between these that so sine sine x plus um cosine y let's see if i did it right so cosine cosine x minus sine y okay s1 is negative so that's the sine i i in order to prevent having to calculate the negative repeatedly i made us a a positive and a negative so sine 1y so cosine x minus plus sine 1y cosine x and uh sine x cosine y so that's what we're doing Nice.
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:06.560]  okay this is Temple OS 5-minute random code walkthrough episode 67 and I'm your
+[00:00:06.560 -> 00:00:20.880]  host Terry Davis and it looks like we are in we are in the math library inside
+[00:00:20.880 -> 00:00:34.360]  of in the atom directory math is that where it is no that's not where it is
+[00:00:37.620 -> 00:00:50.380]  oh it's in the graphics inside the graph graphics math graphics okay so this is the
+[00:00:50.380 -> 00:01:02.920]  circle routine and I'll tell you how it works it uses scaled integer math so you
+[00:01:02.920 -> 00:01:09.940]  can imagine that as well let's suppose
+[00:01:15.880 -> 00:01:18.960]  let's suppose we
+[00:01:40.420 -> 00:01:47.200]  just to show what scaled integer math is like well let's suppose we
+[00:02:03.480 -> 00:02:05.740]  okay so
+[00:02:13.300 -> 00:02:24.380]  so look at this I stepped by 80 and if we break this up it if you can imagine this is a decimal place
+[00:02:36.340 -> 00:02:45.720]  okay do you see how that's going by a half well that's the way fixed point math works
+[00:02:49.160 -> 00:03:03.080]  so floating point is different anyway so for these operations we scale by 24 bits it looks like so
+[00:03:06.620 -> 00:03:21.400]  24 bits is a couple less than 32 anyway so it's a it's something like that now what do I do I find the sine in the cosine of
+[00:03:21.400 -> 00:03:21.560]  uh
+[00:03:24.660 -> 00:03:25.480]  uh
+[00:03:25.480 -> 00:03:25.900]  uh
+[00:03:25.900 -> 00:03:26.000]  t
+[00:03:26.000 -> 00:03:35.800]  one over the radius well uh so let's see let's think about this um if we're drawing a circle um it's uh
+[00:03:35.800 -> 00:03:37.200]  two two pi
+[00:03:38.660 -> 00:03:39.480]  r
+[00:03:39.480 -> 00:03:41.580]  is the circumference
+[00:03:42.820 -> 00:03:46.480]  and uh if we want to uh
+[00:03:46.480 -> 00:03:50.620]  uh we want to step by uh
+[00:03:51.700 -> 00:03:52.460]  uh
+[00:03:55.100 -> 00:03:57.440]  we want to step by one pixel
+[00:03:59.040 -> 00:04:01.520]  so uh let's see
+[00:04:02.980 -> 00:04:06.660]  apparently it's one over the radius is the uh
+[00:04:10.260 -> 00:04:20.300]  we're rotating by a tiny angle let me explain this uh uh how do I explain this um in electrical
+[00:04:20.300 -> 00:04:32.400]  engineering uh you have a mag magnitude at angle one complex numbers you say magnitude and uh
+[00:04:32.400 -> 00:04:32.400]  
+[00:04:33.980 -> 00:04:35.380]  you use a
+[00:04:36.400 -> 00:04:37.500]  an angle symbol
+[00:04:41.920 -> 00:04:46.160]  now if you imagine complex numbers and if you multiply these two
+[00:04:46.160 -> 00:04:49.180]  complex numbers it equals uh
+[00:04:49.180 -> 00:04:50.640]  m1 m2
+[00:04:51.360 -> 00:04:51.740]  at
+[00:04:52.580 -> 00:04:54.700]  angle one plus angle two
+[00:04:55.440 -> 00:04:55.800]  now
+[00:04:55.800 -> 00:04:57.560]  what if we uh
+[00:04:57.560 -> 00:05:00.780]  what if we define m1 and m2 to be uh
+[00:05:00.780 -> 00:05:00.780]  
+[00:05:02.060 -> 00:05:03.720]  oh i guess uh
+[00:05:03.720 -> 00:05:04.860]  the radius
+[00:05:06.520 -> 00:05:08.160]  we want m1
+[00:05:08.940 -> 00:05:10.180]  equal to the radius
+[00:05:11.100 -> 00:05:13.260]  and m2 equal to
+[00:05:13.980 -> 00:05:15.160]  one 1.0
+[00:05:15.740 -> 00:05:17.840]  and we want the angle to be uh
+[00:05:18.460 -> 00:05:18.840]  um
+[00:05:18.840 -> 00:05:19.580]  we want to
+[00:05:20.620 -> 00:05:20.840]  so
+[00:05:21.760 -> 00:05:25.480]  this is a vector notation that i just showed right here
+[00:05:25.480 -> 00:05:28.460]  but when you do it as complex numbers it's uh
+[00:05:29.080 -> 00:05:30.100]  it's x1
+[00:05:31.000 -> 00:05:31.380]  plus
+[00:05:31.960 -> 00:05:32.920]  y1i
+[00:05:34.940 -> 00:05:36.940]  x1 plus y1i
+[00:05:36.940 -> 00:05:39.520]  or j if you're an electrical engineer
+[00:05:40.120 -> 00:05:41.620]  times x2
+[00:05:42.200 -> 00:05:43.440]  plus y2i
+[00:05:44.720 -> 00:05:45.560]  equals
+[00:05:47.000 -> 00:05:47.580]  and uh
+[00:05:47.580 -> 00:05:49.640]  when we expand this x1 x2
+[00:05:50.360 -> 00:05:50.640]  uh
+[00:05:51.400 -> 00:05:51.780]  plus
+[00:05:53.240 -> 00:05:54.200]  i1
+[00:05:55.280 -> 00:05:56.240]  x2
+[00:05:57.380 -> 00:05:57.820]  plus
+[00:05:59.020 -> 00:05:59.980]  um
+[00:06:01.240 -> 00:06:02.200]  y2
+[00:06:03.140 -> 00:06:03.760]  x1
+[00:06:06.180 -> 00:06:06.480]  i
+[00:06:07.860 -> 00:06:09.960]  and then we i think we minus uh
+[00:06:10.900 -> 00:06:11.980]  y1 y2
+[00:06:12.820 -> 00:06:13.480]  so um
+[00:06:14.020 -> 00:06:15.120]  if you do the math
+[00:06:15.120 -> 00:06:15.860]  uh
+[00:06:16.820 -> 00:06:18.760]  you get complex numbers like this
+[00:06:19.640 -> 00:06:20.340]  and uh
+[00:06:21.320 -> 00:06:21.520]  so
+[00:06:22.040 -> 00:06:23.600]  what we're going to do is uh
+[00:06:24.600 -> 00:06:25.580]  let me draw this
+[00:06:28.120 -> 00:06:28.380]  um
+[00:06:31.560 -> 00:06:31.820]  we
+[00:06:33.960 -> 00:06:34.960]  we have a vector
+[00:06:36.520 -> 00:06:36.900]  and
+[00:06:36.900 -> 00:06:38.760]  we're going to rotate
+[00:06:39.560 -> 00:06:39.820]  by
+[00:06:41.720 -> 00:06:42.280]  we want
+[00:06:42.280 -> 00:06:43.020]  one
+[00:06:44.120 -> 00:06:44.620]  pixel
+[00:06:45.480 -> 00:06:46.040]  rotated
+[00:06:47.440 -> 00:06:50.320]  and then we're going to keep rotating the result
+[00:06:51.040 -> 00:06:53.240]  and we're going to go around in a circle
+[00:06:53.980 -> 00:06:54.580]  okay
+[00:06:55.320 -> 00:06:55.600]  so
+[00:06:56.300 -> 00:06:56.900]  um
+[00:06:56.900 -> 00:06:59.500]  the total distance is going to be
+[00:06:59.500 -> 00:06:59.940]  um
+[00:07:01.640 -> 00:07:02.240]  anyway
+[00:07:03.080 -> 00:07:03.520]  so we
+[00:07:03.520 -> 00:07:05.060]  the circumference is uh
+[00:07:05.060 -> 00:07:05.760]  anyway
+[00:07:07.640 -> 00:07:08.240]  okay
+[00:07:09.800 -> 00:07:10.960]  so what do we do
+[00:07:10.960 -> 00:07:12.080]  um
+[00:07:12.080 -> 00:07:12.340]  um
+[00:07:12.340 -> 00:07:12.760]  i have to
+[00:07:13.620 -> 00:07:14.800]  convince myself
+[00:07:14.800 -> 00:07:16.320]  why this is one over r
+[00:07:17.980 -> 00:07:20.080]  this is the angle we um
+[00:07:20.800 -> 00:07:21.600]  we rotate
+[00:07:22.480 -> 00:07:22.880]  r
+[00:07:25.520 -> 00:07:26.700]  the radius
+[00:07:28.640 -> 00:07:29.320]  okay
+[00:07:32.160 -> 00:07:33.100]  well anyway
+[00:07:33.680 -> 00:07:33.860]  um
+[00:07:33.860 -> 00:07:34.720]  so we take
+[00:07:34.720 -> 00:07:36.140]  we scaled the uh
+[00:07:36.140 -> 00:07:38.460]  remember we talked about scaled arithmetic
+[00:07:38.460 -> 00:07:39.460]  we uh
+[00:07:40.060 -> 00:07:41.320]  we rotate by an
+[00:07:41.320 -> 00:07:42.520]  an angle of
+[00:07:42.520 -> 00:07:42.660]  uh
+[00:07:42.660 -> 00:07:43.460]  one over r
+[00:07:43.460 -> 00:07:44.180]  radians
+[00:07:45.000 -> 00:07:45.660]  and
+[00:07:48.100 -> 00:07:49.220]  we have
+[00:07:49.220 -> 00:07:49.500]  um
+[00:07:49.500 -> 00:07:50.560]  two values
+[00:07:50.560 -> 00:07:51.000]  uh
+[00:07:51.660 -> 00:07:52.080]  we have
+[00:07:53.220 -> 00:07:53.880]  um
+[00:07:55.520 -> 00:07:56.180]  oh
+[00:07:56.180 -> 00:07:56.840]  oh oh
+[00:07:56.840 -> 00:07:58.720]  if step is greater or less than zero
+[00:07:59.580 -> 00:08:00.240]  anyway
+[00:08:00.240 -> 00:08:00.600]  uh
+[00:08:00.600 -> 00:08:01.520]  so we start
+[00:08:01.520 -> 00:08:02.740]  at a distance of
+[00:08:02.740 -> 00:08:02.980]  uh
+[00:08:04.840 -> 00:08:05.500]  we
+[00:08:05.500 -> 00:08:06.640]  we get the x
+[00:08:06.640 -> 00:08:07.360]  y at
+[00:08:07.360 -> 00:08:08.780]  at an initial position
+[00:08:08.780 -> 00:08:09.860]  on the circle
+[00:08:09.860 -> 00:08:10.680]  edge
+[00:08:11.680 -> 00:08:13.300]  and then we go through
+[00:08:14.520 -> 00:08:15.420]  one of
+[00:08:15.420 -> 00:08:16.020]  length
+[00:08:16.020 -> 00:08:17.160]  which is uh
+[00:08:18.480 -> 00:08:20.200]  radians times radius
+[00:08:20.200 -> 00:08:21.400]  okay so this is
+[00:08:21.400 -> 00:08:22.340]  um
+[00:08:25.040 -> 00:08:26.440]  2 pi r
+[00:08:26.440 -> 00:08:27.580]  is the length
+[00:08:28.160 -> 00:08:30.100]  and each time we step we step
+[00:08:30.960 -> 00:08:31.780]  one over r
+[00:08:31.780 -> 00:08:32.520]  radians
+[00:08:32.520 -> 00:08:34.500]  which i guess is one pixel
+[00:08:34.500 -> 00:08:35.960]  that's one pixel i guess
+[00:08:36.500 -> 00:08:38.100]  and then we do this cosine
+[00:08:39.680 -> 00:08:41.260]  okay so uh
+[00:08:42.520 -> 00:08:43.680]  this angle
+[00:08:43.680 -> 00:08:45.220]  this angle is
+[00:08:45.220 -> 00:08:45.580]  uh
+[00:08:51.140 -> 00:08:51.800]  um
+[00:08:54.020 -> 00:08:56.420]  oh you know what i think we want the other
+[00:08:57.220 -> 00:08:58.340]  we want cosine
+[00:08:58.340 -> 00:09:00.320]  x plus
+[00:09:01.060 -> 00:09:01.900]  i sine
+[00:09:03.780 -> 00:09:04.080]  x
+[00:09:09.220 -> 00:09:10.480]  so this is the uh
+[00:09:11.900 -> 00:09:13.320]  multiplied by
+[00:09:13.320 -> 00:09:13.740]  uh
+[00:09:17.060 -> 00:09:18.100]  okay well anyway that's
+[00:09:18.100 -> 00:09:18.580]  uh
+[00:09:18.580 -> 00:09:19.260]  oh
+[00:09:19.260 -> 00:09:19.920]  shucks
+[00:09:22.000 -> 00:09:24.360]  cosine we have plus and minus
+[00:09:24.360 -> 00:09:26.560]  and this is using fixed uh
+[00:09:26.560 -> 00:09:27.540]  point arithmetic
+[00:09:33.240 -> 00:09:33.520]  !
+[00:09:33.520 -> 00:09:34.900]  so the new x
+[00:09:34.900 -> 00:09:35.160]  is uh
+[00:09:38.000 -> 00:09:38.880]  cosine
+[00:09:38.880 -> 00:09:41.780]  so the new x is uh
+[00:09:41.780 -> 00:09:44.440]  this value
+[00:09:44.440 -> 00:09:45.240]  and this value
+[00:09:50.500 -> 00:09:52.380]  the new y is this value
+[00:09:52.380 -> 00:09:53.040]  and this value
+[00:09:53.560 -> 00:09:56.060]  and i'm not explaining this very well am i
+[00:09:56.680 -> 00:09:57.060]  okay
+[00:09:57.640 -> 00:09:57.980]  um
+[00:09:59.060 -> 00:10:00.200]  so um
+[00:10:01.280 -> 00:10:01.880]  !
+[00:10:01.880 -> 00:10:05.600]  first we we get x and y to be um
+[00:10:05.600 -> 00:10:08.160]  we have x
+[00:10:08.160 -> 00:10:08.920]  plus i y
+[00:10:09.980 -> 00:10:11.420]  and then we multiply by
+[00:10:11.420 -> 00:10:11.660]  uh
+[00:10:14.700 -> 00:10:16.960]  the the angle we want to rotate
+[00:10:20.940 -> 00:10:22.500]  multiplied by this
+[00:10:23.660 -> 00:10:25.180]  and that yields uh
+[00:10:26.860 -> 00:10:27.980]  cosine x
+[00:10:32.140 -> 00:10:32.540]  minus
+[00:10:33.340 -> 00:10:33.700]  i
+[00:10:35.180 -> 00:10:35.540]  sine
+[00:10:37.340 -> 00:10:37.680]  y
+[00:10:39.600 -> 00:10:40.780]  that's um
+[00:10:43.720 -> 00:10:44.520]  minus
+[00:10:44.520 -> 00:10:45.080]  um
+[00:10:47.260 -> 00:10:48.060]  sine
+[00:10:48.060 -> 00:10:49.300]  minus sine y
+[00:10:50.240 -> 00:10:51.940]  so that that's what that yields
+[00:10:51.940 -> 00:10:52.780]  cosine
+[00:10:53.360 -> 00:10:53.740]  plus
+[00:10:55.120 -> 00:10:55.720]  and then we
+[00:10:55.720 -> 00:10:57.660]  do the cross between these
+[00:10:57.660 -> 00:10:58.380]  that so
+[00:10:58.380 -> 00:10:58.840]  sine
+[00:10:59.920 -> 00:11:00.820]  sine x
+[00:11:01.680 -> 00:11:02.040]  plus
+[00:11:02.800 -> 00:11:03.140]  um
+[00:11:03.840 -> 00:11:04.740]  cosine y
+[00:11:05.680 -> 00:11:07.020]  let's see if i did it right
+[00:11:07.680 -> 00:11:08.580]  so cosine
+[00:11:09.680 -> 00:11:10.600]  cosine x
+[00:11:10.600 -> 00:11:12.220]  minus sine y
+[00:11:12.220 -> 00:11:13.720]  okay s1 is negative
+[00:11:14.240 -> 00:11:15.200]  so that's the sine
+[00:11:15.200 -> 00:11:15.860]  i i
+[00:11:15.860 -> 00:11:17.260]  in order to prevent
+[00:11:17.260 -> 00:11:19.940]  having to calculate the negative repeatedly
+[00:11:20.560 -> 00:11:23.100]  i made us a a positive and a negative
+[00:11:23.100 -> 00:11:25.020]  so sine 1y
+[00:11:29.040 -> 00:11:29.320]  so
+[00:11:30.260 -> 00:11:31.660]  cosine x
+[00:11:31.660 -> 00:11:32.340]  minus
+[00:11:33.600 -> 00:11:34.840]  plus sine 1y
+[00:11:34.840 -> 00:11:36.220]  cosine x
+[00:11:36.220 -> 00:11:36.380]  and uh
+[00:11:39.480 -> 00:11:40.440]  sine x
+[00:11:41.880 -> 00:11:42.840]  cosine y
+[00:11:42.840 -> 00:11:44.560]  so that's what we're doing
+[00:11:44.560 -> 00:11:44.680]  Nice.

@@ -1,0 +1,432 @@
+========================================================================
+FILE        : videos/2014/2014-11-05T00:05:00+00:00 - TempleOS - Making Asteroids Game #1 (Av8pB_veL8o).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-11-05T00:05:00+00:00 - TempleOS - Making Asteroids Game #1 (Av8pB_veL8o).mkv
+FORMAT      : Matroska
+SIZE        : 83,476,285 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:17:52.630
+TRANSCRIBED: 2026-05-10T19:46:30.114343+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay I'm gonna show that this is indeed 640 by 480 what do we call this we're gonna call this collision settings push that's this is because when you run it doesn't spawn a new task and if you don't save then everything gets messed up I'll complete these are all rigged to the default that you want you want you they're all rigged to the default there the defaults are just what you want it's not press a key dry clear let's run it to happens okay it looks good now we let's make a sprite now you think I'm doing this with character graphics well how can I I'm just throwing down a lot of lines this would be kind of hard to do with character graphics don't you think okay when they want to do collisions I did dithering that's not easy I wrote the graphics routines all the way down to bare metal I wrote why wrote everything all the way down to bare metal this is one of the flood fill is is a oh I was gonna go over all the algorithms I use I don't really use that many algorithms okay I'll call that enough okay so now we want to uh sprite 3b there's a reason for dc about uh i64 cx uh wind pixel pixel pixel I renamed these so many times I don't know them anymore I nameinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinação cx c y 0 comma control r pointer to sprite number one okay so that did not look very centered oh that's because this is not centered so we go control r sprite edit menu set origin exit sprite f5 now it's centered okay now we want let's uh control r make sprite tag text 2 you know what you should never lose an opportunity when you're doing demonstrations don't be stupid anyway i make that mistake a lot of times so try and be no don't be just brain dead said origin no let's i64 x y i have uh consistency is next to god godliness yes well let's just say 100 100 and well let's make these f64 control alt a theta and let's see theta equals 0 now sprite 3z sprite z 3b dc comma x comma y comma 0 comma control r pointer to sprite number 2 comma theta theta let's see okay now we uh uh yeah i want to rotate it that's what i want to do okay oops i'll do this as quick quickly as possible uh switch uh get target what do we want get key address sc shift escape is uh 28 shift escape is uh 28 let's make sure let's make sure this works let's make sure this works uh shift escape escape okay it works so um the cursor keys have no ascii have an ascii code of 0 but they have a scan code um switch scan code the low byte um i put the e0 as a uh cursor cursor cursor right uh let's just see i feel like being uh should you pie uh fucking cursor left you want to see collision okay so we got the spaceship turning around uh well i don't feel so good about this user unit task enemy task equals uh spawn address enemy task comma comma comma fs this this is the uh let's just say zero this is the name this is no this is the cpu no let's see cpu parent okay cpu okay wow let's see uh let's see uh oh well i can get fancy unless i can get fancy x plus equals bx y plus equals b1 no x plus equals oh oh shit thrust let's do thrust let's do thrust t hr thrust thrust times cosine this gets tricky y is backward thrust times sine theta this is minus and uh uh sc cursor up name cl cl cl cl cl cl cl cl cl cl cl cl cl cl cl cl cl cl cl cl cl! to normally use I can make thrust decay thrust times equals 0.8 how about that that makes it decay and thrust equals zero ok thrust decaying too fast if I tap the thrust it uh that's not very satisfying ok so it's going the wrong angle I can just do a kludge pi divided by 2 I don't know what is it ok it's backward minus that's not backward it's something weird there we go ok so we got a spaceship and we want to make it crash when it collides so um technically oh I don't want to do that technically I should test in the animation but instead I'm going to test in the uh here ok so now we say dc collision count equals zero uh we say dc color rop collision dc um um the sprites um if uh dc collision count greater than uh let's let's just say uh let's let's get fancy uh patrol r make sprite color color color yellow width five line i've made fire a lot ok color red line uh oh it's red already color color black black lined ok i should have set the screen to black for space set origin escape ok so i believe i hit control t sprite number three so uh that's kinda ugly so it turns out if you copy on the clipboard it uh changes the number so you have to be careful uh so we want this to be number three and this to be number two control t f5 ok now it's blowed up number three number two if collision count number four oh i think uh i have the background um uh rop you have to set the background oh i think dc i don't know if it's gonna work i forgot how to do this hey i got lucky there it crashed ok we have asteroids good enough now we haveinação we haveinação I can name it. I can name it. I can name it. I can name it.
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:01.400 -> 00:00:15.840]  okay I'm gonna show that this is indeed 640 by 480 what do we call this we're
+[00:00:15.840 -> 00:00:38.020]  gonna call this collision settings push that's this is because when you run it doesn't spawn a
+[00:00:38.020 -> 00:00:48.700]  new task and if you don't save then everything gets messed up I'll complete these are all rigged
+[00:00:48.700 -> 00:01:01.260]  to the default that you want you want you they're all rigged to the default there the defaults are
+[00:01:01.260 -> 00:01:05.880]  just what you want it's not
+[00:01:32.640 -> 00:01:50.400]  press a key dry clear let's run it to happens okay it looks good now we let's make a sprite now you
+[00:01:50.400 -> 00:02:04.400]  think I'm doing this with character graphics well how can I I'm just throwing down a lot of lines
+[00:02:04.400 -> 00:02:12.280]  this would be kind of hard to do with character graphics don't you think okay when they want to
+[00:02:12.280 -> 00:02:24.980]  do collisions I did dithering that's not easy I wrote the graphics routines all the way down to
+[00:02:24.980 -> 00:02:36.280]  bare metal I wrote why wrote everything all the way down to bare metal this is one of the flood fill is
+[00:02:36.310 -> 00:02:44.270]  is a oh I was gonna go over all the algorithms I use I don't really use that many algorithms
+[00:02:48.890 -> 00:03:02.290]  okay I'll call that enough okay so now we want to uh sprite 3b there's a reason for
+[00:03:04.070 -> 00:03:25.390]  dc about uh i64 cx uh wind pixel pixel pixel I renamed these so many times I don't know them anymore
+[00:03:51.490 -> 00:03:54.290]  I nameinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinaçãoinação
+[00:03:55.110 -> 00:04:10.530]  cx c y 0 comma control r pointer to sprite number one okay so that did not
+[00:04:10.530 -> 00:04:17.730]  look very centered oh that's because this is not centered so we go control r
+[00:04:17.730 -> 00:04:36.850]  sprite edit menu set origin exit sprite f5 now it's centered okay now we want let's uh
+[00:04:38.810 -> 00:04:50.410]  control r make sprite tag text 2 you know what you should never lose an opportunity
+[00:04:53.350 -> 00:05:03.210]  when you're doing demonstrations don't be stupid anyway i make that mistake a lot of times
+[00:05:03.210 -> 00:05:08.750]  so try and be no don't be just brain dead
+[00:05:12.810 -> 00:05:14.250]  said origin
+[00:05:19.910 -> 00:05:26.190]  no let's i64 x y i have
+[00:05:26.190 -> 00:05:26.330]  uh
+[00:05:34.370 -> 00:05:37.030]  consistency is next to god godliness
+[00:05:37.030 -> 00:05:37.210]  yes
+[00:05:43.790 -> 00:05:45.690]  well let's just say 100 100
+[00:05:50.790 -> 00:05:53.170]  and well let's make these f64
+[00:05:53.170 -> 00:05:59.090]  control alt a theta
+[00:06:01.610 -> 00:06:04.050]  and let's see
+[00:06:08.190 -> 00:06:10.730]  theta equals 0
+[00:06:10.730 -> 00:06:37.730]  now sprite 3z sprite z 3b dc comma x comma y comma 0 comma control r pointer to sprite number 2 comma theta
+[00:06:37.730 -> 00:06:39.570]  theta let's see
+[00:06:40.910 -> 00:06:41.550]  okay
+[00:06:42.470 -> 00:06:43.790]  now we uh
+[00:06:46.690 -> 00:06:47.330]  uh
+[00:06:49.550 -> 00:06:52.190]  yeah i want to rotate it that's what i want to do
+[00:06:52.870 -> 00:06:53.510]  okay
+[00:06:57.850 -> 00:06:58.490]  oops
+[00:07:02.930 -> 00:07:05.490]  i'll do this as quick quickly as possible
+[00:07:06.050 -> 00:07:06.970]  uh
+[00:07:21.730 -> 00:07:23.730]  switch uh
+[00:07:23.730 -> 00:07:23.730]  
+[00:07:24.730 -> 00:07:26.210]  get target what do we want
+[00:07:26.730 -> 00:07:27.410]  get
+[00:07:28.770 -> 00:07:29.830]  key
+[00:07:31.310 -> 00:07:33.050]  address sc
+[00:07:52.390 -> 00:07:55.030]  shift escape is uh 28
+[00:07:55.030 -> 00:07:55.370]  shift escape is uh 28
+[00:08:02.950 -> 00:08:04.190]  let's make sure
+[00:08:04.190 -> 00:08:04.850]  let's make sure this works
+[00:08:06.090 -> 00:08:11.890]  let's make sure this works
+[00:08:11.890 -> 00:08:11.970]  uh
+[00:08:11.970 -> 00:08:12.670]  shift escape
+[00:08:12.670 -> 00:08:13.190]  escape
+[00:08:13.190 -> 00:08:14.170]  okay it works
+[00:08:14.170 -> 00:08:15.710]  so um
+[00:08:15.710 -> 00:08:15.710]  
+[00:08:16.710 -> 00:08:17.990]  the cursor keys
+[00:08:19.490 -> 00:08:20.710]  have no ascii
+[00:08:21.290 -> 00:08:23.110]  have an ascii code of 0
+[00:08:24.770 -> 00:08:26.950]  but they have a scan code
+[00:08:27.990 -> 00:08:28.830]  um
+[00:08:30.450 -> 00:08:32.470]  switch scan code
+[00:08:32.470 -> 00:08:34.670]  the low byte
+[00:08:36.610 -> 00:08:37.450]  um
+[00:08:37.450 -> 00:08:38.330]  i put
+[00:08:38.330 -> 00:08:39.450]  the e0
+[00:08:40.370 -> 00:08:41.430]  as a uh
+[00:08:45.470 -> 00:08:46.310]  cursor
+[00:08:47.850 -> 00:08:48.690]  cursor
+[00:08:48.690 -> 00:08:49.170]  cursor right
+[00:08:52.790 -> 00:08:53.630]  uh
+[00:08:53.630 -> 00:08:54.470]  let's just
+[00:08:54.470 -> 00:08:54.750]  see
+[00:08:54.750 -> 00:08:57.090]  i feel like being
+[00:08:59.390 -> 00:09:00.150]  uh
+[00:09:00.150 -> 00:09:00.150]  
+[00:09:00.150 -> 00:09:00.610]  should you pie
+[00:09:00.610 -> 00:09:01.190]  uh
+[00:09:01.990 -> 00:09:02.090]  fucking
+[00:09:08.550 -> 00:09:09.310]  cursor
+[00:09:09.310 -> 00:09:10.170]  left
+[00:09:10.170 -> 00:09:12.410]  you want to see collision
+[00:09:17.870 -> 00:09:20.730]  okay so we got the spaceship turning around
+[00:09:24.230 -> 00:09:24.990]  uh
+[00:09:24.990 -> 00:09:24.990]  
+[00:09:26.590 -> 00:09:29.410]  well i don't feel so good about this
+[00:09:35.430 -> 00:09:36.310]  user
+[00:09:38.150 -> 00:09:39.770]  unit task
+[00:09:49.090 -> 00:09:51.890]  enemy task
+[00:09:51.890 -> 00:09:52.650]  equals
+[00:09:52.650 -> 00:09:53.610]  uh
+[00:09:53.610 -> 00:09:55.210]  spawn
+[00:09:57.770 -> 00:09:58.110]  address
+[00:09:58.770 -> 00:10:00.610]  enemy task
+[00:10:00.610 -> 00:10:01.130]  comma
+[00:10:01.770 -> 00:10:01.810]  comma
+[00:10:02.770 -> 00:10:03.310]  comma
+[00:10:03.310 -> 00:10:04.770]  fs
+[00:10:06.350 -> 00:10:06.770]  this
+[00:10:07.750 -> 00:10:08.750]  this is the uh
+[00:10:08.750 -> 00:10:10.250]  let's just say zero
+[00:10:10.250 -> 00:10:12.170]  this is the name
+[00:10:12.170 -> 00:10:14.090]  this is
+[00:10:14.090 -> 00:10:14.850]  no
+[00:10:14.850 -> 00:10:16.150]  this is the cpu
+[00:10:16.150 -> 00:10:17.250]  no
+[00:10:17.250 -> 00:10:17.930]  let's see
+[00:10:20.130 -> 00:10:20.750]  cpu
+[00:10:21.310 -> 00:10:21.750]  parent
+[00:10:22.410 -> 00:10:23.210]  okay
+[00:10:23.210 -> 00:10:23.750]  cpu
+[00:10:26.810 -> 00:10:27.990]  okay
+[00:10:30.970 -> 00:10:32.150]  wow
+[00:10:45.410 -> 00:10:46.590]  let's see
+[00:10:46.590 -> 00:10:46.950]  uh
+[00:10:46.950 -> 00:10:48.430]  let's see uh
+[00:10:51.990 -> 00:10:53.170]  oh well
+[00:10:53.170 -> 00:10:54.810]  i can get fancy
+[00:10:54.810 -> 00:10:56.070]  unless
+[00:10:56.070 -> 00:10:57.610]  i can get fancy
+[00:10:57.610 -> 00:10:57.610]  
+[00:10:57.610 -> 00:10:58.550]  x plus equals
+[00:10:58.550 -> 00:10:59.290]  bx
+[00:10:59.810 -> 00:11:01.870]  y plus equals
+[00:11:01.870 -> 00:11:02.510]  b1
+[00:11:06.550 -> 00:11:07.590]  no
+[00:11:13.710 -> 00:11:15.530]  x plus equals
+[00:11:20.910 -> 00:11:21.870]  oh
+[00:11:21.870 -> 00:11:22.190]  oh
+[00:11:22.190 -> 00:11:22.290]  shit
+[00:11:28.530 -> 00:11:28.730]  thrust
+[00:11:28.730 -> 00:11:29.850]  let's do thrust
+[00:11:34.570 -> 00:11:35.910]  let's do
+[00:11:37.250 -> 00:11:38.210]  thrust
+[00:11:38.210 -> 00:11:40.210]  t hr
+[00:11:40.210 -> 00:11:40.610]  thrust
+[00:11:40.610 -> 00:11:40.890]  thrust
+[00:11:40.890 -> 00:11:41.390]  times
+[00:11:41.390 -> 00:11:42.610]  cosine
+[00:11:48.150 -> 00:11:49.950]  this gets tricky
+[00:11:49.950 -> 00:11:51.070]  y is backward
+[00:11:53.210 -> 00:11:56.970]  thrust times sine theta
+[00:11:59.810 -> 00:12:01.590]  this is minus
+[00:12:02.710 -> 00:12:04.070]  and uh
+[00:12:04.070 -> 00:12:04.070]  
+[00:12:06.070 -> 00:12:06.250]  uh
+[00:12:06.250 -> 00:12:06.990]  sc
+[00:12:07.950 -> 00:12:08.070]  cursor
+[00:12:09.050 -> 00:12:09.070]  up
+[00:12:13.590 -> 00:12:14.510]  name
+[00:12:14.510 -> 00:12:14.850]  cl
+[00:12:14.850 -> 00:12:15.490]  cl
+[00:12:15.490 -> 00:12:16.430]  cl
+[00:12:16.430 -> 00:12:17.570]  cl
+[00:12:17.570 -> 00:12:17.690]  cl
+[00:12:17.690 -> 00:12:17.810]  cl
+[00:12:17.810 -> 00:12:18.310]  cl
+[00:12:18.310 -> 00:12:18.730]  cl
+[00:12:18.730 -> 00:12:18.790]  cl
+[00:12:18.790 -> 00:12:18.810]  cl
+[00:12:18.810 -> 00:12:19.310]  cl
+[00:12:19.310 -> 00:12:19.670]  cl
+[00:12:19.670 -> 00:12:19.750]  cl
+[00:12:19.750 -> 00:12:20.730]  cl
+[00:12:20.730 -> 00:12:20.730]  
+[00:12:20.730 -> 00:12:20.750]  cl
+[00:12:20.750 -> 00:12:20.750]  
+[00:12:20.750 -> 00:12:20.750]  
+[00:12:20.750 -> 00:12:20.750]  
+[00:12:20.750 -> 00:12:20.750]  
+[00:12:20.750 -> 00:12:20.750]  
+[00:12:20.750 -> 00:12:20.750]  
+[00:12:20.750 -> 00:12:20.750]  
+[00:12:20.750 -> 00:12:20.750]  
+[00:12:20.750 -> 00:12:21.090]  cl
+[00:12:21.090 -> 00:12:21.090]  
+[00:12:21.090 -> 00:12:21.210]  cl
+[00:12:21.210 -> 00:12:21.210]  
+[00:12:21.210 -> 00:12:21.210]  
+[00:12:21.210 -> 00:12:21.210]  
+[00:12:22.910 -> 00:12:23.830]  cl
+[00:12:23.830 -> 00:12:23.830]  
+[00:12:23.830 -> 00:12:23.870]  cl
+[00:12:23.870 -> 00:12:23.870]  
+[00:12:23.870 -> 00:12:23.870]  
+[00:12:23.870 -> 00:12:23.870]  
+[00:12:23.870 -> 00:12:23.870]  
+[00:12:23.870 -> 00:12:23.870]  
+[00:12:23.870 -> 00:12:23.870]  
+[00:12:23.870 -> 00:12:23.870]  
+[00:12:23.870 -> 00:12:23.870]  
+[00:12:23.870 -> 00:12:23.870]  
+[00:12:23.870 -> 00:12:24.190]  cl
+[00:12:24.190 -> 00:12:24.190]  
+[00:12:24.190 -> 00:12:24.190]  
+[00:12:24.190 -> 00:12:24.190]  
+[00:12:24.190 -> 00:12:24.190]  
+[00:12:24.190 -> 00:12:24.190]  
+[00:12:24.190 -> 00:12:24.190]  
+[00:12:24.190 -> 00:12:24.190]  
+[00:12:24.190 -> 00:12:24.190]  
+[00:12:24.190 -> 00:12:24.190]  
+[00:12:24.190 -> 00:12:24.190]  
+[00:12:24.190 -> 00:12:24.190]  
+[00:12:24.190 -> 00:12:24.190]  
+[00:12:24.190 -> 00:12:24.190]  
+[00:12:25.430 -> 00:12:26.350]  cl
+[00:12:26.350 -> 00:12:26.350]  
+[00:12:26.350 -> 00:12:26.350]  
+[00:12:26.350 -> 00:12:26.350]  
+[00:12:34.030 -> 00:12:34.050]  !
+[00:12:34.050 -> 00:12:34.050]  
+[00:12:17.670 -> 00:12:17.670]  
+[00:12:17.670 -> 00:12:17.670]  
+[00:12:17.670 -> 00:12:17.670]  
+[00:12:17.670 -> 00:12:17.670]  
+[00:12:17.670 -> 00:12:17.670]  
+[00:12:17.670 -> 00:12:17.670]  
+[00:12:34.070 -> 00:12:45.270]  to normally use I can make thrust decay thrust times equals 0.8 how about that
+[00:12:45.270 -> 00:12:53.790]  that makes it decay and thrust equals zero
+[00:13:00.710 -> 00:13:13.570]  ok thrust decaying too fast
+[00:13:21.150 -> 00:13:28.690]  if I tap the thrust it uh that's not very satisfying
+[00:13:28.690 -> 00:13:34.630]  ok so it's going the wrong angle I can just do a kludge
+[00:13:39.990 -> 00:13:47.210]  pi divided by 2 I don't know what is it
+[00:13:49.470 -> 00:13:54.550]  ok it's backward minus
+[00:14:01.410 -> 00:14:05.850]  that's not backward it's something weird
+[00:14:15.330 -> 00:14:16.350]  there we go
+[00:14:16.350 -> 00:14:18.370]  ok so we got a spaceship
+[00:14:18.370 -> 00:14:21.370]  and we want to make it crash
+[00:14:22.350 -> 00:14:25.210]  when it collides so um
+[00:14:26.590 -> 00:14:27.210]  technically
+[00:14:28.670 -> 00:14:30.270]  oh I don't want to do that
+[00:14:31.450 -> 00:14:33.090]  technically I should test
+[00:14:36.310 -> 00:14:37.510]  in the animation
+[00:14:37.510 -> 00:14:40.790]  but instead I'm going to test in the uh
+[00:14:42.730 -> 00:14:43.350]  here
+[00:14:44.170 -> 00:14:45.750]  ok so now we say
+[00:14:45.750 -> 00:14:48.830]  dc collision count
+[00:14:48.830 -> 00:14:50.590]  equals zero
+[00:14:50.590 -> 00:14:56.050]  uh we say
+[00:14:56.050 -> 00:14:58.870]  dc color
+[00:14:58.870 -> 00:15:01.890]  rop collision
+[00:15:05.150 -> 00:15:06.550]  dc
+[00:15:08.710 -> 00:15:10.110]  um
+[00:15:10.110 -> 00:15:11.670]  um the sprites
+[00:15:11.670 -> 00:15:19.190]  um if uh dc
+[00:15:19.190 -> 00:15:22.010]  collision count
+[00:15:22.010 -> 00:15:23.950]  greater than
+[00:15:23.950 -> 00:15:26.110]  uh let's let's just say
+[00:15:26.110 -> 00:15:32.430]  uh let's let's get fancy
+[00:15:32.430 -> 00:15:35.930]  uh patrol r
+[00:15:35.930 -> 00:15:37.790]  make sprite
+[00:15:37.790 -> 00:15:39.910]  color
+[00:15:39.910 -> 00:15:41.490]  color
+[00:15:41.490 -> 00:15:42.210]  color yellow
+[00:15:42.210 -> 00:15:43.170]  width
+[00:15:43.170 -> 00:15:44.390]  five
+[00:15:44.390 -> 00:15:45.910]  line
+[00:15:49.570 -> 00:15:52.110]  i've made fire a lot
+[00:15:52.110 -> 00:15:53.950]  ok color
+[00:15:53.950 -> 00:15:55.610]  red
+[00:15:55.610 -> 00:15:57.190]  line
+[00:15:57.190 -> 00:16:00.630]  uh oh it's red already
+[00:16:02.150 -> 00:16:03.550]  color
+[00:16:03.550 -> 00:16:03.730]  color
+[00:16:04.650 -> 00:16:05.490]  black
+[00:16:05.490 -> 00:16:05.510]  black
+[00:16:06.450 -> 00:16:07.290]  lined
+[00:16:09.050 -> 00:16:09.890]  ok
+[00:16:09.890 -> 00:16:12.650]  i should have set the screen to black
+[00:16:12.650 -> 00:16:14.550]  for space
+[00:16:15.510 -> 00:16:16.770]  set origin
+[00:16:18.390 -> 00:16:19.230]  escape
+[00:16:19.230 -> 00:16:20.830]  ok so
+[00:16:22.130 -> 00:16:23.350]  i believe
+[00:16:23.350 -> 00:16:24.530]  i hit control t
+[00:16:24.530 -> 00:16:26.190]  sprite number three
+[00:16:26.190 -> 00:16:28.230]  so uh
+[00:16:30.050 -> 00:16:31.570]  that's kinda ugly
+[00:16:34.150 -> 00:16:34.850]  so
+[00:16:34.850 -> 00:16:36.030]  it turns out
+[00:16:36.030 -> 00:16:38.350]  if you copy on the clipboard
+[00:16:38.350 -> 00:16:39.850]  it uh
+[00:16:41.350 -> 00:16:42.730]  changes the number
+[00:16:45.810 -> 00:16:47.270]  so you have to be careful
+[00:16:47.270 -> 00:16:48.150]  uh
+[00:16:48.150 -> 00:16:50.550]  so we want this to be number three
+[00:16:50.550 -> 00:16:53.030]  and this to be number two
+[00:16:55.110 -> 00:16:56.810]  control t f5
+[00:16:56.810 -> 00:16:57.230]  ok
+[00:16:57.230 -> 00:16:58.530]  now it's blowed up
+[00:16:59.650 -> 00:17:00.850]  number three
+[00:17:00.850 -> 00:17:01.550]  number two
+[00:17:01.550 -> 00:17:03.290]  if collision count
+[00:17:05.910 -> 00:17:07.210]  number four
+[00:17:07.210 -> 00:17:08.950]  oh i think uh
+[00:17:08.950 -> 00:17:10.250]  i have the background
+[00:17:10.250 -> 00:17:11.570]  um
+[00:17:15.210 -> 00:17:16.090]  uh
+[00:17:16.090 -> 00:17:17.590]  rop
+[00:17:17.590 -> 00:17:19.330]  you have to set the background
+[00:17:19.330 -> 00:17:19.790]  oh
+[00:17:19.790 -> 00:17:21.570]  i think dc
+[00:17:24.550 -> 00:17:26.370]  i don't know if it's gonna work
+[00:17:26.370 -> 00:17:28.190]  i forgot how to do this
+[00:17:31.690 -> 00:17:32.390]  hey
+[00:17:32.390 -> 00:17:34.010]  i got lucky
+[00:17:35.990 -> 00:17:36.690]  there
+[00:17:36.690 -> 00:17:37.310]  it crashed
+[00:17:43.210 -> 00:17:43.910]  ok
+[00:17:43.910 -> 00:17:45.850]  we have asteroids
+[00:17:48.670 -> 00:17:49.710]  good enough
+[00:17:49.710 -> 00:17:49.710]  
+[00:17:49.710 -> 00:17:49.770]  now
+[00:17:49.770 -> 00:17:49.770]  
+[00:17:49.770 -> 00:17:49.770]  
+[00:17:49.770 -> 00:17:49.770]  
+[00:17:49.770 -> 00:17:49.810]  we haveinação
+[00:17:49.810 -> 00:17:49.810]  
+[00:17:49.810 -> 00:17:49.850]  we have
+[00:17:49.850 -> 00:17:49.890]  inação
+[00:17:49.890 -> 00:17:49.890]  
+[00:17:49.890 -> 00:17:49.890]  
+[00:17:49.890 -> 00:17:49.890]  
+[00:17:49.890 -> 00:17:49.890]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:18:03.310 -> 00:18:03.310]  
+[00:17:52.250 -> 00:17:52.490]  I can name it.
+[00:17:52.490 -> 00:17:52.550]  I can name it.
+[00:17:52.550 -> 00:17:52.550]  
+[00:17:52.550 -> 00:17:52.550]  
+[00:17:52.550 -> 00:17:52.550]  
+[00:17:52.550 -> 00:17:52.550]  
+[00:17:52.550 -> 00:17:52.550]  
+[00:17:52.550 -> 00:17:52.550]  
+[00:17:52.550 -> 00:17:52.550]  
+[00:17:52.550 -> 00:17:52.550]  
+[00:17:52.550 -> 00:17:52.550]  
+[00:17:52.550 -> 00:17:52.550]  
+[00:17:52.550 -> 00:17:52.550]  
+[00:17:52.550 -> 00:17:52.550]  
+[00:17:52.550 -> 00:17:52.550]  
+[00:17:52.550 -> 00:17:52.550]  
+[00:17:52.550 -> 00:17:52.610]  I can name it.
+[00:17:52.610 -> 00:17:52.610]  
+[00:17:52.610 -> 00:17:52.610]  
+[00:17:52.610 -> 00:17:52.610]  
+[00:17:52.610 -> 00:17:52.610]  
+[00:17:52.610 -> 00:17:52.610]  
+[00:17:52.610 -> 00:17:52.610]  
+[00:17:52.610 -> 00:17:52.630]  I can name it.
+[00:17:52.630 -> 00:17:52.630]  
+[00:17:52.630 -> 00:17:52.630]  
+[00:17:52.630 -> 00:17:52.630]  
+[00:17:52.630 -> 00:17:52.630]  
+[00:17:52.630 -> 00:17:52.630]  
+[00:17:52.630 -> 00:17:52.630]  
+[00:17:52.630 -> 00:17:52.630]  
+[00:17:52.630 -> 00:17:52.630]  

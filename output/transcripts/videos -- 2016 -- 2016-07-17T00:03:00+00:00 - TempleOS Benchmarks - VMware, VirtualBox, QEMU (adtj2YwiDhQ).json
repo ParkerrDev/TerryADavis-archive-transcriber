@@ -1,0 +1,7318 @@
+{
+  "source": {
+    "archive_identifier": "TerryADavis_TempleOS_Archive",
+    "filename": "videos/2016/2016-07-17T00:03:00+00:00 - TempleOS Benchmarks - VMware, VirtualBox, QEMU (adtj2YwiDhQ).mp4",
+    "source_url": "https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2016/2016-07-17T00%3A03%3A00%2B00%3A00%20-%20TempleOS%20Benchmarks%20-%20VMware%2C%20VirtualBox%2C%20QEMU%20%28adtj2YwiDhQ%29.mp4",
+    "derivative_url": null,
+    "file_format": "MPEG4",
+    "file_size_bytes": 86315838
+  },
+  "transcription": {
+    "model": "large-v3",
+    "backend": "faster_whisper",
+    "language_detected": "en",
+    "transcribed_at_utc": "2026-06-04T19:46:10.940920+00:00",
+    "duration_seconds": 729.01,
+    "platform": "Linux",
+    "machine": "x86_64"
+  },
+  "full_text": "We're going to benchmark VMware VirtualBox and QEMU doing multi-core for my flight simulator. So VMware is the best. It only does 16 cores. I have 1224. So first we're going to try with 12. VMware has a bug doing full screen. um to get full okay first of all okay you control alt return and then every time you change the full screen you have to do auto and then stretch and that gets you to full screen so we're going to go to the uh in the multi-core directory i made a benchmark this is a um context save task save restores So this is saving the task and then loading a new task, saving the registers and then loading new registers. So it looks like it's gigahertz, but that's not what it is. This is a 3.5 gigahertz. Anyway, so we have now when it heats up, it's going to. get a little bit slower. But anyway, so now we're going to look at the flight simulator with 12 cores. It's beautiful. It does the full map. The sound is garbled. That's because it's VMware. They put distortion on it. So this is VMware with 12. Remember, I have 1224. With hyper threading so this is I assume this is a now core zero has a little bit reduced part of that is because of Is because of Linux in the back I'm a guest on Linux so part of that is Linux So anyway now we're gonna we're gonna change it was it's about four one four four point one Now we're going to change it up to 16. Now, I assumed I have 1224. So in order to get 16, we had to double up 4. So now 4 of them have been doubled up on the cores. So what do you think it's going to look like? Do you think it's going to be, if eight of them are not doubled up, and then four plus four, four of them with doubled up cores, that's another eight. So you would think there's going to be eight really high, really fast ones, and then eight really slow ones because they are running double loads. That's what I expected, but I was surprised. that they're even. Now it could be that VMware gives me double cores and we only have 8 cores instead of 12. Anyway, so these are pretty even. There's a little bit of a difference. Anyway, and the flight simulator works perfectly. The song plays correctly and The controls work. Anyway, the song is garbled. That's because VMware puts too much distortion. I don't know why they did that. Anyway, so that's VMware. VMware costs $250, and it's the most professional, but they're assholes. It would be really easy for them to change it from 16 to 24. There's a limit of 16 cores. That's just silly. Anyway, I have a Xeon 1224. So now we're going to look at VirtualBox. I didn't buy this. This is just the free version. So it does do 24. VMware did not do 24. So if you're interested in, if you're interested, oh, we got some kind of error. I think it goes away. okay ignore anyway um so uh let's go to the uh the benchmark so this is uh remember this is context swaps um per per second basically so we're doing um so even though this is a little bit slower if you were doing a workload this would this would be um that the extra cores are helpful even though they slow it down because the work you get is more than what it slows down. I should print the total, shouldn't I? Anyway, this is context swaps per second per core. So again, notice core zero has to support Linux in the background. But there's something wrong with the graphics on... If we could see the CPU load, when it has changing graphics, it's too slow. It's like it only does static graphics. If you do dynamic graphics, something's terribly messed up. Anyway, and it doesn't have sound. VirtualBox doesn't have sound. But it does have 24 cores. Hey, wait a minute. Why do I only have 21? That's kind of weird. Maybe a couple cores got lost. It gave an error. It will do. I've never seen that before. Anyway, I don't use this because it doesn't have sound and because it doesn't handle changing graphics. Let's go see if chorus came back. Weird. Okay, I don't know. But it will do it. I don't know why we're getting a problem. Anyway, I can't use it. I'm not interested. Anyway. And then QEMU is the most amateur. But they have, they support 24 cores. And the graphics almost work. But the timing, something goes horribly wrong with the, first let's look at the, so this is 24 cores. Yeah, see there's 24. I don't know why the VirtualBox had a glitch. Anyway. Core Zero is starting to really show some... It's pretty low. I don't balance my loads, and so... Okay, so it lags. It lags. The timing's a little bit off, but the graphics are... It's not playable. Basically, VMware's the best, and I paid $250 for it, but they won't support 24, and they have that glitch trying to... stretch the screen anyway so this has sound this has the best this has the best sound actually I wish it had just a slight bit of distortion when you play a the problem with it's so harmonic that the explosions sound bad it's so harmonic there's no there's no distortion an actual PC speaker is just right if if they would just route it to the actual PC speaker with a all of these all they have to do is route the port and It's it's ridiculously easy to let it control the speaker, but they don't want to do that They want control that they don't want it out of the PC speaker. They want it out of the main process so VirtualBox doesn't have sound QEMU is Really harmonic. It's good for songs, but it's kind of bad for sound effects. And then VMware is crazy distorted. I don't know what they're thinking. Anyway, it's no good for hymns, but it's okay for sound effects. It's better than nothing. I think it's the CIA being assholes. They ruined my hymns. That's like the most important thing. Anyway, so, and then VMware is the best for... All-round performance. It works. It's the most professional. It costs $250. VirtualBox, something's wrong with the graphics. It's just, if the screen changes, that's my best bet. That's my best understanding. And then QEMU is just kind of amateur timing and stuff. You just get kind of, it gives kind of a, anyway. But it does do 24. That's not the reason. That's no excuse for the problems. Although the core zero, I don't have load balancing. So there's a chance that's part of the reason. Anyway, so.",
+  "segments": [
+    {
+      "id": 1,
+      "start": 0.0,
+      "end": 46.57,
+      "text": "We're going to benchmark VMware VirtualBox and QEMU doing multi-core for my flight simulator. So VMware is the best. It only does 16 cores. I have 1224. So first we're going to try with 12. VMware has a bug doing full screen.",
+      "words": [
+        {
+          "word": "We're",
+          "start": 0.0,
+          "end": 0.78,
+          "probability": 0.5126
+        },
+        {
+          "word": "going",
+          "start": 13.0,
+          "end": 13.1,
+          "probability": 0.6196
+        },
+        {
+          "word": "to",
+          "start": 13.1,
+          "end": 13.18,
+          "probability": 0.9971
+        },
+        {
+          "word": "benchmark",
+          "start": 13.18,
+          "end": 13.68,
+          "probability": 0.9771
+        },
+        {
+          "word": "VMware",
+          "start": 13.68,
+          "end": 16.02,
+          "probability": 0.6748
+        },
+        {
+          "word": "VirtualBox",
+          "start": 16.02,
+          "end": 17.86,
+          "probability": 0.7183
+        },
+        {
+          "word": "and",
+          "start": 17.86,
+          "end": 18.12,
+          "probability": 0.9312
+        },
+        {
+          "word": "QEMU",
+          "start": 18.12,
+          "end": 18.96,
+          "probability": 0.9806
+        },
+        {
+          "word": "doing",
+          "start": 18.96,
+          "end": 19.6,
+          "probability": 0.8921
+        },
+        {
+          "word": "multi",
+          "start": 19.6,
+          "end": 20.44,
+          "probability": 0.7505
+        },
+        {
+          "word": "-core",
+          "start": 20.44,
+          "end": 20.76,
+          "probability": 0.9211
+        },
+        {
+          "word": "for",
+          "start": 20.76,
+          "end": 22.24,
+          "probability": 0.9741
+        },
+        {
+          "word": "my",
+          "start": 22.53,
+          "end": 22.77,
+          "probability": 0.9985
+        },
+        {
+          "word": "flight",
+          "start": 22.77,
+          "end": 23.03,
+          "probability": 0.9189
+        },
+        {
+          "word": "simulator.",
+          "start": 23.03,
+          "end": 23.39,
+          "probability": 0.999
+        },
+        {
+          "word": "So",
+          "start": 25.14,
+          "end": 25.92,
+          "probability": 0.8896
+        },
+        {
+          "word": "VMware",
+          "start": 25.92,
+          "end": 27.56,
+          "probability": 0.5913
+        },
+        {
+          "word": "is",
+          "start": 27.56,
+          "end": 28.14,
+          "probability": 0.9976
+        },
+        {
+          "word": "the",
+          "start": 28.14,
+          "end": 28.68,
+          "probability": 0.9995
+        },
+        {
+          "word": "best.",
+          "start": 28.68,
+          "end": 29.08,
+          "probability": 0.9995
+        },
+        {
+          "word": "It",
+          "start": 30.12,
+          "end": 31.0,
+          "probability": 0.9951
+        },
+        {
+          "word": "only",
+          "start": 31.0,
+          "end": 31.28,
+          "probability": 0.9995
+        },
+        {
+          "word": "does",
+          "start": 31.28,
+          "end": 31.54,
+          "probability": 0.9995
+        },
+        {
+          "word": "16",
+          "start": 31.54,
+          "end": 31.96,
+          "probability": 0.9883
+        },
+        {
+          "word": "cores.",
+          "start": 31.96,
+          "end": 33.38,
+          "probability": 0.9951
+        },
+        {
+          "word": "I",
+          "start": 33.6,
+          "end": 34.42,
+          "probability": 0.999
+        },
+        {
+          "word": "have",
+          "start": 34.42,
+          "end": 34.72,
+          "probability": 0.9995
+        },
+        {
+          "word": "1224.",
+          "start": 34.72,
+          "end": 35.8,
+          "probability": 0.9578
+        },
+        {
+          "word": "So",
+          "start": 35.8,
+          "end": 36.68,
+          "probability": 0.9844
+        },
+        {
+          "word": "first",
+          "start": 36.68,
+          "end": 37.4,
+          "probability": 0.9868
+        },
+        {
+          "word": "we're",
+          "start": 37.4,
+          "end": 37.64,
+          "probability": 0.9834
+        },
+        {
+          "word": "going",
+          "start": 37.64,
+          "end": 37.7,
+          "probability": 0.9741
+        },
+        {
+          "word": "to",
+          "start": 37.7,
+          "end": 37.84,
+          "probability": 0.9995
+        },
+        {
+          "word": "try",
+          "start": 37.84,
+          "end": 38.16,
+          "probability": 1.0
+        },
+        {
+          "word": "with",
+          "start": 38.16,
+          "end": 38.66,
+          "probability": 0.9644
+        },
+        {
+          "word": "12.",
+          "start": 38.66,
+          "end": 39.12,
+          "probability": 0.9985
+        },
+        {
+          "word": "VMware",
+          "start": 43.53,
+          "end": 44.41,
+          "probability": 0.9829
+        },
+        {
+          "word": "has",
+          "start": 44.41,
+          "end": 44.71,
+          "probability": 0.9995
+        },
+        {
+          "word": "a",
+          "start": 44.71,
+          "end": 44.93,
+          "probability": 0.9995
+        },
+        {
+          "word": "bug",
+          "start": 44.93,
+          "end": 45.17,
+          "probability": 0.9995
+        },
+        {
+          "word": "doing",
+          "start": 45.17,
+          "end": 45.75,
+          "probability": 0.9985
+        },
+        {
+          "word": "full",
+          "start": 45.75,
+          "end": 46.09,
+          "probability": 0.9985
+        },
+        {
+          "word": "screen.",
+          "start": 46.09,
+          "end": 46.57,
+          "probability": 0.9575
+        }
+      ],
+      "avg_logprob": -0.0912,
+      "no_speech_prob": 0.0134
+    },
+    {
+      "id": 2,
+      "start": 47.34,
+      "end": 77.29,
+      "text": "um to get full okay first of all okay you control alt return and then every time you change the full screen you have to do auto and then stretch and that gets you to full screen so we're going to go to the uh in the multi-core directory i made a benchmark this is a um context save task save restores",
+      "words": [
+        {
+          "word": "um",
+          "start": 47.34,
+          "end": 47.64,
+          "probability": 0.0528
+        },
+        {
+          "word": "to",
+          "start": 47.64,
+          "end": 48.3,
+          "probability": 0.7456
+        },
+        {
+          "word": "get",
+          "start": 48.3,
+          "end": 48.56,
+          "probability": 0.9951
+        },
+        {
+          "word": "full",
+          "start": 48.56,
+          "end": 48.82,
+          "probability": 0.9326
+        },
+        {
+          "word": "okay",
+          "start": 48.82,
+          "end": 49.2,
+          "probability": 0.52
+        },
+        {
+          "word": "first",
+          "start": 49.2,
+          "end": 49.58,
+          "probability": 0.98
+        },
+        {
+          "word": "of",
+          "start": 49.58,
+          "end": 49.84,
+          "probability": 0.9995
+        },
+        {
+          "word": "all",
+          "start": 49.84,
+          "end": 50.1,
+          "probability": 0.9995
+        },
+        {
+          "word": "okay",
+          "start": 50.1,
+          "end": 51.18,
+          "probability": 0.9478
+        },
+        {
+          "word": "you",
+          "start": 52.11,
+          "end": 52.33,
+          "probability": 0.9424
+        },
+        {
+          "word": "control",
+          "start": 52.33,
+          "end": 52.65,
+          "probability": 0.4387
+        },
+        {
+          "word": "alt",
+          "start": 52.65,
+          "end": 53.07,
+          "probability": 0.9033
+        },
+        {
+          "word": "return",
+          "start": 53.07,
+          "end": 53.45,
+          "probability": 0.9922
+        },
+        {
+          "word": "and",
+          "start": 53.45,
+          "end": 54.73,
+          "probability": 0.9971
+        },
+        {
+          "word": "then",
+          "start": 55.43,
+          "end": 55.71,
+          "probability": 0.9995
+        },
+        {
+          "word": "every",
+          "start": 55.71,
+          "end": 56.35,
+          "probability": 0.9995
+        },
+        {
+          "word": "time",
+          "start": 56.35,
+          "end": 56.65,
+          "probability": 1.0
+        },
+        {
+          "word": "you",
+          "start": 56.65,
+          "end": 56.83,
+          "probability": 1.0
+        },
+        {
+          "word": "change",
+          "start": 56.83,
+          "end": 57.05,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 57.05,
+          "end": 57.25,
+          "probability": 0.5659
+        },
+        {
+          "word": "full",
+          "start": 57.25,
+          "end": 57.39,
+          "probability": 1.0
+        },
+        {
+          "word": "screen",
+          "start": 57.39,
+          "end": 57.71,
+          "probability": 0.9951
+        },
+        {
+          "word": "you",
+          "start": 57.71,
+          "end": 58.01,
+          "probability": 0.9985
+        },
+        {
+          "word": "have",
+          "start": 58.01,
+          "end": 58.13,
+          "probability": 1.0
+        },
+        {
+          "word": "to",
+          "start": 58.13,
+          "end": 58.27,
+          "probability": 1.0
+        },
+        {
+          "word": "do",
+          "start": 58.27,
+          "end": 58.45,
+          "probability": 1.0
+        },
+        {
+          "word": "auto",
+          "start": 58.45,
+          "end": 58.85,
+          "probability": 0.9922
+        },
+        {
+          "word": "and",
+          "start": 58.85,
+          "end": 59.13,
+          "probability": 0.998
+        },
+        {
+          "word": "then",
+          "start": 59.9,
+          "end": 60.94,
+          "probability": 1.0
+        },
+        {
+          "word": "stretch",
+          "start": 60.94,
+          "end": 61.38,
+          "probability": 0.998
+        },
+        {
+          "word": "and",
+          "start": 61.38,
+          "end": 62.38,
+          "probability": 0.9976
+        },
+        {
+          "word": "that",
+          "start": 62.67,
+          "end": 63.01,
+          "probability": 1.0
+        },
+        {
+          "word": "gets",
+          "start": 63.01,
+          "end": 63.27,
+          "probability": 1.0
+        },
+        {
+          "word": "you",
+          "start": 63.27,
+          "end": 63.41,
+          "probability": 1.0
+        },
+        {
+          "word": "to",
+          "start": 63.41,
+          "end": 63.53,
+          "probability": 0.9658
+        },
+        {
+          "word": "full",
+          "start": 63.53,
+          "end": 63.71,
+          "probability": 1.0
+        },
+        {
+          "word": "screen",
+          "start": 63.71,
+          "end": 64.03,
+          "probability": 0.998
+        },
+        {
+          "word": "so",
+          "start": 64.03,
+          "end": 64.81,
+          "probability": 0.9795
+        },
+        {
+          "word": "we're",
+          "start": 64.81,
+          "end": 65.09,
+          "probability": 0.9988
+        },
+        {
+          "word": "going",
+          "start": 65.09,
+          "end": 65.17,
+          "probability": 0.9673
+        },
+        {
+          "word": "to",
+          "start": 65.17,
+          "end": 65.29,
+          "probability": 0.998
+        },
+        {
+          "word": "go",
+          "start": 65.29,
+          "end": 65.55,
+          "probability": 0.9995
+        },
+        {
+          "word": "to",
+          "start": 65.55,
+          "end": 65.71,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 65.71,
+          "end": 66.03,
+          "probability": 0.9976
+        },
+        {
+          "word": "uh",
+          "start": 66.03,
+          "end": 66.25,
+          "probability": 0.8301
+        },
+        {
+          "word": "in",
+          "start": 66.25,
+          "end": 67.13,
+          "probability": 0.998
+        },
+        {
+          "word": "the",
+          "start": 68.31,
+          "end": 68.45,
+          "probability": 0.9985
+        },
+        {
+          "word": "multi",
+          "start": 68.45,
+          "end": 68.73,
+          "probability": 0.9365
+        },
+        {
+          "word": "-core",
+          "start": 68.73,
+          "end": 68.95,
+          "probability": 0.9966
+        },
+        {
+          "word": "directory",
+          "start": 68.95,
+          "end": 69.41,
+          "probability": 0.9995
+        },
+        {
+          "word": "i",
+          "start": 69.41,
+          "end": 70.19,
+          "probability": 0.8418
+        },
+        {
+          "word": "made",
+          "start": 70.19,
+          "end": 70.41,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 70.41,
+          "end": 70.55,
+          "probability": 0.9995
+        },
+        {
+          "word": "benchmark",
+          "start": 70.55,
+          "end": 70.93,
+          "probability": 0.9985
+        },
+        {
+          "word": "this",
+          "start": 70.93,
+          "end": 71.87,
+          "probability": 0.9995
+        },
+        {
+          "word": "is",
+          "start": 71.87,
+          "end": 72.17,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 72.17,
+          "end": 72.33,
+          "probability": 0.6973
+        },
+        {
+          "word": "um",
+          "start": 72.33,
+          "end": 73.33,
+          "probability": 0.4778
+        },
+        {
+          "word": "context",
+          "start": 73.33,
+          "end": 74.75,
+          "probability": 0.9858
+        },
+        {
+          "word": "save",
+          "start": 74.75,
+          "end": 75.25,
+          "probability": 0.9961
+        },
+        {
+          "word": "task",
+          "start": 75.25,
+          "end": 75.67,
+          "probability": 0.9795
+        },
+        {
+          "word": "save",
+          "start": 75.67,
+          "end": 76.61,
+          "probability": 0.9995
+        },
+        {
+          "word": "restores",
+          "start": 76.61,
+          "end": 77.29,
+          "probability": 0.9988
+        }
+      ],
+      "avg_logprob": -0.1094,
+      "no_speech_prob": 0.0589
+    },
+    {
+      "id": 3,
+      "start": 77.85,
+      "end": 105.51,
+      "text": "So this is saving the task and then loading a new task, saving the registers and then loading new registers. So it looks like it's gigahertz, but that's not what it is. This is a 3.5 gigahertz. Anyway, so we have now when it heats up, it's going to.",
+      "words": [
+        {
+          "word": "So",
+          "start": 77.85,
+          "end": 78.15,
+          "probability": 0.7534
+        },
+        {
+          "word": "this",
+          "start": 78.15,
+          "end": 78.31,
+          "probability": 0.8276
+        },
+        {
+          "word": "is",
+          "start": 78.31,
+          "end": 78.51,
+          "probability": 0.9941
+        },
+        {
+          "word": "saving",
+          "start": 78.51,
+          "end": 79.27,
+          "probability": 0.9233
+        },
+        {
+          "word": "the",
+          "start": 79.27,
+          "end": 79.55,
+          "probability": 0.9653
+        },
+        {
+          "word": "task",
+          "start": 79.55,
+          "end": 79.85,
+          "probability": 0.9365
+        },
+        {
+          "word": "and",
+          "start": 79.85,
+          "end": 80.15,
+          "probability": 0.9429
+        },
+        {
+          "word": "then",
+          "start": 80.15,
+          "end": 80.31,
+          "probability": 0.9771
+        },
+        {
+          "word": "loading",
+          "start": 80.31,
+          "end": 80.75,
+          "probability": 0.9946
+        },
+        {
+          "word": "a",
+          "start": 80.75,
+          "end": 80.93,
+          "probability": 0.9878
+        },
+        {
+          "word": "new",
+          "start": 80.93,
+          "end": 81.07,
+          "probability": 0.9995
+        },
+        {
+          "word": "task,",
+          "start": 81.07,
+          "end": 81.39,
+          "probability": 0.9961
+        },
+        {
+          "word": "saving",
+          "start": 81.61,
+          "end": 82.13,
+          "probability": 0.9966
+        },
+        {
+          "word": "the",
+          "start": 82.13,
+          "end": 82.33,
+          "probability": 0.9761
+        },
+        {
+          "word": "registers",
+          "start": 82.33,
+          "end": 82.73,
+          "probability": 0.9971
+        },
+        {
+          "word": "and",
+          "start": 82.73,
+          "end": 82.99,
+          "probability": 0.9775
+        },
+        {
+          "word": "then",
+          "start": 82.99,
+          "end": 83.11,
+          "probability": 0.9839
+        },
+        {
+          "word": "loading",
+          "start": 83.11,
+          "end": 83.37,
+          "probability": 0.9995
+        },
+        {
+          "word": "new",
+          "start": 83.37,
+          "end": 83.59,
+          "probability": 0.9985
+        },
+        {
+          "word": "registers.",
+          "start": 83.59,
+          "end": 84.03,
+          "probability": 0.999
+        },
+        {
+          "word": "So",
+          "start": 84.23,
+          "end": 84.75,
+          "probability": 0.9712
+        },
+        {
+          "word": "it",
+          "start": 84.75,
+          "end": 85.37,
+          "probability": 0.9575
+        },
+        {
+          "word": "looks",
+          "start": 85.37,
+          "end": 86.03,
+          "probability": 1.0
+        },
+        {
+          "word": "like",
+          "start": 86.03,
+          "end": 86.27,
+          "probability": 1.0
+        },
+        {
+          "word": "it's",
+          "start": 86.27,
+          "end": 86.57,
+          "probability": 0.9949
+        },
+        {
+          "word": "gigahertz,",
+          "start": 86.57,
+          "end": 87.67,
+          "probability": 0.9749
+        },
+        {
+          "word": "but",
+          "start": 87.73,
+          "end": 87.95,
+          "probability": 1.0
+        },
+        {
+          "word": "that's",
+          "start": 87.95,
+          "end": 88.17,
+          "probability": 0.9998
+        },
+        {
+          "word": "not",
+          "start": 88.17,
+          "end": 88.33,
+          "probability": 1.0
+        },
+        {
+          "word": "what",
+          "start": 88.33,
+          "end": 88.53,
+          "probability": 1.0
+        },
+        {
+          "word": "it",
+          "start": 88.53,
+          "end": 88.65,
+          "probability": 1.0
+        },
+        {
+          "word": "is.",
+          "start": 88.65,
+          "end": 88.85,
+          "probability": 1.0
+        },
+        {
+          "word": "This",
+          "start": 89.57,
+          "end": 90.09,
+          "probability": 0.9902
+        },
+        {
+          "word": "is",
+          "start": 90.09,
+          "end": 90.41,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 90.41,
+          "end": 90.57,
+          "probability": 0.9438
+        },
+        {
+          "word": "3",
+          "start": 90.57,
+          "end": 91.83,
+          "probability": 0.9199
+        },
+        {
+          "word": ".5",
+          "start": 91.83,
+          "end": 93.49,
+          "probability": 0.999
+        },
+        {
+          "word": "gigahertz.",
+          "start": 93.49,
+          "end": 94.27,
+          "probability": 0.9995
+        },
+        {
+          "word": "Anyway,",
+          "start": 96.26,
+          "end": 96.78,
+          "probability": 0.9844
+        },
+        {
+          "word": "so",
+          "start": 96.92,
+          "end": 97.9,
+          "probability": 0.978
+        },
+        {
+          "word": "we",
+          "start": 97.9,
+          "end": 98.9,
+          "probability": 0.9922
+        },
+        {
+          "word": "have",
+          "start": 98.9,
+          "end": 99.16,
+          "probability": 1.0
+        },
+        {
+          "word": "now",
+          "start": 99.16,
+          "end": 100.52,
+          "probability": 0.7959
+        },
+        {
+          "word": "when",
+          "start": 101.39,
+          "end": 103.61,
+          "probability": 0.7397
+        },
+        {
+          "word": "it",
+          "start": 103.99,
+          "end": 104.53,
+          "probability": 1.0
+        },
+        {
+          "word": "heats",
+          "start": 104.53,
+          "end": 104.73,
+          "probability": 1.0
+        },
+        {
+          "word": "up,",
+          "start": 104.73,
+          "end": 105.03,
+          "probability": 1.0
+        },
+        {
+          "word": "it's",
+          "start": 105.03,
+          "end": 105.19,
+          "probability": 1.0
+        },
+        {
+          "word": "going",
+          "start": 105.19,
+          "end": 105.31,
+          "probability": 0.9858
+        },
+        {
+          "word": "to.",
+          "start": 105.31,
+          "end": 105.51,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.0598,
+      "no_speech_prob": 0.0138
+    },
+    {
+      "id": 4,
+      "start": 106.0,
+      "end": 134.73,
+      "text": "get a little bit slower. But anyway, so now we're going to look at the flight simulator with 12 cores. It's beautiful. It does the full map. The sound is garbled. That's because it's VMware. They put distortion on it. So this is VMware with 12. Remember, I have 1224.",
+      "words": [
+        {
+          "word": "get",
+          "start": 106.0,
+          "end": 106.32,
+          "probability": 0.6748
+        },
+        {
+          "word": "a",
+          "start": 106.32,
+          "end": 106.42,
+          "probability": 0.9883
+        },
+        {
+          "word": "little",
+          "start": 106.42,
+          "end": 106.58,
+          "probability": 0.9902
+        },
+        {
+          "word": "bit",
+          "start": 106.58,
+          "end": 106.74,
+          "probability": 0.9902
+        },
+        {
+          "word": "slower.",
+          "start": 106.74,
+          "end": 107.14,
+          "probability": 0.9961
+        },
+        {
+          "word": "But",
+          "start": 107.34,
+          "end": 107.48,
+          "probability": 0.6235
+        },
+        {
+          "word": "anyway,",
+          "start": 107.48,
+          "end": 107.78,
+          "probability": 0.9536
+        },
+        {
+          "word": "so",
+          "start": 107.96,
+          "end": 108.36,
+          "probability": 0.8799
+        },
+        {
+          "word": "now",
+          "start": 108.36,
+          "end": 108.52,
+          "probability": 0.9917
+        },
+        {
+          "word": "we're",
+          "start": 108.52,
+          "end": 108.7,
+          "probability": 0.9629
+        },
+        {
+          "word": "going",
+          "start": 108.7,
+          "end": 108.74,
+          "probability": 0.876
+        },
+        {
+          "word": "to",
+          "start": 108.74,
+          "end": 108.8,
+          "probability": 0.9976
+        },
+        {
+          "word": "look",
+          "start": 108.8,
+          "end": 108.96,
+          "probability": 0.9976
+        },
+        {
+          "word": "at",
+          "start": 108.96,
+          "end": 109.06,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 109.06,
+          "end": 109.16,
+          "probability": 0.9976
+        },
+        {
+          "word": "flight",
+          "start": 109.16,
+          "end": 109.38,
+          "probability": 0.6899
+        },
+        {
+          "word": "simulator",
+          "start": 109.38,
+          "end": 109.64,
+          "probability": 0.999
+        },
+        {
+          "word": "with",
+          "start": 109.64,
+          "end": 110.72,
+          "probability": 0.9873
+        },
+        {
+          "word": "12",
+          "start": 110.72,
+          "end": 111.3,
+          "probability": 0.9106
+        },
+        {
+          "word": "cores.",
+          "start": 111.3,
+          "end": 111.68,
+          "probability": 0.98
+        },
+        {
+          "word": "It's",
+          "start": 113.08,
+          "end": 113.68,
+          "probability": 0.9934
+        },
+        {
+          "word": "beautiful.",
+          "start": 113.68,
+          "end": 114.06,
+          "probability": 0.9976
+        },
+        {
+          "word": "It",
+          "start": 114.28,
+          "end": 114.78,
+          "probability": 0.9932
+        },
+        {
+          "word": "does",
+          "start": 114.78,
+          "end": 115.52,
+          "probability": 0.9355
+        },
+        {
+          "word": "the",
+          "start": 115.52,
+          "end": 116.44,
+          "probability": 0.999
+        },
+        {
+          "word": "full",
+          "start": 116.44,
+          "end": 116.72,
+          "probability": 0.9976
+        },
+        {
+          "word": "map.",
+          "start": 116.72,
+          "end": 117.38,
+          "probability": 0.9976
+        },
+        {
+          "word": "The",
+          "start": 119.28,
+          "end": 119.88,
+          "probability": 0.999
+        },
+        {
+          "word": "sound",
+          "start": 119.88,
+          "end": 120.3,
+          "probability": 0.9995
+        },
+        {
+          "word": "is",
+          "start": 120.3,
+          "end": 120.58,
+          "probability": 0.9995
+        },
+        {
+          "word": "garbled.",
+          "start": 120.58,
+          "end": 121.54,
+          "probability": 0.9941
+        },
+        {
+          "word": "That's",
+          "start": 122.42,
+          "end": 123.02,
+          "probability": 0.9978
+        },
+        {
+          "word": "because",
+          "start": 123.02,
+          "end": 123.32,
+          "probability": 0.9995
+        },
+        {
+          "word": "it's",
+          "start": 123.32,
+          "end": 123.72,
+          "probability": 0.9995
+        },
+        {
+          "word": "VMware.",
+          "start": 123.72,
+          "end": 124.06,
+          "probability": 0.9678
+        },
+        {
+          "word": "They",
+          "start": 124.06,
+          "end": 124.64,
+          "probability": 0.9995
+        },
+        {
+          "word": "put",
+          "start": 124.64,
+          "end": 124.84,
+          "probability": 0.9995
+        },
+        {
+          "word": "distortion",
+          "start": 124.84,
+          "end": 125.24,
+          "probability": 0.9985
+        },
+        {
+          "word": "on",
+          "start": 125.24,
+          "end": 125.68,
+          "probability": 1.0
+        },
+        {
+          "word": "it.",
+          "start": 125.68,
+          "end": 125.86,
+          "probability": 1.0
+        },
+        {
+          "word": "So",
+          "start": 128.95,
+          "end": 129.55,
+          "probability": 0.9648
+        },
+        {
+          "word": "this",
+          "start": 129.55,
+          "end": 129.77,
+          "probability": 0.9292
+        },
+        {
+          "word": "is",
+          "start": 129.77,
+          "end": 129.95,
+          "probability": 0.9995
+        },
+        {
+          "word": "VMware",
+          "start": 129.95,
+          "end": 130.31,
+          "probability": 0.9937
+        },
+        {
+          "word": "with",
+          "start": 130.31,
+          "end": 130.61,
+          "probability": 0.9995
+        },
+        {
+          "word": "12.",
+          "start": 130.61,
+          "end": 131.03,
+          "probability": 0.999
+        },
+        {
+          "word": "Remember,",
+          "start": 132.45,
+          "end": 133.05,
+          "probability": 0.9531
+        },
+        {
+          "word": "I",
+          "start": 133.69,
+          "end": 133.79,
+          "probability": 1.0
+        },
+        {
+          "word": "have",
+          "start": 133.79,
+          "end": 133.97,
+          "probability": 1.0
+        },
+        {
+          "word": "1224.",
+          "start": 133.97,
+          "end": 134.73,
+          "probability": 0.9517
+        }
+      ],
+      "avg_logprob": -0.0683,
+      "no_speech_prob": 0.036
+    },
+    {
+      "id": 5,
+      "start": 135.52,
+      "end": 166.53,
+      "text": "With hyper threading so this is I assume this is a now core zero has a little bit reduced part of that is because of Is because of Linux in the back I'm a guest on Linux so part of that is Linux So anyway now we're gonna we're gonna change it was it's about four one four four point one",
+      "words": [
+        {
+          "word": "With",
+          "start": 135.52,
+          "end": 135.96,
+          "probability": 0.4109
+        },
+        {
+          "word": "hyper",
+          "start": 135.96,
+          "end": 136.22,
+          "probability": 0.8052
+        },
+        {
+          "word": "threading",
+          "start": 136.22,
+          "end": 136.72,
+          "probability": 0.9238
+        },
+        {
+          "word": "so",
+          "start": 136.72,
+          "end": 137.4,
+          "probability": 0.6479
+        },
+        {
+          "word": "this",
+          "start": 137.4,
+          "end": 137.72,
+          "probability": 0.9888
+        },
+        {
+          "word": "is",
+          "start": 137.72,
+          "end": 137.92,
+          "probability": 0.9927
+        },
+        {
+          "word": "I",
+          "start": 137.92,
+          "end": 138.22,
+          "probability": 0.7671
+        },
+        {
+          "word": "assume",
+          "start": 138.22,
+          "end": 138.74,
+          "probability": 0.9648
+        },
+        {
+          "word": "this",
+          "start": 138.74,
+          "end": 139.02,
+          "probability": 0.9014
+        },
+        {
+          "word": "is",
+          "start": 139.02,
+          "end": 139.24,
+          "probability": 0.9912
+        },
+        {
+          "word": "a",
+          "start": 139.24,
+          "end": 139.44,
+          "probability": 0.5684
+        },
+        {
+          "word": "now",
+          "start": 139.44,
+          "end": 140.24,
+          "probability": 0.6558
+        },
+        {
+          "word": "core",
+          "start": 140.24,
+          "end": 140.72,
+          "probability": 0.4841
+        },
+        {
+          "word": "zero",
+          "start": 140.72,
+          "end": 141.1,
+          "probability": 0.5386
+        },
+        {
+          "word": "has",
+          "start": 141.1,
+          "end": 141.48,
+          "probability": 0.9824
+        },
+        {
+          "word": "a",
+          "start": 141.48,
+          "end": 141.82,
+          "probability": 0.9897
+        },
+        {
+          "word": "little",
+          "start": 141.82,
+          "end": 142.4,
+          "probability": 0.9805
+        },
+        {
+          "word": "bit",
+          "start": 142.4,
+          "end": 142.6,
+          "probability": 0.999
+        },
+        {
+          "word": "reduced",
+          "start": 142.6,
+          "end": 142.98,
+          "probability": 0.9907
+        },
+        {
+          "word": "part",
+          "start": 142.98,
+          "end": 143.82,
+          "probability": 0.9043
+        },
+        {
+          "word": "of",
+          "start": 143.82,
+          "end": 144.06,
+          "probability": 0.9941
+        },
+        {
+          "word": "that",
+          "start": 144.06,
+          "end": 144.18,
+          "probability": 0.998
+        },
+        {
+          "word": "is",
+          "start": 144.18,
+          "end": 144.48,
+          "probability": 0.9966
+        },
+        {
+          "word": "because",
+          "start": 144.48,
+          "end": 144.78,
+          "probability": 0.998
+        },
+        {
+          "word": "of",
+          "start": 144.78,
+          "end": 145.26,
+          "probability": 0.9927
+        },
+        {
+          "word": "Is",
+          "start": 145.26,
+          "end": 146.36,
+          "probability": 0.8691
+        },
+        {
+          "word": "because",
+          "start": 147.45,
+          "end": 148.57,
+          "probability": 0.9956
+        },
+        {
+          "word": "of",
+          "start": 148.57,
+          "end": 148.89,
+          "probability": 0.9985
+        },
+        {
+          "word": "Linux",
+          "start": 148.89,
+          "end": 149.17,
+          "probability": 0.7275
+        },
+        {
+          "word": "in",
+          "start": 149.17,
+          "end": 149.57,
+          "probability": 0.9956
+        },
+        {
+          "word": "the",
+          "start": 149.57,
+          "end": 149.75,
+          "probability": 0.999
+        },
+        {
+          "word": "back",
+          "start": 149.75,
+          "end": 149.97,
+          "probability": 0.7324
+        },
+        {
+          "word": "I'm",
+          "start": 149.97,
+          "end": 150.59,
+          "probability": 0.702
+        },
+        {
+          "word": "a",
+          "start": 150.59,
+          "end": 150.67,
+          "probability": 0.9619
+        },
+        {
+          "word": "guest",
+          "start": 150.67,
+          "end": 150.97,
+          "probability": 0.9976
+        },
+        {
+          "word": "on",
+          "start": 150.97,
+          "end": 151.25,
+          "probability": 0.998
+        },
+        {
+          "word": "Linux",
+          "start": 151.25,
+          "end": 151.55,
+          "probability": 0.9702
+        },
+        {
+          "word": "so",
+          "start": 151.55,
+          "end": 152.59,
+          "probability": 0.8896
+        },
+        {
+          "word": "part",
+          "start": 152.59,
+          "end": 152.81,
+          "probability": 0.999
+        },
+        {
+          "word": "of",
+          "start": 152.81,
+          "end": 153.01,
+          "probability": 0.998
+        },
+        {
+          "word": "that",
+          "start": 153.01,
+          "end": 153.11,
+          "probability": 0.9995
+        },
+        {
+          "word": "is",
+          "start": 153.11,
+          "end": 153.31,
+          "probability": 0.998
+        },
+        {
+          "word": "Linux",
+          "start": 153.31,
+          "end": 153.57,
+          "probability": 0.9404
+        },
+        {
+          "word": "So",
+          "start": 153.57,
+          "end": 155.77,
+          "probability": 0.5244
+        },
+        {
+          "word": "anyway",
+          "start": 155.89,
+          "end": 157.05,
+          "probability": 0.8452
+        },
+        {
+          "word": "now",
+          "start": 157.05,
+          "end": 158.17,
+          "probability": 0.8042
+        },
+        {
+          "word": "we're",
+          "start": 158.17,
+          "end": 158.45,
+          "probability": 0.9292
+        },
+        {
+          "word": "gonna",
+          "start": 158.45,
+          "end": 158.65,
+          "probability": 0.7866
+        },
+        {
+          "word": "we're",
+          "start": 158.65,
+          "end": 159.59,
+          "probability": 0.6583
+        },
+        {
+          "word": "gonna",
+          "start": 159.59,
+          "end": 159.77,
+          "probability": 0.9609
+        },
+        {
+          "word": "change",
+          "start": 159.77,
+          "end": 160.33,
+          "probability": 0.8916
+        },
+        {
+          "word": "it",
+          "start": 160.33,
+          "end": 160.65,
+          "probability": 0.8667
+        },
+        {
+          "word": "was",
+          "start": 160.65,
+          "end": 160.83,
+          "probability": 0.9834
+        },
+        {
+          "word": "it's",
+          "start": 160.83,
+          "end": 161.39,
+          "probability": 0.9209
+        },
+        {
+          "word": "about",
+          "start": 161.39,
+          "end": 161.51,
+          "probability": 0.9995
+        },
+        {
+          "word": "four",
+          "start": 161.51,
+          "end": 161.87,
+          "probability": 0.5645
+        },
+        {
+          "word": "one",
+          "start": 161.87,
+          "end": 162.23,
+          "probability": 0.9526
+        },
+        {
+          "word": "four",
+          "start": 162.33,
+          "end": 164.27,
+          "probability": 0.5889
+        },
+        {
+          "word": "four",
+          "start": 164.49,
+          "end": 165.61,
+          "probability": 0.8569
+        },
+        {
+          "word": "point",
+          "start": 165.97,
+          "end": 166.29,
+          "probability": 0.9609
+        },
+        {
+          "word": "one",
+          "start": 166.29,
+          "end": 166.53,
+          "probability": 0.9946
+        }
+      ],
+      "avg_logprob": -0.1651,
+      "no_speech_prob": 0.0361
+    },
+    {
+      "id": 6,
+      "start": 169.1,
+      "end": 200.36,
+      "text": "Now we're going to change it up to 16. Now, I assumed I have 1224. So in order to get 16, we had to double up 4. So now 4 of them have been doubled up on the cores.",
+      "words": [
+        {
+          "word": "Now",
+          "start": 169.1,
+          "end": 169.32,
+          "probability": 0.6841
+        },
+        {
+          "word": "we're",
+          "start": 169.32,
+          "end": 169.48,
+          "probability": 0.8882
+        },
+        {
+          "word": "going",
+          "start": 169.48,
+          "end": 169.52,
+          "probability": 0.9512
+        },
+        {
+          "word": "to",
+          "start": 169.52,
+          "end": 169.62,
+          "probability": 0.9995
+        },
+        {
+          "word": "change",
+          "start": 169.62,
+          "end": 169.9,
+          "probability": 0.9985
+        },
+        {
+          "word": "it",
+          "start": 169.9,
+          "end": 170.1,
+          "probability": 0.9961
+        },
+        {
+          "word": "up",
+          "start": 170.1,
+          "end": 170.28,
+          "probability": 0.9961
+        },
+        {
+          "word": "to",
+          "start": 170.28,
+          "end": 170.54,
+          "probability": 0.9985
+        },
+        {
+          "word": "16.",
+          "start": 170.54,
+          "end": 171.98,
+          "probability": 0.9497
+        },
+        {
+          "word": "Now,",
+          "start": 173.97,
+          "end": 174.65,
+          "probability": 0.7939
+        },
+        {
+          "word": "I",
+          "start": 174.65,
+          "end": 176.27,
+          "probability": 0.874
+        },
+        {
+          "word": "assumed",
+          "start": 176.75,
+          "end": 178.07,
+          "probability": 0.8662
+        },
+        {
+          "word": "I",
+          "start": 178.07,
+          "end": 178.51,
+          "probability": 0.7666
+        },
+        {
+          "word": "have",
+          "start": 179.44,
+          "end": 181.34,
+          "probability": 0.998
+        },
+        {
+          "word": "1224.",
+          "start": 181.34,
+          "end": 182.1,
+          "probability": 0.8306
+        },
+        {
+          "word": "So",
+          "start": 183.03,
+          "end": 183.71,
+          "probability": 0.9893
+        },
+        {
+          "word": "in",
+          "start": 183.71,
+          "end": 184.17,
+          "probability": 0.665
+        },
+        {
+          "word": "order",
+          "start": 184.17,
+          "end": 185.01,
+          "probability": 1.0
+        },
+        {
+          "word": "to",
+          "start": 185.01,
+          "end": 185.25,
+          "probability": 1.0
+        },
+        {
+          "word": "get",
+          "start": 185.25,
+          "end": 185.53,
+          "probability": 1.0
+        },
+        {
+          "word": "16,",
+          "start": 185.53,
+          "end": 186.29,
+          "probability": 1.0
+        },
+        {
+          "word": "we",
+          "start": 186.7,
+          "end": 189.26,
+          "probability": 0.999
+        },
+        {
+          "word": "had",
+          "start": 189.39,
+          "end": 189.63,
+          "probability": 0.9995
+        },
+        {
+          "word": "to",
+          "start": 189.63,
+          "end": 189.93,
+          "probability": 1.0
+        },
+        {
+          "word": "double",
+          "start": 189.93,
+          "end": 190.35,
+          "probability": 1.0
+        },
+        {
+          "word": "up",
+          "start": 190.35,
+          "end": 190.63,
+          "probability": 0.9995
+        },
+        {
+          "word": "4.",
+          "start": 190.63,
+          "end": 191.13,
+          "probability": 0.7954
+        },
+        {
+          "word": "So",
+          "start": 192.98,
+          "end": 193.66,
+          "probability": 0.9985
+        },
+        {
+          "word": "now",
+          "start": 193.66,
+          "end": 194.0,
+          "probability": 0.999
+        },
+        {
+          "word": "4",
+          "start": 194.0,
+          "end": 197.06,
+          "probability": 0.7095
+        },
+        {
+          "word": "of",
+          "start": 197.06,
+          "end": 197.26,
+          "probability": 1.0
+        },
+        {
+          "word": "them",
+          "start": 197.26,
+          "end": 197.4,
+          "probability": 1.0
+        },
+        {
+          "word": "have",
+          "start": 197.4,
+          "end": 197.54,
+          "probability": 1.0
+        },
+        {
+          "word": "been",
+          "start": 197.54,
+          "end": 197.78,
+          "probability": 1.0
+        },
+        {
+          "word": "doubled",
+          "start": 197.78,
+          "end": 198.14,
+          "probability": 1.0
+        },
+        {
+          "word": "up",
+          "start": 198.14,
+          "end": 198.48,
+          "probability": 1.0
+        },
+        {
+          "word": "on",
+          "start": 198.48,
+          "end": 199.48,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 199.48,
+          "end": 200.0,
+          "probability": 0.9893
+        },
+        {
+          "word": "cores.",
+          "start": 200.0,
+          "end": 200.36,
+          "probability": 0.9922
+        }
+      ],
+      "avg_logprob": -0.0722,
+      "no_speech_prob": 0.0051
+    },
+    {
+      "id": 7,
+      "start": 203.79,
+      "end": 232.04,
+      "text": "So what do you think it's going to look like? Do you think it's going to be, if eight of them are not doubled up, and then four plus four, four of them with doubled up cores, that's another eight. So you would think there's going to be eight really high, really fast ones, and then eight really slow ones because they are running double loads. That's what I expected, but I was surprised.",
+      "words": [
+        {
+          "word": "So",
+          "start": 203.79,
+          "end": 204.19,
+          "probability": 0.812
+        },
+        {
+          "word": "what",
+          "start": 204.19,
+          "end": 204.27,
+          "probability": 0.8838
+        },
+        {
+          "word": "do",
+          "start": 204.27,
+          "end": 204.39,
+          "probability": 0.9941
+        },
+        {
+          "word": "you",
+          "start": 204.39,
+          "end": 204.43,
+          "probability": 0.9966
+        },
+        {
+          "word": "think",
+          "start": 204.43,
+          "end": 204.55,
+          "probability": 0.9976
+        },
+        {
+          "word": "it's",
+          "start": 204.55,
+          "end": 204.73,
+          "probability": 0.9546
+        },
+        {
+          "word": "going",
+          "start": 204.73,
+          "end": 204.83,
+          "probability": 0.9009
+        },
+        {
+          "word": "to",
+          "start": 204.83,
+          "end": 204.91,
+          "probability": 0.999
+        },
+        {
+          "word": "look",
+          "start": 204.91,
+          "end": 205.09,
+          "probability": 0.9985
+        },
+        {
+          "word": "like?",
+          "start": 205.09,
+          "end": 205.39,
+          "probability": 0.9995
+        },
+        {
+          "word": "Do",
+          "start": 205.49,
+          "end": 205.85,
+          "probability": 0.9331
+        },
+        {
+          "word": "you",
+          "start": 205.85,
+          "end": 205.95,
+          "probability": 0.9995
+        },
+        {
+          "word": "think",
+          "start": 205.95,
+          "end": 206.17,
+          "probability": 0.9995
+        },
+        {
+          "word": "it's",
+          "start": 206.17,
+          "end": 206.33,
+          "probability": 0.9937
+        },
+        {
+          "word": "going",
+          "start": 206.33,
+          "end": 206.45,
+          "probability": 0.9912
+        },
+        {
+          "word": "to",
+          "start": 206.45,
+          "end": 206.59,
+          "probability": 0.999
+        },
+        {
+          "word": "be,",
+          "start": 206.59,
+          "end": 206.75,
+          "probability": 0.9995
+        },
+        {
+          "word": "if",
+          "start": 206.87,
+          "end": 207.81,
+          "probability": 0.9404
+        },
+        {
+          "word": "eight",
+          "start": 207.81,
+          "end": 209.39,
+          "probability": 0.5342
+        },
+        {
+          "word": "of",
+          "start": 209.39,
+          "end": 209.63,
+          "probability": 1.0
+        },
+        {
+          "word": "them",
+          "start": 209.63,
+          "end": 209.73,
+          "probability": 1.0
+        },
+        {
+          "word": "are",
+          "start": 209.73,
+          "end": 209.99,
+          "probability": 0.9995
+        },
+        {
+          "word": "not",
+          "start": 209.99,
+          "end": 210.27,
+          "probability": 1.0
+        },
+        {
+          "word": "doubled",
+          "start": 210.27,
+          "end": 210.69,
+          "probability": 0.998
+        },
+        {
+          "word": "up,",
+          "start": 210.69,
+          "end": 210.97,
+          "probability": 0.9937
+        },
+        {
+          "word": "and",
+          "start": 210.99,
+          "end": 211.65,
+          "probability": 0.9976
+        },
+        {
+          "word": "then",
+          "start": 211.65,
+          "end": 211.89,
+          "probability": 0.999
+        },
+        {
+          "word": "four",
+          "start": 211.89,
+          "end": 212.35,
+          "probability": 0.999
+        },
+        {
+          "word": "plus",
+          "start": 212.35,
+          "end": 212.87,
+          "probability": 0.7129
+        },
+        {
+          "word": "four,",
+          "start": 212.87,
+          "end": 213.39,
+          "probability": 0.9976
+        },
+        {
+          "word": "four",
+          "start": 213.47,
+          "end": 214.51,
+          "probability": 0.9995
+        },
+        {
+          "word": "of",
+          "start": 215.08,
+          "end": 215.32,
+          "probability": 1.0
+        },
+        {
+          "word": "them",
+          "start": 215.32,
+          "end": 215.46,
+          "probability": 1.0
+        },
+        {
+          "word": "with",
+          "start": 215.46,
+          "end": 215.74,
+          "probability": 1.0
+        },
+        {
+          "word": "doubled",
+          "start": 215.74,
+          "end": 216.32,
+          "probability": 1.0
+        },
+        {
+          "word": "up",
+          "start": 216.32,
+          "end": 216.56,
+          "probability": 0.9912
+        },
+        {
+          "word": "cores,",
+          "start": 216.56,
+          "end": 217.0,
+          "probability": 0.999
+        },
+        {
+          "word": "that's",
+          "start": 217.26,
+          "end": 218.46,
+          "probability": 0.9768
+        },
+        {
+          "word": "another",
+          "start": 218.46,
+          "end": 218.68,
+          "probability": 1.0
+        },
+        {
+          "word": "eight.",
+          "start": 218.68,
+          "end": 219.16,
+          "probability": 0.9995
+        },
+        {
+          "word": "So",
+          "start": 219.5,
+          "end": 220.02,
+          "probability": 0.9995
+        },
+        {
+          "word": "you",
+          "start": 220.02,
+          "end": 220.24,
+          "probability": 0.9995
+        },
+        {
+          "word": "would",
+          "start": 220.24,
+          "end": 220.42,
+          "probability": 1.0
+        },
+        {
+          "word": "think",
+          "start": 220.42,
+          "end": 220.74,
+          "probability": 1.0
+        },
+        {
+          "word": "there's",
+          "start": 220.74,
+          "end": 221.16,
+          "probability": 0.9998
+        },
+        {
+          "word": "going",
+          "start": 221.16,
+          "end": 221.26,
+          "probability": 0.9995
+        },
+        {
+          "word": "to",
+          "start": 221.26,
+          "end": 221.4,
+          "probability": 1.0
+        },
+        {
+          "word": "be",
+          "start": 221.4,
+          "end": 221.54,
+          "probability": 1.0
+        },
+        {
+          "word": "eight",
+          "start": 221.54,
+          "end": 222.0,
+          "probability": 1.0
+        },
+        {
+          "word": "really",
+          "start": 222.0,
+          "end": 222.68,
+          "probability": 1.0
+        },
+        {
+          "word": "high,",
+          "start": 222.68,
+          "end": 223.0,
+          "probability": 0.9585
+        },
+        {
+          "word": "really",
+          "start": 223.1,
+          "end": 223.58,
+          "probability": 1.0
+        },
+        {
+          "word": "fast",
+          "start": 223.58,
+          "end": 223.96,
+          "probability": 1.0
+        },
+        {
+          "word": "ones,",
+          "start": 223.96,
+          "end": 224.34,
+          "probability": 1.0
+        },
+        {
+          "word": "and",
+          "start": 224.4,
+          "end": 224.62,
+          "probability": 1.0
+        },
+        {
+          "word": "then",
+          "start": 224.62,
+          "end": 224.74,
+          "probability": 0.9995
+        },
+        {
+          "word": "eight",
+          "start": 224.74,
+          "end": 225.02,
+          "probability": 1.0
+        },
+        {
+          "word": "really",
+          "start": 225.02,
+          "end": 225.4,
+          "probability": 1.0
+        },
+        {
+          "word": "slow",
+          "start": 225.4,
+          "end": 225.8,
+          "probability": 0.999
+        },
+        {
+          "word": "ones",
+          "start": 225.8,
+          "end": 226.08,
+          "probability": 0.9995
+        },
+        {
+          "word": "because",
+          "start": 226.08,
+          "end": 226.44,
+          "probability": 0.428
+        },
+        {
+          "word": "they",
+          "start": 226.44,
+          "end": 227.36,
+          "probability": 1.0
+        },
+        {
+          "word": "are",
+          "start": 227.36,
+          "end": 227.96,
+          "probability": 0.9985
+        },
+        {
+          "word": "running",
+          "start": 227.96,
+          "end": 228.32,
+          "probability": 1.0
+        },
+        {
+          "word": "double",
+          "start": 228.32,
+          "end": 228.68,
+          "probability": 0.9976
+        },
+        {
+          "word": "loads.",
+          "start": 228.68,
+          "end": 229.1,
+          "probability": 1.0
+        },
+        {
+          "word": "That's",
+          "start": 229.3,
+          "end": 229.82,
+          "probability": 0.9998
+        },
+        {
+          "word": "what",
+          "start": 229.82,
+          "end": 229.94,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 229.94,
+          "end": 230.1,
+          "probability": 1.0
+        },
+        {
+          "word": "expected,",
+          "start": 230.1,
+          "end": 230.54,
+          "probability": 1.0
+        },
+        {
+          "word": "but",
+          "start": 230.78,
+          "end": 231.3,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 231.3,
+          "end": 231.44,
+          "probability": 1.0
+        },
+        {
+          "word": "was",
+          "start": 231.44,
+          "end": 231.62,
+          "probability": 1.0
+        },
+        {
+          "word": "surprised.",
+          "start": 231.62,
+          "end": 232.04,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.0499,
+      "no_speech_prob": 0.0159
+    },
+    {
+      "id": 8,
+      "start": 234.25,
+      "end": 266.28,
+      "text": "that they're even. Now it could be that VMware gives me double cores and we only have 8 cores instead of 12. Anyway, so these are pretty even. There's a little bit of a difference. Anyway, and the flight simulator works perfectly. The song plays correctly and",
+      "words": [
+        {
+          "word": "that",
+          "start": 234.25,
+          "end": 234.67,
+          "probability": 0.2986
+        },
+        {
+          "word": "they're",
+          "start": 234.67,
+          "end": 234.89,
+          "probability": 0.8931
+        },
+        {
+          "word": "even.",
+          "start": 234.89,
+          "end": 235.29,
+          "probability": 0.9897
+        },
+        {
+          "word": "Now",
+          "start": 235.47,
+          "end": 235.89,
+          "probability": 0.9121
+        },
+        {
+          "word": "it",
+          "start": 235.89,
+          "end": 236.09,
+          "probability": 0.6323
+        },
+        {
+          "word": "could",
+          "start": 236.09,
+          "end": 236.37,
+          "probability": 0.9951
+        },
+        {
+          "word": "be",
+          "start": 236.37,
+          "end": 236.63,
+          "probability": 0.9985
+        },
+        {
+          "word": "that",
+          "start": 236.63,
+          "end": 237.05,
+          "probability": 0.9893
+        },
+        {
+          "word": "VMware",
+          "start": 237.05,
+          "end": 238.25,
+          "probability": 0.7046
+        },
+        {
+          "word": "gives",
+          "start": 238.25,
+          "end": 240.59,
+          "probability": 0.9219
+        },
+        {
+          "word": "me",
+          "start": 240.88,
+          "end": 241.24,
+          "probability": 0.998
+        },
+        {
+          "word": "double",
+          "start": 241.24,
+          "end": 242.84,
+          "probability": 0.9297
+        },
+        {
+          "word": "cores",
+          "start": 244.44,
+          "end": 244.9,
+          "probability": 0.9463
+        },
+        {
+          "word": "and",
+          "start": 244.9,
+          "end": 246.1,
+          "probability": 0.5103
+        },
+        {
+          "word": "we",
+          "start": 246.22,
+          "end": 247.24,
+          "probability": 0.9937
+        },
+        {
+          "word": "only",
+          "start": 247.24,
+          "end": 247.46,
+          "probability": 0.9966
+        },
+        {
+          "word": "have",
+          "start": 247.46,
+          "end": 247.74,
+          "probability": 0.9976
+        },
+        {
+          "word": "8",
+          "start": 247.74,
+          "end": 248.76,
+          "probability": 0.5283
+        },
+        {
+          "word": "cores",
+          "start": 251.64,
+          "end": 252.1,
+          "probability": 0.9766
+        },
+        {
+          "word": "instead",
+          "start": 252.1,
+          "end": 252.44,
+          "probability": 0.9761
+        },
+        {
+          "word": "of",
+          "start": 252.44,
+          "end": 252.62,
+          "probability": 0.9922
+        },
+        {
+          "word": "12.",
+          "start": 252.62,
+          "end": 252.9,
+          "probability": 0.979
+        },
+        {
+          "word": "Anyway,",
+          "start": 253.44,
+          "end": 254.12,
+          "probability": 0.8638
+        },
+        {
+          "word": "so",
+          "start": 254.2,
+          "end": 254.44,
+          "probability": 0.9062
+        },
+        {
+          "word": "these",
+          "start": 254.44,
+          "end": 254.96,
+          "probability": 0.9775
+        },
+        {
+          "word": "are",
+          "start": 254.96,
+          "end": 255.14,
+          "probability": 0.9995
+        },
+        {
+          "word": "pretty",
+          "start": 255.14,
+          "end": 255.36,
+          "probability": 0.9995
+        },
+        {
+          "word": "even.",
+          "start": 255.36,
+          "end": 255.74,
+          "probability": 0.9985
+        },
+        {
+          "word": "There's",
+          "start": 255.86,
+          "end": 256.1,
+          "probability": 0.9932
+        },
+        {
+          "word": "a",
+          "start": 256.1,
+          "end": 256.44,
+          "probability": 0.9766
+        },
+        {
+          "word": "little",
+          "start": 256.44,
+          "end": 256.68,
+          "probability": 0.9995
+        },
+        {
+          "word": "bit",
+          "start": 256.68,
+          "end": 256.86,
+          "probability": 0.9995
+        },
+        {
+          "word": "of",
+          "start": 256.86,
+          "end": 257.0,
+          "probability": 0.9995
+        },
+        {
+          "word": "a",
+          "start": 257.0,
+          "end": 257.06,
+          "probability": 0.9932
+        },
+        {
+          "word": "difference.",
+          "start": 257.06,
+          "end": 257.36,
+          "probability": 0.9995
+        },
+        {
+          "word": "Anyway,",
+          "start": 257.64,
+          "end": 258.3,
+          "probability": 0.9409
+        },
+        {
+          "word": "and",
+          "start": 258.4,
+          "end": 258.66,
+          "probability": 0.8677
+        },
+        {
+          "word": "the",
+          "start": 258.66,
+          "end": 259.04,
+          "probability": 0.998
+        },
+        {
+          "word": "flight",
+          "start": 259.04,
+          "end": 259.28,
+          "probability": 0.6436
+        },
+        {
+          "word": "simulator",
+          "start": 259.28,
+          "end": 259.54,
+          "probability": 0.999
+        },
+        {
+          "word": "works",
+          "start": 259.54,
+          "end": 260.18,
+          "probability": 0.9995
+        },
+        {
+          "word": "perfectly.",
+          "start": 260.18,
+          "end": 261.0,
+          "probability": 0.9995
+        },
+        {
+          "word": "The",
+          "start": 261.46,
+          "end": 262.14,
+          "probability": 0.9893
+        },
+        {
+          "word": "song",
+          "start": 262.14,
+          "end": 263.0,
+          "probability": 0.8457
+        },
+        {
+          "word": "plays",
+          "start": 263.0,
+          "end": 264.16,
+          "probability": 0.9976
+        },
+        {
+          "word": "correctly",
+          "start": 264.16,
+          "end": 265.02,
+          "probability": 0.999
+        },
+        {
+          "word": "and",
+          "start": 265.02,
+          "end": 266.28,
+          "probability": 0.6938
+        }
+      ],
+      "avg_logprob": -0.1476,
+      "no_speech_prob": 0.0663
+    },
+    {
+      "id": 9,
+      "start": 268.94,
+      "end": 299.27,
+      "text": "The controls work. Anyway, the song is garbled. That's because VMware puts too much distortion. I don't know why they did that. Anyway, so that's VMware. VMware costs $250, and it's the most professional, but they're assholes. It would be really easy for them to change it from 16 to 24. There's a limit of 16 cores.",
+      "words": [
+        {
+          "word": "The",
+          "start": 268.94,
+          "end": 269.08,
+          "probability": 0.4158
+        },
+        {
+          "word": "controls",
+          "start": 269.08,
+          "end": 269.5,
+          "probability": 0.9375
+        },
+        {
+          "word": "work.",
+          "start": 269.5,
+          "end": 269.96,
+          "probability": 0.9731
+        },
+        {
+          "word": "Anyway,",
+          "start": 270.9,
+          "end": 271.62,
+          "probability": 0.5884
+        },
+        {
+          "word": "the",
+          "start": 272.38,
+          "end": 272.74,
+          "probability": 0.9902
+        },
+        {
+          "word": "song",
+          "start": 272.74,
+          "end": 273.18,
+          "probability": 0.9976
+        },
+        {
+          "word": "is",
+          "start": 273.18,
+          "end": 273.54,
+          "probability": 0.9976
+        },
+        {
+          "word": "garbled.",
+          "start": 273.54,
+          "end": 274.32,
+          "probability": 0.9963
+        },
+        {
+          "word": "That's",
+          "start": 274.34,
+          "end": 274.6,
+          "probability": 0.9954
+        },
+        {
+          "word": "because",
+          "start": 274.6,
+          "end": 274.82,
+          "probability": 0.998
+        },
+        {
+          "word": "VMware",
+          "start": 274.82,
+          "end": 275.28,
+          "probability": 0.9878
+        },
+        {
+          "word": "puts",
+          "start": 275.28,
+          "end": 275.8,
+          "probability": 0.998
+        },
+        {
+          "word": "too",
+          "start": 275.8,
+          "end": 276.04,
+          "probability": 0.9985
+        },
+        {
+          "word": "much",
+          "start": 276.04,
+          "end": 276.24,
+          "probability": 1.0
+        },
+        {
+          "word": "distortion.",
+          "start": 276.24,
+          "end": 276.68,
+          "probability": 0.9985
+        },
+        {
+          "word": "I",
+          "start": 277.08,
+          "end": 277.6,
+          "probability": 0.9971
+        },
+        {
+          "word": "don't",
+          "start": 277.6,
+          "end": 277.76,
+          "probability": 0.9998
+        },
+        {
+          "word": "know",
+          "start": 277.76,
+          "end": 277.82,
+          "probability": 0.999
+        },
+        {
+          "word": "why",
+          "start": 277.82,
+          "end": 277.96,
+          "probability": 0.999
+        },
+        {
+          "word": "they",
+          "start": 277.96,
+          "end": 278.1,
+          "probability": 0.9985
+        },
+        {
+          "word": "did",
+          "start": 278.1,
+          "end": 278.26,
+          "probability": 0.9995
+        },
+        {
+          "word": "that.",
+          "start": 278.26,
+          "end": 278.44,
+          "probability": 1.0
+        },
+        {
+          "word": "Anyway,",
+          "start": 278.88,
+          "end": 279.24,
+          "probability": 0.8364
+        },
+        {
+          "word": "so",
+          "start": 279.34,
+          "end": 279.52,
+          "probability": 0.9727
+        },
+        {
+          "word": "that's",
+          "start": 279.52,
+          "end": 281.22,
+          "probability": 0.9805
+        },
+        {
+          "word": "VMware.",
+          "start": 282.69,
+          "end": 283.11,
+          "probability": 0.9971
+        },
+        {
+          "word": "VMware",
+          "start": 283.31,
+          "end": 283.73,
+          "probability": 0.9956
+        },
+        {
+          "word": "costs",
+          "start": 283.73,
+          "end": 284.09,
+          "probability": 0.9985
+        },
+        {
+          "word": "$250,",
+          "start": 284.09,
+          "end": 284.83,
+          "probability": 0.9724
+        },
+        {
+          "word": "and",
+          "start": 285.21,
+          "end": 285.69,
+          "probability": 0.9995
+        },
+        {
+          "word": "it's",
+          "start": 285.69,
+          "end": 286.21,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 286.21,
+          "end": 286.31,
+          "probability": 1.0
+        },
+        {
+          "word": "most",
+          "start": 286.31,
+          "end": 286.53,
+          "probability": 1.0
+        },
+        {
+          "word": "professional,",
+          "start": 286.53,
+          "end": 287.11,
+          "probability": 1.0
+        },
+        {
+          "word": "but",
+          "start": 287.19,
+          "end": 287.49,
+          "probability": 0.9995
+        },
+        {
+          "word": "they're",
+          "start": 287.49,
+          "end": 287.71,
+          "probability": 0.9998
+        },
+        {
+          "word": "assholes.",
+          "start": 287.71,
+          "end": 288.53,
+          "probability": 0.9998
+        },
+        {
+          "word": "It",
+          "start": 288.77,
+          "end": 289.49,
+          "probability": 0.999
+        },
+        {
+          "word": "would",
+          "start": 289.49,
+          "end": 290.01,
+          "probability": 1.0
+        },
+        {
+          "word": "be",
+          "start": 290.01,
+          "end": 290.21,
+          "probability": 1.0
+        },
+        {
+          "word": "really",
+          "start": 290.21,
+          "end": 290.39,
+          "probability": 1.0
+        },
+        {
+          "word": "easy",
+          "start": 290.39,
+          "end": 290.69,
+          "probability": 1.0
+        },
+        {
+          "word": "for",
+          "start": 290.69,
+          "end": 290.91,
+          "probability": 1.0
+        },
+        {
+          "word": "them",
+          "start": 290.91,
+          "end": 291.07,
+          "probability": 1.0
+        },
+        {
+          "word": "to",
+          "start": 291.07,
+          "end": 291.29,
+          "probability": 1.0
+        },
+        {
+          "word": "change",
+          "start": 291.29,
+          "end": 291.83,
+          "probability": 1.0
+        },
+        {
+          "word": "it",
+          "start": 291.83,
+          "end": 291.99,
+          "probability": 1.0
+        },
+        {
+          "word": "from",
+          "start": 291.99,
+          "end": 292.17,
+          "probability": 1.0
+        },
+        {
+          "word": "16",
+          "start": 292.17,
+          "end": 292.59,
+          "probability": 0.9595
+        },
+        {
+          "word": "to",
+          "start": 292.59,
+          "end": 292.85,
+          "probability": 0.9966
+        },
+        {
+          "word": "24.",
+          "start": 292.85,
+          "end": 293.31,
+          "probability": 1.0
+        },
+        {
+          "word": "There's",
+          "start": 294.95,
+          "end": 295.67,
+          "probability": 0.9998
+        },
+        {
+          "word": "a",
+          "start": 295.67,
+          "end": 295.75,
+          "probability": 1.0
+        },
+        {
+          "word": "limit",
+          "start": 295.75,
+          "end": 296.09,
+          "probability": 1.0
+        },
+        {
+          "word": "of",
+          "start": 296.09,
+          "end": 296.47,
+          "probability": 1.0
+        },
+        {
+          "word": "16",
+          "start": 296.47,
+          "end": 298.67,
+          "probability": 1.0
+        },
+        {
+          "word": "cores.",
+          "start": 298.67,
+          "end": 299.27,
+          "probability": 0.9995
+        }
+      ],
+      "avg_logprob": -0.0422,
+      "no_speech_prob": 0.0673
+    },
+    {
+      "id": 10,
+      "start": 300.18,
+      "end": 337.07,
+      "text": "That's just silly. Anyway, I have a Xeon 1224. So now we're going to look at VirtualBox. I didn't buy this. This is just the free version. So it does do 24. VMware did not do 24. So if you're interested in, if you're interested, oh, we got some kind of error. I think it goes away.",
+      "words": [
+        {
+          "word": "That's",
+          "start": 300.18,
+          "end": 300.74,
+          "probability": 0.9224
+        },
+        {
+          "word": "just",
+          "start": 300.74,
+          "end": 300.96,
+          "probability": 0.9751
+        },
+        {
+          "word": "silly.",
+          "start": 300.96,
+          "end": 301.52,
+          "probability": 0.9893
+        },
+        {
+          "word": "Anyway,",
+          "start": 301.86,
+          "end": 302.42,
+          "probability": 0.8945
+        },
+        {
+          "word": "I",
+          "start": 302.54,
+          "end": 302.96,
+          "probability": 0.9663
+        },
+        {
+          "word": "have",
+          "start": 302.96,
+          "end": 303.4,
+          "probability": 0.9951
+        },
+        {
+          "word": "a",
+          "start": 303.4,
+          "end": 303.52,
+          "probability": 0.9795
+        },
+        {
+          "word": "Xeon",
+          "start": 303.52,
+          "end": 303.88,
+          "probability": 0.8379
+        },
+        {
+          "word": "1224.",
+          "start": 303.88,
+          "end": 304.72,
+          "probability": 0.7307
+        },
+        {
+          "word": "So",
+          "start": 305.38,
+          "end": 305.94,
+          "probability": 0.7559
+        },
+        {
+          "word": "now",
+          "start": 305.94,
+          "end": 306.34,
+          "probability": 0.7466
+        },
+        {
+          "word": "we're",
+          "start": 306.34,
+          "end": 307.2,
+          "probability": 0.9819
+        },
+        {
+          "word": "going",
+          "start": 307.2,
+          "end": 307.26,
+          "probability": 0.8877
+        },
+        {
+          "word": "to",
+          "start": 307.26,
+          "end": 307.4,
+          "probability": 0.999
+        },
+        {
+          "word": "look",
+          "start": 307.4,
+          "end": 307.6,
+          "probability": 0.999
+        },
+        {
+          "word": "at",
+          "start": 307.6,
+          "end": 307.82,
+          "probability": 0.999
+        },
+        {
+          "word": "VirtualBox.",
+          "start": 307.82,
+          "end": 308.94,
+          "probability": 0.9497
+        },
+        {
+          "word": "I",
+          "start": 313.29,
+          "end": 313.85,
+          "probability": 0.9932
+        },
+        {
+          "word": "didn't",
+          "start": 313.98,
+          "end": 314.34,
+          "probability": 0.9995
+        },
+        {
+          "word": "buy",
+          "start": 314.34,
+          "end": 314.56,
+          "probability": 0.9995
+        },
+        {
+          "word": "this.",
+          "start": 314.56,
+          "end": 314.9,
+          "probability": 0.9995
+        },
+        {
+          "word": "This",
+          "start": 314.94,
+          "end": 315.18,
+          "probability": 0.9995
+        },
+        {
+          "word": "is",
+          "start": 315.18,
+          "end": 315.36,
+          "probability": 1.0
+        },
+        {
+          "word": "just",
+          "start": 315.36,
+          "end": 315.6,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 315.6,
+          "end": 315.82,
+          "probability": 0.9995
+        },
+        {
+          "word": "free",
+          "start": 315.82,
+          "end": 316.06,
+          "probability": 1.0
+        },
+        {
+          "word": "version.",
+          "start": 316.06,
+          "end": 316.5,
+          "probability": 0.9995
+        },
+        {
+          "word": "So",
+          "start": 317.62,
+          "end": 318.18,
+          "probability": 0.959
+        },
+        {
+          "word": "it",
+          "start": 318.18,
+          "end": 318.7,
+          "probability": 0.9839
+        },
+        {
+          "word": "does",
+          "start": 318.7,
+          "end": 319.44,
+          "probability": 0.9995
+        },
+        {
+          "word": "do",
+          "start": 319.44,
+          "end": 319.7,
+          "probability": 0.9995
+        },
+        {
+          "word": "24.",
+          "start": 319.7,
+          "end": 320.16,
+          "probability": 0.9937
+        },
+        {
+          "word": "VMware",
+          "start": 320.62,
+          "end": 321.18,
+          "probability": 0.9937
+        },
+        {
+          "word": "did",
+          "start": 321.18,
+          "end": 321.46,
+          "probability": 0.999
+        },
+        {
+          "word": "not",
+          "start": 321.46,
+          "end": 321.7,
+          "probability": 1.0
+        },
+        {
+          "word": "do",
+          "start": 321.7,
+          "end": 321.88,
+          "probability": 1.0
+        },
+        {
+          "word": "24.",
+          "start": 321.88,
+          "end": 322.36,
+          "probability": 1.0
+        },
+        {
+          "word": "So",
+          "start": 323.18,
+          "end": 323.74,
+          "probability": 0.9834
+        },
+        {
+          "word": "if",
+          "start": 323.74,
+          "end": 325.34,
+          "probability": 0.9868
+        },
+        {
+          "word": "you're",
+          "start": 325.34,
+          "end": 325.64,
+          "probability": 1.0
+        },
+        {
+          "word": "interested",
+          "start": 325.64,
+          "end": 326.06,
+          "probability": 1.0
+        },
+        {
+          "word": "in,",
+          "start": 326.06,
+          "end": 326.56,
+          "probability": 0.9746
+        },
+        {
+          "word": "if",
+          "start": 326.56,
+          "end": 327.44,
+          "probability": 0.7329
+        },
+        {
+          "word": "you're",
+          "start": 332.18,
+          "end": 332.6,
+          "probability": 1.0
+        },
+        {
+          "word": "interested,",
+          "start": 332.6,
+          "end": 333.08,
+          "probability": 0.9995
+        },
+        {
+          "word": "oh,",
+          "start": 333.2,
+          "end": 333.4,
+          "probability": 0.9863
+        },
+        {
+          "word": "we",
+          "start": 333.46,
+          "end": 333.54,
+          "probability": 0.9995
+        },
+        {
+          "word": "got",
+          "start": 333.54,
+          "end": 333.68,
+          "probability": 0.8823
+        },
+        {
+          "word": "some",
+          "start": 333.68,
+          "end": 333.8,
+          "probability": 1.0
+        },
+        {
+          "word": "kind",
+          "start": 333.8,
+          "end": 333.96,
+          "probability": 1.0
+        },
+        {
+          "word": "of",
+          "start": 333.96,
+          "end": 334.1,
+          "probability": 1.0
+        },
+        {
+          "word": "error.",
+          "start": 334.1,
+          "end": 334.34,
+          "probability": 0.9995
+        },
+        {
+          "word": "I",
+          "start": 334.66,
+          "end": 335.22,
+          "probability": 0.5679
+        },
+        {
+          "word": "think",
+          "start": 335.31,
+          "end": 336.43,
+          "probability": 0.999
+        },
+        {
+          "word": "it",
+          "start": 336.43,
+          "end": 336.61,
+          "probability": 1.0
+        },
+        {
+          "word": "goes",
+          "start": 336.61,
+          "end": 336.81,
+          "probability": 1.0
+        },
+        {
+          "word": "away.",
+          "start": 336.81,
+          "end": 337.07,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.0869,
+      "no_speech_prob": 0.0174
+    },
+    {
+      "id": 11,
+      "start": 344.3,
+      "end": 381.19,
+      "text": "okay ignore anyway um so uh let's go to the uh the benchmark so this is uh remember this is context swaps um per per second basically so we're doing um so even though this is a little bit slower if you were doing a workload this would this would be um that the extra cores are helpful",
+      "words": [
+        {
+          "word": "okay",
+          "start": 344.3,
+          "end": 344.64,
+          "probability": 0.6099
+        },
+        {
+          "word": "ignore",
+          "start": 344.64,
+          "end": 345.1,
+          "probability": 0.9858
+        },
+        {
+          "word": "anyway",
+          "start": 345.1,
+          "end": 346.2,
+          "probability": 0.9692
+        },
+        {
+          "word": "um",
+          "start": 346.36,
+          "end": 346.9,
+          "probability": 0.8955
+        },
+        {
+          "word": "so",
+          "start": 346.9,
+          "end": 348.0,
+          "probability": 0.999
+        },
+        {
+          "word": "uh",
+          "start": 351.81,
+          "end": 352.07,
+          "probability": 0.9033
+        },
+        {
+          "word": "let's",
+          "start": 352.07,
+          "end": 353.13,
+          "probability": 0.9998
+        },
+        {
+          "word": "go",
+          "start": 353.13,
+          "end": 353.25,
+          "probability": 1.0
+        },
+        {
+          "word": "to",
+          "start": 353.25,
+          "end": 353.47,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 353.47,
+          "end": 353.85,
+          "probability": 1.0
+        },
+        {
+          "word": "uh",
+          "start": 353.85,
+          "end": 354.09,
+          "probability": 0.9766
+        },
+        {
+          "word": "the",
+          "start": 354.09,
+          "end": 355.01,
+          "probability": 0.9937
+        },
+        {
+          "word": "benchmark",
+          "start": 355.01,
+          "end": 355.37,
+          "probability": 0.9976
+        },
+        {
+          "word": "so",
+          "start": 355.37,
+          "end": 356.55,
+          "probability": 0.9966
+        },
+        {
+          "word": "this",
+          "start": 358.6,
+          "end": 359.04,
+          "probability": 1.0
+        },
+        {
+          "word": "is",
+          "start": 359.04,
+          "end": 359.24,
+          "probability": 1.0
+        },
+        {
+          "word": "uh",
+          "start": 359.24,
+          "end": 359.44,
+          "probability": 0.9297
+        },
+        {
+          "word": "remember",
+          "start": 359.44,
+          "end": 359.96,
+          "probability": 0.9995
+        },
+        {
+          "word": "this",
+          "start": 359.96,
+          "end": 360.22,
+          "probability": 1.0
+        },
+        {
+          "word": "is",
+          "start": 360.22,
+          "end": 360.34,
+          "probability": 0.999
+        },
+        {
+          "word": "context",
+          "start": 360.34,
+          "end": 360.82,
+          "probability": 0.9702
+        },
+        {
+          "word": "swaps",
+          "start": 360.82,
+          "end": 361.56,
+          "probability": 0.9985
+        },
+        {
+          "word": "um",
+          "start": 361.56,
+          "end": 362.36,
+          "probability": 0.9199
+        },
+        {
+          "word": "per",
+          "start": 362.36,
+          "end": 363.1,
+          "probability": 0.9722
+        },
+        {
+          "word": "per",
+          "start": 363.1,
+          "end": 363.8,
+          "probability": 0.772
+        },
+        {
+          "word": "second",
+          "start": 364.12,
+          "end": 364.84,
+          "probability": 0.9976
+        },
+        {
+          "word": "basically",
+          "start": 364.84,
+          "end": 365.4,
+          "probability": 0.999
+        },
+        {
+          "word": "so",
+          "start": 365.4,
+          "end": 366.3,
+          "probability": 0.9995
+        },
+        {
+          "word": "we're",
+          "start": 366.3,
+          "end": 366.56,
+          "probability": 1.0
+        },
+        {
+          "word": "doing",
+          "start": 366.56,
+          "end": 366.82,
+          "probability": 1.0
+        },
+        {
+          "word": "um",
+          "start": 366.82,
+          "end": 367.18,
+          "probability": 0.9888
+        },
+        {
+          "word": "so",
+          "start": 367.18,
+          "end": 367.6,
+          "probability": 1.0
+        },
+        {
+          "word": "even",
+          "start": 367.6,
+          "end": 368.48,
+          "probability": 1.0
+        },
+        {
+          "word": "though",
+          "start": 368.48,
+          "end": 368.68,
+          "probability": 0.9995
+        },
+        {
+          "word": "this",
+          "start": 368.68,
+          "end": 368.9,
+          "probability": 0.999
+        },
+        {
+          "word": "is",
+          "start": 368.9,
+          "end": 369.26,
+          "probability": 0.6113
+        },
+        {
+          "word": "a",
+          "start": 369.26,
+          "end": 369.44,
+          "probability": 0.9976
+        },
+        {
+          "word": "little",
+          "start": 369.44,
+          "end": 369.6,
+          "probability": 1.0
+        },
+        {
+          "word": "bit",
+          "start": 369.6,
+          "end": 369.76,
+          "probability": 1.0
+        },
+        {
+          "word": "slower",
+          "start": 369.76,
+          "end": 370.14,
+          "probability": 1.0
+        },
+        {
+          "word": "if",
+          "start": 370.14,
+          "end": 370.88,
+          "probability": 0.9995
+        },
+        {
+          "word": "you",
+          "start": 370.88,
+          "end": 371.04,
+          "probability": 1.0
+        },
+        {
+          "word": "were",
+          "start": 371.04,
+          "end": 371.18,
+          "probability": 0.9829
+        },
+        {
+          "word": "doing",
+          "start": 371.18,
+          "end": 371.48,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 371.48,
+          "end": 371.72,
+          "probability": 0.999
+        },
+        {
+          "word": "workload",
+          "start": 371.72,
+          "end": 372.22,
+          "probability": 0.9194
+        },
+        {
+          "word": "this",
+          "start": 372.22,
+          "end": 372.76,
+          "probability": 0.9995
+        },
+        {
+          "word": "would",
+          "start": 372.76,
+          "end": 373.0,
+          "probability": 0.9995
+        },
+        {
+          "word": "this",
+          "start": 373.0,
+          "end": 373.48,
+          "probability": 0.9985
+        },
+        {
+          "word": "would",
+          "start": 373.48,
+          "end": 373.7,
+          "probability": 1.0
+        },
+        {
+          "word": "be",
+          "start": 373.7,
+          "end": 373.96,
+          "probability": 1.0
+        },
+        {
+          "word": "um",
+          "start": 373.96,
+          "end": 374.4,
+          "probability": 0.9243
+        },
+        {
+          "word": "that",
+          "start": 374.4,
+          "end": 375.52,
+          "probability": 0.9785
+        },
+        {
+          "word": "the",
+          "start": 375.68,
+          "end": 376.1,
+          "probability": 0.4209
+        },
+        {
+          "word": "extra",
+          "start": 376.1,
+          "end": 377.78,
+          "probability": 0.9868
+        },
+        {
+          "word": "cores",
+          "start": 379.57,
+          "end": 380.03,
+          "probability": 0.998
+        },
+        {
+          "word": "are",
+          "start": 380.03,
+          "end": 380.61,
+          "probability": 1.0
+        },
+        {
+          "word": "helpful",
+          "start": 380.61,
+          "end": 381.19,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.0466,
+      "no_speech_prob": 0.0179
+    },
+    {
+      "id": 12,
+      "start": 381.84,
+      "end": 409.42,
+      "text": "even though they slow it down because the work you get is more than what it slows down. I should print the total, shouldn't I? Anyway, this is context swaps per second per core. So again, notice core zero has to support Linux in the background. But there's something wrong with the graphics on...",
+      "words": [
+        {
+          "word": "even",
+          "start": 381.84,
+          "end": 382.2,
+          "probability": 0.707
+        },
+        {
+          "word": "though",
+          "start": 382.2,
+          "end": 382.38,
+          "probability": 0.9849
+        },
+        {
+          "word": "they",
+          "start": 382.38,
+          "end": 382.7,
+          "probability": 0.9194
+        },
+        {
+          "word": "slow",
+          "start": 382.7,
+          "end": 383.38,
+          "probability": 0.6792
+        },
+        {
+          "word": "it",
+          "start": 383.38,
+          "end": 383.66,
+          "probability": 0.9497
+        },
+        {
+          "word": "down",
+          "start": 383.66,
+          "end": 383.94,
+          "probability": 0.998
+        },
+        {
+          "word": "because",
+          "start": 383.94,
+          "end": 384.92,
+          "probability": 0.5752
+        },
+        {
+          "word": "the",
+          "start": 384.92,
+          "end": 385.36,
+          "probability": 0.9834
+        },
+        {
+          "word": "work",
+          "start": 385.36,
+          "end": 385.66,
+          "probability": 0.9678
+        },
+        {
+          "word": "you",
+          "start": 385.66,
+          "end": 385.86,
+          "probability": 0.9185
+        },
+        {
+          "word": "get",
+          "start": 385.86,
+          "end": 386.18,
+          "probability": 0.9814
+        },
+        {
+          "word": "is",
+          "start": 386.18,
+          "end": 386.56,
+          "probability": 0.959
+        },
+        {
+          "word": "more",
+          "start": 386.56,
+          "end": 387.32,
+          "probability": 0.8857
+        },
+        {
+          "word": "than",
+          "start": 387.32,
+          "end": 387.66,
+          "probability": 0.9707
+        },
+        {
+          "word": "what",
+          "start": 387.66,
+          "end": 388.24,
+          "probability": 0.7788
+        },
+        {
+          "word": "it",
+          "start": 388.24,
+          "end": 388.46,
+          "probability": 0.9673
+        },
+        {
+          "word": "slows",
+          "start": 388.46,
+          "end": 388.66,
+          "probability": 0.9878
+        },
+        {
+          "word": "down.",
+          "start": 388.66,
+          "end": 389.12,
+          "probability": 0.9951
+        },
+        {
+          "word": "I",
+          "start": 390.08,
+          "end": 390.34,
+          "probability": 0.8901
+        },
+        {
+          "word": "should",
+          "start": 390.34,
+          "end": 390.92,
+          "probability": 0.9976
+        },
+        {
+          "word": "print",
+          "start": 390.92,
+          "end": 391.1,
+          "probability": 0.9927
+        },
+        {
+          "word": "the",
+          "start": 391.1,
+          "end": 391.38,
+          "probability": 0.9956
+        },
+        {
+          "word": "total,",
+          "start": 391.38,
+          "end": 391.74,
+          "probability": 0.9839
+        },
+        {
+          "word": "shouldn't",
+          "start": 391.88,
+          "end": 392.2,
+          "probability": 0.9922
+        },
+        {
+          "word": "I?",
+          "start": 392.2,
+          "end": 392.36,
+          "probability": 0.9956
+        },
+        {
+          "word": "Anyway,",
+          "start": 392.54,
+          "end": 393.14,
+          "probability": 0.8716
+        },
+        {
+          "word": "this",
+          "start": 393.3,
+          "end": 394.06,
+          "probability": 0.9937
+        },
+        {
+          "word": "is",
+          "start": 394.06,
+          "end": 394.22,
+          "probability": 0.9839
+        },
+        {
+          "word": "context",
+          "start": 394.22,
+          "end": 394.66,
+          "probability": 0.9204
+        },
+        {
+          "word": "swaps",
+          "start": 394.66,
+          "end": 395.24,
+          "probability": 0.9766
+        },
+        {
+          "word": "per",
+          "start": 395.24,
+          "end": 395.46,
+          "probability": 0.9912
+        },
+        {
+          "word": "second",
+          "start": 395.46,
+          "end": 395.84,
+          "probability": 0.9922
+        },
+        {
+          "word": "per",
+          "start": 395.84,
+          "end": 396.16,
+          "probability": 0.9741
+        },
+        {
+          "word": "core.",
+          "start": 396.16,
+          "end": 396.54,
+          "probability": 0.9404
+        },
+        {
+          "word": "So",
+          "start": 397.3,
+          "end": 397.94,
+          "probability": 0.811
+        },
+        {
+          "word": "again,",
+          "start": 397.94,
+          "end": 398.84,
+          "probability": 0.5576
+        },
+        {
+          "word": "notice",
+          "start": 398.96,
+          "end": 399.26,
+          "probability": 0.9966
+        },
+        {
+          "word": "core",
+          "start": 399.26,
+          "end": 399.7,
+          "probability": 0.6401
+        },
+        {
+          "word": "zero",
+          "start": 399.7,
+          "end": 400.02,
+          "probability": 0.7861
+        },
+        {
+          "word": "has",
+          "start": 400.02,
+          "end": 400.34,
+          "probability": 0.999
+        },
+        {
+          "word": "to",
+          "start": 400.34,
+          "end": 400.52,
+          "probability": 0.999
+        },
+        {
+          "word": "support",
+          "start": 400.52,
+          "end": 400.84,
+          "probability": 0.9995
+        },
+        {
+          "word": "Linux",
+          "start": 400.84,
+          "end": 401.16,
+          "probability": 0.9834
+        },
+        {
+          "word": "in",
+          "start": 401.16,
+          "end": 401.42,
+          "probability": 0.9985
+        },
+        {
+          "word": "the",
+          "start": 401.42,
+          "end": 401.48,
+          "probability": 1.0
+        },
+        {
+          "word": "background.",
+          "start": 401.48,
+          "end": 401.82,
+          "probability": 0.9995
+        },
+        {
+          "word": "But",
+          "start": 402.02,
+          "end": 402.58,
+          "probability": 0.9727
+        },
+        {
+          "word": "there's",
+          "start": 402.58,
+          "end": 403.54,
+          "probability": 0.98
+        },
+        {
+          "word": "something",
+          "start": 403.54,
+          "end": 403.74,
+          "probability": 1.0
+        },
+        {
+          "word": "wrong",
+          "start": 403.74,
+          "end": 404.16,
+          "probability": 1.0
+        },
+        {
+          "word": "with",
+          "start": 404.16,
+          "end": 404.58,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 404.58,
+          "end": 406.0,
+          "probability": 0.9736
+        },
+        {
+          "word": "graphics",
+          "start": 406.0,
+          "end": 408.7,
+          "probability": 0.999
+        },
+        {
+          "word": "on...",
+          "start": 408.7,
+          "end": 409.42,
+          "probability": 0.709
+        }
+      ],
+      "avg_logprob": -0.0953,
+      "no_speech_prob": 0.0378
+    },
+    {
+      "id": 13,
+      "start": 410.99,
+      "end": 447.22,
+      "text": "If we could see the CPU load, when it has changing graphics, it's too slow. It's like it only does static graphics. If you do dynamic graphics, something's terribly messed up. Anyway, and it doesn't have sound. VirtualBox doesn't have sound. But it does have 24 cores. Hey, wait a minute. Why do I only have 21? That's kind of weird. Maybe a couple cores got lost.",
+      "words": [
+        {
+          "word": "If",
+          "start": 410.99,
+          "end": 411.41,
+          "probability": 0.7153
+        },
+        {
+          "word": "we",
+          "start": 411.41,
+          "end": 411.55,
+          "probability": 0.9956
+        },
+        {
+          "word": "could",
+          "start": 411.55,
+          "end": 411.75,
+          "probability": 0.8823
+        },
+        {
+          "word": "see",
+          "start": 411.75,
+          "end": 411.95,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 411.95,
+          "end": 412.09,
+          "probability": 0.9976
+        },
+        {
+          "word": "CPU",
+          "start": 412.09,
+          "end": 412.39,
+          "probability": 0.9834
+        },
+        {
+          "word": "load,",
+          "start": 412.39,
+          "end": 412.85,
+          "probability": 0.9976
+        },
+        {
+          "word": "when",
+          "start": 413.05,
+          "end": 413.65,
+          "probability": 0.9619
+        },
+        {
+          "word": "it",
+          "start": 413.65,
+          "end": 413.81,
+          "probability": 0.9995
+        },
+        {
+          "word": "has",
+          "start": 413.81,
+          "end": 413.97,
+          "probability": 0.999
+        },
+        {
+          "word": "changing",
+          "start": 413.97,
+          "end": 414.33,
+          "probability": 0.9707
+        },
+        {
+          "word": "graphics,",
+          "start": 414.33,
+          "end": 414.79,
+          "probability": 1.0
+        },
+        {
+          "word": "it's",
+          "start": 416.08,
+          "end": 419.1,
+          "probability": 0.9949
+        },
+        {
+          "word": "too",
+          "start": 419.1,
+          "end": 419.56,
+          "probability": 0.9961
+        },
+        {
+          "word": "slow.",
+          "start": 419.56,
+          "end": 419.9,
+          "probability": 0.9995
+        },
+        {
+          "word": "It's",
+          "start": 420.04,
+          "end": 420.2,
+          "probability": 0.96
+        },
+        {
+          "word": "like",
+          "start": 420.2,
+          "end": 420.36,
+          "probability": 0.9995
+        },
+        {
+          "word": "it",
+          "start": 420.36,
+          "end": 420.56,
+          "probability": 0.9976
+        },
+        {
+          "word": "only",
+          "start": 420.56,
+          "end": 421.08,
+          "probability": 0.9146
+        },
+        {
+          "word": "does",
+          "start": 421.08,
+          "end": 422.5,
+          "probability": 1.0
+        },
+        {
+          "word": "static",
+          "start": 422.5,
+          "end": 422.92,
+          "probability": 1.0
+        },
+        {
+          "word": "graphics.",
+          "start": 422.92,
+          "end": 423.3,
+          "probability": 1.0
+        },
+        {
+          "word": "If",
+          "start": 423.52,
+          "end": 423.94,
+          "probability": 0.9995
+        },
+        {
+          "word": "you",
+          "start": 423.94,
+          "end": 424.08,
+          "probability": 1.0
+        },
+        {
+          "word": "do",
+          "start": 424.08,
+          "end": 424.2,
+          "probability": 1.0
+        },
+        {
+          "word": "dynamic",
+          "start": 424.2,
+          "end": 424.76,
+          "probability": 0.9995
+        },
+        {
+          "word": "graphics,",
+          "start": 424.76,
+          "end": 425.24,
+          "probability": 1.0
+        },
+        {
+          "word": "something's",
+          "start": 425.64,
+          "end": 426.24,
+          "probability": 0.9868
+        },
+        {
+          "word": "terribly",
+          "start": 426.24,
+          "end": 426.6,
+          "probability": 1.0
+        },
+        {
+          "word": "messed",
+          "start": 426.6,
+          "end": 426.96,
+          "probability": 1.0
+        },
+        {
+          "word": "up.",
+          "start": 426.96,
+          "end": 427.3,
+          "probability": 1.0
+        },
+        {
+          "word": "Anyway,",
+          "start": 427.78,
+          "end": 428.32,
+          "probability": 0.793
+        },
+        {
+          "word": "and",
+          "start": 428.46,
+          "end": 428.86,
+          "probability": 0.4094
+        },
+        {
+          "word": "it",
+          "start": 428.86,
+          "end": 429.16,
+          "probability": 1.0
+        },
+        {
+          "word": "doesn't",
+          "start": 429.16,
+          "end": 429.46,
+          "probability": 1.0
+        },
+        {
+          "word": "have",
+          "start": 429.46,
+          "end": 429.6,
+          "probability": 1.0
+        },
+        {
+          "word": "sound.",
+          "start": 429.6,
+          "end": 430.0,
+          "probability": 0.9995
+        },
+        {
+          "word": "VirtualBox",
+          "start": 430.46,
+          "end": 431.0,
+          "probability": 0.9868
+        },
+        {
+          "word": "doesn't",
+          "start": 431.0,
+          "end": 431.44,
+          "probability": 1.0
+        },
+        {
+          "word": "have",
+          "start": 431.44,
+          "end": 431.58,
+          "probability": 1.0
+        },
+        {
+          "word": "sound.",
+          "start": 431.58,
+          "end": 431.92,
+          "probability": 1.0
+        },
+        {
+          "word": "But",
+          "start": 432.3,
+          "end": 432.84,
+          "probability": 0.9995
+        },
+        {
+          "word": "it",
+          "start": 432.84,
+          "end": 433.0,
+          "probability": 0.9907
+        },
+        {
+          "word": "does",
+          "start": 433.0,
+          "end": 433.16,
+          "probability": 1.0
+        },
+        {
+          "word": "have",
+          "start": 433.16,
+          "end": 433.34,
+          "probability": 1.0
+        },
+        {
+          "word": "24",
+          "start": 433.34,
+          "end": 433.68,
+          "probability": 1.0
+        },
+        {
+          "word": "cores.",
+          "start": 433.68,
+          "end": 434.04,
+          "probability": 0.998
+        },
+        {
+          "word": "Hey,",
+          "start": 434.18,
+          "end": 434.36,
+          "probability": 0.9946
+        },
+        {
+          "word": "wait",
+          "start": 434.48,
+          "end": 434.66,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 434.66,
+          "end": 435.16,
+          "probability": 0.9551
+        },
+        {
+          "word": "minute.",
+          "start": 435.16,
+          "end": 435.34,
+          "probability": 1.0
+        },
+        {
+          "word": "Why",
+          "start": 435.42,
+          "end": 435.58,
+          "probability": 0.9995
+        },
+        {
+          "word": "do",
+          "start": 435.58,
+          "end": 435.74,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 435.74,
+          "end": 435.86,
+          "probability": 1.0
+        },
+        {
+          "word": "only",
+          "start": 435.86,
+          "end": 436.08,
+          "probability": 1.0
+        },
+        {
+          "word": "have",
+          "start": 436.08,
+          "end": 436.2,
+          "probability": 1.0
+        },
+        {
+          "word": "21?",
+          "start": 436.2,
+          "end": 436.44,
+          "probability": 1.0
+        },
+        {
+          "word": "That's",
+          "start": 436.88,
+          "end": 437.42,
+          "probability": 0.9998
+        },
+        {
+          "word": "kind",
+          "start": 442.9,
+          "end": 443.18,
+          "probability": 0.9995
+        },
+        {
+          "word": "of",
+          "start": 443.18,
+          "end": 443.32,
+          "probability": 1.0
+        },
+        {
+          "word": "weird.",
+          "start": 443.32,
+          "end": 443.54,
+          "probability": 1.0
+        },
+        {
+          "word": "Maybe",
+          "start": 444.74,
+          "end": 445.28,
+          "probability": 0.9995
+        },
+        {
+          "word": "a",
+          "start": 445.28,
+          "end": 445.52,
+          "probability": 1.0
+        },
+        {
+          "word": "couple",
+          "start": 445.52,
+          "end": 445.82,
+          "probability": 1.0
+        },
+        {
+          "word": "cores",
+          "start": 445.82,
+          "end": 446.06,
+          "probability": 0.978
+        },
+        {
+          "word": "got",
+          "start": 446.06,
+          "end": 446.38,
+          "probability": 1.0
+        },
+        {
+          "word": "lost.",
+          "start": 446.38,
+          "end": 447.22,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.0327,
+      "no_speech_prob": 0.0624
+    },
+    {
+      "id": 14,
+      "start": 447.72,
+      "end": 491.94,
+      "text": "It gave an error. It will do. I've never seen that before. Anyway, I don't use this because it doesn't have sound and because it doesn't handle changing graphics. Let's go see if chorus came back. Weird. Okay, I don't know. But it will do it. I don't know why we're getting a problem. Anyway, I can't use it. I'm not interested. Anyway.",
+      "words": [
+        {
+          "word": "It",
+          "start": 447.72,
+          "end": 447.96,
+          "probability": 0.355
+        },
+        {
+          "word": "gave",
+          "start": 447.96,
+          "end": 448.14,
+          "probability": 0.8213
+        },
+        {
+          "word": "an",
+          "start": 448.14,
+          "end": 448.32,
+          "probability": 0.9766
+        },
+        {
+          "word": "error.",
+          "start": 448.32,
+          "end": 448.54,
+          "probability": 0.9946
+        },
+        {
+          "word": "It",
+          "start": 448.64,
+          "end": 448.72,
+          "probability": 0.8896
+        },
+        {
+          "word": "will",
+          "start": 448.72,
+          "end": 448.96,
+          "probability": 0.9795
+        },
+        {
+          "word": "do.",
+          "start": 448.96,
+          "end": 449.24,
+          "probability": 0.9888
+        },
+        {
+          "word": "I've",
+          "start": 456.64,
+          "end": 457.12,
+          "probability": 0.9485
+        },
+        {
+          "word": "never",
+          "start": 457.12,
+          "end": 457.26,
+          "probability": 0.999
+        },
+        {
+          "word": "seen",
+          "start": 457.26,
+          "end": 457.5,
+          "probability": 0.999
+        },
+        {
+          "word": "that",
+          "start": 457.5,
+          "end": 457.66,
+          "probability": 0.9956
+        },
+        {
+          "word": "before.",
+          "start": 457.66,
+          "end": 457.9,
+          "probability": 0.998
+        },
+        {
+          "word": "Anyway,",
+          "start": 458.26,
+          "end": 458.74,
+          "probability": 0.9219
+        },
+        {
+          "word": "I",
+          "start": 458.88,
+          "end": 459.28,
+          "probability": 0.9756
+        },
+        {
+          "word": "don't",
+          "start": 459.28,
+          "end": 460.06,
+          "probability": 0.9983
+        },
+        {
+          "word": "use",
+          "start": 460.06,
+          "end": 460.26,
+          "probability": 0.9976
+        },
+        {
+          "word": "this",
+          "start": 460.26,
+          "end": 460.46,
+          "probability": 0.9956
+        },
+        {
+          "word": "because",
+          "start": 460.46,
+          "end": 460.66,
+          "probability": 0.9771
+        },
+        {
+          "word": "it",
+          "start": 460.66,
+          "end": 460.82,
+          "probability": 0.998
+        },
+        {
+          "word": "doesn't",
+          "start": 460.82,
+          "end": 461.06,
+          "probability": 0.999
+        },
+        {
+          "word": "have",
+          "start": 461.06,
+          "end": 461.18,
+          "probability": 0.999
+        },
+        {
+          "word": "sound",
+          "start": 461.18,
+          "end": 461.46,
+          "probability": 0.9966
+        },
+        {
+          "word": "and",
+          "start": 461.46,
+          "end": 461.7,
+          "probability": 0.8159
+        },
+        {
+          "word": "because",
+          "start": 461.7,
+          "end": 462.0,
+          "probability": 0.9766
+        },
+        {
+          "word": "it",
+          "start": 462.0,
+          "end": 463.02,
+          "probability": 0.9844
+        },
+        {
+          "word": "doesn't",
+          "start": 463.02,
+          "end": 463.46,
+          "probability": 0.9993
+        },
+        {
+          "word": "handle",
+          "start": 463.46,
+          "end": 463.78,
+          "probability": 0.9995
+        },
+        {
+          "word": "changing",
+          "start": 463.78,
+          "end": 464.12,
+          "probability": 0.999
+        },
+        {
+          "word": "graphics.",
+          "start": 464.12,
+          "end": 464.58,
+          "probability": 0.999
+        },
+        {
+          "word": "Let's",
+          "start": 466.26,
+          "end": 466.74,
+          "probability": 0.9946
+        },
+        {
+          "word": "go",
+          "start": 466.74,
+          "end": 466.78,
+          "probability": 0.9932
+        },
+        {
+          "word": "see",
+          "start": 466.78,
+          "end": 467.02,
+          "probability": 0.9985
+        },
+        {
+          "word": "if",
+          "start": 467.02,
+          "end": 467.26,
+          "probability": 0.9902
+        },
+        {
+          "word": "chorus",
+          "start": 467.26,
+          "end": 467.92,
+          "probability": 0.2842
+        },
+        {
+          "word": "came",
+          "start": 472.81,
+          "end": 473.03,
+          "probability": 0.9136
+        },
+        {
+          "word": "back.",
+          "start": 473.03,
+          "end": 473.33,
+          "probability": 1.0
+        },
+        {
+          "word": "Weird.",
+          "start": 477.56,
+          "end": 478.02,
+          "probability": 0.9712
+        },
+        {
+          "word": "Okay,",
+          "start": 478.14,
+          "end": 478.48,
+          "probability": 0.8608
+        },
+        {
+          "word": "I",
+          "start": 478.52,
+          "end": 478.66,
+          "probability": 0.9995
+        },
+        {
+          "word": "don't",
+          "start": 478.66,
+          "end": 478.76,
+          "probability": 1.0
+        },
+        {
+          "word": "know.",
+          "start": 478.76,
+          "end": 478.86,
+          "probability": 1.0
+        },
+        {
+          "word": "But",
+          "start": 479.0,
+          "end": 479.48,
+          "probability": 0.8804
+        },
+        {
+          "word": "it",
+          "start": 479.48,
+          "end": 479.78,
+          "probability": 0.96
+        },
+        {
+          "word": "will",
+          "start": 479.78,
+          "end": 480.4,
+          "probability": 1.0
+        },
+        {
+          "word": "do",
+          "start": 480.4,
+          "end": 480.66,
+          "probability": 1.0
+        },
+        {
+          "word": "it.",
+          "start": 480.66,
+          "end": 480.82,
+          "probability": 0.9941
+        },
+        {
+          "word": "I",
+          "start": 480.84,
+          "end": 480.9,
+          "probability": 0.9951
+        },
+        {
+          "word": "don't",
+          "start": 480.9,
+          "end": 481.04,
+          "probability": 0.9998
+        },
+        {
+          "word": "know",
+          "start": 481.04,
+          "end": 481.1,
+          "probability": 1.0
+        },
+        {
+          "word": "why",
+          "start": 481.1,
+          "end": 481.26,
+          "probability": 0.9995
+        },
+        {
+          "word": "we're",
+          "start": 481.26,
+          "end": 481.52,
+          "probability": 0.9988
+        },
+        {
+          "word": "getting",
+          "start": 481.52,
+          "end": 481.66,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 481.66,
+          "end": 481.96,
+          "probability": 0.998
+        },
+        {
+          "word": "problem.",
+          "start": 482.53,
+          "end": 483.27,
+          "probability": 1.0
+        },
+        {
+          "word": "Anyway,",
+          "start": 483.79,
+          "end": 484.27,
+          "probability": 0.981
+        },
+        {
+          "word": "I",
+          "start": 484.41,
+          "end": 486.59,
+          "probability": 0.874
+        },
+        {
+          "word": "can't",
+          "start": 487.26,
+          "end": 488.2,
+          "probability": 1.0
+        },
+        {
+          "word": "use",
+          "start": 488.2,
+          "end": 488.42,
+          "probability": 1.0
+        },
+        {
+          "word": "it.",
+          "start": 488.42,
+          "end": 488.6,
+          "probability": 1.0
+        },
+        {
+          "word": "I'm",
+          "start": 488.8,
+          "end": 489.28,
+          "probability": 0.9939
+        },
+        {
+          "word": "not",
+          "start": 489.28,
+          "end": 490.52,
+          "probability": 1.0
+        },
+        {
+          "word": "interested.",
+          "start": 490.52,
+          "end": 490.88,
+          "probability": 1.0
+        },
+        {
+          "word": "Anyway.",
+          "start": 491.46,
+          "end": 491.94,
+          "probability": 0.9956
+        }
+      ],
+      "avg_logprob": -0.0652,
+      "no_speech_prob": 0.032
+    },
+    {
+      "id": 15,
+      "start": 493.23,
+      "end": 537.93,
+      "text": "And then QEMU is the most amateur. But they have, they support 24 cores. And the graphics almost work. But the timing, something goes horribly wrong with the, first let's look at the, so this is 24 cores. Yeah, see there's 24. I don't know why the VirtualBox had a glitch. Anyway.",
+      "words": [
+        {
+          "word": "And",
+          "start": 493.23,
+          "end": 493.69,
+          "probability": 0.3225
+        },
+        {
+          "word": "then",
+          "start": 493.69,
+          "end": 493.89,
+          "probability": 0.897
+        },
+        {
+          "word": "QEMU",
+          "start": 493.89,
+          "end": 494.73,
+          "probability": 0.9766
+        },
+        {
+          "word": "is",
+          "start": 494.73,
+          "end": 495.07,
+          "probability": 0.9839
+        },
+        {
+          "word": "the",
+          "start": 495.07,
+          "end": 495.57,
+          "probability": 0.9058
+        },
+        {
+          "word": "most",
+          "start": 495.57,
+          "end": 496.63,
+          "probability": 0.9956
+        },
+        {
+          "word": "amateur.",
+          "start": 496.63,
+          "end": 497.09,
+          "probability": 0.9873
+        },
+        {
+          "word": "But",
+          "start": 497.45,
+          "end": 498.01,
+          "probability": 0.8159
+        },
+        {
+          "word": "they",
+          "start": 498.01,
+          "end": 499.01,
+          "probability": 0.9702
+        },
+        {
+          "word": "have,",
+          "start": 499.01,
+          "end": 499.29,
+          "probability": 0.5381
+        },
+        {
+          "word": "they",
+          "start": 499.43,
+          "end": 500.25,
+          "probability": 0.9854
+        },
+        {
+          "word": "support",
+          "start": 502.01,
+          "end": 502.75,
+          "probability": 0.9995
+        },
+        {
+          "word": "24",
+          "start": 502.75,
+          "end": 503.25,
+          "probability": 0.9966
+        },
+        {
+          "word": "cores.",
+          "start": 503.25,
+          "end": 503.81,
+          "probability": 0.9941
+        },
+        {
+          "word": "And",
+          "start": 504.45,
+          "end": 505.09,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 505.09,
+          "end": 505.33,
+          "probability": 0.9995
+        },
+        {
+          "word": "graphics",
+          "start": 505.33,
+          "end": 505.83,
+          "probability": 0.9995
+        },
+        {
+          "word": "almost",
+          "start": 506.09,
+          "end": 507.75,
+          "probability": 0.9951
+        },
+        {
+          "word": "work.",
+          "start": 507.75,
+          "end": 508.29,
+          "probability": 0.9995
+        },
+        {
+          "word": "But",
+          "start": 508.43,
+          "end": 509.01,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 509.01,
+          "end": 509.25,
+          "probability": 0.9995
+        },
+        {
+          "word": "timing,",
+          "start": 509.25,
+          "end": 509.83,
+          "probability": 0.9995
+        },
+        {
+          "word": "something",
+          "start": 510.03,
+          "end": 510.99,
+          "probability": 0.998
+        },
+        {
+          "word": "goes",
+          "start": 510.99,
+          "end": 511.33,
+          "probability": 0.9995
+        },
+        {
+          "word": "horribly",
+          "start": 511.33,
+          "end": 511.93,
+          "probability": 0.9722
+        },
+        {
+          "word": "wrong",
+          "start": 511.93,
+          "end": 512.45,
+          "probability": 1.0
+        },
+        {
+          "word": "with",
+          "start": 512.45,
+          "end": 513.25,
+          "probability": 0.9419
+        },
+        {
+          "word": "the,",
+          "start": 513.25,
+          "end": 513.49,
+          "probability": 0.999
+        },
+        {
+          "word": "first",
+          "start": 513.63,
+          "end": 514.93,
+          "probability": 0.8423
+        },
+        {
+          "word": "let's",
+          "start": 521.42,
+          "end": 522.18,
+          "probability": 0.9924
+        },
+        {
+          "word": "look",
+          "start": 522.18,
+          "end": 522.38,
+          "probability": 1.0
+        },
+        {
+          "word": "at",
+          "start": 522.38,
+          "end": 522.52,
+          "probability": 1.0
+        },
+        {
+          "word": "the,",
+          "start": 522.52,
+          "end": 522.66,
+          "probability": 0.9995
+        },
+        {
+          "word": "so",
+          "start": 522.8,
+          "end": 523.86,
+          "probability": 0.9946
+        },
+        {
+          "word": "this",
+          "start": 526.81,
+          "end": 526.97,
+          "probability": 0.999
+        },
+        {
+          "word": "is",
+          "start": 526.97,
+          "end": 527.09,
+          "probability": 1.0
+        },
+        {
+          "word": "24",
+          "start": 527.09,
+          "end": 527.39,
+          "probability": 1.0
+        },
+        {
+          "word": "cores.",
+          "start": 527.39,
+          "end": 527.87,
+          "probability": 1.0
+        },
+        {
+          "word": "Yeah,",
+          "start": 532.31,
+          "end": 532.95,
+          "probability": 0.9307
+        },
+        {
+          "word": "see",
+          "start": 533.07,
+          "end": 533.23,
+          "probability": 1.0
+        },
+        {
+          "word": "there's",
+          "start": 533.23,
+          "end": 533.51,
+          "probability": 0.8354
+        },
+        {
+          "word": "24.",
+          "start": 533.51,
+          "end": 533.77,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 533.95,
+          "end": 534.15,
+          "probability": 0.999
+        },
+        {
+          "word": "don't",
+          "start": 534.15,
+          "end": 534.31,
+          "probability": 1.0
+        },
+        {
+          "word": "know",
+          "start": 534.31,
+          "end": 534.39,
+          "probability": 1.0
+        },
+        {
+          "word": "why",
+          "start": 534.39,
+          "end": 534.53,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 534.53,
+          "end": 534.73,
+          "probability": 0.999
+        },
+        {
+          "word": "VirtualBox",
+          "start": 534.73,
+          "end": 535.57,
+          "probability": 0.8755
+        },
+        {
+          "word": "had",
+          "start": 535.57,
+          "end": 536.47,
+          "probability": 0.999
+        },
+        {
+          "word": "a",
+          "start": 536.47,
+          "end": 536.63,
+          "probability": 1.0
+        },
+        {
+          "word": "glitch.",
+          "start": 536.63,
+          "end": 536.91,
+          "probability": 1.0
+        },
+        {
+          "word": "Anyway.",
+          "start": 537.29,
+          "end": 537.93,
+          "probability": 0.9956
+        }
+      ],
+      "avg_logprob": -0.0832,
+      "no_speech_prob": 0.0325
+    },
+    {
+      "id": 16,
+      "start": 538.46,
+      "end": 576.68,
+      "text": "Core Zero is starting to really show some... It's pretty low. I don't balance my loads, and so... Okay, so it lags. It lags. The timing's a little bit off, but the graphics are... It's not playable. Basically, VMware's the best, and I paid $250 for it, but they won't support 24, and they have that glitch trying to...",
+      "words": [
+        {
+          "word": "Core",
+          "start": 538.46,
+          "end": 538.58,
+          "probability": 0.6299
+        },
+        {
+          "word": "Zero",
+          "start": 538.58,
+          "end": 538.92,
+          "probability": 0.3792
+        },
+        {
+          "word": "is",
+          "start": 538.92,
+          "end": 539.16,
+          "probability": 0.9336
+        },
+        {
+          "word": "starting",
+          "start": 539.16,
+          "end": 539.44,
+          "probability": 0.9473
+        },
+        {
+          "word": "to",
+          "start": 539.44,
+          "end": 539.66,
+          "probability": 0.9858
+        },
+        {
+          "word": "really",
+          "start": 539.66,
+          "end": 539.96,
+          "probability": 0.9204
+        },
+        {
+          "word": "show",
+          "start": 539.96,
+          "end": 540.54,
+          "probability": 0.9688
+        },
+        {
+          "word": "some...",
+          "start": 540.54,
+          "end": 541.1,
+          "probability": 0.6162
+        },
+        {
+          "word": "It's",
+          "start": 541.1,
+          "end": 541.68,
+          "probability": 0.7595
+        },
+        {
+          "word": "pretty",
+          "start": 543.76,
+          "end": 544.0,
+          "probability": 0.998
+        },
+        {
+          "word": "low.",
+          "start": 544.0,
+          "end": 544.26,
+          "probability": 0.999
+        },
+        {
+          "word": "I",
+          "start": 544.56,
+          "end": 545.14,
+          "probability": 0.8496
+        },
+        {
+          "word": "don't",
+          "start": 545.14,
+          "end": 545.86,
+          "probability": 0.9995
+        },
+        {
+          "word": "balance",
+          "start": 545.86,
+          "end": 546.2,
+          "probability": 0.9985
+        },
+        {
+          "word": "my",
+          "start": 546.2,
+          "end": 546.52,
+          "probability": 0.999
+        },
+        {
+          "word": "loads,",
+          "start": 546.52,
+          "end": 547.0,
+          "probability": 0.9937
+        },
+        {
+          "word": "and",
+          "start": 547.12,
+          "end": 547.26,
+          "probability": 0.9512
+        },
+        {
+          "word": "so...",
+          "start": 547.26,
+          "end": 547.68,
+          "probability": 0.9377
+        },
+        {
+          "word": "Okay,",
+          "start": 547.71,
+          "end": 549.89,
+          "probability": 0.8813
+        },
+        {
+          "word": "so",
+          "start": 556.76,
+          "end": 556.98,
+          "probability": 0.998
+        },
+        {
+          "word": "it",
+          "start": 556.98,
+          "end": 559.02,
+          "probability": 0.4602
+        },
+        {
+          "word": "lags.",
+          "start": 559.24,
+          "end": 560.38,
+          "probability": 0.9995
+        },
+        {
+          "word": "It",
+          "start": 560.38,
+          "end": 560.46,
+          "probability": 0.8955
+        },
+        {
+          "word": "lags.",
+          "start": 560.46,
+          "end": 561.98,
+          "probability": 0.9343
+        },
+        {
+          "word": "The",
+          "start": 561.98,
+          "end": 562.42,
+          "probability": 0.9971
+        },
+        {
+          "word": "timing's",
+          "start": 562.42,
+          "end": 563.66,
+          "probability": 0.9248
+        },
+        {
+          "word": "a",
+          "start": 563.66,
+          "end": 563.72,
+          "probability": 1.0
+        },
+        {
+          "word": "little",
+          "start": 563.72,
+          "end": 563.86,
+          "probability": 1.0
+        },
+        {
+          "word": "bit",
+          "start": 563.86,
+          "end": 564.02,
+          "probability": 1.0
+        },
+        {
+          "word": "off,",
+          "start": 564.02,
+          "end": 564.3,
+          "probability": 1.0
+        },
+        {
+          "word": "but",
+          "start": 564.44,
+          "end": 564.8,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 564.8,
+          "end": 564.96,
+          "probability": 0.9995
+        },
+        {
+          "word": "graphics",
+          "start": 564.96,
+          "end": 565.46,
+          "probability": 1.0
+        },
+        {
+          "word": "are...",
+          "start": 565.46,
+          "end": 565.94,
+          "probability": 0.9768
+        },
+        {
+          "word": "It's",
+          "start": 566.1,
+          "end": 567.28,
+          "probability": 0.9988
+        },
+        {
+          "word": "not",
+          "start": 567.28,
+          "end": 567.48,
+          "probability": 1.0
+        },
+        {
+          "word": "playable.",
+          "start": 567.48,
+          "end": 567.9,
+          "probability": 0.9995
+        },
+        {
+          "word": "Basically,",
+          "start": 568.14,
+          "end": 568.66,
+          "probability": 0.999
+        },
+        {
+          "word": "VMware's",
+          "start": 568.86,
+          "end": 569.62,
+          "probability": 0.9463
+        },
+        {
+          "word": "the",
+          "start": 569.62,
+          "end": 569.74,
+          "probability": 0.9995
+        },
+        {
+          "word": "best,",
+          "start": 569.74,
+          "end": 570.12,
+          "probability": 1.0
+        },
+        {
+          "word": "and",
+          "start": 570.14,
+          "end": 570.28,
+          "probability": 0.9995
+        },
+        {
+          "word": "I",
+          "start": 570.28,
+          "end": 570.46,
+          "probability": 1.0
+        },
+        {
+          "word": "paid",
+          "start": 570.46,
+          "end": 570.8,
+          "probability": 1.0
+        },
+        {
+          "word": "$250",
+          "start": 570.8,
+          "end": 571.36,
+          "probability": 0.9165
+        },
+        {
+          "word": "for",
+          "start": 571.36,
+          "end": 571.84,
+          "probability": 0.9976
+        },
+        {
+          "word": "it,",
+          "start": 571.84,
+          "end": 572.14,
+          "probability": 1.0
+        },
+        {
+          "word": "but",
+          "start": 572.22,
+          "end": 572.86,
+          "probability": 1.0
+        },
+        {
+          "word": "they",
+          "start": 572.86,
+          "end": 573.12,
+          "probability": 1.0
+        },
+        {
+          "word": "won't",
+          "start": 573.12,
+          "end": 573.74,
+          "probability": 0.9998
+        },
+        {
+          "word": "support",
+          "start": 573.74,
+          "end": 574.0,
+          "probability": 1.0
+        },
+        {
+          "word": "24,",
+          "start": 574.0,
+          "end": 574.44,
+          "probability": 0.9478
+        },
+        {
+          "word": "and",
+          "start": 574.44,
+          "end": 574.94,
+          "probability": 1.0
+        },
+        {
+          "word": "they",
+          "start": 574.94,
+          "end": 575.06,
+          "probability": 1.0
+        },
+        {
+          "word": "have",
+          "start": 575.06,
+          "end": 575.24,
+          "probability": 1.0
+        },
+        {
+          "word": "that",
+          "start": 575.24,
+          "end": 575.44,
+          "probability": 1.0
+        },
+        {
+          "word": "glitch",
+          "start": 575.44,
+          "end": 575.86,
+          "probability": 1.0
+        },
+        {
+          "word": "trying",
+          "start": 575.86,
+          "end": 576.26,
+          "probability": 0.9336
+        },
+        {
+          "word": "to...",
+          "start": 576.26,
+          "end": 576.68,
+          "probability": 0.9946
+        }
+      ],
+      "avg_logprob": -0.0879,
+      "no_speech_prob": 0.0236
+    },
+    {
+      "id": 17,
+      "start": 577.06,
+      "end": 618.96,
+      "text": "stretch the screen anyway so this has sound this has the best this has the best sound actually I wish it had just a slight bit of distortion when you play a the problem with it's so harmonic that the explosions sound bad it's so harmonic there's no there's no distortion an actual PC speaker is",
+      "words": [
+        {
+          "word": "stretch",
+          "start": 577.06,
+          "end": 577.34,
+          "probability": 0.4373
+        },
+        {
+          "word": "the",
+          "start": 577.34,
+          "end": 577.5,
+          "probability": 0.9443
+        },
+        {
+          "word": "screen",
+          "start": 577.5,
+          "end": 577.88,
+          "probability": 0.9932
+        },
+        {
+          "word": "anyway",
+          "start": 577.88,
+          "end": 579.6,
+          "probability": 0.1859
+        },
+        {
+          "word": "so",
+          "start": 579.6,
+          "end": 580.04,
+          "probability": 0.8779
+        },
+        {
+          "word": "this",
+          "start": 580.04,
+          "end": 581.34,
+          "probability": 0.8159
+        },
+        {
+          "word": "has",
+          "start": 583.49,
+          "end": 583.93,
+          "probability": 0.9238
+        },
+        {
+          "word": "sound",
+          "start": 583.93,
+          "end": 584.43,
+          "probability": 0.873
+        },
+        {
+          "word": "this",
+          "start": 584.43,
+          "end": 584.89,
+          "probability": 0.8701
+        },
+        {
+          "word": "has",
+          "start": 584.89,
+          "end": 585.11,
+          "probability": 0.9814
+        },
+        {
+          "word": "the",
+          "start": 585.11,
+          "end": 585.31,
+          "probability": 0.9917
+        },
+        {
+          "word": "best",
+          "start": 585.31,
+          "end": 585.61,
+          "probability": 0.9985
+        },
+        {
+          "word": "this",
+          "start": 585.61,
+          "end": 586.21,
+          "probability": 0.2737
+        },
+        {
+          "word": "has",
+          "start": 586.21,
+          "end": 587.05,
+          "probability": 0.9399
+        },
+        {
+          "word": "the",
+          "start": 587.05,
+          "end": 587.21,
+          "probability": 0.9966
+        },
+        {
+          "word": "best",
+          "start": 587.21,
+          "end": 587.43,
+          "probability": 0.9985
+        },
+        {
+          "word": "sound",
+          "start": 587.43,
+          "end": 587.69,
+          "probability": 0.9897
+        },
+        {
+          "word": "actually",
+          "start": 587.69,
+          "end": 588.09,
+          "probability": 0.9614
+        },
+        {
+          "word": "I",
+          "start": 588.09,
+          "end": 588.35,
+          "probability": 0.7847
+        },
+        {
+          "word": "wish",
+          "start": 588.35,
+          "end": 588.59,
+          "probability": 0.9971
+        },
+        {
+          "word": "it",
+          "start": 588.59,
+          "end": 588.75,
+          "probability": 0.9922
+        },
+        {
+          "word": "had",
+          "start": 588.75,
+          "end": 588.97,
+          "probability": 0.9932
+        },
+        {
+          "word": "just",
+          "start": 588.97,
+          "end": 589.23,
+          "probability": 0.9937
+        },
+        {
+          "word": "a",
+          "start": 589.23,
+          "end": 589.39,
+          "probability": 0.9941
+        },
+        {
+          "word": "slight",
+          "start": 589.39,
+          "end": 589.75,
+          "probability": 0.9976
+        },
+        {
+          "word": "bit",
+          "start": 589.75,
+          "end": 590.01,
+          "probability": 0.9238
+        },
+        {
+          "word": "of",
+          "start": 590.01,
+          "end": 590.13,
+          "probability": 0.9834
+        },
+        {
+          "word": "distortion",
+          "start": 590.13,
+          "end": 590.51,
+          "probability": 0.9917
+        },
+        {
+          "word": "when",
+          "start": 590.51,
+          "end": 591.57,
+          "probability": 0.9663
+        },
+        {
+          "word": "you",
+          "start": 591.57,
+          "end": 591.75,
+          "probability": 0.9985
+        },
+        {
+          "word": "play",
+          "start": 591.75,
+          "end": 592.05,
+          "probability": 0.9985
+        },
+        {
+          "word": "a",
+          "start": 592.05,
+          "end": 592.35,
+          "probability": 0.8574
+        },
+        {
+          "word": "the",
+          "start": 592.35,
+          "end": 593.81,
+          "probability": 0.408
+        },
+        {
+          "word": "problem",
+          "start": 593.81,
+          "end": 595.33,
+          "probability": 0.9971
+        },
+        {
+          "word": "with",
+          "start": 599.94,
+          "end": 600.3,
+          "probability": 0.9902
+        },
+        {
+          "word": "it's",
+          "start": 600.3,
+          "end": 600.78,
+          "probability": 0.8447
+        },
+        {
+          "word": "so",
+          "start": 600.78,
+          "end": 600.94,
+          "probability": 0.9888
+        },
+        {
+          "word": "harmonic",
+          "start": 600.94,
+          "end": 601.5,
+          "probability": 0.9541
+        },
+        {
+          "word": "that",
+          "start": 601.5,
+          "end": 602.3,
+          "probability": 0.9551
+        },
+        {
+          "word": "the",
+          "start": 602.3,
+          "end": 604.1,
+          "probability": 0.7344
+        },
+        {
+          "word": "explosions",
+          "start": 610.56,
+          "end": 611.44,
+          "probability": 0.7231
+        },
+        {
+          "word": "sound",
+          "start": 611.44,
+          "end": 612.08,
+          "probability": 0.9736
+        },
+        {
+          "word": "bad",
+          "start": 612.08,
+          "end": 612.56,
+          "probability": 0.9976
+        },
+        {
+          "word": "it's",
+          "start": 612.56,
+          "end": 614.04,
+          "probability": 0.9619
+        },
+        {
+          "word": "so",
+          "start": 614.04,
+          "end": 614.2,
+          "probability": 0.999
+        },
+        {
+          "word": "harmonic",
+          "start": 614.2,
+          "end": 614.62,
+          "probability": 0.9858
+        },
+        {
+          "word": "there's",
+          "start": 614.62,
+          "end": 615.06,
+          "probability": 0.9663
+        },
+        {
+          "word": "no",
+          "start": 615.06,
+          "end": 615.2,
+          "probability": 0.5132
+        },
+        {
+          "word": "there's",
+          "start": 615.2,
+          "end": 615.46,
+          "probability": 0.7986
+        },
+        {
+          "word": "no",
+          "start": 615.46,
+          "end": 615.66,
+          "probability": 0.9995
+        },
+        {
+          "word": "distortion",
+          "start": 615.66,
+          "end": 616.04,
+          "probability": 0.9941
+        },
+        {
+          "word": "an",
+          "start": 616.04,
+          "end": 616.86,
+          "probability": 0.9214
+        },
+        {
+          "word": "actual",
+          "start": 616.86,
+          "end": 617.3,
+          "probability": 0.9985
+        },
+        {
+          "word": "PC",
+          "start": 617.3,
+          "end": 617.9,
+          "probability": 0.8643
+        },
+        {
+          "word": "speaker",
+          "start": 617.9,
+          "end": 618.44,
+          "probability": 0.9902
+        },
+        {
+          "word": "is",
+          "start": 618.44,
+          "end": 618.96,
+          "probability": 0.999
+        }
+      ],
+      "avg_logprob": -0.1557,
+      "no_speech_prob": 0.0479
+    },
+    {
+      "id": 18,
+      "start": 620.06,
+      "end": 649.8,
+      "text": "just right if if they would just route it to the actual PC speaker with a all of these all they have to do is route the port and It's it's ridiculously easy to let it control the speaker, but they don't want to do that They want control that they don't want it out of the PC speaker. They want it out of the main process so VirtualBox doesn't have sound QEMU is",
+      "words": [
+        {
+          "word": "just",
+          "start": 620.06,
+          "end": 620.56,
+          "probability": 0.4009
+        },
+        {
+          "word": "right",
+          "start": 620.56,
+          "end": 620.92,
+          "probability": 0.7549
+        },
+        {
+          "word": "if",
+          "start": 620.92,
+          "end": 621.62,
+          "probability": 0.8667
+        },
+        {
+          "word": "if",
+          "start": 621.62,
+          "end": 622.38,
+          "probability": 0.9023
+        },
+        {
+          "word": "they",
+          "start": 622.38,
+          "end": 622.5,
+          "probability": 0.9922
+        },
+        {
+          "word": "would",
+          "start": 622.5,
+          "end": 622.7,
+          "probability": 0.9824
+        },
+        {
+          "word": "just",
+          "start": 622.7,
+          "end": 622.94,
+          "probability": 0.9927
+        },
+        {
+          "word": "route",
+          "start": 622.94,
+          "end": 623.24,
+          "probability": 0.9634
+        },
+        {
+          "word": "it",
+          "start": 623.24,
+          "end": 623.46,
+          "probability": 0.9971
+        },
+        {
+          "word": "to",
+          "start": 623.46,
+          "end": 623.62,
+          "probability": 0.9946
+        },
+        {
+          "word": "the",
+          "start": 623.62,
+          "end": 623.68,
+          "probability": 0.9966
+        },
+        {
+          "word": "actual",
+          "start": 623.68,
+          "end": 624.02,
+          "probability": 0.9995
+        },
+        {
+          "word": "PC",
+          "start": 624.02,
+          "end": 624.28,
+          "probability": 0.8101
+        },
+        {
+          "word": "speaker",
+          "start": 624.28,
+          "end": 624.78,
+          "probability": 0.9688
+        },
+        {
+          "word": "with",
+          "start": 624.78,
+          "end": 625.18,
+          "probability": 0.9922
+        },
+        {
+          "word": "a",
+          "start": 625.18,
+          "end": 625.38,
+          "probability": 0.4504
+        },
+        {
+          "word": "all",
+          "start": 625.38,
+          "end": 626.92,
+          "probability": 0.6226
+        },
+        {
+          "word": "of",
+          "start": 626.92,
+          "end": 627.18,
+          "probability": 0.9966
+        },
+        {
+          "word": "these",
+          "start": 627.18,
+          "end": 627.36,
+          "probability": 0.9961
+        },
+        {
+          "word": "all",
+          "start": 627.36,
+          "end": 627.58,
+          "probability": 0.9883
+        },
+        {
+          "word": "they",
+          "start": 627.58,
+          "end": 627.74,
+          "probability": 0.9956
+        },
+        {
+          "word": "have",
+          "start": 627.74,
+          "end": 627.9,
+          "probability": 0.9976
+        },
+        {
+          "word": "to",
+          "start": 627.9,
+          "end": 628.08,
+          "probability": 0.9985
+        },
+        {
+          "word": "do",
+          "start": 628.08,
+          "end": 628.32,
+          "probability": 0.9976
+        },
+        {
+          "word": "is",
+          "start": 628.32,
+          "end": 628.58,
+          "probability": 0.9946
+        },
+        {
+          "word": "route",
+          "start": 628.58,
+          "end": 629.34,
+          "probability": 0.813
+        },
+        {
+          "word": "the",
+          "start": 629.34,
+          "end": 629.7,
+          "probability": 0.9966
+        },
+        {
+          "word": "port",
+          "start": 629.7,
+          "end": 630.04,
+          "probability": 0.9854
+        },
+        {
+          "word": "and",
+          "start": 630.04,
+          "end": 630.92,
+          "probability": 0.9785
+        },
+        {
+          "word": "It's",
+          "start": 630.92,
+          "end": 631.92,
+          "probability": 0.8232
+        },
+        {
+          "word": "it's",
+          "start": 631.92,
+          "end": 632.92,
+          "probability": 0.9531
+        },
+        {
+          "word": "ridiculously",
+          "start": 633.82,
+          "end": 634.18,
+          "probability": 0.9897
+        },
+        {
+          "word": "easy",
+          "start": 634.18,
+          "end": 634.7,
+          "probability": 0.9971
+        },
+        {
+          "word": "to",
+          "start": 634.7,
+          "end": 635.1,
+          "probability": 0.9917
+        },
+        {
+          "word": "let",
+          "start": 635.1,
+          "end": 635.3,
+          "probability": 0.9985
+        },
+        {
+          "word": "it",
+          "start": 635.3,
+          "end": 635.48,
+          "probability": 0.9971
+        },
+        {
+          "word": "control",
+          "start": 635.48,
+          "end": 636.08,
+          "probability": 0.9946
+        },
+        {
+          "word": "the",
+          "start": 636.08,
+          "end": 636.34,
+          "probability": 0.9912
+        },
+        {
+          "word": "speaker,",
+          "start": 636.34,
+          "end": 636.64,
+          "probability": 0.9971
+        },
+        {
+          "word": "but",
+          "start": 636.88,
+          "end": 637.3,
+          "probability": 0.999
+        },
+        {
+          "word": "they",
+          "start": 637.3,
+          "end": 637.46,
+          "probability": 0.9961
+        },
+        {
+          "word": "don't",
+          "start": 637.46,
+          "end": 637.66,
+          "probability": 0.9971
+        },
+        {
+          "word": "want",
+          "start": 637.66,
+          "end": 637.74,
+          "probability": 0.9956
+        },
+        {
+          "word": "to",
+          "start": 637.74,
+          "end": 637.9,
+          "probability": 0.9951
+        },
+        {
+          "word": "do",
+          "start": 637.9,
+          "end": 638.04,
+          "probability": 0.999
+        },
+        {
+          "word": "that",
+          "start": 638.04,
+          "end": 638.26,
+          "probability": 0.9961
+        },
+        {
+          "word": "They",
+          "start": 638.26,
+          "end": 638.48,
+          "probability": 0.4407
+        },
+        {
+          "word": "want",
+          "start": 638.48,
+          "end": 639.56,
+          "probability": 0.8755
+        },
+        {
+          "word": "control",
+          "start": 639.56,
+          "end": 640.04,
+          "probability": 0.9902
+        },
+        {
+          "word": "that",
+          "start": 640.04,
+          "end": 640.32,
+          "probability": 0.6382
+        },
+        {
+          "word": "they",
+          "start": 640.32,
+          "end": 640.5,
+          "probability": 0.6616
+        },
+        {
+          "word": "don't",
+          "start": 640.5,
+          "end": 641.02,
+          "probability": 0.9805
+        },
+        {
+          "word": "want",
+          "start": 641.02,
+          "end": 641.16,
+          "probability": 0.998
+        },
+        {
+          "word": "it",
+          "start": 641.16,
+          "end": 641.32,
+          "probability": 0.9941
+        },
+        {
+          "word": "out",
+          "start": 641.32,
+          "end": 641.44,
+          "probability": 0.9956
+        },
+        {
+          "word": "of",
+          "start": 641.44,
+          "end": 641.58,
+          "probability": 0.9946
+        },
+        {
+          "word": "the",
+          "start": 641.58,
+          "end": 641.66,
+          "probability": 0.9995
+        },
+        {
+          "word": "PC",
+          "start": 641.66,
+          "end": 641.86,
+          "probability": 0.9648
+        },
+        {
+          "word": "speaker.",
+          "start": 641.86,
+          "end": 642.26,
+          "probability": 0.9453
+        },
+        {
+          "word": "They",
+          "start": 642.42,
+          "end": 642.56,
+          "probability": 0.998
+        },
+        {
+          "word": "want",
+          "start": 642.56,
+          "end": 642.8,
+          "probability": 0.8521
+        },
+        {
+          "word": "it",
+          "start": 642.8,
+          "end": 642.96,
+          "probability": 0.9932
+        },
+        {
+          "word": "out",
+          "start": 642.96,
+          "end": 643.08,
+          "probability": 0.999
+        },
+        {
+          "word": "of",
+          "start": 643.08,
+          "end": 643.32,
+          "probability": 0.9907
+        },
+        {
+          "word": "the",
+          "start": 643.32,
+          "end": 643.5,
+          "probability": 0.9985
+        },
+        {
+          "word": "main",
+          "start": 643.5,
+          "end": 644.56,
+          "probability": 0.7056
+        },
+        {
+          "word": "process",
+          "start": 644.56,
+          "end": 645.46,
+          "probability": 0.7456
+        },
+        {
+          "word": "so",
+          "start": 645.46,
+          "end": 646.22,
+          "probability": 0.7354
+        },
+        {
+          "word": "VirtualBox",
+          "start": 646.22,
+          "end": 647.18,
+          "probability": 0.5946
+        },
+        {
+          "word": "doesn't",
+          "start": 647.18,
+          "end": 647.68,
+          "probability": 0.9907
+        },
+        {
+          "word": "have",
+          "start": 647.68,
+          "end": 647.82,
+          "probability": 0.9912
+        },
+        {
+          "word": "sound",
+          "start": 647.82,
+          "end": 648.32,
+          "probability": 0.9907
+        },
+        {
+          "word": "QEMU",
+          "start": 648.32,
+          "end": 649.5,
+          "probability": 0.7879
+        },
+        {
+          "word": "is",
+          "start": 649.5,
+          "end": 649.8,
+          "probability": 0.9873
+        }
+      ],
+      "avg_logprob": -0.1121,
+      "no_speech_prob": 0.1858
+    },
+    {
+      "id": 19,
+      "start": 650.11,
+      "end": 679.36,
+      "text": "Really harmonic. It's good for songs, but it's kind of bad for sound effects. And then VMware is crazy distorted. I don't know what they're thinking. Anyway, it's no good for hymns, but it's okay for sound effects. It's better than nothing. I think it's the CIA being assholes. They ruined my hymns. That's like the most important thing. Anyway, so, and then VMware is the best for...",
+      "words": [
+        {
+          "word": "Really",
+          "start": 650.11,
+          "end": 650.35,
+          "probability": 0.4277
+        },
+        {
+          "word": "harmonic.",
+          "start": 650.35,
+          "end": 650.77,
+          "probability": 0.981
+        },
+        {
+          "word": "It's",
+          "start": 650.81,
+          "end": 651.25,
+          "probability": 0.9976
+        },
+        {
+          "word": "good",
+          "start": 651.25,
+          "end": 651.41,
+          "probability": 0.999
+        },
+        {
+          "word": "for",
+          "start": 651.41,
+          "end": 651.63,
+          "probability": 1.0
+        },
+        {
+          "word": "songs,",
+          "start": 651.63,
+          "end": 652.07,
+          "probability": 0.9971
+        },
+        {
+          "word": "but",
+          "start": 652.17,
+          "end": 652.39,
+          "probability": 0.9995
+        },
+        {
+          "word": "it's",
+          "start": 652.39,
+          "end": 652.67,
+          "probability": 0.9993
+        },
+        {
+          "word": "kind",
+          "start": 652.67,
+          "end": 653.01,
+          "probability": 0.9556
+        },
+        {
+          "word": "of",
+          "start": 653.01,
+          "end": 653.41,
+          "probability": 1.0
+        },
+        {
+          "word": "bad",
+          "start": 653.41,
+          "end": 653.59,
+          "probability": 1.0
+        },
+        {
+          "word": "for",
+          "start": 653.59,
+          "end": 653.91,
+          "probability": 0.9995
+        },
+        {
+          "word": "sound",
+          "start": 653.91,
+          "end": 654.57,
+          "probability": 0.9966
+        },
+        {
+          "word": "effects.",
+          "start": 654.57,
+          "end": 654.91,
+          "probability": 1.0
+        },
+        {
+          "word": "And",
+          "start": 655.21,
+          "end": 655.63,
+          "probability": 0.9424
+        },
+        {
+          "word": "then",
+          "start": 655.63,
+          "end": 655.79,
+          "probability": 0.9976
+        },
+        {
+          "word": "VMware",
+          "start": 655.79,
+          "end": 656.45,
+          "probability": 0.9526
+        },
+        {
+          "word": "is",
+          "start": 656.45,
+          "end": 656.91,
+          "probability": 0.9995
+        },
+        {
+          "word": "crazy",
+          "start": 656.91,
+          "end": 657.51,
+          "probability": 0.9966
+        },
+        {
+          "word": "distorted.",
+          "start": 657.51,
+          "end": 658.05,
+          "probability": 0.8735
+        },
+        {
+          "word": "I",
+          "start": 658.11,
+          "end": 658.41,
+          "probability": 0.9995
+        },
+        {
+          "word": "don't",
+          "start": 658.41,
+          "end": 658.51,
+          "probability": 1.0
+        },
+        {
+          "word": "know",
+          "start": 658.51,
+          "end": 658.57,
+          "probability": 1.0
+        },
+        {
+          "word": "what",
+          "start": 658.57,
+          "end": 658.69,
+          "probability": 1.0
+        },
+        {
+          "word": "they're",
+          "start": 658.69,
+          "end": 658.89,
+          "probability": 0.9998
+        },
+        {
+          "word": "thinking.",
+          "start": 658.89,
+          "end": 659.23,
+          "probability": 1.0
+        },
+        {
+          "word": "Anyway,",
+          "start": 659.67,
+          "end": 660.27,
+          "probability": 0.9907
+        },
+        {
+          "word": "it's",
+          "start": 660.45,
+          "end": 661.83,
+          "probability": 0.9966
+        },
+        {
+          "word": "no",
+          "start": 662.02,
+          "end": 662.1,
+          "probability": 0.9995
+        },
+        {
+          "word": "good",
+          "start": 662.1,
+          "end": 662.38,
+          "probability": 1.0
+        },
+        {
+          "word": "for",
+          "start": 662.38,
+          "end": 662.64,
+          "probability": 1.0
+        },
+        {
+          "word": "hymns,",
+          "start": 662.64,
+          "end": 663.04,
+          "probability": 0.7485
+        },
+        {
+          "word": "but",
+          "start": 663.04,
+          "end": 663.2,
+          "probability": 1.0
+        },
+        {
+          "word": "it's",
+          "start": 663.2,
+          "end": 663.42,
+          "probability": 1.0
+        },
+        {
+          "word": "okay",
+          "start": 663.42,
+          "end": 663.98,
+          "probability": 0.9116
+        },
+        {
+          "word": "for",
+          "start": 663.98,
+          "end": 664.28,
+          "probability": 1.0
+        },
+        {
+          "word": "sound",
+          "start": 664.28,
+          "end": 664.52,
+          "probability": 1.0
+        },
+        {
+          "word": "effects.",
+          "start": 664.52,
+          "end": 664.86,
+          "probability": 1.0
+        },
+        {
+          "word": "It's",
+          "start": 665.0,
+          "end": 665.12,
+          "probability": 0.9602
+        },
+        {
+          "word": "better",
+          "start": 665.12,
+          "end": 665.3,
+          "probability": 1.0
+        },
+        {
+          "word": "than",
+          "start": 665.3,
+          "end": 665.5,
+          "probability": 1.0
+        },
+        {
+          "word": "nothing.",
+          "start": 665.5,
+          "end": 665.84,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 666.14,
+          "end": 666.74,
+          "probability": 0.9971
+        },
+        {
+          "word": "think",
+          "start": 666.74,
+          "end": 667.04,
+          "probability": 1.0
+        },
+        {
+          "word": "it's",
+          "start": 667.04,
+          "end": 667.18,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 667.18,
+          "end": 667.26,
+          "probability": 0.9995
+        },
+        {
+          "word": "CIA",
+          "start": 667.26,
+          "end": 667.58,
+          "probability": 0.9956
+        },
+        {
+          "word": "being",
+          "start": 667.58,
+          "end": 667.88,
+          "probability": 1.0
+        },
+        {
+          "word": "assholes.",
+          "start": 667.88,
+          "end": 668.46,
+          "probability": 1.0
+        },
+        {
+          "word": "They",
+          "start": 668.5,
+          "end": 668.7,
+          "probability": 1.0
+        },
+        {
+          "word": "ruined",
+          "start": 668.7,
+          "end": 669.08,
+          "probability": 1.0
+        },
+        {
+          "word": "my",
+          "start": 669.08,
+          "end": 669.4,
+          "probability": 1.0
+        },
+        {
+          "word": "hymns.",
+          "start": 669.4,
+          "end": 669.92,
+          "probability": 1.0
+        },
+        {
+          "word": "That's",
+          "start": 669.92,
+          "end": 670.18,
+          "probability": 0.9998
+        },
+        {
+          "word": "like",
+          "start": 670.18,
+          "end": 670.32,
+          "probability": 0.731
+        },
+        {
+          "word": "the",
+          "start": 670.32,
+          "end": 670.48,
+          "probability": 0.9995
+        },
+        {
+          "word": "most",
+          "start": 670.48,
+          "end": 670.66,
+          "probability": 1.0
+        },
+        {
+          "word": "important",
+          "start": 670.66,
+          "end": 670.98,
+          "probability": 1.0
+        },
+        {
+          "word": "thing.",
+          "start": 670.98,
+          "end": 671.32,
+          "probability": 1.0
+        },
+        {
+          "word": "Anyway,",
+          "start": 671.66,
+          "end": 672.26,
+          "probability": 0.9067
+        },
+        {
+          "word": "so,",
+          "start": 672.34,
+          "end": 672.52,
+          "probability": 0.8804
+        },
+        {
+          "word": "and",
+          "start": 672.64,
+          "end": 673.92,
+          "probability": 0.9971
+        },
+        {
+          "word": "then",
+          "start": 674.5,
+          "end": 674.84,
+          "probability": 1.0
+        },
+        {
+          "word": "VMware",
+          "start": 674.84,
+          "end": 677.42,
+          "probability": 0.959
+        },
+        {
+          "word": "is",
+          "start": 677.42,
+          "end": 678.3,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 678.3,
+          "end": 678.52,
+          "probability": 0.9985
+        },
+        {
+          "word": "best",
+          "start": 678.52,
+          "end": 678.82,
+          "probability": 1.0
+        },
+        {
+          "word": "for...",
+          "start": 678.82,
+          "end": 679.36,
+          "probability": 0.8806
+        }
+      ],
+      "avg_logprob": -0.0499,
+      "no_speech_prob": 0.0367
+    },
+    {
+      "id": 20,
+      "start": 679.87,
+      "end": 708.88,
+      "text": "All-round performance. It works. It's the most professional. It costs $250. VirtualBox, something's wrong with the graphics. It's just, if the screen changes, that's my best bet. That's my best understanding. And then QEMU is just kind of amateur timing and stuff. You just get kind of, it gives kind of a, anyway. But it does do 24.",
+      "words": [
+        {
+          "word": "All",
+          "start": 679.87,
+          "end": 680.07,
+          "probability": 0.5459
+        },
+        {
+          "word": "-round",
+          "start": 680.07,
+          "end": 680.23,
+          "probability": 0.7715
+        },
+        {
+          "word": "performance.",
+          "start": 680.23,
+          "end": 680.61,
+          "probability": 0.9927
+        },
+        {
+          "word": "It",
+          "start": 681.01,
+          "end": 681.13,
+          "probability": 0.9917
+        },
+        {
+          "word": "works.",
+          "start": 681.13,
+          "end": 681.47,
+          "probability": 0.6582
+        },
+        {
+          "word": "It's",
+          "start": 681.79,
+          "end": 682.35,
+          "probability": 0.9949
+        },
+        {
+          "word": "the",
+          "start": 682.35,
+          "end": 682.47,
+          "probability": 0.9985
+        },
+        {
+          "word": "most",
+          "start": 682.47,
+          "end": 682.83,
+          "probability": 1.0
+        },
+        {
+          "word": "professional.",
+          "start": 682.83,
+          "end": 683.33,
+          "probability": 0.999
+        },
+        {
+          "word": "It",
+          "start": 683.37,
+          "end": 683.55,
+          "probability": 0.998
+        },
+        {
+          "word": "costs",
+          "start": 683.55,
+          "end": 683.75,
+          "probability": 0.9766
+        },
+        {
+          "word": "$250.",
+          "start": 683.75,
+          "end": 684.23,
+          "probability": 0.8955
+        },
+        {
+          "word": "VirtualBox,",
+          "start": 687.38,
+          "end": 687.94,
+          "probability": 0.8289
+        },
+        {
+          "word": "something's",
+          "start": 688.28,
+          "end": 688.76,
+          "probability": 0.9976
+        },
+        {
+          "word": "wrong",
+          "start": 688.76,
+          "end": 688.9,
+          "probability": 1.0
+        },
+        {
+          "word": "with",
+          "start": 688.9,
+          "end": 689.06,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 689.06,
+          "end": 689.2,
+          "probability": 1.0
+        },
+        {
+          "word": "graphics.",
+          "start": 689.2,
+          "end": 689.64,
+          "probability": 1.0
+        },
+        {
+          "word": "It's",
+          "start": 690.84,
+          "end": 691.4,
+          "probability": 0.6741
+        },
+        {
+          "word": "just,",
+          "start": 691.4,
+          "end": 691.62,
+          "probability": 1.0
+        },
+        {
+          "word": "if",
+          "start": 691.74,
+          "end": 692.28,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 692.28,
+          "end": 693.56,
+          "probability": 1.0
+        },
+        {
+          "word": "screen",
+          "start": 693.56,
+          "end": 693.84,
+          "probability": 1.0
+        },
+        {
+          "word": "changes,",
+          "start": 693.84,
+          "end": 694.42,
+          "probability": 1.0
+        },
+        {
+          "word": "that's",
+          "start": 694.52,
+          "end": 694.82,
+          "probability": 1.0
+        },
+        {
+          "word": "my",
+          "start": 694.82,
+          "end": 695.0,
+          "probability": 1.0
+        },
+        {
+          "word": "best",
+          "start": 695.0,
+          "end": 695.28,
+          "probability": 1.0
+        },
+        {
+          "word": "bet.",
+          "start": 695.28,
+          "end": 695.56,
+          "probability": 0.9775
+        },
+        {
+          "word": "That's",
+          "start": 695.72,
+          "end": 696.12,
+          "probability": 0.9995
+        },
+        {
+          "word": "my",
+          "start": 696.12,
+          "end": 696.24,
+          "probability": 1.0
+        },
+        {
+          "word": "best",
+          "start": 696.24,
+          "end": 696.48,
+          "probability": 1.0
+        },
+        {
+          "word": "understanding.",
+          "start": 696.48,
+          "end": 697.02,
+          "probability": 1.0
+        },
+        {
+          "word": "And",
+          "start": 697.48,
+          "end": 697.82,
+          "probability": 0.9395
+        },
+        {
+          "word": "then",
+          "start": 697.82,
+          "end": 698.0,
+          "probability": 0.999
+        },
+        {
+          "word": "QEMU",
+          "start": 698.0,
+          "end": 698.8,
+          "probability": 0.9967
+        },
+        {
+          "word": "is",
+          "start": 698.8,
+          "end": 699.02,
+          "probability": 0.9902
+        },
+        {
+          "word": "just",
+          "start": 699.02,
+          "end": 700.6,
+          "probability": 0.7954
+        },
+        {
+          "word": "kind",
+          "start": 700.6,
+          "end": 700.92,
+          "probability": 0.9995
+        },
+        {
+          "word": "of",
+          "start": 700.92,
+          "end": 701.1,
+          "probability": 1.0
+        },
+        {
+          "word": "amateur",
+          "start": 701.1,
+          "end": 701.46,
+          "probability": 0.9995
+        },
+        {
+          "word": "timing",
+          "start": 701.46,
+          "end": 702.3,
+          "probability": 0.9946
+        },
+        {
+          "word": "and",
+          "start": 702.3,
+          "end": 702.74,
+          "probability": 0.999
+        },
+        {
+          "word": "stuff.",
+          "start": 702.74,
+          "end": 703.0,
+          "probability": 1.0
+        },
+        {
+          "word": "You",
+          "start": 703.12,
+          "end": 703.28,
+          "probability": 0.9634
+        },
+        {
+          "word": "just",
+          "start": 703.28,
+          "end": 703.46,
+          "probability": 1.0
+        },
+        {
+          "word": "get",
+          "start": 703.46,
+          "end": 703.7,
+          "probability": 1.0
+        },
+        {
+          "word": "kind",
+          "start": 703.7,
+          "end": 703.98,
+          "probability": 1.0
+        },
+        {
+          "word": "of,",
+          "start": 703.98,
+          "end": 704.18,
+          "probability": 1.0
+        },
+        {
+          "word": "it",
+          "start": 704.22,
+          "end": 705.24,
+          "probability": 0.9985
+        },
+        {
+          "word": "gives",
+          "start": 705.24,
+          "end": 705.68,
+          "probability": 1.0
+        },
+        {
+          "word": "kind",
+          "start": 705.68,
+          "end": 705.98,
+          "probability": 0.3997
+        },
+        {
+          "word": "of",
+          "start": 705.98,
+          "end": 706.22,
+          "probability": 1.0
+        },
+        {
+          "word": "a,",
+          "start": 706.22,
+          "end": 706.4,
+          "probability": 1.0
+        },
+        {
+          "word": "anyway.",
+          "start": 706.44,
+          "end": 707.58,
+          "probability": 0.9985
+        },
+        {
+          "word": "But",
+          "start": 707.72,
+          "end": 708.12,
+          "probability": 1.0
+        },
+        {
+          "word": "it",
+          "start": 708.12,
+          "end": 708.26,
+          "probability": 0.9966
+        },
+        {
+          "word": "does",
+          "start": 708.26,
+          "end": 708.42,
+          "probability": 1.0
+        },
+        {
+          "word": "do",
+          "start": 708.42,
+          "end": 708.56,
+          "probability": 0.9995
+        },
+        {
+          "word": "24.",
+          "start": 708.56,
+          "end": 708.88,
+          "probability": 0.9966
+        }
+      ],
+      "avg_logprob": -0.0727,
+      "no_speech_prob": 0.0143
+    },
+    {
+      "id": 21,
+      "start": 709.81,
+      "end": 729.01,
+      "text": "That's not the reason. That's no excuse for the problems. Although the core zero, I don't have load balancing. So there's a chance that's part of the reason. Anyway, so.",
+      "words": [
+        {
+          "word": "That's",
+          "start": 709.81,
+          "end": 710.55,
+          "probability": 0.8118
+        },
+        {
+          "word": "not",
+          "start": 710.55,
+          "end": 710.71,
+          "probability": 0.8159
+        },
+        {
+          "word": "the",
+          "start": 710.71,
+          "end": 710.87,
+          "probability": 0.998
+        },
+        {
+          "word": "reason.",
+          "start": 710.87,
+          "end": 711.21,
+          "probability": 0.9985
+        },
+        {
+          "word": "That's",
+          "start": 711.91,
+          "end": 712.67,
+          "probability": 0.9919
+        },
+        {
+          "word": "no",
+          "start": 712.67,
+          "end": 712.85,
+          "probability": 0.9961
+        },
+        {
+          "word": "excuse",
+          "start": 712.85,
+          "end": 713.13,
+          "probability": 0.9995
+        },
+        {
+          "word": "for",
+          "start": 713.13,
+          "end": 713.61,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 713.61,
+          "end": 713.83,
+          "probability": 0.999
+        },
+        {
+          "word": "problems.",
+          "start": 713.83,
+          "end": 714.79,
+          "probability": 0.9951
+        },
+        {
+          "word": "Although",
+          "start": 715.73,
+          "end": 716.49,
+          "probability": 0.998
+        },
+        {
+          "word": "the",
+          "start": 716.49,
+          "end": 716.87,
+          "probability": 0.9604
+        },
+        {
+          "word": "core",
+          "start": 716.87,
+          "end": 717.27,
+          "probability": 0.4998
+        },
+        {
+          "word": "zero,",
+          "start": 717.27,
+          "end": 717.65,
+          "probability": 0.9766
+        },
+        {
+          "word": "I",
+          "start": 717.89,
+          "end": 719.63,
+          "probability": 0.9995
+        },
+        {
+          "word": "don't",
+          "start": 719.66,
+          "end": 720.3,
+          "probability": 1.0
+        },
+        {
+          "word": "have",
+          "start": 720.3,
+          "end": 720.42,
+          "probability": 1.0
+        },
+        {
+          "word": "load",
+          "start": 720.42,
+          "end": 720.64,
+          "probability": 0.9995
+        },
+        {
+          "word": "balancing.",
+          "start": 720.64,
+          "end": 721.2,
+          "probability": 0.9976
+        },
+        {
+          "word": "So",
+          "start": 721.38,
+          "end": 722.0,
+          "probability": 0.8438
+        },
+        {
+          "word": "there's",
+          "start": 722.0,
+          "end": 722.86,
+          "probability": 0.9551
+        },
+        {
+          "word": "a",
+          "start": 722.86,
+          "end": 722.96,
+          "probability": 1.0
+        },
+        {
+          "word": "chance",
+          "start": 722.96,
+          "end": 723.88,
+          "probability": 1.0
+        },
+        {
+          "word": "that's",
+          "start": 723.88,
+          "end": 724.58,
+          "probability": 0.9998
+        },
+        {
+          "word": "part",
+          "start": 724.58,
+          "end": 725.08,
+          "probability": 1.0
+        },
+        {
+          "word": "of",
+          "start": 725.08,
+          "end": 725.24,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 725.24,
+          "end": 725.3,
+          "probability": 1.0
+        },
+        {
+          "word": "reason.",
+          "start": 725.3,
+          "end": 725.78,
+          "probability": 1.0
+        },
+        {
+          "word": "Anyway,",
+          "start": 727.31,
+          "end": 728.07,
+          "probability": 0.9756
+        },
+        {
+          "word": "so.",
+          "start": 728.23,
+          "end": 729.01,
+          "probability": 0.9985
+        }
+      ],
+      "avg_logprob": -0.1101,
+      "no_speech_prob": 0.0058
+    }
+  ]
+}

@@ -1,0 +1,262 @@
+========================================================================
+FILE        : videos/2014/2014-09-09T00:01:00+00:00 - TempleOS - MultiCore (CcJbODXu_eE).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-09-09T00:01:00+00:00 - TempleOS - MultiCore (CcJbODXu_eE).mkv
+FORMAT      : Matroska
+SIZE        : 51,031,659 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:13:59.240
+TRANSCRIBED: 2026-05-08T13:15:38.103937+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+Okay so we're going to go over multi-core in Temple OS. First let's show what we have. This is what do we have six cores one two three or we have one two three four five oops one two three four five six cores. I did six because I wanted a spare for I'm running in VMware so I didn't want to take all of them away from the host. Anyway so what we do is we divide into six tasks and then we assign strips of land and they go until they time out so we get a little bit of a flicker. I'm also I'm running a frame grabber which is grabbing eight frames a second so the what's on the monitor is 30 frames a second what's on the what you're seeing is eight frames a second anyway so yeah I decided this is except this is acceptable. I used to lust for more and more acceleration to do more and more but this is a this is acceptable so I'm not disappointed with this we're not going to hardware accelerate this this is a you might think I'm nuts but if an amateur can make a game like this that's good good enough mission accomplished mission accomplished he can if he's ambitious he can I think he'll be tired by the time he does this but if you were ambitious you could make a nice story I made fishing going for fish there we can go dive for fish then come out of the water so if you wanted to make a nice story about flying as an eagle you could do a nice story flying as an eagle anyway so I made a first-person shooter the interesting thing about that is the code has graphics in it so you can see my first-person shooter it's not fun it's not fun making graphics to be quite honest um maybe we can get some better tools but it's a you'll probably lose enthusiasm although you get better at it once you get better it's still anyway so this is one core this is one core we're using when when the screen changes it it uses more CPU so we're we're hitting we're hitting a lot of CPU this is one core so here's what I want to talk about I want to talk about an example this is just what we're gonna do is oh I'll do a should I do one where we start and stop okay I'll be one of the first things you learn is be consistent and copy okay I give up okay so uh okay MP oh this is not gonna work so we go control oh I'm lazy MP not done flag okay so what we do is we come in here grab that go over here I was trying to save some time this is okay I'm just borrowing my own code okay good enough okay so um okay so I think you're supposed to have a multi-core flag in a uh its own cache line that's like 64 byte aligned um to be honest I don't uh I don't have more than one flag so I get away with not um doing that anyway uh uh my job how about that i64 I this is my job task okay okay this is gonna be while not done yield yield yield okay um what we're gonna do is see how how many swaps a second we can get um okay so this is we can call this mpdemo so we set so we initialize spawn spawn my job task that's the parameter there's one parameter spawn spawn takes what are we doing on time? 8 minutes okay task task address task data task name target CPU so we call this my job and okay here okay so there's the worker is going to sit done equals false okay I don't usually use that short but how about mpdone that's more like what I would do okay so we have a boolean that when we're all done we set that and then we have individual flag bits there's eight cores we're good up to 64 cores gs num is the core number we could pass it in as a parameter but we don't need to normally you do something important so what we do is we wait in a loop and we swap in the next task so we yield the CPU to the next task which usually is back to us again so this swaps itself out and then swaps in another one and when we get the flag saying we're all done then we acknowledge I think we want to say not done what we really mean is not done that's getting hard to understand the flag is a one to begin with mp let's say you have eight cores this is going to be eight one to the eighth one shifted over eight is 256 minus one 255 so if we have eight cores it's 255 and then when we each one that finishes clears a bit so not done becomes false if you're not familiar with logic you might not understand anyway so press it so we're going to spawn a task on all eight cores this tells us how many or six cores we have six cores we're going to press a key and then we're going to issue we're going to tell it that we're done and then as long as all as long as there's still one running we yield that's so that we don't finish if we finish before they finish then guess what happens the code memory for the for the core gets reused and it crashes so you have to wait for it to finish before you exit otherwise the code memory for this function gets reused and it crashes because there's still somebody in it it's like anyway here we go let's test it f5 ready bam look at all those cores going 90 90 99 now we hit a key done and they're all back to zero okay it worked let's see if it runs twice yeah good good good okay so um here's what I wanted to show off um okay so uh we can get rid of that so here's what I wanted to show off on the wallpaper there's the number of swaps per second um watch this okay so we just caused some new tasks to get created and look at this we're doing four million swaps a second per core plus we're doing um we're doing a uh frame grabber okay that's what I wanted to show four million tasks a second on all cores whoa there's there's there's there there there there there there there there there there there there there there there there there there there
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:08.740]  Okay so we're going to go over multi-core in Temple OS. First let's show what we
+[00:00:08.740 -> 00:00:16.220]  have. This is what do we have six cores one two three or we have one two three
+[00:00:16.220 -> 00:00:25.880]  four five oops one two three four five six cores. I did six because I wanted a
+[00:00:25.880 -> 00:00:32.060]  spare for I'm running in VMware so I didn't want to take all of them away from
+[00:00:32.060 -> 00:00:45.580]  the host. Anyway so what we do is we divide into six tasks and then we assign
+[00:00:45.580 -> 00:00:52.280]  strips of land and they go until they time out so we get a little bit of a
+[00:00:52.280 -> 00:00:59.640]  flicker. I'm also I'm running a frame grabber which is grabbing eight frames a
+[00:00:59.640 -> 00:01:10.360]  second so the what's on the monitor is 30 frames a second what's on the what
+[00:01:10.360 -> 00:01:17.080]  you're seeing is eight frames a second anyway so yeah I decided this is
+[00:01:17.080 -> 00:01:27.040]  except this is acceptable. I used to lust for more and more acceleration to do
+[00:01:27.040 -> 00:01:34.560]  more and more but this is a this is acceptable so I'm not disappointed with
+[00:01:34.560 -> 00:01:42.420]  this we're not going to hardware accelerate this this is a you might think I'm nuts
+[00:01:42.420 -> 00:01:49.160]  but if an amateur can make a game like this that's good good enough mission
+[00:01:49.160 -> 00:01:56.260]  accomplished mission accomplished he can if he's ambitious he can I think he'll be
+[00:01:56.260 -> 00:02:02.200]  tired by the time he does this but if you were ambitious you could make a nice
+[00:02:02.200 -> 00:02:10.700]  story I made fishing going for fish there we can go dive for fish then come out of the
+[00:02:10.700 -> 00:02:19.380]  water so if you wanted to make a nice story about flying as an eagle you could do a
+[00:02:19.380 -> 00:02:27.060]  nice story flying as an eagle anyway so I made a first-person shooter the
+[00:02:27.060 -> 00:02:34.640]  interesting thing about that is the code has graphics in it so you can see my
+[00:02:34.640 -> 00:02:47.800]  first-person shooter it's not fun it's not fun making graphics to be quite honest um maybe
+[00:02:47.800 -> 00:02:58.820]  we can get some better tools but it's a you'll probably lose enthusiasm although you
+[00:02:58.820 -> 00:03:07.460]  get better at it once you get better it's still anyway so this is one core this is
+[00:03:07.460 -> 00:03:16.200]  one core we're using when when the screen changes it it uses more CPU so we're we're
+[00:03:16.200 -> 00:03:25.400]  hitting we're hitting a lot of CPU this is one core so here's what I want to talk
+[00:03:25.400 -> 00:03:39.680]  about I want to talk about an example this is just what we're gonna do is oh I'll do a
+[00:03:39.680 -> 00:03:47.980]  should I do one where we start and stop okay I'll be one of the first things you learn is
+[00:03:54.220 -> 00:04:02.000]  be consistent and copy
+[00:04:09.340 -> 00:04:16.480]  okay I give up okay so
+[00:04:16.480 -> 00:04:16.820]  uh
+[00:04:30.080 -> 00:04:31.700]  okay MP
+[00:04:37.940 -> 00:04:58.920]  oh this is not gonna work so we go control oh I'm lazy MP not done flag
+[00:05:10.060 -> 00:05:21.920]  okay so what we do is we come in here grab that go over here I was trying to save some time this is
+[00:05:24.720 -> 00:05:28.080]  okay I'm just borrowing my own code
+[00:05:35.740 -> 00:05:38.920]  okay good enough okay so
+[00:05:38.920 -> 00:05:40.420]  um
+[00:05:43.060 -> 00:05:54.080]  okay so I think you're supposed to have a multi-core flag in a uh its own cache line that's like 64 byte aligned
+[00:05:57.320 -> 00:06:08.680]  um to be honest I don't uh I don't have more than one flag so I get away with not um doing that anyway uh
+[00:06:10.920 -> 00:06:19.760]  uh my job how about that i64 I this is my job task
+[00:06:27.720 -> 00:06:29.760]  okay okay this is gonna be
+[00:06:36.120 -> 00:06:38.140]  while not done
+[00:06:41.340 -> 00:06:41.980]  yield
+[00:06:41.980 -> 00:06:42.280]  yield
+[00:06:43.020 -> 00:06:44.200]  yield okay um
+[00:06:45.000 -> 00:06:49.840]  what we're gonna do is see how how many swaps a second we can get
+[00:06:51.520 -> 00:06:52.160]  um
+[00:06:55.980 -> 00:06:59.200]  okay so this is
+[00:07:10.120 -> 00:07:13.520]  we can call this
+[00:07:13.520 -> 00:07:16.280]  mpdemo
+[00:07:18.340 -> 00:07:20.280]  so we set
+[00:07:20.280 -> 00:07:22.040]  so
+[00:07:29.800 -> 00:07:32.380]  we initialize
+[00:07:38.160 -> 00:07:39.560]  spawn
+[00:07:39.560 -> 00:07:39.860]  spawn
+[00:07:47.340 -> 00:07:49.620]  my job task
+[00:07:53.220 -> 00:07:55.640]  that's the parameter
+[00:07:55.640 -> 00:07:56.860]  there's one parameter
+[00:07:56.860 -> 00:07:58.680]  spawn
+[00:08:00.540 -> 00:08:02.300]  spawn takes
+[00:08:02.300 -> 00:08:04.600]  what are we doing on time?
+[00:08:04.920 -> 00:08:05.300]  8 minutes
+[00:08:05.300 -> 00:08:06.300]  okay
+[00:08:06.300 -> 00:08:08.800]  task
+[00:08:08.800 -> 00:08:10.100]  task address
+[00:08:10.100 -> 00:08:12.680]  task data
+[00:08:12.680 -> 00:08:13.840]  task name
+[00:08:13.840 -> 00:08:15.340]  target CPU
+[00:08:15.340 -> 00:08:17.560]  so we call this
+[00:08:17.560 -> 00:08:20.460]  my job
+[00:08:20.460 -> 00:08:22.980]  and
+[00:08:22.980 -> 00:08:25.000]  okay
+[00:08:25.000 -> 00:08:25.800]  here
+[00:08:38.440 -> 00:08:40.260]  okay so
+[00:08:40.260 -> 00:08:41.340]  there's
+[00:08:41.340 -> 00:08:42.380]  the worker
+[00:08:42.380 -> 00:08:44.360]  is going to sit
+[00:08:50.760 -> 00:08:51.580]  done
+[00:08:51.580 -> 00:08:52.140]  equals
+[00:08:52.140 -> 00:08:52.720]  false
+[00:08:59.840 -> 00:09:03.060]  okay I don't usually use that short
+[00:09:03.060 -> 00:09:03.660]  but
+[00:09:03.660 -> 00:09:04.800]  how about mpdone
+[00:09:05.820 -> 00:09:07.860]  that's more like what I would do
+[00:09:18.440 -> 00:09:18.960]  okay
+[00:09:18.960 -> 00:09:20.700]  so we have a boolean
+[00:09:20.700 -> 00:09:23.000]  that when we're all done we set that
+[00:09:23.000 -> 00:09:26.540]  and then we have individual flag bits
+[00:09:27.460 -> 00:09:28.700]  there's eight cores
+[00:09:28.700 -> 00:09:31.380]  we're good up to 64 cores
+[00:09:33.220 -> 00:09:35.180]  gs num is the core number
+[00:09:36.040 -> 00:09:40.620]  we could pass it in as a parameter but we don't need to
+[00:09:43.280 -> 00:09:45.140]  normally you do something important
+[00:09:46.960 -> 00:09:49.900]  so what we do is we wait in a loop
+[00:09:49.900 -> 00:09:52.540]  and we swap in the next task
+[00:09:52.540 -> 00:09:55.380]  so we yield the CPU to the next task
+[00:09:55.380 -> 00:09:58.400]  which usually is back to us again
+[00:09:58.400 -> 00:10:02.320]  so this swaps itself out and then swaps in another one
+[00:10:04.380 -> 00:10:08.060]  and when we get the flag saying we're all done
+[00:10:08.060 -> 00:10:09.560]  then we acknowledge
+[00:10:11.860 -> 00:10:15.620]  I think we want to say not done
+[00:10:17.340 -> 00:10:21.740]  what we really mean is not done
+[00:10:23.080 -> 00:10:27.840]  that's getting hard to understand
+[00:10:34.760 -> 00:10:37.660]  the flag is a one
+[00:10:38.400 -> 00:10:39.960]  to begin with
+[00:10:39.960 -> 00:10:42.380]  mp let's say you have eight cores
+[00:10:42.380 -> 00:10:44.060]  this is going to be eight
+[00:10:44.060 -> 00:10:45.920]  one to the eighth
+[00:10:48.000 -> 00:10:52.220]  one shifted over eight is 256 minus one 255
+[00:10:52.220 -> 00:10:55.120]  so if we have eight cores it's 255
+[00:10:55.120 -> 00:11:01.160]  and then when we each one that finishes clears a bit
+[00:11:01.160 -> 00:11:04.820]  so not done becomes false
+[00:11:05.680 -> 00:11:07.760]  if you're not familiar with logic
+[00:11:09.480 -> 00:11:11.120]  you might not understand
+[00:11:11.120 -> 00:11:14.460]  anyway so press it
+[00:11:14.460 -> 00:11:18.500]  so we're going to spawn a task on all eight cores
+[00:11:18.500 -> 00:11:20.520]  this tells us how many or six cores
+[00:11:20.520 -> 00:11:21.560]  we have six cores
+[00:11:21.560 -> 00:11:24.000]  we're going to press a key
+[00:11:24.000 -> 00:11:25.540]  and then we're going to issue
+[00:11:26.180 -> 00:11:27.920]  we're going to tell it that we're done
+[00:11:27.920 -> 00:11:29.880]  and then as long as
+[00:11:29.880 -> 00:11:32.460]  all as long as there's still one running
+[00:11:32.460 -> 00:11:33.280]  we yield
+[00:11:33.280 -> 00:11:36.300]  that's so that we don't finish
+[00:11:36.300 -> 00:11:39.420]  if we finish before they finish
+[00:11:39.420 -> 00:11:41.220]  then guess what happens
+[00:11:41.220 -> 00:11:43.480]  the code memory for the
+[00:11:43.480 -> 00:11:46.980]  for the core gets reused
+[00:11:48.420 -> 00:11:49.580]  and it crashes
+[00:11:49.580 -> 00:11:52.080]  so you have to wait for it to finish
+[00:11:52.080 -> 00:11:53.260]  before you exit
+[00:11:53.260 -> 00:11:56.300]  otherwise the code memory for this function
+[00:11:56.300 -> 00:11:57.980]  gets reused and it crashes
+[00:11:57.980 -> 00:12:00.260]  because there's still somebody in it
+[00:12:00.260 -> 00:12:01.260]  it's like
+[00:12:01.260 -> 00:12:03.420]  anyway here we go let's test it
+[00:12:03.420 -> 00:12:04.720]  f5 ready
+[00:12:04.720 -> 00:12:07.340]  bam look at all those cores going
+[00:12:07.340 -> 00:12:08.420]  90 90 99
+[00:12:08.420 -> 00:12:10.540]  now we hit a key
+[00:12:10.540 -> 00:12:11.640]  done
+[00:12:11.640 -> 00:12:13.180]  and they're all back to zero
+[00:12:13.180 -> 00:12:14.080]  okay it worked
+[00:12:14.080 -> 00:12:15.220]  let's see if it runs twice
+[00:12:15.900 -> 00:12:17.940]  yeah good good good
+[00:12:17.940 -> 00:12:18.920]  okay
+[00:12:18.920 -> 00:12:20.240]  so um
+[00:12:20.240 -> 00:12:22.580]  here's what I wanted to show off
+[00:12:22.580 -> 00:12:23.500]  um
+[00:12:25.880 -> 00:12:26.960]  okay so
+[00:12:26.960 -> 00:12:27.780]  uh
+[00:12:27.780 -> 00:12:29.400]  we can get rid of that
+[00:12:29.400 -> 00:12:31.680]  so here's what I wanted to show off
+[00:12:31.680 -> 00:12:32.540]  on the wallpaper
+[00:12:32.540 -> 00:12:35.160]  there's the number of swaps per second
+[00:12:35.160 -> 00:12:36.140]  um
+[00:12:37.520 -> 00:12:38.460]  watch this
+[00:12:38.460 -> 00:12:41.320]  okay so we just caused some new tasks
+[00:12:41.320 -> 00:12:42.520]  to get created
+[00:12:42.520 -> 00:12:43.980]  and look at this
+[00:12:43.980 -> 00:12:44.600]  we're doing
+[00:12:44.600 -> 00:12:47.560]  four million swaps a second
+[00:12:47.560 -> 00:12:48.380]  per core
+[00:12:48.380 -> 00:12:50.160]  plus we're doing
+[00:12:50.160 -> 00:12:50.580]  um
+[00:12:52.000 -> 00:12:53.440]  we're doing a uh
+[00:12:53.440 -> 00:12:54.620]  frame grabber
+[00:12:54.620 -> 00:12:55.040]  okay
+[00:12:55.040 -> 00:12:56.520]  that's what I wanted to show
+[00:12:56.520 -> 00:12:58.260]  four million tasks a second
+[00:12:58.260 -> 00:12:59.460]  on all cores
+[00:12:59.460 -> 00:13:00.640]  whoa
+[00:13:32.720 -> 00:13:32.840]  there's there's there's there there there there there there there
+[00:13:32.840 -> 00:13:32.860]  there there there there there there there there there there there there
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:32.840 -> 00:13:32.840]  
+[00:13:59.240 -> 00:13:59.240]  
+[00:13:59.240 -> 00:13:59.240]  
+[00:13:59.240 -> 00:13:59.240]  
+[00:13:59.240 -> 00:13:59.240]  

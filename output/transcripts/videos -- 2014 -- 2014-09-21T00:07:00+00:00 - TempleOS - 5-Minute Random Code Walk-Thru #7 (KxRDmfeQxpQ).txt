@@ -1,0 +1,160 @@
+========================================================================
+FILE        : videos/2014/2014-09-21T00:07:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #7 (KxRDmfeQxpQ).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-09-21T00:07:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #7 (KxRDmfeQxpQ).mkv
+FORMAT      : Matroska
+SIZE        : 29,588,621 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:07:13.610
+TRANSCRIBED: 2026-05-08T16:15:42.479712+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay this is Temple OS 5-minute random code walkthrough episode 7 and your host is Terry Davis so here we go alt B and where are we we are in the compiler pass 0 1 2 okay so it looks like we're in the common code for the family of intermediate code so sub switch start down okay so all the comparison okay let me explain how we got here if we if we have a floating point compare let's say f64 f1 comma f2 let's do this if f1 less than f2 return true false return false what do we call this less how about that so let's do O trace oops what did I do okay so pass 1 2 the O trace displays output for different passes so it starts out before pass 0 there's a there's a less than which makes a boolean out of out of comparison and then branch so if it's boolean and you do a branch of 0 then anyway in pass 0 1 2 it converts that to a branch branch greater equal so it basically when what the optimization does is take risk and turn it into cisc so we have a bunch of simple instructions and then by the time we get to the bottom it's one two three four five six seven eight whatever complex instructions so so for the comparison operators on pass 0 1 2 what are we doing what are we doing it's setting it's clearing a flag result to integer actually a comparison at this point it's not a branch it's a genuine comparison so it is an integer so if it is an integer it doesn't need to be converted to integer sometimes if you have I think what it's doing is so for clarity let's say I equals it's not a branch version it's this kind of version anyway a boolean expression and what it's doing is it's a each intermediate code can have its result converted to integer or converted to float and this one is an integer so it doesn't need to convert to integer and then it's a what it's doing is if it's not a pointer okay so let's let's go back to what we had so on pass 0 there's a there's a it on pass 0 1 2 it works out the the types you'll notice down on pass 2 it's um has it changed any types the branch 0 okay um well what it's doing is uh if it's a if it's if it's a pointer it wait if it's a pointer count is the number of stars so if there's zero stars and if it's uh oh just ignore that that's class 2 is something crazy um if push compare what this is for is uh um if we say if uh 0.5 is less now though you'll notice it has some push push compare pop compare um this operator pushes its its uh uh what this is for is if you have um if you have an expression you don't want to repeatedly calculate it so uh you you push the uh the intermediate express uh value well you push it and then you pop it down here for the next comparison so uh i don't know if it actually does a push it's it's done um on the floating point stack it's just carrying the value forward and it's using one of the floating point is it it should be i don't know anyway uh that's the idea kind of ran out of time okay um so if push compare um what are we doing we're setting the uh if it's not a push compare we set it to a uh raw type i64 so the result of a boolean comparison is a i64 unless you're doing that push compare stuff and then it's doing something funky with the uh the class of this intermediate code okay you you you you there there there there there there there there there there there there! there there there there there there
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.740 -> 00:00:07.140]  okay this is Temple OS 5-minute random code walkthrough episode 7 and your
+[00:00:07.140 -> 00:00:17.140]  host is Terry Davis so here we go alt B and where are we we are in the compiler
+[00:00:17.140 -> 00:00:32.840]  pass 0 1 2 okay so it looks like we're in the common code for the family of
+[00:00:32.840 -> 00:00:46.560]  intermediate code so sub switch start down okay so all the comparison okay let me
+[00:00:46.560 -> 00:00:58.700]  explain how we got here if we if we have a floating point compare let's say
+[00:01:02.340 -> 00:01:10.180]  f64 f1 comma f2 let's do this
+[00:01:16.200 -> 00:01:19.180]  if f1 less than f2
+[00:01:20.620 -> 00:01:22.480]  return true
+[00:01:24.640 -> 00:01:25.820]  false
+[00:01:27.660 -> 00:01:29.620]  return false
+[00:01:29.620 -> 00:01:32.720]  what do we call this less
+[00:01:34.320 -> 00:01:39.720]  how about that so let's do O trace
+[00:01:46.160 -> 00:01:47.740]  oops what did I do
+[00:01:55.860 -> 00:02:13.020]  okay so pass 1 2 the O trace displays output for different passes so it starts out before pass 0
+[00:02:14.260 -> 00:02:27.820]  there's a there's a less than which makes a boolean out of out of comparison and then branch so if it's boolean and you do a branch of 0
+[00:02:29.640 -> 00:02:38.320]  then anyway in pass 0 1 2 it converts that to a branch branch greater equal
+[00:02:40.520 -> 00:03:02.320]  so it basically when what the optimization does is take risk and turn it into cisc so we have a bunch of simple instructions and then by the time we get to the bottom it's one two three four five six seven eight whatever complex instructions so
+[00:03:02.500 -> 00:03:11.320]  so for the comparison operators on pass 0 1 2 what are we doing
+[00:03:11.320 -> 00:03:13.880]  what are we doing
+[00:03:13.880 -> 00:03:19.420]  it's setting it's clearing a flag result to integer
+[00:03:20.920 -> 00:03:26.500]  actually a comparison at this point it's not a branch it's a genuine comparison
+[00:03:29.210 -> 00:03:35.310]  so it is an integer so if it is an integer it doesn't need to be converted to integer
+[00:03:35.310 -> 00:03:51.570]  sometimes if you have I think what it's doing is so for clarity let's say I equals it's not a branch version it's this kind of version
+[00:03:54.210 -> 00:03:59.750]  anyway a boolean expression and what it's doing is it's a
+[00:04:00.950 -> 00:04:19.050]  each intermediate code can have its result converted to integer or converted to float and this one is an integer so it doesn't need to convert to integer and then it's a what it's doing is if it's not a pointer
+[00:04:21.530 -> 00:04:26.250]  okay so let's let's go back to what we had
+[00:04:28.590 -> 00:04:30.550]  so on pass 0
+[00:04:31.690 -> 00:04:44.690]  there's a there's a it on pass 0 1 2 it works out the the types you'll notice down on pass 2 it's um has it changed any types the branch 0
+[00:04:46.370 -> 00:04:47.730]  okay um
+[00:04:48.730 -> 00:05:00.670]  well what it's doing is uh if it's a if it's if it's a pointer it wait if it's a pointer count is the number of stars so if there's zero stars
+[00:05:01.450 -> 00:05:03.010]  and if it's uh
+[00:05:04.390 -> 00:05:08.450]  oh just ignore that that's class 2 is something crazy
+[00:05:08.450 -> 00:05:13.890]  um if push compare what this is for is uh um
+[00:05:15.330 -> 00:05:17.310]  if we say if uh
+[00:05:17.310 -> 00:05:20.210]  0.5 is less
+[00:05:20.210 -> 00:05:24.890]  now though you'll notice it has some push push compare pop compare
+[00:05:25.450 -> 00:05:26.370]  um
+[00:05:26.370 -> 00:05:30.230]  this operator pushes its its uh
+[00:05:30.230 -> 00:05:37.670]  uh what this is for is if you have um if you have an expression you don't want to repeatedly calculate it
+[00:05:37.670 -> 00:05:38.950]  so uh
+[00:05:38.950 -> 00:05:41.270]  you you push the uh
+[00:05:41.270 -> 00:05:44.690]  the intermediate express uh value
+[00:05:44.690 -> 00:05:46.530]  well you push it
+[00:05:47.270 -> 00:05:49.530]  and then you pop it down here
+[00:05:50.270 -> 00:05:52.130]  for the next comparison
+[00:05:52.130 -> 00:05:53.750]  so uh
+[00:05:53.750 -> 00:06:01.830]  i don't know if it actually does a push it's it's done um on the floating point stack it's just carrying the value forward
+[00:06:01.830 -> 00:06:05.790]  and it's using one of the floating point is it it should be
+[00:06:05.790 -> 00:06:07.330]  i don't know
+[00:06:11.570 -> 00:06:13.790]  anyway uh that's the idea
+[00:06:15.890 -> 00:06:17.430]  kind of ran out of time
+[00:06:17.430 -> 00:06:19.010]  okay um
+[00:06:19.010 -> 00:06:20.690]  so if push compare
+[00:06:22.370 -> 00:06:23.070]  um
+[00:06:24.610 -> 00:06:27.390]  what are we doing we're setting the uh
+[00:06:29.730 -> 00:06:33.250]  if it's not a push compare we set it to a uh
+[00:06:33.250 -> 00:06:34.790]  raw type i64
+[00:06:35.430 -> 00:06:37.790]  so the result of a boolean comparison
+[00:06:38.810 -> 00:06:40.650]  is a i64
+[00:06:41.490 -> 00:06:46.490]  unless you're doing that push compare stuff and then it's doing something funky with the uh
+[00:06:46.490 -> 00:06:49.030]  the class of this intermediate code
+[00:06:49.650 -> 00:06:50.170]  okay
+[00:06:52.110 -> 00:06:52.750]  you
+[00:06:53.850 -> 00:06:54.490]  you
+[00:06:54.490 -> 00:06:54.490]  
+[00:06:54.490 -> 00:06:54.490]  
+[00:06:54.490 -> 00:06:54.590]  you
+[00:06:54.590 -> 00:06:54.590]  
+[00:06:54.590 -> 00:06:54.590]  
+[00:06:54.590 -> 00:06:54.610]  you
+[00:06:54.610 -> 00:06:54.610]  
+[00:06:54.610 -> 00:06:54.910]  there
+[00:06:55.310 -> 00:06:55.490]  there
+[00:06:55.490 -> 00:06:55.710]  there
+[00:06:56.250 -> 00:06:56.430]  there
+[00:06:56.430 -> 00:06:56.450]  there
+[00:06:56.450 -> 00:06:56.450]  
+[00:06:56.450 -> 00:06:56.450]  
+[00:06:56.450 -> 00:06:56.450]  
+[00:06:56.450 -> 00:06:56.470]  there
+[00:06:56.470 -> 00:06:56.490]  there
+[00:06:56.490 -> 00:06:56.510]  there
+[00:06:56.510 -> 00:06:56.530]  there
+[00:06:56.530 -> 00:06:56.550]  there
+[00:06:56.550 -> 00:06:56.570]  there
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.570 -> 00:06:56.570]  
+[00:06:56.590 -> 00:06:56.590]  
+[00:06:56.590 -> 00:06:56.590]  
+[00:06:56.590 -> 00:06:56.590]  
+[00:06:56.590 -> 00:06:56.610]  there
+[00:06:56.610 -> 00:06:56.810]  !
+[00:06:56.810 -> 00:06:56.810]  
+[00:06:56.810 -> 00:06:56.990]  there
+[00:06:56.990 -> 00:06:57.310]  there
+[00:06:57.310 -> 00:06:57.310]  
+[00:06:57.310 -> 00:06:57.310]  
+[00:06:57.310 -> 00:06:57.310]  
+[00:06:57.310 -> 00:06:57.310]  
+[00:06:57.310 -> 00:06:57.310]  
+[00:06:57.310 -> 00:06:57.310]  
+[00:06:57.650 -> 00:06:57.830]  there
+[00:06:57.830 -> 00:06:57.990]  there
+[00:06:57.990 -> 00:06:57.990]  
+[00:07:13.610 -> 00:07:11.610]  there
+[00:07:11.610 -> 00:07:13.610]  there
+[00:07:13.610 -> 00:07:13.610]  

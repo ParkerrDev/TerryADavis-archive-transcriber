@@ -1,0 +1,108 @@
+========================================================================
+FILE        : videos/2014/2014-09-09T00:03:00+00:00 - TempleOS - PrintF ScanF (lZlD7YuviRo).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-09-09T00:03:00+00:00 - TempleOS - PrintF ScanF (lZlD7YuviRo).mp4
+FORMAT      : MPEG4
+SIZE        : 50,745,728 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:15:08.240
+TRANSCRIBED: 2026-05-08T13:22:48.365497+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay I guess I'm gonna talk about code what code I don't know let's see what code looks interesting how about the kernel okay so let's talk about my print in theory I thought performance was at all costs important when I wrote my print my I started calling it print F but I changed it just to print and then anyway so it's it's print F I at Ticketmaster I saw the rule was performance at all costs kind that was sometimes the case anyway so in my print I assumed it was to go to extreme measures for performance that's that's pretty silly why do I call that silly because the the the amount of time spent printing is not significant compared to my document framework where it it has to fit when you when you insert text into the document that's at least as much processing as when you format a a field in a print F anyway um what possible application would I be doing bunches of data I it's a Commodore 64 not a not a uh not a uh research computer for uh some I think the main place where you see print F and scan F is uh reading in matrices for scientific work um anyway but I I when I wrote this I said I'm gonna take out all the stops and new performance so uh you will see go to used extensively that's actually uh space saving not speed saving um but uh actually sometimes it can be speed speed speed optimizing anyway uh so uh what do I want to talk about uh basically uh I don't want to look at the code I just remember how I did it um let's say you have uh uh one five six seven eight nine zero zero zero zero zero uh going off horizontal okay so I'm up here just so you're watching uh what do I do um the way I print is uh I uh I'm just gonna kind of outline I uh shift I I figure out what I what power of 10 to multiply by and then I convert it to a 64 bit so on the left I guess I uh anyway I'm not even thinking about this basically I I I'm out I multiply by a power of 10 and then print a 64 bit number I multiply by a power of 10 and print a 64 bit number okay on the right I multiply by a power of 10 and I print a 64 bit number so where can this go wrong well let's suppose okay this uh actually I think uh I don't print zeros um what I mean is uh uh now that I think about it um I have a 64 bit number so uh I don't think I print zeros in other words uh to the left can be 64 bits um um so if you want to crash my print f tell it let's we we can demonstrate anyway uh first of all let's think about why it's glory glorious um first of all uh I only have uh f64s I don't have f32s um um I'm using 64 bits we are in 64 bit mode so it's sweet that we are using 64 bit registers it's like right on that's what 64 bit is all about so uh uh I have a 64 bit number if you overflow 64 bits on the left of the it's gonna um it's gonna get messed up and if you overflow now this is tricky um I I multiply by I think I don't multiply by a power of 10 on the left but on the right I multiply by a power of 10 and then print a 64 bit number so that's that's okay but this is not okay if you do this suddenly I multiply by a power of 10 and I print a 64-bit number this is not gonna work in 64 bits so maybe I just uh let's clarify on the left we we have a 64-bit number on the left of the dollar of the decimal point on the right we have multiplied by a power of 10 and then a 64-bit that better not be overflow okay so uh let's well anyway that's how it works um so uh so uh so uh this this routine is uh is common to a whole family of uh print fs they all call it um the what they all do is uh if the if the destination in this is null then it's a variable buffer allocated so it uh it uh it uh allocates a buffer and if the buffer gets too small it it's a string buffer and it allocates bigger guess what um i i take advantage of uh my uh my heap uh code lets you get the size of an allocated chunk so that's what that's doing right there when we print a character we're checking this is kind of uh inefficient although that's pretty psycho compared to what everybody else does this is printing a character you would this is kind of a lot of work for one character but this is a printf and it's not that sometimes you have to uh i don't know old people are always conservative about money and about memory and speed young people are always well not always uh always wasteful um anyway so i feel guilty how much is spent there anyway so let's go ahead and look at this first of all so when we're printing a string we uh if we get a percent that's the critical thing if it's not a percent i think it's just a uh it's just a uh what you call it constant uh character if you get a percent then i invented oh i i i i read in the uh field width and decimals put them into some variables then i have some flags that i recognize um dollar sign does something special backs okay backslash is uh what the hell is that uh i don't know comma i invented that actually ticketmaster did anyway that that lets you do comma every three or four hexadecimal it's every four um anyway um truncate this is awesome uh and uh what is l oh that i went ahead and uh i like to have no legacy crap but i went ahead and uh uh if somebody has that pathetic uh legacy crap l for anyway h is a crazy subfield so this lets you enter another number um i don't know what h stands for but it's another number um i'll let you repeat a character with the h that's the main thing let's say you want to print percent c if you if you tell it a percent h uh you can repeat a character um it's it's a little bit bulky you have anyway uh so these are some qualifiers uh time date uh q and reverse q and uh file i make it you can print a file um q and reverse q are uh um um quote and unquote um you can i'm not going to explain it um pointers yeah that's pretty standard everybody does pointers uh you can do a link command line links or pointers and uh also i did little percent c on characters either up you can say two upper if you use a capital percent c it's a it's a two upper that'll that'll convert to upper so i do percent in which is uh engineering notation i even got fancy and did uh mega kilo milli micro i sometimes i print out those uh labels i forgot which ones anyway uh so uh that's that's print f scan f is uh pretty um half-ass i don't know i don't know i and it doesn't it doesn't uh it's not uh reversible so if you can print it's a nice property if printing and scanning are reversible mine are not it's not a priority to me i did make a date conversion i got a little bit fancy ticketmaster had star for today so if you wanted to say tomorrow that would be star plus one if you wanted to say a week ago that star minus seven that's really nice i invented start of month end of month start of month start of why did i do that i gotta fix that okay uh start of year who knows maybe it's not even uh start of year end of year and what that does is uh whatever you put you can either put one two 14 inside and then take the start of the year or you can put star plus seven that's about it it's not full algebraic expressions so it's just kind of a quick and dirty algebra um anyway uh okay how about that
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:02.260 -> 00:00:13.960]  okay I guess I'm gonna talk about code what code I don't know let's see what
+[00:00:13.960 -> 00:00:25.940]  code looks interesting how about the kernel okay so let's talk about my print
+[00:00:30.400 -> 00:00:48.200]  in theory I thought performance was at all costs important when I wrote my print my I started calling
+[00:00:48.200 -> 00:01:05.620]  it print F but I changed it just to print and then anyway so it's it's print F I at Ticketmaster I saw
+[00:01:06.940 -> 00:01:19.320]  the rule was performance at all costs kind that was sometimes the case anyway so in my print I assumed
+[00:01:19.320 -> 00:01:30.560]  it was to go to extreme measures for performance that's that's pretty silly why do I call that silly
+[00:01:30.560 -> 00:01:47.720]  because the the the amount of time spent printing is not significant compared to
+[00:01:50.400 -> 00:02:07.680]  my document framework where it it has to fit when you when you insert text into the document
+[00:02:09.680 -> 00:02:23.020]  that's at least as much processing as when you format a a field in a print F anyway um
+[00:02:23.020 -> 00:02:33.900]  what possible application would I be doing bunches of data I it's a Commodore 64 not a
+[00:02:35.180 -> 00:02:51.980]  not a uh not a uh research computer for uh some I think the main place where you see print F and scan F
+[00:02:51.980 -> 00:02:57.360]  is uh reading in matrices for scientific work
+[00:03:00.720 -> 00:03:13.580]  um anyway but I I when I wrote this I said I'm gonna take out all the stops and new performance so uh you will see go to
+[00:03:14.960 -> 00:03:26.100]  used extensively that's actually uh space saving not speed saving um but uh actually sometimes it can be
+[00:03:27.080 -> 00:03:27.960]  speed speed
+[00:03:27.960 -> 00:03:28.020]  speed
+[00:03:30.040 -> 00:03:30.600]  optimizing
+[00:03:30.600 -> 00:03:37.100]  anyway uh so uh what do I want to talk about uh
+[00:03:40.060 -> 00:03:45.600]  basically uh I don't want to look at the code I just remember how I did it
+[00:03:45.600 -> 00:03:46.460]  um
+[00:03:48.060 -> 00:03:49.820]  let's say you have uh
+[00:03:49.820 -> 00:04:01.460]  uh one five six seven eight nine zero zero zero zero zero uh going off horizontal okay so I'm up here
+[00:04:01.460 -> 00:04:15.020]  just so you're watching uh what do I do um the way I print is uh I uh I'm just gonna
+[00:04:15.020 -> 00:04:23.680]  kind of outline I uh shift I I figure out what I what power of 10 to multiply by
+[00:04:24.620 -> 00:04:29.640]  and then I convert it to a 64 bit so on the left
+[00:04:31.080 -> 00:04:32.820]  I guess I uh
+[00:04:34.500 -> 00:04:42.320]  anyway I'm not even thinking about this basically I I I'm out I multiply by a power of 10 and then
+[00:04:42.320 -> 00:04:51.420]  print a 64 bit number I multiply by a power of 10 and print a 64 bit number
+[00:04:52.240 -> 00:05:00.320]  okay on the right I multiply by a power of 10 and I print a 64 bit number
+[00:05:02.220 -> 00:05:23.280]  so where can this go wrong well let's suppose okay this uh actually I think uh I don't print zeros
+[00:05:23.280 -> 00:05:27.020]  um what I mean is uh
+[00:05:27.020 -> 00:05:28.020]  uh
+[00:05:30.080 -> 00:05:39.160]  now that I think about it um I have a 64 bit number so uh I don't think I print zeros
+[00:05:40.560 -> 00:05:46.660]  in other words uh to the left can be 64 bits um
+[00:05:46.660 -> 00:05:56.760]  um so if you want to crash my print f tell it let's we we can demonstrate anyway uh
+[00:05:57.640 -> 00:06:09.540]  first of all let's think about why it's glory glorious um first of all uh I only have uh f64s I don't have
+[00:06:09.540 -> 00:06:23.960]  f32s um um I'm using 64 bits we are in 64 bit mode so it's sweet that we are using 64 bit registers
+[00:06:24.740 -> 00:06:31.880]  it's like right on that's what 64 bit is all about so uh uh
+[00:06:33.060 -> 00:06:40.520]  I have a 64 bit number if you overflow 64 bits on the left of the
+[00:06:42.020 -> 00:06:49.820]  it's gonna um it's gonna get messed up and if you overflow now this is tricky
+[00:06:51.340 -> 00:06:58.200]  um I I multiply by I think I don't multiply by a power of 10 on the left but on the right
+[00:06:58.200 -> 00:07:07.500]  I multiply by a power of 10 and then print a 64 bit number so that's that's okay but
+[00:07:08.640 -> 00:07:19.680]  this is not okay if you do this suddenly I multiply by a power of 10 and I print a 64-bit number this is
+[00:07:19.680 -> 00:07:21.780]  not gonna work in 64 bits
+[00:07:24.580 -> 00:07:36.960]  so maybe I just uh let's clarify on the left we we have a 64-bit number on the left of the dollar of the
+[00:07:37.520 -> 00:07:47.360]  decimal point on the right we have multiplied by a power of 10 and then a 64-bit that better not be
+[00:07:47.360 -> 00:08:06.400]  overflow okay so uh let's well anyway that's how it works um so uh so uh so uh this this routine is
+[00:08:06.400 -> 00:08:15.880]  uh is common to a whole family of uh print fs they all call it um
+[00:08:18.560 -> 00:08:28.860]  the what they all do is uh if the if the destination in this is null then it's a variable buffer allocated
+[00:08:28.860 -> 00:08:38.760]  so it uh it uh it uh allocates a buffer and if the buffer gets too small it it's a string buffer and it
+[00:08:38.760 -> 00:08:45.460]  allocates bigger guess what um i i take advantage of uh
+[00:08:47.560 -> 00:08:57.080]  my uh my heap uh code lets you get the size of an allocated chunk
+[00:08:59.180 -> 00:09:06.080]  so that's what that's doing right there when we print a character we're checking this is kind of uh
+[00:09:07.200 -> 00:09:11.620]  inefficient although that's pretty psycho compared to what everybody else does
+[00:09:12.440 -> 00:09:20.100]  this is printing a character you would this is kind of a lot of work for one character but this is a
+[00:09:20.100 -> 00:09:27.720]  printf and it's not that sometimes you have to uh
+[00:09:32.900 -> 00:09:42.260]  i don't know old people are always conservative about money and about memory and speed young people are
+[00:09:42.260 -> 00:09:53.920]  always well not always uh always wasteful um anyway so i feel guilty how much is spent there
+[00:09:54.580 -> 00:10:01.940]  anyway so let's go ahead and look at this first of all so when we're printing a string we uh
+[00:10:03.420 -> 00:10:09.020]  if we get a percent that's the critical thing if it's not a percent i think it's just a
+[00:10:09.020 -> 00:10:21.320]  uh it's just a uh what you call it constant uh character if you get a percent then i invented oh i i i i
+[00:10:21.320 -> 00:10:31.600]  read in the uh field width and decimals put them into some variables then i have some flags that i recognize
+[00:10:31.600 -> 00:10:44.560]  um dollar sign does something special backs okay backslash is uh what the hell is that uh i don't know
+[00:10:45.120 -> 00:10:53.500]  comma i invented that actually ticketmaster did anyway that that lets you do comma every three or four
+[00:10:54.240 -> 00:11:01.300]  hexadecimal it's every four um anyway um truncate this is awesome
+[00:11:02.660 -> 00:11:11.560]  uh and uh what is l oh that i went ahead and uh i like to have no legacy crap but i went ahead and uh
+[00:11:11.560 -> 00:11:18.920]  uh if somebody has that pathetic uh legacy crap l for anyway
+[00:11:20.840 -> 00:11:30.340]  h is a crazy subfield so this lets you enter another number um i don't know what h stands for but it's
+[00:11:30.340 -> 00:11:40.420]  another number um i'll let you repeat a character with the h that's the main thing let's say you want to print
+[00:11:40.420 -> 00:11:50.540]  percent c if you if you tell it a percent h uh you can repeat a character um it's it's a little bit bulky
+[00:11:50.540 -> 00:12:08.000]  you have anyway uh so these are some qualifiers uh time date uh q and reverse q and uh file i make it you can print a file
+[00:12:08.000 -> 00:12:22.040]  um q and reverse q are uh um um quote and unquote um you can i'm not going to explain it um
+[00:12:24.940 -> 00:12:36.160]  pointers yeah that's pretty standard everybody does pointers uh you can do a link command line links
+[00:12:36.160 -> 00:12:48.160]  or pointers and uh also i did little percent c on characters either up you can say two upper
+[00:12:49.040 -> 00:12:58.260]  if you use a capital percent c it's a it's a two upper that'll that'll convert to upper so i do percent in
+[00:12:58.260 -> 00:13:13.640]  which is uh engineering notation i even got fancy and did uh mega kilo milli micro i sometimes i print out those uh
+[00:13:14.660 -> 00:13:20.600]  labels i forgot which ones anyway uh so uh
+[00:13:23.920 -> 00:13:25.900]  that's that's print f
+[00:13:27.920 -> 00:13:29.700]  scan f is uh
+[00:13:31.380 -> 00:13:32.780]  pretty um
+[00:13:36.100 -> 00:13:45.940]  half-ass i don't know i don't know i and it doesn't it doesn't uh it's not uh reversible so if you can print
+[00:13:47.220 -> 00:13:53.180]  it's a nice property if printing and scanning are reversible mine are not
+[00:13:54.040 -> 00:14:03.520]  it's not a priority to me i did make a date conversion i got a little bit fancy ticketmaster
+[00:14:03.520 -> 00:14:09.280]  had star for today so if you wanted to say tomorrow that would be star plus one
+[00:14:09.280 -> 00:14:17.800]  if you wanted to say a week ago that star minus seven that's really nice i invented start of month
+[00:14:18.480 -> 00:14:24.400]  end of month start of month start of why did i do that i gotta fix that okay
+[00:14:24.400 -> 00:14:25.120]  uh
+[00:14:27.700 -> 00:14:31.420]  start of year who knows maybe it's not even
+[00:14:31.420 -> 00:14:42.140]  uh start of year end of year and what that does is uh whatever you put you can either put one two
+[00:14:43.520 -> 00:14:53.580]  14 inside and then take the start of the year or you can put star plus seven that's about it it's not
+[00:14:53.580 -> 00:14:59.440]  full algebraic expressions so it's just kind of a quick and dirty algebra
+[00:15:02.020 -> 00:15:04.060]  um anyway uh
+[00:15:06.940 -> 00:15:08.240]  okay how about that

@@ -1,0 +1,673 @@
+========================================================================
+FILE       : videos/2013/2013-03-27T07:00:00+00:00 - TempleOS Start-Up Code Walk-Thru (jthJOeStDjE).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2013/2013-03-27T07:00:00+00:00 - TempleOS Start-Up Code Walk-Thru (jthJOeStDjE).mp4
+FORMAT     : MPEG4
+SIZE       : 149,273,693 bytes
+LANGUAGE   : en
+MODEL      : mlx-community/whisper-large-v3-turbo
+DURATION   : 00:30:21.070
+TRANSCRIBED: 2026-05-07T23:42:21.713737+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay we're going to talk about all the various ways you can boot and how it goes changes to 32-bit and then 64-bit mode because startup happens in real mode the BIOS starts in real mode anyway this story begins when you make a distribution ISO so when you make a distribution ISO you copy the files from temp OS from boot from those directories and then you say cd file create basically you make a directory with it with all the files you want on the on in the ISO called distro then you tell it everything in the distro directory it goes into the image and then we call cd file create and this makes a 966 ISO 966 image file ISO image file now at block the blocks are 2048 on you can it's pretty safe to assume that technically they can be different but don't worry about that anyway so block 16 is the primary volume then you have a supplemental volume then you have a boot record and anyway so I think about block 18 something like that is there's a pre boot block and then there's a boot block I think it's maybe it's 19 anyway I use no emulation and when when we create this ISO it it it fetches the the let's see do we pass it anyway it fetches the the boot block that we're going to look at in a second anyway so it puts it in the ISO and then it puts the the the files the file we're interested in is the kernel so the kernel goes in directories 0 0 0 0 0 boot and it's the first file that's so that on an ISO the kernel will be at block 20 that's so I can use a third part a third party ISO creator so my creator could put it anywhere but in the boot record would be correct I could put it anywhere but I put it in a fixed location so that my boot record would work if I use magic ISO or something anyway so now we're going to look at when this install boot this file install boot is included when whenever you reboot and it includes these boot sector files and it has code to to to install the boot sector the various boot sectors there's a master boot sector and that when you install that it reads block zero patches the code for the the sector and then it writes block zero and it tells it the the when you install a master it it tells you tell it the block address of each partition and when you install when you create a new kernel on a partition you make you make the kernel and then you install the the partition the partition boot loader and this this reads the partition and patches the first block of the partition right here and patches it with the code and then writes it or if you're making we when you make a CD-ROM it creates a boot a boot file so the CD-ROM boot sector is here this is loaded by the BIOS no emulation DL is the BIOS drive number when when in real mode when it starts up so it gets it off sector what was it 18 something like that anyway so it always puts it at 7C00 but we don't assume that so we we check to see if it's somewhere else then we get the same thing we check to see if it's somewhere else then we get the same thing we get the CS and we get the IP we get by push doing a call puts it on the stack and then pop in the stack gets the IP then we add the CS shifted over by 4 it has to be on a 4 on a paragraph boundary anyway it sets the stack we're going to relocate all this code to to just under 80,000 which is a 90,000 is the 9F 9F 9F FF is the FF F is the BIOS extended BIOS data area so under 80,000 is safe and and we we put a stack just under 80,000 and then after a block for the stack then we put the home the we relocate ourselves up there right here we relocate ourselves then we do a jump up to the new location and all this code is now at under 80,000 there's a data area here for DAP which is a structure that you pass to the BIOS when you read a block now we're going to be reading that kernel 0000 kernel so this gets patched when we this is when we when we recompile the anyway so we get the we call the BIOS interrupt to get the page for the video we don't just write to B800 we do it with the put char then we are we check CPU ID to see if this processor 64-bit capable if it's not 64-bit capable we print a message requires a 64-bit capable and then we do a jump to ourselves to to stop or to where do we do that not 64-bit not 64-bit and then a jump to 10 anyway if it is 64-bit capable we go ahead and load it now we relocate it up high so we can load load the kernel into the 7c so we go through a loop calling interrupt 13 42 which is the I like that one we're only good for 64-bit processors anyway so they probably have the we don't mess around with the early versions of block read we use the 64-bit version of block read anyway so you pass it the DAP we write the buffer address it we keep ES pointing to the the buffer we're reading in we read one one block at a time and we add that we add one block divided by 16 to ES over and over and we print a progress put char is fancy and when we're done we okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay jumps to the kernel that it loaded in, which is at 7C00. I don't have my assembler. I wrote my own assembler. It doesn't have far jump, so we have to hand code far jump. I have very little 16-bit support because you only use a little bit. We're going to cover all the 16-bit code, and you guys have no reason to be using 16-bit code. Okay, so we jump to the kernel. Well, anyway, so the master boot record goes in block zero. So we covered the CD-ROM. Now we're going to look at the hard disk. If you use my master boot record, it goes in block zero, and it loads. Basically, it does the same exact thing we did with the CD, but it's loading stage 2 of the master boot record. And stage 2 of the master boot record gets patched. When you install the master boot record, it gets patched with a table of a block array of the first block of each partition that we want to boot. And it prompts using the BIOS get char to get the... This master... Oh, by the way, this second stage goes in the partition file. It doesn't go into... There's a gap between 0 and 63, which is used for bootloaders, sectors 0 and 63. I don't use that. I put it in the partition. That's so that you can use an existing bootloader, and it can fall back and do the old bootloader. So when I install, you can fall back and use the old bootloader. So I can install on top of grub and fall back on grub. Anyway, so Windows boots with my bootloader, but not Linux. Linux requires grub. Anyway, so all stage 2 does is load the first block of the partition and then jump to it in real mode with DL holding the BIOS drive. That's pretty much all you have to do. Anyway, so this... So when you load the... When you're loading a TempleOS partition, this is the volume bootloader, which is in the first block of the partition. It got patched with kernel.bin block address, and this loads... This goes in a loop using 1342 to load using the DAP structure. This loads in the kernel, and then my kernel is about... It goes from 7C, I think, up to maybe 40,000. It has to be in the 640, lowest 640. It has to... Anyway, so my kernel starts in KSTART. There's a header on my binary files. This is made by my compiler. My binary files have a 16-byte header. There's a jump past the header, and then there's a type, and then there's a patch table of imports and exports and absolute addresses that have to be patched. In my operating system, all binaries are... All code is position independent because it gets patched. And... Anyway, so... I have flat binaries. It's the code followed by the table of imports, exports, and absolute addresses. So this 16-byte header causes a... Has to be accounted for. So it loads in at 7C. So when I do alignments, sometimes I have to take into account the 16-byte header. Anyway, so the first thing it does, it jumps past this... This is some data for... We're in real mode, 16-bit mode right now. And we have to... We only... My assembler doesn't support segmentation, basically, 16-bit code. So what these... All these offsets are zero-based. In my... The assembler codes this at zero pretty much, not quite zero. Anyway, this offset has a value of zero. So what we do is we set the data segment to 7C. And now, for the 16-bit code, it'll be... This offset will be right. We have to get to that point. So here's the global descriptor table. It has some hard-coded values that are fixed. And it calculates the boot data segment and the boot code segment. Because I made it independent, so it doesn't have to be loaded at 7C. Zero-zero. So it's... These are... For 32-bit mode, when it's running in 32 before it switches to 64, we use the... This data segment and code segment. We have code segments for 64-bit. Sometimes we switch back to 32-bit, but we never switch back to 16-bit. We have 64-bit code segment. We have a ring 3, in case you want to mess with ring 3. Everything's ring 0, but there's a demo, in case you want to mess with ring 3. And there's the task registers. I just... I have all that stuff fixed. Anyway, it has memory... It has space for the BIOS information we're going to collect. And then it has the Atom task... Task record. So... So we're starting up here. We do the same trick. Pushing the IP, getting the IP, calculating the new address, except this time we... We don't shift it. We shift it the other way. Or do we? I don't know. Anyway, then we... Oh, we return... We... Return far. Okay, that just sets the... The... Code segment. So that we don't have ambiguity. If we used a different bootloader. Anyway, then we... This decrement is because of that one byte paragraph I told you about at the beginning. Anyway, so we calculate a checksum. See if the kernel has a correct checksum. We print... We write to... ES is B800, which is not the BIOS. We just plot... Or write to screen memory. Okay. Or XM. What's a... Check some error. Oh, okay. Or check some error. Anyway, So when it... When it continues startup, it sets... We're in 16-bit run level. This is streaming code. So this code gets... This gets executed at compile time after it's been configured. And it inserts a line of code into the stream of code. So this... So during compile, you enter a config for what video mode. And then it writes... It makes code for that. See the config time is compile time. And so this exe does compile time. Anyway, then it calls interrupt 10. Or... And it falls back on text mode if interrupt 10 doesn't work. So we changed the 640 by 480. Unless you say text mode. Mouse. This mouse enable doesn't help. So either you have mouse or you don't have mouse. And this mouse enable doesn't help. Anyway, so I commented that out. I get the memory maps from E820. We save those. And we get... We call an interrupt to find out how many PCI buses we have so we don't have to check 255. I think typically you have like 6 or something. We changed... We set to E820. We initialize all regs to known values. Then we... Now, is this a... Are we in... We're still in 16-bit mode, aren't we? Yeah, we're doing BIOS calls. Anyway, so... Now we... Let's see. We set up those boot... Boot sector... Or boot... Boot data segment, code segment that we had a few bits of information missing. Then we... We set up a pointer to the global descriptor table and set the size of global descriptor. Then we do load global descriptor. Then we... Change the... Change the protected mode. Now we're in 32-bit mode. Actually, we aren't... I forget. I think it happens when we jump to this... To this code data segment. Which is this next... We skip this little bit of data. We have more room for data now. Now that we're not limited to 64K. So we have some more data. Those are basically operating system... Global variables. So we... Interpoint. Now if we're doing a soft boot, which means you're rebooting without actually doing a hardware reboot, then we... We jump in here in 32-bit mode. So we load the flags. We... We change the run level. Number from 16 to 32-bit. And... That doesn't quite look right. Oh, oh, oh! Oh, because we're doing a soft boot, we want to clear out all the other run level bits. So we only keep 16 and then we... It doesn't turn it off. Anyway, so... In case we came through on a reboot, all these variables would be uninitialized. Because they'd be left with garbage. Anyway, so we go ahead and... Now we're preparing for 64-bit. What do we do here? We're... Oh, we're patching absolute addresses. Before we can do the 64-bit C code, we have to patch all the absolute addresses. There's a list of absolute addresses that have to be patched. Anyway, we... Let's see, what do we do here? We patched. Then we find the PCI 32. There's a thing called a PCI BIOS for getting config information that runs in 32-bit mode. Anyway, we never switch back to 16, but sometimes we switch back to 32 to do that PCI BIOS. So we initialize memory and then we initialize 64-bit mode. Let's go look at the memory. The memory gets identity mapped. I think I pick 128GB. Just everybody gets 128GB mapped, but it's not all present. It's mapped with 2MB pages, so it's only, I think, maybe 200K or something page tables. Anyway, it's 2MB pages. The first 2MB is 4K pages so that we can do video memory as a write-through. And so we map 128GB or something, except for E to F. This is for device memory. We map this as uncached. Now block 0, or page 0, we set to not present if you do a compiler or a config option. So I can get a page fault on dereferencing null. That's only if you set that config option when you recompile the kernel. So this sets up the block pools. And then when it's done, we come back to kernel start down by... Let's see. We init the memory. 64-bit mode only works with paging. You can't run without paging. So we call init EMT64. EM64T. So to do that, I don't know what this is. We load CR3, which is the virtual memory, or paging. Maybe that's paging. This changes to 64-bit mode. This EFER thing, right, model-specific register. This, what is this? Oh, we enable paging. So we set our pages up for 64-bit. Now we set the GDT with... I'm going to look at that in a second. Okay, so then we jump to part 3 CS. Now when we do a soft boot, we have to change back to 32-bit, and then we... Either we halt or something. I forgot what we do. Anyway, so... We were going to look at the GDT. The GDT is set up for 64-bit. These are 16-byte entries. That's because 64-bit is 16-byte. And the upper... Basically, this will work as both a 32-bit and 64-bit GDT because it's like there's a gap. When you're in 32-bit mode, it's like it's every other one. When you're in 64-bit mode, they're all used. Anyway, so we call... What else do we do after we call enable? So we're cruising through here, and now we're in 64-bit mode. By the time it returns, we set the run level to 64-bit. Floating point init. Save the state so that we can... I think we use that for initializing tasks to an initialized state. Whenever we initialize a task floating point structure, we copy that initialized one. Anyway, so we initialize the CPU. GS. GS is the CPU structure, which is the core. And FS is... FS is the task, which is the task structure. All this sets up Adam's heap. Adam is the father of all tasks, like Adam and Eve. This sets up his heap and his task. He has to be set up specially. This gives him a... We haven't quite done a full-blown init with the E820. When we add all those items, we do that later. We give him an initial heap. So, then we jump to kernel. Anyway, where were we? I was going to say one more thing. Okay. So, it initializes the Adam task. Sets up the task queue. Adam is the father of all tasks. Then, when you do multi-core, you have to... You do a sippy-sippy, something like that. And it... Then it jumps to a vector. I think... I forgot where I put this. Let's see what the vector address is. Let's see. 7F. That's interesting. It's 7F000 or something like that. Anyway, so... When it starts up, those get vectored. They come here. This code gets copied from start to end. Gets copied down to that vector address. Or up to that vector address. What this is, is... Invalidate. Cache. Writeback. Invalidate. Cache. What do we got here? Oh, we load the GDT. It's the same GDT. Everybody uses the same address map and everything. We set to 32-bit mode. And we jump to... We jump up. Now we're out of that chunk that got loaded. Now, what it does is it puts a lock on the count of tasks and then it assigns itself a task, a core number. Puts a lock on the core... Then it assigns itself a core number. And if it's too big, it halts. We can only have so many. That's just being professional. So, it initializes... It goes to 64-bit mode, initializes voting point, sets GS to the new core number. It figured it out from the count. We have an array of core of CPU structures. Sets the GS to the CPU structure. And Seth is the name of Adam's sons in the Bible. And Seth is Adam's first son or something. Anyway, so each core has a Seth task, which is special. It goes in a loop like a server. And you give it jobs. It can either spawn a task or run a job. So that's what these do. They halt until they get interrupted. And then they do something. Now, one more thing. Back in the start, towards the bottom, it jumped to... So all this is assembly code. Then we jump to kernel. And where that is, is this is the end of the module. Kernel. And now we're in C. From now on, almost everything is C. So we're... So we mark not present. That's... Oh, that's the memory in the E820 map that's not present. We mark not present. We go ahead and initialize all the global variables. We have various run levels for when we have raw output available. When you can write to the screen... Remember, it's 640 by 480, though it looks like text mode. It's not. It's graphics mode. We enable interrupts. Unless... It'll run in text mode as a fallback. Here's where we turn on interrupts. We load to the interrupt table. Calibrate. Timer. Initialize mouse. Then we start initializing our block devices, which is our CD and hard disks and RAM disks. Then we load the compiler. This is where it crashes a lot of times. If somebody were silly enough to try and boot from a USB, it would crash when it tries to load the compiler because this is done with direct hardware access, not BIOS. Basically, if you don't have direct hardware access, you can't load anything and you can't do anything from a USB memory stick. don't even try. You can't compile outside because the bootloaders get installed and patched with the kernel block number. Basically, there's a lot of people who are stubborn and try to run without my compiler. They try to install without my installer. They try to boot from a USB and that's just not going to work. Anyway, when it's done, it executes atom1, which is like the autoexec.bat. This compiler starts chugging away on this code, putting it in atom's symbol table. Then it goes to atom. This is the headers for all the kernel and compiler. These are the headers. Then it goes to there's 50,000 lines compiled ahead of time and then in this atom directory is another 50,000 that's compiled just in time. This is atom2 is all this stuff that gets compiled just in time. Then finally, at the bottom, after it logs in, it goes to the home directory and does atom3. In your home directory, if it doesn't find a file, it searches the parents. Trivial solutions, these are all the this is the home directory atom3. So all these get loaded into atom's symbol table. And that's how booting happens.
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:07.160]  okay we're going to talk about all the various ways you can boot and how it
+[00:00:07.160 -> 00:00:14.700]  goes changes to 32-bit and then 64-bit mode because startup happens in real
+[00:00:14.700 -> 00:00:20.780]  mode the BIOS starts in real mode anyway this story begins when you make a
+[00:00:20.780 -> 00:00:28.220]  distribution ISO so when you make a distribution ISO you copy the files from
+[00:00:28.220 -> 00:00:37.820]  temp OS from boot from those directories and then you say cd file create basically
+[00:00:37.820 -> 00:00:43.340]  you make a directory with it with all the files you want on the on in the ISO
+[00:00:43.340 -> 00:00:49.120]  called distro then you tell it everything in the distro directory it goes into the
+[00:00:49.120 -> 00:00:57.920]  image and then we call cd file create and this makes a 966 ISO 966
+[00:00:57.920 -> 00:01:08.420]  image file ISO image file now at block the blocks are 2048 on you can it's
+[00:01:08.420 -> 00:01:12.420]  pretty safe to assume that technically they can be different but don't worry
+[00:01:12.420 -> 00:01:20.060]  about that anyway so block 16 is the primary volume then you have a
+[00:01:20.060 -> 00:01:26.900]  supplemental volume then you have a boot record and anyway so I think about block
+[00:01:26.900 -> 00:01:32.760]  18 something like that is there's a pre boot block and then there's a boot
+[00:01:32.760 -> 00:01:42.600]  block I think it's maybe it's 19 anyway I use no emulation and when when we create
+[00:01:42.600 -> 00:01:52.160]  this ISO it it it fetches the the let's see do we pass it anyway it fetches the the
+[00:01:52.160 -> 00:02:00.320]  boot block that we're going to look at in a second anyway so it puts it in the ISO and
+[00:02:00.900 -> 00:02:11.680]  then it puts the the the files the file we're interested in is the kernel so the
+[00:02:11.680 -> 00:02:23.220]  kernel goes in directories 0 0 0 0 0 boot and it's the first file that's so that on an ISO the kernel
+[00:02:23.220 -> 00:02:31.980]  will be at block 20 that's so I can use a third part a third party ISO creator so my creator could
+[00:02:31.980 -> 00:02:40.120]  put it anywhere but in the boot record would be correct I could put it anywhere but I put it in
+[00:02:40.120 -> 00:02:48.840]  a fixed location so that my boot record would work if I use magic ISO or something anyway so now we're
+[00:02:48.840 -> 00:03:01.440]  going to look at when this install boot this file install boot is included when whenever you reboot and
+[00:03:02.100 -> 00:03:12.020]  it includes these boot sector files and it has code to to to install the boot sector the various boot sectors
+[00:03:12.020 -> 00:03:41.900]  there's a master boot sector and that when you install that it reads block zero patches the code for the the sector and then it writes block zero and it tells it the the when you install a master it it tells you tell it the block address of each partition and when you install when you create a new kernel on a partition you make you make the kernel and then you install the the partition
+[00:03:41.900 -> 00:04:10.160]  the partition boot loader and this this reads the partition and patches the first block of the partition right here and patches it with the code and then writes it or if you're making we when you make a CD-ROM it creates a boot a boot file so the CD-ROM boot sector is here this is loaded by the BIOS
+[00:04:11.020 -> 00:04:30.660]  no emulation DL is the BIOS drive number when when in real mode when it starts up so it gets it off sector what was it 18 something like that anyway so it always puts it at 7C00 but we don't assume that so we we check to see if it's somewhere else
+[00:04:30.660 -> 00:04:49.400]  then we get the same thing we check to see if it's somewhere else then we get the same thing we get the CS and we get the IP we get by push doing a call puts it on the stack and then pop in the stack gets the IP then we add the CS shifted over by 4 it has to be on a 4 on a paragraph boundary anyway
+[00:04:50.220 -> 00:05:16.400]  it sets the stack we're going to relocate all this code to to just under 80,000 which is a 90,000 is the 9F 9F 9F FF is the FF F is the BIOS extended BIOS data area so under 80,000 is safe and
+[00:05:16.710 -> 00:05:46.630]  and we we put a stack just under 80,000 and then after a block for the stack then we put the home the we relocate ourselves up there right here we relocate ourselves then we do a jump up to the new location and all this code is now at under 80,000 there's a data area here for DAP which is a structure that you pass to the BIOS
+[00:05:46.630 -> 00:06:01.430]  when you read a block now we're going to be reading that kernel 0000 kernel so this gets patched when we this is when we when we recompile the
+[00:06:05.990 -> 00:06:16.450]  anyway so we get the we call the BIOS interrupt to get the page for the video we don't just write to B800 we do it
+[00:06:16.450 -> 00:06:38.150]  with the put char then we are we check CPU ID to see if this processor 64-bit capable if it's not 64-bit capable we print a message requires a 64-bit capable and then we do a jump to ourselves to to stop or to where do we do that
+[00:06:41.590 -> 00:06:56.150]  not 64-bit not 64-bit and then a jump to 10 anyway if it is 64-bit capable we go ahead and load it now we relocate it up high so we can load load the kernel into the 7c
+[00:06:59.130 -> 00:07:24.450]  so we go through a loop calling interrupt 13 42 which is the I like that one we're only good for 64-bit processors anyway so they probably have the we don't mess around with the early versions of block read we use the 64-bit version of block read anyway so you pass it the DAP
+[00:07:25.450 -> 00:07:45.510]  we write the buffer address it we keep ES pointing to the the buffer we're reading in we read one one block at a time and we add that we add one block divided by 16 to ES over and over and we print a progress put char is fancy and when we're done we
+[00:07:52.210 -> 00:07:58.230]  okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay
+[00:07:58.230 -> 00:08:02.350]  jumps to the kernel that it loaded in, which is at 7C00.
+[00:08:02.790 -> 00:08:04.830]  I don't have my assembler.
+[00:08:04.950 -> 00:08:05.970]  I wrote my own assembler.
+[00:08:06.070 -> 00:08:09.250]  It doesn't have far jump, so we have to hand code far jump.
+[00:08:09.430 -> 00:08:14.470]  I have very little 16-bit support because you only use a little bit.
+[00:08:16.010 -> 00:08:18.250]  We're going to cover all the 16-bit code,
+[00:08:18.250 -> 00:08:21.150]  and you guys have no reason to be using 16-bit code.
+[00:08:21.990 -> 00:08:24.130]  Okay, so we jump to the kernel.
+[00:08:24.130 -> 00:08:30.990]  Well, anyway, so the master boot record goes in block zero.
+[00:08:32.310 -> 00:08:33.990]  So we covered the CD-ROM.
+[00:08:34.050 -> 00:08:35.170]  Now we're going to look at the hard disk.
+[00:08:35.350 -> 00:08:39.790]  If you use my master boot record, it goes in block zero, and it loads.
+[00:08:40.330 -> 00:08:43.390]  Basically, it does the same exact thing we did with the CD,
+[00:08:43.690 -> 00:08:47.430]  but it's loading stage 2 of the master boot record.
+[00:08:47.430 -> 00:08:52.330]  And stage 2 of the master boot record gets patched.
+[00:08:52.330 -> 00:08:58.350]  When you install the master boot record, it gets patched with a table of a block array
+[00:08:58.350 -> 00:09:01.970]  of the first block of each partition that we want to boot.
+[00:09:03.410 -> 00:09:10.270]  And it prompts using the BIOS get char to get the...
+[00:09:11.550 -> 00:09:12.750]  This master...
+[00:09:12.750 -> 00:09:17.570]  Oh, by the way, this second stage goes in the partition file.
+[00:09:17.930 -> 00:09:19.970]  It doesn't go into...
+[00:09:19.970 -> 00:09:28.530]  There's a gap between 0 and 63, which is used for bootloaders, sectors 0 and 63.
+[00:09:28.530 -> 00:09:30.030]  I don't use that.
+[00:09:30.350 -> 00:09:32.650]  I put it in the partition.
+[00:09:32.770 -> 00:09:38.210]  That's so that you can use an existing bootloader,
+[00:09:38.270 -> 00:09:43.290]  and it can fall back and do the old bootloader.
+[00:09:43.430 -> 00:09:47.010]  So when I install, you can fall back and use the old bootloader.
+[00:09:48.510 -> 00:09:52.950]  So I can install on top of grub and fall back on grub.
+[00:09:52.950 -> 00:09:59.430]  Anyway, so Windows boots with my bootloader, but not Linux.
+[00:09:59.830 -> 00:10:01.110]  Linux requires grub.
+[00:10:01.890 -> 00:10:08.990]  Anyway, so all stage 2 does is load the first block of the partition
+[00:10:08.990 -> 00:10:15.690]  and then jump to it in real mode with DL holding the BIOS drive.
+[00:10:15.690 -> 00:10:17.910]  That's pretty much all you have to do.
+[00:10:20.190 -> 00:10:23.070]  Anyway, so this...
+[00:10:24.990 -> 00:10:26.650]  So when you load the...
+[00:10:26.650 -> 00:10:29.970]  When you're loading a TempleOS partition,
+[00:10:30.250 -> 00:10:32.190]  this is the volume bootloader,
+[00:10:32.190 -> 00:10:34.450]  which is in the first block of the partition.
+[00:10:34.710 -> 00:10:40.370]  It got patched with kernel.bin block address,
+[00:10:40.370 -> 00:10:42.390]  and this loads...
+[00:10:43.910 -> 00:10:50.330]  This goes in a loop using 1342 to load using the DAP structure.
+[00:10:50.570 -> 00:10:53.590]  This loads in the kernel,
+[00:10:53.890 -> 00:10:57.730]  and then my kernel is about...
+[00:10:57.730 -> 00:11:02.810]  It goes from 7C, I think, up to maybe 40,000.
+[00:11:03.930 -> 00:11:06.970]  It has to be in the 640, lowest 640.
+[00:11:09.630 -> 00:11:10.910]  It has to...
+[00:11:10.910 -> 00:11:14.970]  Anyway, so my kernel starts in KSTART.
+[00:11:15.770 -> 00:11:19.230]  There's a header on my binary files.
+[00:11:19.770 -> 00:11:22.290]  This is made by my compiler.
+[00:11:22.650 -> 00:11:26.370]  My binary files have a 16-byte header.
+[00:11:26.650 -> 00:11:29.630]  There's a jump past the header,
+[00:11:29.730 -> 00:11:31.330]  and then there's a type,
+[00:11:31.330 -> 00:11:36.990]  and then there's a patch table of imports and exports
+[00:11:36.990 -> 00:11:39.830]  and absolute addresses that have to be patched.
+[00:11:40.050 -> 00:11:42.050]  In my operating system,
+[00:11:42.350 -> 00:11:44.390]  all binaries are...
+[00:11:44.390 -> 00:11:46.550]  All code is position independent
+[00:11:46.550 -> 00:11:48.190]  because it gets patched.
+[00:11:49.610 -> 00:11:49.910]  And...
+[00:11:50.750 -> 00:11:52.290]  Anyway, so...
+[00:11:52.290 -> 00:11:54.750]  I have flat binaries.
+[00:11:54.750 -> 00:11:59.210]  It's the code followed by the table of imports, exports,
+[00:11:59.370 -> 00:12:00.330]  and absolute addresses.
+[00:12:00.870 -> 00:12:06.030]  So this 16-byte header causes a...
+[00:12:06.030 -> 00:12:07.790]  Has to be accounted for.
+[00:12:08.650 -> 00:12:10.590]  So it loads in at 7C.
+[00:12:10.830 -> 00:12:12.690]  So when I do alignments,
+[00:12:12.770 -> 00:12:15.590]  sometimes I have to take into account
+[00:12:15.590 -> 00:12:17.490]  the 16-byte header.
+[00:12:18.170 -> 00:12:20.850]  Anyway, so the first thing it does,
+[00:12:20.850 -> 00:12:22.950]  it jumps past this...
+[00:12:22.950 -> 00:12:24.870]  This is some data for...
+[00:12:24.870 -> 00:12:27.110]  We're in real mode, 16-bit mode right now.
+[00:12:27.770 -> 00:12:28.770]  And we have to...
+[00:12:28.770 -> 00:12:29.290]  We only...
+[00:12:29.290 -> 00:12:34.590]  My assembler doesn't support segmentation,
+[00:12:34.710 -> 00:12:36.210]  basically, 16-bit code.
+[00:12:36.450 -> 00:12:37.610]  So what these...
+[00:12:37.610 -> 00:12:39.810]  All these offsets are zero-based.
+[00:12:41.170 -> 00:12:42.450]  In my...
+[00:12:42.450 -> 00:12:46.830]  The assembler codes this at zero pretty much,
+[00:12:46.930 -> 00:12:47.710]  not quite zero.
+[00:12:47.710 -> 00:12:52.270]  Anyway, this offset has a value of zero.
+[00:12:52.510 -> 00:12:56.070]  So what we do is we set the data segment to 7C.
+[00:12:56.910 -> 00:13:00.330]  And now, for the 16-bit code,
+[00:13:00.450 -> 00:13:00.910]  it'll be...
+[00:13:00.910 -> 00:13:02.370]  This offset will be right.
+[00:13:02.650 -> 00:13:04.430]  We have to get to that point.
+[00:13:05.230 -> 00:13:08.110]  So here's the global descriptor table.
+[00:13:09.150 -> 00:13:12.030]  It has some hard-coded values that are fixed.
+[00:13:12.030 -> 00:13:16.130]  And it calculates the boot data segment
+[00:13:16.130 -> 00:13:17.350]  and the boot code segment.
+[00:13:17.350 -> 00:13:20.350]  Because I made it independent,
+[00:13:20.350 -> 00:13:22.590]  so it doesn't have to be loaded at 7C.
+[00:13:22.850 -> 00:13:23.530]  Zero-zero.
+[00:13:25.850 -> 00:13:27.050]  So it's...
+[00:13:27.050 -> 00:13:28.030]  These are...
+[00:13:31.870 -> 00:13:33.550]  For 32-bit mode,
+[00:13:34.470 -> 00:13:38.430]  when it's running in 32 before it switches to 64,
+[00:13:39.390 -> 00:13:41.010]  we use the...
+[00:13:41.010 -> 00:13:43.770]  This data segment and code segment.
+[00:13:44.050 -> 00:13:47.710]  We have code segments for 64-bit.
+[00:13:48.710 -> 00:13:51.550]  Sometimes we switch back to 32-bit,
+[00:13:51.770 -> 00:13:54.530]  but we never switch back to 16-bit.
+[00:13:56.370 -> 00:13:58.310]  We have 64-bit code segment.
+[00:13:58.590 -> 00:13:59.830]  We have a ring 3,
+[00:14:00.110 -> 00:14:01.830]  in case you want to mess with ring 3.
+[00:14:02.290 -> 00:14:03.290]  Everything's ring 0,
+[00:14:03.310 -> 00:14:04.150]  but there's a demo,
+[00:14:04.150 -> 00:14:05.750]  in case you want to mess with ring 3.
+[00:14:06.110 -> 00:14:07.890]  And there's the task registers.
+[00:14:08.870 -> 00:14:09.670]  I just...
+[00:14:09.670 -> 00:14:11.030]  I have all that stuff fixed.
+[00:14:11.750 -> 00:14:12.230]  Anyway,
+[00:14:13.610 -> 00:14:14.530]  it has memory...
+[00:14:15.090 -> 00:14:16.530]  It has space for the BIOS information
+[00:14:17.190 -> 00:14:17.950]  we're going to collect.
+[00:14:18.170 -> 00:14:20.330]  And then it has the Atom task...
+[00:14:20.890 -> 00:14:21.810]  Task record.
+[00:14:23.190 -> 00:14:23.710]  So...
+[00:14:25.070 -> 00:14:26.790]  So we're starting up here.
+[00:14:27.010 -> 00:14:28.050]  We do the same trick.
+[00:14:28.310 -> 00:14:29.450]  Pushing the IP,
+[00:14:29.710 -> 00:14:30.370]  getting the IP,
+[00:14:31.250 -> 00:14:32.870]  calculating the new address,
+[00:14:32.950 -> 00:14:34.150]  except this time we...
+[00:14:34.150 -> 00:14:35.910]  We don't shift it.
+[00:14:36.210 -> 00:14:37.630]  We shift it the other way.
+[00:14:37.790 -> 00:14:38.230]  Or do we?
+[00:14:38.350 -> 00:14:38.810]  I don't know.
+[00:14:39.970 -> 00:14:40.490]  Anyway,
+[00:14:40.630 -> 00:14:42.170]  then we...
+[00:14:42.950 -> 00:14:43.810]  Oh, we return...
+[00:14:45.190 -> 00:14:45.710]  We...
+[00:14:45.710 -> 00:14:46.810]  Return far.
+[00:14:47.130 -> 00:14:47.330]  Okay,
+[00:14:47.390 -> 00:14:49.150]  that just sets the...
+[00:14:50.590 -> 00:14:51.110]  The...
+[00:14:52.550 -> 00:14:53.470]  Code segment.
+[00:14:54.110 -> 00:14:55.770]  So that we don't have ambiguity.
+[00:14:56.430 -> 00:14:58.250]  If we used a different bootloader.
+[00:14:58.890 -> 00:14:59.090]  Anyway,
+[00:14:59.250 -> 00:15:00.250]  then we...
+[00:15:01.230 -> 00:15:04.030]  This decrement is because of that one byte paragraph
+[00:15:04.030 -> 00:15:05.610]  I told you about at the beginning.
+[00:15:08.050 -> 00:15:08.570]  Anyway,
+[00:15:08.810 -> 00:15:11.150]  so we calculate a checksum.
+[00:15:11.530 -> 00:15:14.550]  See if the kernel has a correct checksum.
+[00:15:14.550 -> 00:15:15.790]  We print...
+[00:15:15.790 -> 00:15:17.270]  We write to...
+[00:15:17.270 -> 00:15:18.670]  ES is B800,
+[00:15:19.490 -> 00:15:21.650]  which is not the BIOS.
+[00:15:22.210 -> 00:15:23.550]  We just plot...
+[00:15:24.310 -> 00:15:26.530]  Or write to screen memory.
+[00:15:28.350 -> 00:15:28.950]  Okay.
+[00:15:29.570 -> 00:15:30.890]  Or XM.
+[00:15:31.010 -> 00:15:31.370]  What's a...
+[00:15:31.370 -> 00:15:31.950]  Check some error.
+[00:15:32.170 -> 00:15:32.690]  Oh, okay.
+[00:15:32.810 -> 00:15:33.430]  Or check some error.
+[00:15:34.170 -> 00:15:34.770]  Anyway,
+[00:15:34.770 -> 00:15:36.410]  So when it...
+[00:15:36.410 -> 00:15:38.830]  When it continues startup,
+[00:15:39.090 -> 00:15:40.010]  it sets...
+[00:15:40.010 -> 00:15:43.590]  We're in 16-bit run level.
+[00:15:44.210 -> 00:15:46.530]  This is streaming code.
+[00:15:46.730 -> 00:15:48.330]  So this code gets...
+[00:15:48.330 -> 00:15:50.810]  This gets executed at compile time
+[00:15:50.810 -> 00:15:52.050]  after it's been configured.
+[00:15:52.570 -> 00:15:54.470]  And it inserts a line of code
+[00:15:54.470 -> 00:15:56.530]  into the stream of code.
+[00:15:57.310 -> 00:15:58.570]  So this...
+[00:15:58.570 -> 00:16:00.070]  So during compile,
+[00:16:00.450 -> 00:16:03.310]  you enter a config for what video mode.
+[00:16:03.470 -> 00:16:05.250]  And then it writes...
+[00:16:05.250 -> 00:16:06.830]  It makes code for that.
+[00:16:08.030 -> 00:16:11.250]  See the config time is compile time.
+[00:16:12.050 -> 00:16:15.450]  And so this exe does compile time.
+[00:16:16.250 -> 00:16:16.890]  Anyway,
+[00:16:17.610 -> 00:16:18.890]  then it calls interrupt 10.
+[00:16:20.090 -> 00:16:20.730]  Or...
+[00:16:20.730 -> 00:16:22.070]  And it falls back on text mode
+[00:16:22.070 -> 00:16:23.430]  if interrupt 10 doesn't work.
+[00:16:23.490 -> 00:16:25.930]  So we changed the 640 by 480.
+[00:16:25.930 -> 00:16:28.150]  Unless you say text mode.
+[00:16:29.090 -> 00:16:29.650]  Mouse.
+[00:16:31.690 -> 00:16:33.830]  This mouse enable doesn't help.
+[00:16:34.290 -> 00:16:35.730]  So either you have mouse
+[00:16:35.730 -> 00:16:36.750]  or you don't have mouse.
+[00:16:36.870 -> 00:16:38.290]  And this mouse enable doesn't help.
+[00:16:39.010 -> 00:16:39.570]  Anyway,
+[00:16:39.710 -> 00:16:40.770]  so I commented that out.
+[00:16:40.990 -> 00:16:43.950]  I get the memory maps from E820.
+[00:16:44.310 -> 00:16:45.490]  We save those.
+[00:16:47.910 -> 00:16:49.410]  And we get...
+[00:16:49.410 -> 00:16:50.790]  We call an interrupt
+[00:16:50.790 -> 00:16:53.010]  to find out how many PCI buses we have
+[00:16:53.010 -> 00:16:55.110]  so we don't have to check 255.
+[00:16:55.930 -> 00:16:58.690]  I think typically you have like 6 or something.
+[00:16:59.050 -> 00:17:00.070]  We changed...
+[00:17:00.070 -> 00:17:01.130]  We set to E820.
+[00:17:01.430 -> 00:17:04.970]  We initialize all regs to known values.
+[00:17:05.790 -> 00:17:06.870]  Then we...
+[00:17:07.390 -> 00:17:09.710]  Now, is this a...
+[00:17:12.010 -> 00:17:13.290]  Are we in...
+[00:17:13.290 -> 00:17:16.130]  We're still in 16-bit mode, aren't we?
+[00:17:16.550 -> 00:17:18.010]  Yeah, we're doing BIOS calls.
+[00:17:18.490 -> 00:17:18.770]  Anyway,
+[00:17:19.830 -> 00:17:20.430]  so...
+[00:17:21.450 -> 00:17:22.650]  Now we...
+[00:17:24.070 -> 00:17:24.790]  Let's see.
+[00:17:24.870 -> 00:17:26.030]  We set up those boot...
+[00:17:26.030 -> 00:17:26.930]  Boot sector...
+[00:17:27.670 -> 00:17:28.410]  Or boot...
+[00:17:28.410 -> 00:17:29.650]  Boot data segment,
+[00:17:29.830 -> 00:17:30.450]  code segment
+[00:17:30.450 -> 00:17:33.870]  that we had a few bits of information missing.
+[00:17:33.870 -> 00:17:35.190]  Then we...
+[00:17:36.270 -> 00:17:37.810]  We set up a pointer
+[00:17:37.810 -> 00:17:39.350]  to the global descriptor table
+[00:17:39.350 -> 00:17:41.130]  and set the size of global descriptor.
+[00:17:41.230 -> 00:17:42.870]  Then we do load global descriptor.
+[00:17:43.010 -> 00:17:43.770]  Then we...
+[00:17:43.770 -> 00:17:45.210]  Change the...
+[00:17:45.210 -> 00:17:46.710]  Change the protected mode.
+[00:17:47.730 -> 00:17:49.490]  Now we're in 32-bit mode.
+[00:17:49.710 -> 00:17:50.850]  Actually, we aren't...
+[00:17:50.850 -> 00:17:51.470]  I forget.
+[00:17:51.710 -> 00:17:53.630]  I think it happens when we jump to this...
+[00:17:53.630 -> 00:17:55.470]  To this code data segment.
+[00:17:55.950 -> 00:17:57.390]  Which is this next...
+[00:17:57.390 -> 00:17:59.210]  We skip this little bit of data.
+[00:17:59.210 -> 00:18:01.670]  We have more room for data now.
+[00:18:01.830 -> 00:18:03.710]  Now that we're not limited to 64K.
+[00:18:04.670 -> 00:18:06.190]  So we have some more data.
+[00:18:06.810 -> 00:18:08.810]  Those are basically operating system...
+[00:18:08.810 -> 00:18:09.850]  Global variables.
+[00:18:10.910 -> 00:18:11.510]  So we...
+[00:18:11.510 -> 00:18:12.150]  Interpoint.
+[00:18:12.430 -> 00:18:14.050]  Now if we're doing a soft boot,
+[00:18:14.270 -> 00:18:15.490]  which means you're rebooting
+[00:18:15.490 -> 00:18:17.750]  without actually doing a hardware reboot,
+[00:18:17.990 -> 00:18:18.930]  then we...
+[00:18:18.930 -> 00:18:21.770]  We jump in here in 32-bit mode.
+[00:18:22.070 -> 00:18:23.550]  So we load the flags.
+[00:18:23.810 -> 00:18:24.250]  We...
+[00:18:26.310 -> 00:18:28.470]  We change the run level.
+[00:18:29.210 -> 00:18:31.830]  Number from 16 to 32-bit.
+[00:18:35.070 -> 00:18:35.630]  And...
+[00:18:35.630 -> 00:18:37.330]  That doesn't quite look right.
+[00:18:37.590 -> 00:18:38.210]  Oh, oh, oh!
+[00:18:41.210 -> 00:18:43.210]  Oh, because we're doing a soft boot,
+[00:18:43.290 -> 00:18:46.070]  we want to clear out all the other run level bits.
+[00:18:46.150 -> 00:18:48.910]  So we only keep 16 and then we...
+[00:18:48.910 -> 00:18:50.290]  It doesn't turn it off.
+[00:18:50.690 -> 00:18:51.630]  Anyway, so...
+[00:18:52.250 -> 00:18:54.910]  In case we came through on a reboot,
+[00:18:55.190 -> 00:18:58.130]  all these variables would be uninitialized.
+[00:19:00.470 -> 00:19:02.550]  Because they'd be left with garbage.
+[00:19:02.750 -> 00:19:05.270]  Anyway, so we go ahead and...
+[00:19:05.270 -> 00:19:08.190]  Now we're preparing for 64-bit.
+[00:19:08.730 -> 00:19:09.790]  What do we do here?
+[00:19:09.970 -> 00:19:10.270]  We're...
+[00:19:10.270 -> 00:19:11.930]  Oh, we're patching absolute addresses.
+[00:19:12.250 -> 00:19:14.730]  Before we can do the 64-bit C code,
+[00:19:14.770 -> 00:19:16.790]  we have to patch all the absolute addresses.
+[00:19:19.250 -> 00:19:23.410]  There's a list of absolute addresses that have to be patched.
+[00:19:24.330 -> 00:19:26.890]  Anyway, we...
+[00:19:27.910 -> 00:19:29.610]  Let's see, what do we do here?
+[00:19:30.410 -> 00:19:31.910]  We patched.
+[00:19:32.130 -> 00:19:35.190]  Then we find the PCI 32.
+[00:19:35.550 -> 00:19:38.250]  There's a thing called a PCI BIOS
+[00:19:38.250 -> 00:19:40.170]  for getting config information
+[00:19:40.170 -> 00:19:42.650]  that runs in 32-bit mode.
+[00:19:44.030 -> 00:19:46.750]  Anyway, we never switch back to 16,
+[00:19:46.750 -> 00:19:48.630]  but sometimes we switch back to 32
+[00:19:48.630 -> 00:19:50.290]  to do that PCI BIOS.
+[00:19:51.570 -> 00:19:54.230]  So we initialize memory
+[00:19:54.230 -> 00:19:56.470]  and then we initialize 64-bit mode.
+[00:19:56.710 -> 00:19:57.930]  Let's go look at the memory.
+[00:19:58.550 -> 00:20:00.770]  The memory gets identity mapped.
+[00:20:00.770 -> 00:20:02.870]  I think I pick 128GB.
+[00:20:03.650 -> 00:20:06.470]  Just everybody gets 128GB mapped,
+[00:20:06.470 -> 00:20:08.030]  but it's not all present.
+[00:20:09.190 -> 00:20:11.170]  It's mapped with 2MB pages,
+[00:20:11.330 -> 00:20:12.830]  so it's only, I think,
+[00:20:15.090 -> 00:20:17.490]  maybe 200K or something page tables.
+[00:20:18.090 -> 00:20:21.030]  Anyway, it's 2MB pages.
+[00:20:21.610 -> 00:20:24.570]  The first 2MB is 4K pages
+[00:20:24.570 -> 00:20:27.150]  so that we can do video memory
+[00:20:27.150 -> 00:20:28.670]  as a write-through.
+[00:20:29.410 -> 00:20:32.670]  And so we map 128GB or something,
+[00:20:32.950 -> 00:20:34.670]  except for E to F.
+[00:20:35.030 -> 00:20:37.770]  This is for device memory.
+[00:20:37.850 -> 00:20:39.810]  We map this as uncached.
+[00:20:41.250 -> 00:20:44.710]  Now block 0, or page 0,
+[00:20:44.950 -> 00:20:46.970]  we set to not present
+[00:20:46.970 -> 00:20:49.890]  if you do a compiler or a config option.
+[00:20:49.910 -> 00:20:51.870]  So I can get a page fault
+[00:20:51.870 -> 00:20:53.510]  on dereferencing null.
+[00:20:53.510 -> 00:20:58.930]  That's only if you set that config option
+[00:21:00.010 -> 00:21:01.690]  when you recompile the kernel.
+[00:21:02.030 -> 00:21:05.530]  So this sets up the block pools.
+[00:21:06.070 -> 00:21:08.370]  And then when it's done,
+[00:21:08.610 -> 00:21:11.010]  we come back to kernel start
+[00:21:11.010 -> 00:21:12.650]  down by...
+[00:21:15.670 -> 00:21:16.390]  Let's see.
+[00:21:16.590 -> 00:21:18.290]  We init the memory.
+[00:21:18.690 -> 00:21:22.130]  64-bit mode only works with paging.
+[00:21:22.330 -> 00:21:23.970]  You can't run without paging.
+[00:21:24.450 -> 00:21:27.190]  So we call init EMT64.
+[00:21:29.490 -> 00:21:30.090]  EM64T.
+[00:21:30.570 -> 00:21:31.730]  So to do that,
+[00:21:31.910 -> 00:21:33.490]  I don't know what this is.
+[00:21:35.730 -> 00:21:37.710]  We load CR3,
+[00:21:37.950 -> 00:21:39.250]  which is the virtual memory,
+[00:21:39.530 -> 00:21:40.330]  or paging.
+[00:21:40.590 -> 00:21:41.430]  Maybe that's paging.
+[00:21:41.870 -> 00:21:44.810]  This changes to 64-bit mode.
+[00:21:45.270 -> 00:21:47.250]  This EFER thing,
+[00:21:47.970 -> 00:21:49.310]  right, model-specific register.
+[00:21:50.410 -> 00:21:51.750]  This, what is this?
+[00:21:51.810 -> 00:21:53.210]  Oh, we enable paging.
+[00:21:53.390 -> 00:21:55.870]  So we set our pages up for 64-bit.
+[00:21:55.870 -> 00:21:58.490]  Now we set the GDT with...
+[00:21:58.490 -> 00:22:00.370]  I'm going to look at that in a second.
+[00:22:01.770 -> 00:22:06.610]  Okay, so then we jump to part 3 CS.
+[00:22:07.470 -> 00:22:09.370]  Now when we do a soft boot,
+[00:22:09.490 -> 00:22:11.370]  we have to change back to 32-bit,
+[00:22:11.530 -> 00:22:13.870]  and then we...
+[00:22:14.610 -> 00:22:16.050]  Either we halt or something.
+[00:22:16.110 -> 00:22:17.010]  I forgot what we do.
+[00:22:17.430 -> 00:22:19.870]  Anyway, so...
+[00:22:22.110 -> 00:22:24.170]  We were going to look at the GDT.
+[00:22:26.070 -> 00:22:29.530]  The GDT is set up for 64-bit.
+[00:22:29.730 -> 00:22:31.470]  These are 16-byte entries.
+[00:22:33.010 -> 00:22:35.870]  That's because 64-bit is 16-byte.
+[00:22:36.510 -> 00:22:37.930]  And the upper...
+[00:22:37.930 -> 00:22:41.910]  Basically, this will work as both a 32-bit
+[00:22:41.910 -> 00:22:44.450]  and 64-bit GDT
+[00:22:45.310 -> 00:22:47.510]  because it's like there's a gap.
+[00:22:47.710 -> 00:22:49.150]  When you're in 32-bit mode,
+[00:22:49.150 -> 00:22:50.590]  it's like it's every other one.
+[00:22:50.850 -> 00:22:53.130]  When you're in 64-bit mode,
+[00:22:53.330 -> 00:22:54.490]  they're all used.
+[00:22:55.050 -> 00:22:59.390]  Anyway, so we call...
+[00:22:59.390 -> 00:23:02.790]  What else do we do after we call enable?
+[00:23:04.390 -> 00:23:05.990]  So we're cruising through here,
+[00:23:06.230 -> 00:23:08.790]  and now we're in 64-bit mode.
+[00:23:08.910 -> 00:23:09.770]  By the time it returns,
+[00:23:10.050 -> 00:23:11.850]  we set the run level to 64-bit.
+[00:23:12.850 -> 00:23:13.910]  Floating point init.
+[00:23:15.190 -> 00:23:16.970]  Save the state so that we can...
+[00:23:16.970 -> 00:23:20.690]  I think we use that for initializing tasks
+[00:23:20.690 -> 00:23:22.250]  to an initialized state.
+[00:23:23.030 -> 00:23:26.710]  Whenever we initialize a task floating point structure,
+[00:23:26.710 -> 00:23:29.390]  we copy that initialized one.
+[00:23:30.030 -> 00:23:30.250]  Anyway,
+[00:23:32.070 -> 00:23:34.550]  so we initialize the CPU.
+[00:23:34.830 -> 00:23:35.270]  GS.
+[00:23:35.530 -> 00:23:38.130]  GS is the CPU structure,
+[00:23:38.870 -> 00:23:40.110]  which is the core.
+[00:23:41.650 -> 00:23:43.370]  And FS is...
+[00:23:44.550 -> 00:23:46.190]  FS is the task,
+[00:23:46.430 -> 00:23:47.730]  which is the task structure.
+[00:23:48.090 -> 00:23:50.350]  All this sets up Adam's heap.
+[00:23:50.610 -> 00:23:52.130]  Adam is the father of all tasks,
+[00:23:52.230 -> 00:23:52.950]  like Adam and Eve.
+[00:23:53.530 -> 00:23:58.570]  This sets up his heap and his task.
+[00:23:58.730 -> 00:24:00.570]  He has to be set up specially.
+[00:24:00.570 -> 00:24:02.110]  This gives him a...
+[00:24:02.110 -> 00:24:04.770]  We haven't quite done a full-blown init
+[00:24:04.770 -> 00:24:06.150]  with the E820.
+[00:24:06.950 -> 00:24:08.570]  When we add all those items,
+[00:24:09.130 -> 00:24:10.350]  we do that later.
+[00:24:10.790 -> 00:24:12.650]  We give him an initial heap.
+[00:24:14.250 -> 00:24:14.850]  So,
+[00:24:15.890 -> 00:24:17.390]  then we jump to kernel.
+[00:24:18.810 -> 00:24:19.410]  Anyway,
+[00:24:19.630 -> 00:24:20.650]  where were we?
+[00:24:20.710 -> 00:24:22.110]  I was going to say one more thing.
+[00:24:22.850 -> 00:24:23.110]  Okay.
+[00:24:23.650 -> 00:24:23.850]  So,
+[00:24:24.010 -> 00:24:26.290]  it initializes the Adam task.
+[00:24:27.270 -> 00:24:28.670]  Sets up the task queue.
+[00:24:28.830 -> 00:24:30.870]  Adam is the father of all tasks.
+[00:24:31.590 -> 00:24:32.150]  Then,
+[00:24:32.210 -> 00:24:33.650]  when you do multi-core,
+[00:24:34.150 -> 00:24:35.350]  you have to...
+[00:24:36.870 -> 00:24:38.410]  You do a sippy-sippy,
+[00:24:38.770 -> 00:24:39.590]  something like that.
+[00:24:39.790 -> 00:24:40.710]  And it...
+[00:24:40.710 -> 00:24:42.670]  Then it jumps to a vector.
+[00:24:42.930 -> 00:24:43.570]  I think...
+[00:24:43.570 -> 00:24:44.750]  I forgot where I put this.
+[00:24:45.390 -> 00:24:47.450]  Let's see what the vector address is.
+[00:24:47.710 -> 00:24:48.110]  Let's see.
+[00:24:49.370 -> 00:24:49.930]  7F.
+[00:24:50.950 -> 00:24:52.190]  That's interesting.
+[00:24:52.770 -> 00:24:54.210]  It's 7F000
+[00:24:54.210 -> 00:24:55.630]  or something like that.
+[00:24:56.210 -> 00:24:56.450]  Anyway,
+[00:24:57.810 -> 00:24:57.930]  so...
+[00:25:02.710 -> 00:25:04.010]  When it starts up,
+[00:25:04.150 -> 00:25:04.970]  those get vectored.
+[00:25:05.230 -> 00:25:05.590]  They come here.
+[00:25:06.130 -> 00:25:07.690]  This code gets copied
+[00:25:07.690 -> 00:25:08.830]  from start to end.
+[00:25:08.830 -> 00:25:11.190]  Gets copied down to that vector address.
+[00:25:11.410 -> 00:25:13.130]  Or up to that vector address.
+[00:25:13.690 -> 00:25:14.930]  What this is,
+[00:25:14.950 -> 00:25:15.970]  is...
+[00:25:19.270 -> 00:25:19.910]  Invalidate.
+[00:25:19.930 -> 00:25:20.490]  Cache.
+[00:25:23.430 -> 00:25:24.030]  Writeback.
+[00:25:24.170 -> 00:25:24.610]  Invalidate.
+[00:25:24.730 -> 00:25:24.950]  Cache.
+[00:25:28.290 -> 00:25:29.570]  What do we got here?
+[00:25:30.810 -> 00:25:31.410]  Oh,
+[00:25:31.450 -> 00:25:32.750]  we load the GDT.
+[00:25:32.890 -> 00:25:34.050]  It's the same GDT.
+[00:25:34.290 -> 00:25:36.430]  Everybody uses the same address map
+[00:25:36.430 -> 00:25:37.430]  and everything.
+[00:25:37.950 -> 00:25:40.410]  We set to 32-bit mode.
+[00:25:40.610 -> 00:25:42.890]  And we jump to...
+[00:25:43.570 -> 00:25:44.350]  We jump up.
+[00:25:44.590 -> 00:25:46.110]  Now we're out of that chunk
+[00:25:46.110 -> 00:25:46.850]  that got loaded.
+[00:25:46.850 -> 00:25:47.390]  Now,
+[00:25:47.570 -> 00:25:48.330]  what it does is
+[00:25:48.330 -> 00:25:50.110]  it puts a lock
+[00:25:50.110 -> 00:25:51.810]  on the count of tasks
+[00:25:51.810 -> 00:25:53.790]  and then it assigns itself
+[00:25:53.790 -> 00:25:54.310]  a task,
+[00:25:54.470 -> 00:25:55.530]  a core number.
+[00:25:55.770 -> 00:25:58.610]  Puts a lock on the core...
+[00:25:58.610 -> 00:26:00.450]  Then it assigns itself
+[00:26:00.450 -> 00:26:01.210]  a core number.
+[00:26:01.850 -> 00:26:02.370]  And
+[00:26:03.530 -> 00:26:04.650]  if it's too big,
+[00:26:04.650 -> 00:26:05.250]  it halts.
+[00:26:05.450 -> 00:26:06.850]  We can only have so many.
+[00:26:07.010 -> 00:26:08.610]  That's just being professional.
+[00:26:12.130 -> 00:26:12.870]  So,
+[00:26:13.370 -> 00:26:14.970]  it initializes...
+[00:26:14.970 -> 00:26:17.170]  It goes to 64-bit mode,
+[00:26:17.470 -> 00:26:18.890]  initializes voting point,
+[00:26:19.450 -> 00:26:21.970]  sets GS to the new core number.
+[00:26:21.970 -> 00:26:23.830]  It figured it out from the count.
+[00:26:24.870 -> 00:26:27.630]  We have an array of core
+[00:26:27.630 -> 00:26:29.670]  of CPU structures.
+[00:26:29.990 -> 00:26:33.010]  Sets the GS to the CPU structure.
+[00:26:33.010 -> 00:26:35.650]  And Seth is the name of
+[00:26:35.650 -> 00:26:36.830]  Adam's sons
+[00:26:36.830 -> 00:26:37.870]  in the Bible.
+[00:26:38.710 -> 00:26:38.890]  And
+[00:26:38.890 -> 00:26:41.090]  Seth is Adam's first son
+[00:26:41.090 -> 00:26:41.470]  or something.
+[00:26:41.750 -> 00:26:42.130]  Anyway,
+[00:26:42.350 -> 00:26:43.910]  so each core has a
+[00:26:43.910 -> 00:26:44.950]  Seth task,
+[00:26:45.150 -> 00:26:46.250]  which is special.
+[00:26:46.510 -> 00:26:47.450]  It goes in a loop
+[00:26:47.450 -> 00:26:48.170]  like a server.
+[00:26:48.450 -> 00:26:48.990]  And
+[00:26:48.990 -> 00:26:50.170]  you give it jobs.
+[00:26:50.370 -> 00:26:51.650]  It can either spawn a task
+[00:26:51.650 -> 00:26:52.470]  or run a job.
+[00:26:52.810 -> 00:26:54.230]  So that's what these do.
+[00:26:54.430 -> 00:26:54.830]  They halt
+[00:26:54.830 -> 00:26:55.950]  until they get interrupted.
+[00:26:56.550 -> 00:26:57.850]  And then they do something.
+[00:26:59.110 -> 00:26:59.650]  Now,
+[00:26:59.650 -> 00:27:00.770]  one more thing.
+[00:27:01.430 -> 00:27:02.830]  Back in the start,
+[00:27:03.850 -> 00:27:04.970]  towards the bottom,
+[00:27:06.830 -> 00:27:07.810]  it jumped to...
+[00:27:07.810 -> 00:27:08.890]  So all this
+[00:27:08.890 -> 00:27:09.890]  is
+[00:27:11.410 -> 00:27:12.670]  assembly code.
+[00:27:12.990 -> 00:27:14.450]  Then we jump to kernel.
+[00:27:14.790 -> 00:27:16.150]  And where that is,
+[00:27:16.210 -> 00:27:16.390]  is
+[00:27:16.390 -> 00:27:18.530]  this is the end of the module.
+[00:27:20.770 -> 00:27:21.410]  Kernel.
+[00:27:23.010 -> 00:27:23.650]  And
+[00:27:24.670 -> 00:27:25.990]  now we're in C.
+[00:27:26.270 -> 00:27:27.090]  From now on,
+[00:27:27.230 -> 00:27:28.450]  almost everything is C.
+[00:27:29.310 -> 00:27:30.430]  So we're...
+[00:27:30.430 -> 00:27:31.870]  So we mark not present.
+[00:27:33.470 -> 00:27:34.030]  That's...
+[00:27:34.030 -> 00:27:34.530]  Oh,
+[00:27:34.630 -> 00:27:35.090]  that's the
+[00:27:36.090 -> 00:27:37.750]  memory in the
+[00:27:37.750 -> 00:27:39.230]  E820 map
+[00:27:39.230 -> 00:27:40.490]  that's not present.
+[00:27:40.630 -> 00:27:41.610]  We mark not present.
+[00:27:41.950 -> 00:27:43.370]  We go ahead
+[00:27:43.370 -> 00:27:44.210]  and initialize
+[00:27:44.210 -> 00:27:45.250]  all the global variables.
+[00:27:45.250 -> 00:27:46.170]  We have various
+[00:27:46.170 -> 00:27:46.870]  run levels
+[00:27:46.870 -> 00:27:47.390]  for when
+[00:27:47.390 -> 00:27:48.910]  we have raw
+[00:27:48.910 -> 00:27:49.870]  output available.
+[00:27:50.210 -> 00:27:51.430]  When you can write
+[00:27:51.430 -> 00:27:52.450]  to the screen...
+[00:27:53.070 -> 00:27:53.630]  Remember,
+[00:27:53.870 -> 00:27:55.110]  it's 640 by 480,
+[00:27:55.210 -> 00:27:55.850]  though it looks like
+[00:27:55.850 -> 00:27:56.370]  text mode.
+[00:27:56.370 -> 00:27:56.810]  It's not.
+[00:27:56.970 -> 00:27:57.830]  It's graphics mode.
+[00:27:58.450 -> 00:27:59.510]  We enable interrupts.
+[00:27:59.770 -> 00:28:00.330]  Unless...
+[00:28:00.330 -> 00:28:02.010]  It'll run in text mode
+[00:28:02.010 -> 00:28:03.070]  as a fallback.
+[00:28:03.590 -> 00:28:04.550]  Here's where we turn
+[00:28:04.550 -> 00:28:05.190]  on interrupts.
+[00:28:05.290 -> 00:28:05.990]  We load to the
+[00:28:05.990 -> 00:28:06.630]  interrupt table.
+[00:28:07.430 -> 00:28:07.990]  Calibrate.
+[00:28:08.470 -> 00:28:09.030]  Timer.
+[00:28:12.230 -> 00:28:13.190]  Initialize mouse.
+[00:28:14.930 -> 00:28:16.230]  Then we start
+[00:28:16.230 -> 00:28:17.230]  initializing our
+[00:28:17.230 -> 00:28:17.990]  block devices,
+[00:28:18.250 -> 00:28:19.330]  which is our
+[00:28:20.390 -> 00:28:21.750]  CD and hard disks
+[00:28:21.750 -> 00:28:22.830]  and RAM disks.
+[00:28:23.250 -> 00:28:24.150]  Then we load
+[00:28:24.150 -> 00:28:24.770]  the compiler.
+[00:28:25.010 -> 00:28:25.590]  This is where
+[00:28:25.590 -> 00:28:27.010]  it crashes a lot of times.
+[00:28:27.010 -> 00:28:28.130]  If somebody were
+[00:28:28.130 -> 00:28:28.830]  silly enough
+[00:28:28.830 -> 00:28:29.610]  to try and boot
+[00:28:29.610 -> 00:28:30.350]  from a USB,
+[00:28:30.730 -> 00:28:31.630]  it would crash
+[00:28:31.630 -> 00:28:32.210]  when it tries
+[00:28:32.210 -> 00:28:33.230]  to load the compiler
+[00:28:33.230 -> 00:28:34.130]  because this is done
+[00:28:34.130 -> 00:28:36.150]  with direct
+[00:28:36.150 -> 00:28:37.350]  hardware access,
+[00:28:37.650 -> 00:28:39.010]  not BIOS.
+[00:28:40.490 -> 00:28:41.110]  Basically,
+[00:28:41.790 -> 00:28:43.290]  if you don't have
+[00:28:44.030 -> 00:28:45.510]  direct hardware access,
+[00:28:45.830 -> 00:28:47.330]  you can't load
+[00:28:47.330 -> 00:28:47.850]  anything
+[00:28:47.850 -> 00:28:48.750]  and you can't do
+[00:28:48.750 -> 00:28:49.710]  anything from
+[00:28:49.710 -> 00:28:51.470]  a USB memory stick.
+[00:28:53.430 -> 00:28:54.630]  don't even try.
+[00:28:54.870 -> 00:28:55.730]  You can't compile
+[00:28:55.730 -> 00:28:56.830]  outside because
+[00:28:57.930 -> 00:28:59.130]  the bootloaders
+[00:28:59.130 -> 00:29:00.230]  get installed
+[00:29:00.230 -> 00:29:01.010]  and patched
+[00:29:01.010 -> 00:29:01.770]  with the kernel
+[00:29:01.770 -> 00:29:02.670]  block number.
+[00:29:03.550 -> 00:29:04.010]  Basically,
+[00:29:05.010 -> 00:29:05.890]  there's a lot
+[00:29:05.890 -> 00:29:06.270]  of people
+[00:29:06.270 -> 00:29:06.990]  who are stubborn
+[00:29:06.990 -> 00:29:08.170]  and try to run
+[00:29:08.170 -> 00:29:10.190]  without my compiler.
+[00:29:10.450 -> 00:29:11.530]  They try to install
+[00:29:11.530 -> 00:29:12.830]  without my installer.
+[00:29:13.290 -> 00:29:14.730]  They try to boot
+[00:29:14.730 -> 00:29:15.710]  from a USB
+[00:29:15.710 -> 00:29:16.450]  and that's just
+[00:29:16.450 -> 00:29:17.130]  not going to work.
+[00:29:17.830 -> 00:29:18.430]  Anyway,
+[00:29:18.550 -> 00:29:19.090]  when it's done,
+[00:29:19.350 -> 00:29:20.850]  it executes
+[00:29:20.850 -> 00:29:21.470]  atom1,
+[00:29:21.470 -> 00:29:22.470]  which is like
+[00:29:22.470 -> 00:29:23.750]  the autoexec.bat.
+[00:29:23.910 -> 00:29:24.670]  This compiler
+[00:29:24.670 -> 00:29:25.690]  starts chugging away
+[00:29:25.690 -> 00:29:26.350]  on this code,
+[00:29:26.450 -> 00:29:26.930]  putting it in
+[00:29:26.930 -> 00:29:27.990]  atom's symbol table.
+[00:29:28.210 -> 00:29:29.050]  Then it goes
+[00:29:29.050 -> 00:29:29.530]  to atom.
+[00:29:29.990 -> 00:29:31.630]  This is the headers
+[00:29:31.630 -> 00:29:32.690]  for all the
+[00:29:33.570 -> 00:29:34.930]  kernel and compiler.
+[00:29:35.270 -> 00:29:36.150]  These are the headers.
+[00:29:38.470 -> 00:29:39.930]  Then it goes to
+[00:29:39.930 -> 00:29:41.770]  there's 50,000 lines
+[00:29:41.770 -> 00:29:42.910]  compiled ahead of time
+[00:29:42.910 -> 00:29:44.170]  and then in this
+[00:29:44.170 -> 00:29:44.970]  atom directory
+[00:29:44.970 -> 00:29:46.310]  is another 50,000
+[00:29:46.310 -> 00:29:46.930]  that's compiled
+[00:29:46.930 -> 00:29:47.710]  just in time.
+[00:29:48.770 -> 00:29:49.850]  This is atom2
+[00:29:49.850 -> 00:29:50.930]  is all this stuff
+[00:29:50.930 -> 00:29:51.710]  that gets compiled
+[00:29:51.710 -> 00:29:52.530]  just in time.
+[00:29:53.730 -> 00:29:54.390]  Then finally,
+[00:29:54.670 -> 00:29:55.110]  at the bottom,
+[00:29:55.670 -> 00:29:57.310]  after it logs in,
+[00:29:57.370 -> 00:29:57.950]  it goes to the
+[00:29:57.950 -> 00:29:58.630]  home directory
+[00:29:58.630 -> 00:29:59.630]  and does atom3.
+[00:30:01.030 -> 00:30:02.510]  In your home directory,
+[00:30:04.470 -> 00:30:06.770]  if it doesn't find a file,
+[00:30:06.890 -> 00:30:07.850]  it searches the parents.
+[00:30:08.450 -> 00:30:09.550]  Trivial solutions,
+[00:30:09.550 -> 00:30:10.990]  these are all the
+[00:30:10.990 -> 00:30:12.090]  this is the
+[00:30:12.090 -> 00:30:13.470]  home directory
+[00:30:13.470 -> 00:30:14.130]  atom3.
+[00:30:14.910 -> 00:30:15.990]  So all these
+[00:30:15.990 -> 00:30:16.450]  get loaded
+[00:30:16.450 -> 00:30:17.690]  into atom's symbol table.
+[00:30:18.930 -> 00:30:20.230]  And that's how
+[00:30:20.230 -> 00:30:21.070]  booting happens.

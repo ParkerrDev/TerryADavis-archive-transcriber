@@ -1,0 +1,405 @@
+========================================================================
+FILE        : videos/2014/2014-09-07T00:03:00+00:00 - TempleOS - StartUp (_yCUlLH8agQ).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-09-07T00:03:00+00:00 - TempleOS - StartUp (_yCUlLH8agQ).mkv
+FORMAT      : Matroska
+SIZE        : 65,819,024 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:18:25.590
+TRANSCRIBED: 2026-05-08T06:12:12.564173+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+Okay, let's go over how you recompile the kernel. There's a command called make make OS. Okay, on my system it's D is the drive. Now if you're compiling for a CD-ROM, if you want to make a kernel for a CD-ROM, you have a different destination. This is, anyway, you can look at this code. It's got... So what it does is it calls a make and then it writes to the boot sector. Here's what make all does. There's only... I've been talking about this. Kernel and compiler compiles those, makes those into binary files, static binaries. And then it writes to the boot sector, it writes the block address of the kernel and it stores it contiguously. Anyway, so we're going to go ahead and do it. Now when you compile, it hits some compile time executable code. It's asking for the account drive. Okay, well, that's... I wish I didn't have to ask so many questions. We're going to say D. On your system it'll be C and C for both of those. Now you don't... it doesn't know how to mount. You have a fixed entry for what's mounted. And that's stored in the kernel. So this is the first drive, the first letter of... Let's say you have three partitions. It might be C, D, E. On my system it's D and E. Anyway, RAM drive, hard disk or CD-ROM. We want hard disk. Probe. Now, it's a little known fact that you can have port IO access besides primary and secondary. There's a good chance your system will be ACHI, which is not going to work. You have to run in VMware, but it will work on some systems. From about 2003 to 2010, you probably have a system that had some other drive, some other port for the drive. Anyway, so it might not be able to even list it. You can either enter port numbers or if it finds it, you can enter the... It's kind of a kludge. If it's a tiny number, it knows it's one or two. If it's a port number, it's bigger. Anyway, so we could do a RAM drive. We don't want a RAM drive. Normally, well, anyway, startup account. For my system, it's a two-level directory. Yours is probably just a one-level. This is a directory in the account directory, accounts directory. Now we're done. Now if you want to do strange stuff like text mode or no multicore, if you want to initialize memory to a non-zero value or something. Actually, it doesn't initialize to zero. It doesn't initialize period. Anyway, we don't want any options. So there, we just compiled the kernel. So I can reboot now with RAM boot or hard. Anyway, now you might want to install a master boot. Master boot install. We just installed on the first block of the partition. We just put the... Whoa, whoa, whoa. We just put that on the first block of the partition. So if you have grub, it works. But maybe you want to replace grub. Then you do a master boot install, drive letter, drive list. Now it stores on one partition. And if you want a new D&E, you do this. Actually, it will... I'm going to go ahead and do it. Okay. So it found D&E and it made a master boot. So let's go ahead and look at what's happening. Here's the CD-ROM boot. You can understand that if you can understand the hard disk. This goes on the first block of the partition. So what it does is it copies itself up to 96C0. The standard is it loads at 7C00. Anyway, it copies itself out of the way. Then it loads one block at a time of the kernel.bin. And when we install the boot sector, it writes the block address into this location. So this is ready and waiting to go. So this is the... This uses Interop 13. Which the extended... Some people will try and fool you with the old-fashioned number 2, I think. The only one you should use is 42 because hard drives are big. Anyway, so when it... After it loads... It loads it down at 7C00 after it moves itself out of the way. And I don't have complete 16-bit assembly. I didn't do segments when I made my assembler because normally you're in 64-bit mode. So I had to hand code the 16-bit. This is a jump to 7C00. Now, you can follow the link. This is where it goes to when it loads. So here's the install code, by the way. It's in the Atom boot directory. Now we're going to... That was the Atom boot directory. Now we're going to the kernel directory. And it starts with... When you compile the kernel, it just puts the... It's just a bunch... This is like doing an ADOT out. There's no object files. No linker. It just does a flat binary. Kstart is the first. And this is some 16-bit code. When it starts up, it does a couple BIOS calls. It changes to 6... Graphics mode, VGA, 640x480. That's what it does right there. It gets the memory maps from the BIOS. And it changes the address line. That's legacy crap. Then it sets up the GDT. Technically, this is relocatable. You can put this module anywhere. And it will set the... Sets the GDT. I don't have a 16-bit compiler. I just made a 64-bit. It would be way, way harder to do a 16-bit compiler. I had 16 registers to work with. And anyway... But we're trying to get to 64-bit mode. So here we're jumping into 32-bit mode. We're starting up 32-bit. Now my flat binaries are position independent. But they have a patch table. So it self-patches all the absolute addresses in the module. So it's going through a list that's stored in the binary file. The binary is executable code. And it's also a symbol table. And it's also a patch table. And it self-patches. So don't run anything before here. Anyway, so now it's been patched. Then it jumps over to the memory file. And it initializes memory. It identity maps 128 gig. Then it jumps down to change to 64-bit mode. That's down here. If you want to know how to change 64-bit mode. Turns on virtual memory right there. Paging. It has been identity mapped. And jumps to a 64-bit code segment. Returns back up to where we were. Then it sets up... This is the Atom task is what it's called. So what are we doing? We're setting up the CPU record for the core zero. We're setting up the heaps and block pools. I think we're setting up the... What are we setting up? Setting up the heap for the Atom task. This is Atom's heap. He has a code heap and a data heap. Sets up his... Q-links. So right now... I have a run level which keeps track of what has been accomplished. We just set the boot heap. If you want to see what the different steps are. It starts in 16-bit mode. It initializes VGA. Initializes 32-bit mode. Patches the absolute addresses. Switches to 64-bit mode. Sets up the boot heap. Sets up the full heap. Sets up the raw screen I.O. Before this point you can't write to the screen. Sets up the interrupts. Sets up multi-processing. Sets up the disk. Sets up the compiler. Sets up the... The window manager with these documents for command lines. You need the document framework. Sets up the window manager. Logs into the account. Does the account files. Sets... Has done the registry during a registry. The account registry has some stuff. Oh... Oh... No. It doesn't execute the registry there. It does... It does all the account... There's no account code has been done. Atom... Stage 1 is the kernel. Stage 2 is... It goes into the Atom2 direct... The Atom directory and does that Atom2 file. Then it sets up the... Then it goes into a standby mode of... Serving... Serving... Clients. So that... When the Atom task has gotten to... When it's finished startup... It's in standby serving clients. Anyway... So... Where were we? So now we... This is the start... Kernel start. Then it jumps to kernel main. Which is... Where... This is kind of like... This is the... Now it's in C. Before it was assembly. So we have... We're in 64-bit mode. It's identity mapped. Now we do the initialization. And... So... Initializes the heap. Initializes the global variables. Global variables are zero... Because they're just... Gaps in the... Binary file. The kernel binary file is just a... Flat binary. I don't support ELF. My compiler does not support ELF. Um... I don't know if this is the kernel. No, I don't think so. I think we go... The kernel binary. I get confused a little bit. This is the kernel binary that's used. It's in the root directory. Uh... So the kernel binary is flat. It's contiguous. The global variables are just gaps... That are... Initialized to zero... If not otherwise specified. So, uh... We initialize globals. Um... We initialize 32-bit devices. Uh... That doesn't really do anything. We mark... Uh... I do null dereference crashes. Some guy was bragging about... Making null... Um... A billion dollar bug. Because null was not... Null dereference was not caught. So I went ahead and... If you'd reference null, it crashes. Uh... Load the kernel. Uh... That's... That loads the symbols into the symbol table. Um... Initialize the black and white. Uh... Raw IO. Isn't that what... Yeah, I think that's what that is. No, it's not. It's not the raw IO. Initialize... I know. Okay, anyway, uh... Load some defines. Bootstrap processor is the core zero processor. At this point is initialize raw IO. Uh... Initializes the timer. Initializes interrupts. Uh... Calibrates the timestamp. Counter timestamp frequency. Initializes the mouse. I think that's done in parallel. I think that's done in parallel. Yeah, it's done in parallel. Uh... And, uh... Loads the compiler. So we... We have to be able to compile the command line. Um... Then it loads the kernel. And when we're all done, we execute Atom1. Atom1 is like autoexec. Then when we come back from that, we go into standby. We never return. Entering a server loop. Um... So Atom1 is what we do next. We load the... Symbols... The header files for kernel.bin and compiler.bin. We load the header files. And then we, uh... Jump over to Atom2. And do the rest. And, uh... In the Atom2. We include about 40,000 lines of code. Then we jump over to Atom3. The home directory and do Atom3. Your home directory is in the accounts directory. And, uh... There's Atom3. So it does localizations, packages, keyboard plugins, wrappers, and then Sys. Let's go ahead and look at the Sys. So Atom3. So if you want a DLL, just add a package into your account. Packages directory. AtomSys is, uh... When it gets ready to start up, It, uh... It spawns a couple tasks. That's why you start up with two tasks. Two terminals. Um... And, uh... Anyway, so... Um... A terminal... If you want to know what a terminal is, It's a task. It spawns a task. And it gives it the user command line. As the, uh... Startup. And the user command line. Executes some stuff. And it goes... Continue user task. It goes... It, uh... The lexical analyzer for the compiler is invoked. And every time it needs text to compile, It, it fetches from the keyboard. Buffer. Um... So, uh... The compiler, literally, it... The compiler is running, And it pauses for you to enter text. That's how it operates. It pauses for you to enter text. And then, it, uh... If it's, uh... When you enter text, Uh... Commands outside functions execute immediately. And, uh... Functions get stored into memory. So, guess how you, uh... Run a file. Uh... We're going to go to the demo directory. Let's look at the, uh... Exceptions. This is just a demo. Guess how we run it. We say... Remember, the, uh... The command line is feeding into a C compiler. Exceptions.cpp.c Now, these... Some people think these are archives. No, it's individual files are compressed. I think we happen to need a semicolon. So, this is this, uh... Little demo. Um... Shows how exceptions work. By the way, exceptions, You throw a, uh... Character string. Of up to eight characters. And then when you catch it. You, you access off the task register. The, the last exception. If you want. Otherwise, you can just catch it. Anyway, so... Uh... It's brutally efficient. Uh... Anyway, so, uh... That's how that works. Startup.
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:07.420]  Okay, let's go over how you recompile the kernel. There's a command called make
+[00:00:07.420 -> 00:00:24.200]  make OS. Okay, on my system it's D is the drive. Now if you're compiling for a CD-ROM,
+[00:00:24.200 -> 00:00:29.060]  if you want to make a kernel for a CD-ROM, you have a different destination.
+[00:00:30.140 -> 00:00:38.900]  This is, anyway, you can look at this code. It's got...
+[00:00:43.780 -> 00:00:49.940]  So what it does is it calls a make and then it writes to the boot sector.
+[00:00:52.140 -> 00:00:57.580]  Here's what make all does. There's only... I've been talking about this.
+[00:00:57.780 -> 00:01:05.380]  Kernel and compiler compiles those, makes those into binary files, static binaries.
+[00:01:05.780 -> 00:01:16.880]  And then it writes to the boot sector, it writes the block address of the kernel and it stores it contiguously.
+[00:01:25.460 -> 00:01:37.880]  Anyway, so we're going to go ahead and do it. Now when you compile, it hits some compile time executable code.
+[00:01:38.660 -> 00:01:45.200]  It's asking for the account drive. Okay, well, that's... I wish I didn't have to ask so many questions.
+[00:01:45.200 -> 00:01:50.520]  We're going to say D. On your system it'll be C and C for both of those.
+[00:01:50.520 -> 00:01:58.120]  Now you don't... it doesn't know how to mount. You have a fixed entry for what's mounted.
+[00:01:59.220 -> 00:02:06.260]  And that's stored in the kernel. So this is the first drive, the first letter of...
+[00:02:06.780 -> 00:02:12.660]  Let's say you have three partitions. It might be C, D, E. On my system it's D and E.
+[00:02:15.360 -> 00:02:21.420]  Anyway, RAM drive, hard disk or CD-ROM. We want hard disk.
+[00:02:22.640 -> 00:02:33.960]  Probe. Now, it's a little known fact that you can have port IO access besides primary and secondary.
+[00:02:33.960 -> 00:02:40.860]  There's a good chance your system will be ACHI, which is not going to work.
+[00:02:41.100 -> 00:02:49.520]  You have to run in VMware, but it will work on some systems.
+[00:02:50.340 -> 00:03:00.640]  From about 2003 to 2010, you probably have a system that had some other drive, some other port for the drive.
+[00:03:02.020 -> 00:03:05.660]  Anyway, so it might not be able to even list it.
+[00:03:07.160 -> 00:03:13.380]  You can either enter port numbers or if it finds it, you can enter the...
+[00:03:14.720 -> 00:03:19.480]  It's kind of a kludge. If it's a tiny number, it knows it's one or two.
+[00:03:19.780 -> 00:03:21.540]  If it's a port number, it's bigger.
+[00:03:22.900 -> 00:03:27.160]  Anyway, so we could do a RAM drive. We don't want a RAM drive.
+[00:03:28.040 -> 00:03:31.080]  Normally, well, anyway, startup account.
+[00:03:31.320 -> 00:03:35.140]  For my system, it's a two-level directory.
+[00:03:35.480 -> 00:03:37.360]  Yours is probably just a one-level.
+[00:03:37.960 -> 00:03:43.240]  This is a directory in the account directory, accounts directory.
+[00:03:44.780 -> 00:03:45.940]  Now we're done.
+[00:03:47.400 -> 00:03:55.640]  Now if you want to do strange stuff like text mode or no multicore,
+[00:03:56.920 -> 00:04:01.160]  if you want to initialize memory to a non-zero value or something.
+[00:04:01.420 -> 00:04:04.020]  Actually, it doesn't initialize to zero.
+[00:04:04.340 -> 00:04:06.060]  It doesn't initialize period.
+[00:04:06.800 -> 00:04:08.440]  Anyway, we don't want any options.
+[00:04:09.060 -> 00:04:10.940]  So there, we just compiled the kernel.
+[00:04:11.100 -> 00:04:17.480]  So I can reboot now with RAM boot or hard.
+[00:04:17.620 -> 00:04:22.360]  Anyway, now you might want to install a master boot.
+[00:04:24.180 -> 00:04:25.680]  Master boot install.
+[00:04:26.560 -> 00:04:29.680]  We just installed on the first block of the partition.
+[00:04:29.940 -> 00:04:31.680]  We just put the...
+[00:04:33.460 -> 00:04:34.580]  Whoa, whoa, whoa.
+[00:04:36.420 -> 00:04:39.140]  We just put that on the first block of the partition.
+[00:04:39.760 -> 00:04:41.500]  So if you have grub, it works.
+[00:04:41.700 -> 00:04:44.380]  But maybe you want to replace grub.
+[00:04:44.920 -> 00:04:48.760]  Then you do a master boot install, drive letter, drive list.
+[00:04:48.760 -> 00:04:51.580]  Now it stores on one partition.
+[00:04:52.760 -> 00:04:56.680]  And if you want a new D&E, you do this.
+[00:04:57.980 -> 00:04:59.360]  Actually, it will...
+[00:04:59.360 -> 00:05:01.000]  I'm going to go ahead and do it.
+[00:05:01.760 -> 00:05:02.360]  Okay.
+[00:05:02.760 -> 00:05:07.100]  So it found D&E and it made a master boot.
+[00:05:09.660 -> 00:05:12.920]  So let's go ahead and look at what's happening.
+[00:05:15.080 -> 00:05:16.740]  Here's the CD-ROM boot.
+[00:05:18.040 -> 00:05:20.980]  You can understand that if you can understand the hard disk.
+[00:05:21.380 -> 00:05:24.860]  This goes on the first block of the partition.
+[00:05:26.400 -> 00:05:33.200]  So what it does is it copies itself up to 96C0.
+[00:05:33.420 -> 00:05:36.760]  The standard is it loads at 7C00.
+[00:05:37.440 -> 00:05:39.440]  Anyway, it copies itself out of the way.
+[00:05:39.640 -> 00:05:44.220]  Then it loads one block at a time of the kernel.bin.
+[00:05:46.800 -> 00:05:56.400]  And when we install the boot sector, it writes the block address into this location.
+[00:05:57.220 -> 00:05:59.400]  So this is ready and waiting to go.
+[00:05:59.400 -> 00:06:01.060]  So this is the...
+[00:06:02.400 -> 00:06:04.320]  This uses Interop 13.
+[00:06:05.180 -> 00:06:06.820]  Which the extended...
+[00:06:06.820 -> 00:06:13.160]  Some people will try and fool you with the old-fashioned number 2, I think.
+[00:06:14.240 -> 00:06:19.120]  The only one you should use is 42 because hard drives are big.
+[00:06:23.940 -> 00:06:26.800]  Anyway, so when it...
+[00:06:26.800 -> 00:06:27.860]  After it loads...
+[00:06:27.860 -> 00:06:32.420]  It loads it down at 7C00 after it moves itself out of the way.
+[00:06:32.420 -> 00:06:38.040]  And I don't have complete 16-bit assembly.
+[00:06:38.340 -> 00:06:43.460]  I didn't do segments when I made my assembler because normally you're in 64-bit mode.
+[00:06:43.460 -> 00:06:46.260]  So I had to hand code the 16-bit.
+[00:06:46.560 -> 00:06:50.500]  This is a jump to 7C00.
+[00:06:52.140 -> 00:06:54.220]  Now, you can follow the link.
+[00:06:54.620 -> 00:06:58.960]  This is where it goes to when it loads.
+[00:07:00.660 -> 00:07:03.700]  So here's the install code, by the way.
+[00:07:04.500 -> 00:07:06.700]  It's in the Atom boot directory.
+[00:07:07.180 -> 00:07:07.940]  Now we're going to...
+[00:07:07.940 -> 00:07:09.280]  That was the Atom boot directory.
+[00:07:09.280 -> 00:07:11.020]  Now we're going to the kernel directory.
+[00:07:11.020 -> 00:07:13.240]  And it starts with...
+[00:07:13.240 -> 00:07:16.880]  When you compile the kernel, it just puts the...
+[00:07:16.880 -> 00:07:18.100]  It's just a bunch...
+[00:07:18.100 -> 00:07:19.420]  This is like doing an ADOT out.
+[00:07:19.540 -> 00:07:20.820]  There's no object files.
+[00:07:21.060 -> 00:07:21.900]  No linker.
+[00:07:22.100 -> 00:07:23.900]  It just does a flat binary.
+[00:07:24.560 -> 00:07:27.260]  Kstart is the first.
+[00:07:28.540 -> 00:07:30.960]  And this is some 16-bit code.
+[00:07:31.440 -> 00:07:35.960]  When it starts up, it does a couple BIOS calls.
+[00:07:36.200 -> 00:07:38.100]  It changes to 6...
+[00:07:38.100 -> 00:07:40.920]  Graphics mode, VGA, 640x480.
+[00:07:41.840 -> 00:07:43.340]  That's what it does right there.
+[00:07:43.660 -> 00:07:46.200]  It gets the memory maps from the BIOS.
+[00:07:48.080 -> 00:07:51.120]  And it changes the address line.
+[00:07:52.960 -> 00:07:54.660]  That's legacy crap.
+[00:07:55.620 -> 00:07:58.380]  Then it sets up the GDT.
+[00:07:59.440 -> 00:08:02.320]  Technically, this is relocatable.
+[00:08:02.320 -> 00:08:04.100]  You can put this module anywhere.
+[00:08:04.360 -> 00:08:06.200]  And it will set the...
+[00:08:08.360 -> 00:08:09.780]  Sets the GDT.
+[00:08:09.780 -> 00:08:11.840]  I don't have a 16-bit compiler.
+[00:08:12.200 -> 00:08:13.840]  I just made a 64-bit.
+[00:08:14.400 -> 00:08:17.900]  It would be way, way harder to do a 16-bit compiler.
+[00:08:18.200 -> 00:08:20.760]  I had 16 registers to work with.
+[00:08:21.000 -> 00:08:22.180]  And anyway...
+[00:08:22.180 -> 00:08:24.780]  But we're trying to get to 64-bit mode.
+[00:08:25.000 -> 00:08:29.280]  So here we're jumping into 32-bit mode.
+[00:08:31.240 -> 00:08:33.360]  We're starting up 32-bit.
+[00:08:33.620 -> 00:08:36.700]  Now my flat binaries are position independent.
+[00:08:36.700 -> 00:08:38.360]  But they have a patch table.
+[00:08:38.640 -> 00:08:45.100]  So it self-patches all the absolute addresses in the module.
+[00:08:45.100 -> 00:08:49.460]  So it's going through a list that's stored in the binary file.
+[00:08:49.580 -> 00:08:51.340]  The binary is executable code.
+[00:08:51.340 -> 00:08:53.200]  And it's also a symbol table.
+[00:08:53.240 -> 00:08:54.680]  And it's also a patch table.
+[00:08:55.020 -> 00:08:56.600]  And it self-patches.
+[00:08:56.700 -> 00:08:58.900]  So don't run anything before here.
+[00:09:00.740 -> 00:09:02.900]  Anyway, so now it's been patched.
+[00:09:03.580 -> 00:09:08.720]  Then it jumps over to the memory file.
+[00:09:09.000 -> 00:09:12.780]  And it initializes memory.
+[00:09:13.240 -> 00:09:17.360]  It identity maps 128 gig.
+[00:09:19.720 -> 00:09:23.520]  Then it jumps down to change to 64-bit mode.
+[00:09:23.820 -> 00:09:25.000]  That's down here.
+[00:09:25.340 -> 00:09:27.620]  If you want to know how to change 64-bit mode.
+[00:09:28.120 -> 00:09:30.260]  Turns on virtual memory right there.
+[00:09:30.480 -> 00:09:30.760]  Paging.
+[00:09:31.000 -> 00:09:32.860]  It has been identity mapped.
+[00:09:35.600 -> 00:09:38.560]  And jumps to a 64-bit code segment.
+[00:09:39.480 -> 00:09:41.720]  Returns back up to where we were.
+[00:09:43.900 -> 00:09:45.540]  Then it sets up...
+[00:09:48.460 -> 00:09:50.880]  This is the Atom task is what it's called.
+[00:09:51.760 -> 00:09:52.620]  So what are we doing?
+[00:09:52.840 -> 00:09:57.040]  We're setting up the CPU record for the core zero.
+[00:09:57.840 -> 00:10:00.760]  We're setting up the heaps and block pools.
+[00:10:01.980 -> 00:10:03.540]  I think we're setting up the...
+[00:10:03.540 -> 00:10:04.300]  What are we setting up?
+[00:10:04.760 -> 00:10:07.120]  Setting up the heap for the Atom task.
+[00:10:07.300 -> 00:10:08.240]  This is Atom's heap.
+[00:10:08.500 -> 00:10:10.520]  He has a code heap and a data heap.
+[00:10:11.180 -> 00:10:12.580]  Sets up his...
+[00:10:14.400 -> 00:10:15.320]  Q-links.
+[00:10:17.180 -> 00:10:18.440]  So right now...
+[00:10:18.440 -> 00:10:21.920]  I have a run level which keeps track of what has been accomplished.
+[00:10:22.620 -> 00:10:25.220]  We just set the boot heap.
+[00:10:25.460 -> 00:10:28.220]  If you want to see what the different steps are.
+[00:10:28.320 -> 00:10:29.880]  It starts in 16-bit mode.
+[00:10:29.880 -> 00:10:31.620]  It initializes VGA.
+[00:10:32.100 -> 00:10:33.840]  Initializes 32-bit mode.
+[00:10:33.840 -> 00:10:35.820]  Patches the absolute addresses.
+[00:10:36.180 -> 00:10:37.960]  Switches to 64-bit mode.
+[00:10:38.440 -> 00:10:39.360]  Sets up the boot heap.
+[00:10:39.580 -> 00:10:40.520]  Sets up the full heap.
+[00:10:41.060 -> 00:10:43.220]  Sets up the raw screen I.O.
+[00:10:43.900 -> 00:10:46.580]  Before this point you can't write to the screen.
+[00:10:47.420 -> 00:10:48.660]  Sets up the interrupts.
+[00:10:48.780 -> 00:10:49.760]  Sets up multi-processing.
+[00:10:50.360 -> 00:10:51.220]  Sets up the disk.
+[00:10:51.400 -> 00:10:52.340]  Sets up the compiler.
+[00:10:52.600 -> 00:10:53.280]  Sets up the...
+[00:10:53.280 -> 00:10:58.080]  The window manager with these documents for command lines.
+[00:10:59.240 -> 00:11:00.920]  You need the document framework.
+[00:11:01.440 -> 00:11:02.880]  Sets up the window manager.
+[00:11:03.700 -> 00:11:05.280]  Logs into the account.
+[00:11:05.580 -> 00:11:06.620]  Does the account files.
+[00:11:07.220 -> 00:11:07.740]  Sets...
+[00:11:07.740 -> 00:11:10.720]  Has done the registry during a registry.
+[00:11:10.720 -> 00:11:12.700]  The account registry has some stuff.
+[00:11:14.360 -> 00:11:14.960]  Oh...
+[00:11:16.800 -> 00:11:17.400]  Oh...
+[00:11:17.400 -> 00:11:17.540]  No.
+[00:11:17.720 -> 00:11:19.160]  It doesn't execute the registry there.
+[00:11:19.600 -> 00:11:20.480]  It does...
+[00:11:20.480 -> 00:11:22.480]  It does all the account...
+[00:11:22.480 -> 00:11:24.320]  There's no account code has been done.
+[00:11:26.580 -> 00:11:26.960]  Atom...
+[00:11:26.960 -> 00:11:28.260]  Stage 1 is the kernel.
+[00:11:28.440 -> 00:11:30.040]  Stage 2 is...
+[00:11:30.040 -> 00:11:32.760]  It goes into the Atom2 direct...
+[00:11:32.760 -> 00:11:35.220]  The Atom directory and does that Atom2 file.
+[00:11:35.540 -> 00:11:37.100]  Then it sets up the...
+[00:11:37.100 -> 00:11:39.860]  Then it goes into a standby mode of...
+[00:11:39.860 -> 00:11:41.100]  Serving...
+[00:11:41.100 -> 00:11:41.680]  Serving...
+[00:11:41.680 -> 00:11:42.380]  Clients.
+[00:11:43.060 -> 00:11:44.000]  So that...
+[00:11:44.000 -> 00:11:46.140]  When the Atom task has gotten to...
+[00:11:46.140 -> 00:11:47.580]  When it's finished startup...
+[00:11:47.580 -> 00:11:49.660]  It's in standby serving clients.
+[00:11:50.400 -> 00:11:51.020]  Anyway...
+[00:11:51.020 -> 00:11:51.400]  So...
+[00:11:51.400 -> 00:11:51.900]  Where were we?
+[00:11:52.180 -> 00:11:53.360]  So now we...
+[00:11:53.360 -> 00:11:55.140]  This is the start...
+[00:11:55.140 -> 00:11:56.000]  Kernel start.
+[00:11:56.460 -> 00:11:58.020]  Then it jumps to kernel main.
+[00:11:58.600 -> 00:12:00.100]  Which is...
+[00:12:00.100 -> 00:12:00.620]  Where...
+[00:12:00.620 -> 00:12:01.900]  This is kind of like...
+[00:12:01.900 -> 00:12:02.320]  This is the...
+[00:12:02.320 -> 00:12:03.240]  Now it's in C.
+[00:12:03.540 -> 00:12:04.920]  Before it was assembly.
+[00:12:05.300 -> 00:12:06.280]  So we have...
+[00:12:06.280 -> 00:12:07.740]  We're in 64-bit mode.
+[00:12:07.900 -> 00:12:08.720]  It's identity mapped.
+[00:12:08.720 -> 00:12:10.760]  Now we do the initialization.
+[00:12:12.560 -> 00:12:12.720]  And...
+[00:12:13.620 -> 00:12:13.720]  So...
+[00:12:14.460 -> 00:12:15.760]  Initializes the heap.
+[00:12:16.520 -> 00:12:18.440]  Initializes the global variables.
+[00:12:19.500 -> 00:12:21.860]  Global variables are zero...
+[00:12:21.860 -> 00:12:22.720]  Because they're just...
+[00:12:23.260 -> 00:12:24.660]  Gaps in the...
+[00:12:24.660 -> 00:12:25.760]  Binary file.
+[00:12:26.000 -> 00:12:28.520]  The kernel binary file is just a...
+[00:12:28.520 -> 00:12:29.820]  Flat binary.
+[00:12:30.060 -> 00:12:31.200]  I don't support ELF.
+[00:12:31.580 -> 00:12:33.700]  My compiler does not support ELF.
+[00:12:35.760 -> 00:12:36.240]  Um...
+[00:12:36.240 -> 00:12:38.100]  I don't know if this is the kernel.
+[00:12:38.340 -> 00:12:39.080]  No, I don't think so.
+[00:12:39.680 -> 00:12:40.700]  I think we go...
+[00:12:41.560 -> 00:12:42.720]  The kernel binary.
+[00:12:43.100 -> 00:12:44.640]  I get confused a little bit.
+[00:12:45.300 -> 00:12:47.460]  This is the kernel binary that's used.
+[00:12:47.740 -> 00:12:49.160]  It's in the root directory.
+[00:12:50.720 -> 00:12:51.200]  Uh...
+[00:12:51.200 -> 00:12:53.040]  So the kernel binary is flat.
+[00:12:53.260 -> 00:12:53.940]  It's contiguous.
+[00:12:54.400 -> 00:12:57.320]  The global variables are just gaps...
+[00:12:57.320 -> 00:12:58.200]  That are...
+[00:12:58.200 -> 00:12:59.740]  Initialized to zero...
+[00:12:59.740 -> 00:13:01.060]  If not otherwise specified.
+[00:13:02.820 -> 00:13:04.200]  So, uh...
+[00:13:04.800 -> 00:13:06.180]  We initialize globals.
+[00:13:07.100 -> 00:13:07.200]  Um...
+[00:13:07.550 -> 00:13:10.110]  We initialize 32-bit devices.
+[00:13:11.510 -> 00:13:12.310]  Uh...
+[00:13:12.310 -> 00:13:13.790]  That doesn't really do anything.
+[00:13:14.490 -> 00:13:15.550]  We mark...
+[00:13:16.070 -> 00:13:16.550]  Uh...
+[00:13:16.550 -> 00:13:18.890]  I do null dereference crashes.
+[00:13:19.370 -> 00:13:21.370]  Some guy was bragging about...
+[00:13:21.370 -> 00:13:22.830]  Making null...
+[00:13:22.830 -> 00:13:23.550]  Um...
+[00:13:23.550 -> 00:13:25.050]  A billion dollar bug.
+[00:13:25.450 -> 00:13:26.930]  Because null was not...
+[00:13:26.930 -> 00:13:28.370]  Null dereference was not caught.
+[00:13:28.610 -> 00:13:29.750]  So I went ahead and...
+[00:13:29.750 -> 00:13:31.690]  If you'd reference null, it crashes.
+[00:13:33.150 -> 00:13:33.950]  Uh...
+[00:13:33.950 -> 00:13:34.910]  Load the kernel.
+[00:13:35.830 -> 00:13:36.270]  Uh...
+[00:13:36.270 -> 00:13:36.810]  That's...
+[00:13:36.810 -> 00:13:39.110]  That loads the symbols into the symbol table.
+[00:13:43.130 -> 00:13:43.730]  Um...
+[00:13:43.730 -> 00:13:45.570]  Initialize the black and white.
+[00:13:47.650 -> 00:13:48.250]  Uh...
+[00:13:48.250 -> 00:13:49.090]  Raw IO.
+[00:13:50.150 -> 00:13:51.190]  Isn't that what...
+[00:13:51.190 -> 00:13:52.510]  Yeah, I think that's what that is.
+[00:13:53.190 -> 00:13:54.210]  No, it's not.
+[00:13:54.370 -> 00:13:55.390]  It's not the raw IO.
+[00:13:55.850 -> 00:13:56.450]  Initialize...
+[00:13:56.450 -> 00:13:56.670]  I know.
+[00:13:56.890 -> 00:13:58.810]  Okay, anyway, uh...
+[00:14:01.650 -> 00:14:02.990]  Load some defines.
+[00:14:03.670 -> 00:14:06.570]  Bootstrap processor is the core zero processor.
+[00:14:06.810 -> 00:14:09.750]  At this point is initialize raw IO.
+[00:14:11.050 -> 00:14:11.970]  Uh...
+[00:14:11.970 -> 00:14:13.030]  Initializes the timer.
+[00:14:13.250 -> 00:14:14.810]  Initializes interrupts.
+[00:14:18.850 -> 00:14:19.770]  Uh...
+[00:14:19.770 -> 00:14:21.130]  Calibrates the timestamp.
+[00:14:21.730 -> 00:14:23.910]  Counter timestamp frequency.
+[00:14:24.410 -> 00:14:25.910]  Initializes the mouse.
+[00:14:25.910 -> 00:14:27.650]  I think that's done in parallel.
+[00:14:28.610 -> 00:14:29.230]  I think that's done in parallel.
+[00:14:29.230 -> 00:14:30.090]  Yeah, it's done in parallel.
+[00:14:31.890 -> 00:14:32.470]  Uh...
+[00:14:32.470 -> 00:14:34.050]  And, uh...
+[00:14:34.050 -> 00:14:35.350]  Loads the compiler.
+[00:14:35.670 -> 00:14:36.350]  So we...
+[00:14:36.350 -> 00:14:38.850]  We have to be able to compile the command line.
+[00:14:39.870 -> 00:14:40.450]  Um...
+[00:14:40.450 -> 00:14:41.390]  Then it loads the kernel.
+[00:14:41.390 -> 00:14:44.830]  And when we're all done, we execute Atom1.
+[00:14:45.330 -> 00:14:47.010]  Atom1 is like autoexec.
+[00:14:47.370 -> 00:14:50.430]  Then when we come back from that, we go into standby.
+[00:14:51.270 -> 00:14:52.630]  We never return.
+[00:14:54.310 -> 00:14:56.350]  Entering a server loop.
+[00:14:56.350 -> 00:14:57.610]  Um...
+[00:14:57.610 -> 00:14:59.330]  So Atom1 is what we do next.
+[00:14:59.550 -> 00:15:00.430]  We load the...
+[00:15:01.230 -> 00:15:01.330]  Symbols...
+[00:15:01.910 -> 00:15:06.150]  The header files for kernel.bin and compiler.bin.
+[00:15:06.550 -> 00:15:08.370]  We load the header files.
+[00:15:08.770 -> 00:15:10.030]  And then we, uh...
+[00:15:10.030 -> 00:15:11.150]  Jump over to Atom2.
+[00:15:11.450 -> 00:15:12.730]  And do the rest.
+[00:15:14.010 -> 00:15:15.370]  And, uh...
+[00:15:15.370 -> 00:15:16.250]  In the Atom2.
+[00:15:16.770 -> 00:15:20.290]  We include about 40,000 lines of code.
+[00:15:21.170 -> 00:15:23.150]  Then we jump over to Atom3.
+[00:15:23.390 -> 00:15:25.230]  The home directory and do Atom3.
+[00:15:26.930 -> 00:15:29.750]  Your home directory is in the accounts directory.
+[00:15:30.710 -> 00:15:31.270]  And, uh...
+[00:15:31.270 -> 00:15:32.250]  There's Atom3.
+[00:15:34.090 -> 00:15:40.510]  So it does localizations, packages, keyboard plugins, wrappers, and then Sys.
+[00:15:41.010 -> 00:15:42.990]  Let's go ahead and look at the Sys.
+[00:15:43.650 -> 00:15:44.750]  So Atom3.
+[00:15:45.070 -> 00:15:50.270]  So if you want a DLL, just add a package into your account.
+[00:15:50.950 -> 00:15:52.130]  Packages directory.
+[00:15:53.110 -> 00:15:54.650]  AtomSys is, uh...
+[00:15:54.650 -> 00:15:56.130]  When it gets ready to start up,
+[00:15:56.950 -> 00:15:57.690]  It, uh...
+[00:15:57.690 -> 00:15:59.450]  It spawns a couple tasks.
+[00:15:59.770 -> 00:16:01.510]  That's why you start up with two tasks.
+[00:16:01.930 -> 00:16:03.530]  Two terminals.
+[00:16:04.630 -> 00:16:05.270]  Um...
+[00:16:05.270 -> 00:16:06.630]  And, uh...
+[00:16:06.630 -> 00:16:08.030]  Anyway, so...
+[00:16:08.030 -> 00:16:08.530]  Um...
+[00:16:08.530 -> 00:16:09.590]  A terminal...
+[00:16:09.590 -> 00:16:12.210]  If you want to know what a terminal is,
+[00:16:13.170 -> 00:16:14.530]  It's a task.
+[00:16:15.170 -> 00:16:17.770]  It spawns a task.
+[00:16:18.070 -> 00:16:19.910]  And it gives it the user command line.
+[00:16:20.290 -> 00:16:22.050]  As the, uh...
+[00:16:22.050 -> 00:16:22.490]  Startup.
+[00:16:23.390 -> 00:16:25.330]  And the user command line.
+[00:16:25.830 -> 00:16:27.330]  Executes some stuff.
+[00:16:28.070 -> 00:16:28.590]  And it goes...
+[00:16:29.110 -> 00:16:30.230]  Continue user task.
+[00:16:30.710 -> 00:16:31.990]  It goes...
+[00:16:31.990 -> 00:16:33.490]  It, uh...
+[00:16:33.490 -> 00:16:37.750]  The lexical analyzer for the compiler is invoked.
+[00:16:38.570 -> 00:16:41.150]  And every time it needs text to compile,
+[00:16:41.510 -> 00:16:44.210]  It, it fetches from the keyboard.
+[00:16:45.850 -> 00:16:46.570]  Buffer.
+[00:16:47.230 -> 00:16:47.710]  Um...
+[00:16:47.710 -> 00:16:48.450]  So, uh...
+[00:16:48.450 -> 00:16:50.890]  The compiler, literally, it...
+[00:16:50.890 -> 00:16:52.390]  The compiler is running,
+[00:16:52.690 -> 00:16:55.390]  And it pauses for you to enter text.
+[00:16:55.390 -> 00:16:57.830]  That's how it operates.
+[00:16:58.690 -> 00:17:00.370]  It pauses for you to enter text.
+[00:17:00.950 -> 00:17:02.890]  And then, it, uh...
+[00:17:02.890 -> 00:17:04.390]  If it's, uh...
+[00:17:05.330 -> 00:17:06.710]  When you enter text,
+[00:17:07.370 -> 00:17:07.770]  Uh...
+[00:17:07.770 -> 00:17:11.090]  Commands outside functions execute immediately.
+[00:17:14.190 -> 00:17:15.350]  And, uh...
+[00:17:15.350 -> 00:17:17.730]  Functions get stored into memory.
+[00:17:18.070 -> 00:17:19.810]  So, guess how you, uh...
+[00:17:19.810 -> 00:17:20.570]  Run a file.
+[00:17:20.990 -> 00:17:21.570]  Uh...
+[00:17:21.570 -> 00:17:23.610]  We're going to go to the demo directory.
+[00:17:23.910 -> 00:17:25.570]  Let's look at the, uh...
+[00:17:25.570 -> 00:17:26.210]  Exceptions.
+[00:17:26.510 -> 00:17:27.950]  This is just a demo.
+[00:17:28.530 -> 00:17:30.010]  Guess how we run it.
+[00:17:30.110 -> 00:17:30.430]  We say...
+[00:17:31.570 -> 00:17:33.770]  Remember, the, uh...
+[00:17:33.770 -> 00:17:36.390]  The command line is feeding into a C compiler.
+[00:17:39.690 -> 00:17:41.490]  Exceptions.cpp.c
+[00:17:41.490 -> 00:17:42.450]  Now, these...
+[00:17:42.450 -> 00:17:44.290]  Some people think these are archives.
+[00:17:44.610 -> 00:17:47.110]  No, it's individual files are compressed.
+[00:17:47.510 -> 00:17:50.190]  I think we happen to need a semicolon.
+[00:17:50.490 -> 00:17:52.170]  So, this is this, uh...
+[00:17:52.170 -> 00:17:52.670]  Little demo.
+[00:17:54.130 -> 00:17:54.730]  Um...
+[00:17:54.730 -> 00:17:56.130]  Shows how exceptions work.
+[00:17:56.790 -> 00:17:58.190]  By the way, exceptions,
+[00:17:58.410 -> 00:18:00.010]  You throw a, uh...
+[00:18:00.010 -> 00:18:00.910]  Character string.
+[00:18:01.190 -> 00:18:02.770]  Of up to eight characters.
+[00:18:02.770 -> 00:18:04.970]  And then when you catch it.
+[00:18:07.110 -> 00:18:09.990]  You, you access off the task register.
+[00:18:10.550 -> 00:18:11.850]  The, the last exception.
+[00:18:12.290 -> 00:18:13.430]  If you want.
+[00:18:13.630 -> 00:18:14.970]  Otherwise, you can just catch it.
+[00:18:15.510 -> 00:18:17.290]  Anyway, so...
+[00:18:17.290 -> 00:18:18.230]  Uh...
+[00:18:18.230 -> 00:18:20.150]  It's brutally efficient.
+[00:18:21.350 -> 00:18:21.950]  Uh...
+[00:18:21.950 -> 00:18:22.930]  Anyway, so, uh...
+[00:18:22.930 -> 00:18:23.830]  That's how that works.
+[00:18:24.990 -> 00:18:25.590]  Startup.

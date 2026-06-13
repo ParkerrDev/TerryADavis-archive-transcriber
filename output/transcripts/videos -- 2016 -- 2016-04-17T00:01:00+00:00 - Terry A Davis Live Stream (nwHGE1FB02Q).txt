@@ -1,0 +1,459 @@
+========================================================================
+FILE        : videos/2016/2016-04-17T00:01:00+00:00 - Terry A Davis Live Stream (nwHGE1FB02Q).webm
+SOURCE URL  : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2016/2016-04-17T00:01:00+00:00 - Terry A Davis Live Stream (nwHGE1FB02Q).webm
+DERIVATIVE  : (none — streamed from video)
+FORMAT      : WebM
+SIZE        : 186,997,081 bytes
+LANGUAGE    : en
+MODEL       : large-v3
+BACKEND     : faster_whisper
+PLATFORM    : Linux / x86_64
+DURATION    : 00:34:26.290
+TRANSCRIBED : 2026-05-23T14:42:10.076630+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+i didn't what there we go okay so uh this person is talking about a linker he wants well you can read it he wants locks and stuff um let me go ahead and cover what he's talking about so uh first of all you should study lectures mini compiler okay what this is is an expression compiler one plus two plus three times four plus five um it does reverse polish this is 64-bit assembly uh push one push two push three push four pop four pop three multiply push twelve pop twelve pop two add push fourteen pop fourteen pop one um add push fifteen push five pop five pop fifteen add 20. okay so how how can we do this okay um well um we this is just a simple compiler to show that it's can be done by more people than it should it can be done by more people than it should a mortal can write a compiler so we have a buffer and we put assembly instructions into the buffer you either for the operators you pop two arguments you do the operation and then you push the result and if you have that template on my first compiler I had a template and I would I would string together these you can see how if I uh well anyway you can if you have an assembler you can go ahead and put the code somewhere and then copy it out of it out of the code so Lex is what gives what combines together digits into a single integer or it returns a an operator or and it filters out comments so Lex is this is how they teach you to to do a compiler you make a lexical analyzer which gets a token like if this X turn would be a token it would skip the space i-64 be a token parse would be a token that the whoops anyway the the parentheses would be a token you ate would be a token star would be a token star would be a token and and when you start getting down here it would start skipping stuff that your lexical analyzer so what you do is a when you hit a new operator you compare it to the last to see which is higher precedence and you either do it or you postpone it with the stack anyway so the compiler can be made by a mortal although if you have an immortal puppeting you it's better in the right mr. time so I'm we have how would you uh we'll use your head what if we have a what if we have a symbol ready table it's going to have an address and what if you start putting labels in here and stuff like that so there's a each task has a symbol table and you say who minus R there are no symbols minus R okay I have a symbol I so what this is is a hash table now somebody wants to know about locks okay now this is kind of tricky I I want well I have my my operating system is not preemptive I used to have preemption but I got rid of it because it's better for beginners it's just a lot simpler so if you turn off interrupts with CLI now actually you don't even really need to do that because it doesn't have preemption but when it did have preemption if you turn off interrupts and you don't have preemption you can turn off interrupts and you don't have preemption you do mallet and then you well damn it I'm just using this as a scratch pad so if you say push push flags turn off interrupts and then right here you do your mallet your heap your heap code and then you say pop FD this mallet how many instructions maybe it's less than a hundred instructions so let's say if it's three gigahertz that's a 30 nanoseconds 33 nanoseconds something like that wait 100 33 nanoseconds okay so what is the you know I'm not very well what is the longest we can wait before servicing a device the only the only problem with turning off interrupts is that you don't have preemption you don't interrupts is something important might happen if you have a network then maybe you you're you'll overflow and you won't catch it in time but I don't have a network all I have is a keyboard that keyboard and mouse those are both slow those you can service those once every well let's just say about a millisecond you want to be servicing anyway you don't have preemption you don't have preemption I don't really turn off interrups very this is probably the longest I turn off interrupts malloc now it has to sometimes it has to fetch a block not just carve off a chunk so so what what does this do well it guarantees that no no thread on this core is going to interfere with the interface So, if you have two tasks that are mallocing, they are not going to, it's a critical section, they are not going to both be in the same part. You're not going to have two threads in the same set of code. Now, granularity might, well, anyway. So, malloc, here's the way I think about it. Turning off interrupts protects against this other task on the same core. In order to protect against multi-core access, you have to do a lock. You have to do a lock bit. I do, I use the lock prefix on the bit test and set, and then I do a lock prefix on a bit test and reset. And you give it a, maybe the bit zero of some memory or something. Semaphore. Anyway, you have a label here. So, now, if. The lock is bit test and set. If it was set, bit, or jump, jump if carry, it sets the carry flag. So, you loop. I don't know, I don't know what this does, but it seems to be what you're supposed to do. So, anyway. Or you can put it in a different place. Anyway, so. This protects against multi-core. Now, what's going to happen, this is kind of bad, because it's, it's chewing up the whole core, and it's, but anyway, the multi-core is going to have to finish, hopefully you're not doing this very often. Each task has a different heap. Now, why, why did I bother to put locks on my heap? Well, the way, why did I bother? Well. The way I do my multi-core, it's, you want to be able to allocate off of other tasks' heaps. So, I, I made it safe. Anybody can allocate off of any task heap. You can allocate off of any heap. And that's, that's very nice. Now, it, now it, when it comes to expense, putting a lock grabs the bus in some way that is expensive. But it's worth it. So, I put a lock on that. Now, another thing that I do, okay, so, what about my, so, he's talking about a linker. Well, we don't have a linker. We have a symbol table, and if it doesn't find a symbol, it searches the parents. So, if I just say who, say plus R, these are all the symbols in Adam, Adam and Eve. Adam is the first task. And he, his symbols, you inherit. So, it's kind of like, you know how Windows has, they used to have, I haven't programmed in Windows for a while. But they have the Windows header file. I don't even remember what it's called. Windows.hpp or something. You don't ever need to, there's not a linker. What does that mean? Well, imagine, imagine you're, imagine you want to modify my compiler to, to compile. Call, call system functions. So, you're going to put a call, and then when it comes time to, now I have a, I have no paging. So, an address is an address. So, mine is really simple. So, I never have to worry about kernel symbols or local, I don't have to worry about address maps, page tables. I don't have to worry about them. I set them up once at the beginning, and I never have to worry about them. And, so, if, if we wanted to do a call to malloc in our, in compile code, well, what would you need to do? You need to go look, oops, you need the opcode for call. I, I had to make this file myself. Opcode for call. So, call relative 32. So, it's going to be an E8. And then a 32-bit relative. So, when you're, when you're making your compiler, and you're calling malloc, what's the address of malloc? We have to look up in the symbol table. You want to, you want to pretend like we're doing it? Watch this. C, I think let's just say C. C hash function star H. H equals hash find. You can, you can search for it. Hash find needle haystack mask instance. So, we want to look for malloc haystack. This is, we want to search our, our own hash table. And if it's not found, these hash tables link to the, they link to a next table, which is the parent table. It's set to the parent table. So, it's not going to find it in the local table. And it's going to search the parent. And then we say, what type? HTT. We want to search for a function in the table. And we want instance one. Okay, so H. So, let's do a class rep on H. So, what we have here is, there's the, the string. The string in the hash table is malloc. The, it tells us what registers are clobbered. Executable address. Uh-oh. Let's go ahead and H. So, it's CF84. Now, let's unassemble that and see if that's CF84. It's malloc. The string, it. Okay, so what would we, what would we do if we were compiling? We don't need a linker. Why would we need a linker? We don't need a linker. We're just in time. So, all we have to do, we need an E8. Let's pretend we're making a compiler. We, we want an E8. And then we want this. We want this. We want four, four bytes. We have one byte of E8. And then we have four bytes of this. Um, but it's relative. So, we have to subtract. Uh. What do you want to call it? Dollar sign? And that's what you put into the, that's the code. And now, when it hits that, bam, we don't need a linker. Why are you making it complicated? Why are you saving it to disk and then loading it back? If, if adjusting time compiler is simple, it's really fucking simple. And if we want to make a, a function, well, we just fill out this form. For a hash entry. You fill in all the fields. And you stick it in the hash table. Now, this is where it gets tricky. So. So, Adam is the father of all tasks. And he has children on core zero. Now, what if Adam is adding to his hash table at the same time? I did not put a lock on hash tables. However, I, I put a, um, a, uh. I, I, I locked them in interrupts. So, it's kind of like a critical section, I guess you'd call it. I'm not real expert on terminology. I just make shit up. Um, anyway. I took an operating systems course. It's, it's called a critical section if only one thread can be in there at a time. But technically other cores can be in there. Um. So, don't, um. Okay, so. Now, we don't do some. Okay, so when, when you add a hash entry. You can see it, um. When it's changing the, the, it's, it's got a certain pointer it has to change. And it, it's, it just locks out interrupts. So, um, what that means is, uh. Well. So, if two tasks tried to add to Adam's table. That would be bad. But that's never gonna happen. Um. I don't have symmetric multi-core. What I have is, uh. All applications run on core zero. And when they need assistance. They make slaves on the other cores. And so you would have to be pretty silly to make a slave that added to the symbol table. Now, actually there are reasons to, uh. To do, well. Um. Now. I don't have DLLs. What I have. Well. Basically, Adam is the first task. Okay. And during boot. Adam starts compiling. This. You can call it a script. It gets compiled to machine code. Um. So Adam starts compiling this. This is where he does. Um. He jumps into the Adam directory. Adam and Eve. First, first human. So in the Adam directory. He starts including these. Now, um. You can call these DLLs. What they are is just code that's in Adam's. Now. Each task has heaps. And if a task gets killed. The memory in the heap gets returned. So it is important to keep track of who did what. So, um. Adam never dies. And so. If Adam compiles some code. Then it's like a DLL. Um. So it's really, really simple to make a DLL. As a matter of fact. I can just. So here's my packages. I don't even have to. I can just say. Uh. I'm going to make a function here. Woot. That's not very funny. So now I have. I have some code. In my. Now if I reboot. Now immediately. In my symbol table. I have a function here. And. Okay. So it's that easy to make a DLL. So all you have to do. Put in include. And then your code will be. Now. It's. Now what if you want. An application. To. To have. Global variables. Well. That's pretty easy too. Uh. Uh. I can say. I 64. Me global. Okay. Now if I reboot. I can say. Me. I 64. Global. Equals. One. Two. Four. Five. Six. I can come over to here. Now it's going to find it. Now. This is just another task. It was Adam. That compiled. The. Uh. The local files. In the make. In the home. Make home. Oh well. I uh. Anyway. Trust me. Trust me. If it doesn't find it. It searches the parent. And there's. There's a make home. In the parent directory. Anyway. I got kind of fancy. It's probably confusing. So anyway. So this. This is a global variable. Uh. Uh. It's a system variable. It's. Now what if you wanted a separate one. Now there are a couple cases where uh. Well here's what you do. You make a frame. F1. And then read. Read about frames. What these are. Are. Are. What are the variables that. That are stuck in the symbol table with the name. So we want frame add. Name value. Okay. So. If I say uh. Frame add. I don't know. Frame pointer add. Now it's going to give us a pointer back. But. Now if I say who. Minus r. I don't know is not a public symbol. It's a frame pointer. But. It's a frame pointer. basically now we have a we have a we have a value that is now the let's suppose you had a well I'll show you an example I have a function to make a noise like an explosion noise or a gunshot it makes a noise let's make a longer noise now what it has to do is is right to the speaker so this is actually spawning a task let's let's go ahead and look at the wallpaper it's actually spawning a task with the it spawns it now let's do two seconds it's spawning a task and to make a long story short let's say you have two installed applications like ctrl R makes bright the mesh editor let's say you call the mesh editor from another location from another task it has variables that are global variables but they each need their own global variables and so they use a frame by the store of a symbol in the in the symbol table now what I do when I I have the option of adding symbols to the task task record so that's kind of my privilege I can just come in here now you could do it but it would only you would have a problem if you upgrade it you just you can just throw a symbol into the task record and now you have a let's say you wanted a frame for mesh work or да Columbia ed studio and you want your menu to be a you can put a you can put a variable into the task record so that's how that works let's see what God says now I have I was gonna say I have a there's a there's another type of lock I have situations where I you can sort of it's like import but my my my function is different I do this I can change tasks in four million times a second watch this so if I say while true yield I can change tasks four and a half million times a second it is actually faster to change a task than it is to read an IO port IO ports take about I think they take I think they're either two megahertz or six hundred kilohertz I always forget anyway so I can I can read a I can I can change tasks faster than I can read a port that's because I use I don't mess with address maps everything just that's why my operating system kicks ass anyway so it's simple it's elegant once you understand the concept everything just falls naturally into place I don't need DLL's I just have Adam at boot compile stuff and then we can we can just go ahead and just go ahead and just go ahead and just go ahead and we we get we inherit his symbol table and I don't need well anyway so that's how that works so as a matter of fact have you ever seen this demonstration I can go into the the root directory now if it if you have a file missing in your home directory it searches the parent which is the root so there's default files for your home you could delete all the files in your home and it would use the defaults in the root that's just how the file system works so we're going to we're going to turn echo on and now we're going to reboot let's let's let's do it this way just to be dramatic so here's here's my boot loader I'm going to press 1 now this code normally gets compiled really fast but we slowed down so you could see it so I try to compile as much just in time as possible there's advantages why not do it you don't have object files you don't have executable files you just have source so it's also there are things that are possible with just-in-time that are not possible for example you can I have okay so I defined GR text width these are defined constants these are constants but they could you can make a variable at one time be a constant later so sometimes you have constants that you wouldn't have normally when you do just-in-time let's say you're my system only does one resolution but let's say you you and instead of having a flexible resolution, you can have a constant, and it would know that. Anyway, if you're running with source code, then it's better able to handle future changes. Now, I don't promise backward compatibility, but let's say that I had an operating system function. How about getString? Let's say for some reason I wanted to add an argument, and I gave it a default. Now, if you're operating from source code, and it's just-in-time compiling, I can add that argument, and it's not going to affect-your code is going to stay compatible. Now, what if I-what if you're operating from source, and I change my text? So, these are the defines for my text widgets. I can come in here and renumber these. And if you're operating from source, it's not even going to notice. It's going to-so there's a lot of compatibility protection, backward compatibility protection. But I don't promise backward compatibility. Down the road, we might-it might be-well, I want this to crystallize into a diamond of perfection of 100,000 lines. That lasts 1,000 years. That's the goal. And I like to say, if you design as though it's going to change in the future, that means you're not-that means it's not perfect. Perfect means it's done. When they designed the BMP file format, they put a header, and they said, what's the header size? That was so they could change it in the future and have backward compatibility. But guess what? They went crazy, and they put all kinds of crap. And so now it's a worthless file format. So what that means is pretend it's perfect. And don't design-don't put any flexibility. Pretend this is the end, and then it's perfect. And if you can't honestly say it's perfect, then you've got to fix it. fix something because um design is though it's perfect um so anyway so that's kind of so i don't promise backward compatibility and i i promise that anything that doesn't seem perfect i change immediately regardless of consequences so anyway and we have a limit of 100 000 lines that's what i set so that it'll stay um small i want when when you hit f1 oops when you hit f1 i want this to be cozy this is the index of help and uh i want you to say wow i can i can master that that's not too bad like here's frames that's not too bad here's here's if you want to get a god word or bible passage that's under god the graphics routines there's a lot in here but you can master this you can i want a teenager to to eagerly memorize every or get familiar with the entire thing once you can see the the light at the end of the tunnel and once you can um get the whole thing in your head it gives you a level of comfort and a level of command you can you're in charge you know what you're doing that makes all the difference instead of being lost and you can have confidence you can know what you're doing that's one of the reasons i don't want multiple architectures and i don't want multiple languages because i want this small enough like like we had a commodore and we could master the commodore so i want this small like that so anyway
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:05.710 -> 00:00:36.160]  i didn't what there we go okay so uh this person is talking about a linker he wants
+[00:00:36.160 -> 00:00:50.520]  well you can read it he wants locks and stuff um let me go ahead and cover what he's talking about
+[00:00:56.810 -> 00:01:11.160]  so uh first of all you should study lectures mini compiler okay what this is
+[00:01:11.160 -> 00:01:18.700]  is an expression compiler one plus two plus three times four plus five
+[00:01:20.300 -> 00:01:32.710]  um it does reverse polish this is 64-bit assembly uh push one push two push three push four
+[00:01:35.560 -> 00:01:44.960]  pop four pop three multiply push twelve pop twelve pop two add push
+[00:01:45.200 -> 00:02:04.570]  fourteen pop fourteen pop one um add push fifteen push five pop five pop fifteen
+[00:02:06.590 -> 00:02:18.010]  add 20. okay so how how can we do this okay um well um we this is just a simple compiler to show
+[00:02:18.010 -> 00:02:20.970]  that it's can be done by more people than it should it can be done by more people than it should
+[00:02:20.990 -> 00:02:28.840]  a mortal can write a compiler so we have a buffer and we put assembly
+[00:02:28.840 -> 00:02:36.380]  instructions into the buffer you either for the operators you pop two arguments
+[00:02:36.380 -> 00:02:41.560]  you do the operation and then you push the result and if you have that template
+[00:02:42.500 -> 00:02:48.720]  on my first compiler I had a template and I would I would string together
+[00:02:48.720 -> 00:02:55.600]  these you can see how if I uh well anyway you can if you have an assembler
+[00:02:55.600 -> 00:03:00.740]  you can go ahead and put the code somewhere and then copy it out of it out
+[00:03:00.740 -> 00:03:09.920]  of the code so Lex is what gives what combines together digits into a single
+[00:03:09.920 -> 00:03:17.380]  integer or it returns a an operator or and it filters out comments so Lex is
+[00:03:17.380 -> 00:03:19.900]  this is how they teach you to
+[00:03:20.320 -> 00:03:26.540]  to do a compiler you make a lexical analyzer which gets a token like if this
+[00:03:26.540 -> 00:03:32.960]  X turn would be a token it would skip the space i-64 be a token parse would be
+[00:03:32.960 -> 00:03:42.240]  a token that the whoops anyway the the parentheses would be a
+[00:03:42.240 -> 00:03:49.260]  token you ate would be a token star would be a token star would be a token
+[00:03:49.260 -> 00:03:50.240]  and
+[00:03:50.240 -> 00:03:53.460]  and when you start getting down here it would start skipping stuff that your
+[00:03:53.460 -> 00:04:01.220]  lexical analyzer so what you do is a when you hit a new operator you compare
+[00:04:01.220 -> 00:04:06.460]  it to the last to see which is higher precedence and you either do it or you
+[00:04:06.460 -> 00:04:09.000]  postpone it with the stack
+[00:04:10.020 -> 00:04:18.160]  anyway so the compiler can be made by a mortal although if you have an immortal
+[00:04:18.160 -> 00:04:19.500]  puppeting you it's better
+[00:04:21.140 -> 00:04:33.700]  in the right mr. time so I'm we have how would you uh we'll use your head what
+[00:04:33.700 -> 00:04:38.800]  if we have a what if we have a symbol ready table
+[00:04:42.740 -> 00:04:51.320]  it's going to have an address and what if you start putting labels in here and
+[00:04:51.320 -> 00:04:51.980]  stuff like that
+[00:04:51.980 -> 00:04:58.000]  so there's a each task has a symbol table and
+[00:04:58.820 -> 00:04:59.640]  you say
+[00:04:59.640 -> 00:05:15.620]  who minus R there are no symbols minus R okay I have a symbol I so what this is
+[00:05:15.620 -> 00:05:21.100]  is a hash table now somebody wants to know about locks okay now this is kind
+[00:05:21.100 -> 00:05:35.630]  of tricky I I want well I have my my operating system is not preemptive I
+[00:05:35.630 -> 00:05:41.170]  used to have preemption but I got rid of it because it's better for beginners
+[00:05:42.410 -> 00:05:54.830]  it's just a lot simpler so if you turn off interrupts with CLI now actually you
+[00:05:54.830 -> 00:05:58.370]  don't even really need to do that because it doesn't have preemption but
+[00:05:59.110 -> 00:06:06.790]  when it did have preemption if you turn off interrupts and you
+[00:06:06.790 -> 00:06:07.050]  don't have preemption you can turn off interrupts and you don't have preemption
+[00:06:07.050 -> 00:06:21.600]  you do mallet and then you well damn it I'm just using this as a scratch pad so
+[00:06:21.600 -> 00:06:27.880]  if you say push push flags turn off interrupts and then right here you do
+[00:06:27.880 -> 00:06:37.300]  your mallet your heap your heap code and then you say pop FD this mallet how many
+[00:06:37.300 -> 00:06:41.940]  instructions maybe it's less than a hundred instructions so let's say
+[00:06:41.940 -> 00:06:54.590]  if it's three gigahertz that's a 30 nanoseconds 33 nanoseconds something
+[00:06:54.590 -> 00:07:06.390]  like that wait 100 33 nanoseconds okay so what is the you know I'm not very well
+[00:07:07.250 -> 00:07:14.310]  what is the longest we can wait before servicing a device the only the only
+[00:07:14.310 -> 00:07:15.850]  problem with turning off interrupts is that you don't have preemption you don't
+[00:07:15.850 -> 00:07:22.890]  interrupts is something important might happen if you have a network then maybe
+[00:07:22.890 -> 00:07:28.490]  you you're you'll overflow and you won't catch it in time but I don't have a
+[00:07:28.490 -> 00:07:33.770]  network all I have is a keyboard that keyboard and mouse those are both slow
+[00:07:33.770 -> 00:07:42.580]  those you can service those once every well let's just say about a millisecond
+[00:07:42.580 -> 00:07:47.400]  you want to be servicing anyway you don't have preemption you don't have preemption
+[00:07:47.400 -> 00:07:51.880]  I don't really turn off interrups very this is probably the longest I turn off
+[00:07:51.880 -> 00:07:58.680]  interrupts malloc now it has to sometimes it has to fetch a block not just carve
+[00:07:58.680 -> 00:08:17.380]  off a chunk so so what what does this do well it guarantees that no no thread on this core is going to interfere with the interface
+[00:08:17.400 -> 00:08:37.220]  So, if you have two tasks that are mallocing, they are not going to, it's a critical section, they are not going to both be in the same part. You're not going to have two threads in the same set of code.
+[00:08:41.280 -> 00:09:02.600]  Now, granularity might, well, anyway. So, malloc, here's the way I think about it. Turning off interrupts protects against this other task on the same core. In order to protect against multi-core access, you have to do a lock.
+[00:09:04.020 -> 00:09:07.360]  You have to do a lock bit.
+[00:09:09.080 -> 00:09:18.220]  I do, I use the lock prefix on the bit test and set, and then I do a lock prefix on a bit test and reset.
+[00:09:19.720 -> 00:09:32.990]  And you give it a, maybe the bit zero of some memory or something.
+[00:09:34.950 -> 00:09:35.550]  Semaphore.
+[00:09:38.640 -> 00:09:43.650]  Anyway, you have a label here.
+[00:09:46.430 -> 00:09:48.190]  So, now, if.
+[00:09:48.930 -> 00:09:50.670]  The lock is bit test and set.
+[00:09:50.750 -> 00:09:57.150]  If it was set, bit, or jump, jump if carry, it sets the carry flag.
+[00:10:03.570 -> 00:10:06.270]  So, you loop.
+[00:10:08.690 -> 00:10:12.470]  I don't know, I don't know what this does, but it seems to be what you're supposed to do.
+[00:10:20.140 -> 00:10:21.020]  So, anyway.
+[00:10:22.560 -> 00:10:24.600]  Or you can put it in a different place.
+[00:10:25.060 -> 00:10:25.820]  Anyway, so.
+[00:10:28.430 -> 00:10:30.370]  This protects against multi-core.
+[00:10:30.390 -> 00:10:49.100]  Now, what's going to happen, this is kind of bad, because it's, it's chewing up the whole core, and it's, but anyway, the multi-core is going to have to finish, hopefully you're not doing this very often.
+[00:10:50.840 -> 00:10:52.620]  Each task has a different heap.
+[00:10:52.800 -> 00:10:56.020]  Now, why, why did I bother to put locks on my heap?
+[00:10:56.540 -> 00:11:02.210]  Well, the way, why did I bother?
+[00:11:02.290 -> 00:11:02.770]  Well.
+[00:11:03.490 -> 00:11:17.420]  The way I do my multi-core, it's, you want to be able to allocate off of other tasks' heaps.
+[00:11:17.940 -> 00:11:19.480]  So, I, I made it safe.
+[00:11:19.680 -> 00:11:22.620]  Anybody can allocate off of any task heap.
+[00:11:22.900 -> 00:11:24.760]  You can allocate off of any heap.
+[00:11:25.060 -> 00:11:26.840]  And that's, that's very nice.
+[00:11:26.980 -> 00:11:37.720]  Now, it, now it, when it comes to expense, putting a lock grabs the bus in some way that is expensive.
+[00:11:38.480 -> 00:11:39.780]  But it's worth it.
+[00:11:40.020 -> 00:11:41.280]  So, I put a lock on that.
+[00:11:42.780 -> 00:11:49.900]  Now, another thing that I do, okay, so, what about my, so, he's talking about a linker.
+[00:11:49.920 -> 00:11:50.980]  Well, we don't have a linker.
+[00:11:51.900 -> 00:11:57.240]  We have a symbol table, and if it doesn't find a symbol, it searches the parents.
+[00:11:57.800 -> 00:12:05.700]  So, if I just say who, say plus R, these are all the symbols in Adam, Adam and Eve.
+[00:12:06.200 -> 00:12:07.480]  Adam is the first task.
+[00:12:07.700 -> 00:12:09.760]  And he, his symbols, you inherit.
+[00:12:10.020 -> 00:12:15.620]  So, it's kind of like, you know how Windows has, they used to have, I haven't programmed in Windows for a while.
+[00:12:15.700 -> 00:12:19.320]  But they have the Windows header file.
+[00:12:19.460 -> 00:12:20.660]  I don't even remember what it's called.
+[00:12:20.740 -> 00:12:22.640]  Windows.hpp or something.
+[00:12:24.920 -> 00:12:28.400]  You don't ever need to, there's not a linker.
+[00:12:29.060 -> 00:12:30.160]  What does that mean?
+[00:12:30.440 -> 00:12:41.280]  Well, imagine, imagine you're, imagine you want to modify my compiler to, to compile.
+[00:12:41.280 -> 00:12:42.840]  Call, call system functions.
+[00:12:43.640 -> 00:12:52.500]  So, you're going to put a call, and then when it comes time to, now I have a, I have no paging.
+[00:12:52.520 -> 00:12:54.660]  So, an address is an address.
+[00:12:54.820 -> 00:12:56.140]  So, mine is really simple.
+[00:12:56.640 -> 00:13:05.720]  So, I never have to worry about kernel symbols or local, I don't have to worry about address maps, page tables.
+[00:13:05.840 -> 00:13:06.720]  I don't have to worry about them.
+[00:13:07.460 -> 00:13:10.980]  I set them up once at the beginning, and I never have to worry about them.
+[00:13:10.980 -> 00:13:22.600]  And, so, if, if we wanted to do a call to malloc in our, in compile code, well, what would you need to do?
+[00:13:22.740 -> 00:13:30.310]  You need to go look, oops, you need the opcode for call.
+[00:13:31.350 -> 00:13:33.710]  I, I had to make this file myself.
+[00:13:34.570 -> 00:13:35.590]  Opcode for call.
+[00:13:38.090 -> 00:13:40.110]  So, call relative 32.
+[00:13:40.590 -> 00:13:42.330]  So, it's going to be an E8.
+[00:13:43.250 -> 00:13:44.710]  And then a 32-bit relative.
+[00:13:46.630 -> 00:13:59.680]  So, when you're, when you're making your compiler, and you're calling malloc, what's the address of malloc?
+[00:13:59.820 -> 00:14:01.420]  We have to look up in the symbol table.
+[00:14:01.600 -> 00:14:03.440]  You want to, you want to pretend like we're doing it?
+[00:14:04.620 -> 00:14:05.460]  Watch this.
+[00:14:06.660 -> 00:14:08.620]  C, I think let's just say C.
+[00:14:09.060 -> 00:14:15.500]  C hash function star H.
+[00:14:16.260 -> 00:14:18.040]  H equals hash find.
+[00:14:18.900 -> 00:14:21.180]  You can, you can search for it.
+[00:14:21.200 -> 00:14:23.760]  Hash find needle haystack mask instance.
+[00:14:25.460 -> 00:14:30.650]  So, we want to look for malloc haystack.
+[00:14:30.750 -> 00:14:33.670]  This is, we want to search our, our own hash table.
+[00:14:33.970 -> 00:14:41.990]  And if it's not found, these hash tables link to the, they link to a next table, which is the parent table.
+[00:14:42.370 -> 00:14:43.930]  It's set to the parent table.
+[00:14:45.530 -> 00:14:47.930]  So, it's not going to find it in the local table.
+[00:14:48.110 -> 00:14:49.690]  And it's going to search the parent.
+[00:14:50.350 -> 00:14:51.910]  And then we say, what type?
+[00:14:52.450 -> 00:14:52.910]  HTT.
+[00:14:53.290 -> 00:14:55.770]  We want to search for a function in the table.
+[00:14:56.230 -> 00:14:58.230]  And we want instance one.
+[00:14:58.590 -> 00:14:59.490]  Okay, so H.
+[00:15:01.470 -> 00:15:05.590]  So, let's do a class rep on H.
+[00:15:07.560 -> 00:15:13.960]  So, what we have here is, there's the, the string.
+[00:15:13.960 -> 00:15:16.600]  The string in the hash table is malloc.
+[00:15:17.880 -> 00:15:25.760]  The, it tells us what registers are clobbered.
+[00:15:26.360 -> 00:15:27.280]  Executable address.
+[00:15:27.740 -> 00:15:28.280]  Uh-oh.
+[00:15:37.070 -> 00:15:39.530]  Let's go ahead and H.
+[00:15:49.330 -> 00:15:51.550]  So, it's CF84.
+[00:15:52.390 -> 00:15:58.390]  Now, let's unassemble that and see if that's CF84.
+[00:16:00.470 -> 00:16:01.410]  It's malloc.
+[00:16:01.530 -> 00:16:03.110]  The string, it.
+[00:16:06.120 -> 00:16:09.260]  Okay, so what would we, what would we do if we were compiling?
+[00:16:09.360 -> 00:16:11.040]  We don't need a linker.
+[00:16:11.060 -> 00:16:12.460]  Why would we need a linker?
+[00:16:12.480 -> 00:16:13.680]  We don't need a linker.
+[00:16:13.680 -> 00:16:14.520]  We're just in time.
+[00:16:14.740 -> 00:16:17.560]  So, all we have to do, we need an E8.
+[00:16:17.780 -> 00:16:19.660]  Let's pretend we're making a compiler.
+[00:16:20.060 -> 00:16:22.180]  We, we want an E8.
+[00:16:23.000 -> 00:16:25.320]  And then we want this.
+[00:16:25.480 -> 00:16:26.500]  We want this.
+[00:16:26.700 -> 00:16:29.420]  We want four, four bytes.
+[00:16:29.560 -> 00:16:31.120]  We have one byte of E8.
+[00:16:31.280 -> 00:16:33.180]  And then we have four bytes of this.
+[00:16:34.020 -> 00:16:35.940]  Um, but it's relative.
+[00:16:36.160 -> 00:16:37.460]  So, we have to subtract.
+[00:16:38.220 -> 00:16:38.700]  Uh.
+[00:16:38.700 -> 00:16:40.520]  What do you want to call it?
+[00:16:40.580 -> 00:16:41.000]  Dollar sign?
+[00:16:45.440 -> 00:16:48.720]  And that's what you put into the, that's the code.
+[00:16:49.140 -> 00:16:52.680]  And now, when it hits that, bam, we don't need a linker.
+[00:16:52.800 -> 00:16:54.440]  Why are you making it complicated?
+[00:16:55.100 -> 00:16:57.980]  Why are you saving it to disk and then loading it back?
+[00:16:58.680 -> 00:17:03.320]  If, if adjusting time compiler is simple, it's really fucking simple.
+[00:17:04.280 -> 00:17:10.820]  And if we want to make a, a function, well, we just fill out this form.
+[00:17:11.500 -> 00:17:12.900]  For a hash entry.
+[00:17:13.460 -> 00:17:15.100]  You fill in all the fields.
+[00:17:15.420 -> 00:17:17.140]  And you stick it in the hash table.
+[00:17:17.420 -> 00:17:19.100]  Now, this is where it gets tricky.
+[00:17:20.360 -> 00:17:20.880]  So.
+[00:17:23.820 -> 00:17:26.500]  So, Adam is the father of all tasks.
+[00:17:26.720 -> 00:17:28.540]  And he has children on core zero.
+[00:17:29.460 -> 00:17:33.600]  Now, what if Adam is adding to his hash table at the same time?
+[00:17:34.040 -> 00:17:36.520]  I did not put a lock on hash tables.
+[00:17:37.480 -> 00:17:40.960]  However, I, I put a, um, a, uh.
+[00:17:42.420 -> 00:17:45.180]  I, I, I locked them in interrupts.
+[00:17:45.180 -> 00:17:47.880]  So, it's kind of like a critical section, I guess you'd call it.
+[00:17:48.180 -> 00:17:50.640]  I'm not real expert on terminology.
+[00:17:52.080 -> 00:17:53.480]  I just make shit up.
+[00:17:53.600 -> 00:17:54.760]  Um, anyway.
+[00:17:55.180 -> 00:17:57.000]  I took an operating systems course.
+[00:17:57.120 -> 00:18:02.600]  It's, it's called a critical section if only one thread can be in there at a time.
+[00:18:02.920 -> 00:18:05.420]  But technically other cores can be in there.
+[00:18:06.120 -> 00:18:06.600]  Um.
+[00:18:09.220 -> 00:18:10.620]  So, don't, um.
+[00:18:11.200 -> 00:18:12.000]  Okay, so.
+[00:18:13.400 -> 00:18:15.380]  Now, we don't do some.
+[00:18:15.520 -> 00:18:17.660]  Okay, so when, when you add a hash entry.
+[00:18:18.260 -> 00:18:19.660]  You can see it, um.
+[00:18:20.520 -> 00:18:24.840]  When it's changing the, the, it's, it's got a certain pointer it has to change.
+[00:18:25.300 -> 00:18:28.560]  And it, it's, it just locks out interrupts.
+[00:18:28.880 -> 00:18:31.160]  So, um, what that means is, uh.
+[00:18:31.920 -> 00:18:32.440]  Well.
+[00:18:33.900 -> 00:18:37.760]  So, if two tasks tried to add to Adam's table.
+[00:18:38.420 -> 00:18:39.680]  That would be bad.
+[00:18:39.900 -> 00:18:41.600]  But that's never gonna happen.
+[00:18:42.000 -> 00:18:42.120]  Um.
+[00:18:43.840 -> 00:18:46.200]  I don't have symmetric multi-core.
+[00:18:46.710 -> 00:18:48.420]  What I have is, uh.
+[00:18:48.840 -> 00:18:51.720]  All applications run on core zero.
+[00:18:52.100 -> 00:18:54.660]  And when they need assistance.
+[00:18:55.000 -> 00:18:57.240]  They make slaves on the other cores.
+[00:18:57.740 -> 00:19:03.160]  And so you would have to be pretty silly to make a slave that added to the symbol table.
+[00:19:04.800 -> 00:19:07.320]  Now, actually there are reasons to, uh.
+[00:19:08.260 -> 00:19:09.880]  To do, well.
+[00:19:12.000 -> 00:19:12.620]  Um.
+[00:19:12.620 -> 00:19:13.360]  Now.
+[00:19:13.660 -> 00:19:15.540]  I don't have DLLs.
+[00:19:15.740 -> 00:19:16.660]  What I have.
+[00:19:16.800 -> 00:19:17.120]  Well.
+[00:19:17.640 -> 00:19:19.540]  Basically, Adam is the first task.
+[00:19:19.760 -> 00:19:20.060]  Okay.
+[00:19:20.700 -> 00:19:21.740]  And during boot.
+[00:19:23.100 -> 00:19:24.660]  Adam starts compiling.
+[00:19:25.000 -> 00:19:25.480]  This.
+[00:19:25.620 -> 00:19:26.840]  You can call it a script.
+[00:19:27.000 -> 00:19:28.580]  It gets compiled to machine code.
+[00:19:29.180 -> 00:19:29.660]  Um.
+[00:19:29.940 -> 00:19:31.780]  So Adam starts compiling this.
+[00:19:31.820 -> 00:19:32.880]  This is where he does.
+[00:19:33.940 -> 00:19:34.420]  Um.
+[00:19:34.480 -> 00:19:36.320]  He jumps into the Adam directory.
+[00:19:37.140 -> 00:19:37.920]  Adam and Eve.
+[00:19:38.320 -> 00:19:39.640]  First, first human.
+[00:19:40.700 -> 00:19:42.180]  So in the Adam directory.
+[00:19:42.180 -> 00:19:44.020]  He starts including these.
+[00:19:44.440 -> 00:19:45.440]  Now, um.
+[00:19:46.440 -> 00:19:49.120]  You can call these DLLs.
+[00:19:49.680 -> 00:19:52.940]  What they are is just code that's in Adam's.
+[00:19:52.980 -> 00:19:53.400]  Now.
+[00:19:54.000 -> 00:19:55.900]  Each task has heaps.
+[00:19:56.340 -> 00:19:58.620]  And if a task gets killed.
+[00:19:58.900 -> 00:20:01.280]  The memory in the heap gets returned.
+[00:20:01.640 -> 00:20:04.740]  So it is important to keep track of who did what.
+[00:20:05.180 -> 00:20:05.960]  So, um.
+[00:20:06.160 -> 00:20:07.240]  Adam never dies.
+[00:20:07.520 -> 00:20:07.940]  And so.
+[00:20:08.800 -> 00:20:11.160]  If Adam compiles some code.
+[00:20:11.160 -> 00:20:13.420]  Then it's like a DLL.
+[00:20:13.680 -> 00:20:14.160]  Um.
+[00:20:15.140 -> 00:20:17.700]  So it's really, really simple to make a DLL.
+[00:20:17.760 -> 00:20:18.780]  As a matter of fact.
+[00:20:18.940 -> 00:20:19.840]  I can just.
+[00:20:20.220 -> 00:20:21.640]  So here's my packages.
+[00:20:22.300 -> 00:20:23.520]  I don't even have to.
+[00:20:23.660 -> 00:20:24.820]  I can just say.
+[00:20:24.880 -> 00:20:25.020]  Uh.
+[00:20:25.160 -> 00:20:26.600]  I'm going to make a function here.
+[00:20:29.540 -> 00:20:30.020]  Woot.
+[00:20:40.220 -> 00:20:41.380]  That's not very funny.
+[00:20:45.600 -> 00:20:46.820]  So now I have.
+[00:20:46.840 -> 00:20:47.640]  I have some code.
+[00:20:48.160 -> 00:20:48.860]  In my.
+[00:20:50.520 -> 00:20:51.580]  Now if I reboot.
+[00:20:53.200 -> 00:20:54.060]  Now immediately.
+[00:20:54.300 -> 00:20:55.520]  In my symbol table.
+[00:20:55.620 -> 00:20:56.600]  I have a function here.
+[00:20:56.600 -> 00:20:56.720]  And.
+[00:20:57.580 -> 00:20:58.100]  Okay.
+[00:20:58.840 -> 00:21:00.880]  So it's that easy to make a DLL.
+[00:21:00.900 -> 00:21:02.180]  So all you have to do.
+[00:21:02.380 -> 00:21:03.380]  Put in include.
+[00:21:03.580 -> 00:21:05.120]  And then your code will be.
+[00:21:06.340 -> 00:21:06.860]  Now.
+[00:21:07.180 -> 00:21:07.520]  It's.
+[00:21:07.940 -> 00:21:09.460]  Now what if you want.
+[00:21:09.600 -> 00:21:10.580]  An application.
+[00:21:10.940 -> 00:21:11.360]  To.
+[00:21:11.440 -> 00:21:12.060]  To have.
+[00:21:12.200 -> 00:21:13.040]  Global variables.
+[00:21:13.640 -> 00:21:14.160]  Well.
+[00:21:14.540 -> 00:21:15.940]  That's pretty easy too.
+[00:21:16.120 -> 00:21:16.200]  Uh.
+[00:21:19.320 -> 00:21:19.840]  Uh.
+[00:21:20.680 -> 00:21:21.600]  I can say.
+[00:21:21.660 -> 00:21:22.280]  I 64.
+[00:21:23.580 -> 00:21:24.520]  Me global.
+[00:21:27.700 -> 00:21:28.220]  Okay.
+[00:21:28.220 -> 00:21:29.020]  Now if I reboot.
+[00:21:30.830 -> 00:21:31.770]  I can say.
+[00:21:31.810 -> 00:21:32.130]  Me.
+[00:21:32.270 -> 00:21:32.790]  I 64.
+[00:21:32.790 -> 00:21:33.630]  Global.
+[00:21:34.110 -> 00:21:34.550]  Equals.
+[00:21:34.550 -> 00:21:34.750]  One.
+[00:21:34.870 -> 00:21:35.110]  Two.
+[00:21:35.170 -> 00:21:35.450]  Four.
+[00:21:35.530 -> 00:21:35.810]  Five.
+[00:21:35.810 -> 00:21:36.130]  Six.
+[00:21:36.590 -> 00:21:38.050]  I can come over to here.
+[00:21:39.030 -> 00:21:40.390]  Now it's going to find it.
+[00:21:40.450 -> 00:21:40.870]  Now.
+[00:21:41.150 -> 00:21:42.710]  This is just another task.
+[00:21:42.910 -> 00:21:43.810]  It was Adam.
+[00:21:43.890 -> 00:21:44.410]  That compiled.
+[00:21:45.270 -> 00:21:45.710]  The.
+[00:21:45.790 -> 00:21:45.870]  Uh.
+[00:21:46.890 -> 00:21:47.950]  The local files.
+[00:21:48.310 -> 00:21:49.170]  In the make.
+[00:21:49.510 -> 00:21:50.270]  In the home.
+[00:21:50.350 -> 00:21:50.850]  Make home.
+[00:21:51.070 -> 00:21:51.450]  Oh well.
+[00:21:51.530 -> 00:21:51.910]  I uh.
+[00:21:52.990 -> 00:21:53.430]  Anyway.
+[00:21:53.550 -> 00:21:53.970]  Trust me.
+[00:21:54.010 -> 00:21:54.310]  Trust me.
+[00:21:54.350 -> 00:21:55.570]  If it doesn't find it.
+[00:21:55.630 -> 00:21:56.770]  It searches the parent.
+[00:21:57.110 -> 00:21:57.810]  And there's.
+[00:21:58.230 -> 00:21:59.230]  There's a make home.
+[00:21:59.310 -> 00:22:00.190]  In the parent directory.
+[00:22:01.270 -> 00:22:01.710]  Anyway.
+[00:22:03.150 -> 00:22:04.650]  I got kind of fancy.
+[00:22:04.730 -> 00:22:05.590]  It's probably confusing.
+[00:22:07.780 -> 00:22:08.660]  So anyway.
+[00:22:08.760 -> 00:22:09.160]  So this.
+[00:22:09.220 -> 00:22:10.440]  This is a global variable.
+[00:22:12.180 -> 00:22:12.740]  Uh.
+[00:22:13.040 -> 00:22:13.400]  Uh.
+[00:22:14.800 -> 00:22:16.200]  It's a system variable.
+[00:22:16.480 -> 00:22:16.720]  It's.
+[00:22:17.000 -> 00:22:19.460]  Now what if you wanted a separate one.
+[00:22:20.400 -> 00:22:22.880]  Now there are a couple cases where uh.
+[00:22:23.760 -> 00:22:25.080]  Well here's what you do.
+[00:22:25.240 -> 00:22:26.360]  You make a frame.
+[00:22:29.000 -> 00:22:29.560]  F1.
+[00:22:30.640 -> 00:22:31.680]  And then read.
+[00:22:31.680 -> 00:22:32.640]  Read about frames.
+[00:22:33.500 -> 00:22:34.760]  What these are.
+[00:22:34.800 -> 00:22:35.220]  Are.
+[00:22:35.260 -> 00:22:35.580]  Are.
+[00:22:35.600 -> 00:22:36.460]  What are the variables that.
+[00:22:36.500 -> 00:22:39.100]  That are stuck in the symbol table with the name.
+[00:22:39.640 -> 00:22:41.380]  So we want frame add.
+[00:22:42.600 -> 00:22:43.580]  Name value.
+[00:22:43.860 -> 00:22:44.340]  Okay.
+[00:22:45.140 -> 00:22:45.700]  So.
+[00:22:45.700 -> 00:22:46.840]  If I say uh.
+[00:22:47.980 -> 00:22:48.940]  Frame add.
+[00:22:53.830 -> 00:22:54.790]  I don't know.
+[00:23:03.910 -> 00:23:04.990]  Frame pointer add.
+[00:23:05.990 -> 00:23:07.830]  Now it's going to give us a pointer back.
+[00:23:08.050 -> 00:23:08.250]  But.
+[00:23:08.730 -> 00:23:10.070]  Now if I say who.
+[00:23:11.910 -> 00:23:12.670]  Minus r.
+[00:23:15.440 -> 00:23:17.620]  I don't know is not a public symbol.
+[00:23:19.280 -> 00:23:20.640]  It's a frame pointer.
+[00:23:20.640 -> 00:23:20.700]  But.
+[00:23:20.700 -> 00:23:20.720]  It's a frame pointer.
+[00:23:20.720 -> 00:23:29.540]  basically now we have a we have a we have a value that is now the let's
+[00:23:31.200 -> 00:23:44.480]  suppose you had a well I'll show you an example I have a function to make a
+[00:23:44.480 -> 00:23:55.650]  noise like an explosion noise or a gunshot it makes a noise let's make a
+[00:23:55.650 -> 00:24:06.800]  longer noise now what it has to do is is right to the speaker so this is
+[00:24:06.800 -> 00:24:14.640]  actually spawning a task let's let's go ahead and look at the wallpaper it's
+[00:24:16.680 -> 00:24:25.550]  actually spawning a task with the it spawns it now let's do two seconds it's
+[00:24:29.450 -> 00:24:38.080]  spawning a task and to make a long story short let's say you have two installed
+[00:24:38.080 -> 00:24:38.760]  applications
+[00:24:39.320 -> 00:24:48.660]  like ctrl R makes bright the mesh editor let's say you call the mesh
+[00:24:48.660 -> 00:24:54.500]  editor from another location from another task it has variables that are
+[00:24:55.760 -> 00:25:01.220]  global variables but they each need their own global variables and so they
+[00:25:01.220 -> 00:25:09.160]  use a frame by the store of a symbol in the in the symbol table now what I
+[00:25:09.160 -> 00:25:18.400]  do when I I have the option of adding symbols to the task task record so
+[00:25:19.000 -> 00:25:24.780]  that's kind of my privilege I can just come in here now you could do it but it
+[00:25:24.780 -> 00:25:30.100]  would only you would have a problem if you upgrade it you just you can just
+[00:25:30.100 -> 00:25:37.740]  throw a symbol into the task record and now you have a let's say you wanted a
+[00:25:37.740 -> 00:25:39.140]  frame for mesh work or да Columbia ed studio and you want your menu to be a
+[00:25:39.160 -> 00:25:47.990]  you can put a you can put a variable into the task record so that's how that works let's see
+[00:25:47.990 -> 00:26:07.130]  what God says now I have I was gonna say I have a there's a there's another type of lock I have
+[00:26:07.130 -> 00:26:23.110]  situations where I you can sort of it's like import but my my my function is different I do
+[00:26:23.110 -> 00:26:37.870]  this I can change tasks in four million times a second watch this so if I say while true yield I
+[00:26:37.870 -> 00:26:44.710]  can change tasks four and a half million times a second it is actually faster to change a task
+[00:26:44.710 -> 00:26:51.930]  than it is to read an IO port IO ports take about I think they take I think they're either two
+[00:26:51.930 -> 00:26:55.230]  megahertz or six hundred kilohertz
+[00:26:55.250 -> 00:27:04.760]  I always forget anyway so I can I can read a I can I can change tasks faster than I can read a
+[00:27:04.760 -> 00:27:12.140]  port that's because I use I don't mess with address maps everything just that's why my
+[00:27:12.140 -> 00:27:18.200]  operating system kicks ass anyway so it's simple it's elegant once you understand the concept
+[00:27:18.200 -> 00:27:25.540]  everything just falls naturally into place I don't need DLL's I just have Adam at boot compile stuff
+[00:27:25.540 -> 00:27:26.580]  and then we can we can just go ahead and just go ahead and just go ahead and just go ahead and
+[00:27:26.580 -> 00:27:37.500]  we we get we inherit his symbol table and I don't need well anyway so that's how that works so as a
+[00:27:37.500 -> 00:27:42.680]  matter of fact have you ever seen this demonstration I can go into the the root
+[00:27:42.680 -> 00:27:50.640]  directory now if it if you have a file missing in your home directory it searches the parent
+[00:27:50.640 -> 00:27:56.500]  which is the root so there's default files for your home you could delete all the files
+[00:27:56.580 -> 00:28:04.020]  in your home and it would use the defaults in the root that's just how the file system works so
+[00:28:04.020 -> 00:28:11.720]  we're going to we're going to turn echo on and now we're going to reboot let's let's let's do it this
+[00:28:11.720 -> 00:28:22.720]  way just to be dramatic so here's here's my boot loader I'm going to press 1 now this code normally
+[00:28:22.720 -> 00:28:34.220]  gets compiled really fast but we slowed down so you could see it so I try to compile as much just
+[00:28:34.420 -> 00:28:44.220]  in time as possible there's advantages why not do it you don't have object files you don't have
+[00:28:44.220 -> 00:28:55.000]  executable files you just have source so it's also there are things that are possible with
+[00:28:55.000 -> 00:29:05.460]  just-in-time that are not possible for example you can I have okay so I defined
+[00:29:07.320 -> 00:29:15.580]  GR text width these are defined constants these are constants but they could you can make a
+[00:29:15.580 -> 00:29:25.840]  variable at one time be a constant later so sometimes you have constants that you wouldn't
+[00:29:25.840 -> 00:29:33.640]  have normally when you do just-in-time let's say you're my system only does one resolution
+[00:29:33.640 -> 00:29:35.840]  but let's say you you
+[00:29:36.240 -> 00:29:47.440]  and instead of having a flexible resolution, you can have a constant, and it would know that.
+[00:29:49.300 -> 00:30:03.660]  Anyway, if you're running with source code, then it's better able to handle future changes.
+[00:30:03.660 -> 00:30:11.560]  Now, I don't promise backward compatibility, but let's say that I had an operating system function.
+[00:30:12.200 -> 00:30:18.660]  How about getString?
+[00:30:20.260 -> 00:30:27.720]  Let's say for some reason I wanted to add an argument, and I gave it a default.
+[00:30:28.660 -> 00:30:34.680]  Now, if you're operating from source code, and it's just-in-time compiling,
+[00:30:34.940 -> 00:30:42.460]  I can add that argument, and it's not going to affect-your code is going to stay compatible.
+[00:30:43.400 -> 00:30:54.320]  Now, what if I-what if you're operating from source, and I change my text?
+[00:30:55.000 -> 00:31:01.180]  So, these are the defines for my text widgets.
+[00:31:03.080 -> 00:31:05.560]  I can come in here and renumber these.
+[00:31:06.540 -> 00:31:11.000]  And if you're operating from source, it's not even going to notice.
+[00:31:11.220 -> 00:31:18.880]  It's going to-so there's a lot of compatibility protection, backward compatibility protection.
+[00:31:19.900 -> 00:31:22.340]  But I don't promise backward compatibility.
+[00:31:22.800 -> 00:31:37.530]  Down the road, we might-it might be-well, I want this to crystallize into a diamond of perfection of 100,000 lines.
+[00:31:37.850 -> 00:31:39.290]  That lasts 1,000 years.
+[00:31:40.290 -> 00:31:41.330]  That's the goal.
+[00:31:41.990 -> 00:31:53.090]  And I like to say, if you design as though it's going to change in the future, that means you're not-that means it's not perfect.
+[00:31:53.330 -> 00:31:54.610]  Perfect means it's done.
+[00:31:54.950 -> 00:32:08.250]  When they designed the BMP file format, they put a header, and they said, what's the header size?
+[00:32:10.150 -> 00:32:14.330]  That was so they could change it in the future and have backward compatibility.
+[00:32:14.930 -> 00:32:15.930]  But guess what?
+[00:32:16.110 -> 00:32:19.350]  They went crazy, and they put all kinds of crap.
+[00:32:19.630 -> 00:32:23.630]  And so now it's a worthless file format.
+[00:32:24.230 -> 00:32:29.050]  So what that means is pretend it's perfect.
+[00:32:29.250 -> 00:32:32.130]  And don't design-don't put any flexibility.
+[00:32:32.870 -> 00:32:35.090]  Pretend this is the end, and then it's perfect.
+[00:32:35.590 -> 00:32:39.510]  And if you can't honestly say it's perfect, then you've got to fix it.
+[00:32:39.510 -> 00:32:48.660]  fix something because um design is though it's perfect um so anyway so that's kind of so i don't
+[00:32:48.660 -> 00:32:54.780]  promise backward compatibility and i i promise that anything that doesn't seem perfect i change
+[00:32:54.780 -> 00:33:03.740]  immediately regardless of consequences so anyway and we have a limit of 100 000 lines that's what
+[00:33:03.740 -> 00:33:15.700]  i set so that it'll stay um small i want when when you hit f1 oops when you hit f1 i want this
+[00:33:15.700 -> 00:33:24.260]  to be cozy this is the index of help and uh i want you to say wow i can i can master that that's not
+[00:33:24.260 -> 00:33:31.800]  too bad like here's frames that's not too bad here's here's if you want to get a god word or
+[00:33:31.800 -> 00:33:33.920]  bible passage that's under god
+[00:33:33.920 -> 00:33:44.050]  the graphics routines there's a lot in here but you can master this you can i want a teenager to
+[00:33:44.050 -> 00:33:51.650]  to eagerly memorize every or get familiar with the entire thing once you can see the the light
+[00:33:51.650 -> 00:33:59.010]  at the end of the tunnel and once you can um get the whole thing in your head it gives you a level
+[00:33:59.010 -> 00:34:05.750]  of comfort and a level of command you can you're in charge you know what you're doing that makes
+[00:34:05.750 -> 00:34:06.390]  all the difference
+[00:34:06.390 -> 00:34:12.730]  instead of being lost and you can have confidence you can know what you're doing that's one of the
+[00:34:12.730 -> 00:34:17.830]  reasons i don't want multiple architectures and i don't want multiple languages because i want this
+[00:34:17.830 -> 00:34:24.850]  small enough like like we had a commodore and we could master the commodore so i want this small
+[00:34:24.850 -> 00:34:26.290]  like that so anyway

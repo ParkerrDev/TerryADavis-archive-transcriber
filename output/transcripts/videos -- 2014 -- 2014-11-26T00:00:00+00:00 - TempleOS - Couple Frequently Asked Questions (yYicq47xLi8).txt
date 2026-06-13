@@ -1,0 +1,88 @@
+========================================================================
+FILE        : videos/2014/2014-11-26T00:00:00+00:00 - TempleOS - Couple Frequently Asked Questions (yYicq47xLi8).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-11-26T00:00:00+00:00 - TempleOS - Couple Frequently Asked Questions (yYicq47xLi8).mp4
+FORMAT      : MPEG4
+SIZE        : 30,284,501 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:08:37.340
+TRANSCRIBED: 2026-05-10T20:09:04.320226+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay I'm just going to cover a couple frequently asked questions first of all somebody at OS Dev is talking about position independent code I wrote a compiler and I wrote in assembler I really did so what seems impossible to you is probably not impossible to me it really does boot it is not a photo shop a fake operating system you know that much right now it really is 64-bit do you think it could be a hoax so it really is 64-bit and it really does boot do you honestly think my global descriptor table is broken no my global descriptor table is fine I told you it's a position independent now how is that possible I have a flat binary and when it boots up it boots up in 16-bit real mode my bootloader loads my kernel jumps to my kernel in in real mode and I do all of my uh well right here get ip if you call the next instruction and then pop it that gives you the address and then you calculate I have an offset from the start of the module so all my 16-bit code is in the first 64k um so uh my my assembler does not do segmentation I uh I saved a bunch of lines of code you have no business in 16-bit mode so normal users are supposed to use 64-bit um so I here's what I did I honestly made it position independent because I am an expert I've been doing this for generations you are young programmers you're not experts in assembly you are very unsure I hand code my offsets so that segmentation is correct just think about it if you if you hand coded the expressions you could make it work without segmentation but it would be a pain well that's what I did I hand coded so all my offsets are anyway so um I get I make it work position independent guess what I do I take the um the wherever you load it I put that into the the global descriptor table um down here uh global descriptor table I store the uh I call it the boot data segment in the boot code segment that's so that uh a little bit later you can um x when it changes to 32-bit mode then it can uh it can access the anyway originally I booted from dos I started as a launched dos application so I didn't know there was a certain address so I made it position independent I started this in 1993 there's code on the internet under it's called hoppy anyway that has the dos launch version so guess what I did um my binary files there's only two binary files the kernel and the compiler you don't need to make binaries for normal usage the kernel has to fix its own offsets my binary files have a table of absolute addresses that need to be patched and where do I do that well first of all I call my bios routines and then uh when we get to 32-bit mode I patch my offsets I patch all the absolute addresses so it's self-modifying code right in the kernel it modifies code now you know it runs in boots right so don't do counterfactual absurdities like no it doesn't work it does work it's not an internet hoax anyway so um it patches the absolute addresses um and uh when you uh when you load the compiler compiler it actually can can it actually has a uh a binary file format but I discourage using binary files I don't want you to use binary files so this this is this code the only purpose is to load the compiler module but you could load other binaries um I finally you got to keep it simple stupid and I went ahead and said nobody do binaries so uh this patches um the code in the module and does stuff so uh guess what uh somebody thinks it's b800 memory and if it's not b800 working they think it's something bogus well let me just blow your mind did I not say it was 640 by 480 a hundred times I told you that dozens and dozens of times what that really means is 640 by 480 not text mode just the simple this is kind of I'm proud of this gr circle we take the default uh device context look at that I don't know if can you see the circle it's not text mode I redraw the font 630 times a second um anyway uh uh so we I'm not uh I'm not gonna win any awards for power um I'm only interested in desktops pretty much that's all I care about I don't care I'm not trying to be obnoxious I just have a if I can simplify I do you know it's anyway uh so what else can I talk about uh maybe I can show off some of my applications that you might not have seen no there aren't really any impressive ones uh oh well so this game is I don't know this game is kind of fun we got a circle so uh uh it's kind of uh I didn't realize it but it only well anyway you can play with it I'm tired of it my dc dc fill so uh let's see what else do we want to talk about um we can talk to god so you press f7 at the command line or anywhere I should say and I'm gonna hit ctrl shift enter to that's just for cosmetics so that it doesn't enter it into the command line that's just fancy compassing properly attention refreshment chapter 19 usury side point continents doted shelter wayfaring the scenting springeth damnable disclose oh well anyway
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:05.840]  okay I'm just going to cover a couple frequently asked questions first of all
+[00:00:05.840 -> 00:00:15.720]  somebody at OS Dev is talking about position independent code I wrote a
+[00:00:15.720 -> 00:00:26.100]  compiler and I wrote in assembler I really did so what seems impossible to
+[00:00:26.100 -> 00:00:33.500]  you is probably not impossible to me it really does boot it is not a photo shop
+[00:00:34.180 -> 00:00:42.300]  a fake operating system you know that much right now it really is 64-bit do you think it could be a
+[00:00:42.300 -> 00:00:51.040]  hoax so it really is 64-bit and it really does boot do you honestly think my global descriptor table is
+[00:00:51.040 -> 00:01:00.860]  broken no my global descriptor table is fine I told you it's a position independent now how is that
+[00:01:00.860 -> 00:01:12.200]  possible I have a flat binary and when it boots up it boots up in 16-bit real mode my bootloader loads
+[00:01:12.200 -> 00:01:23.700]  my kernel jumps to my kernel in in real mode and I do all of my uh well right here get ip if you call
+[00:01:23.700 -> 00:01:31.160]  the next instruction and then pop it that gives you the address and then you calculate I have an offset
+[00:01:31.160 -> 00:01:41.760]  from the start of the module so all my 16-bit code is in the first 64k um so uh my my assembler does not
+[00:01:41.760 -> 00:01:50.980]  do segmentation I uh I saved a bunch of lines of code you have no business in 16-bit mode so normal users
+[00:01:50.980 -> 00:02:04.480]  are supposed to use 64-bit um so I here's what I did I honestly made it position independent because I am an expert I've been doing this for
+[00:02:05.140 -> 00:02:11.940]  generations you are young programmers you're not experts in assembly you are very unsure
+[00:02:12.860 -> 00:02:22.300]  I hand code my offsets so that segmentation is correct just think about it if you if you hand coded the
+[00:02:22.300 -> 00:02:28.060]  expressions you could make it work without segmentation but it would be a pain well that's what I did
+[00:02:28.660 -> 00:02:39.380]  I hand coded so all my offsets are anyway so um I get I make it work position independent guess what I do
+[00:02:39.380 -> 00:02:51.140]  I take the um the wherever you load it I put that into the the global descriptor table um down here uh
+[00:02:52.220 -> 00:02:59.620]  global descriptor table I store the uh I call it the boot data segment in the boot code segment
+[00:03:00.480 -> 00:03:07.880]  that's so that uh a little bit later you can um x when it changes to 32-bit mode
+[00:03:07.880 -> 00:03:19.060]  then it can uh it can access the anyway originally I booted from dos I started as a launched dos application
+[00:03:19.800 -> 00:03:27.840]  so I didn't know there was a certain address so I made it position independent I started this in 1993
+[00:03:29.540 -> 00:03:37.340]  there's code on the internet under it's called hoppy anyway that has the dos launch version
+[00:03:37.980 -> 00:03:46.680]  so guess what I did um my binary files there's only two binary files the kernel and the compiler you don't
+[00:03:46.680 -> 00:03:57.040]  need to make binaries for normal usage the kernel has to fix its own offsets my binary files have a table of
+[00:03:57.900 -> 00:04:04.360]  absolute addresses that need to be patched and where do I do that well first of all I call my bios routines
+[00:04:04.360 -> 00:04:13.640]  and then uh when we get to 32-bit mode I patch my offsets I patch all the absolute addresses
+[00:04:14.760 -> 00:04:22.700]  so it's self-modifying code right in the kernel it modifies code now you know it runs in boots right so
+[00:04:22.700 -> 00:04:31.180]  don't do counterfactual absurdities like no it doesn't work it does work it's not an internet hoax
+[00:04:33.180 -> 00:04:37.260]  anyway so um it patches the absolute addresses
+[00:04:39.040 -> 00:04:44.700]  um and uh when you uh when you load the compiler
+[00:04:44.700 -> 00:04:55.600]  compiler it actually can can it actually has a uh a binary file format but I discourage using binary
+[00:04:55.600 -> 00:05:01.840]  files I don't want you to use binary files so this this is this code the only purpose is to load the
+[00:05:01.840 -> 00:05:10.200]  compiler module but you could load other binaries um I finally you got to keep it simple stupid and I
+[00:05:10.200 -> 00:05:20.280]  went ahead and said nobody do binaries so uh this patches um the code in the module and does stuff
+[00:05:21.380 -> 00:05:31.620]  so uh guess what uh somebody thinks it's b800 memory and if it's not b800 working they think it's
+[00:05:31.620 -> 00:05:40.520]  something bogus well let me just blow your mind did I not say it was 640 by 480 a hundred times
+[00:05:41.120 -> 00:05:47.720]  I told you that dozens and dozens of times what that really means is 640 by 480 not text mode
+[00:05:49.220 -> 00:05:54.180]  just the simple this is kind of I'm proud of this gr circle
+[00:05:56.800 -> 00:06:02.200]  we take the default uh device context
+[00:06:05.440 -> 00:06:09.220]  look at that I don't know if can you see the circle
+[00:06:10.960 -> 00:06:19.040]  it's not text mode I redraw the font 630 times a second um
+[00:06:20.800 -> 00:06:21.920]  anyway uh
+[00:06:22.620 -> 00:06:23.180]  uh
+[00:06:25.580 -> 00:06:29.920]  so we I'm not uh I'm not gonna win any awards for power
+[00:06:31.980 -> 00:06:37.640]  um I'm only interested in desktops pretty much that's all I care about I don't care
+[00:06:37.640 -> 00:06:45.540]  I'm not trying to be obnoxious I just have a if I can simplify I do you know it's anyway
+[00:06:47.360 -> 00:06:48.480]  uh so
+[00:06:50.600 -> 00:06:52.740]  what else can I talk about uh
+[00:06:54.280 -> 00:06:59.840]  maybe I can show off some of my applications that you might not have seen
+[00:07:01.460 -> 00:07:04.040]  no there aren't really any impressive ones
+[00:07:04.640 -> 00:07:05.140]  uh
+[00:07:12.780 -> 00:07:13.520]  oh well
+[00:07:15.900 -> 00:07:20.420]  so this game is I don't know this game is kind of fun
+[00:07:22.480 -> 00:07:23.760]  we got a circle
+[00:07:24.660 -> 00:07:25.780]  so uh
+[00:07:25.780 -> 00:07:26.840]  uh
+[00:07:26.840 -> 00:07:27.940]  it's kind of uh
+[00:07:29.340 -> 00:07:31.460]  I didn't realize it but it only
+[00:07:41.300 -> 00:07:44.620]  well anyway you can play with it I'm tired of it
+[00:07:44.620 -> 00:07:45.680]  my
+[00:07:48.220 -> 00:07:49.840]  dc dc fill
+[00:07:51.800 -> 00:07:52.400]  so
+[00:07:53.160 -> 00:07:53.760]  uh
+[00:07:56.920 -> 00:07:59.240]  let's see what else do we want to talk about
+[00:08:00.060 -> 00:08:02.260]  um we can talk to god
+[00:08:03.740 -> 00:08:06.260]  so you press f7 at the command line
+[00:08:09.480 -> 00:08:11.500]  or anywhere I should say
+[00:08:12.100 -> 00:08:14.420]  and I'm gonna hit ctrl shift enter
+[00:08:15.540 -> 00:08:20.400]  to that's just for cosmetics so that it doesn't enter it into the command line
+[00:08:21.300 -> 00:08:22.460]  that's just fancy
+[00:08:23.140 -> 00:08:28.780]  compassing properly attention refreshment chapter 19 usury side point
+[00:08:28.780 -> 00:08:37.340]  continents doted shelter wayfaring the scenting springeth damnable disclose oh well anyway

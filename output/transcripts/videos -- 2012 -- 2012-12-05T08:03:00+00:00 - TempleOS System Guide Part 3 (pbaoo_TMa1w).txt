@@ -1,0 +1,172 @@
+========================================================================
+FILE       : videos/2012/2012-12-05T08:03:00+00:00 - TempleOS System Guide Part 3 (pbaoo_TMa1w).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2012/2012-12-05T08:03:00+00:00 - TempleOS System Guide Part 3 (pbaoo_TMa1w).mp4
+FORMAT     : MPEG4
+SIZE       : 53,959,807 bytes
+LANGUAGE   : en
+MODEL      : mlx-community/whisper-large-v3-turbo
+DURATION   : 00:14:56.400
+TRANSCRIBED: 2026-05-07T23:20:01.109385+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay so if I come over here and type FS to get the task record you see this number matches the number up there if I say X crosstalk 0x7fd15028 I enter the that's like the process ID it's actually we just we just use the word task not process anyway if I do directory carriage return then it sent that to this guy's input buffer now if we we can do this with Adam as well Adam Adam sits in a server tat server loop we don't need a carriage return with Adam anyway so he sits waiting Adam is like the is Adams heap is like kernel memory it never gets freed so if you want something never to get freed or you want code that that's never going to get freed then Adam include and he'll include a file so we go to a demo demographics and fish and we Adam include okay so the wallpaper is Adam included now if we say a task rep this is a I don't use this very often I just use a wallpaper normally this shows a hierarchy of the tasks Adam is the first task created and he has children on on he has that the this is the the terminal task this is the frame grabber that's making this video then the window manager updates the screen 60 times a second and does a couple other things then there's this there's a special server task free on each core it's kind of like the atom for that core anyway if you click on these it'll kill the task we don't want to do that Adam never dies his memory never gets freed anyway so the the the window manager calls this routine 60 times a second update the screen it has a cache well okay first it has a an array for the text it writes the background then it does the foreground the foreground can be shifted according to a superscript and subscript and marquee you see up there there's a marquee that's done with shifting it off the axis any off the grid it calls that update window we talked about earlier so the the buffer is a eight eight bit together but when it does the it does the mouse cursor and then it it converts it to four bit and it only does what's changed it only only writes what's changed to the VGA memory that speeds it up a lot because the VGA memory is slow but in a worst case it doesn't speed it up so we're going to talk about the scheduler if we go to OS main the scheduler goes in a loop round robin and it doesn't save segments it just saves registration okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay I do printf debugging. Anyway, so it's round robin, and when it gets to a task, it checks if it's suspended or if it's waiting for a jiffy, wake jiffy. If it's not, it skips it, goes to the next one. It has some flags for hotkeys like Ctrl-Alt-X kills the focus task, Ctrl-Alt-Delete reboots, Ctrl-Alt-Tab switches to the next. Anyway, so now the multicore task stays in a loop, and it gets a timer interrupt 60 times a second. It stays halted. You can wake it with a, there's a software interrupt that'll wake up a core, non-maskable. Anyway, you either do a job or you do a spawn. A job is a one-time thing. A spawn is a task. So, the seth task either does the job that you tell it, or it spawns a task, and then it continues. So, multicore is done explicitly. You tell what core you want doing a job. Anyway, the timer interrupt lets it figure out how much idle time it has. That's why it gets a timer interrupt. So, we're going to talk about the file system. If it ends in .z, it's stored compressed. If we copy or move it to a name without z, then it's uncompressed. That's all there is to it. So, this file is uncompressed. Now, let's do a dump cluster, or let's do a directory star true this cluster compressed uncompressed. If you use the native file system, it keeps track of the uncompressed size. The FAT32 is all you need because you can grow files. With the native file system, you can't grow a file. Anyway, so this tells the cluster. So, it's dump cluster. You give the cluster, and then you have a bool for if you want to write. So, 0x, and then there's the cluster. And we do want to write. So, here's the cluster. So, in the file, we're going to change this text. D, let's say, FFFF. And it told us to press escape, so we press escape. Now, we do a directory. And now this file starts with DFFF. So, we wrote to the cluster directly. Anyway, there's checksums when you use the native file system. And it's 64-bit. But it won't let you grow files. That's because there was a patent on the FAT. So, now we're going to go look at... Remember, I talked about making a named frame pointer. Basically, this is an entry in the symbol table, the task symbol table, that has a value. And when we want to make a noise, like an explosion or something, we make a record that has the start frequency or the min frequency, max frequency, duration. And then we spawn a task that's in charge of that. And we have to pass it, that record. And it sticks it in its symbol table. And then when this task dies, it knows that it can free that. But anyway, so that keeps it from leaking memory. Anyway, so the compiler has an opcode table. Now, opcodes are... There's no push AD. You can't push all registers. That only works in 32-bit mode. All stack operations are 64-bit in 64-bit mode. That means if you push a 32-bit register, it pushes all 64 bits. It doesn't clear them. Now, XOR clears the upper 32, or MOVE clears the upper 32. So, now push... My assembler doesn't recognize end of line. So, it tells by context when the instruction starts and stops. Sometimes you need a semicolon, like define byte, or define u8. Anyway, you need a semicolon at the end of that. Anyway, my compiler has an interrupt keyword. So, if we dump this unassemble address keyboard interrupt handler comma 100. Okay, so because we had an interrupt handler... Because we had an interrupt keyword... Because we had an interrupt keyword... It uses a IRET when it exits instead of a normal return. I think it pushes the registers. It doesn't normally push because it interrupts. You want to save the registers. Anyway, so my compiler has an interrupt keyword... That's like the old Turbo C had that. Anyway, so if you go to the lectures... If you go to the lectures, PCI interrupt... These give some interrupt routines. And end of interrupt tells how to do that. So, there's a PCI rep... Looks up the PCI devices. I only do HD audio, but that support almost never works. So, this tells the bus device and function. You might want to know about that. This is a nightmare. Anyway, another report is memory report. Mem rep tells the status of the heaps and stuff. So, the low memory has the OS main module and the VGA. And the atom task has its own heap. There's a... This tells just some... It's not 100% accounted for, but this tells... The window manager has the buffers for the graphics and the device context and stuff. Anyway... And then the other tasks... There's an uncached heap. This is for... If you need to make... Like for the audio buffers... You want the audio buffers allocated off uncached for DMA. Anyway... So, when you do a malloc... You pass a heap control by default. It's either a task or a heap control. It tells by the signature. Anyway... And... There's... Now, there's something called the BIOS 32. Remember we did that PCI rep? Well, the PCI registers are accessed with a special BIOS call that's a 32-bit BIOS. So, it has to change out of 64-bit down to 32-bit. And then it lets you read and write the PCI registers. Anyway... You might want to... To... When you're debugging... You might want to intercept the... The fault handler. And... You could make... You recompile the kernel after you put some debug code in here. Anyway... It's kind of tricky. But if you... That... I just thought I'd let you know. Anyway... So... Now, there's map files. The way it knows symbols is... When... When it boots, it loads map files. And... Map files... Are for the main... OS main and for the compiler. That's how it... That's how it... Starts... That's how it... How it's able to do source debugging. It keeps track of line numbers and stuff. It's actually... The map files are... Are... Have... Binary data... In there...
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:07.960]  okay so if I come over here and type FS to get the task record you see this
+[00:00:07.960 -> 00:00:23.520]  number matches the number up there if I say X crosstalk 0x7fd15028
+[00:00:24.120 -> 00:00:31.420]  I enter the that's like the process ID it's actually we just we just use the word task not process
+[00:00:31.420 -> 00:00:43.140]  anyway if I do directory carriage return then it sent that to this guy's input buffer now if we we
+[00:00:43.140 -> 00:00:53.360]  can do this with Adam as well Adam Adam sits in a server tat server loop we don't need a
+[00:00:53.360 -> 00:01:01.480]  carriage return with Adam anyway so he sits waiting Adam is like the is Adams heap is like
+[00:01:01.480 -> 00:01:07.520]  kernel memory it never gets freed so if you want something never to get freed or you want code
+[00:01:07.520 -> 00:01:20.920]  that that's never going to get freed then Adam include and he'll include a file so we go to a demo
+[00:01:24.980 -> 00:01:35.760]  demographics and fish and we Adam include okay so the wallpaper is Adam included now if we say a
+[00:01:40.440 -> 00:01:48.100]  task rep this is a I don't use this very often I just use a wallpaper normally this shows a hierarchy of
+[00:01:48.100 -> 00:01:58.940]  the tasks Adam is the first task created and he has children on on he has that the this is the the terminal
+[00:01:58.940 -> 00:02:05.300]  task this is the frame grabber that's making this video then the window manager updates the screen 60
+[00:02:05.300 -> 00:02:11.360]  times a second and does a couple other things then there's this there's a special server task free on
+[00:02:11.360 -> 00:02:21.560]  each core it's kind of like the atom for that core anyway if you click on these it'll kill the task we
+[00:02:21.560 -> 00:02:33.560]  don't want to do that Adam never dies his memory never gets freed anyway so the the the window manager
+[00:02:34.980 -> 00:03:03.120]  calls this routine 60 times a second update the screen it has a cache well okay first it has a an array for the text it writes the background then it does the foreground the foreground can be shifted according to a superscript and subscript and marquee you see up there there's a marquee that's done with shifting it off the axis
+[00:03:03.120 -> 00:03:33.000]  any off the grid it calls that update window we talked about earlier so the the buffer is a eight eight bit together but when it does the it does the mouse cursor and then it it converts it to four bit and it only does what's changed it only only
+[00:03:33.000 -> 00:04:02.980]  writes what's changed to the VGA memory that speeds it up a lot because the VGA memory is slow but in a worst case it doesn't speed it up so we're going to talk about the scheduler if we go to OS main the scheduler goes in a loop round robin and it doesn't save segments it just saves registration
+[00:04:10.720 -> 00:04:19.580]  okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay okay
+[00:04:19.580 -> 00:04:39.260]  I do printf debugging. Anyway, so it's round robin, and when it gets to a task, it checks if it's suspended or if it's waiting for a jiffy, wake jiffy. If it's not, it skips it, goes to the next one.
+[00:04:39.260 -> 00:04:53.160]  It has some flags for hotkeys like Ctrl-Alt-X kills the focus task, Ctrl-Alt-Delete reboots, Ctrl-Alt-Tab switches to the next.
+[00:04:53.160 -> 00:05:17.720]  Anyway, so now the multicore task stays in a loop, and it gets a timer interrupt 60 times a second.
+[00:05:17.720 -> 00:05:28.480]  It stays halted. You can wake it with a, there's a software interrupt that'll wake up a core, non-maskable.
+[00:05:28.920 -> 00:05:42.140]  Anyway, you either do a job or you do a spawn. A job is a one-time thing. A spawn is a task.
+[00:05:42.140 -> 00:05:53.960]  So, the seth task either does the job that you tell it, or it spawns a task, and then it continues.
+[00:05:55.620 -> 00:06:04.520]  So, multicore is done explicitly. You tell what core you want doing a job.
+[00:06:04.520 -> 00:06:12.080]  Anyway, the timer interrupt lets it figure out how much idle time it has. That's why it gets a timer interrupt.
+[00:06:13.200 -> 00:06:20.660]  So, we're going to talk about the file system. If it ends in .z, it's stored compressed.
+[00:06:21.680 -> 00:06:29.020]  If we copy or move it to a name without z, then it's uncompressed. That's all there is to it.
+[00:06:29.020 -> 00:06:46.200]  So, this file is uncompressed. Now, let's do a dump cluster, or let's do a directory star true this cluster compressed uncompressed.
+[00:06:46.200 -> 00:06:56.040]  If you use the native file system, it keeps track of the uncompressed size. The FAT32 is all you need because you can grow files.
+[00:06:56.300 -> 00:07:00.160]  With the native file system, you can't grow a file.
+[00:07:01.580 -> 00:07:04.240]  Anyway, so this tells the cluster.
+[00:07:07.860 -> 00:07:11.020]  So, it's dump cluster.
+[00:07:12.640 -> 00:07:16.260]  You give the cluster, and then you have a bool for if you want to write.
+[00:07:16.660 -> 00:07:20.620]  So, 0x, and then there's the cluster.
+[00:07:20.860 -> 00:07:22.420]  And we do want to write.
+[00:07:23.840 -> 00:07:25.420]  So, here's the cluster.
+[00:07:26.600 -> 00:07:32.700]  So, in the file, we're going to change this text.
+[00:07:33.060 -> 00:07:35.300]  D, let's say, FFFF.
+[00:07:35.660 -> 00:07:39.140]  And it told us to press escape, so we press escape.
+[00:07:39.440 -> 00:07:40.820]  Now, we do a directory.
+[00:07:42.920 -> 00:07:46.240]  And now this file starts with DFFF.
+[00:07:46.760 -> 00:07:49.420]  So, we wrote to the cluster directly.
+[00:07:50.580 -> 00:07:55.500]  Anyway, there's checksums when you use the native file system.
+[00:07:56.380 -> 00:07:57.920]  And it's 64-bit.
+[00:07:58.260 -> 00:08:00.820]  But it won't let you grow files.
+[00:08:00.820 -> 00:08:02.760]  That's because there was a patent on the FAT.
+[00:08:06.640 -> 00:08:09.420]  So, now we're going to go look at...
+[00:08:12.380 -> 00:08:19.540]  Remember, I talked about making a named frame pointer.
+[00:08:19.740 -> 00:08:25.000]  Basically, this is an entry in the symbol table, the task symbol table, that has a value.
+[00:08:26.660 -> 00:08:30.580]  And when we want to make a noise, like an explosion or something,
+[00:08:30.580 -> 00:08:40.560]  we make a record that has the start frequency or the min frequency, max frequency, duration.
+[00:08:41.080 -> 00:08:44.340]  And then we spawn a task that's in charge of that.
+[00:08:44.500 -> 00:08:48.960]  And we have to pass it, that record.
+[00:08:49.560 -> 00:08:53.000]  And it sticks it in its symbol table.
+[00:08:53.440 -> 00:08:58.220]  And then when this task dies, it knows that it can free that.
+[00:08:58.220 -> 00:09:08.660]  But anyway, so that keeps it from leaking memory.
+[00:09:10.860 -> 00:09:20.700]  Anyway, so the compiler has an opcode table.
+[00:09:24.740 -> 00:09:26.520]  Now, opcodes are...
+[00:09:26.520 -> 00:09:27.740]  There's no push AD.
+[00:09:28.080 -> 00:09:29.380]  You can't push all registers.
+[00:09:29.380 -> 00:09:31.320]  That only works in 32-bit mode.
+[00:09:32.200 -> 00:09:38.960]  All stack operations are 64-bit in 64-bit mode.
+[00:09:39.180 -> 00:09:43.500]  That means if you push a 32-bit register, it pushes all 64 bits.
+[00:09:43.620 -> 00:09:44.440]  It doesn't clear them.
+[00:09:44.920 -> 00:09:49.200]  Now, XOR clears the upper 32, or MOVE clears the upper 32.
+[00:09:52.900 -> 00:09:55.880]  So, now push...
+[00:09:58.300 -> 00:10:01.740]  My assembler doesn't recognize end of line.
+[00:10:02.620 -> 00:10:08.420]  So, it tells by context when the instruction starts and stops.
+[00:10:08.780 -> 00:10:12.780]  Sometimes you need a semicolon, like define byte, or define u8.
+[00:10:13.140 -> 00:10:15.480]  Anyway, you need a semicolon at the end of that.
+[00:10:15.480 -> 00:10:32.280]  Anyway, my compiler has an interrupt keyword.
+[00:10:32.280 -> 00:10:45.180]  So, if we dump this unassemble address keyboard interrupt handler comma 100.
+[00:10:46.860 -> 00:10:50.880]  Okay, so because we had an interrupt handler...
+[00:10:51.700 -> 00:10:53.620]  Because we had an interrupt keyword...
+[00:10:53.620 -> 00:10:56.440]  Because we had an interrupt keyword...
+[00:10:58.400 -> 00:11:04.140]  It uses a IRET when it exits instead of a normal return.
+[00:11:04.460 -> 00:11:07.240]  I think it pushes the registers.
+[00:11:07.240 -> 00:11:10.420]  It doesn't normally push because it interrupts.
+[00:11:10.440 -> 00:11:11.600]  You want to save the registers.
+[00:11:11.600 -> 00:11:19.920]  Anyway, so my compiler has an interrupt keyword...
+[00:11:22.120 -> 00:11:25.880]  That's like the old Turbo C had that.
+[00:11:26.540 -> 00:11:29.600]  Anyway, so if you go to the lectures...
+[00:11:30.240 -> 00:11:33.100]  If you go to the lectures, PCI interrupt...
+[00:11:33.100 -> 00:11:35.400]  These give some interrupt routines.
+[00:11:35.680 -> 00:11:37.760]  And end of interrupt tells how to do that.
+[00:11:41.480 -> 00:11:45.780]  So, there's a PCI rep...
+[00:11:47.000 -> 00:11:48.960]  Looks up the PCI devices.
+[00:11:50.100 -> 00:11:55.360]  I only do HD audio, but that support almost never works.
+[00:11:55.560 -> 00:11:58.480]  So, this tells the bus device and function.
+[00:11:58.800 -> 00:12:00.500]  You might want to know about that.
+[00:12:00.840 -> 00:12:02.000]  This is a nightmare.
+[00:12:02.000 -> 00:12:08.640]  Anyway, another report is memory report.
+[00:12:10.280 -> 00:12:14.000]  Mem rep tells the status of the heaps and stuff.
+[00:12:14.640 -> 00:12:19.540]  So, the low memory has the OS main module and the VGA.
+[00:12:20.640 -> 00:12:24.120]  And the atom task has its own heap.
+[00:12:25.300 -> 00:12:26.620]  There's a...
+[00:12:26.620 -> 00:12:29.260]  This tells just some...
+[00:12:29.260 -> 00:12:32.500]  It's not 100% accounted for, but this tells...
+[00:12:32.500 -> 00:12:38.600]  The window manager has the buffers for the graphics and the device context and stuff.
+[00:12:39.360 -> 00:12:40.040]  Anyway...
+[00:12:41.020 -> 00:12:43.740]  And then the other tasks...
+[00:12:43.740 -> 00:12:45.520]  There's an uncached heap.
+[00:12:45.520 -> 00:12:46.800]  This is for...
+[00:12:46.800 -> 00:12:48.500]  If you need to make...
+[00:12:48.500 -> 00:12:50.520]  Like for the audio buffers...
+[00:12:51.280 -> 00:12:55.600]  You want the audio buffers allocated off uncached for DMA.
+[00:12:56.600 -> 00:12:57.400]  Anyway...
+[00:12:57.400 -> 00:13:01.520]  So, when you do a malloc...
+[00:13:03.500 -> 00:13:06.540]  You pass a heap control by default.
+[00:13:07.720 -> 00:13:10.160]  It's either a task or a heap control.
+[00:13:10.440 -> 00:13:12.360]  It tells by the signature.
+[00:13:13.040 -> 00:13:13.680]  Anyway...
+[00:13:15.240 -> 00:13:15.360]  And...
+[00:13:18.540 -> 00:13:19.180]  There's...
+[00:13:22.460 -> 00:13:25.140]  Now, there's something called the BIOS 32.
+[00:13:25.460 -> 00:13:27.260]  Remember we did that PCI rep?
+[00:13:27.740 -> 00:13:37.800]  Well, the PCI registers are accessed with a special BIOS call that's a 32-bit BIOS.
+[00:13:37.920 -> 00:13:41.420]  So, it has to change out of 64-bit down to 32-bit.
+[00:13:41.420 -> 00:13:47.540]  And then it lets you read and write the PCI registers.
+[00:13:49.660 -> 00:13:50.460]  Anyway...
+[00:13:50.460 -> 00:13:51.420]  You might want to...
+[00:13:51.940 -> 00:13:52.560]  To...
+[00:13:52.560 -> 00:13:53.640]  When you're debugging...
+[00:13:53.640 -> 00:13:56.480]  You might want to intercept the...
+[00:13:56.480 -> 00:13:58.820]  The fault handler.
+[00:13:59.700 -> 00:14:00.100]  And...
+[00:14:00.100 -> 00:14:01.420]  You could make...
+[00:14:03.440 -> 00:14:08.400]  You recompile the kernel after you put some debug code in here.
+[00:14:08.860 -> 00:14:09.620]  Anyway...
+[00:14:09.620 -> 00:14:12.040]  It's kind of tricky.
+[00:14:12.560 -> 00:14:13.680]  But if you...
+[00:14:13.680 -> 00:14:14.280]  That...
+[00:14:14.280 -> 00:14:15.780]  I just thought I'd let you know.
+[00:14:18.140 -> 00:14:18.900]  Anyway...
+[00:14:18.900 -> 00:14:19.860]  So...
+[00:14:21.200 -> 00:14:22.860]  Now, there's map files.
+[00:14:23.160 -> 00:14:25.620]  The way it knows symbols is...
+[00:14:26.380 -> 00:14:27.060]  When...
+[00:14:27.060 -> 00:14:29.700]  When it boots, it loads map files.
+[00:14:31.300 -> 00:14:31.860]  And...
+[00:14:31.860 -> 00:14:33.200]  Map files...
+[00:14:33.200 -> 00:14:34.660]  Are for the main...
+[00:14:34.660 -> 00:14:36.060]  OS main and for the compiler.
+[00:14:36.660 -> 00:14:37.440]  That's how it...
+[00:14:38.300 -> 00:14:39.660]  That's how it...
+[00:14:40.740 -> 00:14:41.300]  Starts...
+[00:14:41.300 -> 00:14:41.940]  That's how it...
+[00:14:41.940 -> 00:14:43.720]  How it's able to do source debugging.
+[00:14:43.720 -> 00:14:46.140]  It keeps track of line numbers and stuff.
+[00:14:47.380 -> 00:14:48.500]  It's actually...
+[00:14:48.500 -> 00:14:50.500]  The map files are...
+[00:14:51.120 -> 00:14:51.500]  Are...
+[00:14:52.440 -> 00:14:53.700]  Have...
+[00:14:53.700 -> 00:14:54.500]  Binary data...
+[00:14:55.400 -> 00:14:56.400]  In there...

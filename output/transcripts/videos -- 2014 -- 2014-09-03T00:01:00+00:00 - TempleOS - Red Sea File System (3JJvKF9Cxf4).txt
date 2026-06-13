@@ -1,0 +1,461 @@
+========================================================================
+FILE        : videos/2014/2014-09-03T00:01:00+00:00 - TempleOS - Red Sea File System (3JJvKF9Cxf4).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-09-03T00:01:00+00:00 - TempleOS - Red Sea File System (3JJvKF9Cxf4).mkv
+FORMAT      : Matroska
+SIZE        : 76,496,215 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:17:56.660
+TRANSCRIBED: 2026-05-08T04:54:27.179408+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+Okay, so I want to be different from other operating systems and we have kind of eight color Crayola. We're kind of simpler. That's kind of our, we want to be delightfully simple and that's where the Red Sea file system comes in. I'm going to go to the file manager, control D, then I'm going to copy a directory, control insert on the clipboard. It doesn't, you have to be careful, it doesn't work for you. It's kind of weird. Anyway, shift insert. Okay, now we have a directory on the RAM disk. B, if we do partition report, drive B is a Red Sea file system RAM disk and it has 40,000 blocks. A block is 512 bytes. So anyway, we want to go to the RAM disk that I just copied, drive B. And this is, when I was a kid, I had a Commodore 64. And sometimes I would have to edit the disk blocks. Some of that was when we were violating copyrights. But other times I deleted stuff. And guess what? You can undelete if you, I think it's neat if the way you undelete is you go in and edit disk blocks. So let's do a directory, star, now if you, okay so dot, dot is the current directory. This is the disk cluster for the current directory. One of the most important things I want is for every kid to do a dump cluster and see. Look at that. That is a directory. There are 64 byte entries. I want it simple so that a kid can undelete or rename so that a kid can follow disk blocks. That's what my purpose is. One time I explained, I had a book called Mapping the Commodore 64. And it told what all the internal stuff did. And that's, that's what I spent a year just playing around, looking at the inside of the operating system, messing with stuff, exploring. And that's how I, that's, that was my entertainment. And it became a career. I enjoyed it so much. Anyway, so let's look on here. With the, what I want to do, here's my vision. Right now we have, we have three file systems. We have Red Sea, which is what I made from scratch. And it's beautifully simple. We have FAT32, which is from Windows. Then we have ISO 9660, which is for the CD-ROM. And what I'm proposing is getting, um, I want to make just one file system, Red Sea. I want to get other, I want to get Windows and Linux to support Red Sea, so that we can put it on a CD-ROM or, um, communicate, interact with Windows. Um, basically, uh, um, Red Sea has a, um, allocation bitmap. Let's see if we can explore that, children. Uh, where is my allocation bitmap? Um, first I wanted to explain, uh, uh, if you can get down to just one file system, then, um, as a matter of fact, this, this is the, um, when you ask for a list of files, um, it gives you, uh, the, this structure. And guess what? This structure is identical on the disk, so I just copy it bulk. And, uh, I think that's the neatest thing, that the structure in memory is the same as on the disk. This other stuff is, uh, extra. If it, to make a directory, you would do a bunch of these like that. But, um, anyway, uh, so, uh, I want to get rid of ISO 9, 6, 60, and FAT32. Then we'll have just Red Sea. And, uh, the Red Sea has, uh, let's see, uh, um, the, the first couple blocks, you have to, you have to figure out where the root directory is. Um, so, uh, it's, so, uh, the first block has the bootloader, um, and it also tells the, uh, root directory. I'm struggling to find my Red Sea. Hold on a second. I'm sorry. Anyway, it's, it's, uh, it's just like FAT. Um, so, I guess I can, I'm sorry. So, I go to my, uh, I go to my disk code. I go to Red Sea. And then I find out what the, you can see the code for when you format. You have a boot, boot structure. That's what it is. Okay. So, when you format, you have to, uh, you have to set up the boot structure. It's really easy to, to set up a disk. You have to set up the boot structure. You have to set up the allocation bitmap. And you have to set up the root directory. And that's pretty much all you have to do. Um, there's another block on the FAT32. I don't remember if I use that. I don't think I do. Um, they have a block that keeps track of the last allocated. Uh, anyway, uh, so here's my boot block. Um, it has a signature. You have to tell it where the root directory is. The first directory. And, uh, you have your boot code for, um, to load your operating system. And, uh, you have to tell it how many bitmap sectors there are. And how many total sectors there are. So, I made this as simple as possible. So, boot sectors. Let's, let's go look at the, um, the red C on this. So, uh, guess what you can do? Watch this. This is the coolest thing. Um, we're going to explore the disk block. So, here's what we do. Uh, we say, uh, C partition star P equals drive to partition. Um, and we say B. And this gets the, uh, partition. Um, we're going to do, uh, Voodoo dial. Mom's talking. Anyway, uh, partition. There's our partition. Um, we want the, uh, C boot, boot structure. Star. Or just, BR. How about BR? Now we say, uh, Um, we're going to do, Oh, this is, I don't know if this is going to work. Um, block read. Read blocks. Um, partition buffer block count. Partition P buffer address BR. This is one block. Buffer block zero is the first block. Count one. Okay. Now we have a boot record. So now we say, uh, Class, Class rep. Address. Uh, Address BR. And it knows the, uh, Structure. So there's my signature. What's my signature? 88. That's the year I graduated. Sectors. There's four, 4,001. And that's kind of weird. Why is it one? I don't know. Um, But that's, That agrees with partition report. Boot sec, Bitmap sectors. There's 41 sectors for bitmaps. Fat has, Um, A bunch of pointers to tell the next block in the cluster. Um, My, This is for, Uh, Contiguous files. Just, Um, A file has to be, Uh, Contiguous chunk of blocks. That means you can't grow files. So this is not suitable for most. We're kind of a toy. It, But, Um, In these years of programming, I have made games, And I've made, Uh, Projects. And, Um, I, I'm happy loading whole files with compression. And so, I'm happy with whole files. That's how we operate. And our, Our code is much shorter and simpler. It's beautiful. So we always load whole files. Um, You can load blocks like I'm doing right now. There's another way. So let's go look at the allocation sectors. Bit, Bit, Bitmap sectors, 41. So the first 41 sectors are, Um, So if I say, U8, Block, 512 times, Uh, Well, What the heck? Let's say 41. So I just allocated a buffer. I can read blocks. I can read them off disk, Or I can read them into my buffer. Dump, Dump block. Uh, Then I say, Uh, I think I just give it a block number. It's the current drive. Block number. And I can even write, Really simply. So the first 41 blocks, I think block number 1, Should be the first allocation block. It's all allocated. We could free something, And then see if it, Gets unallocated. How could we do that? Let's, Uh, Do a directory. And, Uh, This is what I, This is what, This is the fun. Unix, Linux is supposed to be open source, But it's too complicated. You can't have any fun. This is for, Users to enjoy open source. Uh, Okay, So, This is, Uh, What is that about? 200 is one block. So that's about, Uh, A, 16, I don't know, 14 blocks or something. Let's see where that is. Dump cluster. Uh, We want to, Do a directory. Star, Comma, True. So this is cluster, Eight, Eight, Five, Eight, Two. Okay, So we're going to delete that. First let's look, Um, Don't, Don't block, Eight, Five, Eight, Two. That seems kind of high. Why is it so high? I don't, I'm surprised there's so many. Um, Zero X, Something doesn't sound right. Eight, Five, Eight, Two. Now how many bits per, Byte? Eight bits per byte. Five, Twelve bytes per, Um, Block. Okay, I think this is where it is. Let's delete this and see, If we get any change. Delete. Now if we dump this again, Oops, I'm no good. Plus one. Okay. Well that's, Uh, That's not a very good scientific test. This is kind of like testing a theory. Um, How about we delete, This is the previous one. Delete that. Now, So it went down to B, Uh, B3. Uh oh, My theory's not holding up very well. Okay, We have one boot sector, Plus all the allocation blocks. Uh, This is where off by one, Will get you burned. Let's just delete stuff. We are on the right drive, Are we not? Ha ha ha. That's a funny joke. Okay, Delete. Delete. Okay. Uh oh. Oh no, I feel awful. Well, Well anyway, Uh, It will change if you get it right. Let's, Let's do, Let's just look around. See, That's zero, Minus one. That's crazy. It's not minus one. Uh, Directory. I have too many of these. Okay. Okay, Let's, Let's, Let's do this correctly. There's one block for the boot sector, Registry. We're going to make that free. It's only one bit. No, It's two bits. Okay. Star, True. Okay. Eight, Five, Seven, D. Oh, It starts, Okay, I was going to renumber this, Uh, Because I wanted children not to have to worry. There's a difference in clusters and blocks. I forgot about that. I, Sixty-four. Um, I equals, Uh, Cluster, Cluster to block. Oh, I feel terrible. Okay, Partition, Cluster. Partition, Cluster to block. Okay. Now, We have it. So, Uh, This is the problem. Now, We, The problem is, I might change this when I redefine the Red C file system. Um, Let's dump it beforehand. Let's, Let's, Let's dump it beforehand. Uh-oh, That doesn't look like an allocation block. Oh, That is the block. I'm sorry. We want the allocation block. We want, Now, Now, Okay, We're getting there. We're getting there. Bit by bit. We're getting there. Okay. I'm having a bad day. I don't think that's right. Plus one. I think we want plus one. Because there's the boot block. That's what we want. That's where we were. Uh-oh. That doesn't look good. Delete. Delete. Okay. Now, Don't block. Come on. If there's, Mr. God help me. Okay, Look at the 6F. Do you see the 6F? I bet we changed one of those bits. Maybe it was just too small of a change. Yay! We changed it. We deleted two blocks, Two bits. Because it was 206. It was two blocks. Just barely into a second block. Okay. So,突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:07.600]  Okay, so I want to be different from other operating systems and we have kind
+[00:00:07.600 -> 00:00:16.880]  of eight color Crayola. We're kind of simpler. That's kind of our, we want to
+[00:00:16.880 -> 00:00:25.660]  be delightfully simple and that's where the Red Sea file system comes in. I'm
+[00:00:25.660 -> 00:00:32.640]  going to go to the file manager, control D, then I'm going to copy a directory,
+[00:00:33.540 -> 00:00:37.720]  control insert on the clipboard. It doesn't, you have to be careful, it doesn't
+[00:00:37.720 -> 00:00:44.300]  work for you. It's kind of weird. Anyway, shift insert. Okay, now we have a directory
+[00:00:44.300 -> 00:00:55.100]  on the RAM disk. B, if we do partition report, drive B is a Red Sea file system
+[00:00:55.100 -> 00:01:08.080]  RAM disk and it has 40,000 blocks. A block is 512 bytes. So anyway, we want to go to
+[00:01:08.080 -> 00:01:19.840]  the RAM disk that I just copied, drive B. And this is, when I was a kid, I had a
+[00:01:19.840 -> 00:01:31.900]  Commodore 64. And sometimes I would have to edit the disk blocks. Some of that was
+[00:01:31.900 -> 00:01:39.020]  when we were violating copyrights. But other times I deleted stuff. And guess what?
+[00:01:39.160 -> 00:01:46.760]  You can undelete if you, I think it's neat if the way you undelete is you go in and edit
+[00:01:46.760 -> 00:02:01.920]  disk blocks. So let's do a directory, star, now if you, okay so dot, dot is the current directory.
+[00:02:02.480 -> 00:02:08.100]  This is the disk cluster for the current directory. One of the most important
+[00:02:08.100 -> 00:02:23.480]  things I want is for every kid to do a dump cluster and see. Look at that. That is a directory.
+[00:02:23.880 -> 00:02:35.120]  There are 64 byte entries. I want it simple so that a kid can undelete or rename so that a
+[00:02:35.120 -> 00:02:46.020]  kid can follow disk blocks. That's what my purpose is. One time I explained, I had a book called
+[00:02:46.020 -> 00:02:53.240]  Mapping the Commodore 64. And it told what all the internal stuff did. And that's, that's what I spent
+[00:02:53.240 -> 00:03:02.140]  a year just playing around, looking at the inside of the operating system, messing with stuff, exploring.
+[00:03:02.720 -> 00:03:08.300]  And that's how I, that's, that was my entertainment. And it became a career. I enjoyed it so much.
+[00:03:10.020 -> 00:03:12.180]  Anyway, so let's look on here.
+[00:03:14.160 -> 00:03:19.240]  With the, what I want to do, here's my vision. Right now we have,
+[00:03:22.080 -> 00:03:28.460]  we have three file systems. We have Red Sea, which is what I made from scratch. And it's beautifully
+[00:03:28.460 -> 00:03:41.140]  simple. We have FAT32, which is from Windows. Then we have ISO 9660, which is for the CD-ROM. And what I'm proposing is getting,
+[00:03:41.820 -> 00:03:51.020]  um, I want to make just one file system, Red Sea. I want to get other, I want to get Windows and Linux to support Red Sea,
+[00:03:51.020 -> 00:04:01.040]  so that we can put it on a CD-ROM or, um, communicate, interact with Windows. Um, basically, uh,
+[00:04:03.420 -> 00:04:12.280]  um, Red Sea has a, um, allocation bitmap. Let's see if we can explore that, children. Uh, where is my allocation bitmap?
+[00:04:12.280 -> 00:04:25.660]  Um, first I wanted to explain, uh, uh, if you can get down to just one file system, then, um,
+[00:04:27.960 -> 00:04:36.140]  as a matter of fact, this, this is the, um, when you ask for a list of files, um, it gives you, uh,
+[00:04:36.140 -> 00:04:45.320]  the, this structure. And guess what? This structure is identical on the disk, so I just copy it bulk.
+[00:04:46.440 -> 00:04:53.480]  And, uh, I think that's the neatest thing, that the structure in memory is the same as on the disk.
+[00:04:53.700 -> 00:05:03.320]  This other stuff is, uh, extra. If it, to make a directory, you would do a bunch of these like that.
+[00:05:03.320 -> 00:05:12.620]  But, um, anyway, uh, so, uh, I want to get rid of ISO 9, 6, 60, and FAT32.
+[00:05:13.020 -> 00:05:19.660]  Then we'll have just Red Sea. And, uh, the Red Sea has, uh, let's see, uh,
+[00:05:25.460 -> 00:05:31.180]  um, the, the first couple blocks, you have to, you have to figure out where the root directory is.
+[00:05:31.180 -> 00:05:50.620]  Um, so, uh, it's, so, uh, the first block has the bootloader, um, and it also tells the, uh, root directory.
+[00:05:50.620 -> 00:05:57.280]  I'm struggling to find my Red Sea.
+[00:06:01.760 -> 00:06:03.660]  Hold on a second. I'm sorry.
+[00:06:08.360 -> 00:06:11.620]  Anyway, it's, it's, uh, it's just like FAT.
+[00:06:11.620 -> 00:06:20.540]  Um, so, I guess I can, I'm sorry.
+[00:06:21.820 -> 00:06:23.400]  So, I go to my, uh,
+[00:06:29.360 -> 00:06:31.720]  I go to my disk code.
+[00:06:31.900 -> 00:06:33.340]  I go to Red Sea.
+[00:06:34.280 -> 00:06:36.660]  And then I find out what the,
+[00:06:38.600 -> 00:06:40.780]  you can see the code for when you format.
+[00:06:41.240 -> 00:06:43.380]  You have a boot, boot structure.
+[00:06:43.600 -> 00:06:44.380]  That's what it is.
+[00:06:44.860 -> 00:06:45.260]  Okay.
+[00:06:45.500 -> 00:06:48.100]  So, when you format, you have to, uh,
+[00:06:48.560 -> 00:06:50.280]  you have to set up the boot structure.
+[00:06:50.380 -> 00:06:52.720]  It's really easy to, to set up a disk.
+[00:06:52.900 -> 00:06:54.480]  You have to set up the boot structure.
+[00:06:54.720 -> 00:06:57.200]  You have to set up the allocation bitmap.
+[00:06:57.200 -> 00:06:59.420]  And you have to set up the root directory.
+[00:06:59.960 -> 00:07:01.820]  And that's pretty much all you have to do.
+[00:07:02.400 -> 00:07:05.920]  Um, there's another block on the FAT32.
+[00:07:06.000 -> 00:07:07.760]  I don't remember if I use that.
+[00:07:07.860 -> 00:07:08.600]  I don't think I do.
+[00:07:09.240 -> 00:07:12.760]  Um, they have a block that keeps track of the last allocated.
+[00:07:13.800 -> 00:07:15.000]  Uh, anyway, uh,
+[00:07:16.660 -> 00:07:18.660]  so here's my boot block.
+[00:07:19.380 -> 00:07:20.780]  Um, it has a signature.
+[00:07:21.000 -> 00:07:23.480]  You have to tell it where the root directory is.
+[00:07:23.580 -> 00:07:25.220]  The first directory.
+[00:07:25.920 -> 00:07:29.160]  And, uh, you have your boot code for, um,
+[00:07:29.260 -> 00:07:30.820]  to load your operating system.
+[00:07:31.440 -> 00:07:35.280]  And, uh, you have to tell it how many bitmap sectors there are.
+[00:07:35.860 -> 00:07:38.360]  And how many total sectors there are.
+[00:07:38.600 -> 00:07:40.760]  So, I made this as simple as possible.
+[00:07:41.460 -> 00:07:42.900]  So, boot sectors.
+[00:07:43.100 -> 00:07:45.120]  Let's, let's go look at the, um,
+[00:07:45.820 -> 00:07:47.340]  the red C on this.
+[00:07:47.860 -> 00:07:48.740]  So, uh,
+[00:07:49.760 -> 00:07:50.780]  guess what you can do?
+[00:07:51.060 -> 00:07:51.600]  Watch this.
+[00:07:51.760 -> 00:07:53.100]  This is the coolest thing.
+[00:07:53.100 -> 00:07:56.880]  Um, we're going to explore the disk block.
+[00:07:57.200 -> 00:07:58.620]  So, here's what we do.
+[00:07:58.820 -> 00:07:59.820]  Uh, we say, uh,
+[00:08:00.680 -> 00:08:05.960]  C partition star P equals drive to partition.
+[00:08:06.400 -> 00:08:08.320]  Um, and we say B.
+[00:08:08.960 -> 00:08:11.660]  And this gets the, uh, partition.
+[00:08:11.660 -> 00:08:16.180]  Um, we're going to do, uh,
+[00:08:16.180 -> 00:08:16.640]  Voodoo dial.
+[00:08:16.820 -> 00:08:17.400]  Mom's talking.
+[00:08:17.940 -> 00:08:18.740]  Anyway, uh,
+[00:08:21.600 -> 00:08:21.960]  partition.
+[00:08:22.260 -> 00:08:23.120]  There's our partition.
+[00:08:23.820 -> 00:08:25.700]  Um, we want the, uh,
+[00:08:26.020 -> 00:08:26.720]  C boot,
+[00:08:27.500 -> 00:08:28.860]  boot structure.
+[00:08:29.720 -> 00:08:30.480]  Star.
+[00:08:31.580 -> 00:08:32.720]  Or just,
+[00:08:33.260 -> 00:08:33.940]  BR.
+[00:08:34.220 -> 00:08:34.940]  How about BR?
+[00:08:36.320 -> 00:08:37.720]  Now we say, uh,
+[00:08:39.020 -> 00:08:40.120]  Um, we're going to do,
+[00:08:41.040 -> 00:08:42.040]  Oh, this is,
+[00:08:42.080 -> 00:08:43.000]  I don't know if this is going to work.
+[00:08:43.580 -> 00:08:44.360]  Um, block read.
+[00:08:45.160 -> 00:08:46.440]  Read blocks.
+[00:08:47.380 -> 00:08:50.780]  Um, partition buffer block count.
+[00:08:51.780 -> 00:08:55.600]  Partition P buffer address BR.
+[00:08:55.600 -> 00:08:56.840]  This is one block.
+[00:08:57.260 -> 00:08:59.940]  Buffer block zero is the first block.
+[00:09:00.520 -> 00:09:01.340]  Count one.
+[00:09:01.340 -> 00:09:02.340]  Okay.
+[00:09:03.140 -> 00:09:04.680]  Now we have a boot record.
+[00:09:04.960 -> 00:09:06.400]  So now we say, uh,
+[00:09:07.060 -> 00:09:07.440]  Class,
+[00:09:07.640 -> 00:09:09.280]  Class rep.
+[00:09:10.360 -> 00:09:11.200]  Address.
+[00:09:12.240 -> 00:09:12.740]  Uh,
+[00:09:14.440 -> 00:09:15.420]  Address BR.
+[00:09:17.100 -> 00:09:19.720]  And it knows the, uh,
+[00:09:20.480 -> 00:09:20.920]  Structure.
+[00:09:21.340 -> 00:09:23.060]  So there's my signature.
+[00:09:23.420 -> 00:09:24.160]  What's my signature?
+[00:09:24.340 -> 00:09:24.740]  88.
+[00:09:25.020 -> 00:09:26.160]  That's the year I graduated.
+[00:09:26.720 -> 00:09:27.480]  Sectors.
+[00:09:27.620 -> 00:09:28.420]  There's four,
+[00:09:28.860 -> 00:09:30.520]  4,001.
+[00:09:30.520 -> 00:09:31.420]  And that's kind of weird.
+[00:09:31.760 -> 00:09:32.760]  Why is it one?
+[00:09:32.940 -> 00:09:33.420]  I don't know.
+[00:09:34.300 -> 00:09:34.840]  Um,
+[00:09:35.260 -> 00:09:35.740]  But that's,
+[00:09:35.860 -> 00:09:37.540]  That agrees with partition report.
+[00:09:38.180 -> 00:09:38.940]  Boot sec,
+[00:09:39.260 -> 00:09:40.440]  Bitmap sectors.
+[00:09:40.800 -> 00:09:43.420]  There's 41 sectors for bitmaps.
+[00:09:44.040 -> 00:09:45.200]  Fat has,
+[00:09:45.400 -> 00:09:45.640]  Um,
+[00:09:46.280 -> 00:09:49.580]  A bunch of pointers to tell the next block in the cluster.
+[00:09:50.400 -> 00:09:50.540]  Um,
+[00:09:50.740 -> 00:09:51.040]  My,
+[00:09:51.280 -> 00:09:53.360]  This is for,
+[00:09:53.540 -> 00:09:53.700]  Uh,
+[00:09:54.720 -> 00:09:55.920]  Contiguous files.
+[00:09:56.360 -> 00:09:56.580]  Just,
+[00:09:56.880 -> 00:09:57.060]  Um,
+[00:09:57.980 -> 00:09:59.400]  A file has to be,
+[00:09:59.400 -> 00:10:00.460]  Uh,
+[00:10:00.840 -> 00:10:02.300]  Contiguous chunk of blocks.
+[00:10:02.500 -> 00:10:04.520]  That means you can't grow files.
+[00:10:04.720 -> 00:10:06.460]  So this is not suitable for most.
+[00:10:07.100 -> 00:10:08.640]  We're kind of a toy.
+[00:10:09.400 -> 00:10:09.540]  It,
+[00:10:09.740 -> 00:10:10.440]  But,
+[00:10:10.620 -> 00:10:10.780]  Um,
+[00:10:11.380 -> 00:10:13.780]  In these years of programming,
+[00:10:14.160 -> 00:10:15.660]  I have made games,
+[00:10:15.900 -> 00:10:16.640]  And I've made,
+[00:10:17.120 -> 00:10:17.260]  Uh,
+[00:10:17.520 -> 00:10:18.180]  Projects.
+[00:10:18.520 -> 00:10:19.240]  And,
+[00:10:19.420 -> 00:10:19.660]  Um,
+[00:10:20.460 -> 00:10:20.680]  I,
+[00:10:20.800 -> 00:10:24.240]  I'm happy loading whole files with compression.
+[00:10:25.080 -> 00:10:25.920]  And so,
+[00:10:26.140 -> 00:10:27.680]  I'm happy with whole files.
+[00:10:27.900 -> 00:10:29.000]  That's how we operate.
+[00:10:29.340 -> 00:10:30.120]  And our,
+[00:10:30.120 -> 00:10:32.620]  Our code is much shorter and simpler.
+[00:10:32.900 -> 00:10:33.960]  It's beautiful.
+[00:10:34.280 -> 00:10:36.260]  So we always load whole files.
+[00:10:37.840 -> 00:10:38.440]  Um,
+[00:10:38.600 -> 00:10:41.040]  You can load blocks like I'm doing right now.
+[00:10:41.300 -> 00:10:42.220]  There's another way.
+[00:10:42.220 -> 00:10:45.200]  So let's go look at the allocation sectors.
+[00:10:45.780 -> 00:10:46.420]  Bit,
+[00:10:46.420 -> 00:10:46.460]  Bit,
+[00:10:47.400 -> 00:10:47.980]  Bitmap sectors,
+[00:10:48.240 -> 00:10:48.640]  41.
+[00:10:49.120 -> 00:10:51.220]  So the first 41 sectors are,
+[00:10:51.480 -> 00:10:51.880]  Um,
+[00:10:52.080 -> 00:10:52.900]  So if I say,
+[00:10:53.160 -> 00:10:53.160]  
+[00:10:53.940 -> 00:10:54.540]  U8,
+[00:10:54.980 -> 00:10:55.760]  Block,
+[00:10:57.380 -> 00:10:58.660]  512 times,
+[00:10:59.180 -> 00:10:59.280]  Uh,
+[00:10:59.760 -> 00:10:59.980]  Well,
+[00:11:00.060 -> 00:11:00.500]  What the heck?
+[00:11:00.980 -> 00:11:02.020]  Let's say 41.
+[00:11:02.940 -> 00:11:05.720]  So I just allocated a buffer.
+[00:11:06.320 -> 00:11:08.400]  I can read blocks.
+[00:11:08.620 -> 00:11:09.880]  I can read them off disk,
+[00:11:09.880 -> 00:11:11.300]  Or I can read them into my buffer.
+[00:11:12.320 -> 00:11:12.320]  
+[00:11:12.860 -> 00:11:12.860]  
+[00:11:14.540 -> 00:11:15.100]  Dump,
+[00:11:15.280 -> 00:11:16.260]  Dump block.
+[00:11:17.340 -> 00:11:17.900]  Uh,
+[00:11:18.140 -> 00:11:18.800]  Then I say,
+[00:11:20.440 -> 00:11:21.000]  Uh,
+[00:11:21.240 -> 00:11:23.280]  I think I just give it a block number.
+[00:11:23.560 -> 00:11:24.540]  It's the current drive.
+[00:11:24.820 -> 00:11:25.640]  Block number.
+[00:11:25.900 -> 00:11:27.320]  And I can even write,
+[00:11:27.560 -> 00:11:28.580]  Really simply.
+[00:11:28.980 -> 00:11:30.860]  So the first 41 blocks,
+[00:11:31.020 -> 00:11:32.360]  I think block number 1,
+[00:11:32.440 -> 00:11:34.280]  Should be the first allocation block.
+[00:11:36.380 -> 00:11:37.720]  It's all allocated.
+[00:11:38.120 -> 00:11:39.740]  We could free something,
+[00:11:39.880 -> 00:11:40.700]  And then see if it,
+[00:11:40.700 -> 00:11:42.560]  Gets unallocated.
+[00:11:42.880 -> 00:11:44.380]  How could we do that?
+[00:11:44.980 -> 00:11:44.980]  
+[00:11:46.380 -> 00:11:46.760]  Let's,
+[00:11:46.920 -> 00:11:47.040]  Uh,
+[00:11:47.180 -> 00:11:47.880]  Do a directory.
+[00:11:50.460 -> 00:11:51.060]  And,
+[00:11:51.420 -> 00:11:51.660]  Uh,
+[00:11:52.780 -> 00:11:53.860]  This is what I,
+[00:11:54.100 -> 00:11:54.980]  This is what,
+[00:11:56.140 -> 00:11:57.500]  This is the fun.
+[00:11:57.940 -> 00:11:58.320]  Unix,
+[00:11:58.520 -> 00:12:00.440]  Linux is supposed to be open source,
+[00:12:00.640 -> 00:12:01.780]  But it's too complicated.
+[00:12:01.780 -> 00:12:03.140]  You can't have any fun.
+[00:12:03.620 -> 00:12:04.740]  This is for,
+[00:12:05.600 -> 00:12:08.080]  Users to enjoy open source.
+[00:12:08.080 -> 00:12:09.260]  Uh,
+[00:12:09.600 -> 00:12:09.800]  Okay,
+[00:12:10.060 -> 00:12:10.200]  So,
+[00:12:10.800 -> 00:12:11.640]  This is,
+[00:12:11.800 -> 00:12:11.960]  Uh,
+[00:12:13.360 -> 00:12:14.080]  What is that about?
+[00:12:14.600 -> 00:12:14.600]  
+[00:12:15.400 -> 00:12:16.880]  200 is one block.
+[00:12:17.220 -> 00:12:18.520]  So that's about,
+[00:12:18.720 -> 00:12:18.980]  Uh,
+[00:12:21.700 -> 00:12:21.700]  
+[00:12:21.700 -> 00:12:21.700]  
+[00:12:22.280 -> 00:12:22.420]  A,
+[00:12:23.260 -> 00:12:23.280]  16,
+[00:12:23.560 -> 00:12:23.940]  I don't know,
+[00:12:24.520 -> 00:12:25.960]  14 blocks or something.
+[00:12:26.300 -> 00:12:27.680]  Let's see where that is.
+[00:12:27.840 -> 00:12:28.560]  Dump cluster.
+[00:12:29.600 -> 00:12:30.120]  Uh,
+[00:12:30.260 -> 00:12:30.780]  We want to,
+[00:12:30.800 -> 00:12:31.940]  Do a directory.
+[00:12:32.780 -> 00:12:33.300]  Star,
+[00:12:33.620 -> 00:12:34.040]  Comma,
+[00:12:34.220 -> 00:12:34.480]  True.
+[00:12:37.660 -> 00:12:38.960]  So this is cluster,
+[00:12:39.360 -> 00:12:39.420]  Eight,
+[00:12:40.160 -> 00:12:40.600]  Eight,
+[00:12:40.800 -> 00:12:40.920]  Five,
+[00:12:41.120 -> 00:12:41.220]  Eight,
+[00:12:41.440 -> 00:12:41.540]  Two.
+[00:12:42.580 -> 00:12:42.860]  Okay,
+[00:12:42.980 -> 00:12:44.140]  So we're going to delete that.
+[00:12:44.420 -> 00:12:45.240]  First let's look,
+[00:12:46.200 -> 00:12:46.340]  Um,
+[00:12:46.620 -> 00:12:47.020]  Don't,
+[00:12:47.960 -> 00:12:48.840]  Don't block,
+[00:12:50.520 -> 00:12:50.960]  Eight,
+[00:12:51.280 -> 00:12:51.400]  Five,
+[00:12:51.620 -> 00:12:51.700]  Eight,
+[00:12:51.960 -> 00:12:52.020]  Two.
+[00:12:52.340 -> 00:12:53.440]  That seems kind of high.
+[00:12:53.580 -> 00:12:54.400]  Why is it so high?
+[00:12:54.540 -> 00:12:54.740]  I don't,
+[00:12:54.800 -> 00:12:56.160]  I'm surprised there's so many.
+[00:12:57.580 -> 00:12:58.200]  Um,
+[00:12:58.420 -> 00:12:59.100]  Zero X,
+[00:13:00.100 -> 00:13:01.900]  Something doesn't sound right.
+[00:13:03.320 -> 00:13:03.940]  Eight,
+[00:13:04.120 -> 00:13:04.240]  Five,
+[00:13:04.460 -> 00:13:04.520]  Eight,
+[00:13:04.760 -> 00:13:04.900]  Two.
+[00:13:05.220 -> 00:13:07.100]  Now how many bits per,
+[00:13:07.860 -> 00:13:08.480]  Byte?
+[00:13:08.800 -> 00:13:09.840]  Eight bits per byte.
+[00:13:10.940 -> 00:13:11.340]  Five,
+[00:13:11.620 -> 00:13:12.820]  Twelve bytes per,
+[00:13:13.620 -> 00:13:14.000]  Um,
+[00:13:14.540 -> 00:13:14.800]  Block.
+[00:13:17.040 -> 00:13:17.660]  Okay,
+[00:13:17.820 -> 00:13:19.320]  I think this is where it is.
+[00:13:19.480 -> 00:13:20.860]  Let's delete this and see,
+[00:13:21.100 -> 00:13:22.720]  If we get any change.
+[00:13:23.560 -> 00:13:24.020]  Delete.
+[00:13:25.260 -> 00:13:27.260]  Now if we dump this again,
+[00:13:29.400 -> 00:13:29.540]  Oops,
+[00:13:30.420 -> 00:13:31.560]  I'm no good.
+[00:13:34.500 -> 00:13:35.420]  Plus one.
+[00:13:36.200 -> 00:13:36.840]  Okay.
+[00:13:38.660 -> 00:13:39.620]  Well that's,
+[00:13:39.640 -> 00:13:39.860]  Uh,
+[00:13:40.060 -> 00:13:42.040]  That's not a very good scientific test.
+[00:13:42.860 -> 00:13:45.000]  This is kind of like testing a theory.
+[00:13:46.260 -> 00:13:46.420]  Um,
+[00:13:48.840 -> 00:13:49.580]  How about we delete,
+[00:13:49.740 -> 00:13:51.100]  This is the previous one.
+[00:13:51.600 -> 00:13:52.500]  Delete that.
+[00:13:53.760 -> 00:13:54.380]  Now,
+[00:13:55.100 -> 00:13:55.100]  
+[00:13:57.700 -> 00:13:59.740]  So it went down to B,
+[00:14:02.180 -> 00:14:02.800]  Uh,
+[00:14:02.980 -> 00:14:03.700]  B3.
+[00:14:04.460 -> 00:14:05.280]  Uh oh,
+[00:14:05.440 -> 00:14:07.980]  My theory's not holding up very well.
+[00:14:11.040 -> 00:14:11.720]  Okay,
+[00:14:12.240 -> 00:14:14.340]  We have one boot sector,
+[00:14:14.700 -> 00:14:16.500]  Plus all the allocation blocks.
+[00:14:17.020 -> 00:14:17.640]  Uh,
+[00:14:17.720 -> 00:14:19.260]  This is where off by one,
+[00:14:19.520 -> 00:14:20.900]  Will get you burned.
+[00:14:21.360 -> 00:14:22.980]  Let's just delete stuff.
+[00:14:23.360 -> 00:14:24.840]  We are on the right drive,
+[00:14:24.980 -> 00:14:25.420]  Are we not?
+[00:14:25.820 -> 00:14:26.360]  Ha ha ha.
+[00:14:26.840 -> 00:14:28.120]  That's a funny joke.
+[00:14:28.680 -> 00:14:28.940]  Okay,
+[00:14:29.180 -> 00:14:29.400]  Delete.
+[00:14:31.400 -> 00:14:31.600]  Delete.
+[00:14:35.000 -> 00:14:36.400]  Okay.
+[00:14:37.800 -> 00:14:39.420]  Uh oh.
+[00:14:42.020 -> 00:14:43.020]  Oh no,
+[00:14:43.020 -> 00:14:44.040]  I feel awful.
+[00:14:46.220 -> 00:14:46.780]  Well,
+[00:14:46.880 -> 00:14:47.140]  Well anyway,
+[00:14:47.800 -> 00:14:47.900]  Uh,
+[00:14:48.480 -> 00:14:50.480]  It will change if you get it right.
+[00:14:53.700 -> 00:14:54.260]  Let's,
+[00:14:54.340 -> 00:14:54.880]  Let's do,
+[00:14:54.980 -> 00:14:55.960]  Let's just look around.
+[00:14:56.580 -> 00:14:56.720]  See,
+[00:14:57.980 -> 00:14:59.020]  That's zero,
+[00:15:00.740 -> 00:15:01.580]  Minus one.
+[00:15:01.780 -> 00:15:02.340]  That's crazy.
+[00:15:02.540 -> 00:15:03.460]  It's not minus one.
+[00:15:06.600 -> 00:15:07.160]  Uh,
+[00:15:07.340 -> 00:15:07.600]  Directory.
+[00:15:09.040 -> 00:15:10.840]  I have too many of these.
+[00:15:12.380 -> 00:15:12.980]  Okay.
+[00:15:15.560 -> 00:15:16.160]  Okay,
+[00:15:16.380 -> 00:15:16.600]  Let's,
+[00:15:16.700 -> 00:15:17.020]  Let's,
+[00:15:17.120 -> 00:15:18.120]  Let's do this correctly.
+[00:15:18.820 -> 00:15:21.180]  There's one block for the boot sector,
+[00:15:22.280 -> 00:15:22.880]  Registry.
+[00:15:23.100 -> 00:15:24.440]  We're going to make that free.
+[00:15:24.780 -> 00:15:26.080]  It's only one bit.
+[00:15:26.300 -> 00:15:26.440]  No,
+[00:15:26.520 -> 00:15:27.060]  It's two bits.
+[00:15:27.780 -> 00:15:28.000]  Okay.
+[00:15:31.300 -> 00:15:31.900]  Star,
+[00:15:32.240 -> 00:15:32.800]  True.
+[00:15:34.760 -> 00:15:35.360]  Okay.
+[00:15:36.280 -> 00:15:36.820]  Eight,
+[00:15:36.820 -> 00:15:37.380]  Five,
+[00:15:37.640 -> 00:15:37.900]  Seven,
+[00:15:37.920 -> 00:15:38.280]  D.
+[00:15:38.720 -> 00:15:39.040]  Oh,
+[00:15:39.460 -> 00:15:40.260]  It starts,
+[00:15:41.400 -> 00:15:42.160]  Okay,
+[00:15:42.220 -> 00:15:43.700]  I was going to renumber this,
+[00:15:43.900 -> 00:15:44.120]  Uh,
+[00:15:44.580 -> 00:15:47.860]  Because I wanted children not to have to worry.
+[00:15:48.320 -> 00:15:50.840]  There's a difference in clusters and blocks.
+[00:15:51.360 -> 00:15:53.500]  I forgot about that.
+[00:15:54.160 -> 00:15:54.540]  I,
+[00:15:54.780 -> 00:15:55.360]  Sixty-four.
+[00:15:56.280 -> 00:15:56.420]  Um,
+[00:15:56.820 -> 00:15:57.860]  I equals,
+[00:15:59.460 -> 00:16:00.080]  Uh,
+[00:16:02.140 -> 00:16:02.740]  Cluster,
+[00:16:04.160 -> 00:16:05.460]  Cluster to block.
+[00:16:05.460 -> 00:16:06.400]  Oh,
+[00:16:06.620 -> 00:16:07.500]  I feel terrible.
+[00:16:09.360 -> 00:16:10.000]  Okay,
+[00:16:10.240 -> 00:16:10.760]  Partition,
+[00:16:10.820 -> 00:16:11.420]  Cluster.
+[00:16:12.180 -> 00:16:12.820]  Partition,
+[00:16:14.320 -> 00:16:15.380]  Cluster to block.
+[00:16:15.380 -> 00:16:16.000]  Okay.
+[00:16:16.720 -> 00:16:17.320]  Now,
+[00:16:17.320 -> 00:16:18.220]  We have it.
+[00:16:18.820 -> 00:16:19.420]  So,
+[00:16:19.620 -> 00:16:19.760]  Uh,
+[00:16:21.080 -> 00:16:22.560]  This is the problem.
+[00:16:23.020 -> 00:16:23.440]  Now,
+[00:16:23.640 -> 00:16:23.700]  We,
+[00:16:24.020 -> 00:16:24.020]  
+[00:16:24.420 -> 00:16:25.120]  The problem is,
+[00:16:25.240 -> 00:16:28.960]  I might change this when I redefine the Red C file system.
+[00:16:28.960 -> 00:16:29.000]  Um,
+[00:16:32.100 -> 00:16:33.520]  Let's dump it beforehand.
+[00:16:35.320 -> 00:16:35.960]  Let's,
+[00:16:37.760 -> 00:16:38.400]  Let's,
+[00:16:40.380 -> 00:16:42.080]  Let's dump it beforehand.
+[00:16:43.100 -> 00:16:43.880]  Uh-oh,
+[00:16:43.940 -> 00:16:45.840]  That doesn't look like an allocation block.
+[00:16:48.720 -> 00:16:49.360]  Oh,
+[00:16:49.360 -> 00:16:50.300]  That is the block.
+[00:16:50.440 -> 00:16:51.000]  I'm sorry.
+[00:16:51.360 -> 00:16:53.740]  We want the allocation block.
+[00:16:54.420 -> 00:16:55.240]  We want,
+[00:16:55.420 -> 00:16:55.700]  Now,
+[00:16:55.920 -> 00:16:56.320]  Now,
+[00:16:56.640 -> 00:16:56.940]  Okay,
+[00:16:57.120 -> 00:16:57.840]  We're getting there.
+[00:16:58.020 -> 00:16:58.640]  We're getting there.
+[00:16:58.820 -> 00:16:59.500]  Bit by bit.
+[00:17:00.440 -> 00:17:01.620]  We're getting there.
+[00:17:02.160 -> 00:17:02.540]  Okay.
+[00:17:05.680 -> 00:17:07.200]  I'm having a bad day.
+[00:17:07.720 -> 00:17:09.240]  I don't think that's right.
+[00:17:09.400 -> 00:17:09.920]  Plus one.
+[00:17:10.180 -> 00:17:11.840]  I think we want plus one.
+[00:17:12.760 -> 00:17:14.500]  Because there's the boot block.
+[00:17:14.960 -> 00:17:16.160]  That's what we want.
+[00:17:16.380 -> 00:17:17.280]  That's where we were.
+[00:17:18.080 -> 00:17:18.360]  Uh-oh.
+[00:17:18.660 -> 00:17:19.740]  That doesn't look good.
+[00:17:20.280 -> 00:17:20.680]  Delete.
+[00:17:20.680 -> 00:17:20.780]  Delete.
+[00:17:22.100 -> 00:17:22.720]  Okay.
+[00:17:24.060 -> 00:17:24.680]  Now,
+[00:17:27.020 -> 00:17:27.960]  Don't block.
+[00:17:28.280 -> 00:17:28.780]  Come on.
+[00:17:29.160 -> 00:17:29.580]  If there's,
+[00:17:30.400 -> 00:17:31.940]  Mr. God help me.
+[00:17:32.840 -> 00:17:33.460]  Okay,
+[00:17:33.540 -> 00:17:34.440]  Look at the 6F.
+[00:17:34.700 -> 00:17:36.140]  Do you see the 6F?
+[00:17:36.340 -> 00:17:38.900]  I bet we changed one of those bits.
+[00:17:39.240 -> 00:17:41.580]  Maybe it was just too small of a change.
+[00:17:42.520 -> 00:17:42.960]  Yay!
+[00:17:43.160 -> 00:17:44.440]  We changed it.
+[00:17:44.520 -> 00:17:45.800]  We deleted two blocks,
+[00:17:45.980 -> 00:17:46.460]  Two bits.
+[00:17:46.920 -> 00:17:48.780]  Because it was 206.
+[00:17:48.920 -> 00:17:49.900]  It was two blocks.
+[00:17:49.900 -> 00:17:51.680]  Just barely into a second block.
+[00:17:52.320 -> 00:17:52.580]  Okay.
+[00:17:54.040 -> 00:17:54.680]  So,
+[00:17:54.680 -> 00:17:56.680]  突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突突
+[00:17:56.660 -> 00:17:56.660]  

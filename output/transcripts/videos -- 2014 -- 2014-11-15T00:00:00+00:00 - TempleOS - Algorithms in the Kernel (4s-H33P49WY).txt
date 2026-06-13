@@ -1,0 +1,107 @@
+========================================================================
+FILE        : videos/2014/2014-11-15T00:00:00+00:00 - TempleOS - Algorithms in the Kernel (4s-H33P49WY).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-11-15T00:00:00+00:00 - TempleOS - Algorithms in the Kernel (4s-H33P49WY).mkv
+FORMAT      : Matroska
+SIZE        : 44,606,460 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:13:53.500
+TRANSCRIBED: 2026-05-10T19:18:51.015950+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay I'm gonna do a tour of the algorithms I used in Temple OS so these are the directories the nothing in temp miscellaneous this is just my test suite no algorithms Linux is just that's a a.out or a C program for uncompressing with my compression format okay so the kernel so what algorithms are in the kernel well let's see in the disk there's a the disk cache is just least recently used and it has a hash when you hash the it takes the the block number cluster I should say cluster number takes the cluster number no the block number it's blocks not clusters takes the block number and that's the hash so different partitions will have the same will collide and also aliases of the block number anyway so that's now the the fat I learned a lesson from somebody um you want to make you want to pick the best fit for the when you're allocating new you want to pick the best fit for uh so you find that you have a if we uh if we do a um this is a drive view this is the fat table basically it shows gaps anyway when you allocate a new file the best strategy is to find the closest fit the gap that's the closest fit it makes a big difference um otherwise it's uh not good so um that's the secret i learned there um of course there's the lzw compression um that what that does is uh it's got a table um i think in my case well it it starts out size uh starts out eight bits nine bits maybe okay um the table entry zero zero to uh ff are uh what you do is the the the table entries when we add a new entry to let's say we have a file a b c d c d c d d d c okay so it um uh i don't remember this exactly but i think it's a um each you you build a chain one more so we do a b so we have one that points we have an entry that ends in b and it points to a which is another table entry the first the first 256 table entries are uh are uh actually it's 12 bits as a matter of fact um um um the first 256 entries are uh actual values so we put a b is we have b and it points back to a and then we have uh c and it points back to b and then we have uh c we have uh a b well let's see d and it points back to c and then we have uh 103 so d now we have c so we have uh d points back to c no i think at this point we search no hold on a second d and it points back to c uh uh c and it points back to d c and it points back to d uh at some point what it does is it says okay now we have c um um c points back to d we um this is a 102 and then a d this this points back to uh number 102 which is c d and then we add a d do you see how that works it points to a previous entry which which is a chain and uh then it adds one more and that's how lzw works anyway so uh i have a q and a fifo there's no real algorithm it's just uh linear nothing no algorithm my date i don't think i have any algorithms here um display editor no algorithms in the editor just a circular doubly linked list with uh uh allocated strings for the line of characters that's a the light editor exceptions no algorithms there font no okay this is the most important thing in my operating system so we have a we have an array let's say 4096 it's it's variable or sometimes it's bigger something anyway so we have an array that's what that's what this is and what you do is when you when you have a word you want to add to your symbol table let's say you want uh dir then you take d plus i plus r what i do is i actually shift it d shifted over two i shifted over one r and then um we uh we take we hack it off we hack the number so that it's 4096 and then we make a chain because you can get multiple ones with the same one we make a chain in a linked list and this is this is a hash table linked list and uh i have it a little more complicated since this is a i think in reality one of them is 20 000 and so searching that occasionally you want to search them all like when finding the um the address of a function and it's a little faster if you don't search the empty ones so i chain together i have another um set of pointers so that's the uh most important now i have a um i put different type i use the same array and i have different types of entries i have functions and classes and defines and imports and exports so i use the same table but i have different types um okay my memory um i have a malloc what this is is uh i have an array of let's say 1024 each task has a heap control and i have an array let's say like this but actually what i do is uh i make it um six i make it 64 byte let's say i have a size malloc size one two three i uh what i do is i i end the size with uh and oops and till d7 so i kill the low i kill the low uh let's see this i kill the low bits bytes and uh and then this is num this is entry number 120 um hex anyway that's just a fancy way of saying i i go by eights well why don't i just say that yeah why don't i just say that i take uh the number of bytes divided by eight and that's what i that's an array an array of uh let's say i don't know what it what are we left with 256 i don't know anyway so we have an array of link lists this is for the free this is when you free i did this backward i'm sorry when we malloc we we start with a uh a chunk of memory and we slice off pieces from the bottom when we um free we put it in an array of linked lists it's it's same uh uh you might call this a hash table i don't know anyway uh an array of linked lists for site based on the size and uh then when we get a little bit bigger we take one or two four times n and then when we get even bigger still we take two to the n so we have we have an array for that we have an array for uh uh we have another array and finally we have another array um an array for big ones bigger ones and bigger still and these are based on these are each tat each task has a heap control for code and a heap control for data and those have the um the link lists uh multi-processor uh psect this just searches the symbol table linearly for the nearest address q sort well this is i actually uh was dumbfounded because you want it to be uh fast for a sorted list and when i thought i didn't really study this i just used it what i had from memory and so what i did is i i uh i pivot around the midpoint of each uh um each uh range so what you do is uh you pivot or i pivot around the midpoint of each range there's a pivot point q sort i i was uh nice and i made a special q sort just for a size uh for size 64 bit if most of the time you have pointers or that's a very common thing is to have pointers and so i made a special case for pointers so that we don't do a mem copy and then i made it even more convenient if you flat out if that other one was uh um was built into the regular q sort then i made a non-standard q sort which is even faster still which is integers and uh then it um your comparison is one level less in direction you don't do pointers to elements you don't do pointers to elements you do elements anyway so that's my q sort my scheduler this is just a round robin nothing fan no priorities just round robin and if it's uh sometimes it's it checks the tasks are not removed from the queue they stay in the queue and it just uh skips them that's how it works it just skips over them if they're not ready and uh printf i have string binary to decimal i have a pet you know you know string string well i have i have some string utilities why don't we just make this about uh oh well so uh those are the algorithms in the current in the kernel um in the uh i should probably end this video in the compiler why don't we make this another video that's it's pretty much the same
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:08.080]  okay I'm gonna do a tour of the algorithms I used in Temple OS so these
+[00:00:08.080 -> 00:00:19.380]  are the directories the nothing in temp miscellaneous this is just my test
+[00:00:19.380 -> 00:00:27.640]  suite no algorithms Linux is just that's a a.out or a C program for
+[00:00:27.640 -> 00:00:38.080]  uncompressing with my compression format okay so the kernel so what algorithms
+[00:00:38.080 -> 00:00:48.480]  are in the kernel well let's see in the disk there's a the disk cache is just
+[00:00:48.480 -> 00:00:57.520]  least recently used and it has a hash when you hash the it takes the the block
+[00:00:57.520 -> 00:01:05.320]  number cluster I should say cluster number takes the cluster number no the
+[00:01:05.320 -> 00:01:11.060]  block number it's blocks not clusters takes the block number and that's the
+[00:01:11.060 -> 00:01:24.540]  hash so different partitions will have the same will collide and also aliases of the
+[00:01:24.540 -> 00:01:32.480]  block number anyway so that's now the the fat I learned a lesson from somebody
+[00:01:32.480 -> 00:01:39.140]  um you want to make you want to pick the best fit for the when you're allocating
+[00:01:39.140 -> 00:01:53.180]  new you want to pick the best fit for uh so you find that you have a if we uh if we do a um this is a
+[00:01:55.820 -> 00:02:05.640]  drive view this is the fat table basically it shows gaps anyway when you allocate a new file the best
+[00:02:05.640 -> 00:02:12.680]  strategy is to find the closest fit the gap that's the closest fit it makes a big difference um
+[00:02:13.320 -> 00:02:23.460]  otherwise it's uh not good so um that's the secret i learned there um of course there's the lzw compression
+[00:02:26.000 -> 00:02:35.400]  um that what that does is uh it's got a table um i think in my case well it it
+[00:02:35.640 -> 00:02:47.500]  starts out size uh starts out eight bits nine bits maybe okay um the table entry zero zero
+[00:02:48.360 -> 00:02:58.800]  to uh ff are uh what you do is the the the table entries when we add a new entry to let's say we have a
+[00:02:58.800 -> 00:03:14.100]  file a b c d c d c d d d c okay so it um uh i don't remember this exactly but i think it's a um each
+[00:03:14.100 -> 00:03:26.540]  you you build a chain one more so we do a b so we have one that points we have an entry that ends in b
+[00:03:26.540 -> 00:03:36.280]  and it points to a which is another table entry the first the first 256 table entries are uh are
+[00:03:36.280 -> 00:03:41.440]  uh actually it's 12 bits as a matter of fact um
+[00:03:45.180 -> 00:03:57.860]  um um the first 256 entries are uh actual values so we put a b is we have b and it points back to a
+[00:03:57.860 -> 00:04:10.120]  and then we have uh c and it points back to b and then we have uh
+[00:04:13.100 -> 00:04:24.980]  c we have uh a b well let's see d and it points back to c and then we have uh 103
+[00:04:26.960 -> 00:04:29.160]  so d now we have c
+[00:04:31.440 -> 00:04:38.260]  so we have uh d points back to c
+[00:04:40.580 -> 00:04:47.320]  no i think at this point we search no hold on a second d and it points back to c uh
+[00:04:47.320 -> 00:04:57.240]  uh c and it points back to d c and it points back to d uh at some point what it does is it says okay
+[00:04:57.800 -> 00:05:01.720]  now we have c um
+[00:05:01.720 -> 00:05:01.800]  um
+[00:05:05.320 -> 00:05:10.220]  c points back to d we um this is a 102
+[00:05:12.580 -> 00:05:15.580]  and then a d this
+[00:05:18.860 -> 00:05:21.060]  this points back to uh
+[00:05:22.900 -> 00:05:27.280]  number 102 which is c d and then we add a d
+[00:05:28.080 -> 00:05:33.140]  do you see how that works it points to a previous entry which which is a chain
+[00:05:34.000 -> 00:05:39.560]  and uh then it adds one more and that's how lzw works anyway so uh
+[00:05:41.640 -> 00:05:47.140]  i have a q and a fifo there's no real algorithm it's just uh linear
+[00:05:48.140 -> 00:05:53.580]  nothing no algorithm my date i don't think i have any algorithms here
+[00:05:57.040 -> 00:06:05.220]  um display editor no algorithms in the editor just a circular doubly linked list with uh
+[00:06:06.460 -> 00:06:14.780]  uh allocated strings for the line of characters that's a the light editor exceptions no algorithms
+[00:06:14.780 -> 00:06:22.600]  there font no okay this is the most important thing in my operating system so we have a we have
+[00:06:22.600 -> 00:06:32.020]  an array let's say 4096 it's it's variable or sometimes it's bigger something anyway so we have an array
+[00:06:32.020 -> 00:06:38.160]  that's what that's what this is and what you do is when you when you have a word you want to add to your
+[00:06:38.160 -> 00:06:51.060]  symbol table let's say you want uh dir then you take d plus i plus r what i do is i actually shift it
+[00:06:51.840 -> 00:07:01.980]  d shifted over two i shifted over one r and then um we uh we take we hack it off we hack the number
+[00:07:01.980 -> 00:07:09.240]  so that it's 4096 and then we make a chain because you can get multiple ones with the same one
+[00:07:10.360 -> 00:07:16.580]  we make a chain in a linked list and this is this is a hash table linked list
+[00:07:17.180 -> 00:07:24.560]  and uh i have it a little more complicated since this is a i think in reality one of them is 20 000
+[00:07:25.140 -> 00:07:30.120]  and so searching that occasionally you want to search them all like when finding the um
+[00:07:31.620 -> 00:07:38.500]  the address of a function and it's a little faster if you don't search the empty ones
+[00:07:38.500 -> 00:07:51.200]  so i chain together i have another um set of pointers so that's the uh most important now i have a um i put
+[00:07:51.200 -> 00:07:57.100]  different type i use the same array and i have different types of entries i have functions and
+[00:07:57.100 -> 00:08:03.220]  classes and defines and imports and exports so i use the same table but i have different types
+[00:08:03.220 -> 00:08:04.580]  um
+[00:08:12.080 -> 00:08:15.840]  okay my memory um i have a malloc
+[00:08:17.300 -> 00:08:30.140]  what this is is uh i have an array of let's say 1024 each task has a heap control and i have an array
+[00:08:31.260 -> 00:08:37.640]  let's say like this but actually what i do is uh i make it um
+[00:08:40.160 -> 00:08:51.860]  six i make it 64 byte let's say i have a size malloc size one two three i uh
+[00:08:52.720 -> 00:09:05.980]  what i do is i i end the size with uh and oops and till d7 so i kill the low i kill the low uh let's see
+[00:09:05.980 -> 00:09:18.180]  this i kill the low bits bytes and uh and then this is num this is entry number 120 um hex
+[00:09:20.360 -> 00:09:26.440]  anyway that's just a fancy way of saying i i go by eights well why don't i just say that yeah why don't
+[00:09:26.440 -> 00:09:34.920]  i just say that i take uh the number of bytes divided by eight and that's what i that's an array
+[00:09:37.820 -> 00:09:48.960]  an array of uh let's say i don't know what it what are we left with 256 i don't know anyway so we have an
+[00:09:48.960 -> 00:09:55.880]  array of link lists this is for the free this is when you free i did this backward i'm sorry
+[00:09:56.600 -> 00:10:04.140]  when we malloc we we start with a uh a chunk of memory and we slice off pieces from the bottom
+[00:10:06.460 -> 00:10:16.060]  when we um free we put it in an array of linked lists it's it's same uh uh you might call this a hash
+[00:10:16.060 -> 00:10:25.380]  table i don't know anyway uh an array of linked lists for site based on the size and uh then when we get a
+[00:10:25.380 -> 00:10:32.740]  little bit bigger we take one or two four times n and then when we get even bigger still we take
+[00:10:33.540 -> 00:10:43.780]  two to the n so we have we have an array for that we have an array for uh uh we have another array
+[00:10:45.480 -> 00:10:54.080]  and finally we have another array um an array for big ones bigger ones and bigger still
+[00:10:54.820 -> 00:11:01.700]  and these are based on these are each tat each task has a heap control for code and a heap control for
+[00:11:01.700 -> 00:11:16.660]  data and those have the um the link lists uh multi-processor uh psect this just searches the symbol table
+[00:11:16.660 -> 00:11:27.300]  linearly for the nearest address q sort well this is i actually uh was dumbfounded because you want it to be
+[00:11:27.300 -> 00:11:34.700]  uh fast for a sorted list and when i thought i didn't really study this i just used it what i had from
+[00:11:34.700 -> 00:11:45.340]  memory and so what i did is i i uh i pivot around the midpoint of each uh um each uh range so what you
+[00:11:45.340 -> 00:11:52.240]  do is uh you pivot or i pivot around the midpoint of each range there's a pivot point q sort i i was uh
+[00:11:53.200 -> 00:12:05.500]  nice and i made a special q sort just for a size uh for size 64 bit if most of the time you have
+[00:12:05.500 -> 00:12:11.160]  pointers or that's a very common thing is to have pointers and so i made a special case for pointers
+[00:12:11.760 -> 00:12:13.480]  so that we don't do a mem copy
+[00:12:15.840 -> 00:12:24.620]  and then i made it even more convenient if you flat out if that other one was uh um was built into
+[00:12:24.620 -> 00:12:33.100]  the regular q sort then i made a non-standard q sort which is even faster still which is integers and uh
+[00:12:33.640 -> 00:12:42.700]  then it um your comparison is one level less in direction you don't do pointers to elements you don't
+[00:12:42.700 -> 00:12:50.360]  do pointers to elements you do elements anyway so that's my q sort my scheduler this is just a round
+[00:12:50.360 -> 00:12:59.040]  robin nothing fan no priorities just round robin and if it's uh sometimes it's it checks the tasks are
+[00:12:59.040 -> 00:13:05.220]  not removed from the queue they stay in the queue and it just uh skips them that's how it works it just
+[00:13:05.220 -> 00:13:19.080]  skips over them if they're not ready and uh printf i have string binary to decimal i have a pet
+[00:13:21.500 -> 00:13:24.600]  you know you know string string well i have
+[00:13:26.480 -> 00:13:33.700]  i have some string utilities why don't we just make this about uh oh well so uh those are the
+[00:13:33.700 -> 00:13:43.400]  algorithms in the current in the kernel um in the uh i should probably end this video in the compiler
+[00:13:46.400 -> 00:13:48.140]  why don't we make this another video
+[00:13:51.500 -> 00:13:53.500]  that's it's pretty much the same

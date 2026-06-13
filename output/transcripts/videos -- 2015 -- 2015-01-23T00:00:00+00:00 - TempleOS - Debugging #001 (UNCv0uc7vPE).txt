@@ -1,0 +1,161 @@
+========================================================================
+FILE        : videos/2015/2015-01-23T00:00:00+00:00 - TempleOS - Debugging #001 (UNCv0uc7vPE).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2015/2015-01-23T00:00:00+00:00 - TempleOS - Debugging #001 (UNCv0uc7vPE).mkv
+FORMAT      : Matroska
+SIZE        : 69,310,850 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:16:03.920
+TRANSCRIBED: 2026-05-10T21:03:15.227792+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay we're going to cover the debugger okay I'm gonna hit here's a program to count to end I'm gonna hit F5 so it runs now if I say unassemble function cnt it's sitting in memory okay and I'll if you want you can specify address cnt let's say cnt plus 18 0x18 so the uf function takes a string a string which is the symbol table function u by itself takes an address an integer and we say the address of count plus 18 okay so the debug command is dbg and you can you can place the debug command in your program when you when you have fatal errors or not actually not even ones that aren't fatal let's say you can pass it a string if you want to now notice it says fatal look for that string that the string that when entering the debugger whenever it crashes it might tell you something important the stack trace is the most important thing the debugger provides so we can set a breakpoint let's unassemble unassemble address count now let's set a breakpoint on on the call to print how about just before the call to print count plus 18 breakpoint address count plus 0x18 oh I spelled it wrong breakpoint address count don't touch the mouse by the way this is the same command line as normal it's just one task and interrupts have been turned off so it pulls the keyboard so that there's no side effects now the tricky part is uh figuring out what this is the same task however its registers are stored in the task record so um you have to be careful not to corrupt the registers um it's all very confusing I don't use this debugger to be quite honest okay now we say count count count to 10 now hit a breakpoint breakpoint fault 3 breakpoint you see where it says that okay so um if we hit go now we can um let's exit out of here let's let's go ahead and run let's do help to um to remove the breakpoints you hit b2 then hit go I don't I don't know what this is gonna do okay now we're back to the debugger this is very dangerous anyway now now what do we do how do we get out okay I think we're stuck yeah we're stuck okay um I'm gonna kill this task oh it cracked uh I don't know I'm gonna hit reset okay it's all very confusing but you can see how it if you it'll confuse you too if you can figure it out you're welcome to use it anyway the all the alternative way is to do it in here unassembled count then we set a breakpoint here address address count plus 18 now we can say count here now we're at the breakpoint now the trick it notice rsi is one okay if we hit go the breakpoint has to be removed so you have to the what you do is you single step or you remove it single step we just stepped over the breakpoint now go okay now rsi is two in the upper corner single step go now rsi is three in the upper corner now if we say go to this is two in the upper corner now if we go to the breakpoint now we're back to here okay now we're safe okay so um the other thing to the other uh let's go to the debugger i'm just going to dive in directly um so um there's some tricks in here um you can edit the current rip this is this goes to the source code for this for the current rip and we are in the this is in the debug um this is the debug okay that's the actual code i'm kind of um surprised anyway that's the actual code i'm going to shift escape i don't now um let's uh we're in debug let's exit debug exit this exits the task actually this kills the task to exit debugger you and keep the task i think we want g2 okay that keeps the task if i if i would have said exit it would have um killed the the task now the problem with the debugger is um it only works for uh well just to give you an idea of how hopeless it is let's look at one of the games here's here's a game that i i want to show off okay this um launches arrows they go faster if you pull back farther if you do it just a little bit okay so this has a uh draw it this is the core of most of user programs most one of the biggest things in a user program is going to in a typical user program is going to be their draw routine this is where it renders the graphics so uh what do you think is going to happen if we put a breakpoint into the draw oh god don't do that okay it's going to crash for sure okay so now the trick is keeping track of which task is the command line and all that stuff okay so i'm going to go ahead and include from the command line i'm going to include zing now i'm going to exit i'm going to unassemble function zing okay now how about i unassemble function draw draw it okay so here's the dry routine so how about how about right here bow drawn how about there so what do you think is going to happen this remember this is a callback and it's called by the window manager so if we put a breakpoint in the callback we are in the window manager well i guess we can we can let's say you were curious what x was so um maybe x is uh let's do that i ran out of uh let's go doc max that makes my command line buffer infinite then i say unassemble function draw it i just want to uh i just want to uh see what the register variable is okay here's the register variables so x is not a register wow there's not a lot of register variables there why didn't it use more register variables i don't know i'll have to investigate that anyway um it's really weird probably a good reason okay oh they're floats they're floats is it are they floats yeah they're floats okay that's why i was worried okay so um oh well so we're going to set a break point uh long story short it's going to crash and you're not going to know what's going on but uh right let's go to bow drawn maybe we can see when maybe we can see the value of bow drawn okay okay so test there's a test ff that's testing the boolean bow drawn seven two c okay so we say break point well it's going to immediately crash no it's not break point address dry it address dry it plus zero x seven two c now if i say zing it's going to start up the application and install the callback and then when it comes to to it's going to crash in the window manager what it didn't crash how did i start it up let's see break point wow this is weird oh you know what it is um it's even stranger than i thought okay in the uh i literally have never done this okay okay um in the scheduler when the task is when the task context is saved or restored that it's it installs or inserts or removes the break points so the break points are only for one task so what happened is um it was the window manager and the break point had been removed so just change the kernel why not just change the kernel you know you can do crazy stuff like that if you if you know what you're doing you can just tell it not to remove the break points comment out this code re want to see how fast i can do it well let's just prove it i feel like proving it i feel like proving save context okay on uh when we save the context we don't want to remove them okay so here we are break point list okay star okay jump break point list 10 okay i have a uh okay let's just recompile it bam bam now we're up and running oh we got um i that's when i'm not kidding it's multi-core related the multi-core cores don't shut down and start up properly during boot okay so let's go to zing what was it seven two seven two eight okay exit unassemble function unassemble address draw get plus zero x set set seven two eight let's see unassemble okay seven two c okay so break point um address draw it plus zero x seven two c okay now i say zing those there i didn't lie did i did i so we changed the kernel okay um you know there you can do ridiculous stuff like that now i can remove it once you let's see if we can get up running up and running again so g2 removes break points and goes oh we didn't get up and running i think we're definitely in trouble now i didn't remove oh it's the wrong task now oh that's tricky okay um do you understand what happened um the uh this is not the window manager's break points okay so um uh so we could if we knew what that value was supposed to be how about we change it to a no-op oh let's do that okay unassemble underscore rip okay so test now i'm going to do something i have never done okay there's oh there's test where's the break point oh it's the prefix for uh it needs to be a 48 okay i was going to get really clever i was going to show you how to do the assembler um you want to you want to how about we just uh how about we just uh okay i can set the value of that star um i'm gonna i don't know how many parentheses seven f d a o d five four one star star zero x seven f d a o d five four we're going to typecast it to a u8 pointer and say equal zero x 48 that's okay now unassemble unassemble underscore oh i could have said rip rip okay so i know i changed it to a crazy instruction that's not a break point though i don't know well i don't know what that's going to do i don't think it'll hurt anything go to you oh well it was a valiant effort okay enough fun i can show you how to assemble stuff um oh i'm tired you
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:01.400 -> 00:00:05.980]  okay we're going to cover the debugger okay I'm gonna hit here's a program to
+[00:00:05.980 -> 00:00:14.220]  count to end I'm gonna hit F5 so it runs now if I say unassemble function cnt
+[00:00:15.180 -> 00:00:23.020]  it's sitting in memory okay and I'll if you want you can specify address cnt let's
+[00:00:23.020 -> 00:00:34.140]  say cnt plus 18 0x18 so the uf function takes a string a string which is the symbol table function
+[00:00:37.040 -> 00:00:47.740]  u by itself takes an address an integer and we say the address of count plus 18 okay so the debug
+[00:00:47.740 -> 00:00:56.020]  command is dbg and you can you can place the debug command in your program when you when you have
+[00:00:56.020 -> 00:01:03.960]  fatal errors or not actually not even ones that aren't fatal let's say you can pass it a string
+[00:01:03.960 -> 00:01:13.400]  if you want to now notice it says fatal look for that string that the string that when entering the
+[00:01:13.400 -> 00:01:20.580]  debugger whenever it crashes it might tell you something important the stack trace is the most
+[00:01:20.580 -> 00:01:32.740]  important thing the debugger provides so we can set a breakpoint let's unassemble unassemble address count
+[00:01:35.000 -> 00:01:42.080]  now let's set a breakpoint on on the call to print how about just before the call to print
+[00:01:43.060 -> 00:01:57.220]  count plus 18 breakpoint address count plus 0x18 oh I spelled it wrong breakpoint address count don't touch
+[00:01:57.220 -> 00:02:04.280]  the mouse by the way this is the same command line as normal it's just one task and interrupts have been
+[00:02:04.280 -> 00:02:10.980]  turned off so it pulls the keyboard so that there's no side effects now the tricky part is uh figuring out
+[00:02:10.980 -> 00:02:24.260]  what this is the same task however its registers are stored in the task record so um you have to be careful not to corrupt the registers
+[00:02:24.260 -> 00:02:36.000]  um it's all very confusing I don't use this debugger to be quite honest okay now we say count count count to 10
+[00:02:37.640 -> 00:02:48.860]  now hit a breakpoint breakpoint fault 3 breakpoint you see where it says that okay so um if we hit go now we can um
+[00:02:50.380 -> 00:02:53.240]  let's exit out of here let's let's go ahead and run
+[00:02:54.700 -> 00:03:00.600]  let's do help to um to remove the breakpoints you hit b2
+[00:03:02.620 -> 00:03:05.560]  then hit go I don't I don't know what this is gonna do
+[00:03:07.140 -> 00:03:16.080]  okay now we're back to the debugger this is very dangerous anyway now now what do we do how do we get
+[00:03:16.080 -> 00:03:23.080]  out okay I think we're stuck yeah we're stuck okay um
+[00:03:26.460 -> 00:03:33.260]  I'm gonna kill this task oh it cracked uh I don't know I'm gonna hit reset
+[00:03:35.860 -> 00:03:40.380]  okay it's all very confusing but you can see how it if you
+[00:03:43.320 -> 00:03:49.480]  it'll confuse you too if you can figure it out you're welcome to use it anyway the all the alternative
+[00:03:49.480 -> 00:03:52.880]  way is to do it in here unassembled count
+[00:03:55.100 -> 00:03:57.040]  then we set a breakpoint here
+[00:03:59.640 -> 00:04:00.360]  address
+[00:04:01.680 -> 00:04:03.520]  address count plus 18
+[00:04:06.000 -> 00:04:08.060]  now we can say count here
+[00:04:10.120 -> 00:04:14.720]  now we're at the breakpoint now the trick it notice rsi is one
+[00:04:14.720 -> 00:04:40.200]  okay if we hit go the breakpoint has to be removed so you have to the what you do is you single step or you remove it single step we just stepped over the breakpoint now go okay now rsi is two in the upper corner single step go now rsi is three in the upper corner now if we say go to
+[00:04:41.780 -> 00:04:47.080]  this is two in the upper corner now if we go to the breakpoint now we're back to here okay now we're safe
+[00:04:47.080 -> 00:04:56.080]  okay so um the other thing to the other uh let's go to the debugger i'm just going to dive in directly
+[00:04:59.220 -> 00:05:05.980]  um so um there's some tricks in here um you can edit the current rip
+[00:05:06.960 -> 00:05:14.840]  this is this goes to the source code for this for the current rip and we are in the this is in the
+[00:05:14.840 -> 00:05:17.680]  debug um this is the
+[00:05:22.400 -> 00:05:30.360]  debug okay that's the actual code i'm kind of um surprised anyway that's the actual code i'm going to
+[00:05:30.360 -> 00:05:42.180]  shift escape i don't now um let's uh we're in debug let's exit debug exit this exits the task actually
+[00:05:42.180 -> 00:05:49.840]  this kills the task to exit debugger you and keep the task i think we want g2 okay that keeps the task if
+[00:05:49.840 -> 00:05:57.280]  i if i would have said exit it would have um killed the the task now the problem with the debugger is
+[00:05:58.460 -> 00:06:07.480]  um it only works for uh well just to give you an idea of how hopeless it is let's look at one of the
+[00:06:07.480 -> 00:06:16.600]  games here's here's a game that i i want to show off okay this um launches arrows they go faster if you
+[00:06:16.600 -> 00:06:26.820]  pull back farther if you do it just a little bit okay so this has a uh draw it
+[00:06:27.840 -> 00:06:34.820]  this is the core of most of user programs most one of the biggest things in a user program is going
+[00:06:34.820 -> 00:06:40.840]  to in a typical user program is going to be their draw routine this is where it renders the graphics
+[00:06:42.280 -> 00:06:48.760]  so uh what do you think is going to happen if we put a breakpoint into the draw oh god
+[00:06:53.280 -> 00:06:54.500]  don't do that
+[00:06:56.860 -> 00:07:00.380]  okay it's going to crash for sure okay so
+[00:07:01.340 -> 00:07:09.900]  now the trick is keeping track of which task is the command line and all that stuff okay so i'm
+[00:07:09.900 -> 00:07:15.180]  going to go ahead and include from the command line i'm going to include zing
+[00:07:16.560 -> 00:07:22.860]  now i'm going to exit i'm going to unassemble function zing
+[00:07:25.340 -> 00:07:30.460]  okay now how about i unassemble function draw draw it
+[00:07:33.920 -> 00:07:34.940]  okay so
+[00:07:38.500 -> 00:07:40.120]  here's the dry routine
+[00:07:41.620 -> 00:07:44.560]  so how about how about right here bow drawn how about there
+[00:07:44.560 -> 00:07:52.760]  so what do you think is going to happen this remember this is a callback and it's called by the window
+[00:07:52.760 -> 00:08:00.800]  manager so if we put a breakpoint in the callback we are in the window manager well i guess we can
+[00:08:00.800 -> 00:08:07.440]  we can let's say you were curious what x was so um maybe x is uh
+[00:08:11.960 -> 00:08:14.780]  let's do that i ran out of uh
+[00:08:17.360 -> 00:08:25.140]  let's go doc max that makes my command line buffer infinite then i say unassemble function
+[00:08:25.980 -> 00:08:28.940]  draw it i just want to uh
+[00:08:31.100 -> 00:08:35.700]  i just want to uh see what the register variable is
+[00:08:41.300 -> 00:08:44.800]  okay here's the register variables so x is
+[00:08:45.880 -> 00:08:50.460]  not a register wow there's not a lot of register variables there
+[00:08:53.480 -> 00:08:56.020]  why didn't it use more register variables
+[00:08:58.640 -> 00:09:03.320]  i don't know i'll have to investigate that anyway um
+[00:09:05.880 -> 00:09:07.200]  it's really weird
+[00:09:09.440 -> 00:09:16.320]  probably a good reason okay oh they're floats they're floats is it are they floats yeah they're
+[00:09:16.320 -> 00:09:31.820]  floats okay that's why i was worried okay so um oh well so we're going to set a break point uh long story short it's going to crash and you're not going to know what's going on but uh right
+[00:09:35.640 -> 00:09:38.120]  let's go to bow drawn maybe we can see when
+[00:09:39.820 -> 00:09:41.860]  maybe we can see the value of bow drawn
+[00:09:45.460 -> 00:09:46.240]  okay
+[00:09:50.920 -> 00:09:56.620]  okay so test there's a test ff that's testing the boolean bow drawn
+[00:09:57.220 -> 00:10:04.800]  seven two c okay so we say break point well it's going to immediately crash no it's not break point
+[00:10:06.820 -> 00:10:08.320]  address dry it
+[00:10:08.320 -> 00:10:11.560]  address dry it plus zero x seven two c
+[00:10:13.080 -> 00:10:14.840]  now if i say zing
+[00:10:15.560 -> 00:10:24.540]  it's going to start up the application and install the callback and then when it comes to to it's going to crash in the window manager
+[00:10:26.500 -> 00:10:27.200]  what
+[00:10:28.940 -> 00:10:30.120]  it didn't crash
+[00:10:33.400 -> 00:10:35.280]  how did i start it up let's see
+[00:10:37.060 -> 00:10:42.920]  break point wow this is weird oh you know what it is
+[00:10:43.840 -> 00:10:44.440]  um
+[00:10:47.300 -> 00:10:51.520]  it's even stranger than i thought okay in the uh
+[00:10:53.940 -> 00:10:56.280]  i literally have never done this
+[00:10:58.380 -> 00:10:59.220]  okay
+[00:10:59.220 -> 00:11:02.120]  okay um in the scheduler
+[00:11:03.520 -> 00:11:12.340]  when the task is when the task context is saved or restored that it's it installs or
+[00:11:12.340 -> 00:11:17.080]  inserts or removes the break points so the break points are only for one task
+[00:11:17.780 -> 00:11:19.520]  so what happened is um
+[00:11:21.020 -> 00:11:24.800]  it was the window manager and the break point had been removed
+[00:11:27.040 -> 00:11:28.960]  so just change the kernel
+[00:11:30.840 -> 00:11:35.940]  why not just change the kernel you know you can do crazy stuff like that if you if you know what
+[00:11:36.130 -> 00:11:39.370]  you're doing you can just tell it not to remove the break points
+[00:11:41.450 -> 00:11:46.250]  comment out this code re want to see how fast i can do it well let's just prove it
+[00:11:46.250 -> 00:11:53.430]  i feel like proving it i feel like proving save context okay on uh when we save the context we don't
+[00:11:53.430 -> 00:12:01.370]  want to remove them okay so here we are break point list okay star
+[00:12:03.390 -> 00:12:18.050]  okay jump break point list 10 okay i have a uh okay let's just recompile it bam bam now we're up and
+[00:12:18.050 -> 00:12:25.970]  running oh we got um i that's when i'm not kidding it's multi-core related the multi-core cores don't
+[00:12:25.970 -> 00:12:34.170]  shut down and start up properly during boot okay so let's go to zing what was it seven two seven two eight
+[00:12:37.130 -> 00:12:42.110]  okay exit unassemble function unassemble
+[00:12:44.330 -> 00:12:51.330]  address draw get plus zero x set set seven two eight let's see
+[00:12:54.080 -> 00:13:09.540]  unassemble okay seven two c okay so break point um address draw it plus zero x seven two c okay
+[00:13:11.300 -> 00:13:18.420]  now i say zing those there i didn't lie did i did i so we changed the kernel
+[00:13:20.920 -> 00:13:27.320]  okay um you know there you can do ridiculous stuff like that now i can remove it once you let's see
+[00:13:27.320 -> 00:13:32.680]  if we can get up running up and running again so g2 removes break points and goes
+[00:13:34.680 -> 00:13:36.220]  oh we didn't get up and running
+[00:13:38.400 -> 00:13:46.460]  i think we're definitely in trouble now i didn't remove oh it's the wrong task now oh that's tricky
+[00:13:49.540 -> 00:13:57.760]  okay um do you understand what happened um the uh this is not the window manager's break points
+[00:13:59.660 -> 00:14:07.880]  okay so um uh so we could if we knew what that value was supposed to be how about we change it to a no-op
+[00:14:07.880 -> 00:14:12.720]  oh let's do that okay unassemble underscore rip
+[00:14:15.720 -> 00:14:23.000]  okay so test now i'm going to do something i have never done okay there's oh there's test where's the
+[00:14:23.000 -> 00:14:23.400]  break point
+[00:14:26.380 -> 00:14:33.780]  oh it's the prefix for uh it needs to be a 48 okay i was going to get really clever i was going to show
+[00:14:33.780 -> 00:14:39.860]  you how to do the assembler um you want to you want to how about we just uh how about we just uh
+[00:14:40.880 -> 00:14:43.880]  okay i can set the value of that star
+[00:14:46.200 -> 00:14:46.680]  um
+[00:14:50.140 -> 00:14:57.440]  i'm gonna i don't know how many parentheses seven f d a o d
+[00:14:58.420 -> 00:14:59.380]  five four
+[00:15:02.680 -> 00:15:04.420]  one star
+[00:15:04.420 -> 00:15:04.760]  star
+[00:15:06.740 -> 00:15:08.240]  zero x seven f
+[00:15:09.620 -> 00:15:10.260]  d a
+[00:15:11.700 -> 00:15:12.220]  o d
+[00:15:13.860 -> 00:15:14.580]  five four
+[00:15:15.620 -> 00:15:22.140]  we're going to typecast it to a u8 pointer and say equal zero x 48 that's
+[00:15:22.900 -> 00:15:25.160]  okay now unassemble
+[00:15:26.780 -> 00:15:30.520]  unassemble underscore oh i could have said rip rip
+[00:15:32.740 -> 00:15:37.800]  okay so i know i changed it to a crazy instruction that's not a break point though
+[00:15:42.620 -> 00:15:46.840]  i don't know well i don't know what that's going to do i don't think it'll hurt anything go to
+[00:15:46.840 -> 00:15:50.940]  you oh well it was a valiant effort
+[00:15:54.900 -> 00:15:58.240]  okay enough fun i can show you how to assemble stuff
+[00:15:58.240 -> 00:15:59.280]  um
+[00:16:02.640 -> 00:16:04.000]  oh i'm tired
+[00:16:04.000 -> 00:16:04.920]  you
+[00:16:04.920 -> 00:16:04.920]  
+[00:16:04.920 -> 00:16:04.920]  
+[00:16:04.920 -> 00:16:04.920]  
+[00:16:04.920 -> 00:16:04.920]  
+[00:16:03.920 -> 00:16:03.920]  
+[00:16:03.920 -> 00:16:03.920]  
+[00:16:03.920 -> 00:16:03.920]  
+[00:16:03.920 -> 00:16:03.920]  
+[00:16:03.920 -> 00:16:03.920]  
+[00:16:03.920 -> 00:16:03.920]  

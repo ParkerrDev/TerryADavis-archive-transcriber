@@ -1,0 +1,626 @@
+========================================================================
+FILE        : videos/2015/2015-09-19T00:00:00+00:00 - TempleOS - Kernel Algorithms (I9EM7FDabh4).mkv
+SOURCE URL  : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2015/2015-09-19T00:00:00+00:00 - TempleOS - Kernel Algorithms (I9EM7FDabh4).mkv
+DERIVATIVE  : (none — streamed from video)
+FORMAT      : Matroska
+SIZE        : 190,807,603 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:59:39.650
+TRANSCRIBED : 2026-05-11T01:23:30.702488+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+I'm going to do a quick walkthrough of the code and algorithms used in Dimple OS. We'll start in the kernel in the block device directory. This is for disks. Disks? Anyway, so there's three file systems. I made a diagram. You have the Red Sea file system, the FAT32, and the ISO 9660. And Red Sea and FAT are for hard disks. And ISO 9660 is for CD-ROM DVDs. It's actually kind of old, but I'm not going to do the new ones. Anyway, so you can have... ATA is for hard disks. Atappi is for CD, DVDs. And then you can have RAM disks. Atappi actually uses ATA commands. It's built on top of it. Anyway, so I want to talk about the allocation for Red Sea and FAT32. This is viewing the allocation bitmap for the drive. And this is kind of like what in the past you used to run check or scan disk or fix defrag. You used to defrag in the past. This is a bitmap for sector allocations. I'm obviously not using very much of the total disk space. With the FAT32, there's a... There's a... There's a pointer to the next allocated block. And there's... Anyway, what it does is it tries to cycle through the whole disk over and over. Perhaps so you don't wear it out. I don't know. But one of the things that helped me a lot was somebody said, Find the closest matching gap when you allocate. So, for example, let's say you want... I'm going to zoom in. Let's say you have a file that is five blocks in size. And you're allocating space for it. But what you try to do is find the closest to five. And if you do that, it works a lot better than just allocating the first location. So what you do is you try to fit as close as possible. I don't know. It works pretty well in practice. I never... I never stress my system. I never stress it. I always have a lot of extra room. Oh well. So... So... So... So... The fat has a level of indirection. Basically, when you allocate a file, it tells... It has a table. It has an array. So... So... So... For block zero, the next block... So your directory might have a... A... So this... A directory tells the cluster of the first block. And what you have is an array that points to the next block. And... So this block, if we looked in the array, it would point to 3C, 3D, 3E. And... The fat system can have... Gaps. You could have a fragmented file if you wanted. When I made the red C, it's just a bitmap. Not a... Fat32 has a... 32... An array of... 32-bit... It has an array... Called the file allocation table. And so... 0 might point to 1. 1 might point to 2. 2 might point to 3. And... Maybe 3 has a 0... Is it 0? I forgot what terminates it. Yeah... It might be FF. No, I think it's 0. I forgot. There... There is a FFF... In the... Oh, well. I should double check. Anyway, so... So you have one file that's right here. And then you have... You can have another file. And then... This file... If you wanted to grow this file... Um... You could replace this 0 with an 8. And now you just added a block to that file. And, uh... So that's how a fat table works. Anyway, so... My Red Sea system... Um... Just has a bitmap. And it only does contiguous. So on my Red Sea, you're not allowed to, uh... To have a... You're not allowed to grow... Your files. And, um... But I do that trick where you find the... The closest for allocating. And it works pretty well. So there's a disk cache. And, uh... Basically, it's a hash table. And it's least recently used. Uh... Uh... Okay. Let's see. There's a read cache. I don't do a write cache. I tried doing a write cache. And, uh... I had a problem because, uh... Um... I hit a deadlock. And, uh... It was, uh... More trouble than it was worth. So I decided not to offer a write cache. Um... So, uh... We want to look for the... Disk cache global variable. Uh... So... So... There's, uh... Um... Blocks are 512 bytes. Uh... Although there's some... Indication... Somebody wants to change it to, uh... More than 512 bytes. Some drives are... Newer drives are starting to do that. Anyway... So the disk cache has a cache block. The cache block has... It has a, uh... Least recently used, uh... It has a... Circular double... Double link queue. Um... So... Let me... How could I draw this data structure? Uh... So there's a, uh... There's an array... Of cache blocks. Uh... Zero... One... Anyway... So, uh... Um... It, um... It... It keeps a list of least recently used. And when a... And when a block gets used, it gets bumped to the head of the queue. So the least recently used is the one that gets, uh... Overwritten. Um... And it's a... It's a... It's a hash table. Uh... When you're trying to find a block, you use the hash table. Um... Links. There's a big array. Uh... Where is the array? I think... Well, here's the hash table. So it's hashed by block number. So let's say you have, uh... 2,000 blocks. Maybe, uh... There's a hundred... Imagine a hundred... An array of a hundred. And, uh... Um... Let's say you have 2,000 blocks and you have an array up to 99. And, uh... So if... If you have block, uh... If you have block 201... That hashes to 1. If you have block, uh... 400. That hashes to 0. Um... all you do is take the last two digits that's kind of how how the hash works anyway so when you have multiple partitions you can have blocks with the same number um they I think that I think I might add the partition in order to scramble it a little bit hashing is just coming up with a scramble anyway so there's a hash table when it wants to find a block and that's how that works and then it has the links for least recently used so it knows which one to replace next and then it has the the block itself these are not aligned my hash table blocks are not aligned which is so it's not on a 512 byte boundary um that's kind of ugly I remember working with a ticketmaster their blocks were aligned oh well anyway so there's a read cache but not a write cache and what other algorithms when you do file names it will convert a relative block a relative file name into an absolute and so there's a string string routine that will convert relative to absolute a similar thing is also used in my help system when you are when you when you use the help system it has a it's you see these purple file it's kind of like a directory tree as a matter of fact um blocks or entries can be placed in multiple locations anyway uh so I think that's all the disk algorithms um this the keyboard and mouse have interrupt routines if the mouse interrupt is not working it will do polling which is um a lot of people have a false impression of polling um they think that it takes all the cpu well I read the I read the uh I think I read the mouse let's just say 50 times a second if if the mouse interrupts not working and uh 50 times a second is not it's polling but it's not using up the whole cpu a lot of people have a false impression um you can poll and not use up the whole cpu anyway so when the keyboard routine is uh when it's in the debugger in the debugger it uh it doesn't use interrupts and that's because you don't want you don't want uh things changing um a low level debugger um you don't want it interrupt driven or well anyway anyway so uh what other algorithms there's an lzw um compression algorithm i don't know if i want to explain this basically uh um the first uh let's just say 256 there's a there's a uh it uses i'm gonna simplify this let's imagine you have uh 12 bits and uh you have a table and uh the dog went to the store um what it what an lzw does is it says okay i'm gonna have a string t and i'm gonna have th and uh i'm a little bit confused but when it hits this other th um it it has a pointer back back to um a previous uh entry and so this this it's already seen this uh this th e in the table oh no actually it would have to be lower case anyway so what it does is it builds up uh strings and uh and it can point back to when it's seen before so when when you hit this point it says okay start with th e uh space and so now uh so you you tell it what string to start with and uh so there's a string t there's a string th there's this i don't know if i'm doing this right um space so that the this one tells it to start with the th e and then it adds one more letter so each time it makes a new string in the table it adds one more letter and that's kind of how lzw works and so what i did is for my uh for my uh file compression for my for my file system if it has a z it automatically uses lzw when it reads and writes the file if it has a z on the file name nobody else does that another interesting thing about my file system is uh if you don't if it doesn't find a file in in in a directory it searches the the uh parent directory so that the uh the parent directory can have default files it used to be useful but not when i had account files anyway uh so i want to go over algorithms um so the display uh this display code in here is for the black and white uh debugger um it doesn't have windows uh why don't we limit this discussion to stuff in the kernel i'm not going to talk about the regular graphics but anyway uh so uh when you're dealing with uh uh um it's tricky when you're in um vg vga mode we're always in vga mode but uh um um the normal graphics routine updates the screen 30 times a second when you're in the when you're in this raw mode i call this raw rod what do i call it i just call it raw anyway it's raw put chart raw etc um so when you're in the raw mode um it has to it has to copy bit plane memory um uh anyway you always keep a um a ram buffer and you don't work with the uh vga memory uh the way oh okay i'll explain that might as well so vga memory is uh don't i don't know if you can write it but i don't think you can read it um so there's four bit planes there's there's a plane for red green and blue and then one for intensity and what you do is uh if you want to set a uh if you want to draw a red line then you uh you tell it to to write to the red plane and then you uh you do the pixels uh 640 times y plus x um you want to index your pixel 640 divided by 8 there's 8 pixels per byte so i could i don't know if i want to explain this you have an array of bytes it's a bit it's a bitmap and the order of the bits is not how you would like them anyway uh so uh when you're doing the raw it has to uh um it's slow anyway so the problem is when you want to write one character it's not very convenient because you have to write to all four bit planes so what i do for my graphics is i make a a non-bit plane uh frame buffer that has all four bits together um and then uh and then i break the planes out separating them uh uh so in other words normally you write to uh okay normally you set it to the red plane then write the red bits then maybe if you want to make it red you set all the ones that are red to one and then you you set it to the green and set all the bits to zero you set it to blue set all the bits to zero you set it to intensity set all the bits to zero and uh so the four so here's the way it works uh all right so so you write to a zero zero and let's say you want to set some to red um they are they already are red if you want to set it they're white right now they have red green blue in intensity set so if you want to set them to uh to red you set you want the red ff and then you want the rest of them set to zero zero so um this is all of these examples are a low is let me i'll do this pretty well okay so in order to uh uh so in order to set right now all right now the screen is white and blue um let's say you wanted to set these pixels to red so you would uh you would you would you would leave the red this is the red plane this is the green plane i don't know if i'm doing this right i can double check blue and then this is for let's call it bright red is red is four okay i got it backward so this is actually blue is one okay so if we want to do this right this is the blue plane this is green and this is the red plane and uh when you want to set let's set it let's set a color let's set the first byte to green so we want ff there we want zero zero here we don't want any blue present we don't want any red and we could leave it bright green okay so that's how you you set it to green now what i did for my uh graphics i wasn't going to talk about this but what i did is i uh i went ahead and i changed it back into uh into uh all four together anyway long story short or long story long anyway so uh so the display routine does black and white i have a little editor um when you're in the uh when you're in the uh when you're in the uh the what do we call it the uh raw io mode uh there's an emergency editor that um is really simple uh so there's an emergency editor and what it has is a a linked list of all the lines of text and then um or a circular link queue so that means it it makes a circle and uh for each node in the circle um it's one line and it's a line of characters so that's how this uh little editor that's all there is to this editor and uh so there's a little editor um the fonts are a bitmap eight by eight and uh this relates to what we were talking about the red green blue um i have a uh i have an array normally uh there's a text mode b800 b8000 and uh normally they do the the ascii and then the color foreground background um i have a uh a uh text mode uh or my text is uh zero to seven is the ascii i have the foreground background then this is this is normally how the text mode works but i i extended mine to 32 bits and you can actually do a uh superscript subscript uh so if i want to uh sub subscript okay i just each character can be subscripted by up to eight pixels um and then you you want to change it back to superscript so each so in my uh text array is uh subscript superscript and uh the camarader 64 used to uh shift uh text around you can actually do that anyway so there's a blank there's an invert there's a select and there's an underline um so i have an array for for text and then uh i use my eight by eight font for all the characters um so i have some there's only a couple this is like you know the standard template library has data types i have a fifo and then i have a i have a link list and i have a q vector basically uh if you want if you want to add if you want to grow an array gradually you use the q vector um the fifo is implemented with a circular double a link or not a circular i'm sorry the fifo is implemented with a ring buffer i think that's what that's what you call it right anyway um and i think it has to be um powers of two i made dates 64-bit dates so uh at ticketmaster i learned it was it's nice if you have uh uh you have the the day of the 32 bits for day since uh ad zero uh and uh and then uh 32 bits for time of day so the uh if you want to know the resolution of uh let's say one there are 24 hours in a day there are 60 um minutes and there are 60 seconds so uh i have a resolution of uh 50 thousandths of a second and uh i use my 64-bit dates in uh in my red c file system and if you want to know how many uh years i can do um so there's a d and bc um so uh a d and bc and we have 365 we can get fancy let's just call it 365 so um i can't i wanted to do four billion so i could do dates since the uh birth of the universe but uh or beginning of earth i don't have four billion i have five million um oh well that that's not very useful is it oh well so i have my first uh what do i call it epic i don't know what you what do you call it when the unix time expires and the whole world falls apart kind of like the year 2000 bug i have a year 2000 bug in five million years so anyway um i did my own dates um they have uh if you've ever wondered i i got i look it up in i don't know wikipedia or something and uh you have your uh every 100 years you don't have a leap year but every 400 years you do have a leap year but every 4 000 years you don't so i so my uh you can add and subtract dates that i don't store them as a structure anyway it's very nice adding and subtracting dates uh this is my debugger stuff um i have a string in direction table when you make a um pound define watch this i'm going to uh i'm going to put uh uh so what i just did if you hit ctrl t there's a text entry looking for a pound define uh i don't know i used to call my company trivial solutions so there's a string in direction table and you can uh you can uh it's used anyway so um uh you can use it for uh for multi multi language uh text anyway so um if you say percent uh percent uh percent s i think big s and then you uh this is a printf and uh you tell it uh company it printed god um so you can do percent s and then give a string in direction a capital s percent capital s gives a string in direction there's a if you wanted to do uh months of the year in spanish or english you can use z and then you tell it um anyway so there's there's a string in direction uh available um i used to have all my text as uh for multilingual but then i wanted just english so i got rid of all that so in uh in this define direct file i think it has the colors it has some of the common lists interrupt names colors lock device okay these you can um you can define a list of strings anyway um so uh i have exceptions uh my exceptions throw you give it a eight character string uh so um if we uh it's from my last video kind of funny anyway so if we make a uh say main it just threw an exception oh we we never mind okay so we have exceptions uh global variables hash table do you know what a hash table is uh many people don't know what a hash table is um go to f1 i think so there's a uh there's an array of length there's an array of linked lists and when you get a duplicate there uh so not only that but if if it doesn't find it in one hash table it searches parent hash tables there's a pointer to a parent and uh so i use my hash my hash table has a uh a bit mask for uh or a type um so in my hash table uh we have a we have company and that is a uh define string we have company we have a duplicate we have do it once and we have main our functions so in in one hash table i have different types of entries so if we said uh class student now if we do if we look at our hash table our hash table has a class so in one hash table i have all these symbols functions defines defines so there's a type and you can limit it to uh just classes or just functions or just defines there's a htt hash table type so these are bits they're not uh numbers and so what you do is let's say you wanted to search for a function or a type def actually i got rid of type defs anyway a global variable or then you can make a bit mask and it will do multiple it'll search it'll it'll find either of those so i have a hash table um you i don't think you can remove i i think i might have gotten rid of the ability to remove maybe you can i forgot i guess so we can hit f1 so you can use this for your own hash tables i'm not a big fan of the standard template library i like for everybody to make their own generally i don't know i don't like the standard template library so uh hash table this is a strange hash table because it has that 32-bit uh type so it's not a it's not a it's not a very pretty general purpose hash table i'm looking to see if you can remove yeah remove and delete okay well those hash tables are just for my my own system stuff it's not like a standard template library it it is sort of anyway so uh interrupts um i have faults there's like the first 32 uh um interrupts cause faults then i have keyboard mouse and uh timer is timer is interrupt zero and uh keyboard is one mouse is 12 um am i missing any i don't remember anyway so uh uh uh when you uh if you go to my website you can get a uh a file called bin rep and this will uh this will dump one of my binaries there's only two binaries kernel dot bin and compiler dot bin so if i say uh bin rep compiler dot bin so in my compiler are imports and exports so these are all relative these are all imports that are at certain look these are all exports so uh in my kernel i have a loader which will load a binary but you're not supposed to use that um you're supposed to do just in time um i there's just no reason for it so i have a little bit of math in my kernel uh i have support for some three three three three-dimensional vectors something like that um random numbers and floor ceiling i don't have that this is supposed to be limited you're not supposed to make it to the kernel is not supposed to have the kitchen sink miscellaneous so there's indian and uh little indian big indian and uh there's a sound routine anyway uh so i could talk about the keyboard device thing no so i have a i identity map all memory so if you do a mem this is what the bios tells me is physical memory and what i do is i identity map so what that means is uh i said all the virtual address is equal to the physical uh so uh uh i don't have a virtual allocator i have i have uh i have uh just physical addresses but i do have a malloc obviously and blocks each task is assigned certain or is allocated each task allocates blocks of memory turns out i make my block size 512 uh that's kind of like when i was at fact when i was at ticketmaster on the backs uh basically since i identity map it doesn't matter what i do i never touch the the hardware memory pages have once i identity map mem a during boot is called in this identity maps and then from then on you can allocate blocks or usually you just use malloc so there's a um uh i use the uh 32-bit call call like for example if i say trace on and then i say directory um at the command line it compiled my directory command and the directory command did a call a 32-bit call relative call so this is on other operating systems you have to do a syscall or something like that or software interrupts to change to kernel mode well all my code is placed in the lowest 2 gig and so all code can be is relative is within 32 bits of a relative 32-bit call other 64-bit operating systems have a problem because um when they want to do far distant beyond 32-bit addresses then their calls get complicated or ugly i put all my code in the lowest 32-bit or those two gig so as a matter of fact uh my uh this chunk of ram the um up to 7 fff is uh is uh the lowest 2 gig um so that's my code heap everything else is the data heap so if you go to uh if you go to the memory overview so this is the low 640 down here it has vga memory and then you hit my uh uh oh i have a fixed area then you hit my uh code heap which is right here and then everything else is the data heap so let's say you have 12 gig on your machine uh the lowest 2 gig is code heap and then the rest is data heap anyway um i allocate a few data items off of the code heap the task records are on the are on the code heap even though there are data um so your task addresses are 32-bit addresses anyway so uh let's go back to the kernel so my malloc is a uh i start with a slab let's say you get eight blocks of 512 and uh and then your uh your application uh uh starts allocating 100 bytes and then 100 bytes and 100 bytes then once it starts it slices off the top of the slab um because that's a little bit i don't know it's i should maybe i shouldn't do that so my my my address is uh start high and go low so if you do a uh if you do a symbol numeric order so this is a map of all the symbols based on numeric order and uh the kernel goes in the low 640 k uh here's the kernel in the low 640 k and then the compiler jumps way up high up to 7f now it's allocating off the the code heap um going backward from from off the top of a slab so once it starts freeing uh what it does is it puts them in a when you start freeing uh there's a there's an array of uh let's say array of uh i don't know one oh one oh an array of 1024 and their linked lists so this is the 108 link list size 108 then here's your one 116 i guess maybe this one maybe you free a lot of 116s and then when you reallocate it just put it grabs it out of the array now it's compound and so uh for bigger sizes it's uh there's 512 pages i think there's 128 um i'm telling how malloc malloc gets blocks like eight blocks and then it starts uh mallocating mallocating off the top so if i go to uh so my uh my page tables are identity mapped and that's at a location at a at a hundred thousand and then uh once he's so it's a hash of 1024 and then um we start using a a bigger size anyway so it's that's how my uh my malloc works i tried the buddy system and it was too unstable this will fragment um because i'm using uh physical memory not virtual and the stack is uh limited to um a fixed size of 128k so uh when you when you have a physical when you identity map it's not able to uh grow anything multi-core so uh i use a round robin scheduler which just means uh on each on each core it goes in a circle um and whatever task is ready it runs and on the other course we don't have any tasks and when you uh when you make an eight core flight simulator uh um your application spawns a task on these other cores and uh you want to see that in action how about let's do let's do that so i'm going to uh run i don't know if it's going to work so i want to draw a tab okay i nuked it oh well did you see it do you want to do it i won't do it again anyway so uh there were uh there was a task on the other course go back in the video and take a look pause it or something anyway so uh uh my scheduler goes round robin there are um uh the task can be put asleep until a certain jiffy my uh my uh uh my timer runs at a thousand hertz no matter what um these are swaps the timer is running at a thousand hertz and uh a thousand hertz uh anyway um it goes round robin a task can either be waiting for a wake-up time or waiting for a message and when you uh when you're at the command line you're waiting for a key and so it's asleep waiting for a key or a message so uh this is kind of interesting this video is getting kind of long anyway psect uh we have uh if i say unassemble uh starting at let's just grab an address it's able to do symbolic debugging that's because it scans the hash table brute force it's not designed to do this quickly anyway so the hashtag it scans the hash table for the nearest uh symbol and that's how it's able to make symbolic debugging but as it turns out my uh my debugger only scans uh each task has a symbol table and then the parent has a symbol table and when when you uh when you're when you're doing a symbolic debugging it won't find a symbol in a sibling uh it won't find a sibling symbol so uh when you're debugging the window manager uh it can be a problem here's the window manager he anyway so what it could do is not only scan parents but scan siblings i i don't do that it's we want to keep it simple anyway so there's a there's a uh on the debug on the uh wallpaper is uh uh it tells where each task is currently located and that's done with uh my hash table but what i do is i uh i cache psex just to make it a little bit faster because it actually takes a uh non-zero amount of time to because it's not really designed to psex aren't designed to be fast so i have a cache now what that means is if you add a new symbol um when you're debugging in theory you could have an error with the outdated symbol i don't think that's ever going to happen but it's not good with a debugger you can't trust you can trust it anyway q sort so i have a built-in q sort i'm not a fan of uh of uh lab template libraries so i have a special case q sort for uh 64-bit values normally you're the standard you have to enter the uh the size of the uh each entry but for my 64-bit it's uh it's it's 64-bit values it's just a it's just an efficiency the nice thing is is uh um the callback for comparison is uh is just 64-bit it's not it eliminates a level of indirection so this 64-bit quick short is nice there's actually a uh if you use the standard standard it actually does 64-bit special case um anyway q sort i uh i pivot around i think i do the midpoint um spurt so that if you do sorted lists it's just not bad and um oh well as a matter of fact i had an error not too long ago in my q sort which is kind of embarrassing finally i looked it up on a uh wikipedia or something so my scheduler is round robin and uh so uh you can uh uh there's interprocess communication uh where uh you uh you can tell a task uh so the task address is 7f9d or d9 so there's interprocess communication i can say do a directory i can tell it a task 7f d9 d228 and i'm going to tell it to do dir character turn okay so it just did a directory so there's interprocess communication you can tell it to do code if you have a slave task you can you can tell it a code address to start executing if you hit f1 go to task so uh the the adam task and the uh seth tasks are executive server kind of tasks um so the adam task is in a loop uh and he's uh the adam task is uh waiting for commands the seth task is waiting for commands um you can make a slave task that waits for commands so uh at this moment uh there's the adam task he's waiting for commands as a matter of fact um i can tell adam to uh print hello and he printed hello and he printed hello so he's kind of a slave executive his memory um will always be available so if you're doing a uh if you're doing a uh let's say a wallpaper um you want to use a i just oh i did it um must be adam included okay so to do wallpaper you have to uh adam include and now now it's uh on it's in adam's code so that it's not going to die if if i kill this task we did not kill the wallpaper that's because adam owns it and adam never dies so that's what the server command stuff i have some string uh i have a printf with extended codes and scanf um i don't really uh in theory you want uh when you do print when you print a string in theory you want uh you want it to always return if if you scan you want it to be the same as print but mine is uh is kind of uh crude and mine's efficient my printf is very efficient uh the way i do my uh floating point printf is uh what i do is i take uh what's on the right on the left side put it in a 64-bit value and then print it out as a 64-bit integer and then more or less i take what's on the other side put it in a 64-bit and print it as an integer and so i can have overflows let's let's say you did a percent 60f we want a carriage return okay so it does that okay but watch what happens if we say 30. okay it's not too bad be careful because it will screw up in certain cases let's say you had uh let's say you had this and you wanted to print that let's let's do that so instead of pi we're printing this oh well we get garbage let's say we have i don't know what this is going to do that worked okay maybe it's not too bad i i was afraid it was really bad be aware anyway don't don't use more more digits than than you need is it be cautious because i think it'll screw up anyway so um we have extended codes but we have uh you can print 20 you can print multiple single characters oh capital capital character is big c if you do if you do big c it does two upper you can print multiple characters if you want to print 20 blank lines you can print a file with percent f big f you can print a pointer sort this is for source level debugging i think everybody does that date and time and then here's uh this is for list entries like days of the week um then if you want to reverse a uh you saw when i was doing the atom stuff i had to uh um i had to use backslash quotes um there's a uh oh well if you say percent q and then you say uh backslash end it printed backslash end or backslash tab okay so it's it's uh anyway um when it reverses a uh percent f it reverses a print f it reverses a print f what was i saying percent f all along anyway it reverses a print f anyway uh so those are the algorithms in the kernel uh how about we call the day you
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:12.080 -> 00:00:17.720]  I'm going to do a quick walkthrough of the code and algorithms used in Dimple OS.
+[00:00:19.400 -> 00:00:23.500]  We'll start in the kernel in the block device directory.
+[00:00:24.300 -> 00:00:25.660]  This is for disks.
+[00:00:26.620 -> 00:00:27.260]  Disks?
+[00:00:27.260 -> 00:00:33.860]  Anyway, so there's three file systems.
+[00:00:41.120 -> 00:00:42.800]  I made a diagram.
+[00:00:44.580 -> 00:00:52.000]  You have the Red Sea file system, the FAT32, and the ISO 9660.
+[00:00:52.000 -> 00:00:58.760]  And Red Sea and FAT are for hard disks.
+[00:00:59.100 -> 00:01:02.000]  And ISO 9660 is for CD-ROM DVDs.
+[00:01:04.020 -> 00:01:08.360]  It's actually kind of old, but I'm not going to do the new ones.
+[00:01:08.360 -> 00:01:15.360]  Anyway, so you can have...
+[00:01:16.000 -> 00:01:18.000]  ATA is for hard disks.
+[00:01:18.460 -> 00:01:20.540]  Atappi is for CD, DVDs.
+[00:01:20.720 -> 00:01:22.840]  And then you can have RAM disks.
+[00:01:28.280 -> 00:01:32.800]  Atappi actually uses ATA commands.
+[00:01:32.800 -> 00:01:34.840]  It's built on top of it.
+[00:01:35.460 -> 00:01:41.620]  Anyway, so I want to talk about the allocation for Red Sea and FAT32.
+[00:01:47.140 -> 00:01:50.960]  This is viewing the allocation bitmap for the drive.
+[00:01:52.100 -> 00:01:59.740]  And this is kind of like what in the past you used to run check or scan disk or fix defrag.
+[00:01:59.940 -> 00:02:01.840]  You used to defrag in the past.
+[00:02:02.040 -> 00:02:05.720]  This is a bitmap for sector allocations.
+[00:02:05.720 -> 00:02:09.460]  I'm obviously not using very much of the total disk space.
+[00:02:10.240 -> 00:02:12.760]  With the FAT32, there's a...
+[00:02:12.760 -> 00:02:14.440]  There's a...
+[00:02:17.840 -> 00:02:24.660]  There's a pointer to the next allocated block.
+[00:02:25.440 -> 00:02:26.860]  And there's...
+[00:02:26.860 -> 00:02:33.200]  Anyway, what it does is it tries to cycle through the whole disk over and over.
+[00:02:33.780 -> 00:02:35.560]  Perhaps so you don't wear it out.
+[00:02:36.040 -> 00:02:36.740]  I don't know.
+[00:02:38.280 -> 00:02:43.460]  But one of the things that helped me a lot was somebody said,
+[00:02:44.360 -> 00:02:48.620]  Find the closest matching gap when you allocate.
+[00:02:48.900 -> 00:02:51.660]  So, for example, let's say you want...
+[00:02:51.660 -> 00:02:52.440]  I'm going to zoom in.
+[00:02:53.380 -> 00:03:00.040]  Let's say you have a file that is five blocks in size.
+[00:03:00.180 -> 00:03:02.220]  And you're allocating space for it.
+[00:03:02.940 -> 00:03:07.560]  But what you try to do is find the closest to five.
+[00:03:09.360 -> 00:03:16.600]  And if you do that, it works a lot better than just allocating the first location.
+[00:03:17.000 -> 00:03:21.540]  So what you do is you try to fit as close as possible.
+[00:03:21.840 -> 00:03:22.420]  I don't know.
+[00:03:22.540 -> 00:03:24.020]  It works pretty well in practice.
+[00:03:24.020 -> 00:03:25.020]  I never...
+[00:03:26.100 -> 00:03:30.020]  I never stress my system.
+[00:03:30.320 -> 00:03:31.400]  I never stress it.
+[00:03:31.580 -> 00:03:33.400]  I always have a lot of extra room.
+[00:03:33.880 -> 00:03:34.500]  Oh well.
+[00:03:35.940 -> 00:03:36.680]  So...
+[00:03:40.760 -> 00:03:41.500]  So...
+[00:03:41.500 -> 00:03:41.740]  So...
+[00:03:41.740 -> 00:03:41.780]  So...
+[00:03:41.780 -> 00:03:45.720]  The fat has a level of indirection.
+[00:03:46.820 -> 00:03:50.500]  Basically, when you allocate a file, it tells...
+[00:03:51.120 -> 00:03:52.320]  It has a table.
+[00:03:52.520 -> 00:03:53.260]  It has an array.
+[00:03:56.520 -> 00:03:57.280]  So...
+[00:03:57.280 -> 00:03:57.340]  So...
+[00:03:57.340 -> 00:03:57.360]  So...
+[00:03:57.360 -> 00:04:00.400]  For block zero, the next block...
+[00:04:00.400 -> 00:04:03.920]  So your directory might have a...
+[00:04:05.560 -> 00:04:05.800]  A...
+[00:04:13.020 -> 00:04:14.180]  So this...
+[00:04:14.180 -> 00:04:17.160]  A directory tells the cluster of the first block.
+[00:04:17.380 -> 00:04:21.700]  And what you have is an array that points to the next block.
+[00:04:21.700 -> 00:04:22.820]  And...
+[00:04:22.820 -> 00:04:30.220]  So this block, if we looked in the array, it would point to 3C, 3D, 3E.
+[00:04:31.040 -> 00:04:31.680]  And...
+[00:04:31.680 -> 00:04:34.540]  The fat system can have...
+[00:04:36.040 -> 00:04:36.680]  Gaps.
+[00:04:37.480 -> 00:04:41.000]  You could have a fragmented file if you wanted.
+[00:04:42.840 -> 00:04:46.860]  When I made the red C, it's just a bitmap.
+[00:04:47.100 -> 00:04:48.620]  Not a...
+[00:04:48.620 -> 00:04:51.820]  Fat32 has a...
+[00:04:52.620 -> 00:04:53.780]  32...
+[00:04:53.780 -> 00:04:54.740]  An array of...
+[00:04:54.740 -> 00:04:56.600]  32-bit...
+[00:04:59.160 -> 00:05:00.620]  It has an array...
+[00:05:02.220 -> 00:05:04.880]  Called the file allocation table.
+[00:05:05.840 -> 00:05:06.620]  And so...
+[00:05:07.280 -> 00:05:10.400]  0 might point to 1.
+[00:05:11.020 -> 00:05:12.980]  1 might point to 2.
+[00:05:13.640 -> 00:05:15.940]  2 might point to 3.
+[00:05:17.840 -> 00:05:18.420]  And...
+[00:05:18.420 -> 00:05:20.820]  Maybe 3 has a 0...
+[00:05:20.820 -> 00:05:21.480]  Is it 0?
+[00:05:22.040 -> 00:05:23.840]  I forgot what terminates it.
+[00:05:24.160 -> 00:05:24.740]  Yeah...
+[00:05:24.740 -> 00:05:26.660]  It might be FF.
+[00:05:26.900 -> 00:05:27.900]  No, I think it's 0.
+[00:05:28.060 -> 00:05:28.480]  I forgot.
+[00:05:29.840 -> 00:05:30.420]  There...
+[00:05:31.380 -> 00:05:32.940]  There is a FFF...
+[00:05:34.220 -> 00:05:35.380]  In the...
+[00:05:35.380 -> 00:05:35.680]  Oh, well.
+[00:05:37.080 -> 00:05:38.280]  I should double check.
+[00:05:38.580 -> 00:05:40.040]  Anyway, so...
+[00:05:40.040 -> 00:05:43.340]  So you have one file that's right here.
+[00:05:43.940 -> 00:05:45.480]  And then you have...
+[00:05:48.740 -> 00:05:50.600]  You can have another file.
+[00:05:52.100 -> 00:05:53.300]  And then...
+[00:05:53.300 -> 00:05:54.640]  This file...
+[00:05:54.640 -> 00:05:57.040]  If you wanted to grow this file...
+[00:05:58.140 -> 00:05:58.860]  Um...
+[00:06:02.900 -> 00:06:06.460]  You could replace this 0 with an 8.
+[00:06:06.900 -> 00:06:09.960]  And now you just added a block to that file.
+[00:06:11.900 -> 00:06:13.340]  And, uh...
+[00:06:13.340 -> 00:06:15.800]  So that's how a fat table works.
+[00:06:16.320 -> 00:06:17.040]  Anyway, so...
+[00:06:18.520 -> 00:06:20.360]  My Red Sea system...
+[00:06:20.360 -> 00:06:20.660]  Um...
+[00:06:20.660 -> 00:06:22.160]  Just has a bitmap.
+[00:06:22.500 -> 00:06:23.980]  And it only does contiguous.
+[00:06:24.400 -> 00:06:26.860]  So on my Red Sea, you're not allowed to, uh...
+[00:06:26.860 -> 00:06:27.580]  To have a...
+[00:06:27.580 -> 00:06:29.400]  You're not allowed to grow...
+[00:06:29.400 -> 00:06:30.320]  Your files.
+[00:06:31.440 -> 00:06:32.600]  And, um...
+[00:06:32.600 -> 00:06:35.000]  But I do that trick where you find the...
+[00:06:35.000 -> 00:06:36.540]  The closest for allocating.
+[00:06:37.040 -> 00:06:38.360]  And it works pretty well.
+[00:06:39.460 -> 00:06:41.560]  So there's a disk cache.
+[00:06:42.140 -> 00:06:43.320]  And, uh...
+[00:06:44.080 -> 00:06:45.840]  Basically, it's a hash table.
+[00:06:45.840 -> 00:06:47.840]  And it's least recently used.
+[00:06:52.500 -> 00:06:53.200]  Uh...
+[00:06:53.200 -> 00:06:54.280]  Uh...
+[00:06:54.280 -> 00:06:54.760]  Okay.
+[00:06:55.180 -> 00:06:55.660]  Let's see.
+[00:06:57.840 -> 00:06:59.380]  There's a read cache.
+[00:06:59.480 -> 00:07:00.680]  I don't do a write cache.
+[00:07:00.900 -> 00:07:02.760]  I tried doing a write cache.
+[00:07:02.960 -> 00:07:03.780]  And, uh...
+[00:07:03.780 -> 00:07:06.460]  I had a problem because, uh...
+[00:07:06.460 -> 00:07:07.040]  Um...
+[00:07:07.040 -> 00:07:09.060]  I hit a deadlock.
+[00:07:10.320 -> 00:07:11.600]  And, uh...
+[00:07:11.600 -> 00:07:12.480]  It was, uh...
+[00:07:12.480 -> 00:07:13.760]  More trouble than it was worth.
+[00:07:14.060 -> 00:07:17.120]  So I decided not to offer a write cache.
+[00:07:20.060 -> 00:07:20.700]  Um...
+[00:07:21.640 -> 00:07:22.920]  So, uh...
+[00:07:22.920 -> 00:07:25.080]  We want to look for the...
+[00:07:29.200 -> 00:07:31.680]  Disk cache global variable.
+[00:07:35.320 -> 00:07:36.000]  Uh...
+[00:07:36.000 -> 00:07:36.160]  So...
+[00:07:36.780 -> 00:07:36.900]  So...
+[00:07:36.900 -> 00:07:38.060]  There's, uh...
+[00:07:38.060 -> 00:07:38.200]  Um...
+[00:07:39.180 -> 00:07:40.820]  Blocks are 512 bytes.
+[00:07:41.220 -> 00:07:41.480]  Uh...
+[00:07:41.480 -> 00:07:42.200]  Although there's some...
+[00:07:43.180 -> 00:07:43.200]  Indication...
+[00:07:43.860 -> 00:07:45.780]  Somebody wants to change it to, uh...
+[00:07:45.780 -> 00:07:47.160]  More than 512 bytes.
+[00:07:47.600 -> 00:07:48.960]  Some drives are...
+[00:07:48.960 -> 00:07:50.840]  Newer drives are starting to do that.
+[00:07:51.240 -> 00:07:51.920]  Anyway...
+[00:07:51.920 -> 00:07:53.920]  So the disk cache has a cache block.
+[00:07:54.380 -> 00:07:56.260]  The cache block has...
+[00:07:56.260 -> 00:07:58.300]  It has a, uh...
+[00:07:58.300 -> 00:08:00.980]  Least recently used, uh...
+[00:08:00.980 -> 00:08:01.880]  It has a...
+[00:08:01.880 -> 00:08:03.100]  Circular double...
+[00:08:03.100 -> 00:08:04.240]  Double link queue.
+[00:08:08.280 -> 00:08:08.300]  Um...
+[00:08:09.620 -> 00:08:10.340]  So...
+[00:08:10.340 -> 00:08:10.840]  Let me...
+[00:08:10.840 -> 00:08:12.400]  How could I draw this data structure?
+[00:08:13.080 -> 00:08:13.800]  Uh...
+[00:08:13.800 -> 00:08:15.140]  So there's a, uh...
+[00:08:15.140 -> 00:08:16.180]  There's an array...
+[00:08:16.180 -> 00:08:17.560]  Of cache blocks.
+[00:08:20.720 -> 00:08:21.360]  Uh...
+[00:08:21.360 -> 00:08:22.420]  Zero...
+[00:08:23.280 -> 00:08:23.920]  One...
+[00:08:23.920 -> 00:08:24.960]  Anyway...
+[00:08:24.960 -> 00:08:25.500]  So, uh...
+[00:08:28.200 -> 00:08:28.840]  Um...
+[00:08:28.840 -> 00:08:30.140]  It, um...
+[00:08:30.140 -> 00:08:30.560]  It...
+[00:08:30.560 -> 00:08:33.580]  It keeps a list of least recently used.
+[00:08:33.900 -> 00:08:34.780]  And when a...
+[00:08:34.780 -> 00:08:38.060]  And when a block gets used, it gets bumped to the head of the queue.
+[00:08:39.060 -> 00:08:42.400]  So the least recently used is the one that gets, uh...
+[00:08:42.400 -> 00:08:43.040]  Overwritten.
+[00:08:43.940 -> 00:08:44.580]  Um...
+[00:08:46.520 -> 00:08:47.620]  And it's a...
+[00:08:47.620 -> 00:08:48.200]  It's a...
+[00:08:48.200 -> 00:08:49.620]  It's a hash table.
+[00:08:50.820 -> 00:08:51.460]  Uh...
+[00:08:51.460 -> 00:08:55.580]  When you're trying to find a block, you use the hash table.
+[00:08:56.600 -> 00:08:57.240]  Um...
+[00:08:57.240 -> 00:08:57.600]  Links.
+[00:08:58.020 -> 00:08:59.260]  There's a big array.
+[00:09:00.840 -> 00:09:01.480]  Uh...
+[00:09:02.140 -> 00:09:03.340]  Where is the array?
+[00:09:03.480 -> 00:09:04.340]  I think...
+[00:09:04.340 -> 00:09:05.980]  Well, here's the hash table.
+[00:09:06.260 -> 00:09:07.860]  So it's hashed by block number.
+[00:09:08.120 -> 00:09:10.260]  So let's say you have, uh...
+[00:09:10.260 -> 00:09:11.180]  2,000 blocks.
+[00:09:12.340 -> 00:09:13.420]  Maybe, uh...
+[00:09:13.420 -> 00:09:14.480]  There's a hundred...
+[00:09:14.480 -> 00:09:15.640]  Imagine a hundred...
+[00:09:15.640 -> 00:09:16.460]  An array of a hundred.
+[00:09:18.000 -> 00:09:19.080]  And, uh...
+[00:09:19.640 -> 00:09:20.180]  Um...
+[00:09:20.180 -> 00:09:25.200]  Let's say you have 2,000 blocks and you have an array up to 99.
+[00:09:26.720 -> 00:09:27.800]  And, uh...
+[00:09:27.800 -> 00:09:28.820]  So if...
+[00:09:28.820 -> 00:09:31.160]  If you have block, uh...
+[00:09:31.160 -> 00:09:34.420]  If you have block 201...
+[00:09:34.420 -> 00:09:36.640]  That hashes to 1.
+[00:09:36.980 -> 00:09:38.900]  If you have block, uh...
+[00:09:40.560 -> 00:09:41.320]  400.
+[00:09:41.920 -> 00:09:43.440]  That hashes to 0.
+[00:09:44.720 -> 00:09:45.480]  Um...
+[00:09:46.480 -> 00:09:53.940]  all you do is take the last two digits that's kind of how how the hash works anyway so
+[00:09:56.520 -> 00:10:00.400]  when you have multiple partitions you can have blocks with the same number
+[00:10:00.400 -> 00:10:08.260]  um they I think that I think I might add the partition in order to scramble it a little bit
+[00:10:08.260 -> 00:10:19.280]  hashing is just coming up with a scramble anyway so there's a hash table when it wants to find a
+[00:10:19.280 -> 00:10:24.700]  block and that's how that works and then it has the links for least recently used so it knows which
+[00:10:24.700 -> 00:10:33.640]  one to replace next and then it has the the block itself these are not aligned my hash table blocks
+[00:10:33.640 -> 00:10:45.080]  are not aligned which is so it's not on a 512 byte boundary um that's kind of ugly I remember
+[00:10:45.080 -> 00:10:58.620]  working with a ticketmaster their blocks were aligned oh well anyway so there's a read cache but not a
+[00:10:58.620 -> 00:11:14.660]  write cache and what other algorithms when you do file names it will convert a relative block a
+[00:11:14.660 -> 00:11:24.480]  relative file name into an absolute and so there's a string string routine that will convert relative to
+[00:11:24.480 -> 00:11:35.480]  absolute a similar thing is also used in my help system when you are when you when you use the help
+[00:11:35.480 -> 00:11:44.840]  system it has a it's you see these purple file it's kind of like a directory tree as a matter of fact um
+[00:11:44.840 -> 00:12:07.360]  blocks or entries can be placed in multiple locations anyway uh so I think that's all the disk algorithms um
+[00:12:09.940 -> 00:12:19.260]  this the keyboard and mouse have interrupt routines if the mouse interrupt is not working it will do polling
+[00:12:19.260 -> 00:12:26.180]  which is um a lot of people have a false impression of polling um they think that it takes all the cpu
+[00:12:26.180 -> 00:12:35.980]  well I read the I read the uh I think I read the mouse let's just say 50 times a second if if the mouse
+[00:12:35.980 -> 00:12:45.400]  interrupts not working and uh 50 times a second is not it's polling but it's not using up the whole cpu
+[00:12:45.400 -> 00:12:55.100]  a lot of people have a false impression um you can poll and not use up the whole cpu anyway so when the
+[00:12:55.100 -> 00:13:04.420]  keyboard routine is uh when it's in the debugger in the debugger it uh it doesn't use interrupts and that's
+[00:13:04.420 -> 00:13:11.440]  because you don't want you don't want uh things changing um a low level debugger um
+[00:13:14.240 -> 00:13:23.680]  you don't want it interrupt driven or well anyway anyway so uh what other algorithms there's an lzw
+[00:13:23.680 -> 00:13:34.120]  um compression algorithm i don't know if i want to explain this basically uh um the first uh let's just
+[00:13:34.120 -> 00:13:42.740]  say 256 there's a there's a uh it uses i'm gonna simplify this
+[00:13:44.620 -> 00:13:52.100]  let's imagine you have uh 12 bits and uh you have a table and uh
+[00:13:56.520 -> 00:14:07.720]  the dog went to the store um what it what an lzw does is it says okay i'm gonna have a string t
+[00:14:08.500 -> 00:14:16.420]  and i'm gonna have th and uh i'm a little bit confused but when it hits this other th
+[00:14:16.420 -> 00:14:28.820]  um it it has a pointer back back to um a previous uh entry and so this this it's already seen this uh
+[00:14:28.820 -> 00:14:35.440]  this th e in the table oh no actually it would have to be lower case anyway
+[00:14:37.120 -> 00:14:46.740]  so what it does is it builds up uh strings and uh and it can point back to when it's seen before so
+[00:14:46.740 -> 00:14:57.360]  when when you hit this point it says okay start with th e uh space and so now uh so you you tell it what
+[00:14:57.360 -> 00:15:05.180]  string to start with and uh so there's a string t there's a string th there's this i don't know if
+[00:15:05.180 -> 00:15:10.080]  i'm doing this right um space so that the
+[00:15:13.320 -> 00:15:20.120]  this one tells it to start with the th e and then it adds one more letter so each time it makes a new
+[00:15:20.120 -> 00:15:27.000]  string in the table it adds one more letter and that's kind of how lzw works and so what i did is for
+[00:15:28.260 -> 00:15:37.580]  my uh for my uh file compression for my for my file system if it has a z it automatically uses lzw
+[00:15:38.400 -> 00:15:45.100]  when it reads and writes the file if it has a z on the file name nobody else does that another
+[00:15:45.100 -> 00:15:51.960]  interesting thing about my file system is uh if you don't if it doesn't find a file in in in a
+[00:15:51.960 -> 00:16:01.680]  directory it searches the the uh parent directory so that the uh the parent directory can have default
+[00:16:01.680 -> 00:16:10.800]  files it used to be useful but not when i had account files anyway uh so i want to go over algorithms
+[00:16:11.560 -> 00:16:20.700]  um so the display uh this display code in here is for the black and white uh debugger
+[00:16:20.700 -> 00:16:28.960]  um it doesn't have windows uh why don't we limit this discussion to stuff in the kernel i'm not going to
+[00:16:28.960 -> 00:16:36.380]  talk about the regular graphics but anyway uh so uh when you're dealing with uh
+[00:16:39.420 -> 00:16:49.580]  uh um it's tricky when you're in um vg vga mode we're always in vga mode but uh
+[00:16:52.200 -> 00:16:53.000]  um
+[00:16:53.000 -> 00:17:01.040]  um the normal graphics routine updates the screen 30 times a second when you're in the when you're in
+[00:17:01.040 -> 00:17:12.360]  this raw mode i call this raw rod what do i call it i just call it raw anyway it's raw put chart raw etc um
+[00:17:13.960 -> 00:17:17.900]  so when you're in the raw mode um it has to
+[00:17:21.300 -> 00:17:36.500]  it has to copy bit plane memory um uh anyway you always keep a um a ram buffer and you don't work with
+[00:17:36.500 -> 00:17:43.020]  the uh vga memory uh the way oh okay i'll explain that might as well
+[00:17:45.640 -> 00:17:53.400]  so vga memory is uh don't i don't know if you can write it but i don't think you can read it um
+[00:17:55.540 -> 00:18:01.520]  so there's four bit planes there's there's a plane for red green and blue and then one for intensity
+[00:18:02.000 -> 00:18:07.300]  and what you do is uh if you want to set a uh if you want to draw a red
+[00:18:09.020 -> 00:18:17.820]  line then you uh you tell it to to write to the red plane and then you uh you do the pixels uh
+[00:18:20.860 -> 00:18:31.660]  640 times y plus x um you want to index your pixel 640 divided by 8 there's 8 pixels per byte
+[00:18:33.260 -> 00:18:39.000]  so i could i don't know if i want to explain this you have an array of bytes it's a bit it's a bitmap
+[00:18:40.240 -> 00:18:47.180]  and the order of the bits is not how you would like them anyway uh so uh
+[00:18:48.380 -> 00:18:54.260]  when you're doing the raw it has to uh um it's slow anyway
+[00:18:56.180 -> 00:19:01.420]  so the problem is when you want to write one character it's not very convenient because you
+[00:19:01.420 -> 00:19:10.620]  have to write to all four bit planes so what i do for my graphics is i make a a non-bit plane uh frame
+[00:19:10.620 -> 00:19:20.180]  buffer that has all four bits together um and then uh and then i break the planes out separating them uh
+[00:19:20.180 -> 00:19:28.020]  uh so in other words normally you write to uh okay
+[00:19:31.240 -> 00:19:36.980]  normally you set it to the red plane then write the red bits then maybe if you want to make it red you
+[00:19:36.980 -> 00:19:42.760]  set all the ones that are red to one and then you you set it to the green and set all the bits to zero
+[00:19:42.760 -> 00:19:47.740]  you set it to blue set all the bits to zero you set it to intensity set all the bits to zero
+[00:19:48.520 -> 00:19:53.040]  and uh so the four so here's the way it works uh
+[00:19:57.940 -> 00:19:58.760]  all right
+[00:20:14.860 -> 00:20:15.340]  so
+[00:20:15.340 -> 00:20:22.260]  so you write to a zero zero and let's say you want to set some to red um they are they already are red
+[00:20:23.080 -> 00:20:29.540]  if you want to set it they're white right now they have red green blue in intensity set so if you want
+[00:20:29.540 -> 00:20:37.240]  to set them to uh to red you set you want the red ff and then you want the rest of them set to zero zero
+[00:20:37.240 -> 00:20:42.760]  so um this is all of these examples are a
+[00:20:45.340 -> 00:20:46.340]  low is
+[00:20:53.500 -> 00:21:01.040]  let me i'll do this pretty well okay so in order to uh
+[00:21:03.920 -> 00:21:04.440]  uh
+[00:21:11.060 -> 00:21:16.600]  so in order to set right now all right now the screen is white and blue
+[00:21:17.660 -> 00:21:24.620]  um let's say you wanted to set these pixels to red so you would uh you would you would you would
+[00:21:24.620 -> 00:21:31.020]  leave the red this is the red plane this is the green plane i don't know if i'm doing this
+[00:21:31.020 -> 00:21:38.340]  right i can double check blue and then this is for let's call it bright
+[00:21:41.500 -> 00:21:48.480]  red is red is four okay i got it backward so this is actually blue is one
+[00:21:51.060 -> 00:21:58.040]  okay so if we want to do this right this is the blue plane this is green and this is the red plane
+[00:21:59.020 -> 00:22:05.340]  and uh when you want to set let's set it let's set a color let's set the first byte to green so we want
+[00:22:05.340 -> 00:22:13.300]  ff there we want zero zero here we don't want any blue present we don't want any red and we could leave
+[00:22:13.300 -> 00:22:20.520]  it bright green okay so that's how you you set it to green now what i did for my uh graphics i wasn't
+[00:22:20.580 -> 00:22:27.820]  going to talk about this but what i did is i uh i went ahead and i changed it back into uh into uh all
+[00:22:27.820 -> 00:22:38.840]  four together anyway long story short or long story long anyway so uh so the display routine does black and
+[00:22:38.840 -> 00:22:49.780]  white i have a little editor um when you're in the uh when you're in the uh when you're in the uh
+[00:22:51.660 -> 00:22:57.140]  the what do we call it the uh raw io mode uh
+[00:23:02.320 -> 00:23:09.500]  there's an emergency editor that um is really simple uh
+[00:23:12.420 -> 00:23:18.920]  so there's an emergency editor and what it has is a a linked list of all the lines of text
+[00:23:18.920 -> 00:23:29.740]  and then um or a circular link queue so that means it it makes a circle and uh for each node in the
+[00:23:29.740 -> 00:23:36.600]  circle um it's one line and it's a line of characters so that's how this uh little editor that's all there
+[00:23:36.600 -> 00:23:48.060]  is to this editor and uh so there's a little editor um the fonts are a bitmap eight by eight
+[00:23:48.060 -> 00:23:55.300]  and uh this relates to what we were talking about the red green blue um
+[00:23:58.240 -> 00:24:09.840]  i have a uh i have an array normally uh there's a text mode b800 b8000 and uh normally they do the the
+[00:24:09.840 -> 00:24:22.980]  ascii and then the color foreground background um i have a uh a uh text mode uh or my text is uh
+[00:24:24.260 -> 00:24:31.200]  zero to seven is the ascii i have the foreground background then this is this is normally how the
+[00:24:31.200 -> 00:24:39.600]  text mode works but i i extended mine to 32 bits and you can actually do a uh superscript subscript
+[00:24:39.840 -> 00:24:50.140]  uh so if i want to uh sub subscript okay i just each character can be subscripted by up to eight pixels
+[00:24:52.980 -> 00:25:00.340]  um and then you you want to change it back to superscript so each so in my uh text array is uh
+[00:25:00.340 -> 00:25:09.300]  subscript superscript and uh the camarader 64 used to uh shift uh text around you can actually do that
+[00:25:09.840 -> 00:25:18.760]  anyway so there's a blank there's an invert there's a select and there's an underline um so i have an
+[00:25:18.760 -> 00:25:29.140]  array for for text and then uh i use my eight by eight font for all the characters um so i have some
+[00:25:29.140 -> 00:25:35.000]  there's only a couple this is like you know the standard template library has data types i have a
+[00:25:35.000 -> 00:25:47.340]  fifo and then i have a i have a link list and i have a q vector basically uh if you want if you want to add
+[00:25:48.520 -> 00:25:55.040]  if you want to grow an array gradually you use the q vector um
+[00:25:58.580 -> 00:26:05.820]  the fifo is implemented with a circular double a link or not a circular i'm sorry the fifo is
+[00:26:05.820 -> 00:26:10.600]  implemented with a ring buffer i think that's what that's what you call it right anyway um
+[00:26:12.640 -> 00:26:19.320]  and i think it has to be um powers of two i made dates 64-bit dates
+[00:26:19.320 -> 00:26:29.340]  so uh at ticketmaster i learned it was it's nice if you have uh uh you have the the day of the
+[00:26:32.500 -> 00:26:38.700]  32 bits for day since uh ad zero
+[00:26:40.580 -> 00:26:49.920]  uh and uh and then uh 32 bits for time of day so the uh if you want to know the resolution of uh
+[00:26:52.080 -> 00:26:52.940]  let's say
+[00:26:55.320 -> 00:26:55.960]  one
+[00:26:58.760 -> 00:27:01.980]  there are 24 hours in a day there are 60
+[00:27:01.980 -> 00:27:12.260]  um minutes and there are 60 seconds so uh i have a resolution of uh 50 thousandths of a second
+[00:27:13.020 -> 00:27:24.000]  and uh i use my 64-bit dates in uh in my red c file system and if you want to know how many uh years i can do
+[00:27:24.000 -> 00:27:24.820]  um
+[00:27:27.180 -> 00:27:38.100]  so there's a d and bc um so uh a d and bc and we have 365 we can get fancy let's just call it 365
+[00:27:38.760 -> 00:27:47.640]  so um i can't i wanted to do four billion so i could do dates since the uh birth of the universe but uh
+[00:27:47.640 -> 00:27:53.740]  or beginning of earth i don't have four billion i have five million um oh well
+[00:27:54.760 -> 00:27:57.420]  that that's not very useful is it oh well
+[00:27:58.680 -> 00:28:04.900]  so i have my first uh what do i call it epic i don't know what you what do you call it when the
+[00:28:04.900 -> 00:28:11.740]  unix time expires and the whole world falls apart kind of like the year 2000 bug i have a year 2000
+[00:28:11.740 -> 00:28:14.860]  bug in five million years so anyway
+[00:28:17.600 -> 00:28:23.920]  um i did my own dates um they have uh if you've ever wondered i i got i look
+[00:28:23.920 -> 00:28:30.260]  it up in i don't know wikipedia or something and uh you have your uh every 100 years you don't have
+[00:28:30.260 -> 00:28:36.420]  a leap year but every 400 years you do have a leap year but every 4 000 years you don't
+[00:28:37.900 -> 00:28:46.280]  so i so my uh you can add and subtract dates that i don't store them as a structure anyway
+[00:28:47.840 -> 00:28:50.720]  it's very nice adding and subtracting dates
+[00:28:50.720 -> 00:29:00.700]  uh this is my debugger stuff um i have a string in direction table when you make a um pound define
+[00:29:02.320 -> 00:29:11.940]  watch this i'm going to uh i'm going to put uh
+[00:29:11.940 -> 00:29:24.920]  uh so what i just did if you hit ctrl t there's a text entry looking for a pound define
+[00:29:29.180 -> 00:29:30.580]  uh i don't know
+[00:29:34.120 -> 00:29:42.940]  i used to call my company trivial solutions so there's a string in direction table and you can uh you can
+[00:29:42.940 -> 00:30:05.280]  uh it's used anyway so um uh you can use it for uh for multi multi language uh text anyway so um if you
+[00:30:05.280 -> 00:30:11.160]  say percent uh percent uh percent s i think big s
+[00:30:15.460 -> 00:30:21.820]  and then you uh this is a printf and uh you tell it uh company
+[00:30:25.780 -> 00:30:36.440]  it printed god um so you can do percent s and then give a string in direction a capital s percent
+[00:30:36.440 -> 00:30:45.160]  capital s gives a string in direction there's a if you wanted to do uh months of the year in spanish
+[00:30:45.160 -> 00:30:56.300]  or english you can use z and then you tell it um anyway so there's there's a string in direction uh available
+[00:30:57.280 -> 00:31:05.200]  um i used to have all my text as uh for multilingual but then i wanted just english so i got rid of all that
+[00:31:05.200 -> 00:31:16.820]  so in uh in this define direct file i think it has the colors it has some of the common lists
+[00:31:20.960 -> 00:31:25.820]  interrupt names colors lock device okay these
+[00:31:27.360 -> 00:31:40.340]  you can um you can define a list of strings anyway um so uh i have exceptions uh my exceptions
+[00:31:42.540 -> 00:31:45.920]  throw you give it a eight character string uh
+[00:31:51.500 -> 00:31:53.180]  so um if we uh
+[00:32:04.340 -> 00:32:08.740]  it's from my last video kind of funny anyway so
+[00:32:12.620 -> 00:32:14.340]  if we make a uh
+[00:32:20.400 -> 00:32:28.400]  say main it just threw an exception oh we we never mind okay so we have exceptions
+[00:32:31.280 -> 00:32:38.860]  uh global variables hash table do you know what a hash table is uh many people don't know what a hash table
+[00:32:38.860 -> 00:32:51.600]  is um go to f1 i think so there's a uh there's an array of length there's an array of linked lists
+[00:32:52.140 -> 00:33:02.520]  and when you get a duplicate there uh so not only that but if if it doesn't find it in one hash table
+[00:33:02.520 -> 00:33:11.740]  it searches parent hash tables there's a pointer to a parent and uh so i use my hash my hash table has a uh
+[00:33:12.400 -> 00:33:16.880]  a bit mask for uh or a type um so
+[00:33:19.020 -> 00:33:21.080]  in my hash table uh
+[00:33:29.640 -> 00:33:38.320]  we have a we have company and that is a uh define string we have company we have a duplicate we have do it
+[00:33:38.320 -> 00:33:46.680]  once and we have main our functions so in in one hash table i have different types of entries so if we said uh class
+[00:33:48.220 -> 00:33:48.680]  student
+[00:33:59.120 -> 00:34:06.060]  now if we do if we look at our hash table our hash table has a class so in one hash table i have all these symbols
+[00:34:06.880 -> 00:34:07.780]  functions defines
+[00:34:09.760 -> 00:34:10.360]  defines
+[00:34:10.360 -> 00:34:17.800]  so there's a type and you can limit it to uh just classes or just functions or just defines there's a
+[00:34:17.800 -> 00:34:25.900]  htt hash table type so these are bits they're not uh numbers and so what you do is let's say you wanted
+[00:34:25.900 -> 00:34:32.820]  to search for a function or a type def actually i got rid of type defs anyway a global variable or
+[00:34:32.820 -> 00:34:42.560]  then you can make a bit mask and it will do multiple it'll search it'll it'll find either of those
+[00:34:46.040 -> 00:34:52.800]  so i have a hash table um you i don't think you can remove i i think i might have gotten rid of the
+[00:34:52.800 -> 00:34:57.940]  ability to remove maybe you can i forgot i guess so we can hit f1
+[00:35:02.880 -> 00:35:10.040]  so you can use this for your own hash tables i'm not a big fan of the standard template library
+[00:35:10.900 -> 00:35:18.260]  i like for everybody to make their own generally i don't know i don't like the standard template library
+[00:35:20.100 -> 00:35:27.900]  so uh hash table this is a strange hash table because it has that 32-bit uh type so it's not a it's not
+[00:35:27.900 -> 00:35:32.440]  a it's not a very pretty general purpose hash table
+[00:35:34.780 -> 00:35:42.620]  i'm looking to see if you can remove yeah remove and delete okay well those hash tables are just for my
+[00:35:42.620 -> 00:35:52.040]  my own system stuff it's not like a standard template library it it is sort of anyway so uh interrupts
+[00:35:52.940 -> 00:36:03.400]  um i have faults there's like the first 32 uh um interrupts cause faults then i have keyboard mouse and
+[00:36:03.400 -> 00:36:13.860]  uh timer is timer is interrupt zero and uh keyboard is one mouse is 12 um am i missing any i don't remember
+[00:36:14.760 -> 00:36:26.760]  anyway so uh uh uh when you uh if you go to my website you can get a uh a file called bin rep
+[00:36:26.760 -> 00:36:37.980]  and this will uh this will dump one of my binaries there's only two binaries kernel dot bin and compiler dot bin
+[00:36:38.840 -> 00:36:43.700]  so if i say uh bin rep compiler dot bin
+[00:36:46.880 -> 00:36:47.600]  so
+[00:36:52.040 -> 00:36:58.780]  in my compiler are imports and exports so these are all relative these are all imports
+[00:36:59.920 -> 00:37:08.900]  that are at certain look these are all exports so uh in my kernel i have a loader which will load a binary
+[00:37:08.900 -> 00:37:18.860]  but you're not supposed to use that um you're supposed to do just in time um i there's just no reason for it
+[00:37:19.760 -> 00:37:27.060]  so i have a little bit of math in my kernel uh i have support for some three three three
+[00:37:29.160 -> 00:37:31.380]  three-dimensional vectors something like that
+[00:37:33.680 -> 00:37:40.640]  um random numbers and floor ceiling i don't have that this is supposed to be limited you're not supposed to make it to
+[00:37:40.640 -> 00:37:43.480]  the kernel is not supposed to have
+[00:37:44.380 -> 00:37:45.840]  the kitchen sink
+[00:37:47.280 -> 00:37:55.700]  miscellaneous so there's indian and uh little indian big indian and uh there's a sound routine anyway uh
+[00:37:56.740 -> 00:37:57.000]  so
+[00:37:58.340 -> 00:38:01.000]  i could talk about the keyboard device thing
+[00:38:01.380 -> 00:38:01.780]  no
+[00:38:02.420 -> 00:38:03.360]  so i have a
+[00:38:05.040 -> 00:38:09.580]  i identity map all memory so if you do a mem
+[00:38:13.320 -> 00:38:22.160]  this is what the bios tells me is physical memory and what i do is i identity map so what that means
+[00:38:22.160 -> 00:38:25.460]  is uh i said all the virtual address is equal to the physical
+[00:38:27.320 -> 00:38:28.200]  uh
+[00:38:28.200 -> 00:38:28.500]  so uh
+[00:38:29.060 -> 00:38:34.020]  uh i don't have a virtual allocator i have
+[00:38:34.020 -> 00:38:36.120]  i have uh
+[00:38:36.120 -> 00:38:37.260]  i have uh
+[00:38:37.260 -> 00:38:41.400]  just physical addresses but i do have a malloc obviously
+[00:38:41.400 -> 00:38:43.360]  and blocks
+[00:38:43.360 -> 00:38:45.520]  each task is
+[00:38:45.520 -> 00:38:47.420]  assigned certain or
+[00:38:48.200 -> 00:38:51.140]  is allocated each task allocates blocks of memory
+[00:38:51.720 -> 00:38:54.060]  turns out i make my block size 512
+[00:38:54.060 -> 00:38:54.940]  uh
+[00:38:56.760 -> 00:39:01.600]  that's kind of like when i was at fact when i was at ticketmaster on the backs
+[00:39:01.600 -> 00:39:02.060]  uh
+[00:39:03.680 -> 00:39:09.080]  basically since i identity map it doesn't matter what i do i never touch the the hardware
+[00:39:09.080 -> 00:39:11.020]  memory pages
+[00:39:11.020 -> 00:39:17.400]  have once i identity map mem a during boot is called in this identity maps
+[00:39:17.400 -> 00:39:19.540]  and then from then on
+[00:39:23.240 -> 00:39:28.140]  you can allocate blocks or usually you just use malloc so there's a
+[00:39:28.140 -> 00:39:28.380]  um
+[00:39:31.160 -> 00:39:31.920]  uh
+[00:39:32.600 -> 00:39:33.960]  i use the uh
+[00:39:35.040 -> 00:39:37.080]  32-bit call
+[00:39:37.080 -> 00:39:37.140]  call
+[00:39:37.800 -> 00:39:40.340]  like for example if i say trace on
+[00:39:43.560 -> 00:39:44.740]  and then i say directory
+[00:39:47.720 -> 00:39:48.020]  um
+[00:39:48.020 -> 00:39:52.140]  at the command line it compiled my directory command
+[00:39:53.000 -> 00:39:55.500]  and the directory command did a call
+[00:39:56.280 -> 00:39:59.100]  a 32-bit call relative call
+[00:39:59.640 -> 00:40:02.840]  so this is on other operating systems you have to do a
+[00:40:03.080 -> 00:40:05.200]  syscall or something like that
+[00:40:05.880 -> 00:40:08.880]  or software interrupts to change to kernel mode
+[00:40:09.640 -> 00:40:13.080]  well all my code is placed in the lowest 2 gig
+[00:40:13.800 -> 00:40:21.120]  and so all code can be is relative is within 32 bits of a relative 32-bit
+[00:40:23.360 -> 00:40:24.080]  call
+[00:40:25.000 -> 00:40:28.440]  other 64-bit operating systems have a problem because
+[00:40:28.440 -> 00:40:30.900]  um when they want to do
+[00:40:32.060 -> 00:40:41.100]  far distant beyond 32-bit addresses then their calls get complicated or ugly i put all my code in
+[00:40:41.100 -> 00:40:47.080]  the lowest 32-bit or those two gig so as a matter of fact uh
+[00:40:49.240 -> 00:40:56.800]  my uh this chunk of ram the um up to 7 fff is uh
+[00:40:58.440 -> 00:41:05.680]  is uh the lowest 2 gig um so that's my code heap everything else is the data heap
+[00:41:07.400 -> 00:41:12.740]  so if you go to uh if you go to the memory overview
+[00:41:15.640 -> 00:41:23.300]  so this is the low 640 down here it has vga memory and then you hit my uh
+[00:41:23.300 -> 00:41:30.460]  uh oh i have a fixed area then you hit my uh code heap which is right here
+[00:41:31.020 -> 00:41:33.340]  and then everything else is the data heap
+[00:41:34.600 -> 00:41:41.300]  so let's say you have 12 gig on your machine uh the lowest 2 gig is code heap and then the rest is data heap
+[00:41:43.640 -> 00:41:44.160]  anyway
+[00:41:44.820 -> 00:41:48.740]  um i allocate a few data items off of the code heap
+[00:41:48.740 -> 00:41:53.240]  the task records are on the are on the code heap even though there are data
+[00:41:54.020 -> 00:41:57.380]  um so your task addresses are 32-bit
+[00:41:58.680 -> 00:41:59.320]  addresses
+[00:42:01.220 -> 00:42:04.780]  anyway so uh let's go back to the kernel
+[00:42:05.960 -> 00:42:11.520]  so my malloc is a uh i start with a slab
+[00:42:13.500 -> 00:42:15.980]  let's say you get eight blocks of 512
+[00:42:18.000 -> 00:42:27.800]  and uh and then your uh your application uh uh starts allocating 100 bytes and then 100 bytes
+[00:42:28.400 -> 00:42:34.720]  and 100 bytes then once it starts it slices off the top of the slab
+[00:42:35.740 -> 00:42:45.280]  um because that's a little bit i don't know it's i should maybe i shouldn't do that so my my my address is uh start high and go low
+[00:42:46.000 -> 00:42:55.500]  so if you do a uh if you do a symbol numeric order so this is a map of all the symbols based on numeric order
+[00:42:56.560 -> 00:43:02.560]  and uh the kernel goes in the low 640 k uh
+[00:43:05.160 -> 00:43:07.580]  here's the kernel in the low 640 k
+[00:43:08.220 -> 00:43:15.660]  and then the compiler jumps way up high up to 7f now it's allocating off the the code heap
+[00:43:16.380 -> 00:43:22.080]  um going backward from from off the top of a slab
+[00:43:24.120 -> 00:43:31.040]  so once it starts freeing uh what it does is it puts them in a when you start freeing uh
+[00:43:32.840 -> 00:43:35.120]  there's a there's an array of uh
+[00:43:37.640 -> 00:43:45.560]  let's say array of uh i don't know one oh one oh an array of 1024 and their linked lists
+[00:43:45.560 -> 00:43:57.880]  so this is the 108 link list size 108 then here's your one 116 i guess
+[00:44:01.120 -> 00:44:05.880]  maybe this one maybe you free a lot of 116s
+[00:44:09.560 -> 00:44:18.800]  and then when you reallocate it just put it grabs it out of the array now it's compound and so uh for bigger sizes it's uh
+[00:44:19.960 -> 00:44:27.360]  there's 512 pages i think there's 128 um i'm telling how malloc
+[00:44:28.740 -> 00:44:37.360]  malloc gets blocks like eight blocks and then it starts uh mallocating mallocating off the top so if i go to
+[00:44:37.360 -> 00:44:37.520]  uh
+[00:44:46.860 -> 00:44:56.500]  so my uh my page tables are identity mapped and that's at a location at a at a hundred thousand and then uh
+[00:44:56.500 -> 00:44:56.500]  
+[00:45:02.220 -> 00:45:03.080]  once he's
+[00:45:06.400 -> 00:45:15.180]  so it's a hash of 1024 and then um we start using a a bigger size
+[00:45:17.120 -> 00:45:22.900]  anyway so it's that's how my uh my malloc works i tried the buddy system and it was too unstable
+[00:45:22.900 -> 00:45:31.380]  this will fragment um because i'm using uh physical memory not virtual and the stack is uh limited to
+[00:45:31.380 -> 00:45:42.580]  um a fixed size of 128k so uh when you when you have a physical when you identity map it's not able to uh
+[00:45:42.580 -> 00:45:50.760]  grow anything multi-core so uh i use a round robin scheduler
+[00:45:52.980 -> 00:45:54.580]  which just means uh
+[00:45:57.300 -> 00:46:04.380]  on each on each core it goes in a circle um and whatever task is ready it runs
+[00:46:05.060 -> 00:46:11.840]  and on the other course we don't have any tasks and when you uh when you make an eight core flight simulator
+[00:46:11.840 -> 00:46:12.440]  uh
+[00:46:19.080 -> 00:46:25.820]  um your application spawns a task on these other cores and uh
+[00:46:28.600 -> 00:46:37.900]  you want to see that in action how about let's do let's do that so i'm going to uh run i don't know if
+[00:46:38.110 -> 00:46:42.010]  it's going to work so i want to draw a tab
+[00:46:45.930 -> 00:46:46.370]  okay
+[00:46:50.530 -> 00:46:58.030]  i nuked it oh well did you see it do you want to do it i won't do it again anyway so uh there were uh
+[00:46:58.030 -> 00:47:04.430]  there was a task on the other course go back in the video and take a look pause it or something anyway so uh
+[00:47:05.070 -> 00:47:09.610]  uh my scheduler goes round robin there are um
+[00:47:09.610 -> 00:47:16.190]  uh the task can be put asleep until a certain jiffy my uh my uh
+[00:47:16.190 -> 00:47:21.350]  uh my timer runs at a thousand hertz no matter what um
+[00:47:21.350 -> 00:47:21.350]  
+[00:47:24.030 -> 00:47:28.190]  these are swaps the timer is running at a thousand hertz
+[00:47:30.610 -> 00:47:31.830]  and uh
+[00:47:34.550 -> 00:47:35.910]  a thousand hertz
+[00:47:35.910 -> 00:47:37.150]  uh
+[00:47:42.930 -> 00:47:43.610]  anyway
+[00:47:44.310 -> 00:47:49.370]  um it goes round robin a task can either be waiting for a wake-up time
+[00:47:49.370 -> 00:47:52.390]  or waiting for a message and
+[00:47:52.390 -> 00:47:56.350]  when you uh when you're at the command line you're waiting for a key
+[00:47:56.890 -> 00:47:59.070]  and so it's asleep waiting for a key
+[00:48:00.770 -> 00:48:01.830]  or a message
+[00:48:02.730 -> 00:48:03.450]  so uh
+[00:48:04.010 -> 00:48:05.090]  this is kind of interesting
+[00:48:05.770 -> 00:48:08.710]  this video is getting kind of long anyway psect
+[00:48:09.530 -> 00:48:09.770]  uh
+[00:48:11.510 -> 00:48:12.850]  we have uh
+[00:48:14.510 -> 00:48:17.710]  if i say unassemble uh starting at
+[00:48:18.270 -> 00:48:19.670]  let's just grab an address
+[00:48:20.890 -> 00:48:24.510]  it's able to do symbolic debugging that's because
+[00:48:27.210 -> 00:48:33.410]  it scans the hash table brute force it's not designed to do this quickly
+[00:48:34.110 -> 00:48:41.110]  anyway so the hashtag it scans the hash table for the nearest uh symbol and that's how it's able to make
+[00:48:41.110 -> 00:48:47.870]  symbolic debugging but as it turns out my uh my debugger only scans uh
+[00:48:52.770 -> 00:48:59.510]  each task has a symbol table and then the parent has a symbol table and when when you uh
+[00:49:01.090 -> 00:49:03.290]  when you're when you're doing a
+[00:49:05.390 -> 00:49:13.370]  symbolic debugging it won't find a symbol in a sibling uh it won't find a sibling symbol
+[00:49:14.150 -> 00:49:23.010]  so uh when you're debugging the window manager uh it can be a problem here's the window manager he anyway
+[00:49:24.730 -> 00:49:31.130]  so what it could do is not only scan parents but scan siblings i i don't do that it's
+[00:49:34.010 -> 00:49:44.130]  we want to keep it simple anyway so there's a there's a uh on the debug on the uh wallpaper is uh
+[00:49:44.130 -> 00:49:55.410]  uh it tells where each task is currently located and that's done with uh my hash table but what i do is i uh i cache
+[00:49:57.230 -> 00:50:03.130]  psex just to make it a little bit faster because it actually takes a uh non-zero
+[00:50:04.470 -> 00:50:10.570]  amount of time to because it's not really designed to psex aren't designed to be fast
+[00:50:12.870 -> 00:50:17.810]  so i have a cache now what that means is if you add a new symbol um
+[00:50:19.370 -> 00:50:25.050]  when you're debugging in theory you could have an error with the outdated symbol
+[00:50:25.870 -> 00:50:31.630]  i don't think that's ever going to happen but it's not good with a debugger you can't trust you can trust
+[00:50:31.630 -> 00:50:40.070]  it anyway q sort so i have a built-in q sort i'm not a fan of uh of uh
+[00:50:40.570 -> 00:50:51.030]  lab template libraries so i have a special case q sort for uh 64-bit values normally you're the standard
+[00:50:51.030 -> 00:51:02.290]  you have to enter the uh the size of the uh each entry but for my 64-bit it's uh it's it's 64-bit
+[00:51:02.290 -> 00:51:07.230]  values it's just a it's just an efficiency the nice thing is is uh
+[00:51:08.550 -> 00:51:17.150]  um the callback for comparison is uh is just 64-bit it's not it eliminates a level of indirection
+[00:51:17.870 -> 00:51:24.830]  so this 64-bit quick short is nice there's actually a uh if you use the standard
+[00:51:24.830 -> 00:51:30.630]  standard it actually does 64-bit special case um
+[00:51:36.050 -> 00:51:45.130]  anyway q sort i uh i pivot around i think i do the midpoint um spurt so that if you do sorted lists
+[00:51:45.130 -> 00:51:52.730]  it's just not bad and um oh well as a matter of fact i had an error not too long ago in my q sort
+[00:51:52.730 -> 00:51:56.170]  which is kind of embarrassing finally i looked it up on a
+[00:52:02.050 -> 00:52:12.090]  uh wikipedia or something so my scheduler is round robin and uh so uh you can uh
+[00:52:12.090 -> 00:52:24.370]  uh there's interprocess communication uh where uh you uh you can tell a task
+[00:52:24.370 -> 00:52:24.730]  uh
+[00:52:27.130 -> 00:52:37.190]  so the task address is 7f9d or d9 so there's interprocess communication i can say do a directory
+[00:52:37.190 -> 00:52:50.910]  i can tell it a task 7f d9 d228 and i'm going to tell it to do dir character turn
+[00:52:52.850 -> 00:52:59.470]  okay so it just did a directory so there's interprocess communication you can tell it to do code
+[00:53:00.570 -> 00:53:06.810]  if you have a slave task you can you can tell it a code address to start executing if you hit f1
+[00:53:07.190 -> 00:53:19.190]  go to task so uh the the adam task and the uh seth tasks are executive server kind of tasks
+[00:53:19.990 -> 00:53:28.210]  um so the adam task is in a loop uh and he's uh the adam task is uh waiting for commands the seth task
+[00:53:28.210 -> 00:53:36.110]  is waiting for commands um you can make a slave task that waits for commands so uh
+[00:53:38.210 -> 00:53:45.290]  at this moment uh there's the adam task he's waiting for commands as a matter of fact
+[00:53:48.230 -> 00:53:48.850]  um
+[00:53:48.850 -> 00:53:48.850]  
+[00:53:54.130 -> 00:53:55.290]  i can tell adam
+[00:53:58.610 -> 00:54:01.910]  to uh print hello
+[00:54:10.470 -> 00:54:18.910]  and he printed hello and he printed hello so he's kind of a slave executive his memory um will always be
+[00:54:18.910 -> 00:54:27.570]  available so if you're doing a uh if you're doing a uh let's say a wallpaper
+[00:54:31.370 -> 00:54:33.310]  um you want to use a
+[00:54:36.770 -> 00:54:39.090]  i just oh i did it um
+[00:54:42.090 -> 00:54:46.990]  must be adam included okay so to do wallpaper you have to uh
+[00:54:49.250 -> 00:54:59.010]  adam include and now now it's uh on it's in adam's code so that it's not going to die if if i kill this task
+[00:54:59.710 -> 00:55:04.970]  we did not kill the wallpaper that's because adam owns it and adam never dies
+[00:55:06.810 -> 00:55:07.430]  so
+[00:55:10.670 -> 00:55:16.970]  that's what the server command stuff i have some string uh i have a printf with extended codes
+[00:55:17.850 -> 00:55:26.470]  and scanf um i don't really uh in theory you want uh when you do print when you print a string
+[00:55:32.690 -> 00:55:34.670]  in theory you want uh
+[00:55:36.810 -> 00:55:45.630]  you want it to always return if if you scan you want it to be the same as print but mine is uh is kind of uh
+[00:55:46.870 -> 00:55:55.110]  crude and mine's efficient my printf is very efficient uh the way i do my uh floating point
+[00:55:56.510 -> 00:55:57.730]  printf is uh
+[00:56:00.610 -> 00:56:09.010]  what i do is i take uh what's on the right on the left side put it in a 64-bit value and then print it
+[00:56:09.010 -> 00:56:17.030]  out as a 64-bit integer and then more or less i take what's on the other side put it in a 64-bit and
+[00:56:17.030 -> 00:56:24.770]  print it as an integer and so i can have overflows let's let's say you did a percent 60f
+[00:56:29.710 -> 00:56:31.210]  we want a carriage return
+[00:56:33.430 -> 00:56:37.870]  okay so it does that okay but watch what happens if we say 30.
+[00:56:39.990 -> 00:56:47.590]  okay it's not too bad be careful because it will screw up in certain cases
+[00:56:50.850 -> 00:56:57.670]  let's say you had uh let's say you had this and you wanted to print that let's let's do that
+[00:57:00.810 -> 00:57:02.830]  so instead of pi we're printing
+[00:57:05.390 -> 00:57:11.130]  this oh well we get garbage let's say we have i don't know what this is going to do
+[00:57:12.150 -> 00:57:17.390]  that worked okay maybe it's not too bad i i was afraid it was really bad
+[00:57:17.390 -> 00:57:27.170]  be aware anyway don't don't use more more digits than than you need is it be cautious because i think
+[00:57:27.170 -> 00:57:33.130]  it'll screw up anyway so um we have extended codes but
+[00:57:39.150 -> 00:57:50.550]  we have uh you can print 20 you can print multiple single characters oh capital capital character is big c
+[00:57:51.370 -> 00:57:53.630]  if you do if you do big c it does two upper
+[00:57:55.130 -> 00:58:03.250]  you can print multiple characters if you want to print 20 blank lines you can print a file with percent f
+[00:58:03.250 -> 00:58:12.030]  big f you can print a pointer sort this is for source level debugging i think everybody does that date and
+[00:58:12.030 -> 00:58:21.550]  time and then here's uh this is for list entries like days of the week um then if you want to reverse a uh
+[00:58:23.950 -> 00:58:24.910]  you saw
+[00:58:27.710 -> 00:58:31.890]  when i was doing the atom stuff i had to uh um
+[00:58:34.670 -> 00:58:44.890]  i had to use backslash quotes um there's a uh oh well if you say percent q
+[00:58:44.890 -> 00:58:49.290]  and then you say uh backslash end
+[00:58:55.690 -> 00:59:01.110]  it printed backslash end or backslash tab
+[00:59:04.110 -> 00:59:06.150]  okay so it's it's uh
+[00:59:13.270 -> 00:59:15.730]  anyway um when
+[00:59:21.650 -> 00:59:30.770]  it reverses a uh percent f it reverses a print f it reverses a print f what was i saying percent f all
+[00:59:30.770 -> 00:59:38.750]  along anyway it reverses a print f anyway uh so those are the algorithms in the kernel uh how about we call
+[00:59:38.750 -> 00:59:39.170]  the day
+[00:59:39.170 -> 00:59:39.650]  you
+[00:59:39.650 -> 00:59:39.650]  
+[00:59:39.650 -> 00:59:39.650]  
+[00:59:39.650 -> 00:59:39.650]  
+[00:59:39.650 -> 00:59:39.650]  
+[00:59:39.650 -> 00:59:39.650]  
+[00:59:39.650 -> 00:59:39.650]  

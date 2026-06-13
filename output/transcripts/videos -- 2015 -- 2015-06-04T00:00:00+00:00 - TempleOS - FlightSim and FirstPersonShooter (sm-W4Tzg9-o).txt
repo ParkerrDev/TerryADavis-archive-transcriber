@@ -1,0 +1,191 @@
+========================================================================
+FILE        : videos/2015/2015-06-04T00:00:00+00:00 - TempleOS - FlightSim and FirstPersonShooter (sm-W4Tzg9-o).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2015/2015-06-04T00:00:00+00:00 - TempleOS - FlightSim and FirstPersonShooter (sm-W4Tzg9-o).mkv
+FORMAT      : Matroska
+SIZE        : 73,331,634 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:17:20.900
+TRANSCRIBED: 2026-05-10T22:53:45.823175+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay I'm going to talk about the flight simulator it's in the games directory it's called Eagle Dive and it's an eight core flight simulator okay so I gained some altitude okay so it's done with a trying triangles if you look at the code let's see it's it's 975 lines of code the first part makes the map and basically what it is is panels polygon panels first it starts with it starts by making elevations by raising up rectangles that are it does it does a level of a rectangle then it shortens it and then puts another rectangle on top and it kind of builds up mountains and when it's done making the elevations then it calculates the normal of all the squares it does it with multi-core the initialization surprisingly takes a significant amount of time and so that's why I do it with multi-cores anyway so it calculates the normal for each grid square because it's been elevated and then it tries to combine combine the the normals into faces faces that are polygons strictly rectangles so if you look well anyway it has a water level that it chops everything off and it has it has a level for making snow capped mountains and this does not do a lighting shading this does just some of my some of my programs do shading with lighting but these are just fixed triangles they're actually their quads I don't know the gone quads anyway uh and they have a certain so it makes a four-sided polygon with a certain color based on elevation so once it gets all that done then uh then it flies around so once it makes the map um so to make to make the map it uses multi-cores or to to when you're flying around it uses multi-cores this little diagram here is trying to show how it works basically uh we don't use a gpu we use the multi-core cpus so we have eight cpus drawing the triangles that you see and basically i broke the screen into strips and um front to back um are different strips i tried to uh do them odd and even to keep if if two if two uh cores access the same location there's no lock i don't use the lock and so it would technically it would make a glitch on the screen if two cores updated the same i managed to keep them out of each other's way anyway so each so uh so i have each core doing a strip and i have them synchronized to the uh screen updates um if you want to see uh so the master is the bootstrap processor and uh it uh what it does is every every update it uh uh every update it draws uh there it's throwing the fishes okay so uh okay it's checking if you've crashed if you've gone below the uh if you've gone below the uh the um map elevation and you're not in water if you're in water you can go deep but if you're not in water and you go deep you crash so uh it it calls um each core does a strip including core zero which is the bootstrap core this is where the bootstrap core is doing its its strip the bootstraps core has a bigger load than any of the other cores um so where do we wait for the course we have to synchronize with the cores um we also have to draw the horizon okay i draw the horizon so i fill the whole screen with a horizon line that's kind of tricky to calculate but i figured it out and i have a depth buffer and um so i start the other cores running with uh by setting this flag they're waiting for this flag and then i draw my own okay then right here is where uh i wait for sync to synchronize and then when we're all done uh we draw the uh we draw the fish with core zero we draw the text that's on the screen with core zero so core zero has a bigger load so it's the limit it's the bottleneck but i think i make the cores dynamic so that they do a strip size they go right to left as far as they can during the time they have i think i make that dynamic okay there's where i'm drawing the horizon that was tricky so here's uh each strip uh where's the strips so these are all writing to a buffer in memory and when when it does the screen update all it does this is this is the callback that the window manager calls 30 frames a second and it it um it it just blots the uh back buffer onto the screen 30 times a second i try to stay synchronized um we wait for the window manager anyway so uh so here's where each core including core zero um draws their polygons um so it it sets up the uh the projection trend matrix it uh once it gets the projection figured out uh then it it go it it calculates where its strip starts and stops and then it goes through its strip it's a two-dimensional strip and um underneath is a is a bunch of bins that form a grid and those are the uh there's a linked list of panels you can basically what i did is uh i i put i put each each polygon i put into a bin and then when i'm doing a strip i just uh i just go through all the bins and i mark it drawn if if it hasn't been drawn and i draw it so i fill the polygon i did a little trick here um so when you call fill polygon it returns a count of how many pixels and what i decided was uh when you're running if you look in the distance look in the distance so those those poly those polygons in the distance are only one or two pixels so what i did is i tried to uh i i just ignore them um i have a formula for uh if it's one or two pixels then i don't update it every time i try to uh i don't know i tried to get clever in theory it doesn't change as often but in this program it does a lot of games don't draw the background so often anyway uh actually that logic doesn't make sense because i draw the whole screen anyway i decided to uh count the pixels and then make a formula that um made us filter out some of the tiny trying trying tiny polygons i don't know if it i think i measured it and it helps just a little bit not very much oh well kind of silly so um there's got to be a way to uh i'm sure you can optimize and get i just do it by brute force i just do i have a strip and i just do all the triangles and i i uh i just do it by brute force i don't think anyway my goal is to have uh you know a little you know 16 18 year old teenagers making their own it's not the same i don't i think this is different from a normal engine am i right i've never looked at other engines anyway so that basically what you do is you draw triangles or draw polygons i don't think they give you that level of control so uh just to uh contrast uh there's another program called castle frankenstein this has a 3d meshes that are in my source code if you can edit them these are sprites so you click on the mesh and then you say uh edit 3d mesh and uh you can zoom and rotate them and uh basically you draw vert you place vertices and draw triangles it's a real pain in the butt so i have uh my source code um has binary data i drew my map as a as a sprite i drew my monsters as 3d meshes that are sprites i drew a coffin and a potted plant so this is uh castle uh i can shoot him so god said they're uh god said they're dancing i just had him walking but god said they're dancing god said they're dancing i thought that was funny so i accidentally made a uh gene wilder movie did you ever see uh what is it bride of frankenstein no anyway um so i have dancing frankensteins um anyway that was totally unintentional that's god puppets you anyway so uh so these are done with uh dithering random dithering i have a probability that it will be one color or another color and it it does a random number for each pixel and that's how it does it so basically if you want it darker you set a darker probability and then it does random pixels um anyway so uh this is one core i could do multi-core i just didn't feel like it anyway um so uh i have more uh i have more what would you call it headroom i don't know i think we're idling 50 who knows anyway um it's it's kind of difficult to figure out what you should do with the cpu that's why when i make a uh when we make an official version for version 1.0 that gets burned into intel chips we're going to make it um eight core minimum so that um so that we don't start with uh we we need to start in the future not in the past we're we're not we're not supporting oh hell no not 32-bit some people are crazy they think i'm gonna do 32-bit oh hell no i'm gonna say minimum minimum to play is eight cores i think we want eight cores not more not less if you if you think about this uh this uh eagle dive eight cores they stay out of each other's way but if we had 64 cores uh i think they'd be stepping on each other's toes and there would be a lot of lost overhead actually gpu is embarrassingly parallel um the one thing that parallel is good for is graphics i mean well and scientific matrices but anyway uh so uh i think i'm gonna say minimum eight cores maximum eight cores well no i'm not gonna say maximum anyway uh so uh this uh as a matter of fact this has a sprite that uh that keeps track of the uh map as a matter of fact it converts actually it converts it to an to a uh internal array that's kind of i kind of cheated it's almost no i don't know i made an array out of the sprite and then i use the array i have a four by four uh so somewhere in here it peaks the uh here's where it makes a map by peaking the uh the sprite it converts the sprite to a a dc which is a device context and then it peaks it to form a map and then when it's drawing the uh when it's drawing the map it goes through each square and checks for a line of sight and if it has a line of sight it checks the color and if it has a if it's a if it's if it's a boundary between floor and rock wall if it's a boundary then it draws a uh a wall if it's a boundary it draws a wall so this is uh instead of making polygons to do the whole thing i make them up as i go from the map so if so it checks the four sides of a square to see if it needs a wall after it checks the line of sight so it's kind of got some glitches you can go into the wall i haven't figured out uh anyway you you can kind of go behind the wall oh well uh it's kind of harder than it looks doing the little details is hard like doing the foreground clipping with the foreground what i do is uh if i didn't draw the map solid on the floor i would have a major problem as a matter of fact i i draw the bottom half of the screen floor just so that i don't have to clip um i'm not i'm not very good at clipping triangles into the screen i need to do that anyway so uh that's theinaçãoinaçãoinação
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:01.620 -> 00:00:08.660]  okay I'm going to talk about the flight simulator it's in the games directory it's
+[00:00:09.820 -> 00:00:14.440]  called Eagle Dive and it's an eight core flight simulator
+[00:00:42.600 -> 00:01:08.380]  okay so I gained some altitude okay so it's done with a trying triangles
+[00:01:08.380 -> 00:01:21.160]  if you look at the code let's see it's it's 975 lines of code the first part makes the map and
+[00:01:21.900 -> 00:01:37.660]  basically what it is is panels polygon panels first it starts with it starts by making elevations by
+[00:01:39.280 -> 00:01:48.540]  raising up rectangles that are it does it does a level of a rectangle then it shortens it and then
+[00:01:48.540 -> 00:01:57.300]  puts another rectangle on top and it kind of builds up mountains and when it's done making the elevations
+[00:01:57.300 -> 00:02:07.520]  then it calculates the normal of all the squares it does it with multi-core the initialization
+[00:02:07.520 -> 00:02:16.820]  surprisingly takes a significant amount of time and so that's why I do it with multi-cores anyway so it
+[00:02:16.820 -> 00:02:24.440]  calculates the normal for each grid square because it's been elevated and then it tries to combine
+[00:02:24.440 -> 00:02:38.200]  combine the the normals into faces faces that are polygons strictly rectangles so if you look
+[00:02:44.520 -> 00:02:56.620]  well anyway it has a water level that it chops everything off and it has it has a level for making
+[00:02:59.040 -> 00:03:13.600]  snow capped mountains and this does not do a lighting shading this does just some of my some of my programs do
+[00:03:15.280 -> 00:03:23.860]  shading with lighting but these are just fixed triangles they're actually their quads I don't know the gone quads
+[00:03:23.860 -> 00:03:38.740]  anyway uh and they have a certain so it makes a four-sided polygon with a certain color based on elevation so once it gets all that done then uh then it flies around so once it makes the map
+[00:03:40.540 -> 00:03:52.060]  um so to make to make the map it uses multi-cores or to to when you're flying around it uses multi-cores this little diagram here is trying to show how it works
+[00:03:52.060 -> 00:04:02.420]  basically uh we don't use a gpu we use the multi-core cpus so we have eight cpus drawing the triangles
+[00:04:02.420 -> 00:04:13.340]  that you see and basically i broke the screen into strips and um front to back um are different strips
+[00:04:13.340 -> 00:04:22.760]  i tried to uh do them odd and even to keep if if two if two uh cores access the same location there's no
+[00:04:22.760 -> 00:04:27.960]  lock i don't use the lock and so it would technically it would make a glitch on the screen
+[00:04:27.960 -> 00:04:33.420]  if two cores updated the same i managed to keep them out of each other's way
+[00:04:34.720 -> 00:04:45.760]  anyway so each so uh so i have each core doing a strip and i have them synchronized to the uh screen updates
+[00:04:46.680 -> 00:04:56.900]  um if you want to see uh so the master is the bootstrap processor and uh it uh
+[00:04:59.160 -> 00:05:03.120]  what it does is every every update it uh
+[00:05:05.020 -> 00:05:11.040]  uh every update it draws uh there it's throwing the fishes okay so uh
+[00:05:21.500 -> 00:05:28.560]  okay it's checking if you've crashed if you've gone below the uh if you've gone below the uh the um
+[00:05:29.200 -> 00:05:36.240]  map elevation and you're not in water if you're in water you can go deep but if you're not in water and
+[00:05:36.240 -> 00:05:48.580]  you go deep you crash so uh it it calls um each core does a strip including core zero which is the bootstrap
+[00:05:48.580 -> 00:05:55.600]  core this is where the bootstrap core is doing its its strip the bootstraps core has a bigger load than
+[00:05:55.600 -> 00:06:02.660]  any of the other cores um so where do we wait for the course we have to synchronize with the cores
+[00:06:02.660 -> 00:06:11.900]  um we also have to draw the horizon okay i draw the horizon so i fill the whole screen with a horizon
+[00:06:11.900 -> 00:06:20.260]  line that's kind of tricky to calculate but i figured it out and i have a depth buffer and um so i start the
+[00:06:20.260 -> 00:06:28.360]  other cores running with uh by setting this flag they're waiting for this flag and then i draw my own
+[00:06:29.080 -> 00:06:38.860]  okay then right here is where uh i wait for sync to synchronize and then when we're all done uh we draw the uh
+[00:06:39.840 -> 00:06:48.060]  we draw the fish with core zero we draw the text that's on the screen with core zero so core zero has a bigger load
+[00:06:48.060 -> 00:06:55.560]  so it's the limit it's the bottleneck but i think i make the cores dynamic so that they do a strip size
+[00:06:55.560 -> 00:07:03.380]  they go right to left as far as they can during the time they have i think i make that dynamic okay
+[00:07:03.380 -> 00:07:11.140]  there's where i'm drawing the horizon that was tricky so here's uh each strip uh where's the strips
+[00:07:11.860 -> 00:07:19.080]  so these are all writing to a buffer in memory and when when it does the screen update all it does
+[00:07:19.080 -> 00:07:26.620]  this is this is the callback that the window manager calls 30 frames a second and it it um it it just
+[00:07:26.620 -> 00:07:33.740]  blots the uh back buffer onto the screen 30 times a second i try to stay synchronized
+[00:07:36.260 -> 00:07:44.760]  um we wait for the window manager anyway so uh so here's where each core including core zero
+[00:07:44.760 -> 00:07:56.100]  um draws their polygons um so it it sets up the uh the projection trend matrix it uh
+[00:07:59.480 -> 00:08:02.240]  once it gets the projection figured out uh
+[00:08:04.200 -> 00:08:12.520]  then it it go it it calculates where its strip starts and stops and then it goes through its strip
+[00:08:12.520 -> 00:08:21.320]  it's a two-dimensional strip and um underneath is a is a bunch of bins that form a grid and those are
+[00:08:21.320 -> 00:08:30.440]  the uh there's a linked list of panels you can basically what i did is uh i i put i put each each
+[00:08:30.440 -> 00:08:39.040]  polygon i put into a bin and then when i'm doing a strip i just uh i just go through all the bins and
+[00:08:39.040 -> 00:08:48.040]  i mark it drawn if if it hasn't been drawn and i draw it so i fill the polygon i did a little trick here
+[00:08:48.040 -> 00:08:57.680]  um so when you call fill polygon it returns a count of how many pixels and what i decided was uh
+[00:08:57.680 -> 00:09:01.880]  when you're running if you look in the distance look in the distance
+[00:09:10.160 -> 00:09:15.080]  so those those poly those polygons in the distance are only one or two pixels
+[00:09:16.260 -> 00:09:24.140]  so what i did is i tried to uh i i just ignore them um i have a formula for uh
+[00:09:25.000 -> 00:09:32.420]  if it's one or two pixels then i don't update it every time i try to uh i don't know i tried to get clever
+[00:09:33.180 -> 00:09:41.220]  in theory it doesn't change as often but in this program it does a lot of games don't draw the background so often
+[00:09:41.900 -> 00:09:46.420]  anyway uh actually that logic doesn't make sense because i draw the whole screen
+[00:09:48.500 -> 00:09:57.860]  anyway i decided to uh count the pixels and then make a formula that um made us filter out some of the
+[00:09:57.860 -> 00:10:04.740]  tiny trying trying tiny polygons i don't know if it i think i measured it and it helps just a little bit
+[00:10:04.740 -> 00:10:12.460]  not very much oh well kind of silly so um there's got to be a way to uh i'm sure you can optimize and
+[00:10:12.460 -> 00:10:18.020]  get i just do it by brute force i just do i have a strip and i just do all the triangles
+[00:10:18.680 -> 00:10:27.420]  and i i uh i just do it by brute force i don't think anyway my goal is to have uh you know a little
+[00:10:27.420 -> 00:10:35.980]  you know 16 18 year old teenagers making their own it's not the same i don't i think this is different
+[00:10:35.980 -> 00:10:42.840]  from a normal engine am i right i've never looked at other engines anyway so that basically what you
+[00:10:42.840 -> 00:10:53.600]  do is you draw triangles or draw polygons i don't think they give you that level of control so uh just to uh
+[00:10:55.500 -> 00:10:56.700]  contrast uh
+[00:10:58.900 -> 00:11:05.640]  there's another program called castle frankenstein this has a 3d meshes that are in my source code
+[00:11:05.980 -> 00:11:14.200]  if you can edit them these are sprites so you click on the mesh and then you say uh edit 3d mesh
+[00:11:14.960 -> 00:11:24.280]  and uh you can zoom and rotate them and uh basically you draw vert you place vertices and draw triangles
+[00:11:24.280 -> 00:11:35.480]  it's a real pain in the butt so i have uh my source code um has binary data i drew my map as a
+[00:11:35.480 -> 00:11:45.480]  as a sprite i drew my monsters as 3d meshes that are sprites i drew a coffin and a potted plant so this is uh
+[00:11:51.880 -> 00:11:52.940]  castle uh
+[00:11:56.100 -> 00:12:01.740]  i can shoot him so god said they're uh god said they're dancing
+[00:12:03.540 -> 00:12:09.860]  i just had him walking but god said they're dancing god said they're dancing i thought that
+[00:12:09.860 -> 00:12:17.080]  was funny so i accidentally made a uh gene wilder movie did you ever see uh what is it bride of
+[00:12:17.080 -> 00:12:28.120]  frankenstein no anyway um so i have dancing frankensteins um anyway that was totally unintentional
+[00:12:28.120 -> 00:12:36.320]  that's god puppets you anyway so uh so these are done with uh dithering random dithering i have a
+[00:12:36.320 -> 00:12:42.360]  probability that it will be one color or another color and it it does a random number for each pixel
+[00:12:42.360 -> 00:12:47.540]  and that's how it does it so basically if you want it darker you set a darker probability
+[00:12:48.160 -> 00:12:54.200]  and then it does random pixels um anyway so uh this is one core
+[00:12:58.980 -> 00:13:09.200]  i could do multi-core i just didn't feel like it anyway um so uh i have more uh i have more what
+[00:13:09.200 -> 00:13:10.080]  would you call it headroom
+[00:13:14.200 -> 00:13:22.500]  i don't know i think we're idling 50 who knows anyway um it's it's kind of difficult to
+[00:13:23.560 -> 00:13:31.540]  figure out what you should do with the cpu that's why when i make a uh when we make an official version
+[00:13:31.540 -> 00:13:38.300]  for version 1.0 that gets burned into intel chips we're going to make it um eight core minimum
+[00:13:39.140 -> 00:13:47.140]  so that um so that we don't start with uh we we need to start in the future not in the past we're
+[00:13:47.140 -> 00:13:53.560]  we're not we're not supporting oh hell no not 32-bit some people are crazy they think i'm gonna do 32-bit
+[00:13:53.560 -> 00:14:01.940]  oh hell no i'm gonna say minimum minimum to play is eight cores i think we want eight cores not more not less
+[00:14:03.200 -> 00:14:10.400]  if you if you think about this uh this uh eagle dive eight cores they stay out of each other's way
+[00:14:10.920 -> 00:14:21.840]  but if we had 64 cores uh i think they'd be stepping on each other's toes and there would be a lot of
+[00:14:21.840 -> 00:14:30.400]  lost overhead actually gpu is embarrassingly parallel um the one thing that parallel is good for is
+[00:14:30.400 -> 00:14:40.460]  graphics i mean well and scientific matrices but anyway uh so uh i think i'm gonna say minimum eight
+[00:14:40.460 -> 00:14:47.540]  cores maximum eight cores well no i'm not gonna say maximum anyway uh so uh
+[00:14:50.400 -> 00:14:59.780]  this uh as a matter of fact this has a sprite that uh that keeps track of the uh map as a matter of
+[00:14:59.780 -> 00:15:08.380]  fact it converts actually it converts it to an to a uh internal array that's kind of i kind of cheated
+[00:15:08.380 -> 00:15:15.580]  it's almost no i don't know i made an array out of the sprite and then i use the array
+[00:15:15.580 -> 00:15:25.200]  i have a four by four uh so somewhere in here it peaks the uh here's where it makes a map by peaking
+[00:15:25.200 -> 00:15:32.880]  the uh the sprite it converts the sprite to a a dc which is a device context
+[00:15:34.620 -> 00:15:41.480]  and then it peaks it to form a map and then when it's drawing the uh when it's drawing the map
+[00:15:41.480 -> 00:15:49.380]  it goes through each square and checks for a line of sight and if it has a line of sight it checks the
+[00:15:49.380 -> 00:16:00.360]  color and if it has a if it's a if it's if it's a boundary between floor and rock wall if it's a boundary
+[00:16:00.360 -> 00:16:09.820]  then it draws a uh a wall if it's a boundary it draws a wall so this is uh instead of making polygons to do the
+[00:16:09.820 -> 00:16:17.760]  whole thing i make them up as i go from the map so if so it checks the four sides of a square to see if
+[00:16:17.760 -> 00:16:23.800]  it needs a wall after it checks the line of sight so it's kind of got some glitches
+[00:16:27.120 -> 00:16:30.860]  you can go into the wall i haven't figured out uh
+[00:16:34.720 -> 00:16:40.060]  anyway you you can kind of go behind the wall oh well uh
+[00:16:42.500 -> 00:16:50.080]  it's kind of harder than it looks doing the little details is hard like doing the foreground clipping with
+[00:16:50.080 -> 00:16:58.240]  the foreground what i do is uh if i didn't draw the map solid on the floor i would have a major problem
+[00:16:58.980 -> 00:17:06.280]  as a matter of fact i i draw the bottom half of the screen floor just so that i don't have to clip
+[00:17:06.280 -> 00:17:18.260]  um i'm not i'm not very good at clipping triangles into the screen i need to do that anyway so uh that's the
+[00:17:18.260 -> 00:17:18.820]  inação
+[00:17:18.820 -> 00:17:20.800]  inação
+[00:17:20.800 -> 00:17:20.920]  inação
+[00:17:20.920 -> 00:17:20.920]  
+[00:17:20.920 -> 00:17:20.920]  
+[00:17:20.920 -> 00:17:20.920]  
+[00:17:20.920 -> 00:17:20.920]  
+[00:17:20.920 -> 00:17:20.920]  
+[00:17:20.920 -> 00:17:20.920]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:18.800 -> 00:17:18.800]  
+[00:17:20.900 -> 00:17:20.900]  

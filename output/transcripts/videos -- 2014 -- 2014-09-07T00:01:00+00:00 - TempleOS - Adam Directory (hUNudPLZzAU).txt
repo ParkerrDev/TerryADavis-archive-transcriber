@@ -1,0 +1,741 @@
+========================================================================
+FILE        : videos/2014/2014-09-07T00:01:00+00:00 - TempleOS - Adam Directory (hUNudPLZzAU).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-09-07T00:01:00+00:00 - TempleOS - Adam Directory (hUNudPLZzAU).mp4
+FORMAT      : MPEG4
+SIZE        : 88,146,078 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:19:48.900
+TRANSCRIBED: 2026-05-08T05:02:50.289234+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay so the last key that I press is shown in the upper left corner now shift escape gets out of a window or that aborts and alt shift a to get rid of the autocomplete we're gonna look at the atom directory control m atom okay so stage one is the kernel stage two is atom the atom task is in Adam and Eve execute sysat during boot it compiles how many lines of code at this point forty six thousand lines of code have been compiled that's during boot what that would include would be thirty five thousand in the atom directory and then my own personal startup code in my account anyway so the atom this is executed by atom at boot it includes a bunch of files it goes into directory and it includes what would you call those recursive files I don't know what you want to call them anyway so what do we have an atom we have let's see the window manager this is one of the most important is one of the most important things if you do a task rep there are some standard tasks used that are always present the you don't have a frame grabber that's because I'm making this video the window manager executes 30 times a second it does a couple other things like pull the mouse but the window manager updates the whole screen 30 times a second this task is the current task then the atom task is control B and we can go up and Adam is this window right here he stays in a server kind of configuration his tasks inherit stuff from their parents and since all tasks are children of Adam system-wide stuff is associated with Adam like if if you give Adam some you can get memory that's allocated on Adam's heap his symbol table is inherited by everybody so what that means is if a symbols not found it searches Adam anyway so you can also he's supposed to be a like a server kind of I've never really utilized this capability but honestly I have a lot of things I never use let's let's let's make Adam say hello so hello hello hello it's uh we have to I think this is right I think this is right okay I made Adam say hello you saw that um you can uh tell him to execute code like I just did um what I just told him to do was this this anyway uh that's kind of like the crosstalk you could also use crosstalk but anyway uh so there are some standard tasks the window manager and Adam then Adam Adam's son is Seth in the Bible so Seth is uh there's there's more than one Seth which is kind of weird and Adam is uh Adam is uh is called the Seth task on core zero anyway so where were we um so the window manager uh is one of the this task is always present the wallpaper is uh printed by the window manager so in the window manager what it does is uh the way it operates is it has a it has a uh a sleep routine which kills time now if you grab a window by a corner then what it does is it uh it it's kind of like a state machine it gets into a uh if you if it gets into a state and while it's killing time it's executing the sleep routine which is uh let's see how many okay well anyway so uh the sleep routine um gets executed lots of times i think it does one thirtieth of a second each time um now where is the sleep routine i don't know anyway uh so the windows routines i think this is all window manager here's the sleep now it pulls the mouse in one spot keyboard mouse handler uh that's if that's if the mouse failed or something like that um oh i'm sorry during startup it does that um it it pulls the mouse if i think if we check this routine it's if the mouse fails if pull if pull mouse do this otherwise we don't pull the mouse but we execute i think we execute this sixty times a second or something like that maybe uh five hundred times a second no anyway uh so this is where the window manager sleeps in every oh thirty times a second actually it's adjustable but uh it calls update screen now that brings us to the uh graphics code update screen is in gr screen at the bottom this is the main routine called by the window manager he the window manager paints the screen thirty times a second anyway uh if you're in text mode it does a slightly different thing you're almost never don't worry text mode um is not normal anyway uh so it updates the background to text it updates the foreground to text then it calls then it updates all the window documents renders all the window documents then it uh each each window has a document for the text a border document and a main document and it can be double buffered but anyway uh so this is the routine we're going to look at update windows so this goes through all the tasks on core zero only core zero only core zero can have windows and it uh since the user since the user is allowed to fudge around with tasks we have to validate that the user didn't do something a little kid could put a crayon in the blender or something i don't know anyway uh so we check to see if the task is valid that's kind of a normally you wouldn't have that but since we allow users to mess with system stuff makes it a little more robust in theory although if it fails it probably fails fatally it's probably fatal anyway uh so uh uh if it's the that's a special case it was the window manager otherwise it updates the documents like i told you and it uh it calls the uh draw it call back six thirty times a second each task has an option of drawing some graphics that's the draw it call back now uh i tried to make a picture of um how graphics are rendered it's kind of uh so graphic overview so if you look up here um the text we saw where it did the foreground and background uh it lags a refresh refresh now so every when it updates the documents that writes to the text layer i think it actually and it kind of uh it lags a refresh on the text but on the but if you put graphics in your draw it or in your document they're they're they're not lagging that's kind of a uh a uh a uh a uh minor point or something anyway uh so it goes through all the tasks we saw where it goes through all the tasks it renders the documents to the text layer then it calls the draw it routine then it draws controls uh you see this little square down here i don't know if you can see uh how about over here no we can't none of them are active um hold on a second i'm grabbing the scroll bar uh the scroll bar that is a control um and uh so it draws the control for each task and uh finally there's a persistent layer which is uh if we're at the command line and we say GR circle now the persistent layer is the default 100 100 100 100 that's the persistent layer anyway so uh uh uh i don't know what else you want to know you can uh i could maybe do a video on the 3D support um in a device context we uh we uh we have some automatic projecting using a matrix 4x4 um anyway uh so yeah there is some 3D code in the graphics routines um there's a 2D version and there's a 3D version of most things anyway so uh that'll get you started uh what else was there in the atom directory uh the utilities there's a grep a diff file manager that's an there's a some bitmap files for windows support memrep is a nice utility i never use it honestly in theory it's nice i don't know i i never use it there's a check disk there's um profiler's nice i i have a spaces to tabs i run that um my uh if you make a string uh in your code you might want to use shift space so that you can use spaces to tab my tabs are always eight characters this will render html with syntax highlighting you can convert one of my documents to plain text uh the sound routines graphics the god stuff the bible and stuff like that uh what else we have the document framework uh controls that's what i that's the scroll bar and stuff like that it could be expanded we really we have a a slider and we have buttons that's about it i don't really find i need them anyway but you might want them so we could maybe maybe oh i was going to talk about gentrification uh anyway uh yeah the main the only thing that really needs a a new algorithm is uh updating documents we have a widget that lets you move the cursor! um let me just show you some of the document features uh cursor movement so if you say if we give a command to move the cursor four lines down minus or anyway we just we just uh we drew ten lines and then we we came up wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh the cursor over to draw different columns. Sometimes in theory that might be nice. I don't really do anything. Actually you can move to the center of the window. The borders are done with cursor movements. That's actually a document with cursor movements. I can show you some of the features. Anyway, so the problem is since we can move the cursor we have to redraw everything from the entire document 30 times a second. Which normally is not a big deal. We idle at about 5%. I don't know. But if we're inside of the Bible then we have pretty crappy performance and flashing and stuff. But let me anyway so maybe Newt wants to think about how to you can layer let me just show you what what it's capable of that I'm going to go to the Bible's 100,000 lines we're going to go to line 50,000 and then what we're going to do is move the cursor back 50,000 and over we're going to do shut up bird so we're going to do control L and we're going to do a margin page setting left margin let's say 40 oops control T okay so I just moved over now what I'm going to do is I'll just move up a little bit control L cursor movement just so you can see shut up bird the bird wants down anyway so shut up bird minus 20 so if you see what I did there I'm sorry the bird needs help the bird okay so if you see what I did there I moved the cursor so this feature is maybe I should get rid of this feature but I need it to some extent in theory you could move 50,000 lines no I can do that I can do that right now as a matter of fact I can move let's do another control L page setting left margin let's go 60 and let's control L cursor movement let's go minus 40,000 so now we're at 40,000 is it going to do there at 40,000 we have that so that's we have so somehow it would be nice if we could speed that up so I don't know I probably shouldn't say anything because there's probably not there's no answer that I would like I just like we just live with it it's I don't want something really complicated I have I was going to make a rule rule you can only remove lines of code we don't want any additions we just want removal and I would like to give news dollars not news dollars anyway let's see what God says so let's get alt shift let's do hold on a second alt shift F7 God says all things that he had done and Isaac brought her into his mother Sarah's tent and took Rebecca and she became his wife and he loved her and Isaac was comforted after his mother's death then again Abraham took a wife and her name was Keturah and she bare him Simran Jokshon and Medan and Medan and Ishbak and Shua Jokshon begat Sheba and Dedan and sons of Dedan were Asheram Lettuce him and Lim Lettuce him that's like lettuce code bulky and low calories I think that's what it is anyway I've seen some places where you have lettuce code not in my operating system anyway oh well there's there's there's there's there's there's there's there's there's
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:09.860]  okay so the last key that I press is shown in the upper left corner now shift
+[00:00:09.860 -> 00:00:17.580]  escape gets out of a window or that aborts and alt shift a to get rid of the
+[00:00:17.580 -> 00:00:24.140]  autocomplete we're gonna look at the atom directory control m atom okay so
+[00:00:24.140 -> 00:00:31.920]  stage one is the kernel stage two is atom the atom task is in Adam and Eve
+[00:00:31.920 -> 00:00:39.760]  execute sysat during boot it compiles how many lines of code at this point forty
+[00:00:39.760 -> 00:00:47.300]  six thousand lines of code have been compiled that's during boot what that
+[00:00:47.300 -> 00:00:52.240]  would include would be thirty five thousand in the atom directory and then
+[00:00:52.240 -> 00:01:05.200]  my own personal startup code in my account anyway so the atom this is executed by
+[00:01:05.200 -> 00:01:11.460]  atom at boot it includes a bunch of files it goes into directory and it includes
+[00:01:12.820 -> 00:01:16.520]  what would you call those recursive files I don't know what you want to call them
+[00:01:16.520 -> 00:01:26.280]  anyway so what do we have an atom we have let's see the window manager this is one
+[00:01:26.280 -> 00:01:32.680]  of the most important is one of the most important things if you do a task rep there
+[00:01:32.680 -> 00:01:40.900]  are some standard tasks used that are always present the you don't have a frame
+[00:01:40.900 -> 00:01:42.880]  grabber that's because I'm making this video
+[00:01:42.880 -> 00:01:48.920]  the window manager executes 30 times a second it does a couple other things like
+[00:01:48.920 -> 00:01:56.300]  pull the mouse but the window manager updates the whole screen 30 times a second
+[00:01:56.300 -> 00:02:10.680]  this task is the current task then the atom task is control B and we can go up and Adam is this window right here
+[00:02:11.480 -> 00:02:23.640]  he stays in a server kind of configuration his tasks inherit stuff from their parents and since all tasks are
+[00:02:24.760 -> 00:02:34.160]  children of Adam system-wide stuff is associated with Adam like if if you give Adam some you can get memory
+[00:02:34.160 -> 00:03:01.680]  that's allocated on Adam's heap his symbol table is inherited by everybody so what that means is if a symbols not found it searches Adam anyway so you can also he's supposed to be a like a server kind of I've never really utilized this capability but honestly I have a lot of things I never use
+[00:03:02.940 -> 00:03:08.140]  let's let's let's make Adam say hello so hello
+[00:03:08.140 -> 00:03:08.700]  hello
+[00:03:09.660 -> 00:03:10.300]  hello
+[00:03:12.680 -> 00:03:14.760]  it's uh we have to
+[00:03:17.440 -> 00:03:19.000]  I think this is right
+[00:03:19.000 -> 00:03:20.180]  I think this is right
+[00:03:20.180 -> 00:03:23.040]  okay I made Adam say hello you saw that
+[00:03:23.040 -> 00:03:26.220]  um you can uh tell him to execute code
+[00:03:27.400 -> 00:03:28.680]  like I just did
+[00:03:28.680 -> 00:03:31.480]  um what I just told him to do was this
+[00:03:31.480 -> 00:03:32.520]  this
+[00:03:34.980 -> 00:03:39.320]  anyway uh that's kind of like the crosstalk you could also use crosstalk
+[00:03:39.320 -> 00:03:41.200]  but anyway uh so
+[00:03:41.200 -> 00:03:43.460]  there are some standard tasks
+[00:03:43.460 -> 00:03:45.360]  the window manager and Adam
+[00:03:45.360 -> 00:03:47.120]  then Adam
+[00:03:47.120 -> 00:03:49.360]  Adam's son is Seth
+[00:03:49.360 -> 00:03:50.080]  in the Bible
+[00:03:50.080 -> 00:03:52.180]  so Seth is uh
+[00:03:53.360 -> 00:03:54.020]  there's
+[00:03:54.020 -> 00:03:56.520]  there's more than one Seth which is kind of weird
+[00:03:56.520 -> 00:03:58.540]  and Adam is uh
+[00:03:58.540 -> 00:04:00.060]  Adam is uh
+[00:04:00.060 -> 00:04:02.440]  is called the Seth task
+[00:04:02.440 -> 00:04:03.400]  on core zero
+[00:04:04.080 -> 00:04:05.200]  anyway so where were we
+[00:04:05.200 -> 00:04:05.900]  um
+[00:04:08.280 -> 00:04:09.800]  so the window manager
+[00:04:09.800 -> 00:04:11.560]  uh is one of the
+[00:04:12.940 -> 00:04:14.860]  this task is always present
+[00:04:14.860 -> 00:04:15.340]  the
+[00:04:16.080 -> 00:04:17.340]  wallpaper is uh
+[00:04:17.340 -> 00:04:19.500]  printed by the window manager
+[00:04:19.500 -> 00:04:21.160]  so in the window manager
+[00:04:21.160 -> 00:04:22.600]  what it does is uh
+[00:04:22.600 -> 00:04:24.720]  the way it operates is it has a
+[00:04:25.340 -> 00:04:26.480]  it has a uh
+[00:04:26.480 -> 00:04:28.600]  a sleep routine
+[00:04:29.340 -> 00:04:29.760]  which
+[00:04:29.760 -> 00:04:31.060]  kills time
+[00:04:31.060 -> 00:04:34.200]  now if you grab a window by a corner
+[00:04:34.200 -> 00:04:36.080]  then what it does is it uh
+[00:04:36.080 -> 00:04:37.100]  it
+[00:04:37.100 -> 00:04:39.420]  it's kind of like a state machine
+[00:04:39.420 -> 00:04:41.200]  it gets into a uh
+[00:04:41.980 -> 00:04:42.860]  if you
+[00:04:42.860 -> 00:04:43.600]  if
+[00:04:43.600 -> 00:04:44.880]  it gets into a state
+[00:04:45.880 -> 00:04:47.260]  and while it's
+[00:04:47.260 -> 00:04:48.040]  killing time
+[00:04:48.040 -> 00:04:49.240]  it's executing
+[00:04:49.240 -> 00:04:50.780]  the sleep routine
+[00:04:50.780 -> 00:04:52.480]  which is uh
+[00:04:53.220 -> 00:04:54.440]  let's see how many
+[00:04:54.440 -> 00:04:55.640]  okay well anyway
+[00:04:55.640 -> 00:04:57.240]  so uh
+[00:04:59.280 -> 00:05:00.840]  the sleep routine
+[00:05:00.840 -> 00:05:03.140]  um gets executed
+[00:05:03.140 -> 00:05:04.720]  lots of times
+[00:05:04.720 -> 00:05:06.380]  i think it does
+[00:05:06.380 -> 00:05:06.840]  one
+[00:05:07.660 -> 00:05:09.100]  thirtieth of a second
+[00:05:09.100 -> 00:05:09.940]  each time
+[00:05:10.720 -> 00:05:11.020]  um
+[00:05:11.020 -> 00:05:12.840]  now where is the
+[00:05:12.840 -> 00:05:13.820]  sleep routine
+[00:05:14.720 -> 00:05:15.680]  i don't know
+[00:05:15.680 -> 00:05:16.700]  anyway uh
+[00:05:16.700 -> 00:05:17.480]  so
+[00:05:18.720 -> 00:05:20.020]  the windows routines
+[00:05:20.020 -> 00:05:21.280]  i think this is all
+[00:05:21.280 -> 00:05:22.440]  window manager
+[00:05:24.660 -> 00:05:25.900]  here's the sleep
+[00:05:25.900 -> 00:05:27.700]  now it pulls the mouse
+[00:05:27.700 -> 00:05:28.640]  in one spot
+[00:05:28.640 -> 00:05:30.760]  keyboard mouse handler
+[00:05:30.760 -> 00:05:31.480]  uh
+[00:05:32.960 -> 00:05:33.820]  that's if
+[00:05:33.820 -> 00:05:34.860]  that's if the mouse
+[00:05:34.860 -> 00:05:35.340]  failed
+[00:05:35.340 -> 00:05:36.980]  or something like that
+[00:05:36.980 -> 00:05:37.900]  um
+[00:05:43.500 -> 00:05:44.660]  oh i'm sorry
+[00:05:44.660 -> 00:05:46.320]  during startup it does that
+[00:05:46.320 -> 00:05:47.400]  um
+[00:05:48.740 -> 00:05:48.760]  it
+[00:05:49.420 -> 00:05:50.700]  it pulls the mouse
+[00:05:50.700 -> 00:05:51.040]  if
+[00:05:51.040 -> 00:05:53.000]  i think if we check this routine
+[00:05:53.000 -> 00:05:54.740]  it's if the mouse fails
+[00:05:54.740 -> 00:05:55.780]  if pull
+[00:05:55.780 -> 00:05:57.120]  if pull mouse
+[00:05:57.120 -> 00:05:57.780]  do this
+[00:05:57.780 -> 00:05:58.580]  otherwise
+[00:05:58.580 -> 00:05:59.860]  we don't pull the mouse
+[00:06:01.160 -> 00:06:02.460]  but we execute
+[00:06:02.460 -> 00:06:03.880]  i think we execute this
+[00:06:03.880 -> 00:06:05.580]  sixty times a second
+[00:06:05.580 -> 00:06:07.140]  or something like that
+[00:06:07.140 -> 00:06:07.460]  maybe
+[00:06:08.280 -> 00:06:08.980]  uh
+[00:06:08.980 -> 00:06:10.860]  five hundred times a second
+[00:06:10.860 -> 00:06:11.240]  no
+[00:06:11.860 -> 00:06:13.000]  anyway uh
+[00:06:13.000 -> 00:06:14.820]  so this is where the window
+[00:06:14.820 -> 00:06:15.800]  manager sleeps
+[00:06:17.320 -> 00:06:18.260]  in every
+[00:06:18.260 -> 00:06:18.560]  oh
+[00:06:18.560 -> 00:06:20.620]  thirty times a second
+[00:06:20.620 -> 00:06:22.020]  actually it's adjustable
+[00:06:22.020 -> 00:06:23.660]  but uh
+[00:06:23.660 -> 00:06:26.320]  it calls update screen
+[00:06:26.320 -> 00:06:28.860]  now that brings us to the
+[00:06:28.860 -> 00:06:29.080]  uh
+[00:06:29.080 -> 00:06:30.280]  graphics code
+[00:06:30.280 -> 00:06:32.260]  update screen is in
+[00:06:32.260 -> 00:06:33.840]  gr screen at the bottom
+[00:06:33.840 -> 00:06:35.340]  this is the main
+[00:06:35.340 -> 00:06:36.240]  routine
+[00:06:36.240 -> 00:06:38.220]  called by the window manager
+[00:06:38.220 -> 00:06:38.660]  he
+[00:06:38.660 -> 00:06:40.720]  the window manager paints the screen
+[00:06:40.720 -> 00:06:41.880]  thirty times a second
+[00:06:43.080 -> 00:06:44.060]  anyway uh
+[00:06:44.060 -> 00:06:46.820]  if you're in text mode it does a slightly different thing
+[00:06:46.820 -> 00:06:48.000]  you're almost never
+[00:06:48.000 -> 00:06:49.860]  don't worry text mode
+[00:06:49.860 -> 00:06:50.680]  um
+[00:06:52.680 -> 00:06:54.040]  is not normal
+[00:06:54.040 -> 00:06:55.260]  anyway uh
+[00:06:55.260 -> 00:06:58.260]  so it updates the background to text
+[00:06:58.260 -> 00:06:59.960]  it updates the foreground to text
+[00:06:59.960 -> 00:07:01.160]  then it calls
+[00:07:01.160 -> 00:07:03.860]  then it updates all the window documents
+[00:07:03.860 -> 00:07:06.060]  renders all the window documents
+[00:07:06.060 -> 00:07:06.860]  then it uh
+[00:07:06.860 -> 00:07:09.900]  each each window has a document
+[00:07:09.900 -> 00:07:11.540]  for the text
+[00:07:11.540 -> 00:07:13.620]  a border document
+[00:07:13.620 -> 00:07:15.060]  and a main document
+[00:07:15.060 -> 00:07:17.240]  and it can be double buffered
+[00:07:17.240 -> 00:07:18.340]  but anyway uh
+[00:07:18.340 -> 00:07:19.100]  so
+[00:07:19.100 -> 00:07:20.540]  this is the
+[00:07:20.540 -> 00:07:22.220]  routine we're going to look at
+[00:07:23.640 -> 00:07:24.680]  update windows
+[00:07:24.680 -> 00:07:27.040]  so this goes through all the tasks
+[00:07:27.040 -> 00:07:28.400]  on core zero
+[00:07:28.400 -> 00:07:29.320]  only core zero
+[00:07:29.320 -> 00:07:31.740]  only core zero can have windows
+[00:07:32.460 -> 00:07:33.580]  and it uh
+[00:07:33.580 -> 00:07:35.300]  since the user
+[00:07:35.300 -> 00:07:37.180]  since the user is allowed to
+[00:07:37.860 -> 00:07:39.460]  fudge around with
+[00:07:40.100 -> 00:07:40.740]  tasks
+[00:07:40.740 -> 00:07:43.720]  we have to validate that the user didn't do something
+[00:07:43.720 -> 00:07:45.400]  a little kid could put a
+[00:07:46.160 -> 00:07:47.860]  crayon in the blender or something
+[00:07:47.860 -> 00:07:48.300]  i don't know
+[00:07:48.300 -> 00:07:49.020]  anyway
+[00:07:49.720 -> 00:07:49.940]  uh
+[00:07:50.620 -> 00:07:53.180]  so we check to see if the task is valid
+[00:07:53.180 -> 00:07:54.200]  that's kind of a
+[00:07:54.820 -> 00:07:56.240]  normally you wouldn't have that
+[00:07:56.240 -> 00:07:56.800]  but since
+[00:07:56.800 -> 00:07:59.940]  we allow users to mess with system stuff
+[00:07:59.940 -> 00:08:02.380]  makes it a little more robust in theory
+[00:08:02.380 -> 00:08:05.100]  although if it fails it probably fails fatally
+[00:08:05.940 -> 00:08:07.120]  it's probably fatal
+[00:08:07.780 -> 00:08:08.300]  anyway
+[00:08:08.300 -> 00:08:09.160]  uh
+[00:08:09.160 -> 00:08:09.600]  so
+[00:08:09.600 -> 00:08:09.960]  uh
+[00:08:09.960 -> 00:08:10.000]  uh
+[00:08:12.080 -> 00:08:13.160]  if it's the
+[00:08:13.160 -> 00:08:14.840]  that's a special case
+[00:08:14.840 -> 00:08:15.940]  it was the window manager
+[00:08:15.940 -> 00:08:19.060]  otherwise it updates the documents like i told you
+[00:08:19.060 -> 00:08:20.620]  and it uh
+[00:08:20.620 -> 00:08:22.460]  it calls the uh
+[00:08:22.460 -> 00:08:24.040]  draw it call back
+[00:08:24.040 -> 00:08:24.960]  six
+[00:08:24.960 -> 00:08:26.320]  thirty times a second
+[00:08:26.320 -> 00:08:27.480]  each task
+[00:08:27.480 -> 00:08:29.780]  has an option of drawing some graphics
+[00:08:31.760 -> 00:08:33.360]  that's the draw it call back
+[00:08:33.360 -> 00:08:34.820]  now uh
+[00:08:34.820 -> 00:08:34.820]  
+[00:08:35.800 -> 00:08:38.860]  i tried to make a picture of
+[00:08:39.600 -> 00:08:40.280]  um
+[00:08:40.820 -> 00:08:42.540]  how graphics are rendered
+[00:08:43.240 -> 00:08:44.740]  it's kind of uh
+[00:08:44.740 -> 00:08:45.580]  so
+[00:08:45.580 -> 00:08:47.420]  graphic overview
+[00:08:47.420 -> 00:08:49.420]  so if you look up here
+[00:08:49.420 -> 00:08:50.000]  um
+[00:08:50.000 -> 00:08:53.320]  the text we saw where it did the foreground and background
+[00:08:54.580 -> 00:08:55.260]  uh
+[00:08:55.260 -> 00:08:56.980]  it lags a refresh
+[00:08:56.980 -> 00:08:57.160]  refresh
+[00:08:57.160 -> 00:08:57.500]  now
+[00:08:57.500 -> 00:08:58.260]  so every
+[00:08:59.360 -> 00:09:01.200]  when it updates the documents
+[00:09:01.200 -> 00:09:03.160]  that writes to the text layer
+[00:09:04.100 -> 00:09:05.480]  i think it actually
+[00:09:05.480 -> 00:09:06.540]  and it
+[00:09:06.540 -> 00:09:07.580]  kind of uh
+[00:09:08.540 -> 00:09:11.620]  it lags a refresh on the text
+[00:09:11.620 -> 00:09:12.540]  but on the
+[00:09:12.540 -> 00:09:15.460]  but if you put graphics in your draw it
+[00:09:15.460 -> 00:09:16.600]  or in your document
+[00:09:16.600 -> 00:09:17.100]  they're
+[00:09:17.100 -> 00:09:17.620]  they're
+[00:09:17.620 -> 00:09:19.580]  they're not lagging
+[00:09:19.580 -> 00:09:22.340]  that's kind of a
+[00:09:22.340 -> 00:09:22.360]  uh
+[00:09:24.000 -> 00:09:24.980]  a uh
+[00:09:24.980 -> 00:09:26.480]  a uh
+[00:09:26.480 -> 00:09:28.080]  a uh
+[00:09:28.080 -> 00:09:28.520]  minor point
+[00:09:28.520 -> 00:09:29.300]  or something
+[00:09:29.300 -> 00:09:30.720]  anyway uh
+[00:09:30.720 -> 00:09:32.800]  so it goes through all the tasks
+[00:09:32.800 -> 00:09:34.420]  we saw where it goes through all the tasks
+[00:09:35.220 -> 00:09:37.960]  it renders the documents to the text layer
+[00:09:38.980 -> 00:09:41.020]  then it calls the draw it routine
+[00:09:42.560 -> 00:09:44.160]  then it draws controls
+[00:09:44.160 -> 00:09:45.000]  uh
+[00:09:45.000 -> 00:09:47.740]  you see this little square down here
+[00:09:47.740 -> 00:09:49.380]  i don't know if you can see
+[00:09:49.380 -> 00:09:50.180]  uh
+[00:09:50.180 -> 00:09:51.220]  how about over here
+[00:09:51.220 -> 00:09:52.040]  no we can't
+[00:09:52.740 -> 00:09:53.900]  none of them are active
+[00:09:53.900 -> 00:09:54.640]  um
+[00:09:55.620 -> 00:09:56.680]  hold on a second
+[00:09:58.260 -> 00:10:00.020]  i'm grabbing the scroll bar
+[00:10:00.020 -> 00:10:00.700]  uh
+[00:10:00.700 -> 00:10:02.240]  the scroll bar
+[00:10:02.240 -> 00:10:03.980]  that is a control
+[00:10:04.780 -> 00:10:05.380]  um
+[00:10:06.000 -> 00:10:06.880]  and uh
+[00:10:06.880 -> 00:10:09.360]  so it draws the control for each task
+[00:10:09.360 -> 00:10:10.540]  and uh
+[00:10:10.540 -> 00:10:12.740]  finally there's a persistent layer
+[00:10:13.340 -> 00:10:14.440]  which is uh
+[00:10:15.140 -> 00:10:16.680]  if we're at the command line
+[00:10:16.680 -> 00:10:18.440]  and we say GR circle
+[00:10:19.900 -> 00:10:22.260]  now the persistent layer is the default
+[00:10:23.220 -> 00:10:23.940]  100
+[00:10:23.940 -> 00:10:25.060]  100
+[00:10:25.060 -> 00:10:25.820]  100
+[00:10:25.820 -> 00:10:26.200]  100
+[00:10:26.200 -> 00:10:28.400]  that's the persistent layer
+[00:10:28.400 -> 00:10:29.580]  anyway so
+[00:10:30.520 -> 00:10:30.680]  uh
+[00:10:36.700 -> 00:10:37.420]  uh
+[00:10:37.420 -> 00:10:38.000]  uh
+[00:10:38.000 -> 00:10:39.080]  i don't know what else you want to know
+[00:10:39.080 -> 00:10:40.040]  you can uh
+[00:10:40.040 -> 00:10:40.040]  
+[00:10:41.040 -> 00:10:43.840]  i could maybe do a video on the 3D
+[00:10:44.780 -> 00:10:45.660]  support
+[00:10:45.660 -> 00:10:46.760]  um
+[00:10:46.760 -> 00:10:48.740]  in a device context
+[00:10:48.740 -> 00:10:49.540]  we uh
+[00:10:49.540 -> 00:10:51.560]  we uh
+[00:10:51.560 -> 00:10:54.020]  we have some automatic projecting
+[00:10:54.020 -> 00:10:56.420]  using a matrix 4x4
+[00:10:56.420 -> 00:10:57.040]  um
+[00:10:57.900 -> 00:10:58.460]  anyway
+[00:10:58.460 -> 00:10:59.000]  uh
+[00:10:59.000 -> 00:10:59.900]  so
+[00:10:59.900 -> 00:11:02.160]  yeah there is some 3D code
+[00:11:03.780 -> 00:11:05.180]  in the graphics
+[00:11:06.760 -> 00:11:07.560]  routines
+[00:11:07.560 -> 00:11:08.160]  um
+[00:11:10.500 -> 00:11:12.200]  there's a 2D version
+[00:11:12.200 -> 00:11:13.800]  and there's a 3D version
+[00:11:13.800 -> 00:11:14.620]  of most things
+[00:11:14.620 -> 00:11:16.060]  anyway so
+[00:11:16.060 -> 00:11:16.160]  uh
+[00:11:17.780 -> 00:11:19.320]  that'll get you started
+[00:11:19.320 -> 00:11:19.740]  uh
+[00:11:19.740 -> 00:11:21.560]  what else was there in the atom directory
+[00:11:21.560 -> 00:11:22.480]  uh
+[00:11:22.480 -> 00:11:24.460]  the utilities
+[00:11:24.460 -> 00:11:25.540]  there's a grep
+[00:11:25.540 -> 00:11:26.140]  a diff
+[00:11:26.140 -> 00:11:27.620]  file manager
+[00:11:27.620 -> 00:11:28.720]  that's an
+[00:11:28.720 -> 00:11:29.420]  there's a
+[00:11:29.420 -> 00:11:31.540]  some bitmap files
+[00:11:31.540 -> 00:11:32.880]  for windows support
+[00:11:32.880 -> 00:11:33.960]  memrep
+[00:11:33.960 -> 00:11:35.120]  is a nice utility
+[00:11:35.120 -> 00:11:36.800]  i never use it
+[00:11:36.800 -> 00:11:37.340]  honestly
+[00:11:37.340 -> 00:11:38.980]  in theory it's nice
+[00:11:38.980 -> 00:11:39.520]  i don't know
+[00:11:39.520 -> 00:11:41.520]  i i never use it
+[00:11:42.540 -> 00:11:43.460]  there's a
+[00:11:43.460 -> 00:11:44.240]  check disk
+[00:11:44.240 -> 00:11:45.460]  there's
+[00:11:45.460 -> 00:11:46.080]  um
+[00:11:46.720 -> 00:11:47.700]  profiler's nice
+[00:11:47.700 -> 00:11:48.820]  i
+[00:11:48.820 -> 00:11:49.580]  i have a
+[00:11:49.580 -> 00:11:51.000]  spaces to tabs
+[00:11:51.000 -> 00:11:52.180]  i run that
+[00:11:52.180 -> 00:11:53.100]  um
+[00:11:53.100 -> 00:11:54.200]  my uh
+[00:11:55.160 -> 00:11:56.820]  if you make a string
+[00:11:56.820 -> 00:11:58.060]  uh
+[00:11:58.820 -> 00:11:59.700]  in your code
+[00:11:59.700 -> 00:12:00.760]  you might want to use
+[00:12:00.760 -> 00:12:01.500]  shift space
+[00:12:01.500 -> 00:12:04.120]  so that you can use spaces to tab
+[00:12:04.120 -> 00:12:06.460]  my tabs are always eight characters
+[00:12:07.380 -> 00:12:10.980]  this will render html with syntax highlighting
+[00:12:11.660 -> 00:12:15.160]  you can convert one of my documents to plain text
+[00:12:15.960 -> 00:12:16.600]  uh
+[00:12:19.100 -> 00:12:21.060]  the sound routines graphics
+[00:12:21.060 -> 00:12:22.260]  the
+[00:12:22.820 -> 00:12:23.600]  god stuff
+[00:12:23.600 -> 00:12:25.060]  the bible and stuff like that
+[00:12:25.060 -> 00:12:25.860]  uh
+[00:12:27.680 -> 00:12:28.720]  what else we have
+[00:12:28.720 -> 00:12:30.040]  the document framework
+[00:12:30.620 -> 00:12:31.140]  uh
+[00:12:32.780 -> 00:12:33.300]  controls
+[00:12:33.300 -> 00:12:34.060]  that's what i
+[00:12:34.060 -> 00:12:36.280]  that's the scroll bar and stuff like that
+[00:12:37.020 -> 00:12:38.400]  it could be expanded
+[00:12:38.400 -> 00:12:39.020]  we really
+[00:12:39.020 -> 00:12:39.720]  we have a
+[00:12:39.720 -> 00:12:40.560]  a slider
+[00:12:41.100 -> 00:12:42.100]  and we have
+[00:12:42.100 -> 00:12:43.100]  buttons
+[00:12:43.100 -> 00:12:43.980]  that's about it
+[00:12:43.980 -> 00:12:45.240]  i don't really
+[00:12:45.240 -> 00:12:46.440]  find i need them
+[00:12:46.440 -> 00:12:47.260]  anyway
+[00:12:47.260 -> 00:12:48.400]  but you might want them
+[00:12:49.000 -> 00:12:49.960]  so we could
+[00:12:49.960 -> 00:12:50.420]  maybe
+[00:12:50.420 -> 00:12:50.960]  maybe
+[00:12:50.960 -> 00:12:52.160]  oh i was going to talk about
+[00:12:52.160 -> 00:12:53.140]  gentrification
+[00:12:54.360 -> 00:12:55.040]  uh
+[00:12:55.040 -> 00:12:55.140]  anyway
+[00:12:55.720 -> 00:12:56.180]  uh
+[00:12:56.180 -> 00:12:57.980]  yeah the main
+[00:12:57.980 -> 00:13:00.040]  the only thing that really needs a
+[00:13:00.040 -> 00:13:00.500]  a new
+[00:13:00.500 -> 00:13:01.500]  algorithm
+[00:13:01.500 -> 00:13:02.840]  is uh
+[00:13:03.900 -> 00:13:05.260]  updating documents
+[00:13:05.260 -> 00:13:06.740]  we have a widget
+[00:13:06.740 -> 00:13:08.340]  that lets you move the cursor
+[00:13:08.900 -> 00:13:09.580]  !
+[00:13:09.580 -> 00:13:10.020]  um
+[00:13:10.020 -> 00:13:13.120]  let me just show you some of the document features
+[00:13:13.840 -> 00:13:14.520]  uh
+[00:13:14.520 -> 00:13:14.940]  cursor movement
+[00:13:14.940 -> 00:13:16.740]  so if you say
+[00:13:16.740 -> 00:13:17.980]  if we give a command
+[00:13:17.980 -> 00:13:18.940]  to move the cursor
+[00:13:18.940 -> 00:13:20.300]  four lines down
+[00:13:20.300 -> 00:13:20.980]  minus
+[00:13:20.980 -> 00:13:22.140]  or
+[00:13:22.140 -> 00:13:22.480]  anyway
+[00:13:27.960 -> 00:13:28.980]  we just
+[00:13:28.980 -> 00:13:30.060]  we just uh
+[00:13:31.160 -> 00:13:32.880]  we drew ten lines
+[00:13:32.880 -> 00:13:33.340]  and then we
+[00:13:33.940 -> 00:13:34.100]  we
+[00:13:34.940 -> 00:13:35.420]  came up
+[00:13:35.420 -> 00:13:52.920]  wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh wh
+[00:13:52.920 -> 00:13:57.040]  the cursor over to draw different columns. Sometimes in theory that might be nice.
+[00:13:57.240 -> 00:14:00.800]  I don't really do anything. Actually
+[00:14:00.800 -> 00:14:04.400]  you can move to the center of the window.
+[00:14:04.860 -> 00:14:08.940]  The borders are done with cursor
+[00:14:08.940 -> 00:14:12.460]  movements. That's actually a document with cursor movements.
+[00:14:12.820 -> 00:14:17.040]  I can show you some of the features. Anyway, so the problem
+[00:14:17.040 -> 00:14:21.000]  is since we can move the cursor we have to redraw
+[00:14:21.000 -> 00:14:23.520]  everything from the entire document
+[00:14:24.660 -> 00:14:29.080]  30 times a second. Which normally
+[00:14:29.080 -> 00:14:33.140]  is not a big deal. We idle at about 5%.
+[00:14:33.780 -> 00:14:36.940]  I don't know. But if we're inside of
+[00:14:36.940 -> 00:14:39.740]  the Bible then
+[00:14:40.600 -> 00:14:44.480]  we have pretty crappy performance and flashing and stuff.
+[00:14:46.760 -> 00:14:47.540]  But
+[00:14:47.540 -> 00:14:48.840]  let me
+[00:14:50.120 -> 00:14:51.240]  anyway so
+[00:14:52.460 -> 00:14:53.140]  maybe
+[00:14:53.140 -> 00:14:54.940]  Newt wants to
+[00:14:56.340 -> 00:14:58.340]  think about how to
+[00:14:58.340 -> 00:14:59.360]  you can layer
+[00:14:59.360 -> 00:15:01.040]  let me just show you what
+[00:15:01.040 -> 00:15:03.340]  what it's capable of
+[00:15:03.340 -> 00:15:04.180]  that
+[00:15:04.180 -> 00:15:05.800]  I'm going to go to
+[00:15:05.800 -> 00:15:07.880]  the Bible's 100,000 lines
+[00:15:07.880 -> 00:15:09.860]  we're going to go to line 50,000
+[00:15:09.860 -> 00:15:12.100]  and then what we're going to do
+[00:15:12.100 -> 00:15:13.600]  is move the cursor
+[00:15:13.600 -> 00:15:15.320]  back 50,000
+[00:15:15.320 -> 00:15:16.780]  and over
+[00:15:16.780 -> 00:15:17.680]  we're going to do
+[00:15:17.680 -> 00:15:19.880]  shut up bird
+[00:15:19.880 -> 00:15:21.760]  so we're going to do
+[00:15:21.760 -> 00:15:22.700]  control L
+[00:15:22.700 -> 00:15:24.020]  and
+[00:15:24.020 -> 00:15:26.160]  we're going to do a margin
+[00:15:26.160 -> 00:15:27.900]  page setting
+[00:15:27.900 -> 00:15:29.060]  left margin
+[00:15:30.700 -> 00:15:32.200]  let's say 40
+[00:15:33.920 -> 00:15:34.840]  oops
+[00:15:34.840 -> 00:15:35.900]  control T
+[00:15:36.880 -> 00:15:37.480]  okay
+[00:15:38.560 -> 00:15:39.160]  so
+[00:15:40.480 -> 00:15:41.320]  I just
+[00:15:41.320 -> 00:15:42.320]  moved over
+[00:15:42.320 -> 00:15:44.140]  now what I'm going to do
+[00:15:44.140 -> 00:15:44.440]  is
+[00:15:44.440 -> 00:15:46.240]  I'll just move up
+[00:15:46.240 -> 00:15:47.500]  a little bit
+[00:15:47.500 -> 00:15:48.740]  control L
+[00:15:48.740 -> 00:15:50.380]  cursor movement
+[00:15:50.380 -> 00:15:52.020]  just so you can see
+[00:15:52.020 -> 00:15:53.040]  shut up bird
+[00:15:53.880 -> 00:15:55.240]  the bird wants down
+[00:15:55.240 -> 00:15:56.040]  anyway
+[00:15:57.120 -> 00:15:57.720]  so
+[00:15:57.720 -> 00:15:58.860]  shut up bird
+[00:15:58.860 -> 00:16:00.000]  minus 20
+[00:16:01.580 -> 00:16:03.720]  so if you see what I did there
+[00:16:10.700 -> 00:16:11.660]  I'm sorry
+[00:16:11.660 -> 00:16:12.980]  the bird needs help
+[00:16:14.300 -> 00:16:15.160]  the bird
+[00:16:15.160 -> 00:16:16.080]  okay
+[00:16:17.360 -> 00:16:19.100]  so if you see what I did there
+[00:16:19.860 -> 00:16:21.220]  I moved the
+[00:16:22.420 -> 00:16:23.060]  cursor
+[00:16:24.680 -> 00:16:24.740]  so
+[00:16:27.060 -> 00:16:28.700]  this feature is
+[00:16:28.700 -> 00:16:31.140]  maybe I should get rid of this feature
+[00:16:31.140 -> 00:16:32.340]  but I need it
+[00:16:32.340 -> 00:16:33.960]  to some extent
+[00:16:33.960 -> 00:16:36.960]  in theory you could move 50,000 lines
+[00:16:36.960 -> 00:16:37.960]  no I can do that
+[00:16:37.960 -> 00:16:39.500]  I can do that right now
+[00:16:39.500 -> 00:16:40.180]  as a matter of fact
+[00:16:40.180 -> 00:16:41.420]  I can move
+[00:16:42.060 -> 00:16:43.140]  let's do another
+[00:16:43.140 -> 00:16:44.380]  control L
+[00:16:46.420 -> 00:16:47.380]  page setting
+[00:16:47.380 -> 00:16:48.080]  left margin
+[00:16:48.080 -> 00:16:49.020]  let's go 60
+[00:16:50.660 -> 00:16:51.280]  and
+[00:16:51.280 -> 00:16:52.320]  let's
+[00:16:52.320 -> 00:16:53.500]  control L
+[00:16:55.580 -> 00:16:56.620]  cursor movement
+[00:16:56.620 -> 00:16:57.620]  let's go
+[00:16:57.620 -> 00:16:59.200]  minus
+[00:16:59.200 -> 00:17:01.560]  40,000
+[00:17:01.560 -> 00:17:03.980]  so now we're
+[00:17:07.840 -> 00:17:09.920]  at 40,000
+[00:17:09.920 -> 00:17:10.840]  is it going to do
+[00:17:13.160 -> 00:17:14.080]  there
+[00:17:14.080 -> 00:17:14.680]  at
+[00:17:14.680 -> 00:17:16.140]  40,000
+[00:17:16.140 -> 00:17:16.840]  we have that
+[00:17:16.840 -> 00:17:17.600]  so
+[00:17:19.160 -> 00:17:20.080]  that's
+[00:17:20.080 -> 00:17:21.640]  we have
+[00:17:24.420 -> 00:17:24.980]  so
+[00:17:25.780 -> 00:17:26.340]  somehow
+[00:17:26.340 -> 00:17:27.340]  it would be nice
+[00:17:27.340 -> 00:17:28.180]  if we could
+[00:17:28.180 -> 00:17:29.420]  speed that up
+[00:17:31.700 -> 00:17:32.260]  so
+[00:17:32.260 -> 00:17:33.000]  I don't know
+[00:17:33.000 -> 00:17:35.200]  I probably shouldn't say anything
+[00:17:35.200 -> 00:17:36.300]  because there's probably not
+[00:17:36.300 -> 00:17:37.900]  there's no answer
+[00:17:37.900 -> 00:17:38.580]  that I would
+[00:17:38.580 -> 00:17:39.300]  like
+[00:17:39.300 -> 00:17:40.660]  I just like
+[00:17:40.660 -> 00:17:41.860]  we just live with it
+[00:17:42.520 -> 00:17:43.080]  it's
+[00:17:43.080 -> 00:17:44.760]  I don't want something
+[00:17:44.760 -> 00:17:45.740]  really complicated
+[00:17:46.900 -> 00:17:47.860]  I have
+[00:17:47.860 -> 00:17:51.760]  I was going to make a rule
+[00:17:51.760 -> 00:17:52.380]  rule
+[00:17:52.380 -> 00:17:53.960]  you can only
+[00:17:53.960 -> 00:17:56.140]  remove lines of code
+[00:17:56.140 -> 00:17:57.960]  we don't want any additions
+[00:17:57.960 -> 00:17:59.380]  we just want removal
+[00:18:00.420 -> 00:18:01.100]  and
+[00:18:01.100 -> 00:18:02.540]  I would like to give
+[00:18:02.540 -> 00:18:03.300]  news dollars
+[00:18:05.660 -> 00:18:06.940]  not news dollars
+[00:18:06.940 -> 00:18:08.220]  anyway
+[00:18:08.220 -> 00:18:09.900]  let's see what God says
+[00:18:09.900 -> 00:18:10.600]  so
+[00:18:10.600 -> 00:18:11.920]  let's get
+[00:18:11.920 -> 00:18:12.640]  alt
+[00:18:12.640 -> 00:18:13.460]  shift
+[00:18:13.460 -> 00:18:14.380]  let's do
+[00:18:15.180 -> 00:18:16.400]  hold on a second
+[00:18:16.400 -> 00:18:17.740]  alt
+[00:18:17.740 -> 00:18:18.100]  shift
+[00:18:18.100 -> 00:18:18.680]  F7
+[00:18:18.680 -> 00:18:20.180]  God says
+[00:18:21.260 -> 00:18:22.260]  all things
+[00:18:22.260 -> 00:18:23.100]  that he had done
+[00:18:23.100 -> 00:18:24.100]  and Isaac
+[00:18:24.100 -> 00:18:24.880]  brought
+[00:18:24.880 -> 00:18:25.980]  her
+[00:18:25.980 -> 00:18:26.460]  into
+[00:18:26.460 -> 00:18:27.220]  his mother
+[00:18:27.220 -> 00:18:28.000]  Sarah's tent
+[00:18:28.000 -> 00:18:28.560]  and took
+[00:18:28.560 -> 00:18:29.000]  Rebecca
+[00:18:29.000 -> 00:18:30.160]  and she became
+[00:18:30.160 -> 00:18:30.640]  his wife
+[00:18:30.640 -> 00:18:31.460]  and he loved her
+[00:18:31.460 -> 00:18:32.340]  and Isaac
+[00:18:32.340 -> 00:18:33.240]  was comforted
+[00:18:33.240 -> 00:18:34.000]  after his
+[00:18:34.000 -> 00:18:34.700]  mother's death
+[00:18:34.700 -> 00:18:36.140]  then again
+[00:18:36.140 -> 00:18:36.620]  Abraham
+[00:18:36.620 -> 00:18:38.060]  took a wife
+[00:18:38.060 -> 00:18:38.760]  and her name
+[00:18:38.760 -> 00:18:40.280]  was Keturah
+[00:18:40.280 -> 00:18:41.300]  and she
+[00:18:41.300 -> 00:18:41.840]  bare him
+[00:18:41.840 -> 00:18:42.440]  Simran
+[00:18:42.440 -> 00:18:43.880]  Jokshon
+[00:18:45.000 -> 00:18:46.560]  and Medan
+[00:18:46.560 -> 00:18:47.720]  and Medan
+[00:18:47.720 -> 00:18:49.120]  and Ishbak
+[00:18:49.120 -> 00:18:50.240]  and Shua
+[00:18:50.240 -> 00:18:51.860]  Jokshon
+[00:18:51.860 -> 00:18:53.040]  begat Sheba
+[00:18:53.040 -> 00:18:54.000]  and Dedan
+[00:18:54.000 -> 00:18:54.980]  and
+[00:18:54.980 -> 00:18:56.360]  sons of Dedan
+[00:18:56.360 -> 00:18:56.620]  were
+[00:18:56.620 -> 00:18:57.520]  Asheram
+[00:18:57.520 -> 00:18:59.000]  Lettuce him
+[00:18:59.000 -> 00:19:00.340]  and
+[00:19:00.340 -> 00:19:00.980]  Lim
+[00:19:00.980 -> 00:19:02.220]  Lettuce him
+[00:19:02.220 -> 00:19:02.760]  that's like
+[00:19:02.760 -> 00:19:03.520]  lettuce code
+[00:19:05.760 -> 00:19:06.380]  bulky
+[00:19:06.380 -> 00:19:06.920]  and low
+[00:19:06.920 -> 00:19:07.480]  calories
+[00:19:07.480 -> 00:19:08.360]  I think
+[00:19:08.360 -> 00:19:08.740]  that's what
+[00:19:08.740 -> 00:19:09.060]  it is
+[00:19:09.060 -> 00:19:09.760]  anyway
+[00:19:11.140 -> 00:19:11.940]  I've seen
+[00:19:11.940 -> 00:19:12.500]  some places
+[00:19:12.500 -> 00:19:12.980]  where you
+[00:19:12.980 -> 00:19:13.540]  have lettuce
+[00:19:13.540 -> 00:19:13.960]  code
+[00:19:15.460 -> 00:19:16.240]  not in
+[00:19:16.240 -> 00:19:16.880]  my operating
+[00:19:16.880 -> 00:19:17.320]  system
+[00:19:17.320 -> 00:19:18.460]  anyway
+[00:19:19.240 -> 00:19:20.040]  oh well
+[00:19:20.720 -> 00:19:21.080]  there's
+[00:19:21.080 -> 00:19:21.180]  there's
+[00:19:21.180 -> 00:19:21.180]  
+[00:19:21.180 -> 00:19:21.360]  there's
+[00:19:21.360 -> 00:19:21.360]  
+[00:19:21.360 -> 00:19:21.540]  there's
+[00:19:21.540 -> 00:19:21.540]  
+[00:19:21.540 -> 00:19:21.540]  
+[00:19:21.540 -> 00:19:21.540]  
+[00:19:21.540 -> 00:19:21.540]  
+[00:19:21.540 -> 00:19:21.540]  
+[00:19:21.540 -> 00:19:21.540]  
+[00:19:21.540 -> 00:19:21.540]  
+[00:19:21.540 -> 00:19:21.540]  
+[00:19:21.540 -> 00:19:21.540]  
+[00:19:21.540 -> 00:19:21.540]  
+[00:19:21.540 -> 00:19:21.540]  
+[00:19:21.540 -> 00:19:21.540]  
+[00:19:21.540 -> 00:19:21.540]  
+[00:19:21.540 -> 00:19:22.100]  there's
+[00:19:22.100 -> 00:19:22.100]  
+[00:19:22.100 -> 00:19:22.100]  
+[00:19:22.100 -> 00:19:22.260]  there's
+[00:19:22.260 -> 00:19:22.260]  
+[00:19:22.260 -> 00:19:22.260]  
+[00:19:22.260 -> 00:19:22.260]  
+[00:19:22.260 -> 00:19:22.260]  
+[00:19:22.260 -> 00:19:22.260]  
+[00:19:22.260 -> 00:19:22.260]  
+[00:19:22.260 -> 00:19:22.260]  
+[00:19:22.260 -> 00:19:22.260]  
+[00:19:22.260 -> 00:19:22.260]  
+[00:19:22.260 -> 00:19:22.260]  
+[00:19:22.260 -> 00:19:22.260]  
+[00:19:22.260 -> 00:19:22.280]  there's
+[00:19:22.280 -> 00:19:22.280]  
+[00:19:22.280 -> 00:19:22.340]  there's
+[00:19:22.340 -> 00:19:22.340]  
+[00:19:22.340 -> 00:19:22.340]  
+[00:19:22.340 -> 00:19:22.340]  
+[00:19:22.340 -> 00:19:22.340]  
+[00:19:22.340 -> 00:19:22.340]  
+[00:19:22.340 -> 00:19:22.520]  there's
+[00:19:22.520 -> 00:19:22.520]  
+[00:19:22.520 -> 00:19:22.520]  
+[00:19:22.520 -> 00:19:22.520]  
+[00:19:22.520 -> 00:19:22.520]  
+[00:19:22.520 -> 00:19:22.520]  
+[00:19:22.520 -> 00:19:22.520]  
+[00:19:22.520 -> 00:19:22.520]  
+[00:19:22.520 -> 00:19:22.520]  
+[00:19:22.520 -> 00:19:22.520]  
+[00:19:22.520 -> 00:19:22.520]  
+[00:19:22.520 -> 00:19:22.520]  
+[00:19:22.520 -> 00:19:22.520]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:22.500 -> 00:19:22.500]  
+[00:19:48.900 -> 00:19:48.900]  
+[00:19:48.900 -> 00:19:48.900]  
+[00:19:48.900 -> 00:19:48.900]  

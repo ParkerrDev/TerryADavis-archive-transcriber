@@ -1,0 +1,132 @@
+========================================================================
+FILE        : videos/2014/2014-09-10T00:00:00+00:00 - TempleOS; ATA ATAPI Hard Disk & CDROM DVD code (nzy4Q-9sJz0).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-09-10T00:00:00+00:00 - TempleOS; ATA ATAPI Hard Disk & CDROM DVD code (nzy4Q-9sJz0).mkv
+FORMAT      : Matroska
+SIZE        : 53,577,877 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:12:34.120
+TRANSCRIBED: 2026-05-08T13:25:30.574549+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+Okay, I'm going to talk about the disk ATA and the TAPI code. Go to the kernel directory into disk and the lowest level, all the low-level routines are in disk ATA. Basically there are about four routines. There's a there's a ATA read blocks, ATA write blocks, RBLKS, and there's a initialize. These are the the external the callable initialize and there's a there's some scan there's a ATA report. If you do ATA rep, okay, okay so that that command is in this file I think, pretty sure. Anyway, so let's talk about how this works. It is synchronous that means we don't use interrupts, we don't do asynchronous. So basically what we do for this is we issue a command and then we go into a loop reading a status and yielding to the next task if it's not ready. If it's not ready we yield to the next task and basically we start with the low-level routines and then they build up to the high-level routines so in this file. So the low level is there's one to select a block and either you have either you have 48 bit blocks or you have 28 bit blocks and that's that's a extended size and 48 is 28 is a less than 130 gig. 28 is less than 130 gig. So there are eight ports on one base and one port on the other base and so these ports are numbered 0 to 7 and the other one is a control port. So you see base 1, for the CD-ROM you only use base 0 or something like that. Anyway, yeah, anyway, so this is to set a block. We do each register twice to make 48 bits. We do, anyway, so when we wait we have a low-level command wait for busy, wait for data request or something like that. No op, which is during initialization and on a reset maybe you do that. This is to issue a command. There are several commands. Let's go ahead and take a peek. So the commands that we can issue, device reset, a packet command. The CD-ROM is accessed with a protocol within a protocol. For the CD-ROM you do all your interface by doing packet commands. So you write, anyway, the hard disk is done at a high, at the next, it's kind of like recursive, I don't know what you want to call it. Anyway, the hard disk is done with these commands. So we, anyway, read native max gets the number of blocks on the disk. Set max, set max, set max, I don't know, I forgot why you would use that. Anyway, you read multiple blocks, read multiple blocks extended. This is 28-bit versus 48-bit. So write multiple blocks and get ID device. Okay, so when we do the PCI report, then we get, oh, that's not what I wanted to say. What I meant to say is partition report. We get the model number and serial number. That's from the ID. So let's go ahead and take a little bit, another look. So we start with the low level. We build up. Let's look at ATA read blocks. So we go in a loop. There's a maximum number we read at once. You know, I don't choose this very carefully. It's possible mine is flawed. Anyway, then we either do a TAPI for CD-ROM or ATA and we read a chunk at a time. And TAPI read blocks, how does that work? We lock the device. We do a, we wait for it to be ready. Where do we, where do we, oh, this is not it. This is a TAPI. This is for a, that was for CD-ROM. I was, I'm only going to explain. Anyway, we, we select a block. Then we issue a command, either multi-read, extended or multi-read. Then we, we wait for the data request. And then we, then we read in from a port. Get request result reads the data port multiple times. So it reads a block. Wait for data. Then it reads, reads a port. Now I read four byte, four byte. I do a repeat in instruction and I do four bytes at a time. That's because, I don't think this ever happens, but I, I, I programmed defensively the two byte. Anyway, it's always four bytes. I looked on this, on the, ICH data sheet and it said the data port is four bytes. Anyway, so, it's possible you have one that's not four bytes. Anyway, so, we, this is basically synchronous I.O. We, we rate, we wait for a bit swapping out. Then we read the ports. So, there's a, a TAPI. I can try to explain that. There's a, there's a, there's a command you issue. It's waiting for data. What are we doing here? There's a TAPI write packet word. What this does is issues a, This issues a single, a TAPI part, the, the TAPI commands are made up of multiple packet words. So, there's a TAPI command right there. Here's a TAPI command. So, that 2B is, is a command. That 2B is a command. Then there's the parameters. That's, I, I, you know, I didn't write labels for the commands. 2B is the packet command. BB is the packet command. So, basically, those are like read and write. What is that? No, it's seek and set. But, so you have to, uh, spin up the disk. And, it's a little bit harder doing CD-ROM interface. Um, and I don't think mine is perfect by a long shot. Anyway, so the other issue is, uh, finding the ports. You have two sets of ports. One port and eight ports. And, uh, what I do is I probe to try and find stuff. Uh, the primary, um, IDE. This is kind of like the traditional when the PC first came out. 1F0, 3F6. 1, 7, 0, 3, 7, 6. Now, what I do on my ports, um, it turns out when you're, if you use the PCI BIOS, which reads the PCI config space, which, um, basically, that's how you can figure out what the port bank is set to. Or you can do, uh, you can do PCI LS in Linux. PCI LS is a command in Linux. PCI config space. Or, um, go into the system information in Windows. This tries to find it out by reading the PCI config space. It does, it's probably not going to work. Um, anyway, uh, so, uh, what it does is it tries to use the PCI, um, identify IDE SATA or ATA device class. And then it scans a block of 256. Anyway, uh, so it's trying to find itself. This particular code is when the CD-ROM boots, it tries to find itself, um, for the, for the remainder, since you can't use a BIOS. Nobody tells you what ports the CD-ROM just booted from. So you have to, I have to test them to see if that's the one that has the right CD-ROM. Anyway, um, so, uh, so I have an ATA rep to issue a report. Um, ATA rep is some code that's present in that file. So that's, uh, so that's what the ATA rep does. So it finds base 0 and base 1. Now what I do is, uh, sometimes it gives you, uh, the, the PCI BIOS will give you 1F1. And you have to clear those low bits. So I clear it back, I, I, I clear it with tilde 7. This one I clear with tilde 3. And then I add 2. And that's how I, you have to come up with something to deal with the, the irregularities in multiple, uh, anyway. So, so I, this is, uh, anyway, I assume it's aligned on an 8 and on a 4-bit, 4-byte boundary. Or, anyway, so, uh, that's the, uh, driver. It's synchronous, uh, so there's a disk cache layer that's, uh, just above. Um, and when you, uh, when you read blocks or write blocks, uh, it'll, when, not when you write, only when you read. There's a read cache that, uh, when you do a read block, it reads, it tries to read from the disk cache. And if not, it does that, that routine we just saw, the ATA read. It does the ATA read blocks right here. If it's a RAM disk, it gets it out of memory. And, uh, and then once it reads it, it, it adds it to the cache. And all of this has locks on it. Uh, this has a partition lock. And, uh, I, I think when, when we go to the block device, you'll notice that we don't lock the, the device, the block device, unless it's a real request. If it's a disk cache, we wouldn't want the, the device locked. So this, when does it lock the device? I guess it locks the device in here. Here's where it locks the device. Yeah. Uh, so, um, on the, um, file system level, um, it does not break, it does not break requests in pieces. So if I, if I do a request for, I don't know, 32 meg of reading a file, then it does not let anybody have access until that finishes or do it right. So, um, anyway. Okay.
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:06.060]  Okay, I'm going to talk about the disk ATA and the TAPI code. Go to the kernel
+[00:00:06.060 -> 00:00:13.000]  directory into disk and the lowest level, all the low-level routines are in
+[00:00:13.000 -> 00:00:22.520]  disk ATA. Basically there are about four routines. There's a there's a
+[00:00:22.520 -> 00:00:37.660]  ATA read blocks, ATA write blocks, RBLKS, and there's a initialize. These are the
+[00:00:37.660 -> 00:00:47.100]  the external the callable initialize and there's a there's some scan there's a
+[00:00:47.100 -> 00:01:02.440]  ATA report. If you do ATA rep, okay, okay so that that command is in this file I
+[00:01:02.440 -> 00:01:10.540]  think, pretty sure. Anyway, so let's talk about how this works. It is synchronous
+[00:01:10.540 -> 00:01:16.860]  that means we don't use interrupts, we don't do asynchronous. So basically what
+[00:01:16.860 -> 00:01:23.820]  we do for this is we issue a command and then we go into a loop reading a status
+[00:01:25.020 -> 00:01:30.780]  and yielding to the next task if it's not ready. If it's not ready we yield to the
+[00:01:30.780 -> 00:01:37.200]  next task and basically we start with the low-level routines and then they build up
+[00:01:37.200 -> 00:01:43.080]  to the high-level routines so in this file. So the low level is there's one to
+[00:01:43.080 -> 00:01:49.760]  select a block and either you have either you have 48 bit blocks or you have 28 bit
+[00:01:49.760 -> 00:02:01.160]  blocks and that's that's a extended size and 48 is 28 is a less than 130 gig. 28 is
+[00:02:01.160 -> 00:02:12.060]  less than 130 gig. So there are eight ports on one base and one port on the other
+[00:02:12.060 -> 00:02:31.060]  base and so these ports are numbered 0 to 7 and the other one is a control port. So you see base 1,
+[00:02:31.060 -> 00:02:47.960]  for the CD-ROM you only use base 0 or something like that. Anyway, yeah, anyway, so this is to set a block. We do each register twice to make 48 bits.
+[00:02:48.900 -> 00:03:00.600]  We do, anyway, so when we wait we have a low-level command wait for busy, wait for data request or something like that.
+[00:03:01.120 -> 00:03:11.680]  No op, which is during initialization and on a reset maybe you do that. This is to issue a command. There are several commands.
+[00:03:12.800 -> 00:03:27.780]  Let's go ahead and take a peek. So the commands that we can issue, device reset, a packet command. The CD-ROM is accessed with a protocol within a protocol.
+[00:03:28.280 -> 00:03:41.540]  For the CD-ROM you do all your interface by doing packet commands. So you write, anyway, the hard disk is done at a high, at the next, it's kind of like recursive, I don't know what you want to call it.
+[00:03:42.820 -> 00:03:49.940]  Anyway, the hard disk is done with these commands. So we, anyway, read native max gets the number of blocks on the disk.
+[00:03:50.660 -> 00:04:00.300]  Set max, set max, set max, I don't know, I forgot why you would use that. Anyway, you read multiple blocks, read multiple blocks extended.
+[00:04:00.520 -> 00:04:08.540]  This is 28-bit versus 48-bit. So write multiple blocks and get ID device.
+[00:04:08.540 -> 00:04:24.480]  Okay, so when we do the PCI report, then we get, oh, that's not what I wanted to say. What I meant to say is partition report.
+[00:04:26.460 -> 00:04:36.880]  We get the model number and serial number. That's from the ID. So let's go ahead and take a little bit, another look.
+[00:04:36.880 -> 00:04:44.300]  So we start with the low level. We build up. Let's look at ATA read blocks.
+[00:04:46.360 -> 00:04:56.140]  So we go in a loop. There's a maximum number we read at once. You know, I don't choose this very carefully. It's possible mine is flawed.
+[00:04:56.140 -> 00:05:07.520]  Anyway, then we either do a TAPI for CD-ROM or ATA and we read a chunk at a time.
+[00:05:08.280 -> 00:05:12.180]  And TAPI read blocks, how does that work?
+[00:05:12.180 -> 00:05:21.300]  We lock the device. We do a, we wait for it to be ready.
+[00:05:23.300 -> 00:05:32.140]  Where do we, where do we, oh, this is not it. This is a TAPI. This is for a, that was for CD-ROM.
+[00:05:32.640 -> 00:05:37.560]  I was, I'm only going to explain. Anyway, we, we select a block.
+[00:05:37.760 -> 00:05:41.560]  Then we issue a command, either multi-read, extended or multi-read.
+[00:05:41.560 -> 00:05:48.420]  Then we, we wait for the data request. And then we, then we read in from a port.
+[00:05:49.180 -> 00:05:49.180]  
+[00:05:53.060 -> 00:05:57.880]  Get request result reads the data port multiple times. So it reads a block.
+[00:05:59.140 -> 00:06:02.740]  Wait for data. Then it reads, reads a port.
+[00:06:02.740 -> 00:06:10.800]  Now I read four byte, four byte. I do a repeat in instruction and I do four bytes at a time.
+[00:06:12.060 -> 00:06:20.780]  That's because, I don't think this ever happens, but I, I, I programmed defensively the two byte.
+[00:06:21.340 -> 00:06:29.160]  Anyway, it's always four bytes. I looked on this, on the, ICH data sheet and it said the data port is four bytes.
+[00:06:29.160 -> 00:06:35.600]  Anyway, so, it's possible you have one that's not four bytes.
+[00:06:36.260 -> 00:06:39.940]  Anyway, so, we, this is basically synchronous I.O.
+[00:06:40.080 -> 00:06:44.520]  We, we rate, we wait for a bit swapping out. Then we read the ports.
+[00:06:46.480 -> 00:06:51.380]  So, there's a, a TAPI. I can try to explain that.
+[00:06:51.380 -> 00:06:54.040]  There's a, there's a, there's a command you issue.
+[00:06:56.700 -> 00:06:59.180]  It's waiting for data. What are we doing here?
+[00:07:02.320 -> 00:07:04.740]  There's a TAPI write packet word.
+[00:07:05.020 -> 00:07:06.980]  What this does is issues a,
+[00:07:13.160 -> 00:07:25.920]  This issues a single, a TAPI part, the, the TAPI commands are made up of multiple packet words.
+[00:07:26.280 -> 00:07:29.400]  So, there's a TAPI command right there.
+[00:07:30.920 -> 00:07:32.440]  Here's a TAPI command.
+[00:07:34.280 -> 00:07:37.040]  So, that 2B is, is a command.
+[00:07:37.720 -> 00:07:39.380]  That 2B is a command.
+[00:07:39.800 -> 00:07:41.200]  Then there's the parameters.
+[00:07:41.440 -> 00:07:44.620]  That's, I, I, you know, I didn't write labels for the commands.
+[00:07:44.880 -> 00:07:46.500]  2B is the packet command.
+[00:07:47.240 -> 00:07:48.940]  BB is the packet command.
+[00:07:49.240 -> 00:07:51.500]  So, basically, those are like read and write.
+[00:07:51.640 -> 00:07:52.000]  What is that?
+[00:07:52.160 -> 00:07:53.320]  No, it's seek and set.
+[00:07:53.320 -> 00:07:55.940]  But, so you have to, uh, spin up the disk.
+[00:07:56.160 -> 00:07:59.660]  And, it's a little bit harder doing CD-ROM interface.
+[00:08:00.180 -> 00:08:04.440]  Um, and I don't think mine is perfect by a long shot.
+[00:08:04.920 -> 00:08:08.640]  Anyway, so the other issue is, uh, finding the ports.
+[00:08:08.660 -> 00:08:10.180]  You have two sets of ports.
+[00:08:10.500 -> 00:08:12.040]  One port and eight ports.
+[00:08:12.520 -> 00:08:16.700]  And, uh, what I do is I probe to try and find stuff.
+[00:08:17.300 -> 00:08:20.220]  Uh, the primary, um, IDE.
+[00:08:20.520 -> 00:08:23.180]  This is kind of like the traditional when the PC first came out.
+[00:08:24.500 -> 00:08:25.380]  1F0, 3F6.
+[00:08:26.200 -> 00:08:28.220]  1, 7, 0, 3, 7, 6.
+[00:08:28.520 -> 00:08:36.000]  Now, what I do on my ports, um, it turns out when you're, if you use the PCI BIOS, which reads the PCI config space,
+[00:08:36.620 -> 00:08:41.780]  which, um, basically, that's how you can figure out what the port bank is set to.
+[00:08:42.320 -> 00:08:48.760]  Or you can do, uh, you can do PCI LS in Linux.
+[00:08:49.600 -> 00:08:51.600]  PCI LS is a command in Linux.
+[00:08:52.080 -> 00:08:52.520]  PCI config space.
+[00:08:52.520 -> 00:08:54.680]  Or, um, go into the system information in Windows.
+[00:08:55.020 -> 00:08:58.380]  This tries to find it out by reading the PCI config space.
+[00:08:58.540 -> 00:08:59.860]  It does, it's probably not going to work.
+[00:09:00.580 -> 00:09:13.580]  Um, anyway, uh, so, uh, what it does is it tries to use the PCI, um, identify IDE SATA or ATA device class.
+[00:09:13.580 -> 00:09:16.080]  And then it scans a block of 256.
+[00:09:16.700 -> 00:09:20.720]  Anyway, uh, so it's trying to find itself.
+[00:09:21.460 -> 00:09:31.380]  This particular code is when the CD-ROM boots, it tries to find itself, um, for the, for the remainder, since you can't use a BIOS.
+[00:09:31.380 -> 00:09:36.320]  Nobody tells you what ports the CD-ROM just booted from.
+[00:09:36.520 -> 00:09:41.600]  So you have to, I have to test them to see if that's the one that has the right CD-ROM.
+[00:09:42.220 -> 00:09:50.780]  Anyway, um, so, uh, so I have an ATA rep to issue a report.
+[00:09:50.780 -> 00:09:58.000]  Um, ATA rep is some code that's present in that file.
+[00:10:00.260 -> 00:10:09.100]  So that's, uh, so that's what the ATA rep does.
+[00:10:09.280 -> 00:10:11.780]  So it finds base 0 and base 1.
+[00:10:11.780 -> 00:10:18.300]  Now what I do is, uh, sometimes it gives you, uh, the, the PCI BIOS will give you 1F1.
+[00:10:18.540 -> 00:10:20.740]  And you have to clear those low bits.
+[00:10:21.100 -> 00:10:25.160]  So I clear it back, I, I, I clear it with tilde 7.
+[00:10:25.740 -> 00:10:28.180]  This one I clear with tilde 3.
+[00:10:29.140 -> 00:10:30.800]  And then I add 2.
+[00:10:31.480 -> 00:10:39.980]  And that's how I, you have to come up with something to deal with the, the irregularities in multiple, uh, anyway.
+[00:10:42.400 -> 00:10:50.400]  So, so I, this is, uh, anyway, I assume it's aligned on an 8 and on a 4-bit, 4-byte boundary.
+[00:10:50.800 -> 00:10:55.100]  Or, anyway, so, uh, that's the, uh, driver.
+[00:10:55.480 -> 00:11:05.160]  It's synchronous, uh, so there's a disk cache layer that's, uh, just above.
+[00:11:05.660 -> 00:11:16.480]  Um, and when you, uh, when you read blocks or write blocks, uh, it'll, when, not when you write, only when you read.
+[00:11:16.620 -> 00:11:23.640]  There's a read cache that, uh, when you do a read block, it reads, it tries to read from the disk cache.
+[00:11:23.640 -> 00:11:28.280]  And if not, it does that, that routine we just saw, the ATA read.
+[00:11:28.640 -> 00:11:31.160]  It does the ATA read blocks right here.
+[00:11:32.020 -> 00:11:34.200]  If it's a RAM disk, it gets it out of memory.
+[00:11:35.340 -> 00:11:39.440]  And, uh, and then once it reads it, it, it adds it to the cache.
+[00:11:39.820 -> 00:11:42.180]  And all of this has locks on it.
+[00:11:42.460 -> 00:11:44.600]  Uh, this has a partition lock.
+[00:11:45.300 -> 00:11:55.680]  And, uh, I, I think when, when we go to the block device, you'll notice that we don't lock the, the device, the block device, unless it's a real request.
+[00:11:55.680 -> 00:11:59.060]  If it's a disk cache, we wouldn't want the, the device locked.
+[00:11:59.320 -> 00:12:01.480]  So this, when does it lock the device?
+[00:12:01.920 -> 00:12:04.100]  I guess it locks the device in here.
+[00:12:06.080 -> 00:12:07.680]  Here's where it locks the device.
+[00:12:08.480 -> 00:12:08.820]  Yeah.
+[00:12:08.820 -> 00:12:19.540]  Uh, so, um, on the, um, file system level, um, it does not break, it does not break requests in pieces.
+[00:12:19.700 -> 00:12:31.380]  So if I, if I do a request for, I don't know, 32 meg of reading a file, then it does not let anybody have access until that finishes or do it right.
+[00:12:31.760 -> 00:12:33.060]  So, um, anyway.
+[00:12:33.920 -> 00:12:34.120]  Okay.

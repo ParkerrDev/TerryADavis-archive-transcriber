@@ -1,0 +1,190 @@
+========================================================================
+FILE        : videos/2015/2015-01-04T00:00:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #94 (r0nqOxneh8Y).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2015/2015-01-04T00:00:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #94 (r0nqOxneh8Y).mkv
+FORMAT      : Matroska
+SIZE        : 20,024,532 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:05:59.840
+TRANSCRIBED: 2026-05-10T20:43:32.195137+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+This is Temple OS 5-Minute Random Code Walkthrough Episode 94 and I'm your host Terry Davis. So God took us to ScanKey. Oh boy, 5-Minute Random Code Walkthrough. This is kind of nasty. Okay, so I make a distinction between GetKey and GetChar. GetChar is for an ASCII value. GetKey is for a ScanCode value. It also returns the ASCII. So I put ASCII in CH and ScanCodes in SC. Now the ScanCodes are broken down by byte 0 is the code, byte 1 to 3 are the flags, and then byte 4 is the code and byte 5 to 7 are the flags. What this means is it repeats the... Sometimes you want left shift and right shift distinct. Most of the times you want left shift and right shift the same. And so the low byte has them the same. The upper bytes has them distinct. Anyway, so the flags are... Okay, now this is tricky. I put normally key up is bit 7. I made bit 7 the E0 prefix. And if you know about ScanCodes, you'll know what I'm talking about. Anyway, cursor keys are actually 2-byte codes. And I put them into 1 by... Cursor keys are usually E0 followed by another byte. And basically I fixed it so that the scan code is 1 byte. And the bit 7 of that 1 byte is the E0 prefix present. Anyway, so some of these other flags... If the control key is pressed, if alt is pressed, it's cap and unlock. It even has some for... With left mouse button pressed at the same time. Anyway, so that's what scan codes are. Now getting back to where we landed. So... Okay, there's actually one more thing. You have keys, you have characters, and you have messages. So a message is either a key down, key up, input pointer move, input... This is mouse. Mouse move, mouse left, left down, left up, left right down. Okay, so I only have a limited number of messages. That's where I'm different from Windows. And when you want to ask for messages, you... You... Hey, that's kind of weird. Oh. Anyway... No, I'm really freaking out. Those are bit... Okay, anyway, those are bit values. That's kind of... Oh, well. Anyway, so... Let's see. So we were in scan key... Or scan... We were in scan key, weren't we? So this one waits until a key is pressed. And it erases all the other... It purges all the other messages. Except keystrokes. And when it does get a key, it... It... It... It removes it from the queue. So that... There's no way to... To scan for a key without removing it. So in other words, if you call scan key... It will wait until you get a key... A message key down... And it will... It will get rid of it. I'm sorry. It will return it. Now you can leave... These have null parameters. If you... Ch is always the ASCII scan code. Or SC is always the scan code. And then if you want, you can echo the key as it's pressed. So let's see how we're done. So that's that. What it has to do is it has to... Well, for scan char, it has to wait for... If it's zero... If it's zero... There's no key. If there is a key, then we wait until the up is received. Actually, this is waiting for an ASCII that's not zero. If you press a cursor key, that gives a zero ASCII value and a scan code. So that's just for your information. So... So... Ch is always the ASCII... Boolean is telling us if we got a key or not. This returns... This doesn't wait for a key. It immediately returns. This one waits until it gets a... An ASCII... A non-zero ASCII. So this one... Scan character will ignore... Cursor keys. Scan key will... Will return cursor keys. So... Anyway... You don't have to pass parameters to receive. If you pass null, that will just throw them away. So anyway... So that's that. I'll be ready. I'll be ready. I'll be ready. I'll be ready. I'll be ready. I'll be ready. I'll be ready. I'll be ready. I'll be ready. I'll be ready.
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:06.460]  This is Temple OS 5-Minute Random Code Walkthrough Episode 94 and I'm your host Terry Davis.
+[00:00:08.320 -> 00:00:16.220]  So God took us to ScanKey. Oh boy, 5-Minute Random Code Walkthrough. This is kind of nasty.
+[00:00:17.800 -> 00:00:23.640]  Okay, so I make a distinction between GetKey and GetChar.
+[00:00:25.080 -> 00:00:34.220]  GetChar is for an ASCII value. GetKey is for a ScanCode value. It also returns the ASCII.
+[00:00:36.220 -> 00:00:41.920]  So I put ASCII in CH and ScanCodes in SC.
+[00:00:42.520 -> 00:00:52.640]  Now the ScanCodes are broken down by byte 0 is the code, byte 1 to 3 are the flags,
+[00:00:52.640 -> 00:00:57.160]  and then byte 4 is the code and byte 5 to 7 are the flags.
+[00:00:57.880 -> 00:01:01.280]  What this means is it repeats the...
+[00:01:02.040 -> 00:01:05.840]  Sometimes you want left shift and right shift distinct.
+[00:01:06.560 -> 00:01:10.040]  Most of the times you want left shift and right shift the same.
+[00:01:10.380 -> 00:01:14.080]  And so the low byte has them the same.
+[00:01:17.020 -> 00:01:20.600]  The upper bytes has them distinct.
+[00:01:21.560 -> 00:01:28.280]  Anyway, so the flags are...
+[00:01:29.180 -> 00:01:31.420]  Okay, now this is tricky.
+[00:01:32.180 -> 00:01:34.980]  I put normally key up is bit 7.
+[00:01:34.980 -> 00:01:40.160]  I made bit 7 the E0 prefix.
+[00:01:41.140 -> 00:01:44.600]  And if you know about ScanCodes, you'll know what I'm talking about.
+[00:01:45.280 -> 00:01:52.160]  Anyway, cursor keys are actually 2-byte codes.
+[00:01:52.440 -> 00:01:56.360]  And I put them into 1 by...
+[00:01:56.360 -> 00:02:00.760]  Cursor keys are usually E0 followed by another byte.
+[00:02:00.760 -> 00:02:09.440]  And basically I fixed it so that the scan code is 1 byte.
+[00:02:09.880 -> 00:02:15.940]  And the bit 7 of that 1 byte is the E0 prefix present.
+[00:02:16.400 -> 00:02:18.660]  Anyway, so some of these other flags...
+[00:02:18.660 -> 00:02:22.480]  If the control key is pressed, if alt is pressed, it's cap and unlock.
+[00:02:24.420 -> 00:02:26.300]  It even has some for...
+[00:02:26.300 -> 00:02:28.680]  With left mouse button pressed at the same time.
+[00:02:28.680 -> 00:02:33.020]  Anyway, so that's what scan codes are.
+[00:02:33.260 -> 00:02:35.720]  Now getting back to where we landed.
+[00:02:36.880 -> 00:02:37.360]  So...
+[00:02:41.220 -> 00:02:43.460]  Okay, there's actually one more thing.
+[00:02:43.680 -> 00:02:46.380]  You have keys, you have characters, and you have messages.
+[00:02:47.480 -> 00:02:55.900]  So a message is either a key down, key up, input pointer move, input...
+[00:02:55.900 -> 00:02:56.560]  This is mouse.
+[00:02:56.840 -> 00:03:00.520]  Mouse move, mouse left, left down, left up, left right down.
+[00:03:00.940 -> 00:03:05.320]  Okay, so I only have a limited number of messages.
+[00:03:06.620 -> 00:03:08.640]  That's where I'm different from Windows.
+[00:03:08.640 -> 00:03:12.940]  And when you want to ask for messages, you...
+[00:03:13.860 -> 00:03:14.360]  You...
+[00:03:14.360 -> 00:03:15.940]  Hey, that's kind of weird.
+[00:03:17.160 -> 00:03:17.660]  Oh.
+[00:03:20.960 -> 00:03:21.460]  Anyway...
+[00:03:21.460 -> 00:03:22.900]  No, I'm really freaking out.
+[00:03:25.200 -> 00:03:26.900]  Those are bit...
+[00:03:27.740 -> 00:03:29.560]  Okay, anyway, those are bit values.
+[00:03:29.720 -> 00:03:30.740]  That's kind of...
+[00:03:30.740 -> 00:03:31.160]  Oh, well.
+[00:03:31.160 -> 00:03:32.380]  Anyway, so...
+[00:03:32.380 -> 00:03:33.680]  Let's see.
+[00:03:35.640 -> 00:03:38.880]  So we were in scan key...
+[00:03:38.880 -> 00:03:39.500]  Or scan...
+[00:03:39.500 -> 00:03:41.220]  We were in scan key, weren't we?
+[00:03:41.440 -> 00:03:45.040]  So this one waits until a key is pressed.
+[00:03:45.320 -> 00:03:48.140]  And it erases all the other...
+[00:03:48.140 -> 00:03:50.320]  It purges all the other messages.
+[00:03:50.980 -> 00:03:52.440]  Except keystrokes.
+[00:03:52.440 -> 00:03:55.500]  And when it does get a key, it...
+[00:03:56.320 -> 00:03:56.920]  It...
+[00:03:58.540 -> 00:03:59.140]  It...
+[00:03:59.140 -> 00:04:00.840]  It removes it from the queue.
+[00:04:01.140 -> 00:04:02.300]  So that...
+[00:04:02.300 -> 00:04:03.800]  There's no way to...
+[00:04:03.800 -> 00:04:07.440]  To scan for a key without removing it.
+[00:04:07.640 -> 00:04:11.780]  So in other words, if you call scan key...
+[00:04:11.780 -> 00:04:14.200]  It will wait until you get a key...
+[00:04:14.200 -> 00:04:16.320]  A message key down...
+[00:04:16.320 -> 00:04:17.620]  And it will...
+[00:04:17.620 -> 00:04:19.000]  It will get rid of it.
+[00:04:19.920 -> 00:04:20.740]  I'm sorry.
+[00:04:20.880 -> 00:04:22.120]  It will return it.
+[00:04:23.500 -> 00:04:24.820]  Now you can leave...
+[00:04:24.820 -> 00:04:26.100]  These have null parameters.
+[00:04:26.800 -> 00:04:27.480]  If you...
+[00:04:27.480 -> 00:04:30.720]  Ch is always the ASCII scan code.
+[00:04:30.840 -> 00:04:32.760]  Or SC is always the scan code.
+[00:04:33.080 -> 00:04:37.240]  And then if you want, you can echo the key as it's pressed.
+[00:04:39.160 -> 00:04:40.760]  So let's see how we're done.
+[00:04:44.080 -> 00:04:45.440]  So that's that.
+[00:04:45.720 -> 00:04:47.680]  What it has to do is it has to...
+[00:04:47.680 -> 00:04:51.380]  Well, for scan char, it has to wait for...
+[00:04:52.720 -> 00:04:54.100]  If it's zero...
+[00:04:55.640 -> 00:04:56.160]  If it's zero...
+[00:04:56.160 -> 00:04:56.740]  There's no key.
+[00:04:57.060 -> 00:05:02.040]  If there is a key, then we wait until the up is received.
+[00:05:04.900 -> 00:05:08.400]  Actually, this is waiting for an ASCII that's not zero.
+[00:05:08.700 -> 00:05:16.500]  If you press a cursor key, that gives a zero ASCII value and a scan code.
+[00:05:17.280 -> 00:05:18.780]  So that's just for your information.
+[00:05:18.780 -> 00:05:19.940]  So...
+[00:05:19.940 -> 00:05:20.240]  So...
+[00:05:20.240 -> 00:05:21.900]  Ch is always the ASCII...
+[00:05:21.900 -> 00:05:25.640]  Boolean is telling us if we got a key or not.
+[00:05:26.280 -> 00:05:26.960]  This returns...
+[00:05:27.540 -> 00:05:28.780]  This doesn't wait for a key.
+[00:05:28.920 -> 00:05:30.020]  It immediately returns.
+[00:05:30.840 -> 00:05:33.740]  This one waits until it gets a...
+[00:05:33.740 -> 00:05:35.020]  An ASCII...
+[00:05:35.020 -> 00:05:36.540]  A non-zero ASCII.
+[00:05:36.720 -> 00:05:37.580]  So this one...
+[00:05:37.580 -> 00:05:39.180]  Scan character will ignore...
+[00:05:40.720 -> 00:05:41.660]  Cursor keys.
+[00:05:42.580 -> 00:05:44.100]  Scan key will...
+[00:05:44.100 -> 00:05:46.040]  Will return cursor keys.
+[00:05:47.360 -> 00:05:47.760]  So...
+[00:05:48.840 -> 00:05:49.500]  Anyway...
+[00:05:49.500 -> 00:05:52.460]  You don't have to pass parameters to receive.
+[00:05:52.760 -> 00:05:55.200]  If you pass null, that will just throw them away.
+[00:05:56.240 -> 00:05:57.560]  So anyway...
+[00:05:57.560 -> 00:05:58.380]  So that's that.
+[00:05:58.380 -> 00:05:58.380]  
+[00:05:58.380 -> 00:05:58.380]  
+[00:05:58.380 -> 00:05:58.380]  
+[00:05:58.380 -> 00:05:58.380]  
+[00:05:58.380 -> 00:05:58.380]  
+[00:05:58.380 -> 00:05:58.380]  
+[00:05:58.380 -> 00:05:58.380]  
+[00:05:58.380 -> 00:05:58.380]  
+[00:05:58.380 -> 00:05:58.380]  
+[00:05:58.380 -> 00:05:58.380]  
+[00:05:58.380 -> 00:05:58.380]  
+[00:05:58.380 -> 00:05:58.380]  
+[00:05:58.380 -> 00:05:58.380]  
+[00:05:58.380 -> 00:05:58.380]  
+[00:05:58.380 -> 00:05:58.380]  
+[00:05:58.380 -> 00:05:58.380]  
+[00:05:58.380 -> 00:05:58.460]  I'll be ready.
+[00:05:58.640 -> 00:05:58.640]  
+[00:05:58.640 -> 00:05:58.640]  
+[00:05:58.640 -> 00:05:58.640]  
+[00:05:58.640 -> 00:05:58.640]  
+[00:05:58.640 -> 00:05:58.640]  
+[00:05:58.640 -> 00:05:58.640]  
+[00:05:58.640 -> 00:05:58.640]  
+[00:05:58.640 -> 00:05:58.640]  
+[00:05:58.640 -> 00:05:58.760]  I'll be ready.
+[00:05:58.760 -> 00:05:58.760]  
+[00:05:58.760 -> 00:05:59.080]  I'll be ready.
+[00:05:59.080 -> 00:05:59.080]  
+[00:05:59.080 -> 00:05:59.120]  I'll be ready.
+[00:05:58.920 -> 00:05:58.920]  
+[00:05:58.920 -> 00:05:58.920]  
+[00:05:58.920 -> 00:05:58.920]  
+[00:05:58.920 -> 00:05:58.920]  
+[00:05:58.920 -> 00:05:58.920]  
+[00:05:58.920 -> 00:05:58.920]  
+[00:05:59.120 -> 00:05:59.320]  I'll be ready.
+[00:05:59.480 -> 00:05:59.540]  I'll be ready.
+[00:05:59.540 -> 00:05:59.540]  
+[00:05:59.540 -> 00:05:59.540]  
+[00:05:59.540 -> 00:05:59.540]  
+[00:05:59.540 -> 00:05:59.620]  I'll be ready.
+[00:05:59.620 -> 00:05:59.620]  
+[00:05:59.620 -> 00:05:59.620]  
+[00:05:59.620 -> 00:05:59.620]  
+[00:05:59.620 -> 00:05:59.620]  
+[00:05:59.620 -> 00:05:59.620]  
+[00:05:59.620 -> 00:05:59.620]  
+[00:05:59.620 -> 00:05:59.660]  I'll be ready.
+[00:05:59.660 -> 00:05:59.660]  
+[00:05:59.660 -> 00:05:59.660]  
+[00:05:59.660 -> 00:05:59.660]  
+[00:05:59.660 -> 00:05:59.660]  
+[00:05:59.660 -> 00:05:59.660]  
+[00:05:59.660 -> 00:05:59.660]  
+[00:05:59.700 -> 00:05:59.780]  I'll be ready.
+[00:05:59.800 -> 00:05:59.840]  I'll be ready.
+[00:05:59.840 -> 00:05:59.840]  
+[00:05:59.840 -> 00:05:59.840]  
+[00:05:59.840 -> 00:05:59.840]  
+[00:05:59.840 -> 00:05:59.840]  
+[00:05:59.840 -> 00:05:59.840]  
+[00:05:59.840 -> 00:05:59.840]  
+[00:05:59.840 -> 00:05:59.840]  
+[00:05:59.840 -> 00:05:59.840]  
+[00:05:59.840 -> 00:05:59.840]  
+[00:05:59.840 -> 00:05:59.840]  
+[00:05:59.840 -> 00:05:59.840]  

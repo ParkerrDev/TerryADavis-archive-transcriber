@@ -1,0 +1,366 @@
+========================================================================
+FILE        : videos/2014/2014-10-31T00:06:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #69 (-LFI3qheHp0).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-10-31T00:06:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #69 (-LFI3qheHp0).mp4
+FORMAT      : MPEG4
+SIZE        : 45,122,922 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:11:23.980
+TRANSCRIBED: 2026-05-10T18:45:06.637293+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+Okay, this is Temple OS 5-Minute Random Code Walkthrough, Episode 69. And I'm your host, Terry Davis. Looks like God took us to the compiler. And it looks like, well, we've already covered this routine one time. Okay. Okay, this is in the compiler when it's, okay. So if we say O-Trace 1, that turns on the Optimizer Trace. The Optimizer has about 10 passes. Because, anyway, if, let's give ourselves a little. If I greater than 0 and NG greater than 0. True. I don't have a lot of warnings. So, what we have here is, when it parses, the base pointer, 8 off the base pointer is I. Dereference I. This uses a stack machine. So, it adds minus 8 in base pointer. Then it pushes a 0. So, this, sitting on the stack at this point, is a 0 in the dereference value of I. So, we have I in 0. Then we have a greater takes 2, push takes all of this operation. Pops 2 pushes 1. This pops 1 pushes 1. This pushes 1. This pops 2 pushes 1. Then we have a, so this is on the stack at that point. Then we do the same thing. And then we take this AND AND is operating on this greater and that greater. So, if the AND is a, the greater operation is a logical 1 or 0 result. 1 or 0. Then we do AND AND. And we push a logical 1 or 0. Then we branch if 0. So, this is the, it starts out RISC. And then all, the purpose of the optimization is to make it CISC, more or less. As it turns out, the CPU puts it back into RISC. And so, these optimizations don't really help it much. Which is kind of funny. You know, someday when somebody is holier than I am, they can follow the true spirit and get rid of some lines of code. Because lines of code is what we, that's our highest goal is to remove lines of code. So, we can get rid of all the optimizing. It's not quite true. But anyway. So, yeah, naturally I thought of a stack machine CPU. That's for losers. Make up CPUs. You fight the war with the armor you have, not the armor you want. There's other issues. But anyway. So, let's see how we're optimizing. Okay. Now, at this point, we have combined the greater than into a less than or equal, branch less or equal. So, this branch is of zero after the whole thing is done. So, that's, there's only one branch. And that's at the end. Now, at this point, we have, now, if you branch, that's the false. So, that's why we have an inversion. That's why this is the opposite. So, we branch if less or equal. And we have short circuit logic. So, we have two branches. So, if the first one is less or equal, or the second one is less or equal. So, it's an and and. And so, anyway. So, I can also show you a different thing, which is one less than five. Let's say this. So, this, this is, this is coded as a one. There's, then, this, this is, it pushes a one, it pushes that. It does a less than on that. Then, we start getting into the push compare. This pushes, the middle term, whoops, I made a crazy thing. It didn't mind. Anyway, the middle term is shared. And so, the middle term can be an expression. So, we push the result to the middle term expression. And at this point, we're doing branch greater. And then we do an and and. So, the, the two, the two comparisons, this greater and this less, are and anded. And then, the result, branch zero. So, there's a, a second version of branch greater equal. Now, this gets into this crazy push thing. Sometimes, it literally pushes. And when you literally, push, you have to clean up the stack in either branch situation. Anyway, other times, it uses a, if you're curious, I think it uses a, RCX as the, pushed value. It's not pushed. It's stored in, sometimes instead of pushing, you can use a register. If it's top of the stack. So, let's see how, how it coded this. This is, it's not smart enough to know the, that it's always false. That's just, it's stupid making a compiler optimized for stupid programmers. If you have a, just write the code like an intelligent programmer. Don't make the compiler bloated because of retard programmers that don't exist. Anyway, so, what do we got here? Compare to one. So, RSI, that must be the, I variable got stuck in a local, in a register. Branchless or equal. Move five. Compare RAX to five. So, it moved it into RAX. I, I was wrong about CX. Where did it do that optimizing? I don't know. Anyway, so, getting back to this routine. So, this routine is, this combines together, the, a lesser equal, or a greater equal, is a, this pops two off the stack, pushes one, and the one is a, it's either a true or false. So, that's what these logical operators do. And then, if we get a branch zero, what is I? Is it the previous one? I is the previous one. So, coming into this, we're, we're, we're handed the branch zero, and we find the lag, we, we precede, this, all it is, is a circular queue. So, we just back up one, and we learn to skip. Sometimes, we have to keep the stack intact, and so you have no ops that, no operations. Some of the no ops pop the stack, the figurative stack. This is when we are, we are simplifying. This, some people think this is, a interpreter. Well, when you simplify, you do interpret. In fact, in fact, if you simplify an expression, the compiler interprets, and then it's, codes a, simplified value. So, we are simplifying, combining together, an opological, and a branch. And the interesting thing here, is if it's a not, then it, it, it, it inverts the logic, and calls the branch not, what does it do? No, it no ops it. Doesn't it no op it? Wait a minute. Free is the same. Okay, we don't no op, we free it. It used to just no op them. I had an array, and it would, and it had to no, make them into a no op, if it, if it was simplified. Now we free it, because it's not an array, it's a circular doubly linked list, it's mallet. Anyway, so, there's a companion, uh, routine, this is branch zero, the companion routine is branch not zero, and these will, if you do not, not, not, it will simplify those, right here, and, uh, anyway, so, the, the other interesting thing to note here, is we have, uh, bit test, bit test and set, bit test and clear, these operations are, uh, I don't know what you want to call them, um, I don't have any inlining, but, you can add, functions to the compiler, that are intrinsic, the bit test operations, are high, are, are really well coded, those are one of my favorite, I love bit operations, I'm only interested in Intel architecture, anyway, so, uh, the, the, the bit operations are done as a call, to the bit test, or bit test and set, locked bit test and set, so, it's a little bit different, so, we have to, we do a branch if bit test and set, so, that's, um, that's, uh, we're, we're making it into sys, so, we combine together a bit test with the branch, and that's how we get this, so, anyway,
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.840 -> 00:00:05.780]  Okay, this is Temple OS 5-Minute Random Code Walkthrough, Episode 69.
+[00:00:06.560 -> 00:00:08.460]  And I'm your host, Terry Davis.
+[00:00:11.480 -> 00:00:15.840]  Looks like God took us to the compiler.
+[00:00:16.420 -> 00:00:21.020]  And it looks like, well, we've already covered this routine one time.
+[00:00:24.680 -> 00:00:25.320]  Okay.
+[00:00:26.720 -> 00:00:38.680]  Okay, this is in the compiler when it's, okay.
+[00:00:39.360 -> 00:00:47.000]  So if we say O-Trace 1, that turns on the Optimizer Trace.
+[00:00:47.280 -> 00:00:49.760]  The Optimizer has about 10 passes.
+[00:00:49.760 -> 00:00:56.580]  Because, anyway, if, let's give ourselves a little.
+[00:00:58.240 -> 00:01:05.060]  If I greater than 0 and NG greater than 0.
+[00:01:06.560 -> 00:01:07.360]  True.
+[00:01:10.780 -> 00:01:12.640]  I don't have a lot of warnings.
+[00:01:12.640 -> 00:01:27.060]  So, what we have here is, when it parses, the base pointer, 8 off the base pointer is I.
+[00:01:28.380 -> 00:01:29.380]  Dereference I.
+[00:01:29.780 -> 00:01:31.580]  This uses a stack machine.
+[00:01:31.580 -> 00:01:35.320]  So, it adds minus 8 in base pointer.
+[00:01:36.620 -> 00:01:42.220]  Then it pushes a 0.
+[00:01:43.540 -> 00:01:51.720]  So, this, sitting on the stack at this point, is a 0 in the dereference value of I.
+[00:01:52.000 -> 00:01:53.700]  So, we have I in 0.
+[00:01:53.700 -> 00:02:02.100]  Then we have a greater takes 2, push takes all of this operation.
+[00:02:02.700 -> 00:02:04.460]  Pops 2 pushes 1.
+[00:02:04.760 -> 00:02:07.620]  This pops 1 pushes 1.
+[00:02:08.000 -> 00:02:09.520]  This pushes 1.
+[00:02:10.860 -> 00:02:13.000]  This pops 2 pushes 1.
+[00:02:14.080 -> 00:02:17.880]  Then we have a, so this is on the stack at that point.
+[00:02:17.880 -> 00:02:19.760]  Then we do the same thing.
+[00:02:20.560 -> 00:02:27.180]  And then we take this AND AND is operating on this greater and that greater.
+[00:02:27.780 -> 00:02:34.340]  So, if the AND is a, the greater operation is a logical 1 or 0 result.
+[00:02:34.920 -> 00:02:35.980]  1 or 0.
+[00:02:36.400 -> 00:02:37.620]  Then we do AND AND.
+[00:02:39.400 -> 00:02:42.860]  And we push a logical 1 or 0.
+[00:02:43.160 -> 00:02:44.880]  Then we branch if 0.
+[00:02:44.880 -> 00:02:49.400]  So, this is the, it starts out RISC.
+[00:02:49.820 -> 00:02:55.320]  And then all, the purpose of the optimization is to make it CISC, more or less.
+[00:02:55.940 -> 00:02:59.540]  As it turns out, the CPU puts it back into RISC.
+[00:02:59.620 -> 00:03:03.040]  And so, these optimizations don't really help it much.
+[00:03:03.300 -> 00:03:04.640]  Which is kind of funny.
+[00:03:05.040 -> 00:03:09.420]  You know, someday when somebody is holier than I am,
+[00:03:09.420 -> 00:03:15.400]  they can follow the true spirit and get rid of some lines of code.
+[00:03:16.160 -> 00:03:17.560]  Because lines of code is what we,
+[00:03:18.560 -> 00:03:21.700]  that's our highest goal is to remove lines of code.
+[00:03:21.860 -> 00:03:25.060]  So, we can get rid of all the optimizing.
+[00:03:26.360 -> 00:03:27.820]  It's not quite true.
+[00:03:28.020 -> 00:03:28.640]  But anyway.
+[00:03:29.660 -> 00:03:32.420]  So, yeah, naturally I thought of a stack machine CPU.
+[00:03:34.480 -> 00:03:36.960]  That's for losers.
+[00:03:37.500 -> 00:03:38.960]  Make up CPUs.
+[00:03:40.080 -> 00:03:43.640]  You fight the war with the armor you have, not the armor you want.
+[00:03:48.160 -> 00:03:49.600]  There's other issues.
+[00:03:49.880 -> 00:03:50.320]  But anyway.
+[00:03:51.520 -> 00:03:53.140]  So, let's see how we're optimizing.
+[00:03:53.140 -> 00:03:54.100]  Okay.
+[00:03:54.280 -> 00:04:01.800]  Now, at this point, we have combined the greater than into a less than or equal, branch less or equal.
+[00:04:03.560 -> 00:04:08.840]  So, this branch is of zero after the whole thing is done.
+[00:04:09.580 -> 00:04:11.640]  So, that's, there's only one branch.
+[00:04:11.640 -> 00:04:12.980]  And that's at the end.
+[00:04:13.560 -> 00:04:15.380]  Now, at this point, we have,
+[00:04:18.060 -> 00:04:21.220]  now, if you branch, that's the false.
+[00:04:21.220 -> 00:04:23.900]  So, that's why we have an inversion.
+[00:04:24.540 -> 00:04:26.740]  That's why this is the opposite.
+[00:04:27.420 -> 00:04:29.380]  So, we branch if less or equal.
+[00:04:31.020 -> 00:04:32.820]  And we have short circuit logic.
+[00:04:33.060 -> 00:04:34.400]  So, we have two branches.
+[00:04:34.780 -> 00:04:36.620]  So, if the first one is less or equal,
+[00:04:36.800 -> 00:04:38.680]  or the second one is less or equal.
+[00:04:40.480 -> 00:04:43.340]  So, it's an and and.
+[00:04:43.340 -> 00:04:45.460]  And so, anyway.
+[00:04:46.580 -> 00:04:47.360]  So,
+[00:04:51.860 -> 00:04:55.240]  I can also show you a different thing,
+[00:04:55.460 -> 00:04:56.020]  which is
+[00:04:58.940 -> 00:05:02.040]  one less than five.
+[00:05:02.040 -> 00:05:03.280]  Let's say this.
+[00:05:09.120 -> 00:05:11.200]  So, this, this is,
+[00:05:13.840 -> 00:05:16.660]  this is coded as a one.
+[00:05:17.980 -> 00:05:19.120]  There's, then,
+[00:05:20.440 -> 00:05:21.640]  this, this is,
+[00:05:21.840 -> 00:05:23.220]  it pushes a one,
+[00:05:23.340 -> 00:05:24.140]  it pushes that.
+[00:05:24.520 -> 00:05:26.560]  It does a less than on that.
+[00:05:26.560 -> 00:05:29.260]  Then, we start getting into the push compare.
+[00:05:31.960 -> 00:05:32.860]  This pushes,
+[00:05:33.100 -> 00:05:34.100]  the middle term,
+[00:05:34.640 -> 00:05:34.640]  
+[00:05:34.840 -> 00:05:35.060]  whoops,
+[00:05:35.220 -> 00:05:36.320]  I made a crazy thing.
+[00:05:36.500 -> 00:05:37.140]  It didn't mind.
+[00:05:37.600 -> 00:05:37.920]  Anyway,
+[00:05:38.120 -> 00:05:39.380]  the middle term
+[00:05:40.340 -> 00:05:40.860]  is
+[00:05:41.980 -> 00:05:42.500]  shared.
+[00:05:42.880 -> 00:05:43.200]  And so,
+[00:05:43.300 -> 00:05:45.180]  the middle term can be an expression.
+[00:05:45.360 -> 00:05:47.900]  So, we push the result to the middle term expression.
+[00:05:48.440 -> 00:05:50.020]  And at this point,
+[00:05:50.060 -> 00:05:51.780]  we're doing branch greater.
+[00:05:51.780 -> 00:05:53.800]  And then we do an and and.
+[00:05:54.960 -> 00:05:55.920]  So, the,
+[00:05:55.920 -> 00:05:56.440]  the two,
+[00:05:56.640 -> 00:05:58.020]  the two comparisons,
+[00:05:58.600 -> 00:06:00.900]  this greater and this less,
+[00:06:01.120 -> 00:06:02.780]  are and anded.
+[00:06:05.160 -> 00:06:06.080]  And then,
+[00:06:06.200 -> 00:06:06.720]  the result,
+[00:06:06.900 -> 00:06:07.460]  branch zero.
+[00:06:07.940 -> 00:06:08.380]  So,
+[00:06:10.100 -> 00:06:10.800]  there's a,
+[00:06:10.820 -> 00:06:13.160]  a second version
+[00:06:13.160 -> 00:06:15.060]  of branch greater equal.
+[00:06:15.440 -> 00:06:16.060]  Now,
+[00:06:16.080 -> 00:06:18.080]  this gets into this crazy push thing.
+[00:06:18.320 -> 00:06:18.660]  Sometimes,
+[00:06:18.660 -> 00:06:19.960]  it literally pushes.
+[00:06:20.320 -> 00:06:21.560]  And when you literally,
+[00:06:21.780 -> 00:06:22.180]  push,
+[00:06:23.440 -> 00:06:24.260]  you have to
+[00:06:24.260 -> 00:06:25.720]  clean up the stack
+[00:06:26.380 -> 00:06:27.700]  in either branch
+[00:06:28.380 -> 00:06:28.900]  situation.
+[00:06:29.500 -> 00:06:30.020]  Anyway,
+[00:06:32.080 -> 00:06:32.920]  other times,
+[00:06:33.100 -> 00:06:33.640]  it uses a,
+[00:06:33.640 -> 00:06:34.980]  if you're curious,
+[00:06:35.180 -> 00:06:36.140]  I think it uses a,
+[00:06:36.780 -> 00:06:37.840]  RCX as the,
+[00:06:37.860 -> 00:06:39.080]  pushed value.
+[00:06:39.380 -> 00:06:40.400]  It's not pushed.
+[00:06:40.580 -> 00:06:41.080]  It's stored in,
+[00:06:41.200 -> 00:06:42.280]  sometimes instead of pushing,
+[00:06:42.460 -> 00:06:43.400]  you can use a register.
+[00:06:44.000 -> 00:06:45.360]  If it's top of the stack.
+[00:06:45.620 -> 00:06:45.840]  So,
+[00:06:45.840 -> 00:06:46.320]  let's see how,
+[00:06:46.320 -> 00:06:47.260]  how it coded this.
+[00:06:48.540 -> 00:06:49.240]  This is,
+[00:06:49.420 -> 00:06:50.620]  it's not smart enough
+[00:06:50.620 -> 00:06:51.200]  to know the,
+[00:06:51.400 -> 00:06:52.700]  that it's always false.
+[00:06:53.120 -> 00:06:53.840]  That's just,
+[00:06:53.980 -> 00:06:55.760]  it's stupid making a compiler
+[00:06:56.900 -> 00:06:58.860]  optimized for stupid programmers.
+[00:06:59.100 -> 00:06:59.440]  If you have a,
+[00:06:59.520 -> 00:07:00.580]  just write the code
+[00:07:02.000 -> 00:07:03.680]  like an intelligent programmer.
+[00:07:03.900 -> 00:07:05.580]  Don't make the compiler bloated
+[00:07:06.840 -> 00:07:08.920]  because of retard programmers
+[00:07:08.920 -> 00:07:09.840]  that don't exist.
+[00:07:11.860 -> 00:07:12.520]  Anyway,
+[00:07:12.820 -> 00:07:12.980]  so,
+[00:07:13.100 -> 00:07:14.100]  what do we got here?
+[00:07:17.300 -> 00:07:18.580]  Compare to one.
+[00:07:19.320 -> 00:07:19.840]  So,
+[00:07:20.080 -> 00:07:20.780]  RSI,
+[00:07:20.980 -> 00:07:21.620]  that must be the,
+[00:07:21.840 -> 00:07:23.880]  I variable got stuck in a local,
+[00:07:24.160 -> 00:07:25.360]  in a register.
+[00:07:25.960 -> 00:07:26.920]  Branchless or equal.
+[00:07:27.340 -> 00:07:28.400]  Move five.
+[00:07:28.760 -> 00:07:29.240]  Compare
+[00:07:29.940 -> 00:07:31.320]  RAX to five.
+[00:07:32.060 -> 00:07:32.580]  So,
+[00:07:32.600 -> 00:07:34.920]  it moved it into RAX.
+[00:07:35.100 -> 00:07:35.240]  I,
+[00:07:35.240 -> 00:07:36.680]  I was wrong about CX.
+[00:07:37.800 -> 00:07:39.360]  Where did it do that optimizing?
+[00:07:39.580 -> 00:07:40.000]  I don't know.
+[00:07:40.840 -> 00:07:41.360]  Anyway,
+[00:07:43.640 -> 00:07:44.200]  so,
+[00:07:45.220 -> 00:07:46.860]  getting back to this routine.
+[00:07:47.160 -> 00:07:47.200]  So,
+[00:07:47.260 -> 00:07:48.140]  this routine is,
+[00:07:49.640 -> 00:07:51.480]  this combines together,
+[00:07:52.240 -> 00:07:52.800]  the,
+[00:07:52.940 -> 00:07:54.580]  a lesser equal,
+[00:07:54.900 -> 00:07:56.060]  or a greater equal,
+[00:07:56.300 -> 00:07:57.060]  is a,
+[00:07:58.920 -> 00:08:01.680]  this pops two off the stack,
+[00:08:01.920 -> 00:08:03.260]  pushes one,
+[00:08:03.440 -> 00:08:04.900]  and the one is a,
+[00:08:04.940 -> 00:08:06.660]  it's either a true or false.
+[00:08:07.280 -> 00:08:07.840]  So,
+[00:08:07.860 -> 00:08:09.720]  that's what these logical operators do.
+[00:08:09.920 -> 00:08:10.720]  And then,
+[00:08:10.740 -> 00:08:12.920]  if we get a branch zero,
+[00:08:15.160 -> 00:08:16.060]  what is I?
+[00:08:16.160 -> 00:08:16.960]  Is it the previous one?
+[00:08:17.080 -> 00:08:18.320]  I is the previous one.
+[00:08:18.500 -> 00:08:19.020]  So,
+[00:08:19.220 -> 00:08:20.400]  coming into this,
+[00:08:20.640 -> 00:08:20.740]  we're,
+[00:08:21.360 -> 00:08:21.920]  we're,
+[00:08:21.920 -> 00:08:24.360]  we're handed the branch zero,
+[00:08:25.880 -> 00:08:28.240]  and we find the lag,
+[00:08:28.540 -> 00:08:28.580]  we,
+[00:08:28.580 -> 00:08:29.360]  we precede,
+[00:08:30.440 -> 00:08:30.800]  this,
+[00:08:31.260 -> 00:08:32.200]  all it is,
+[00:08:32.200 -> 00:08:33.560]  is a circular queue.
+[00:08:33.800 -> 00:08:33.820]  So,
+[00:08:33.960 -> 00:08:35.600]  we just back up one,
+[00:08:35.780 -> 00:08:37.480]  and we learn to skip.
+[00:08:37.920 -> 00:08:38.520]  Sometimes,
+[00:08:38.520 -> 00:08:40.280]  we have to keep the stack intact,
+[00:08:40.280 -> 00:08:42.140]  and so you have no ops that,
+[00:08:42.860 -> 00:08:44.060]  no operations.
+[00:08:44.680 -> 00:08:46.400]  Some of the no ops pop the stack,
+[00:08:47.420 -> 00:08:48.300]  the figurative stack.
+[00:08:48.840 -> 00:08:50.400]  This is when we are,
+[00:08:50.460 -> 00:08:52.380]  we are simplifying.
+[00:08:52.720 -> 00:08:53.200]  This,
+[00:08:53.200 -> 00:08:54.900]  some people think this is,
+[00:08:55.020 -> 00:08:55.900]  a interpreter.
+[00:08:56.300 -> 00:08:56.780]  Well,
+[00:08:56.880 -> 00:08:57.600]  when you simplify,
+[00:08:57.840 -> 00:08:58.760]  you do interpret.
+[00:08:59.080 -> 00:08:59.500]  In fact,
+[00:08:59.880 -> 00:09:00.260]  in fact,
+[00:09:00.360 -> 00:09:01.700]  if you simplify an expression,
+[00:09:02.160 -> 00:09:03.720]  the compiler interprets,
+[00:09:03.860 -> 00:09:04.940]  and then it's,
+[00:09:05.620 -> 00:09:06.020]  codes a,
+[00:09:08.380 -> 00:09:08.980]  simplified value.
+[00:09:09.260 -> 00:09:09.840]  So,
+[00:09:10.020 -> 00:09:11.740]  we are simplifying,
+[00:09:12.020 -> 00:09:12.960]  combining together,
+[00:09:14.180 -> 00:09:15.380]  an opological,
+[00:09:15.620 -> 00:09:16.180]  and a branch.
+[00:09:16.720 -> 00:09:18.560]  And the interesting thing here,
+[00:09:18.740 -> 00:09:19.600]  is if it's a not,
+[00:09:20.760 -> 00:09:21.580]  then it,
+[00:09:21.760 -> 00:09:22.780]  it,
+[00:09:25.400 -> 00:09:25.800]  it,
+[00:09:25.800 -> 00:09:27.040]  it inverts the logic,
+[00:09:27.060 -> 00:09:28.800]  and calls the branch not,
+[00:09:29.200 -> 00:09:29.940]  what does it do?
+[00:09:30.080 -> 00:09:30.240]  No,
+[00:09:30.320 -> 00:09:31.080]  it no ops it.
+[00:09:31.340 -> 00:09:32.140]  Doesn't it no op it?
+[00:09:32.220 -> 00:09:32.560]  Wait a minute.
+[00:09:33.020 -> 00:09:34.060]  Free is the same.
+[00:09:34.240 -> 00:09:34.460]  Okay,
+[00:09:34.580 -> 00:09:35.320]  we don't no op,
+[00:09:35.400 -> 00:09:36.160]  we free it.
+[00:09:36.780 -> 00:09:38.360]  It used to just no op them.
+[00:09:38.420 -> 00:09:39.260]  I had an array,
+[00:09:39.700 -> 00:09:40.340]  and it would,
+[00:09:40.480 -> 00:09:41.420]  and it had to no,
+[00:09:41.560 -> 00:09:43.020]  make them into a no op,
+[00:09:43.120 -> 00:09:43.440]  if it,
+[00:09:43.440 -> 00:09:44.380]  if it was simplified.
+[00:09:44.380 -> 00:09:46.200]  Now we free it,
+[00:09:46.380 -> 00:09:47.380]  because it's not an array,
+[00:09:47.620 -> 00:09:49.580]  it's a circular doubly linked list,
+[00:09:49.620 -> 00:09:50.280]  it's mallet.
+[00:09:51.140 -> 00:09:51.700]  Anyway,
+[00:09:51.960 -> 00:09:52.140]  so,
+[00:09:53.620 -> 00:09:54.840]  there's a companion,
+[00:09:55.160 -> 00:09:55.440]  uh,
+[00:09:56.580 -> 00:09:57.040]  routine,
+[00:09:57.320 -> 00:09:58.640]  this is branch zero,
+[00:09:59.060 -> 00:10:01.820]  the companion routine is branch not zero,
+[00:10:02.200 -> 00:10:03.460]  and these will,
+[00:10:03.620 -> 00:10:04.520]  if you do not,
+[00:10:04.640 -> 00:10:04.760]  not,
+[00:10:04.940 -> 00:10:05.120]  not,
+[00:10:05.600 -> 00:10:07.220]  it will simplify those,
+[00:10:08.020 -> 00:10:08.860]  right here,
+[00:10:10.000 -> 00:10:10.460]  and,
+[00:10:10.540 -> 00:10:10.760]  uh,
+[00:10:11.340 -> 00:10:11.620]  anyway,
+[00:10:11.900 -> 00:10:12.120]  so,
+[00:10:13.040 -> 00:10:13.500]  the,
+[00:10:13.500 -> 00:10:15.480]  the other interesting thing to note here,
+[00:10:15.600 -> 00:10:16.160]  is we have,
+[00:10:16.360 -> 00:10:16.500]  uh,
+[00:10:17.120 -> 00:10:17.700]  bit test,
+[00:10:17.940 -> 00:10:18.880]  bit test and set,
+[00:10:19.060 -> 00:10:19.980]  bit test and clear,
+[00:10:20.680 -> 00:10:22.060]  these operations are,
+[00:10:22.160 -> 00:10:22.340]  uh,
+[00:10:23.880 -> 00:10:23.880]  
+[00:10:24.200 -> 00:10:25.320]  I don't know what you want to call them,
+[00:10:25.940 -> 00:10:26.140]  um,
+[00:10:26.620 -> 00:10:27.960]  I don't have any inlining,
+[00:10:28.420 -> 00:10:28.640]  but,
+[00:10:28.640 -> 00:10:29.620]  you can add,
+[00:10:29.760 -> 00:10:31.400]  functions to the compiler,
+[00:10:31.700 -> 00:10:32.480]  that are intrinsic,
+[00:10:33.020 -> 00:10:34.540]  the bit test operations,
+[00:10:34.540 -> 00:10:35.080]  are high,
+[00:10:35.280 -> 00:10:35.560]  are,
+[00:10:35.680 -> 00:10:37.200]  are really well coded,
+[00:10:37.480 -> 00:10:38.780]  those are one of my favorite,
+[00:10:38.980 -> 00:10:40.240]  I love bit operations,
+[00:10:40.660 -> 00:10:43.040]  I'm only interested in Intel architecture,
+[00:10:43.600 -> 00:10:44.060]  anyway,
+[00:10:44.300 -> 00:10:44.440]  so,
+[00:10:44.640 -> 00:10:44.780]  uh,
+[00:10:45.640 -> 00:10:45.760]  the,
+[00:10:45.860 -> 00:10:46.140]  the,
+[00:10:46.140 -> 00:10:48.640]  the bit operations are done as a call,
+[00:10:48.940 -> 00:10:50.080]  to the bit test,
+[00:10:50.240 -> 00:10:51.280]  or bit test and set,
+[00:10:51.940 -> 00:10:53.320]  locked bit test and set,
+[00:10:53.740 -> 00:10:54.200]  so,
+[00:10:54.220 -> 00:10:55.200]  it's a little bit different,
+[00:10:55.540 -> 00:10:55.720]  so,
+[00:10:55.820 -> 00:10:56.080]  we have to,
+[00:10:56.160 -> 00:10:58.540]  we do a branch if bit test and set,
+[00:10:59.220 -> 00:10:59.560]  so,
+[00:10:59.740 -> 00:10:59.960]  that's,
+[00:11:00.200 -> 00:11:00.340]  um,
+[00:11:00.960 -> 00:11:01.340]  that's,
+[00:11:01.480 -> 00:11:01.520]  uh,
+[00:11:02.060 -> 00:11:02.500]  we're,
+[00:11:02.680 -> 00:11:04.440]  we're making it into sys,
+[00:11:04.540 -> 00:11:04.920]  so,
+[00:11:05.020 -> 00:11:07.500]  we combine together a bit test with the branch,
+[00:11:07.580 -> 00:11:09.600]  and that's how we get this,
+[00:11:09.740 -> 00:11:10.360]  so,
+[00:11:10.500 -> 00:11:10.660]  anyway,
+[00:11:10.960 -> 00:11:10.960]  
+[00:11:10.960 -> 00:11:10.960]  
+[00:11:12.580 -> 00:11:12.580]  
+[00:11:12.580 -> 00:11:12.580]  
+[00:11:12.580 -> 00:11:12.580]  
+[00:11:12.580 -> 00:11:12.580]  
+[00:11:12.580 -> 00:11:12.580]  
+[00:11:12.580 -> 00:11:12.580]  
+[00:11:12.580 -> 00:11:12.580]  
+[00:11:12.580 -> 00:11:12.580]  
+[00:11:12.580 -> 00:11:12.580]  
+[00:11:12.560 -> 00:11:12.560]  
+[00:11:12.560 -> 00:11:12.560]  
+[00:11:12.560 -> 00:11:12.560]  
+[00:11:12.560 -> 00:11:12.560]  
+[00:11:12.560 -> 00:11:12.560]  
+[00:11:12.560 -> 00:11:12.560]  
+[00:11:12.560 -> 00:11:12.560]  
+[00:11:12.560 -> 00:11:12.560]  
+[00:11:12.560 -> 00:11:12.560]  
+[00:11:12.560 -> 00:11:12.560]  
+[00:11:12.560 -> 00:11:12.560]  
+[00:11:12.560 -> 00:11:12.560]  
+[00:11:12.560 -> 00:11:12.560]  
+[00:11:12.560 -> 00:11:12.560]  
+[00:11:12.560 -> 00:11:12.560]  
+[00:11:12.560 -> 00:11:12.560]  
+[00:11:12.560 -> 00:11:12.560]  
+[00:11:12.560 -> 00:11:12.560]  
+[00:11:12.560 -> 00:11:12.560]  
+[00:11:23.980 -> 00:11:23.980]  

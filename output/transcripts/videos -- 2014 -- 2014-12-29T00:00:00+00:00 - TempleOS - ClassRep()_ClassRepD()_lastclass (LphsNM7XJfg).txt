@@ -1,0 +1,111 @@
+========================================================================
+FILE        : videos/2014/2014-12-29T00:00:00+00:00 - TempleOS - ClassRep()_ClassRepD()_lastclass (LphsNM7XJfg).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-12-29T00:00:00+00:00 - TempleOS - ClassRep()_ClassRepD()_lastclass (LphsNM7XJfg).mkv
+FORMAT      : Matroska
+SIZE        : 62,383,550 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:14:03.760
+TRANSCRIBED: 2026-05-10T20:40:52.913458+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay I'm gonna we're gonna take a deep dive into a class rep D class rep if you say class rep let's say GS the G segment register points to the current CPU record so we're on core zero so the number is zero we have some flags so it's a c cpu type so this is the structure and what happens is when I say class rep D and class rep and I type GS it knows what it knows GS is this is kind of like dynamic programming it knows GS is a class type C class type and so it pulls up the record the structure to to it pulls up the structure to dump the record now if you say if you see class rep dynamic then it will let you edit now you can see the swap counter is being changed this is dynamic you can actually change these values over here we don't want to crash it anyway so now how does it do this you might be wondering well we have the compiler information on the class so like for example if we say there's a hash function a hash that hash table type function that's a function like a C function if we say temp f now if we say hash find and we say say who who is a command and if we say we have to give it the hash table to search fs is the current task record and let's tell it all a mask normally we'd say okay HTT hash table type function hash okay so that we got looks like we got a zero value for that why did we get a zero value I was just doing this let's see maybe it's not okay it's not zero okay let me explain what just happened fs is the current task gs is the current CPU or core fs is the current task each task has a hash table and the hash table if it's not found in the hash table it searches the parent hash table this is a symbol table if if you want to know it's a what do you call it a map or something like that anyway and then there's there's different types of entries in the hash table hash table type function so who is a function and it has parameters f u f u flags h out name so it has a parameter list now as it turns out well okay now watch what I'm going to do here class class rep now there's some magic that happens right here okay class rep knows the the structure for a hash function hash hash hash basically the type of temp f is a hash function pointer and what class rep does is uh it uses a this is a new feature of my compiler that makes it kind of dynamic this is a uh if you say last class this is a keyword right here what it's going to do is it's going to it's going to replace this value with the text string of the last uh i think it's only for pointers anyway the last class that's the previous argument i know it sounds kind of weird but what this allows is for us to have this class rep function so in other words this is the same as typing uh if i say uh uh c hash function i think we don't have to say pointer i think we i think we just say c hash hash function okay that should be the same that's the equivalent um because it um we have the uh we have the uh symbol table we can look up the symbol hash function and now okay now we're looking at um um okay anyway so a hash function has the following member variables um string that's inherit that's all hash functions have a string a type oh let's see if we can see there's the string the string is over here hoop and type uh link index and then the when when you have different hash table entry types you have different uh member variables towards the bottom they all inherit the base hash c hash type anyway uh so uh now what i'm going to show you is uh we're going to look at the okay so basically uh for any variable you want you can uh any function any uh class or structure you can use class rep and uh you can just say we're going to look at fs is the uh current task record notice it's static if we say fs if we get if we say class rep dynamic now now the values change they're updated uh every time the screen gets refreshed which it always refreshes 30 frames a second no matter what all the time it's refreshing 30 frames a second so for now let's look what we can do here i'm gonna grab with control grab and move it around and what i want you to do to do is watch the scroll x okay watch scroll x i'm gonna grab 10 20 18 it's bigger and bigger you see the scroll x is changing okay and also the uh anyway so uh now let's take a deep dive into class rep d okay so control shift f1 so class rep d we we have that crazy last class thing no what does it do with the last class it uh well anyway it calls uh i think we call this a wrapper function i don't know what you want to call it this outputs to a document and then um if it's a if it's in the debugger we don't have a scrolling window so what we do instead is we we do a time delay as we dump the the document so it does line by line kind of slowly so that you can see it if you're in the debugger um i never use the debugger i don't really ever use this either but in theory you might want to use class rep to debug you can put it into source code i use printf debugging pretty much and i'm anyway if i modify the progress the way i debug is i i write values to uh i write values to oh i can't change it anyway i write values to the progress variables so class rep 2 that's that's this uh now we're going to get some craziness in order to make that dynamic thing so what are we doing um first of all we have to do this recursively of course because you can have classes within classes and uh anyway what it does is it goes through the member list of the uh of the of the uh of the class type of the record you're dumping it goes through the member variables this is using an internal structure that the compiler has i think we look up in the hash first of all we find the class name and that gives us the the um class record then we go through the member variables of the class and there's various um data types if it's an internal type that's pretty much a bottom of this depth scan once you get to internal type that's the bottom otherwise you want to recurse obviously so if it's not an internal type we're going to recurse down here i do believe as it checks to see how deep we are you can adjust the depth and then it calls recursively to uh print print itself so um i buffer to a document um that's like a buffer to a document so that when we return we can go ahead and do it slowly if it's the in the debugger scroll so slowly printing out now uh what do we have here okay so basically um if we have a character a u8 or an i8 then we want to uh we do okay now we're printing this is where it gets crazy these are uh doll doc you know we have our dollar sign rich format okay well these are doll docs this is saying refresh data and that is not a pointer and then it does not have a terminator um da is the uh data entry or whatever um widget anyway this is some crazy stuff here's where it gets crazy um you have to tell it the uh update data this is to make it read right i don't know why i didn't make that read right so if it's a i guess we can't read right i would imagine maybe i can change that or maybe i just missed it anyway uh so this is saying uh not only do we want to refresh every 30 frames we want to capture what was changed for this widget uh so that's update update update update data refresh data and uh this is uh we have a text buffer of 32 characters and the this is calling it the data type r8 or u8 i'm sorry boy i'm confused okay oh this is for a byte this is not a character pointer this is for a byte this is for a if if this if if the depth is what is this if if it's one pointer so if it's u8 if it's not a pointer it's a character if it's a pointer it's a character star is a string if it's not a if it's not a pointer this is how many stars if i should call that stars um anyway um and uh i'm gonna change that to stars when we get done so uh i guess it is maybe it's different here anyway so uh uh what i wanted to explain is this data type you have to you have to set the uh the width the size of the data entry with this uh rot i think that's called raw type i don't know internal type raw type i don't know which one anyway so uh that's how that works and then of course here's the recursion and it makes a tree so that we can when we click we can open up the tree branch indent on indent anyway so um that's pretty deep dive so let's look at um let's look at uh we we we looked at the uh we looked at we we got the the record for the uh who and now let's look at what the compiler has information on the member list okay this is the member variables of the of the who uh of the who function fuf flags is it's just like a uh structure the arguments to a function and then the local variables as a matter of fact are uh in the same linked list so in the linked list first you have the uh the arguments to the function and then you go so if we if we went down the next in the chain we it's it doesn't expand here but we could uh we could go ahead and uh let's see anyway we can't get it so that's that
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:09.900]  okay I'm gonna we're gonna take a deep dive into a class rep D class rep if you
+[00:00:09.900 -> 00:00:15.600]  say class rep let's say GS the G segment register points to the current CPU
+[00:00:15.600 -> 00:00:24.040]  record so we're on core zero so the number is zero we have some flags so it's
+[00:00:24.040 -> 00:00:32.580]  a c cpu type so this is the structure and what happens is when I say class rep D
+[00:00:32.580 -> 00:00:40.960]  and class rep and I type GS it knows what it knows GS is this is kind of like
+[00:00:40.960 -> 00:00:48.960]  dynamic programming it knows GS is a class type C class type and so it pulls up
+[00:00:48.960 -> 00:01:02.420]  the record the structure to to it pulls up the structure to dump the record now if
+[00:01:02.420 -> 00:01:13.140]  you say if you see class rep dynamic then it will let you edit now you can see the
+[00:01:13.140 -> 00:01:18.640]  swap counter is being changed this is dynamic you can actually change these
+[00:01:18.640 -> 00:01:33.880]  values over here we don't want to crash it anyway so now how does it do this you
+[00:01:33.880 -> 00:01:40.620]  might be wondering well we have the compiler information on the class so like
+[00:01:40.620 -> 00:01:48.680]  for example if we say there's a hash function a hash that hash table type
+[00:01:48.680 -> 00:01:56.940]  function that's a function like a C function if we say temp f now if we say
+[00:01:56.940 -> 00:02:07.660]  hash find and we say say who who is a command and if we say we have to give it
+[00:02:07.660 -> 00:02:18.040]  the hash table to search fs is the current task record and let's tell it all a mask
+[00:02:18.040 -> 00:02:26.840]  normally we'd say okay HTT hash table type function hash okay so that we got looks
+[00:02:26.840 -> 00:02:32.680]  like we got a zero value for that why did we get a zero value I was just doing this
+[00:02:32.680 -> 00:02:41.700]  let's see maybe it's not okay it's not zero okay let me explain what just happened fs is the current
+[00:02:41.700 -> 00:02:50.940]  task gs is the current CPU or core fs is the current task each task has a hash table and the hash table
+[00:02:50.940 -> 00:02:57.280]  if it's not found in the hash table it searches the parent hash table this is a symbol table if if you want
+[00:02:57.280 -> 00:03:03.360]  to know it's a what do you call it a map or something like that anyway and then there's there's different
+[00:03:03.360 -> 00:03:17.920]  types of entries in the hash table hash table type function so who is a function and it has parameters f u f u flags
+[00:03:17.920 -> 00:03:26.080]  h out name so it has a parameter list now as it turns out well okay now watch what I'm going to do here
+[00:03:26.080 -> 00:03:45.100]  class class rep now there's some magic that happens right here okay class rep knows the the structure for a hash function
+[00:03:45.100 -> 00:03:54.400]  hash hash hash basically the type of temp f is a hash function pointer and what class rep does
+[00:03:55.680 -> 00:04:04.740]  is uh it uses a this is a new feature of my compiler that makes it kind of dynamic this is a uh if you say
+[00:04:04.740 -> 00:04:11.660]  last class this is a keyword right here what it's going to do is it's going to it's going to replace this
+[00:04:11.660 -> 00:04:21.300]  value with the text string of the last uh i think it's only for pointers anyway the last class that's the
+[00:04:21.300 -> 00:04:30.420]  previous argument i know it sounds kind of weird but what this allows is for us to have this class rep
+[00:04:30.420 -> 00:04:40.500]  function so in other words this is the same as typing uh if i say uh uh c hash
+[00:04:41.680 -> 00:04:47.620]  function i think we don't have to say pointer i think we i think we just say c hash hash function
+[00:04:48.380 -> 00:04:56.420]  okay that should be the same that's the equivalent um because it um we have the uh we have the uh
+[00:04:56.420 -> 00:05:05.760]  symbol table we can look up the symbol hash function and now okay now we're looking at um
+[00:05:05.760 -> 00:05:13.580]  um okay anyway so a hash function has the following member variables um string that's inherit that's all
+[00:05:13.580 -> 00:05:19.920]  hash functions have a string a type oh let's see if we can see there's the string the string is over here
+[00:05:19.920 -> 00:05:30.440]  hoop and type uh link index and then the when when you have different hash table entry types you have
+[00:05:30.440 -> 00:05:40.340]  different uh member variables towards the bottom they all inherit the base hash c hash type anyway uh so uh
+[00:05:42.280 -> 00:05:49.220]  now what i'm going to show you is uh we're going to look at the okay so basically uh for any variable you
+[00:05:49.220 -> 00:06:01.160]  want you can uh any function any uh class or structure you can use class rep and uh you can just say we're
+[00:06:01.160 -> 00:06:12.520]  going to look at fs is the uh current task record notice it's static if we say fs if we get if we say class rep
+[00:06:12.520 -> 00:06:23.720]  dynamic now now the values change they're updated uh every time the screen gets refreshed which it always refreshes 30 frames a second no matter what
+[00:06:24.520 -> 00:06:31.320]  all the time it's refreshing 30 frames a second so for now let's look what we can do here i'm gonna grab
+[00:06:32.080 -> 00:06:39.660]  with control grab and move it around and what i want you to do to do is watch the scroll x
+[00:06:40.220 -> 00:06:48.940]  okay watch scroll x i'm gonna grab 10 20 18 it's bigger and bigger you see the scroll x is changing
+[00:06:50.140 -> 00:06:54.980]  okay and also the uh anyway so uh
+[00:06:57.240 -> 00:07:06.960]  now let's take a deep dive into class rep d okay so control shift f1 so class rep d
+[00:07:06.960 -> 00:07:10.000]  we we have that crazy last class thing
+[00:07:11.660 -> 00:07:15.920]  no what does it do with the last class it uh well anyway it calls uh
+[00:07:17.420 -> 00:07:20.560]  i think we call this a wrapper function i don't know what you want to call it
+[00:07:20.560 -> 00:07:32.820]  this outputs to a document and then um if it's a if it's in the debugger
+[00:07:32.820 -> 00:07:44.640]  we don't have a scrolling window so what we do instead is we we do a time delay as we dump the the document so it does line by line kind of slowly
+[00:07:44.640 -> 00:07:51.640]  so that you can see it if you're in the debugger um i never use the debugger i don't really ever use this either
+[00:07:52.160 -> 00:07:55.840]  but in theory you might want to use class rep to debug
+[00:07:56.940 -> 00:07:59.120]  you can put it into source code
+[00:08:01.200 -> 00:08:06.780]  i use printf debugging pretty much and i'm anyway if i modify the progress
+[00:08:07.840 -> 00:08:12.020]  the way i debug is i i write values to uh
+[00:08:15.080 -> 00:08:20.160]  i write values to oh i can't change it anyway i write values to the progress
+[00:08:20.960 -> 00:08:24.460]  variables so class rep 2 that's that's this uh
+[00:08:26.540 -> 00:08:32.640]  now we're going to get some craziness in order to make that dynamic thing so what are we doing
+[00:08:32.640 -> 00:08:38.720]  um first of all we have to do this recursively of course because you can have classes within classes
+[00:08:39.520 -> 00:08:47.880]  and uh anyway what it does is it goes through the member list of the uh of the of the uh
+[00:08:50.360 -> 00:08:58.360]  of the class type of the record you're dumping it goes through the member variables this is using an
+[00:08:58.360 -> 00:09:06.540]  internal structure that the compiler has i think we look up in the hash first of all we find the class name
+[00:09:08.680 -> 00:09:15.600]  and that gives us the the um class record then we go through the member variables of the class
+[00:09:16.440 -> 00:09:24.560]  and there's various um data types if it's an internal type that's pretty much a bottom of this depth scan
+[00:09:25.260 -> 00:09:30.620]  once you get to internal type that's the bottom otherwise you want to recurse obviously so if it's
+[00:09:30.620 -> 00:09:36.560]  not an internal type we're going to recurse down here i do believe as it checks to see how deep we are
+[00:09:36.560 -> 00:09:42.100]  you can adjust the depth and then it calls recursively to uh print print itself
+[00:09:44.000 -> 00:09:52.560]  so um i buffer to a document um that's like a buffer to a document so that when we return
+[00:09:52.560 -> 00:10:01.000]  we can go ahead and do it slowly if it's the in the debugger scroll so slowly printing out now uh
+[00:10:01.820 -> 00:10:10.020]  what do we have here okay so basically um if we have a character a u8 or an i8 then we want to uh
+[00:10:10.700 -> 00:10:20.840]  we do okay now we're printing this is where it gets crazy these are uh doll doc you know we have our dollar
+[00:10:20.840 -> 00:10:29.000]  sign rich format okay well these are doll docs this is saying refresh data and that is not a pointer
+[00:10:29.560 -> 00:10:39.700]  and then it does not have a terminator um da is the uh data entry or whatever um widget anyway this is
+[00:10:39.700 -> 00:10:48.460]  some crazy stuff here's where it gets crazy um you have to tell it the uh update data this is to make it
+[00:10:48.460 -> 00:10:54.220]  read right i don't know why i didn't make that read right so if it's a i guess we can't read right i
+[00:10:54.220 -> 00:11:02.920]  would imagine maybe i can change that or maybe i just missed it anyway uh so this is saying uh not only
+[00:11:02.920 -> 00:11:12.700]  do we want to refresh every 30 frames we want to capture what was changed for this widget uh so that's
+[00:11:12.700 -> 00:11:25.220]  update update update update data refresh data and uh this is uh we have a text buffer of 32 characters
+[00:11:26.140 -> 00:11:35.840]  and the this is calling it the data type r8 or u8 i'm sorry boy i'm confused okay oh this is for a byte
+[00:11:35.840 -> 00:11:43.680]  this is not a character pointer this is for a byte this is for a if if this if if the depth is what is
+[00:11:43.680 -> 00:11:53.120]  this if if it's one pointer so if it's u8 if it's not a pointer it's a character if it's a pointer it's a
+[00:11:53.760 -> 00:12:02.600]  character star is a string if it's not a if it's not a pointer this is how many stars if i should call that
+[00:12:02.600 -> 00:12:14.720]  stars um anyway um and uh i'm gonna change that to stars when we get done so uh i guess it is maybe
+[00:12:14.720 -> 00:12:23.700]  it's different here anyway so uh uh what i wanted to explain is this data type you have to you have to
+[00:12:23.700 -> 00:12:32.540]  set the uh the width the size of the data entry with this uh rot i think that's called raw type
+[00:12:33.180 -> 00:12:39.920]  i don't know internal type raw type i don't know which one anyway so uh that's how that works and
+[00:12:39.920 -> 00:12:47.180]  then of course here's the recursion and it makes a tree so that we can when we click we can open up the
+[00:12:47.180 -> 00:12:58.040]  tree branch indent on indent anyway so um that's pretty deep dive so let's look at um let's look at uh
+[00:13:00.040 -> 00:13:02.600]  we we we looked at the uh
+[00:13:06.260 -> 00:13:15.360]  we looked at we we got the the record for the uh who and now let's look at what the compiler has
+[00:13:15.360 -> 00:13:25.800]  information on the member list okay this is the member variables of the of the who uh of the who
+[00:13:27.120 -> 00:13:34.480]  function fuf flags is it's just like a uh structure the arguments to a function and then the local
+[00:13:34.480 -> 00:13:40.860]  variables as a matter of fact are uh in the same linked list so in the linked list first you have the uh
+[00:13:42.200 -> 00:13:50.560]  the arguments to the function and then you go so if we if we went down the next in the chain we it's it
+[00:13:50.560 -> 00:14:03.760]  doesn't expand here but we could uh we could go ahead and uh let's see anyway we can't get it so that's that

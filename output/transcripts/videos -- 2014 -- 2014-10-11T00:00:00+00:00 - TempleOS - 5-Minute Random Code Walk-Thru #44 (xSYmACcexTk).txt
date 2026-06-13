@@ -1,0 +1,205 @@
+========================================================================
+FILE        : videos/2014/2014-10-11T00:00:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #44 (xSYmACcexTk).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-10-11T00:00:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #44 (xSYmACcexTk).mp4
+FORMAT      : MPEG4
+SIZE        : 35,904,434 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:08:10.280
+TRANSCRIBED: 2026-05-10T17:20:44.097403+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+Okay, this is Temple OS 5-Minute Random Code Walkthrough, Episode 44, and I'm your host, Terry Davis. Let's see where God takes us today. Alt-B. And it looks like we're in GRBitMap. This is where it's, uh, we're drawing, uh, let's see. GRRectangle. Okay. We were about down to here. Okay, so, um, we've, uh, at this point, we've, uh, determined the height after clipping, and, uh, if it's onto, uh, the screen, then there's a screen Z-Buffer, um, which is, uh, like, for example, uh, um, this window is now on top of what's underneath. So, uh, um, if we draw a rectangle, I, let's see what happens if I draw a rectangle. Uh, GRRectangle, uh, X, Y, let's say, uh, 400, comma, 200, comma, 200, 200. Okay, well, so it's not paying attention. Oh, I think I knew that from the last time I did this. Well, anyway, um, okay, so, let's see. Let's, let's look at, no, we're, we landed here. Okay, so, uh, we go from height, height one to height two. That's the top to bottom. And, uh, then, um, each row, each, each row we do leading pixels. And we take, there are up to eight, there are up to eight leading pixels. And we, uh, we are XORing. So, we take the mask. Um, then we, or with the, uh, the color, XOR, the color mask. So, we take the old, some of the pixels we keep the same. The other pixels we XOR with the color mask. So, the, this is a mask of, uh, of, uh, okay, anyway. Um, so, then we transfer the whole eight pixel chunks. Then we transfer the trailing. And then we, we increment one line. Um, now, this is, uh, Where's the Z buffer? If Z buffer. Okay, now, it's checking, uh, each, uh, It's checking each, uh, Every, every eight, uh, Okay, the, uh, The grid, the grid for, uh, Windows is an eight by eight grid. Just like the text. And so, um, We only have to check the Z buffer For, uh, Every, every eight pixels. So, we, um, We check the Z buffer. And, uh, Anyway, um, So, let's look at, uh, Let's, Uh, Let's, Uh, GR. I'm just going to open up in another window. Alt A. Hold on. Control. I'm sorry. Why isn't it not? Okay. So, I wanted to explain what those bit, How those bits were set up. Um, The leading and trailing bits are, uh, Set up right here. Um, So, the leading, We, uh, I'm going to dump, Uh, GR Two, Eight Bits. Okay. So, this is, uh, A bunch of FFs based on, uh, Which bits are set. So, we're, um, We're taking the leading pixels, Shifting them in, And then, um, Making a, A big mask That does, uh, Bytes. It's a, It's a 64-bit Mask of bytes. And, uh, The color mask is similar. Um, But it's, uh, Where do we set the color mask? Um, Let's look for color mask. Okay. The color mask. Okay. The color mask. Okay. So, this is just, uh, Solid. So, what we do is we, uh, When we're plot, Plotting the, uh, When we're plotting a, When we're plotting a rectangle, We, uh, We, Let's say we have An eight by eight, Uh, Or an eight, Let's say we have eight pixels. What we do is we, uh, We mask with FF. Um, Let's say we're doing leading pixels. And it's, uh, So we, We mask with FF. We mask with FF. And then we, uh, We, uh, Or, Or in this case, XOR. We XOR with that. And, uh, The opposite of the mask is, uh, Zero, zero, zero, zero, FF, FF. So whatever the original was, Um, Oh, I screwed everything up. Anyway, That's what we're doing. So it's, um, It's just combinations of masks and colors. They're bite masks, Not bit masks. So how about that? So, So,
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:08.020]  Okay, this is Temple OS 5-Minute Random Code Walkthrough, Episode 44, and I'm your host, Terry Davis.
+[00:00:09.420 -> 00:00:12.120]  Let's see where God takes us today. Alt-B.
+[00:00:13.920 -> 00:00:20.260]  And it looks like we're in GRBitMap.
+[00:00:21.080 -> 00:00:28.640]  This is where it's, uh, we're drawing, uh, let's see.
+[00:00:34.920 -> 00:00:36.720]  GRRectangle. Okay.
+[00:00:38.920 -> 00:00:41.360]  We were about down to here.
+[00:00:42.400 -> 00:00:53.460]  Okay, so, um, we've, uh, at this point, we've, uh, determined the height after clipping, and, uh,
+[00:00:55.600 -> 00:01:06.520]  if it's onto, uh, the screen, then there's a screen Z-Buffer, um, which is, uh, like, for example, uh,
+[00:01:09.040 -> 00:01:15.660]  um, this window is now on top of what's underneath.
+[00:01:15.660 -> 00:01:28.380]  So, uh, um, if we draw a rectangle, I, let's see what happens if I draw a rectangle.
+[00:01:28.380 -> 00:01:48.880]  Uh, GRRectangle, uh, X, Y, let's say, uh, 400, comma, 200, comma, 200, 200.
+[00:01:50.680 -> 00:01:54.600]  Okay, well, so it's not paying attention.
+[00:01:54.740 -> 00:02:02.220]  Oh, I think I knew that from the last time I did this.
+[00:02:02.680 -> 00:02:11.340]  Well, anyway, um, okay, so, let's see.
+[00:02:11.340 -> 00:02:14.020]  Let's, let's look at, no, we're, we landed here.
+[00:02:14.340 -> 00:02:18.280]  Okay, so, uh, we go from height, height one to height two.
+[00:02:18.480 -> 00:02:19.920]  That's the top to bottom.
+[00:02:20.580 -> 00:02:27.240]  And, uh, then, um, each row, each, each row we do leading pixels.
+[00:02:29.980 -> 00:02:35.980]  And we take, there are up to eight, there are up to eight leading pixels.
+[00:02:35.980 -> 00:02:40.700]  And we, uh, we are XORing.
+[00:02:41.220 -> 00:02:42.940]  So, we take the mask.
+[00:02:44.660 -> 00:02:52.480]  Um, then we, or with the, uh, the color, XOR, the color mask.
+[00:02:56.980 -> 00:03:01.520]  So, we take the old, some of the pixels we keep the same.
+[00:03:01.820 -> 00:03:04.620]  The other pixels we XOR with the color mask.
+[00:03:04.620 -> 00:03:12.020]  So, the, this is a mask of, uh, of, uh, okay, anyway.
+[00:03:12.740 -> 00:03:21.620]  Um, so, then we transfer the whole eight pixel chunks.
+[00:03:21.940 -> 00:03:23.720]  Then we transfer the trailing.
+[00:03:24.880 -> 00:03:27.940]  And then we, we increment one line.
+[00:03:28.740 -> 00:03:33.280]  Um, now, this is, uh,
+[00:03:36.560 -> 00:03:38.000]  Where's the Z buffer?
+[00:03:38.760 -> 00:03:39.720]  If Z buffer.
+[00:03:39.980 -> 00:03:44.060]  Okay, now, it's checking, uh, each, uh,
+[00:03:49.440 -> 00:03:51.420]  It's checking each, uh,
+[00:03:53.380 -> 00:03:55.640]  Every, every eight, uh,
+[00:03:55.640 -> 00:03:57.200]  Okay, the, uh,
+[00:04:00.180 -> 00:04:02.640]  The grid, the grid for, uh,
+[00:04:03.240 -> 00:04:05.200]  Windows is an eight by eight grid.
+[00:04:05.200 -> 00:04:06.440]  Just like the text.
+[00:04:06.760 -> 00:04:07.960]  And so, um,
+[00:04:08.180 -> 00:04:10.980]  We only have to check the Z buffer
+[00:04:10.980 -> 00:04:12.440]  For, uh,
+[00:04:12.920 -> 00:04:14.520]  Every, every eight pixels.
+[00:04:14.880 -> 00:04:16.180]  So, we, um,
+[00:04:17.520 -> 00:04:18.620]  We check the Z buffer.
+[00:04:19.160 -> 00:04:19.760]  And, uh,
+[00:04:20.700 -> 00:04:22.320]  Anyway, um,
+[00:04:25.500 -> 00:04:27.440]  So, let's look at, uh,
+[00:04:29.300 -> 00:04:29.880]  Let's,
+[00:04:29.880 -> 00:04:30.360]  Uh,
+[00:04:31.200 -> 00:04:31.780]  Let's,
+[00:04:31.780 -> 00:04:32.260]  Uh,
+[00:04:32.480 -> 00:04:32.580]  GR.
+[00:04:33.720 -> 00:04:35.820]  I'm just going to open up in another window.
+[00:04:37.040 -> 00:04:37.040]  
+[00:04:40.660 -> 00:04:41.760]  Alt A.
+[00:04:48.800 -> 00:04:49.640]  Hold on.
+[00:04:49.640 -> 00:04:50.060]  Control.
+[00:04:56.180 -> 00:04:56.940]  I'm sorry.
+[00:04:57.520 -> 00:04:58.700]  Why isn't it not?
+[00:05:01.560 -> 00:05:02.080]  Okay.
+[00:05:02.420 -> 00:05:04.480]  So, I wanted to explain what those bit,
+[00:05:04.640 -> 00:05:06.120]  How those bits were set up.
+[00:05:06.740 -> 00:05:06.840]  Um,
+[00:05:07.860 -> 00:05:09.760]  The leading and trailing bits are, uh,
+[00:05:10.360 -> 00:05:11.380]  Set up right here.
+[00:05:12.160 -> 00:05:12.340]  Um,
+[00:05:12.900 -> 00:05:13.680]  So, the leading,
+[00:05:15.260 -> 00:05:16.120]  We, uh,
+[00:05:16.120 -> 00:05:16.120]  
+[00:05:26.620 -> 00:05:27.600]  I'm going to dump,
+[00:05:27.640 -> 00:05:28.020]  Uh,
+[00:05:30.840 -> 00:05:31.280]  GR
+[00:05:32.380 -> 00:05:32.900]  Two,
+[00:05:32.920 -> 00:05:33.420]  Eight
+[00:05:35.460 -> 00:05:35.980]  Bits.
+[00:05:37.600 -> 00:05:38.120]  Okay.
+[00:05:38.320 -> 00:05:39.200]  So, this is, uh,
+[00:05:39.660 -> 00:05:41.580]  A bunch of FFs based on, uh,
+[00:05:42.240 -> 00:05:43.260]  Which bits are set.
+[00:05:43.260 -> 00:05:44.720]  So, we're, um,
+[00:05:44.960 -> 00:05:46.380]  We're taking the leading pixels,
+[00:05:46.580 -> 00:05:47.380]  Shifting them in,
+[00:05:47.580 -> 00:05:48.700]  And then, um,
+[00:05:49.600 -> 00:05:50.240]  Making a,
+[00:05:50.240 -> 00:05:51.340]  A big mask
+[00:05:51.340 -> 00:05:52.500]  That does, uh,
+[00:05:53.680 -> 00:05:53.680]  
+[00:05:54.100 -> 00:05:54.560]  Bytes.
+[00:05:54.920 -> 00:05:55.220]  It's a,
+[00:05:55.320 -> 00:05:57.300]  It's a 64-bit
+[00:05:57.880 -> 00:05:59.040]  Mask of bytes.
+[00:06:00.600 -> 00:06:01.380]  And, uh,
+[00:06:01.680 -> 00:06:03.380]  The color mask is similar.
+[00:06:04.000 -> 00:06:04.200]  Um,
+[00:06:04.460 -> 00:06:05.180]  But it's, uh,
+[00:06:07.780 -> 00:06:09.400]  Where do we set the color mask?
+[00:06:10.180 -> 00:06:10.820]  Um,
+[00:06:12.740 -> 00:06:15.060]  Let's look for color mask.
+[00:06:16.100 -> 00:06:16.740]  Okay.
+[00:06:16.860 -> 00:06:17.680]  The color mask.
+[00:06:20.440 -> 00:06:21.080]  Okay.
+[00:06:21.240 -> 00:06:33.440]  The color mask.
+[00:06:38.360 -> 00:06:38.840]  Okay.
+[00:06:39.060 -> 00:06:40.300]  So, this is just, uh,
+[00:06:40.920 -> 00:06:41.340]  Solid.
+[00:06:41.980 -> 00:06:43.480]  So, what we do is we, uh,
+[00:06:44.440 -> 00:06:45.840]  When we're plot,
+[00:06:46.000 -> 00:06:47.200]  Plotting the, uh,
+[00:06:47.620 -> 00:06:48.520]  When we're plotting a,
+[00:06:48.580 -> 00:06:50.040]  When we're plotting a rectangle,
+[00:06:50.460 -> 00:06:51.200]  We, uh,
+[00:06:52.160 -> 00:06:52.300]  We,
+[00:06:52.600 -> 00:06:53.860]  Let's say we have
+[00:06:53.860 -> 00:06:55.000]  An eight by eight,
+[00:06:55.160 -> 00:06:55.580]  Uh,
+[00:06:56.220 -> 00:06:57.000]  Or an eight,
+[00:06:57.280 -> 00:06:58.900]  Let's say we have eight pixels.
+[00:06:59.480 -> 00:07:00.700]  What we do is we, uh,
+[00:07:00.700 -> 00:07:02.700]  We mask with FF.
+[00:07:03.040 -> 00:07:03.500]  Um,
+[00:07:03.920 -> 00:07:05.960]  Let's say we're doing leading pixels.
+[00:07:05.960 -> 00:07:06.620]  And it's, uh,
+[00:07:07.260 -> 00:07:07.660]  So we,
+[00:07:07.820 -> 00:07:10.500]  We mask with FF.
+[00:07:17.200 -> 00:07:19.080]  We mask with FF.
+[00:07:19.360 -> 00:07:20.640]  And then we, uh,
+[00:07:23.740 -> 00:07:24.380]  We, uh,
+[00:07:25.100 -> 00:07:25.480]  Or,
+[00:07:25.940 -> 00:07:26.880]  Or in this case,
+[00:07:27.020 -> 00:07:27.520]  XOR.
+[00:07:27.880 -> 00:07:29.560]  We XOR with that.
+[00:07:31.020 -> 00:07:31.840]  And, uh,
+[00:07:31.980 -> 00:07:34.040]  The opposite of the mask is, uh,
+[00:07:34.920 -> 00:07:36.580]  Zero, zero, zero, zero,
+[00:07:37.800 -> 00:07:38.920]  FF, FF.
+[00:07:42.020 -> 00:07:44.160]  So whatever the original was,
+[00:07:45.920 -> 00:07:46.480]  Um,
+[00:07:58.080 -> 00:07:59.680]  Oh, I screwed everything up.
+[00:07:59.680 -> 00:08:00.260]  Anyway,
+[00:08:00.460 -> 00:08:00.460]  
+[00:08:00.460 -> 00:08:01.040]  That's what we're doing.
+[00:08:01.440 -> 00:08:02.420]  So it's, um,
+[00:08:02.600 -> 00:08:05.100]  It's just combinations of masks and colors.
+[00:08:05.320 -> 00:08:06.400]  They're bite masks,
+[00:08:06.600 -> 00:08:07.580]  Not bit masks.
+[00:08:07.920 -> 00:08:08.780]  So how about that?
+[00:08:09.840 -> 00:08:10.280]  So,
+[00:08:10.280 -> 00:08:10.280]  
+[00:08:10.280 -> 00:08:10.280]  
+[00:08:10.280 -> 00:08:10.280]  
+[00:08:10.280 -> 00:08:10.280]  
+[00:08:10.280 -> 00:08:10.280]  
+[00:08:10.280 -> 00:08:10.280]  
+[00:08:10.280 -> 00:08:10.280]  
+[00:08:10.280 -> 00:08:10.280]  
+[00:08:10.280 -> 00:08:10.280]  
+[00:08:10.280 -> 00:08:10.280]  
+[00:08:10.280 -> 00:08:10.280]  
+[00:08:10.280 -> 00:08:10.280]  
+[00:08:10.280 -> 00:08:10.280]  
+[00:08:10.280 -> 00:08:10.280]  
+[00:08:10.280 -> 00:08:10.280]  
+[00:08:10.280 -> 00:08:10.280]  
+[00:08:10.280 -> 00:08:10.280]  
+[00:08:10.280 -> 00:08:10.280]  
+[00:08:10.280 -> 00:08:10.280]  
+[00:08:10.280 -> 00:08:10.280]  
+[00:08:10.280 -> 00:08:10.280]  
+[00:08:10.280 -> 00:08:10.300]  So,
+[00:08:10.300 -> 00:08:10.300]  
+[00:08:10.300 -> 00:08:10.300]  
+[00:08:10.300 -> 00:08:10.300]  
+[00:08:10.300 -> 00:08:10.300]  
+[00:08:10.300 -> 00:08:10.300]  
+[00:08:10.300 -> 00:08:10.300]  
+[00:08:10.300 -> 00:08:10.300]  
+[00:08:10.300 -> 00:08:10.300]  
+[00:08:10.300 -> 00:08:10.300]  
+[00:08:10.300 -> 00:08:10.300]  
+[00:08:10.300 -> 00:08:10.300]  
+[00:08:10.300 -> 00:08:10.300]  
+[00:08:10.300 -> 00:08:10.300]  
+[00:08:09.620 -> 00:08:09.620]  
+[00:08:09.620 -> 00:08:09.620]  
+[00:08:09.620 -> 00:08:09.620]  
+[00:08:09.620 -> 00:08:09.620]  
+[00:08:09.620 -> 00:08:09.620]  
+[00:08:09.620 -> 00:08:09.620]  
+[00:08:09.620 -> 00:08:09.620]  
+[00:08:10.280 -> 00:08:10.280]  

@@ -1,0 +1,221 @@
+========================================================================
+FILE        : videos/2014/2014-09-17T00:01:00+00:00 - TempleOS - Command-line Tricks (IPPKfmEYSlM).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-09-17T00:01:00+00:00 - TempleOS - Command-line Tricks (IPPKfmEYSlM).mkv
+FORMAT      : Matroska
+SIZE        : 58,629,018 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:13:38.220
+TRANSCRIBED: 2026-05-08T13:43:59.869676+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+So the command line feeds into a C compiler. Any function entered gets compiled just in time, incrementally. So if I say U0 count I64 in, I64 I for I equals 0, I lesser, for I equals 1, I lesser equal in, I plus plus. Percent d carriage return I. Now any statement entered outside a function executes immediately, gets compiled and executed immediately. So if I say count 1 plus 9, counts to 10. Okay so we can unassemble function count. It's using register variables. It's 64-bit assembly. If you say, we can also say, we can say unassemble, this was unassemble function. There's another command unassemble and you specify the offset like that. This doesn't matter. It's, this is a C function. So you see how that's the same. Anyway, so you can turn on the compiler trace, C trace, C trace on. Now if you say directory star. Now remember, it unassembles, it compiles each statement function by function or statement by statement. So we push a 0. Directory has two arguments. It compiles something when I exited the editor. Anyway, so, so there's the, the string, the string data goes after the, the, the, the, after the code. So this returns to the command line where it gets more C code. Okay, so you can say who minus R. Okay, well that's annoying. Okay, so here's count. There's a lot of parameters to who. I'm going to say C trace off directory. Okay, so who minus R. This is environment variables. You can think of, they're, it's, they're C variables and C functions. So if I say I 64 and I say who. Don't recurse is what that means. Oh, what happened? Oh, I didn't, oh, what the hell did I do? I 64 I. Who? I'm sorry. Okay, there we go. So, uh, um, the current task is in the FS segment register. Okay, you'll see the current task, current task record address is up. If you look up here by the top, 3FD5, okay. You can, the current task is also in the FS segment register. You see the three, this matches the upper corner here. Okay, so, uh, if we turn C trace on and we say FS, now there's, uh, the context is stored here. So there's an RIP register or RIP member variable, um, off, uh, member. Anyway, so the FS segment register is what's used. Now in 64-bit mode, uh, the segment registers are, are set, set to zero except, except FS and GS. And if you want to change FS and GS, call this function, set GS base or set FS base. Then it does a right model specific register. And that's how you change FS or GS. Don't do it though. That's only because, um, uh, the FS, as a matter of fact, we can look up FS. FS, if we look it up, it's an internal compiler, uh, function. It's a task, a task record pointer. So if we look up a task record, now what was that RIP 120? Um, yeah, here's RIP right here. This is the context. That's the most important thing in the task record is the context. Um, as a matter of fact, it does not save FS and GS. Uh, it does not save those. Those are, um, that's a pointer. It doesn't get saved. Trust me, it doesn't get saved. So anyway, uh, the current directory is in the task record. Let's see what the current directory is. How about that? How about we say, uh, percent S carriage return, comma. This is, uh, address of, uh, FS Kerder. Let's see what this does. So what we did, it got the FS value. It has a self-address. Anyway, we, we push. What did we do? Uh, 80 off of FS is the current directory. We push that value. My compiler did a good job. Anyway, uh, one, there's one parameter. There's one argument in this, uh, printf. This is a print statement. And this is a, this is the format string. Percent S backslash N. And, uh, so here's the format string right here. So we just printed, uh, and then right here is what it printed. The current directory is kernel. So we could change directory without. That's a little, I think we can do it. It's a little bit dangerous. It's pretty dangerous. But we could say, uh, FS Kerder equals. Now it's a, it's a, it's a mallocated value. So we better free, we free the old one. Mallocated Kerder. Now here's where we, um, there's a, uh, if you want to allocate a string, use string, uh, use M string. Mallocated string. Now you use M string print. Okay, now whatever you put inside of here. Watch this. I'm going to do this, I'm going to do this extra complicated just to show. Uh, percent S backslash percent S. Comma. S. Uh. Atom. Comma. On GR. So a sub directory. Atom GR. You can figure that out. Watch this. Okay. Now. Look. Well, it changed at the command line. But let's see if it's completely valid. Looks pretty valid. I don't know if there's anything that goes wrong. But it changed directory. That's pretty dangerous. Don't count on networking. So, uh, what else, what other fun and mischief can we get into? So, class, class rep. GS is the current CPU structure. So, there's a CPU. Now, there's a class rep. We'll dump a structure. And it's smart enough to figure out what kind of pointer structure it's pointing to. So, you don't have to do it. This is kind of like a class. Let's see. Class. What do we do? Class. Oh, class rep. Class rep D. And then let's do FS, the current task. Now, this is live. That D is for dynamic. Now, if you notice, these registers and stuff are changing dynamically. Um, so, uh, let's go to, uh, uh, are they changing even? Yeah, it should be changing. Okay, uh, left. Let's change this to 16. Watch what happens. Bam! It, it moved the left window coordinate over. I just moved the left window coordinate. Okay, so these are changing dynamically. That's the current task record. So, uh, that's class rep D. Class. We can also say class rep D current CPU record. Okay. Uh, so, uh, what other fun and mischief can we get into? How about U8 star B equals, uh, malloc. I could allocate a big chunk. Oh, well, let's just go 80. Oh, oh, oh. So, you can use malloc at the command line. Memset. I'm just showing how this works. Zero. Comma. Um, let's do 0x88. That's the year I graduated. Comma. And then let's say msize. That's the size of the allocated chunk. So, anything allocated off the heap. Oops. That crashed. Don't do that. Let's try that again. U8. No, let's not try that again. No, star B. Malloc at 0x80. Let's go, uh, 1, 2, 3, 4, 5, 6. Let's do 6. Out of memory. Okay. That's a nice crash. How about that? Okay. How about, let's do it again. Okay. You can see up at the top the memory going down. Now, let's do mem, memset, B. What size of, msize B. Okay. It includes, um, you got a little bit more than you asked for. It's okay. So, now we say memset, B, 88, M. What did I do wrong? Why would it crash like that? That worked. You review the tape. See what it did wrong. I don't know what it did wrong. Maybe it was too big. I don't know. Free. Now, watch up at the top when I free this. It's DD. Now, I hit enter. And it goes to E5. So, it puts it back. So, how about that? Okay.
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:11.560]  So the command line feeds into a C compiler. Any function entered gets compiled just in time, incrementally.
+[00:00:11.560 -> 00:00:34.700]  So if I say U0 count I64 in, I64 I for I equals 0, I lesser, for I equals 1, I lesser equal in, I plus plus.
+[00:00:36.360 -> 00:00:49.120]  Percent d carriage return I. Now any statement entered outside a function executes immediately, gets compiled and executed immediately.
+[00:00:49.120 -> 00:00:57.500]  So if I say count 1 plus 9, counts to 10.
+[00:00:57.780 -> 00:01:04.520]  Okay so we can unassemble function count.
+[00:01:07.280 -> 00:01:10.600]  It's using register variables.
+[00:01:13.880 -> 00:01:16.400]  It's 64-bit assembly.
+[00:01:16.400 -> 00:01:29.380]  If you say, we can also say, we can say unassemble, this was unassemble function.
+[00:01:29.740 -> 00:01:39.320]  There's another command unassemble and you specify the offset like that.
+[00:01:39.320 -> 00:01:40.860]  This doesn't matter.
+[00:01:41.120 -> 00:01:43.480]  It's, this is a C function.
+[00:01:43.700 -> 00:01:46.680]  So you see how that's the same.
+[00:01:46.880 -> 00:01:59.160]  Anyway, so you can turn on the compiler trace, C trace, C trace on.
+[00:01:59.160 -> 00:02:03.860]  Now if you say directory star.
+[00:02:05.660 -> 00:02:13.600]  Now remember, it unassembles, it compiles each statement function by function or statement by statement.
+[00:02:13.880 -> 00:02:15.340]  So we push a 0.
+[00:02:15.700 -> 00:02:19.100]  Directory has two arguments.
+[00:02:27.200 -> 00:02:30.740]  It compiles something when I exited the editor.
+[00:02:31.540 -> 00:02:47.760]  Anyway, so, so there's the, the string, the string data goes after the, the, the, the, after the code.
+[00:02:49.320 -> 00:02:56.300]  So this returns to the command line where it gets more C code.
+[00:02:56.700 -> 00:03:02.140]  Okay, so you can say who minus R.
+[00:03:05.500 -> 00:03:07.220]  Okay, well that's annoying.
+[00:03:08.360 -> 00:03:09.800]  Okay, so here's count.
+[00:03:12.360 -> 00:03:14.220]  There's a lot of parameters to who.
+[00:03:14.340 -> 00:03:21.560]  I'm going to say C trace off directory.
+[00:03:23.960 -> 00:03:26.980]  Okay, so who minus R.
+[00:03:28.020 -> 00:03:30.340]  This is environment variables.
+[00:03:30.580 -> 00:03:34.960]  You can think of, they're, it's, they're C variables and C functions.
+[00:03:35.300 -> 00:03:38.560]  So if I say I 64 and I say who.
+[00:03:41.120 -> 00:03:43.360]  Don't recurse is what that means.
+[00:03:44.580 -> 00:03:45.600]  Oh, what happened?
+[00:03:45.800 -> 00:03:47.300]  Oh, I didn't, oh, what the hell did I do?
+[00:03:47.880 -> 00:03:49.120]  I 64 I.
+[00:03:50.640 -> 00:03:51.000]  Who?
+[00:03:51.720 -> 00:03:52.420]  I'm sorry.
+[00:03:54.480 -> 00:03:55.440]  Okay, there we go.
+[00:03:56.000 -> 00:04:02.920]  So, uh, um, the current task is in the FS segment register.
+[00:04:03.840 -> 00:04:09.840]  Okay, you'll see the current task, current task record address is up.
+[00:04:10.080 -> 00:04:14.100]  If you look up here by the top, 3FD5, okay.
+[00:04:14.540 -> 00:04:18.740]  You can, the current task is also in the FS segment register.
+[00:04:19.040 -> 00:04:22.500]  You see the three, this matches the upper corner here.
+[00:04:22.500 -> 00:04:36.480]  Okay, so, uh, if we turn C trace on and we say FS, now there's, uh, the context is stored here.
+[00:04:36.740 -> 00:04:45.700]  So there's an RIP register or RIP member variable, um, off, uh, member.
+[00:04:46.040 -> 00:04:49.420]  Anyway, so the FS segment register is what's used.
+[00:04:49.420 -> 00:05:01.680]  Now in 64-bit mode, uh, the segment registers are, are set, set to zero except, except FS and GS.
+[00:05:02.100 -> 00:05:08.860]  And if you want to change FS and GS, call this function, set GS base or set FS base.
+[00:05:09.120 -> 00:05:12.100]  Then it does a right model specific register.
+[00:05:12.720 -> 00:05:15.480]  And that's how you change FS or GS.
+[00:05:15.820 -> 00:05:16.620]  Don't do it though.
+[00:05:16.620 -> 00:05:26.720]  That's only because, um, uh, the FS, as a matter of fact, we can look up FS.
+[00:05:27.440 -> 00:05:34.000]  FS, if we look it up, it's an internal compiler, uh, function.
+[00:05:35.640 -> 00:05:38.500]  It's a task, a task record pointer.
+[00:05:40.340 -> 00:05:46.260]  So if we look up a task record, now what was that RIP 120?
+[00:05:46.980 -> 00:05:49.020]  Um, yeah, here's RIP right here.
+[00:05:49.220 -> 00:05:50.460]  This is the context.
+[00:05:50.800 -> 00:05:54.200]  That's the most important thing in the task record is the context.
+[00:05:54.780 -> 00:06:00.360]  Um, as a matter of fact, it does not save FS and GS.
+[00:06:01.140 -> 00:06:05.140]  Uh, it does not save those.
+[00:06:05.660 -> 00:06:09.840]  Those are, um, that's a pointer.
+[00:06:10.000 -> 00:06:10.760]  It doesn't get saved.
+[00:06:11.200 -> 00:06:12.280]  Trust me, it doesn't get saved.
+[00:06:15.400 -> 00:06:20.280]  So anyway, uh, the current directory is in the task record.
+[00:06:20.620 -> 00:06:22.180]  Let's see what the current directory is.
+[00:06:22.260 -> 00:06:22.720]  How about that?
+[00:06:23.100 -> 00:06:33.380]  How about we say, uh, percent S carriage return, comma.
+[00:06:33.380 -> 00:06:38.840]  This is, uh, address of, uh, FS Kerder.
+[00:06:39.280 -> 00:06:40.600]  Let's see what this does.
+[00:06:43.260 -> 00:06:50.660]  So what we did, it got the FS value.
+[00:06:52.440 -> 00:06:54.300]  It has a self-address.
+[00:06:54.860 -> 00:06:56.200]  Anyway, we, we push.
+[00:06:57.680 -> 00:06:58.860]  What did we do?
+[00:07:02.720 -> 00:07:09.020]  Uh, 80 off of FS is the current directory.
+[00:07:09.220 -> 00:07:10.860]  We push that value.
+[00:07:11.100 -> 00:07:12.780]  My compiler did a good job.
+[00:07:13.200 -> 00:07:19.900]  Anyway, uh, one, there's one parameter.
+[00:07:20.340 -> 00:07:23.220]  There's one argument in this, uh, printf.
+[00:07:23.420 -> 00:07:25.040]  This is a print statement.
+[00:07:25.320 -> 00:07:27.900]  And this is a, this is the format string.
+[00:07:28.160 -> 00:07:29.760]  Percent S backslash N.
+[00:07:30.660 -> 00:07:33.840]  And, uh, so here's the format string right here.
+[00:07:34.120 -> 00:07:38.040]  So we just printed, uh, and then right here is what it printed.
+[00:07:38.180 -> 00:07:39.500]  The current directory is kernel.
+[00:07:40.340 -> 00:07:42.420]  So we could change directory without.
+[00:07:44.100 -> 00:07:46.240]  That's a little, I think we can do it.
+[00:07:46.320 -> 00:07:47.120]  It's a little bit dangerous.
+[00:07:47.280 -> 00:07:48.060]  It's pretty dangerous.
+[00:07:48.720 -> 00:07:58.760]  But we could say, uh, FS Kerder equals.
+[00:07:59.000 -> 00:08:02.320]  Now it's a, it's a, it's a mallocated value.
+[00:08:02.680 -> 00:08:05.640]  So we better free, we free the old one.
+[00:08:09.400 -> 00:08:10.400]  Mallocated Kerder.
+[00:08:11.260 -> 00:08:28.200]  Now here's where we, um, there's a, uh, if you want to allocate a string, use string, uh, use M string.
+[00:08:29.460 -> 00:08:30.720]  Mallocated string.
+[00:08:31.560 -> 00:08:34.100]  Now you use M string print.
+[00:08:34.920 -> 00:08:37.800]  Okay, now whatever you put inside of here.
+[00:08:38.460 -> 00:08:39.480]  Watch this.
+[00:08:40.180 -> 00:08:44.260]  I'm going to do this, I'm going to do this extra complicated just to show.
+[00:08:45.420 -> 00:08:50.760]  Uh, percent S backslash percent S.
+[00:08:52.100 -> 00:08:52.820]  Comma.
+[00:08:54.260 -> 00:08:54.620]  S.
+[00:08:56.900 -> 00:08:57.620]  Uh.
+[00:08:58.780 -> 00:08:59.340]  Atom.
+[00:09:03.300 -> 00:09:03.900]  Comma.
+[00:09:03.980 -> 00:09:04.440]  On GR.
+[00:09:05.080 -> 00:09:05.820]  So a sub directory.
+[00:09:06.540 -> 00:09:07.140]  Atom GR.
+[00:09:07.360 -> 00:09:08.160]  You can figure that out.
+[00:09:08.300 -> 00:09:08.760]  Watch this.
+[00:09:09.540 -> 00:09:09.820]  Okay.
+[00:09:11.420 -> 00:09:12.020]  Now.
+[00:09:12.920 -> 00:09:13.520]  Look.
+[00:09:13.800 -> 00:09:16.000]  Well, it changed at the command line.
+[00:09:16.260 -> 00:09:18.760]  But let's see if it's completely valid.
+[00:09:19.580 -> 00:09:20.740]  Looks pretty valid.
+[00:09:20.900 -> 00:09:22.860]  I don't know if there's anything that goes wrong.
+[00:09:23.060 -> 00:09:24.580]  But it changed directory.
+[00:09:26.840 -> 00:09:28.120]  That's pretty dangerous.
+[00:09:28.120 -> 00:09:30.060]  Don't count on networking.
+[00:09:32.040 -> 00:09:35.940]  So, uh, what else, what other fun and mischief can we get into?
+[00:09:36.680 -> 00:09:41.440]  So, class, class rep.
+[00:09:42.780 -> 00:09:48.600]  GS is the current CPU structure.
+[00:09:49.420 -> 00:09:50.680]  So, there's a CPU.
+[00:09:51.220 -> 00:09:52.760]  Now, there's a class rep.
+[00:09:52.760 -> 00:09:53.880]  We'll dump a structure.
+[00:09:54.160 -> 00:09:58.840]  And it's smart enough to figure out what kind of pointer structure it's pointing to.
+[00:09:59.140 -> 00:10:00.340]  So, you don't have to do it.
+[00:10:00.440 -> 00:10:04.360]  This is kind of like a class.
+[00:10:04.860 -> 00:10:05.480]  Let's see.
+[00:10:05.680 -> 00:10:06.020]  Class.
+[00:10:09.400 -> 00:10:10.160]  What do we do?
+[00:10:10.420 -> 00:10:10.520]  Class.
+[00:10:10.520 -> 00:10:11.540]  Oh, class rep.
+[00:10:11.900 -> 00:10:13.080]  Class rep D.
+[00:10:13.080 -> 00:10:15.980]  And then let's do FS, the current task.
+[00:10:16.860 -> 00:10:18.560]  Now, this is live.
+[00:10:19.160 -> 00:10:20.660]  That D is for dynamic.
+[00:10:21.200 -> 00:10:25.520]  Now, if you notice, these registers and stuff are changing dynamically.
+[00:10:26.620 -> 00:10:34.260]  Um, so, uh, let's go to, uh, uh, are they changing even?
+[00:10:34.460 -> 00:10:35.300]  Yeah, it should be changing.
+[00:10:38.320 -> 00:10:43.940]  Okay, uh, left.
+[00:10:43.940 -> 00:10:46.160]  Let's change this to 16.
+[00:10:46.420 -> 00:10:47.040]  Watch what happens.
+[00:10:47.400 -> 00:10:47.600]  Bam!
+[00:10:48.220 -> 00:10:51.700]  It, it moved the left window coordinate over.
+[00:10:54.500 -> 00:10:56.700]  I just moved the left window coordinate.
+[00:10:58.820 -> 00:11:00.940]  Okay, so these are changing dynamically.
+[00:11:01.240 -> 00:11:02.700]  That's the current task record.
+[00:11:03.420 -> 00:11:06.820]  So, uh, that's class rep D.
+[00:11:07.920 -> 00:11:08.600]  Class.
+[00:11:08.840 -> 00:11:12.900]  We can also say class rep D current CPU record.
+[00:11:16.460 -> 00:11:17.140]  Okay.
+[00:11:17.720 -> 00:11:22.160]  Uh, so, uh, what other fun and mischief can we get into?
+[00:11:22.520 -> 00:11:29.020]  How about U8 star B equals, uh, malloc.
+[00:11:29.140 -> 00:11:30.760]  I could allocate a big chunk.
+[00:11:31.100 -> 00:11:32.700]  Oh, well, let's just go 80.
+[00:11:33.460 -> 00:11:34.080]  Oh, oh, oh.
+[00:11:37.020 -> 00:11:39.920]  So, you can use malloc at the command line.
+[00:11:40.820 -> 00:11:41.500]  Memset.
+[00:11:41.500 -> 00:11:44.060]  I'm just showing how this works.
+[00:11:44.800 -> 00:11:45.380]  Zero.
+[00:11:46.280 -> 00:11:46.740]  Comma.
+[00:11:47.140 -> 00:11:49.720]  Um, let's do 0x88.
+[00:11:50.120 -> 00:11:51.240]  That's the year I graduated.
+[00:11:51.680 -> 00:11:52.480]  Comma.
+[00:11:52.660 -> 00:11:55.200]  And then let's say msize.
+[00:11:56.580 -> 00:11:59.720]  That's the size of the allocated chunk.
+[00:11:59.720 -> 00:12:02.440]  So, anything allocated off the heap.
+[00:12:02.700 -> 00:12:03.300]  Oops.
+[00:12:06.000 -> 00:12:07.020]  That crashed.
+[00:12:08.000 -> 00:12:08.980]  Don't do that.
+[00:12:14.980 -> 00:12:16.200]  Let's try that again.
+[00:12:16.420 -> 00:12:16.860]  U8.
+[00:12:17.580 -> 00:12:19.280]  No, let's not try that again.
+[00:12:19.520 -> 00:12:20.240]  No, star B.
+[00:12:22.780 -> 00:12:24.460]  Malloc at 0x80.
+[00:12:25.280 -> 00:12:31.020]  Let's go, uh, 1, 2, 3, 4, 5, 6.
+[00:12:31.180 -> 00:12:31.840]  Let's do 6.
+[00:12:33.280 -> 00:12:34.180]  Out of memory.
+[00:12:35.540 -> 00:12:36.000]  Okay.
+[00:12:36.120 -> 00:12:37.120]  That's a nice crash.
+[00:12:38.040 -> 00:12:38.740]  How about that?
+[00:12:39.000 -> 00:12:39.400]  Okay.
+[00:12:40.580 -> 00:12:41.860]  How about, let's do it again.
+[00:12:43.220 -> 00:12:43.680]  Okay.
+[00:12:43.860 -> 00:12:46.060]  You can see up at the top the memory going down.
+[00:12:46.060 -> 00:12:50.960]  Now, let's do mem, memset, B.
+[00:12:51.300 -> 00:12:55.560]  What size of, msize B.
+[00:12:57.200 -> 00:12:57.840]  Okay.
+[00:12:57.940 -> 00:13:02.180]  It includes, um, you got a little bit more than you asked for.
+[00:13:02.600 -> 00:13:03.420]  It's okay.
+[00:13:03.860 -> 00:13:12.860]  So, now we say memset, B, 88, M.
+[00:13:14.360 -> 00:13:15.660]  What did I do wrong?
+[00:13:15.940 -> 00:13:17.380]  Why would it crash like that?
+[00:13:18.560 -> 00:13:19.320]  That worked.
+[00:13:19.980 -> 00:13:21.140]  You review the tape.
+[00:13:21.220 -> 00:13:21.960]  See what it did wrong.
+[00:13:22.160 -> 00:13:22.940]  I don't know what it did wrong.
+[00:13:23.320 -> 00:13:24.300]  Maybe it was too big.
+[00:13:25.080 -> 00:13:25.400]  I don't know.
+[00:13:26.200 -> 00:13:26.360]  Free.
+[00:13:26.980 -> 00:13:29.640]  Now, watch up at the top when I free this.
+[00:13:30.880 -> 00:13:31.680]  It's DD.
+[00:13:32.120 -> 00:13:33.000]  Now, I hit enter.
+[00:13:33.620 -> 00:13:35.000]  And it goes to E5.
+[00:13:35.000 -> 00:13:35.900]  So, it puts it back.
+[00:13:36.680 -> 00:13:37.640]  So, how about that?
+[00:13:38.160 -> 00:13:38.220]  Okay.

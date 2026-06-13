@@ -1,0 +1,140 @@
+========================================================================
+FILE        : videos/2015/2015-08-30T00:01:00+00:00 - TempleOS - Proof that it is 100% Open Source (NJtK77ftdQw).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2015/2015-08-30T00:01:00+00:00 - TempleOS - Proof that it is 100% Open Source (NJtK77ftdQw).mkv
+FORMAT      : Matroska
+SIZE        : 59,864,554 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:17:36.620
+TRANSCRIBED: 2026-05-11T00:10:56.918873+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay i'm going to prove that temple os is 100 open source so i'm going to go to my website go to the downloads page and we want to download the ultra small 2 meg version now we go to vmware new virtual machine typical we want uh downloads ultra small 2 meg other 64-bit we call it ultra small 8 gig for the disk now we customize the hardware let's let's give it 5 gig of ram i'm going to give it eight cores and you know what i'm going to do just to uh prove i'm going to disable the network i'm going to remove the network adapter temple os doesn't have networking um let's do that and finish we install onto hard drive yes we are in vmware hit a key so right now it's copying uh two two meg onto the c partition and two meg onto the d partition i keep my two partitions identical my master is the c and my backup is the d and uh during the day i copy a snapshot to my backup and if i ever make my drive unbootable then i boot the d drive and fix it okay so it just installed onto the c and the d now we're going to reboot this is my bootloader i don't i i this replaces grub i made my own so we want the c drive one okay so um this is uh this is the tiny distro so there's only one application is a demo this is an eight core flight simulator eagle dive you're supposed to dive for fish the eight cores are cpu loads are in the corner here anyway uh so we're this is this is not dos um if i i can say unassemble function print and uh this is 64 bit um we don't we this is ring zero only and it's uh identity mapped um so uh what i'm gonna do is prove that it's 100 open source so for i'm gonna delete the binaries and then binaries and then recompile so first of all i'm gonna delete my i'm gonna reformat my d drive i have i have i made my own formatter it'll do fat 32 or uh red c so look so c is there and d is gone now i'm gonna go to go to my c drive find file starting at root looking for bin so we have uh kernel bin this is um left over from the cd-rom um my mask my master boot loader my old boot record my compiler bin and my kernel bin so i'm gonna go ctrl d we're gonna delete kernel bin we're going to delete compiler bin we're gonna delete kernel bin so um now we have find file and we don't have any bins okay so uh uh uh at this point we have compiled uh 44 000 lines um that's during boot it compiles uh during boot it uh it loads the bootloader and then it uh the bootloader loads the kernel dot bin and then kernel dot bin loads the compiler and then kernel and then and then it starts compiling uh at os start in the root directory and this includes some headers from kernel and compiler and then it calls make atom so right now let's let's look at an overview there's 80 000 lines of code on this distro and um the compiler is 20 000 and kernel is 24 000 and then the atom directory is the is the 35 000. so this 44 is the atom directory plus um some headers the header from the kernel 4 000 for the kernel and the header for the compiler another uh the header is another 400 anyway so uh um the kernel the compiler has a project file this loads the uh this includes the uh files and the kernel has a project file which uh includes the uh includes the the files and it also the kernel also does a configuration during when you compile the kernel it also configures so uh what we're going to do now is uh make os install so this does a make all which compiles the compiler and compiles the kernel and then it patches the boot sector so that the boot sector knows where the kernel is because the boot sector doesn't navigate anyway so make os we're going to compile we're going to make os and install the boot sector this is going to be the c drive now on this disk is a c and a d so the first is c and we want two for ata hard disk probe we want four for ata you can you can either enter the port or if it's got a number a little one-digit number you enter the one-digit number and no more drives we could we could make the cd-rom available anyway no disk cache um and no options so now look now it says 92 000 so um what that means is uh uh it just compiled the kernel in the compiler now if we do find file slash star bin star now we have the kernel and compiler are present again okay so now um let's reboot so uh everything works so um let's go to the root directory let's do a directory so uh let's do directory uh star we're going to do a full directory this gives uh the cluster number so it had to put the cluster number of kernel dot bin into the boot sector okay now during boot um it compiles the atom directory and your home directory um the atom directory um is done with a make let's let's change let's in the atom directory is uh make atom and this includes this runs during boot so what we're going to do is we're going to echo the compiler is going to display the code that it's compiling with echo on now we do reboot drive c now it compiles a hundred thousand lines a second and uh there's 40 000 lines uh uh an atom and there's 50 000 lines in the compiler in the kernel anyway so uh um um so let's go ahead and uh anyway so it compiled uh 42 000 lines i'm going to just get rid of that so we go to start os and we turn off the echo okay so let's see what's uh what's on here in the atom directory so what did it compile there's the auto complete stuff there's uh the uh the document uh the editor the this tree widget the sprites are done with in documents um there's god stuff this file manager is in here there's a check disk there there's that reformat that's in the kernel there's a graphics library there's uh optional stuff the boot the boot sector the dvd boot sectors here the hard disk boot sectors here this will make an iso file and uh then we have some utilities there's grep there's a grep there's a thing to make html um this is the sound directory we we just have pc speaker um anyway so uh so let's i just want to show you that uh i can make sprites um you already saw that the eagle dive so uh i'm going to draw a couple circles this is graphics mode by the way it's not text mode 640 by 480 god said it's a covenant um so uh these are just some sprites it does i did dither color um flood fill so so this is just to show that it uh it is indeed uh graphics mode anyway so uh now we're gonna um we're gonna go to the home directory and uh we're gonna make a distro okay so uh this copies onto this cop this makes a temp temporary directory called distro and then it that's a staging area and then we copy all the trees into there and then we uh we make the iso file um so this is uh make this is where it compiles it you remember i said uh that there was uh it's compile it's copying and compiling it's only two meg so uh now if we go control d there's a kernel dot bin in the in the boot zero zero that's what that's from and uh if we change to the root directory directory directory now we have this my distro dot iso so uh if we uh you can uh if you can get that out of your distribution by uh mounting okay i didn't get this to work uh i don't know uh i tried this a little bit earlier uh you get permissions issues anyway uh mount disk oh you know you know what i want to do let me make a terminal uh and uh change mod seven seven seven minus r star i'm not a big fan of file permissions i'm going to do sudo okay i don't know if that did it anyway so uh vmware ultra now it's supposed to show two partitions i don't know why it's not showing two partitions um the c and the d maybe the d is just too empty um anyway uh the mount point is a vm disk so it's not going to mount and i think maybe i have to change sudo this is not going to work um i'm not okay maybe it'll work it worked or did it i don't know what it did anyway uh currently mounted so uh now i go to uh my mount directory okay so these are all my files so we can copy this distro file wow i don't know how we got so lucky oh it's the c distro it's the c drive okay now i have to warn you that if you delete files it's going to get corrupted because i don't do short fat 32 file names anyway so we have an iso file so i'm going to copy this to uh to to to my temp directory and uh then i'm going to uh i'm going to uh mount it i think you can mount it as one of these if you want to burn a cd rom you say write to disk with the iso let's try one of these and see what this does okay so that didn't work i'm using an old format for uh okay anyway um there's a way you can open iso files oh well um now what i do for uh i'm going to unmount this uh i hate file permissions to be quite honest i used to use windows i switched over it's it works pretty good it's i'm pretty happy i guess just not a fan of file permissions um you can tell i made a ring zero operating system anyway so uh what i do is uh i do uh i do uh i have some scripts for uh mounting vm mount uh this uh this uses a um a utility vm mount vmware costs about 250 dollars finally they fixed the sound on it um anyway uh and uh so this mounts mount this mounts my d drive i always use my d and not my c because my c is my master and my d it's okay if it gets corrupted i just reformat and recopy when you recopy the d you have to do the install boot you have to do the make install onto the d although if you want to use it as a if you want to make it bootable anyway um so uh the other i was going to say on my website you can find uh all these scripts you go to cad files and bin and here's these uh these vmware scripts here's qemu scripts for mounting and stuff like that be careful they're they're for my my setup anyway you can download those it's on my website under tad files um so uh anyway how about that
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:12.080 -> 00:00:17.120]  okay i'm going to prove that temple os is 100 open source so i'm going to go to my website
+[00:00:19.200 -> 00:00:25.800]  go to the downloads page and we want to download the ultra small 2 meg version
+[00:00:30.640 -> 00:00:43.740]  now we go to vmware new virtual machine typical we want uh downloads ultra small 2 meg
+[00:00:46.640 -> 00:00:47.940]  other 64-bit
+[00:00:50.720 -> 00:00:52.860]  we call it ultra small
+[00:00:56.400 -> 00:01:05.280]  8 gig for the disk now we customize the hardware let's let's give it 5 gig of ram
+[00:01:05.900 -> 00:01:10.420]  i'm going to give it eight cores and you know what i'm going to do just to uh
+[00:01:10.940 -> 00:01:16.780]  prove i'm going to disable the network i'm going to remove the network adapter temple os doesn't
+[00:01:16.780 -> 00:01:23.040]  have networking um let's do that and finish
+[00:01:32.980 -> 00:01:38.100]  we install onto hard drive yes we are in vmware
+[00:01:39.840 -> 00:01:43.060]  hit a key so right now it's copying uh
+[00:01:44.740 -> 00:01:52.680]  two two meg onto the c partition and two meg onto the d partition i keep my two partitions identical
+[00:01:53.460 -> 00:02:00.580]  my master is the c and my backup is the d and uh during the day i copy a snapshot to my backup
+[00:02:00.580 -> 00:02:09.320]  and if i ever make my drive unbootable then i boot the d drive and fix it okay so it just installed onto
+[00:02:09.320 -> 00:02:16.640]  the c and the d now we're going to reboot this is my bootloader i don't i i this replaces grub i made my
+[00:02:16.640 -> 00:02:29.140]  own so we want the c drive one okay so um this is uh this is the tiny distro so there's only one application
+[00:02:29.140 -> 00:02:37.540]  is a demo this is an eight core flight simulator eagle dive you're supposed to dive for fish the eight
+[00:02:37.540 -> 00:02:48.260]  cores are cpu loads are in the corner here anyway uh so we're this is this is not dos um if i i can say
+[00:02:48.260 -> 00:02:57.740]  unassemble function print and uh this is 64 bit um
+[00:02:59.680 -> 00:03:05.180]  we don't we this is ring zero only and it's uh identity mapped um
+[00:03:07.220 -> 00:03:15.520]  so uh what i'm gonna do is prove that it's 100 open source so for i'm gonna delete the binaries and
+[00:03:15.520 -> 00:03:22.920]  then binaries and then recompile so first of all i'm gonna delete my i'm gonna reformat my d drive
+[00:03:22.920 -> 00:03:33.280]  i have i have i made my own formatter it'll do fat 32 or uh red c so look so c is there and d is gone
+[00:03:34.680 -> 00:03:35.560]  now i'm gonna
+[00:03:38.460 -> 00:03:46.520]  go to go to my c drive find file starting at root looking for bin
+[00:03:48.080 -> 00:03:59.140]  so we have uh kernel bin this is um left over from the cd-rom um my mask my master boot loader my old
+[00:03:59.140 -> 00:04:07.000]  boot record my compiler bin and my kernel bin so i'm gonna go ctrl d we're gonna delete kernel bin
+[00:04:07.880 -> 00:04:10.220]  we're going to delete compiler bin
+[00:04:12.400 -> 00:04:17.640]  we're gonna delete kernel bin so um now we have find file
+[00:04:23.340 -> 00:04:26.580]  and we don't have any bins okay so uh
+[00:04:26.580 -> 00:04:27.780]  uh
+[00:04:29.120 -> 00:04:29.720]  uh
+[00:04:29.720 -> 00:04:38.420]  at this point we have compiled uh 44 000 lines um that's during boot it compiles uh during boot it
+[00:04:38.420 -> 00:04:44.660]  uh it loads the bootloader and then it uh the bootloader loads the kernel dot bin and then kernel dot bin
+[00:04:45.680 -> 00:04:53.800]  loads the compiler and then kernel and then and then it starts compiling uh at os start in the root
+[00:04:53.800 -> 00:05:01.280]  directory and this includes some headers from kernel and compiler and then it calls make atom so right now
+[00:05:02.300 -> 00:05:06.780]  let's let's look at an overview there's 80 000 lines of code on this distro
+[00:05:08.000 -> 00:05:17.060]  and um the compiler is 20 000 and kernel is 24 000 and then the atom directory is the is the 35 000.
+[00:05:17.320 -> 00:05:27.140]  so this 44 is the atom directory plus um some headers the header from the kernel 4 000 for the kernel
+[00:05:27.140 -> 00:05:37.440]  and the header for the compiler another uh the header is another 400 anyway so uh um the kernel the compiler
+[00:05:37.440 -> 00:05:49.020]  has a project file this loads the uh this includes the uh files and the kernel has a project file which uh
+[00:05:51.860 -> 00:05:57.620]  includes the uh includes the the files and it also the kernel also does a configuration during when you compile
+[00:05:57.620 -> 00:06:09.500]  the kernel it also configures so uh what we're going to do now is uh make os install
+[00:06:15.000 -> 00:06:23.720]  so this does a make all which compiles the compiler and compiles the kernel and then it patches the boot
+[00:06:23.720 -> 00:06:31.700]  sector so that the boot sector knows where the kernel is because the boot sector doesn't navigate anyway so
+[00:06:31.700 -> 00:06:40.360]  make os we're going to compile we're going to make os and install the boot sector this is going to be the c drive
+[00:06:40.980 -> 00:06:48.640]  now on this disk is a c and a d so the first is c and we want two for ata hard disk probe
+[00:06:53.500 -> 00:07:00.000]  we want four for ata you can you can either enter the port or if it's got a number a little one-digit
+[00:07:00.000 -> 00:07:08.580]  number you enter the one-digit number and no more drives we could we could make the cd-rom available
+[00:07:09.200 -> 00:07:19.620]  anyway no disk cache um and no options so now look now it says 92 000 so um what that means is uh
+[00:07:19.620 -> 00:07:28.560]  uh it just compiled the kernel in the compiler now if we do find file slash star bin
+[00:07:29.300 -> 00:07:38.440]  star now we have the kernel and compiler are present again okay so now um let's reboot
+[00:07:41.160 -> 00:07:55.280]  so uh everything works so um let's go to the root directory let's do a directory so uh let's do directory
+[00:07:55.280 -> 00:08:04.280]  uh star we're going to do a full directory this gives uh the cluster number so it had to put the cluster
+[00:08:04.280 -> 00:08:12.020]  number of kernel dot bin into the boot sector okay now during boot um it compiles the atom directory
+[00:08:12.840 -> 00:08:21.940]  and your home directory um the atom directory um is done with a make let's let's change let's
+[00:08:22.840 -> 00:08:30.860]  in the atom directory is uh make atom and this includes this runs during boot so what we're going to do is
+[00:08:30.860 -> 00:08:41.180]  we're going to echo the compiler is going to display the code that it's compiling with echo on now we do reboot
+[00:08:45.280 -> 00:08:52.660]  drive c now it compiles a hundred thousand lines a second and uh there's 40 000 lines uh
+[00:08:52.660 -> 00:09:02.260]  uh an atom and there's 50 000 lines in the compiler in the kernel anyway so uh um um
+[00:09:04.640 -> 00:09:14.220]  so let's go ahead and uh anyway so it compiled uh 42 000 lines i'm going to just
+[00:09:16.040 -> 00:09:23.160]  get rid of that so we go to start os and we turn off the echo
+[00:09:25.080 -> 00:09:32.100]  okay so let's see what's uh what's on here in the atom directory so what did it compile there's the
+[00:09:32.100 -> 00:09:42.520]  auto complete stuff there's uh the uh the document uh the editor the this tree widget the sprites are done
+[00:09:42.520 -> 00:09:49.120]  with in documents um there's god stuff this file manager is in here there's a check disk there
+[00:09:49.120 -> 00:09:53.640]  there's that reformat that's in the kernel there's a graphics library
+[00:09:55.520 -> 00:10:02.520]  there's uh optional stuff the boot the boot sector the dvd boot sectors here the hard disk boot sectors
+[00:10:02.520 -> 00:10:11.840]  here this will make an iso file and uh then we have some utilities there's grep
+[00:10:11.840 -> 00:10:20.360]  there's a grep there's a thing to make html um this is the sound directory we we just have pc speaker
+[00:10:20.360 -> 00:10:29.120]  um anyway so uh so let's i just want to show you that uh i can make sprites um you already saw that the eagle
+[00:10:29.120 -> 00:10:38.500]  dive so uh i'm going to draw a couple circles this is graphics mode by the way it's not text mode
+[00:10:39.540 -> 00:10:44.860]  640 by 480 god said it's a covenant um so uh
+[00:10:46.920 -> 00:10:55.800]  these are just some sprites it does i did dither color um flood fill
+[00:10:57.840 -> 00:11:06.200]  so so this is just to show that it uh it is indeed uh graphics mode anyway so uh
+[00:11:07.680 -> 00:11:16.700]  now we're gonna um we're gonna go to the home directory and uh we're gonna make a distro okay so
+[00:11:17.960 -> 00:11:26.320]  uh this copies onto this cop this makes a temp temporary directory called distro and then it that's
+[00:11:26.320 -> 00:11:33.920]  a staging area and then we copy all the trees into there and then we uh we make the iso file um so
+[00:11:34.620 -> 00:11:42.920]  this is uh make this is where it compiles it you remember i said uh that there was uh
+[00:11:43.560 -> 00:11:51.220]  it's compile it's copying and compiling it's only two meg so uh now if we go control d
+[00:11:52.240 -> 00:11:59.700]  there's a kernel dot bin in the in the boot zero zero that's what that's from and uh if we change to the
+[00:12:00.660 -> 00:12:06.640]  root directory directory directory now we have this my distro dot iso
+[00:12:08.640 -> 00:12:12.400]  so uh if we uh
+[00:12:15.320 -> 00:12:22.300]  you can uh if you can get that out of your distribution by uh
+[00:12:25.740 -> 00:12:29.380]  mounting okay i didn't get this to work uh i don't know
+[00:12:30.000 -> 00:12:30.520]  uh
+[00:12:36.080 -> 00:12:37.900]  i tried this a little bit earlier
+[00:12:41.240 -> 00:12:45.040]  uh you get permissions issues anyway uh
+[00:12:47.480 -> 00:12:48.380]  mount disk
+[00:12:51.100 -> 00:12:54.160]  oh you know you know what i want to do let me make a terminal
+[00:12:56.360 -> 00:12:57.040]  uh
+[00:12:57.040 -> 00:12:58.280]  and uh change mod
+[00:12:59.760 -> 00:13:01.180]  seven seven seven
+[00:13:02.420 -> 00:13:08.440]  minus r star i'm not a big fan of file permissions i'm going to do sudo
+[00:13:18.660 -> 00:13:21.780]  okay i don't know if that did it anyway so uh
+[00:13:24.020 -> 00:13:25.220]  vmware ultra
+[00:13:27.540 -> 00:13:33.700]  now it's supposed to show two partitions i don't know why it's not showing two partitions
+[00:13:34.340 -> 00:13:42.840]  um the c and the d maybe the d is just too empty um anyway uh the mount point is a vm disk
+[00:13:45.240 -> 00:13:53.060]  so it's not going to mount and i think maybe i have to change sudo this is not going to work
+[00:14:01.920 -> 00:14:02.500]  um
+[00:14:02.500 -> 00:14:03.160]  i'm not
+[00:14:07.400 -> 00:14:09.020]  okay maybe it'll work
+[00:14:11.360 -> 00:14:17.580]  it worked or did it i don't know what it did anyway uh currently mounted
+[00:14:18.780 -> 00:14:25.740]  so uh now i go to uh my mount directory
+[00:14:32.920 -> 00:14:37.200]  okay so these are all my files so we can copy this distro file
+[00:14:38.260 -> 00:14:44.180]  wow i don't know how we got so lucky oh it's the c distro it's the c drive okay now i have to warn you
+[00:14:44.180 -> 00:14:55.560]  that if you delete files it's going to get corrupted because i don't do short fat 32 file names anyway so we have an iso file so i'm going to copy this to uh
+[00:14:56.960 -> 00:15:07.880]  to to to my temp directory and uh then i'm going to uh i'm going to uh mount it i think you can mount it as
+[00:15:10.660 -> 00:15:11.680]  one of these
+[00:15:14.240 -> 00:15:17.420]  if you want to burn a cd rom you say write to disk
+[00:15:18.100 -> 00:15:24.140]  with the iso let's try one of these and see what this does okay so that didn't work
+[00:15:30.200 -> 00:15:35.060]  i'm using an old format for uh okay
+[00:15:38.380 -> 00:15:49.200]  anyway um there's a way you can open iso files oh well um now what i do for uh i'm going to unmount this uh
+[00:16:00.260 -> 00:16:02.820]  i hate file permissions to be quite honest
+[00:16:04.900 -> 00:16:12.220]  i used to use windows i switched over it's it works pretty good it's i'm pretty happy i guess
+[00:16:12.220 -> 00:16:19.120]  just not a fan of file permissions um you can tell i made a ring zero operating system anyway so uh
+[00:16:19.820 -> 00:16:27.740]  what i do is uh i do uh i do uh i have some scripts for uh mounting vm mount
+[00:16:29.900 -> 00:16:39.560]  uh this uh this uses a um a utility vm mount vmware costs about 250 dollars finally they fixed the sound
+[00:16:39.560 -> 00:16:48.460]  on it um anyway uh and uh so this mounts mount this mounts my d drive i always use my d and not my c
+[00:16:48.460 -> 00:16:54.480]  because my c is my master and my d it's okay if it gets corrupted i just reformat and recopy when you
+[00:16:54.480 -> 00:17:01.900]  recopy the d you have to do the install boot you have to do the make install onto the d although if
+[00:17:01.900 -> 00:17:09.340]  you want to use it as a if you want to make it bootable anyway um so uh the other i was going to say
+[00:17:09.340 -> 00:17:20.740]  on my website you can find uh all these scripts you go to cad files and bin and here's these uh
+[00:17:21.380 -> 00:17:27.540]  these vmware scripts here's qemu scripts for mounting and stuff like that be careful they're
+[00:17:27.540 -> 00:17:36.000]  they're for my my setup anyway you can download those it's on my website under tad files um so uh anyway
+[00:17:36.000 -> 00:17:36.620]  how about that

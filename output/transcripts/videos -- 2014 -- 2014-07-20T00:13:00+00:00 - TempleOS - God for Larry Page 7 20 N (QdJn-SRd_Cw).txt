@@ -1,0 +1,165 @@
+========================================================================
+FILE        : videos/2014/2014-07-20T00:13:00+00:00 - TempleOS - God for Larry Page 7 20 N (QdJn-SRd_Cw).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-07-20T00:13:00+00:00 - TempleOS - God for Larry Page 7 20 N (QdJn-SRd_Cw).mp4
+FORMAT      : MPEG4
+SIZE        : 36,382,159 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:08:34.300
+TRANSCRIBED: 2026-05-08T03:40:25.682708+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+So there seems to be a lot of confusion over memory. Let me spend this five minutes covering it. First of all, guess what I got? Oops. Control L. Text. Doesn't matter. Define string. DD company. DD company. Define string. Okay. If we hit Control T, there's a text, no tag, D company. Now if I say pound, define, DD company, Google. Watch this. This just popped in there. What it's doing every 30 times a second, it refreshes the whole screen. And when it reaches this point in the document, it formats the, it searches for DD company in the symbol table and reformats it. So if I say, so I can put, it's in the symbol table, it's checking the symbol table. So inside of this document, oh, we didn't delete it. So now if we, let's go to this other, we'll get back to that. So we go into this document, nothing. Control T, DD company. Now if we say, you can say, there's a couple different ways you can do it. No big deal. Divine, divine print. We have, printf is so handy. We use it everywhere. Company. I don't know what I'm doing. I'm just, okay. So I just did a printf into a string. And there's what? One, two, three. Okay. So, long story short, when it hits doc defines, it, it formats a bunch of defined strings with memory stuff. Therefore, when we go to this document on memory, it is live, it is, well, not live, but pretty close. So, 00 to 6F, pages not marked. So no reference crashes. 7C, 3, 5, 7, 8. That's, this is where the kernel module is. Anyway, let's go ahead and the code heap goes all the way up to, okay. This scales it if you have less than, if you don't have 6 gig. If you have 6 gig, this is a maximum of 2 gig. So it'd be 2 gig for code and 4 gig for data. But we only have, I don't know, 2 gig, I don't know what we have. So let's get familiar with this. It's identity map. So that means an address is an address. So if we have two, if we have two tasks, then let's say I64I, address I, I64J. address J. Okay. So it's coming out of, I do global variables in the code heap. So I kind of lied. It's not just code. So I'm taking J's address, coming over here and saying star 0x. This is post fix, this is post fix, I64 pointer, equals 1, 2, 3. Draw a tab. We say J, 1, 2, 3. So we can access memory from this. Everybody has full access to all memory at all times. So you can pass an address of a structure over to this guy if you want. That's legal. He can access it. So you guys are curious about his stack, huh? FS, RSP. His stack is in the data heap in high memory. Remember, we're doing, here's mem BIOS rep. This is the physical memory. So this, that guy's stack was out of this upper memory. Physical is, virtual is physical. No difference. So that guy's stack was, mallet comes up out of the high memory. FS, RSP. So this is a different, the stack is only, I think, 128K. Thick size. Are you listening? That kind of sucks. So what happens if we make some code? What if we just do some, let's see, ctrace on 1 plus 2 times 3. Guess what it coded? That instruction turned into a move 7 to RAX. And it's in low, this is code down in, this should get freed. Like if we do it again, I think we get the same one. Yeah, it freed it and reallocated it. But watch this. Plus, hello. I don't know what the hell that means. It's garbage. It's a pointer. It adds a pointer. But you know what? Now it's not going to be freed. It's a different one. That's because hello has some data that can't be freed. You can't free hello. So there's the data after the return. So this leaks, but that's okay. Reboot once every day. So some people see constant simplification and say, Oh, it's an emulator. No, it's a constant simplification. In the compiler, it does constant simplification. Duh. But I get these pathetic people who are just, It's an interpreter. It's an interpreter. No, it's constant simplification. Anyway. . . .
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:07.740]  So there seems to be a lot of confusion over memory. Let me spend this five
+[00:00:07.740 -> 00:00:12.420]  minutes covering it. First of all, guess what I got?
+[00:00:12.420 -> 00:00:35.740]  Oops. Control L. Text. Doesn't matter. Define string. DD company. DD company. Define string.
+[00:00:35.740 -> 00:01:04.520]  Okay. If we hit Control T, there's a text, no tag, D company. Now if I say pound, define, DD company, Google. Watch this. This just popped in there. What it's doing
+[00:01:05.940 -> 00:01:13.240]  every 30 times a second, it refreshes the whole screen. And when it reaches this point in the document,
+[00:01:14.860 -> 00:01:27.140]  it formats the, it searches for DD company in the symbol table and reformats it. So if I say, so I can put,
+[00:01:27.140 -> 00:01:35.740]  it's in the symbol table, it's checking the symbol table. So inside of this document, oh, we didn't delete it.
+[00:01:40.140 -> 00:01:55.100]  So now if we, let's go to this other, we'll get back to that. So we go into this document, nothing. Control T, DD company. Now if we say,
+[00:01:58.200 -> 00:02:06.300]  you can say, there's a couple different ways you can do it. No big deal. Divine, divine print.
+[00:02:12.660 -> 00:02:22.260]  We have, printf is so handy. We use it everywhere. Company.
+[00:02:28.400 -> 00:02:44.880]  I don't know what I'm doing. I'm just, okay. So I just did a printf into a string. And there's what? One, two, three. Okay. So,
+[00:02:49.540 -> 00:03:05.560]  long story short, when it hits doc defines, it, it formats a bunch of defined strings with memory stuff. Therefore, when we go to this document on memory,
+[00:03:06.620 -> 00:03:20.040]  it is live, it is, well, not live, but pretty close. So, 00 to 6F, pages not marked. So no reference crashes. 7C,
+[00:03:20.260 -> 00:03:32.560]  3, 5, 7, 8. That's, this is where the kernel module is. Anyway, let's go ahead and
+[00:03:37.420 -> 00:03:47.260]  the code heap goes all the way up to, okay. This scales it if you have less than, if you don't have 6 gig. If you have 6 gig,
+[00:03:47.460 -> 00:03:57.280]  this is a maximum of 2 gig. So it'd be 2 gig for code and 4 gig for data. But we only have, I don't know, 2 gig, I don't know what we have.
+[00:03:59.380 -> 00:04:08.040]  So let's get familiar with this. It's identity map. So that means an address is an address. So if we have two,
+[00:04:11.020 -> 00:04:26.160]  if we have two tasks, then let's say I64I, address I, I64J.
+[00:04:27.680 -> 00:04:40.900]  address J. Okay. So it's coming out of, I do global variables in the code heap. So I kind of lied. It's not just code.
+[00:04:40.900 -> 00:04:49.420]  So I'm taking J's address, coming over here and saying star 0x.
+[00:04:53.320 -> 00:05:18.240]  This is post fix, this is post fix, I64 pointer, equals 1, 2, 3. Draw a tab. We say J, 1, 2, 3. So we can access memory from this. Everybody has full access to all memory at all times.
+[00:05:20.500 -> 00:05:30.120]  So you can pass an address of a structure over to this guy if you want. That's legal. He can access it.
+[00:05:31.560 -> 00:05:47.860]  So you guys are curious about his stack, huh? FS, RSP. His stack is in the data heap in high memory. Remember, we're doing, here's mem BIOS rep. This is the physical memory.
+[00:05:51.220 -> 00:06:00.120]  So this, that guy's stack was out of this upper memory. Physical is, virtual is physical. No difference.
+[00:06:01.040 -> 00:06:12.020]  So that guy's stack was, mallet comes up out of the high memory. FS, RSP. So this is a different, the stack is only, I think, 128K.
+[00:06:12.500 -> 00:06:15.460]  Thick size. Are you listening? That kind of sucks.
+[00:06:20.420 -> 00:06:31.000]  So what happens if we make some code? What if we just do some, let's see, ctrace on 1 plus 2 times 3.
+[00:06:32.760 -> 00:06:39.520]  Guess what it coded? That instruction turned into a move 7 to RAX.
+[00:06:40.420 -> 00:06:46.040]  And it's in low, this is code down in, this should get freed.
+[00:06:46.980 -> 00:06:49.480]  Like if we do it again, I think we get the same one.
+[00:06:51.180 -> 00:06:53.560]  Yeah, it freed it and reallocated it.
+[00:06:53.840 -> 00:06:54.920]  But watch this.
+[00:06:57.320 -> 00:06:58.600]  Plus, hello.
+[00:07:00.100 -> 00:07:03.500]  I don't know what the hell that means. It's garbage. It's a pointer.
+[00:07:03.900 -> 00:07:05.160]  It adds a pointer.
+[00:07:05.900 -> 00:07:08.540]  But you know what? Now it's not going to be freed.
+[00:07:10.060 -> 00:07:11.400]  It's a different one.
+[00:07:11.660 -> 00:07:16.480]  That's because hello has some data that can't be freed.
+[00:07:17.120 -> 00:07:18.780]  You can't free hello.
+[00:07:18.780 -> 00:07:23.000]  So there's the data after the return.
+[00:07:24.380 -> 00:07:29.060]  So this leaks, but that's okay.
+[00:07:29.260 -> 00:07:30.400]  Reboot once every day.
+[00:07:35.380 -> 00:07:40.400]  So some people see constant simplification and say,
+[00:07:40.520 -> 00:07:41.840]  Oh, it's an emulator.
+[00:07:42.240 -> 00:07:44.680]  No, it's a constant simplification.
+[00:07:45.460 -> 00:07:50.420]  In the compiler, it does constant simplification.
+[00:07:52.760 -> 00:07:53.480]  Duh.
+[00:07:53.860 -> 00:07:57.560]  But I get these pathetic people who are just,
+[00:07:57.760 -> 00:07:59.780]  It's an interpreter. It's an interpreter.
+[00:08:00.060 -> 00:08:02.060]  No, it's constant simplification.
+[00:08:04.080 -> 00:08:05.040]  Anyway.
+[00:08:05.520 -> 00:08:05.540]  .
+[00:08:05.540 -> 00:08:05.700]  .
+[00:08:06.960 -> 00:08:07.920]  .
+[00:08:07.920 -> 00:08:07.920]  
+[00:08:07.920 -> 00:08:07.920]  
+[00:08:07.920 -> 00:08:07.920]  
+[00:08:07.920 -> 00:08:07.920]  
+[00:08:07.920 -> 00:08:07.920]  
+[00:08:07.920 -> 00:08:07.920]  
+[00:08:07.920 -> 00:08:07.920]  
+[00:08:07.920 -> 00:08:07.920]  
+[00:08:07.920 -> 00:08:07.920]  
+[00:08:07.920 -> 00:08:07.920]  
+[00:08:07.920 -> 00:08:07.920]  
+[00:08:07.920 -> 00:08:07.920]  
+[00:08:07.920 -> 00:08:07.920]  
+[00:08:07.920 -> 00:08:07.920]  
+[00:08:07.920 -> 00:08:07.920]  
+[00:08:07.920 -> 00:08:07.920]  
+[00:08:07.920 -> 00:08:07.920]  
+[00:08:05.940 -> 00:08:05.940]  
+[00:08:05.940 -> 00:08:05.940]  
+[00:08:05.940 -> 00:08:05.940]  
+[00:08:05.940 -> 00:08:05.940]  
+[00:08:05.940 -> 00:08:05.940]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:07.900 -> 00:08:07.900]  
+[00:08:34.300 -> 00:08:34.300]  
+[00:08:34.300 -> 00:08:34.300]  

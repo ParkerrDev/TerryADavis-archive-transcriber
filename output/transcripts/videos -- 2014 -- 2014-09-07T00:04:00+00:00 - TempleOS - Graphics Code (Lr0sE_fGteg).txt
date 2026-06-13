@@ -1,0 +1,139 @@
+========================================================================
+FILE        : videos/2014/2014-09-07T00:04:00+00:00 - TempleOS - Graphics Code (Lr0sE_fGteg).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-09-07T00:04:00+00:00 - TempleOS - Graphics Code (Lr0sE_fGteg).mp4
+FORMAT      : MPEG4
+SIZE        : 30,231,444 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:07:47.500
+TRANSCRIBED: 2026-05-08T06:50:27.749257+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay I'm gonna go over the graphics code so in a recent video I started talking about the graphics code so it it it puts the background colors for the text so those are eight by eight block blocks puts the foreground now it can shift if you if you do superscript and subscript it can shift the text off of the grid I just if you'll notice I just shifted that that's a superscript anyway so we can look at those routines they have some they're mostly assembly I think or something background so basically it looks for the color I write to a temporary or I write to a buffer that's not the actual VGA buffer I think I do I merge all I put one one pixel per byte and I only use four bytes for four bits and then when I'm all done when I'm all done with the I write to the temporary then when I'm all done actually this this this line puts the persistent layer on to the temp onto the buffer then it puts the GR final screen update puts a mouse cursor and then finally 30 30 times a second it uh no not quite yet I think it makes a better look at the uh right here it converts eight or right here it converts one byte per pixel to four bit planes then once it has the four bit planes since screen memory is slow it caches it and it only updates what's changed so this only updates what's changed you can set a bit to freshen everything once in a while it'll get the cash will get wrong and you have to update the whole screen oh I forgot I have zoom built into the screen is a or into the screen stuff is control alt Z zooms in on the mouse cursor zoom control alt shift C zooms out that's built in right here so uh it turns out if you cache it um you really it's surprising that it doesn't take well anyway uh it doesn't take that much CPU all things considered I don't know um no uh so let me let me review um it writes for it sets the background to the the um like if you do the um like if you do f3 control I don't know what's the control I no that's not it I'm trying to make a block an inverted block control Z yeah like if you make alt F3 alt F2 um you can imagine blocks of uh background and then it uh puts the foreground on top then it up then it these this is on a eight this is on a um byte per pixel image then it it's updating the text and oh it's gonna sneeze anyway uh uh there's uh there's uh puts a persistent layer that's also a byte per pixel onto there then it uh puts the mouse cursor then it converts eight bits per pixel or well eight it one it converts a byte per pixel to four bit planes then it updates the the graphics now you can run in text mode that's almost never done um anyway uh so i guess we can talk about the uh graphics graphics so f1 uh graphics routines so the first thing you have to know is uh or not the first thing um control left drag will let you move it will let you pan any window including all the graphics graphics so there there's some advanced features zoom ctrl alt z and pan those are built into everything um um so uh let's go ahead and talk about uh should we talk about the 3d i think the 3d is what we should talk about uh so where should we start we can talk about dither oh i don't care um anyway there's the matrix then there's about three different offsets you can play with there's an offset we use a four by four so you have an offset offset and uh we use a uh in the device context there's an offset of xyz and uh there's the pan that's kind of another you don't play with that anyway uh so i actually have a uh uh you can there's a video about this um about uh you doing 3d um meshes that's built into the editor so this is a first person shooter uh you can look at the code learn learn how to do 3d graphics uh there's a uh flight simulator uh this uses eight cores to render we have we have uh a frame grabber that's not getting as many as frame grabber's getting eight per second normally it's doing 30 and that's an extra load as well anyway uh i'm tired uh uh let's see you you you you
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:09.280]  okay I'm gonna go over the graphics code so in a recent video I started talking
+[00:00:09.280 -> 00:00:20.780]  about the graphics code so it it it puts the background colors for the text so
+[00:00:20.780 -> 00:00:30.160]  those are eight by eight block blocks puts the foreground now it can shift if you if
+[00:00:30.160 -> 00:00:44.900]  you do superscript and subscript it can shift the text off of the grid I just if
+[00:00:44.900 -> 00:00:55.480]  you'll notice I just shifted that that's a superscript anyway so we can look at
+[00:00:55.480 -> 00:00:59.440]  those routines they have some they're mostly assembly I think or something
+[00:01:01.940 -> 00:01:09.680]  background so basically it looks for the color I write to a temporary or I write
+[00:01:09.680 -> 00:01:19.460]  to a buffer that's not the actual VGA buffer I think I do I merge all I put one
+[00:01:20.220 -> 00:01:30.480]  one pixel per byte and I only use four bytes for four bits and then when I'm all
+[00:01:30.480 -> 00:01:36.540]  done when I'm all done with the I write to the temporary then when I'm all done
+[00:01:38.740 -> 00:01:46.380]  actually this this this line puts the persistent layer on to the temp onto the
+[00:01:46.380 -> 00:01:54.680]  buffer then it puts the GR final screen update puts a mouse cursor and then
+[00:01:54.680 -> 00:02:05.440]  finally 30 30 times a second it uh no not quite yet I think it makes a
+[00:02:05.440 -> 00:02:15.340]  better look at the uh right here it converts eight or right here it converts one byte per pixel to four
+[00:02:15.340 -> 00:02:24.060]  bit planes then once it has the four bit planes since screen memory is slow it caches it and
+[00:02:24.060 -> 00:02:33.460]  it only updates what's changed so this only updates what's changed you can set a bit to
+[00:02:33.460 -> 00:02:40.480]  freshen everything once in a while it'll get the cash will get wrong and you have to
+[00:02:40.480 -> 00:02:51.340]  update the whole screen oh I forgot I have zoom built into the screen is a or into the screen stuff is
+[00:02:51.340 -> 00:03:05.500]  control alt Z zooms in on the mouse cursor zoom control alt shift C zooms out that's built in right here so uh
+[00:03:07.100 -> 00:03:35.480]  it turns out if you cache it um you really it's surprising that it doesn't take well anyway uh it doesn't take that much CPU all things considered I don't know um no uh so let me let me review um it writes for it sets the background to the
+[00:03:35.480 -> 00:03:41.900]  the um like if you do the um like if you do f3 control I don't know what's the
+[00:03:41.900 -> 00:03:54.860]  control I no that's not it I'm trying to make a block an inverted block control Z yeah like if you make
+[00:03:54.860 -> 00:04:10.640]  alt F3 alt F2 um you can imagine blocks of uh background and then it uh puts the foreground on top
+[00:04:12.160 -> 00:04:23.700]  then it up then it these this is on a eight this is on a um byte per pixel image then it it's updating the text and
+[00:04:28.820 -> 00:04:32.560]  oh it's gonna sneeze anyway uh
+[00:04:34.860 -> 00:04:41.920]  uh there's uh there's uh puts a persistent layer that's also a byte per pixel onto there
+[00:04:41.920 -> 00:04:54.180]  then it uh puts the mouse cursor then it converts eight bits per pixel or well eight it one it converts a byte per pixel to
+[00:04:54.180 -> 00:05:02.820]  four bit planes then it updates the the graphics now you can run in text mode that's almost never done
+[00:05:02.820 -> 00:05:06.780]  um anyway uh so
+[00:05:09.300 -> 00:05:14.140]  i guess we can talk about the uh graphics
+[00:05:15.720 -> 00:05:29.020]  graphics so f1 uh graphics routines so the first thing you have to know is uh or not the first thing
+[00:05:29.580 -> 00:05:39.020]  um control left drag will let you move it will let you pan any window including all the graphics
+[00:05:39.020 -> 00:05:46.660]  graphics so there there's some advanced features zoom ctrl alt z and pan those are built into everything
+[00:05:47.340 -> 00:05:47.600]  um
+[00:05:47.600 -> 00:05:48.380]  um
+[00:05:50.000 -> 00:05:54.200]  so uh let's go ahead and talk about uh
+[00:05:56.220 -> 00:06:00.420]  should we talk about the 3d i think the 3d is what we should talk about
+[00:06:00.420 -> 00:06:01.280]  uh
+[00:06:06.580 -> 00:06:08.960]  so where should we start
+[00:06:11.320 -> 00:06:12.860]  we can talk about dither
+[00:06:14.440 -> 00:06:21.660]  oh i don't care um anyway there's the matrix then there's about three different offsets you can
+[00:06:21.660 -> 00:06:26.780]  play with there's an offset we use a four by four so you have an offset
+[00:06:27.960 -> 00:06:35.360]  offset and uh we use a uh in the device context there's an offset of xyz
+[00:06:37.440 -> 00:06:49.060]  and uh there's the pan that's kind of another you don't play with that anyway uh so i actually have a uh
+[00:06:49.060 -> 00:07:01.420]  uh you can there's a video about this um about uh you doing 3d um meshes that's built into the editor
+[00:07:04.820 -> 00:07:07.000]  so this is a first person shooter
+[00:07:09.460 -> 00:07:14.460]  uh you can look at the code learn learn how to do 3d graphics
+[00:07:16.760 -> 00:07:21.120]  uh there's a uh flight simulator uh
+[00:07:23.100 -> 00:07:25.620]  this uses eight cores to render
+[00:07:28.340 -> 00:07:36.120]  we have we have uh a frame grabber that's not getting as many as frame grabber's getting eight per second
+[00:07:36.980 -> 00:07:44.660]  normally it's doing 30 and that's an extra load as well anyway uh i'm tired
+[00:07:44.660 -> 00:07:45.800]  uh uh let's see
+[00:07:45.800 -> 00:07:45.920]  you
+[00:07:45.920 -> 00:07:46.180]  you
+[00:07:46.180 -> 00:07:46.560]  you
+[00:07:46.560 -> 00:07:47.520]  you
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:47.520 -> 00:07:47.520]  
+[00:07:54.500 -> 00:07:54.500]  
+[00:07:47.500 -> 00:07:47.500]  

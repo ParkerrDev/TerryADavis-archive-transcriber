@@ -1,0 +1,439 @@
+========================================================================
+FILE        : videos/2014/2014-11-17T00:01:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #77 (KX4IXzm5orA).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-11-17T00:01:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #77 (KX4IXzm5orA).mp4
+FORMAT      : MPEG4
+SIZE        : 97,582,451 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:21:06.080
+TRANSCRIBED: 2026-05-10T19:53:56.442256+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+This is Temple OS 5-Minute Random Code walkthrough episode 77 and I'm your host Terry Davis. And it looks like we are in the compiler. This is some gnarly code. I think it's move. What is it? It is...no oppa. Oh boy. Opp equal. So this routine is called by several operators. Plus equals, minus equals, divide equals, mall equals. I can't believe I do all those the same way. Okay, so the first thing, if it's a register variable, that is different from an address. We operate with a stack machine and there's two arguments. The address of the left hand variable and the right hand plus equal value or whatever. So if the left hand is not an address, then it's a register. That's the only other option. So if it's a register variable, local variable, we don't have register globals. So if it's a register local variable, then it does that code. And otherwise, where were we when we started? We were down here about... Anyway, so... This is if it's an address, not a local...okay. So we're towards the bottom. Okay, I think this is where... I'm pretty sure...oh, maybe not. Okay, so I'm gonna go to the control right. Control...okay. Oh... So the other half is not where I expected. Okay, so... So we have to apply the operation and then we have to assign the operation. So this is...the first half is applying the operation and then... Then I guess the rest is assigning it. Maybe it's not what I thought it was. There's...oh, that...there's... I'm confused. What's this case statement here? So, um, when you call this, you pass the, uh... Um, the operator as a...as a parameter...as an argument to this function. And, uh... If, uh...subtract or divide are converted to reverse. That's if, uh...in the compiler, um, one of the things you always encounter is...first of all, you encounter that address versus local variable. That's one thing you encounter. The other thing you encounter is, um, argument one first. Almost all the functions have a, uh, if for argument one first. And argument...basically there are two arguments to most operations. And, uh, um, um, it's...it...the...the...the argument...it might not matter the order. However, if it's on the stack, then the order does matter. So, for example, if you're popping one off the stack, and then you're popping another one off the stack. Well, um, it turns out that, um, sometimes it will tell you to do argument one first. Otherwise, it's argument two first. And that has to do with the stack. That's why that...so, uh... If you're new to the compiler, the...the...there are two arguments. It's...each argument has a type, size, um, register, and displacement. The...the type has both the size and the type. And then there's the register and the displacement. So, um, there are about six types. I think...I don't know. Something like that. There's, uh...if you have an immediate value, that's just an integer. Or float, I guess. No, not...I don't know. Or a register. Or, um, a displacement off of a register. Or, um, an indexed, uh... Um, an indexed has another register, two registers. So, the register type is broken down into two types, two registers. And it also has a scale factor. So, some...anyway, finally, um, there's RIP relative. Oh, and the stack. The stack. Um, so if it's coming off the stack...it starts out as a stack machine, but it converts almost all of them to registers. Or displacements off the base pointer. But sometimes you still get a stack if, uh, if it's...if it's a deep expression, I guess you might. I don't know. So, so when...when God picked this, uh...he wanted us to start here. So, this is, uh... So, this is, uh... So, this is, uh... So, if the...if the size is a...is 64-bit, and it's displacement, RIP displacement, or SIB... So, in other words, if it's not register... What did...what did we just do? We just did, uh... We just...okay, so if A1 first...where are we? We're in the second half. I think I should explain what's going on. So, the first half, we, uh... It's doing a push if it's...I think that's stack. That's kind of weird. What are we doing? We're doing push. This is for...why are there so many pushes? That's if it's stack. I guess that's a special case. Um...floating point const...oh! We're doing that? Is this floating? Oh, this is a floating point operation! Oh, no wonder! I was thinking it was the other one. Oh, this is totally different. Okay. So, I have to totally change what I was talking about. So, there's a conversion, um...for int to float, or float to int. Um...that's the...you have two arguments, and each argument can...might be converted. And, um...we handle the conversion...here. This is, uh... If...if the type is not float, then we do a convert. These conversions are done as a template. That means I have some assembly code. That I just copy paste into...I just...I...I...I...I...I...I...I...I...I...I assemble some code. And then I just, uh...copy it into here. A little tiny bit. I can show you that if you want to see. Um...go to the compiler. and I have assembler so each one of these chunks is so somewhere in here is a conversion I do believe I could be wrong no wait a minute where is that I forgot where it is I guess I hand code it part of the conversion takes place in all of the code is generated in the last few passes and the arguments I thought the conversion was done I think the conversion is done right here here's where the conversion is done F convert let's go look that up real quick see what I could swear it comes from a template slash op it's a slash op that's what I call the oh okay oh so the op codes for F integer load F store it's either it's either you load a float and store an int or load an int and store a float so those are the two conversions so I'm a little confused I thought we maybe that's marking okay we're getting well let's move right along I gotta finish so we convert if it's not a float we convert to float and why aren't we doing this oh this is to for floating point operations you make they have to go to memory so we make a little chunk of memory let's do an example just to show what we're talking about okay so F64 F F plus equals 1.0 is 399 that's just a little tip so O trace on what oops F64 okay we didn't get a warning so we start like that and we don't put I don't think we we don't put floats in register variables we don't put floats in local variable registers okay so it converted it starts out risk and then it makes cisc and the cisc operation is add equal it started out broken down no it didn't start out broken down anyway so we do an add equal and here's one argument this is the address not address not address what of course it's what do you mean it's not addressed we don't do floats in registers what I could swear maybe it gets overridden if it's float okay so we're telling it to store the result of the add equal to fetch and store F8 off base pointer and the value is an immediate I said 399 what I meant was 3FF this is 1.0 so let's see how it coded it F load 1 onto the floating point stack F add F8 off base pointer and then F store so it coded it pretty well didn't it okay so now let's see if you're curious what if we say 1.0 I don't know if it's smart enough to do that no oh it is smart enough converted it okay let's add I now we have we're loading we're adding register RAX and we have a convert argument to to double that's I should call that float I guess I don't I I tried to get rid of the old terminology but it's pretty difficult that I can change anyway so we have now now we have an FILD because it's an integer load then we add oh we create a spot on the stack then we we add the register variable we have two register variables now two two I'm sorry local variables and then we store I don't know why we created that spot on the stack oh no we're we're removing it that was where we got the we pushed the integer so it didn't really do us much good having a register variable that's kind of ironic if we had not made it register it might have been better anyway so it was register we had to convert it to a memory for a float operation then we had to clear we had to get rid of the memory and of course base pointer we worked off the stack pointer okay so that's what's going on so A1 first so I'm highlighting the spots where code is made so so this is if it's not equal to F64 and it's a stack oh that almost never happens that's a nightmare so we we changed the subtract and divide to the reverse I don't know why we didn't start with the reverse why we bother with this silliness unless it's coming from somewhere else now these the way I the way I handle my operations is I bunched together all the we have 64 bytes 64 bits for available for we have 64 bits available for we have an argument which is the operator type and what the heck there's no reason not to I go crazy so there's a we pass an argument to that function and I I go crazy with all these 64 bits available so I code the the when you have something like a floating point add there's the slash op that's the part of the op code for the normal operation and these others are are usually there's two different instructions you have to deal with I don't know what these two are I'm just giving you a heads up that those there's a lot of individual numbers what what I'm talking about is we break these things up into pieces and use different parts depending on what we're doing so for example let's just go look at that op op whole label so there's the operator we're we're passing it in and if the bottom byte then we change the bottom we change not just the bottom byte but the whole thing then we're handing it the complete thing to slash op I guess that can tear it apart bottom byte bottom byte bottom byte slash op okay so slash op slash op's in here isn't it now this has the operator type this is for oops so if it let's see it's checking for I don't know what that is one of the operators is special we do a modder with the low byte check now when we're doing the slash op we we need we use the next to lowest byte as part of the instruction and we or when it's a different size oh when it's 16-bit versus 8-bit now this would I don't think this would be relevant in a float operation or if it's if it's rex if it's 64-bit so I have the 30 16 32 and 64 bit no the there isn't anyway so that's what that is let's just call it good enough
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:07.320]  This is Temple OS 5-Minute Random Code walkthrough episode 77 and I'm your host Terry Davis.
+[00:00:08.880 -> 00:00:11.600]  And it looks like we are in the compiler.
+[00:00:16.560 -> 00:00:22.680]  This is some gnarly code. I think it's move. What is it?
+[00:00:23.560 -> 00:00:27.900]  It is...no oppa. Oh boy.
+[00:00:30.320 -> 00:00:40.060]  Opp equal. So this routine is called by several operators.
+[00:00:40.760 -> 00:00:44.920]  Plus equals, minus equals, divide equals, mall equals.
+[00:00:45.380 -> 00:00:49.080]  I can't believe I do all those the same way.
+[00:00:49.940 -> 00:00:57.860]  Okay, so the first thing, if it's a register variable,
+[00:00:57.860 -> 00:01:01.460]  that is different from an address.
+[00:01:02.560 -> 00:01:07.620]  We operate with a stack machine and there's two arguments.
+[00:01:07.620 -> 00:01:19.780]  The address of the left hand variable and the right hand plus equal value or whatever.
+[00:01:21.200 -> 00:01:30.080]  So if the left hand is not an address, then it's a register.
+[00:01:30.400 -> 00:01:32.300]  That's the only other option.
+[00:01:34.040 -> 00:01:39.860]  So if it's a register variable, local variable, we don't have register globals.
+[00:01:40.700 -> 00:01:47.700]  So if it's a register local variable, then it does that code.
+[00:01:47.700 -> 00:01:52.300]  And otherwise, where were we when we started?
+[00:01:53.700 -> 00:01:55.540]  We were down here about...
+[00:01:55.540 -> 00:01:56.740]  Anyway, so...
+[00:01:57.580 -> 00:02:01.580]  This is if it's an address, not a local...okay.
+[00:02:02.340 -> 00:02:03.260]  So we're towards the bottom.
+[00:02:05.520 -> 00:02:08.740]  Okay, I think this is where...
+[00:02:12.020 -> 00:02:14.780]  I'm pretty sure...oh, maybe not.
+[00:02:15.720 -> 00:02:18.940]  Okay, so I'm gonna go to the control right.
+[00:02:22.620 -> 00:02:23.260]  Control...okay.
+[00:02:29.420 -> 00:02:30.060]  Oh...
+[00:02:32.640 -> 00:02:36.300]  So the other half is not where I expected.
+[00:02:36.300 -> 00:02:39.200]  Okay, so...
+[00:02:41.820 -> 00:02:48.600]  So we have to apply the operation and then we have to assign the operation.
+[00:02:48.960 -> 00:02:54.000]  So this is...the first half is applying the operation and then...
+[00:02:54.640 -> 00:02:58.220]  Then I guess the rest is assigning it.
+[00:02:58.960 -> 00:03:01.060]  Maybe it's not what I thought it was.
+[00:03:01.060 -> 00:03:03.480]  There's...oh, that...there's...
+[00:03:07.760 -> 00:03:08.780]  I'm confused.
+[00:03:08.780 -> 00:03:10.420]  What's this case statement here?
+[00:03:12.120 -> 00:03:16.060]  So, um, when you call this, you pass the, uh...
+[00:03:17.000 -> 00:03:22.000]  Um, the operator as a...as a parameter...as an argument to this function.
+[00:03:24.020 -> 00:03:25.300]  And, uh...
+[00:03:33.280 -> 00:03:38.800]  If, uh...subtract or divide are converted to reverse.
+[00:03:42.300 -> 00:03:55.200]  That's if, uh...in the compiler, um, one of the things you always encounter is...first of all, you encounter that address versus local variable.
+[00:03:55.200 -> 00:03:57.700]  That's one thing you encounter.
+[00:03:57.900 -> 00:04:01.740]  The other thing you encounter is, um, argument one first.
+[00:04:03.420 -> 00:04:10.620]  Almost all the functions have a, uh, if for argument one first.
+[00:04:11.440 -> 00:04:16.240]  And argument...basically there are two arguments to most operations.
+[00:04:16.240 -> 00:04:26.640]  And, uh, um, um, it's...it...the...the...the argument...it might not matter the order.
+[00:04:27.000 -> 00:04:31.140]  However, if it's on the stack, then the order does matter.
+[00:04:31.800 -> 00:04:37.020]  So, for example, if you're popping one off the stack, and then you're popping another one off the stack.
+[00:04:38.860 -> 00:04:46.500]  Well, um, it turns out that, um, sometimes it will tell you to do argument one first.
+[00:04:46.500 -> 00:04:48.680]  Otherwise, it's argument two first.
+[00:04:49.340 -> 00:04:51.460]  And that has to do with the stack.
+[00:04:52.360 -> 00:04:56.500]  That's why that...so, uh...
+[00:05:00.340 -> 00:05:06.220]  If you're new to the compiler, the...the...there are two arguments.
+[00:05:06.220 -> 00:05:13.320]  It's...each argument has a type, size, um, register, and displacement.
+[00:05:13.740 -> 00:05:18.480]  The...the type has both the size and the type.
+[00:05:19.160 -> 00:05:23.700]  And then there's the register and the displacement.
+[00:05:24.500 -> 00:05:27.620]  So, um, there are about six types.
+[00:05:27.640 -> 00:05:28.520]  I think...I don't know.
+[00:05:28.720 -> 00:05:29.440]  Something like that.
+[00:05:32.160 -> 00:05:36.140]  There's, uh...if you have an immediate value, that's just an integer.
+[00:05:36.780 -> 00:05:38.120]  Or float, I guess.
+[00:05:38.860 -> 00:05:40.400]  No, not...I don't know.
+[00:05:40.880 -> 00:05:42.060]  Or a register.
+[00:05:43.880 -> 00:05:47.040]  Or, um, a displacement off of a register.
+[00:05:48.720 -> 00:05:53.160]  Or, um, an indexed, uh...
+[00:05:54.220 -> 00:05:59.840]  Um, an indexed has another register, two registers.
+[00:06:00.260 -> 00:06:05.920]  So, the register type is broken down into two types, two registers.
+[00:06:06.260 -> 00:06:08.860]  And it also has a scale factor.
+[00:06:09.760 -> 00:06:15.660]  So, some...anyway, finally, um, there's RIP relative.
+[00:06:17.960 -> 00:06:19.560]  Oh, and the stack.
+[00:06:19.780 -> 00:06:20.320]  The stack.
+[00:06:20.920 -> 00:06:27.880]  Um, so if it's coming off the stack...it starts out as a stack machine, but it converts almost
+[00:06:27.880 -> 00:06:29.240]  all of them to registers.
+[00:06:29.680 -> 00:06:32.240]  Or displacements off the base pointer.
+[00:06:32.580 -> 00:06:40.780]  But sometimes you still get a stack if, uh, if it's...if it's a deep expression, I guess you might.
+[00:06:40.980 -> 00:06:41.480]  I don't know.
+[00:06:43.280 -> 00:06:50.660]  So, so when...when God picked this, uh...he wanted us to start here.
+[00:06:50.660 -> 00:06:54.260]  So, this is, uh...
+[00:06:59.180 -> 00:07:00.160]  So, this is, uh...
+[00:07:00.160 -> 00:07:00.380]  So, this is, uh...
+[00:07:00.380 -> 00:07:10.620]  So, if the...if the size is a...is 64-bit, and it's displacement, RIP displacement, or SIB...
+[00:07:11.540 -> 00:07:13.920]  So, in other words, if it's not register...
+[00:07:13.920 -> 00:07:15.680]  What did...what did we just do?
+[00:07:15.820 -> 00:07:18.180]  We just did, uh...
+[00:07:18.180 -> 00:07:23.120]  We just...okay, so if A1 first...where are we?
+[00:07:24.060 -> 00:07:25.580]  We're in the second half.
+[00:07:26.180 -> 00:07:28.580]  I think I should explain what's going on.
+[00:07:28.580 -> 00:07:31.580]  So, the first half, we, uh...
+[00:07:34.980 -> 00:07:38.040]  It's doing a push if it's...I think that's stack.
+[00:07:38.200 -> 00:07:38.860]  That's kind of weird.
+[00:07:43.160 -> 00:07:44.160]  What are we doing?
+[00:07:44.420 -> 00:07:45.760]  We're doing push.
+[00:07:46.580 -> 00:07:50.640]  This is for...why are there so many pushes?
+[00:07:52.680 -> 00:07:53.960]  That's if it's stack.
+[00:07:54.140 -> 00:07:55.560]  I guess that's a special case.
+[00:07:57.000 -> 00:07:59.000]  Um...floating point const...oh!
+[00:07:59.840 -> 00:08:01.080]  We're doing that?
+[00:08:01.840 -> 00:08:02.900]  Is this floating?
+[00:08:03.060 -> 00:08:05.880]  Oh, this is a floating point operation!
+[00:08:06.360 -> 00:08:07.680]  Oh, no wonder!
+[00:08:07.940 -> 00:08:10.080]  I was thinking it was the other one.
+[00:08:10.260 -> 00:08:11.540]  Oh, this is totally different.
+[00:08:11.960 -> 00:08:12.560]  Okay.
+[00:08:14.800 -> 00:08:17.780]  So, I have to totally change what I was talking about.
+[00:08:18.060 -> 00:08:23.100]  So, there's a conversion, um...for int to float, or float to int.
+[00:08:24.080 -> 00:08:30.240]  Um...that's the...you have two arguments, and each argument can...might be converted.
+[00:08:30.820 -> 00:08:35.100]  And, um...we handle the conversion...here.
+[00:08:36.280 -> 00:08:38.080]  This is, uh...
+[00:08:42.260 -> 00:08:46.280]  If...if the type is not float, then we do a convert.
+[00:08:46.280 -> 00:08:48.960]  These conversions are done as a template.
+[00:08:49.360 -> 00:08:51.040]  That means I have some assembly code.
+[00:08:51.280 -> 00:08:59.840]  That I just copy paste into...I just...I...I...I...I...I...I...I...I...I...I assemble some code.
+[00:09:00.000 -> 00:09:02.580]  And then I just, uh...copy it into here.
+[00:09:04.380 -> 00:09:05.600]  A little tiny bit.
+[00:09:05.700 -> 00:09:07.140]  I can show you that if you want to see.
+[00:09:08.460 -> 00:09:09.580]  Um...go to the compiler.
+[00:09:11.080 -> 00:09:12.620]  and I have
+[00:09:12.620 -> 00:09:13.900]  assembler
+[00:09:13.900 -> 00:09:15.640]  so each one of these
+[00:09:16.640 -> 00:09:17.840]  chunks is
+[00:09:21.440 -> 00:09:23.480]  so somewhere in here is a
+[00:09:24.600 -> 00:09:26.300]  conversion I do believe
+[00:09:26.300 -> 00:09:27.400]  I could be wrong
+[00:09:38.080 -> 00:09:39.560]  no wait a minute
+[00:09:39.560 -> 00:09:40.420]  where is that
+[00:09:48.920 -> 00:09:50.900]  I forgot where it is
+[00:09:59.560 -> 00:10:01.420]  I guess I hand code it
+[00:10:03.320 -> 00:10:05.960]  part of the conversion takes place in
+[00:10:07.740 -> 00:10:11.020]  all of the code is generated in the last
+[00:10:11.020 -> 00:10:12.700]  few passes
+[00:10:12.700 -> 00:10:15.920]  and the arguments
+[00:10:15.920 -> 00:10:19.600]  I thought the conversion was done
+[00:10:21.180 -> 00:10:23.920]  I think the conversion is done
+[00:10:23.920 -> 00:10:25.420]  right here
+[00:10:25.420 -> 00:10:27.640]  here's where the conversion is done
+[00:10:27.640 -> 00:10:29.080]  F convert
+[00:10:29.080 -> 00:10:31.720]  let's go look that up real quick
+[00:10:31.720 -> 00:10:34.620]  see what I could swear it comes from a template
+[00:10:36.820 -> 00:10:38.100]  slash op
+[00:10:38.100 -> 00:10:39.860]  it's a slash op
+[00:10:42.000 -> 00:10:43.820]  that's what I call the
+[00:10:43.820 -> 00:10:45.180]  oh okay
+[00:10:45.180 -> 00:10:46.600]  oh
+[00:10:46.600 -> 00:10:50.200]  so the op codes for
+[00:10:50.200 -> 00:10:52.620]  F integer load
+[00:10:52.620 -> 00:10:53.780]  F store
+[00:10:55.100 -> 00:10:55.820]  it's either
+[00:10:55.820 -> 00:10:56.260]  it's
+[00:10:58.040 -> 00:11:00.440]  either you load a float and store an int
+[00:11:00.440 -> 00:11:02.540]  or load an int and store a float
+[00:11:02.540 -> 00:11:04.420]  so those are the two
+[00:11:05.180 -> 00:11:05.680]  conversions
+[00:11:08.380 -> 00:11:10.040]  so I'm a little confused
+[00:11:10.040 -> 00:11:10.860]  I thought we
+[00:11:18.440 -> 00:11:20.680]  maybe that's marking
+[00:11:22.380 -> 00:11:23.720]  okay we're getting
+[00:11:23.720 -> 00:11:26.480]  well let's move right along
+[00:11:26.480 -> 00:11:27.880]  I gotta finish
+[00:11:29.500 -> 00:11:30.880]  so we convert
+[00:11:30.880 -> 00:11:31.740]  if it's
+[00:11:31.740 -> 00:11:32.900]  not a float
+[00:11:32.900 -> 00:11:34.480]  we convert
+[00:11:34.480 -> 00:11:35.140]  to float
+[00:11:38.580 -> 00:11:39.940]  and why aren't we doing this
+[00:11:39.940 -> 00:11:40.880]  oh this is to
+[00:11:40.880 -> 00:11:43.100]  for floating point operations
+[00:11:43.100 -> 00:11:43.680]  you make
+[00:11:43.680 -> 00:11:45.480]  they have to go to memory
+[00:11:45.480 -> 00:11:47.200]  so we make a little
+[00:11:47.200 -> 00:11:48.240]  chunk of
+[00:11:48.240 -> 00:11:49.040]  memory
+[00:11:49.760 -> 00:11:51.120]  let's do an example
+[00:11:51.120 -> 00:11:53.060]  just to show what we're talking about
+[00:11:54.760 -> 00:11:55.800]  okay so
+[00:11:58.160 -> 00:11:59.880]  F64 F
+[00:11:59.880 -> 00:12:02.540]  F plus equals
+[00:12:02.540 -> 00:12:06.220]  1.0 is 399
+[00:12:06.220 -> 00:12:09.100]  that's just a little tip
+[00:12:09.100 -> 00:12:10.760]  so O trace
+[00:12:10.760 -> 00:12:11.640]  on
+[00:12:14.080 -> 00:12:15.360]  what
+[00:12:15.360 -> 00:12:17.200]  oops
+[00:12:17.200 -> 00:12:18.660]  F64
+[00:12:20.780 -> 00:12:22.780]  okay we didn't get a warning
+[00:12:22.780 -> 00:12:29.800]  so we start like that
+[00:12:29.800 -> 00:12:30.580]  and
+[00:12:32.540 -> 00:12:33.740]  we don't put
+[00:12:33.740 -> 00:12:34.660]  I don't think we
+[00:12:34.660 -> 00:12:37.080]  we don't put floats in register variables
+[00:12:37.080 -> 00:12:40.920]  we don't put floats in local variable registers
+[00:12:42.480 -> 00:12:44.180]  okay so it converted
+[00:12:44.180 -> 00:12:46.780]  it starts out risk
+[00:12:46.780 -> 00:12:48.020]  and then it makes cisc
+[00:12:48.020 -> 00:12:50.320]  and the cisc operation
+[00:12:50.320 -> 00:12:51.440]  is add equal
+[00:12:51.440 -> 00:12:53.240]  it started out
+[00:12:54.220 -> 00:12:55.160]  broken down
+[00:12:55.160 -> 00:12:56.960]  no it didn't start out broken down
+[00:12:56.960 -> 00:12:58.100]  anyway
+[00:13:01.300 -> 00:13:02.980]  so we do an add equal
+[00:13:02.980 -> 00:13:04.920]  and here's one argument
+[00:13:04.920 -> 00:13:06.260]  this is the address
+[00:13:06.260 -> 00:13:07.760]  not address
+[00:13:07.760 -> 00:13:08.440]  not address
+[00:13:08.440 -> 00:13:09.600]  what
+[00:13:09.600 -> 00:13:10.700]  of course it's
+[00:13:10.700 -> 00:13:12.060]  what do you mean it's not addressed
+[00:13:12.060 -> 00:13:13.300]  we don't do floats
+[00:13:13.300 -> 00:13:14.780]  in registers
+[00:13:19.780 -> 00:13:20.480]  what
+[00:13:24.640 -> 00:13:26.120]  I could swear
+[00:13:26.120 -> 00:13:28.200]  maybe it gets overridden
+[00:13:28.200 -> 00:13:28.820]  if it's float
+[00:13:28.820 -> 00:13:30.160]  okay so
+[00:13:30.160 -> 00:13:32.480]  we're telling it to store the result
+[00:13:32.480 -> 00:13:33.440]  of the add equal
+[00:13:33.440 -> 00:13:35.720]  to fetch and store
+[00:13:35.720 -> 00:13:36.900]  F8
+[00:13:36.900 -> 00:13:38.220]  off base pointer
+[00:13:38.220 -> 00:13:39.720]  and the value
+[00:13:39.720 -> 00:13:40.620]  is an immediate
+[00:13:41.360 -> 00:13:42.920]  I said 399
+[00:13:42.920 -> 00:13:44.500]  what I meant was 3FF
+[00:13:44.500 -> 00:13:45.880]  this is 1.0
+[00:13:47.520 -> 00:13:49.560]  so let's see how it coded it
+[00:13:49.560 -> 00:13:51.500]  F load 1
+[00:13:51.500 -> 00:13:53.720]  onto the floating point stack
+[00:13:53.720 -> 00:13:55.360]  F add
+[00:13:57.680 -> 00:13:59.260]  F8 off base pointer
+[00:13:59.260 -> 00:14:01.340]  and then F store
+[00:14:02.080 -> 00:14:03.460]  so it coded it
+[00:14:03.460 -> 00:14:04.060]  pretty well
+[00:14:04.060 -> 00:14:04.600]  didn't it
+[00:14:04.600 -> 00:14:06.100]  okay so
+[00:14:10.340 -> 00:14:11.420]  now let's see
+[00:14:11.420 -> 00:14:12.660]  if you're curious
+[00:14:12.660 -> 00:14:13.820]  what if we say
+[00:14:13.820 -> 00:14:14.560]  1.0
+[00:14:14.560 -> 00:14:15.840]  I don't know
+[00:14:15.840 -> 00:14:16.660]  if it's smart enough
+[00:14:16.660 -> 00:14:17.340]  to do that
+[00:14:18.420 -> 00:14:19.020]  no
+[00:14:19.020 -> 00:14:21.000]  oh it is smart enough
+[00:14:21.760 -> 00:14:22.680]  converted it
+[00:14:22.680 -> 00:14:23.120]  okay
+[00:14:28.360 -> 00:14:29.920]  let's add I
+[00:14:33.760 -> 00:14:35.380]  now we have
+[00:14:38.100 -> 00:14:39.160]  we're loading
+[00:14:39.160 -> 00:14:41.120]  we're adding register
+[00:14:41.120 -> 00:14:42.020]  RAX
+[00:14:42.020 -> 00:14:44.520]  and we have a convert argument
+[00:14:44.520 -> 00:14:44.980]  to
+[00:14:44.980 -> 00:14:46.200]  to double
+[00:14:46.860 -> 00:14:47.480]  that's
+[00:14:47.480 -> 00:14:49.200]  I should call that float
+[00:14:49.200 -> 00:14:49.800]  I guess
+[00:14:53.280 -> 00:14:54.100]  I don't
+[00:14:54.100 -> 00:14:54.340]  I
+[00:14:54.340 -> 00:14:57.640]  I tried to get rid of the old terminology
+[00:14:59.060 -> 00:15:00.900]  but it's pretty difficult
+[00:15:02.360 -> 00:15:03.640]  that I can change
+[00:15:03.640 -> 00:15:04.440]  anyway
+[00:15:04.440 -> 00:15:06.660]  so we have now
+[00:15:06.660 -> 00:15:08.360]  now we have an FILD
+[00:15:08.360 -> 00:15:10.000]  because it's an integer load
+[00:15:10.000 -> 00:15:11.720]  then we add
+[00:15:12.380 -> 00:15:14.160]  oh we create a spot
+[00:15:14.160 -> 00:15:14.880]  on the stack
+[00:15:18.220 -> 00:15:19.240]  then we
+[00:15:20.660 -> 00:15:22.780]  we add the register variable
+[00:15:22.780 -> 00:15:24.720]  we have two register variables now
+[00:15:24.720 -> 00:15:25.740]  two
+[00:15:25.740 -> 00:15:26.020]  two
+[00:15:26.020 -> 00:15:26.520]  I'm sorry
+[00:15:26.520 -> 00:15:28.140]  local variables
+[00:15:30.840 -> 00:15:32.520]  and then we store
+[00:15:34.540 -> 00:15:36.280]  I don't know why we created
+[00:15:36.280 -> 00:15:37.580]  that spot on the stack
+[00:15:39.040 -> 00:15:39.960]  oh no
+[00:15:39.960 -> 00:15:40.200]  we're
+[00:15:40.200 -> 00:15:40.540]  we're
+[00:15:40.540 -> 00:15:41.500]  removing it
+[00:15:41.500 -> 00:15:43.020]  that was where we got the
+[00:15:44.040 -> 00:15:45.720]  we pushed the integer
+[00:15:46.960 -> 00:15:48.980]  so it didn't really do us much good
+[00:15:48.980 -> 00:15:50.580]  having a register variable
+[00:15:51.280 -> 00:15:52.620]  that's kind of ironic
+[00:15:52.620 -> 00:15:55.160]  if we had not made it register
+[00:15:55.160 -> 00:15:56.600]  it might have been better
+[00:15:57.980 -> 00:15:58.540]  anyway
+[00:15:59.940 -> 00:16:00.500]  so
+[00:16:00.500 -> 00:16:01.660]  it was register
+[00:16:01.660 -> 00:16:03.260]  we had to convert it to a memory
+[00:16:03.260 -> 00:16:04.900]  for a float operation
+[00:16:05.720 -> 00:16:06.280]  then
+[00:16:06.280 -> 00:16:07.560]  we had to clear
+[00:16:07.560 -> 00:16:09.300]  we had to get rid of the memory
+[00:16:11.040 -> 00:16:12.400]  and of course
+[00:16:12.400 -> 00:16:13.060]  base pointer
+[00:16:13.060 -> 00:16:17.220]  we worked off the stack pointer
+[00:16:17.220 -> 00:16:18.340]  okay
+[00:16:18.340 -> 00:16:18.980]  so
+[00:16:21.040 -> 00:16:22.780]  that's what's going on
+[00:16:26.040 -> 00:16:26.800]  so
+[00:16:26.800 -> 00:16:27.920]  A1 first
+[00:16:28.720 -> 00:16:29.480]  so
+[00:16:31.400 -> 00:16:34.740]  I'm highlighting the spots where code is made
+[00:16:34.740 -> 00:16:35.820]  so
+[00:16:35.820 -> 00:16:36.080]  so
+[00:16:36.080 -> 00:16:36.460]  this is
+[00:16:38.180 -> 00:16:40.480]  if it's not equal to F64
+[00:16:40.480 -> 00:16:41.800]  and it's a stack
+[00:16:41.800 -> 00:16:43.580]  oh that almost never happens
+[00:16:43.580 -> 00:16:44.300]  that's a nightmare
+[00:16:47.680 -> 00:16:48.320]  so
+[00:16:48.980 -> 00:16:49.620]  we
+[00:16:49.620 -> 00:16:51.580]  we changed the
+[00:16:52.720 -> 00:16:54.440]  subtract and divide
+[00:16:54.440 -> 00:16:55.740]  to the reverse
+[00:16:56.460 -> 00:16:59.020]  I don't know why we didn't start with the reverse
+[00:16:59.020 -> 00:17:01.360]  why we bother with this silliness
+[00:17:02.860 -> 00:17:05.520]  unless it's coming from somewhere else
+[00:17:05.520 -> 00:17:07.120]  now these
+[00:17:07.120 -> 00:17:07.920]  the way I
+[00:17:07.920 -> 00:17:09.840]  the way I handle my operations
+[00:17:09.840 -> 00:17:11.020]  is
+[00:17:11.020 -> 00:17:14.060]  I bunched together all the
+[00:17:14.060 -> 00:17:16.140]  we have 64 bytes
+[00:17:16.140 -> 00:17:17.800]  64 bits
+[00:17:17.800 -> 00:17:18.280]  for
+[00:17:18.280 -> 00:17:20.160]  available for
+[00:17:21.980 -> 00:17:23.800]  we have 64 bits
+[00:17:23.800 -> 00:17:24.980]  available for
+[00:17:29.840 -> 00:17:31.320]  we have an argument
+[00:17:31.320 -> 00:17:32.860]  which is the operator type
+[00:17:32.860 -> 00:17:34.240]  and
+[00:17:35.400 -> 00:17:36.620]  what the heck
+[00:17:40.580 -> 00:17:42.600]  there's no reason not to
+[00:17:47.220 -> 00:17:48.620]  I go crazy
+[00:17:48.620 -> 00:17:49.500]  so
+[00:17:49.500 -> 00:17:49.980]  there's a
+[00:17:49.980 -> 00:17:51.580]  we pass an argument
+[00:17:51.580 -> 00:17:52.300]  to that
+[00:17:53.040 -> 00:17:53.740]  function
+[00:17:53.740 -> 00:17:55.060]  and
+[00:17:55.060 -> 00:17:55.220]  I
+[00:17:55.220 -> 00:17:56.340]  I go crazy
+[00:17:56.340 -> 00:17:57.180]  with all these
+[00:17:57.180 -> 00:17:58.160]  64 bits
+[00:17:58.160 -> 00:17:58.720]  available
+[00:17:58.720 -> 00:17:59.680]  so
+[00:17:59.680 -> 00:18:00.500]  I code the
+[00:18:02.920 -> 00:18:03.620]  the
+[00:18:03.620 -> 00:18:07.040]  when you have something like a floating point add
+[00:18:07.040 -> 00:18:08.720]  there's the
+[00:18:10.020 -> 00:18:11.200]  slash op
+[00:18:11.200 -> 00:18:12.600]  that's the
+[00:18:13.280 -> 00:18:14.660]  part of the op code
+[00:18:15.420 -> 00:18:17.580]  for the normal operation
+[00:18:17.580 -> 00:18:18.360]  and
+[00:18:19.140 -> 00:18:20.480]  these others are
+[00:18:20.480 -> 00:18:21.400]  are
+[00:18:21.400 -> 00:18:23.520]  usually there's two different
+[00:18:23.520 -> 00:18:25.640]  instructions you have to deal with
+[00:18:26.500 -> 00:18:28.540]  I don't know what these two are
+[00:18:29.920 -> 00:18:31.680]  I'm just giving you a heads up
+[00:18:31.680 -> 00:18:32.300]  that those
+[00:18:33.660 -> 00:18:34.920]  there's a lot of
+[00:18:36.080 -> 00:18:36.660]  individual
+[00:18:36.660 -> 00:18:37.740]  numbers
+[00:18:38.680 -> 00:18:39.260]  what
+[00:18:39.260 -> 00:18:40.500]  what I'm talking about is
+[00:18:40.500 -> 00:18:42.460]  we break these things up into pieces
+[00:18:42.460 -> 00:18:43.540]  and
+[00:18:43.540 -> 00:18:44.040]  use
+[00:18:44.040 -> 00:18:45.480]  different parts
+[00:18:45.480 -> 00:18:46.420]  depending on
+[00:18:46.420 -> 00:18:48.020]  what we're doing
+[00:18:50.600 -> 00:18:51.400]  so
+[00:18:51.400 -> 00:18:52.420]  for example
+[00:18:55.160 -> 00:18:57.120]  let's just go look at that
+[00:18:57.120 -> 00:18:57.560]  op
+[00:18:57.560 -> 00:18:58.900]  op
+[00:19:00.280 -> 00:19:01.380]  whole label
+[00:19:01.380 -> 00:19:02.920]  so
+[00:19:02.920 -> 00:19:03.880]  there's the operator
+[00:19:03.880 -> 00:19:04.220]  we're
+[00:19:04.220 -> 00:19:05.560]  we're passing it in
+[00:19:05.560 -> 00:19:07.000]  and
+[00:19:07.000 -> 00:19:08.100]  if the bottom
+[00:19:08.100 -> 00:19:08.540]  byte
+[00:19:09.820 -> 00:19:11.040]  then we change
+[00:19:11.040 -> 00:19:11.520]  the bottom
+[00:19:11.520 -> 00:19:12.400]  we change
+[00:19:12.400 -> 00:19:13.280]  not just the bottom
+[00:19:13.280 -> 00:19:13.540]  byte
+[00:19:13.540 -> 00:19:14.360]  but the whole thing
+[00:19:15.300 -> 00:19:15.900]  then
+[00:19:16.800 -> 00:19:17.920]  we're handing it
+[00:19:17.920 -> 00:19:19.000]  the complete thing
+[00:19:19.000 -> 00:19:19.860]  to slash op
+[00:19:19.860 -> 00:19:21.440]  I guess that can tear it apart
+[00:19:22.300 -> 00:19:23.260]  bottom byte
+[00:19:23.260 -> 00:19:24.020]  bottom byte
+[00:19:24.020 -> 00:19:24.720]  bottom byte
+[00:19:24.720 -> 00:19:26.060]  slash op
+[00:19:26.720 -> 00:19:27.760]  okay so
+[00:19:28.560 -> 00:19:29.520]  slash op
+[00:19:33.180 -> 00:19:34.580]  slash op's in here
+[00:19:34.580 -> 00:19:35.080]  isn't it
+[00:19:35.080 -> 00:19:38.000]  now this has the operator type
+[00:19:39.180 -> 00:19:40.640]  this is for
+[00:19:41.820 -> 00:19:42.640]  oops
+[00:19:46.900 -> 00:19:47.720]  so
+[00:19:48.980 -> 00:19:49.800]  if
+[00:19:49.800 -> 00:19:50.800]  it
+[00:19:50.800 -> 00:19:53.140]  let's see it's checking for
+[00:19:53.140 -> 00:19:55.420]  I don't know what that is
+[00:19:55.420 -> 00:19:57.140]  one of the operators is special
+[00:19:57.140 -> 00:19:59.740]  we do a modder with the
+[00:19:59.740 -> 00:20:00.660]  low byte
+[00:20:05.720 -> 00:20:19.100]  check now when we're doing the slash op we we need we use the next to lowest
+[00:20:19.100 -> 00:20:31.800]  byte as part of the instruction and we or when it's a different size oh when it's 16-bit versus
+[00:20:31.800 -> 00:20:44.480]  8-bit now this would I don't think this would be relevant in a float operation or if it's if it's
+[00:20:44.480 -> 00:20:57.360]  rex if it's 64-bit so I have the 30 16 32 and 64 bit no the there isn't anyway so
+[00:21:02.720 -> 00:21:06.080]  that's what that is let's just call it good enough

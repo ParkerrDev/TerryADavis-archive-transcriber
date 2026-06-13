@@ -1,0 +1,66 @@
+========================================================================
+FILE        : videos/2015/2015-02-19T00:01:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #102 (lDtRyxSZjOA).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2015/2015-02-19T00:01:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #102 (lDtRyxSZjOA).mkv
+FORMAT      : Matroska
+SIZE        : 39,482,531 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:08:21.500
+TRANSCRIBED: 2026-05-10T21:25:33.667846+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+this is temple OS 5-minute random code walkthrough episode 102 and I'm your host Terry Davis and God took us into the sprite code sprite type mask okay so the sprites are a internal data structure for vector graphics and what they are is a series of okay so you can have a color a dither color a width you can set up planar symmetry these are in order these are an ordered sequence of vectors do a line a polyline a rectangle etc okay so each one of these has a a raw binary format this is a point no this is this is a point point so it starts with one point and then it adds a second point that's for planar symmetry a line is a point point let's see how about an ellipse you know lips is a width height angle so um these are the sprite element types and if we go back to a sprite type mask what this does is it can it constructs a bit mask of all the element types that are present so first of all there uh there's there's two ways you can point to an element you can either point to a queue version with the the queue links for a circular doubly linked list next and last either you can point to the queue or you can point to the uh the binary um data portion this is a a bunch of raw bin it's a byte code i guess you if you want to call it that it's byte code so you can either point to the queue that's when they're being edited or the uh you deal with the uh the raw binary um when it's being displayed so it's a it's a whole bunch of independent nodes when they're in a queue and they're concatenated together as raw binary into byte code so this this subtracts off the queue links so you pass it uh you pass it a raw binary and it um it basically converts it so that it can um well the queue links anyway so um while it's not the end the end is a zero it uh this is basically checking for a corrupted value um uh it returns uh it returns uh sprite element uh if it's if it's corrupted it returns uh corrupted that's what that is otherwise it uh bit test and set the uh the temple os bit bit instructions are the same as x86 assembly bit test bit test and complement bit test and reset bit test and set so you pass it the address of the result integer so obviously we can only have 64 um types if it fits in one 64 bit integer but if i had made this into let's say an array of four we we could pass it the address of the array and it would work it's not limited to 64 bits the bit test and set and then um we we type cast to a size one for pointer arithmetic and then we do sprite elements we add sprite element size and sprite element size uses the base sizes and then some of the elements are are variable width like a bitmap is uh um depends on the width height and so forth and so on anyway so um now where is this type mask used well um your best friend is defined sprite type i didn't make that public i guess oh i think that makes sense anyway it's used in the uh it's not used in very many places it's used in the uh when when it's updating a uh doll docs document it um it checks the uh it it collects an ord image of all the bits and if it's flood fill or flood fill not color then um it it treats it differently if it's flood fill um and the other thing it does it where did where is this do i do i this this is order one oh oh oh if we get an invalid uh type then we uh we uh we uh substitute the empty sprite image okay so flood fill causes it to not blink um i think so is that all it does okay so if you do control r and you do uh make sprite um we can draw lines uh and uh let's exit sprite now if we're on top it blinks now if we uh if we do a sprite with a flood fit let's do a circle ellipse whatever there's the angle let's do dither color flood fill okay so the difference is when it's displaying the command line document if you're on top of the first sprite it blinks if you're on top of the second sprite it doesn't blink um that's because of the uh flood fill um anyway that seemed to be important to me i think it's inverting the colors and that's how it's blinking you can see uh if we zoom in control alt z when it's uh blinking it's um using white and black there control
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:01.480 -> 00:00:11.640]  this is temple OS 5-minute random code walkthrough episode 102 and I'm your host Terry Davis and God
+[00:00:11.640 -> 00:00:29.860]  took us into the sprite code sprite type mask okay so the sprites are a internal
+[00:00:29.860 -> 00:00:52.680]  data structure for vector graphics and what they are is a series of okay so you can have a color a
+[00:00:52.680 -> 00:01:02.820]  dither color a width you can set up planar symmetry these are in order these are an ordered sequence of
+[00:01:04.080 -> 00:01:12.840]  vectors do a line a polyline a rectangle etc okay so each one of these has a
+[00:01:15.000 -> 00:01:25.460]  a raw binary format this is a point no this is this is a point point so it starts with one point and
+[00:01:25.460 -> 00:01:37.440]  then it adds a second point that's for planar symmetry a line is a point point let's see how
+[00:01:37.440 -> 00:01:53.380]  about an ellipse you know lips is a width height angle so um these are the sprite element types and if we
+[00:01:53.380 -> 00:02:04.720]  go back to a sprite type mask what this does is it can it constructs a bit mask of all the element types
+[00:02:04.720 -> 00:02:18.540]  that are present so first of all there uh there's there's two ways you can point to an element you
+[00:02:18.540 -> 00:02:30.420]  can either point to a queue version with the the queue links for a circular doubly linked list next and last
+[00:02:30.420 -> 00:02:39.820]  either you can point to the queue or you can point to the uh the binary um data portion
+[00:02:43.120 -> 00:02:49.440]  this is a a bunch of raw bin it's a byte code i guess you if you want to call it that
+[00:02:49.440 -> 00:02:55.320]  it's byte code so you can either point to the queue that's when they're being edited
+[00:02:55.320 -> 00:03:03.780]  or the uh you deal with the uh the raw binary um when it's being displayed
+[00:03:05.680 -> 00:03:13.080]  so it's a it's a whole bunch of independent nodes when they're in a queue and they're concatenated
+[00:03:13.080 -> 00:03:22.980]  together as raw binary into byte code so this this subtracts off the queue links so you pass it uh
+[00:03:24.780 -> 00:03:37.800]  you pass it a raw binary and it um it basically converts it so that it can um well the queue links anyway so
+[00:03:39.600 -> 00:03:51.880]  um while it's not the end the end is a zero it uh this is basically checking for a corrupted value um
+[00:03:53.480 -> 00:04:03.980]  uh it returns uh it returns uh sprite element uh if it's if it's corrupted it returns uh corrupted
+[00:04:03.980 -> 00:04:13.240]  that's what that is otherwise it uh bit test and set the uh the temple os bit bit instructions are the
+[00:04:13.240 -> 00:04:22.860]  same as x86 assembly bit test bit test and complement bit test and reset bit test and set so you pass it
+[00:04:22.860 -> 00:04:33.720]  the address of the result integer so obviously we can only have 64 um types if it fits in one 64 bit
+[00:04:33.720 -> 00:04:40.880]  integer but if i had made this into let's say an array of four we we could pass it the address of the
+[00:04:40.880 -> 00:04:48.960]  array and it would work it's not limited to 64 bits the bit test and set and then um we
+[00:04:49.740 -> 00:04:58.160]  we type cast to a size one for pointer arithmetic and then we do sprite elements we add sprite element
+[00:04:58.160 -> 00:05:08.280]  size and sprite element size uses the base sizes and then some of the elements are are variable width
+[00:05:08.280 -> 00:05:17.800]  like a bitmap is uh um depends on the width height and so forth and so on anyway so um now where is this
+[00:05:17.800 -> 00:05:26.560]  type mask used well um your best friend is defined sprite type
+[00:05:29.140 -> 00:05:39.400]  i didn't make that public i guess oh i think that makes sense anyway it's used in the uh it's not used in
+[00:05:39.400 -> 00:05:47.320]  very many places it's used in the uh when when it's updating a uh doll docs document
+[00:05:49.480 -> 00:05:52.700]  it um it checks the uh
+[00:05:55.000 -> 00:06:04.340]  it it collects an ord image of all the bits and if it's flood fill or flood fill not color
+[00:06:05.460 -> 00:06:17.440]  then um it it treats it differently if it's flood fill um and the other thing it does it where did where is
+[00:06:17.440 -> 00:06:17.740]  this
+[00:06:20.120 -> 00:06:24.180]  do i do i this this is order one
+[00:06:28.700 -> 00:06:34.400]  oh oh oh if we get an invalid uh type then we uh
+[00:06:36.040 -> 00:06:40.720]  we uh we uh substitute the empty sprite image
+[00:06:42.980 -> 00:06:56.600]  okay so flood fill causes it to not blink um i think so is that all it does okay so if you do control r
+[00:06:57.280 -> 00:07:04.200]  and you do uh make sprite um we can draw lines
+[00:07:09.280 -> 00:07:09.880]  uh
+[00:07:09.880 -> 00:07:10.680]  and uh let's
+[00:07:16.300 -> 00:07:26.020]  exit sprite now if we're on top it blinks now if we uh if we do a sprite with a flood fit
+[00:07:26.680 -> 00:07:34.840]  let's do a circle ellipse whatever there's the angle let's do dither color
+[00:07:38.500 -> 00:07:39.420]  flood fill
+[00:07:40.800 -> 00:07:49.360]  okay so the difference is when it's displaying the command line document if you're on top of the first
+[00:07:49.360 -> 00:07:55.920]  sprite it blinks if you're on top of the second sprite it doesn't blink um that's because of the
+[00:07:56.020 -> 00:07:58.120]  uh flood fill um
+[00:08:01.340 -> 00:08:08.140]  anyway that seemed to be important to me i think it's inverting the colors and that's how it's blinking
+[00:08:09.300 -> 00:08:12.960]  you can see uh if we zoom in control alt z
+[00:08:14.120 -> 00:08:21.500]  when it's uh blinking it's um using white and black there control

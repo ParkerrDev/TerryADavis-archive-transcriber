@@ -1,0 +1,61 @@
+========================================================================
+FILE        : videos/2014/2014-09-21T00:10:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #10 (7B6-pxFvcrM).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-09-21T00:10:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #10 (7B6-pxFvcrM).mkv
+FORMAT      : Matroska
+SIZE        : 23,232,496 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:06:20.640
+TRANSCRIBED: 2026-05-10T15:58:52.966922+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay this is Temple OS 5-minute random code walkthrough episode 10 and I'm your host Terry Davis so let's go for some random code here we go alt B DurTree delete okay so what we have here is it's a kernel routine just for your information oops it's in disk Dur okay so see DurTree I would like to get rid of virtual file system this and this is the native file system the native directory structure this is what it looks like on disk with Red Sea it uses my 64-bit dates it uses 64-bit cluster and it uses a fixed fixed length file name these are 64-bit entries anyway so the the routine if you go to file utils files find on other operating systems you have find first and find next for getting directory files in a directory on this operating system we have files find you pass it a files find mask and flags in this case it's binary but for most routines it's a for for for most utilities you pass it text flags plus plus r for recurse and stuff like that so here's the if it's a binary then you pass it one of these defined values if it's a if it's a u8 pointer that's a text entry and you pass it plus r plus s I think you can say mine you can say minus r minus g anyway some of them have a default and you so and you might turn it off anyway so uh so files find returns a tree but you can flatten it if you want um anyway so files find um is a um this is used all over the place you can imagine all the utilities use it you might want to get familiar with what's in here there's recurse you can do a single file that's kind of a weird one um you can do flatten flatten the tree that makes it into a linked list just a single linked list you can um ask for just directories or just files and if you ask for just files then it flattens the tree automatically you can ask it to sort by the cluster um ordered disk io is faster it's it doesn't have to jump around forward and backward on the head doesn't have to move forward and backward you can limit it to just text just sourced just ahead of time just just in time or just graphics files um I think you can't order these they're just um you only include one of them anyway uh so uh uh so let's get back to where the random popped up it it brought us to delete dirt dirt tree delete so this is after you use files find then you get rid of it with this although there's a uh there's another routine you can optionally as you're traversing the tree delete individual entries sometimes i do that and then you don't have to call it at the very end it's half a dozen one way and sixty other it's a little uh i think it's a little less code to delete the tree than it is to delete the entries because you have to you have to step over you have to you have to look ahead before deleting you see how you look ahead look ahead here and then um delete and then you're then you step ahead on the linked list anyway delete subtree okay so this is for a tree uh now there's a version called delete dirt tree two and what the two does is it deletes uh it calls delete entry to these this deletes an entry delete um there's the entry includes um includes your basic directory stuff uh attributes file name cluster size date time but it also includes in this other thing called full name full name this is the full path name this is really luxurious every time you call files find it it calculates it return it gives you a string for the full absolute name so uh when you delete these entries it has to delete those those are mallocated strings and uh this delete dir entry 2 guess what there's a user data this is kind of a weird feature that i have in this operating system um on a lot of the internal data structures there's a reserve spot for you to do whatever you want with it's kind of a wild west there's no governance there's no governance but um it's kind of like some things working some things don't work in theory but they work in practice this doesn't work in theory but it works in practice so if you do if you use this for uh you can put a pointer in this user data it's an i64 and uh and then you can point to something and um it's handy and uh this version will delete it so if so if this is an allocated pointer then when you do this dirt tree 2 it'll delete all the user data pointers you can put a null in no if you free a null in this operating system it's it's perfectly legal so um anyway uh oh i think it starts null i don't remember anyway uh so that's that
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:06.340]  okay this is Temple OS 5-minute random code walkthrough episode 10 and I'm your
+[00:00:06.340 -> 00:00:14.120]  host Terry Davis so let's go for some random code here we go alt B
+[00:00:15.420 -> 00:00:24.320]  DurTree delete okay so what we have here is it's a kernel routine just for your
+[00:00:24.320 -> 00:00:38.540]  information oops it's in disk Dur okay so see DurTree I would like to get rid of
+[00:00:40.000 -> 00:00:46.980]  virtual file system this and this is the native file system the native directory
+[00:00:46.980 -> 00:00:54.600]  structure this is what it looks like on disk with Red Sea it uses my 64-bit dates
+[00:00:54.600 -> 00:01:01.380]  it uses 64-bit cluster and it uses a fixed fixed length file name these are 64-bit
+[00:01:01.380 -> 00:01:13.180]  entries anyway so the the routine if you go to file utils
+[00:01:16.880 -> 00:01:22.920]  files find on other operating systems you have find first and find next for
+[00:01:22.920 -> 00:01:28.800]  getting directory files in a directory on this operating system we have files find
+[00:01:30.040 -> 00:01:40.480]  you pass it a files find mask and flags in this case it's binary but for most routines it's a
+[00:01:42.800 -> 00:01:51.360]  for for for most utilities you pass it text flags plus plus r for recurse and stuff like that so
+[00:01:51.360 -> 00:02:00.380]  here's the if it's a binary then you pass it one of these defined values if it's a if it's a u8
+[00:02:00.380 -> 00:02:08.260]  pointer that's a text entry and you pass it plus r plus s I think you can say mine you can say minus r
+[00:02:09.100 -> 00:02:17.400]  minus g anyway some of them have a default and you so and you might turn it off anyway so uh so files
+[00:02:17.400 -> 00:02:26.620]  find returns a tree but you can flatten it if you want um anyway so files find um is a um this is used
+[00:02:26.620 -> 00:02:31.700]  all over the place you can imagine all the utilities use it you might want to get familiar with what's in
+[00:02:31.700 -> 00:02:38.680]  here there's recurse you can do a single file that's kind of a weird one um you can do flatten flatten the
+[00:02:38.680 -> 00:02:45.440]  tree that makes it into a linked list just a single linked list you can um ask for just directories or
+[00:02:45.440 -> 00:02:52.020]  just files and if you ask for just files then it flattens the tree automatically you can ask it to sort by
+[00:02:52.020 -> 00:02:59.020]  the cluster um ordered disk io is faster it's it doesn't have to jump around forward and backward on
+[00:02:59.020 -> 00:03:05.220]  the head doesn't have to move forward and backward you can limit it to just text just sourced just ahead
+[00:03:05.220 -> 00:03:13.380]  of time just just in time or just graphics files um I think you can't order these they're just um you
+[00:03:13.380 -> 00:03:27.520]  only include one of them anyway uh so uh uh so let's get back to where the random popped up it it brought us to
+[00:03:27.520 -> 00:03:35.560]  delete dirt dirt tree delete so this is after you use files find then you get rid of it with this
+[00:03:35.560 -> 00:03:42.600]  although there's a uh there's another routine you can optionally as you're traversing the tree
+[00:03:42.600 -> 00:03:48.680]  delete individual entries sometimes i do that and then you don't have to call it at the very end
+[00:03:49.600 -> 00:03:55.420]  it's half a dozen one way and sixty other it's a little uh i think it's a little less code to delete
+[00:03:55.420 -> 00:04:01.040]  the tree than it is to delete the entries because you have to you have to step over you have to you
+[00:04:01.040 -> 00:04:08.580]  have to look ahead before deleting you see how you look ahead look ahead here and then um delete and
+[00:04:08.580 -> 00:04:14.800]  then you're then you step ahead on the linked list anyway delete subtree okay so this is for a tree
+[00:04:14.800 -> 00:04:25.740]  uh now there's a version called delete dirt tree two and what the two does is it deletes uh it calls delete
+[00:04:25.740 -> 00:04:36.560]  entry to these this deletes an entry delete um there's the entry includes um includes your basic directory
+[00:04:36.560 -> 00:04:46.160]  stuff uh attributes file name cluster size date time but it also includes in this other thing called
+[00:04:46.160 -> 00:04:53.360]  full name full name this is the full path name this is really luxurious every time you call files find
+[00:04:53.920 -> 00:05:03.480]  it it calculates it return it gives you a string for the full absolute name so uh when you delete these
+[00:05:03.480 -> 00:05:10.960]  entries it has to delete those those are mallocated strings and uh this delete dir entry 2 guess what
+[00:05:11.480 -> 00:05:18.520]  there's a user data this is kind of a weird feature that i have in this operating system um on a lot of
+[00:05:18.520 -> 00:05:25.720]  the internal data structures there's a reserve spot for you to do whatever you want with it's kind of a wild
+[00:05:25.720 -> 00:05:33.360]  west there's no governance there's no governance but um it's kind of like some things working some
+[00:05:33.360 -> 00:05:38.760]  things don't work in theory but they work in practice this doesn't work in theory but it works in
+[00:05:38.760 -> 00:05:46.380]  practice so if you do if you use this for uh you can put a pointer in this user data it's an i64
+[00:05:47.180 -> 00:05:56.280]  and uh and then you can point to something and um it's handy and uh this version will delete it so if
+[00:05:56.280 -> 00:06:03.800]  so if this is an allocated pointer then when you do this dirt tree 2 it'll delete all the user data
+[00:06:03.800 -> 00:06:10.240]  pointers you can put a null in no if you free a null in this operating system it's it's perfectly legal
+[00:06:10.840 -> 00:06:20.640]  so um anyway uh oh i think it starts null i don't remember anyway uh so that's that

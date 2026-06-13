@@ -1,0 +1,212 @@
+========================================================================
+FILE       : videos/2010/2010-10-20T07:00:00+00:00 - LoseThos Operating System Demo V6.15 Part 1 (WAr-xYtBFbY).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2010/2010-10-20T07:00:00+00:00 - LoseThos Operating System Demo V6.15 Part 1 (WAr-xYtBFbY).mp4
+FORMAT     : MPEG4
+SIZE       : 55,612,193 bytes
+LANGUAGE   : en
+MODEL      : mlx-community/whisper-large-v3-turbo
+DURATION   : 00:14:20.200
+TRANSCRIBED: 2026-05-07T21:41:36.686655+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+This is Luzethos, a 64-bit operating system for the IBM PC that's free and open source. It's designed for recreational programming. I wrote this over the past seven years full-time, and I did a compiler, an assembler, an editor, a graphics library, and it's all 64-bit, and it's all seamlessly integrated together. Anyway, it's predominantly command-line driven, but you have a personal menu that you can put macros on, and it's a document, and if you like icons, you can do icons too. They're just macros that have pictures. We're going to click on this flight simulator. This is an 8-core flight simulator. Up here at the top, you can see the CPU loads. It's 640x480x16 color resolution because it's hard doing full-screen 60-frame graphics without acceleration. Anyway, the command-line feeds into a C compiler. Actually, it's C plus or a slight flavor of C. Anyway, it compiles incrementally. So we're going to do, actually, the native type system is use zero for void. You can use the standard types if you want. I-64, it's a 64-bit integer signed. Normally, you don't enter functions at the command line. You put them in a file. There's no difference between the command line and source code. Anyway, there's a slight difference, but we won't get into that. Now, I entered a call to that function. It's outside. It's at the global scope outside the function, and that gets executed immediately. Anyway, we just counted to 10. Now, since it feeds into a C compiler, the way you invoke a file or call a file is to do an include. We need a semicolon because it doesn't know that it's done. There we got hello world. That was a file, hello, that was just printf. Now, we're going to do another one. This is just an alternative. This is not quite the standard C out from C++. It's a special case in Lose-Those. It's just handy. I'm just showing it because in case you see it, you'll wonder what it is. Anyway, it uses commas instead of shift operators. We're going to do a number in that. Anyway, you can right-click on these links are active at the command line. So, we just got hello world and then 1, 2, 3, 4. We're going to do another example. We're going to do a directory. This is C, as you can see. Anyway, files ending in Z are compressed and uncompressed on the fly. Okay, so the next one we're going to look at is actually if you, if you, it has default parameters from C++. And if you have no parameters, you can do, you don't need the parentheses. Kind of like Pascal, looks like Pascal, doesn't it? Anyway, we're going to look at this example. This turns on the compiler trace, which will unassemble the code as it's compiled. And just to make it interesting, we broke it up into a C out for hello, put S, and then carriage return line feed. This is just a handy function. It doesn't have parameters, so there's no parentheses. Anyway, and then this is going to invoke that function and then invoke that function. See it, and then turn the compiler trace off. You can see it's exactly what we, what we've been doing. So, carriage return is the same as right click. Now, this is 64-bit disassembly. It has source debugging, so you can jump to the code with these links. 64-bit assembly. Take a, take note of this call. That's, that's the invocation. That's, that's where we did the, the invocation outside the function. Then there's another one, and then there's a call to turn C trace off. Anyway, you don't have to know assembly, but if you're interested in recreational programming, there's a good chance you're interested in assembly. So, now we're going to do hello world from assembly. The standard is DB for defined byte, but the native type system is, U8 is a unsigned 8-bit. And it's, for characters, you do unsigned instead of signed, because signed is kind of stupid, isn't it? Anyway, so, so, this is carriage return line feed at the end, and it's got a zero terminator. Colon colon is an exported symbol. We have to preserve RSI, and then we, we, we load RSI with the message. Then call put string. This ampersand will import. Right now we're operating in just, just in time mode. When you, when you compile binaries, it's a little different. Anyway, then we, we have a, a call to, to that exported symbol, hello world. So, we're going to run that. We got hello world. Now, if you want, you can hit F5 when you're in the editor to run a task. It spawns a task and, or to run a program, it spawns a task and runs it. So, we just did that. Now we're going to include, we have a factorial function. We're going to include that. And now we're going to go on our menu. I hit the Windows key to get to my menu. And we're going to make a macro. Now, up at the top is, these, anyway, these red ones are links. These blue ones are macros. You have, you can have trees as well. At the, at all, the document structure supports a lot of widgets. Anyway, so links, trees, colors, you can change colors. Margins, and macros, and even the forms and dialog boxes use the same document structure. Anyway, so we're going to, we're going to click on macro. And, we're going to say, factorial. For factorial, then the expression, we're going to create a global variable i. For i equals 0, i less than 22, i plus plus. See outline, i space factorial i. And then we need a carriage return at the end. So, now we can click on this. And we get the factorials up to 22. You can see it's 64-bit. Anyway, now we're going to look at, oh, I want to show a couple miscellaneous features. There's a zoom that's system-wide that will zoom on the cursor. So, you control, alt, Z will zoom in on the cursor. Control, alt, shift, Z will zoom out. There's also a drag that control and then left drag will scroll. You can have scroll bars, too. Anyway, it's got scroll bars. But, it's, the nice thing about these system-wide features is you don't have to add them to your applications. So, if you want a scroll feature, this is done at the graphics library function level. Anyway, now we're going to take a tour of the directory, the standard directory structure for Lusos. It's, this is my personal version. I have a few more lines. It's 120,000 lines of code. There's an accounts directory. There's Adam. Adam's the father of all tasks. He's a first task, and he starts up running a script, like auto exec, and he compiles a bunch of code into his heap and symbol table. And then other tasks can access him if they're children of Adam. Anyway, so all this code gets compiled during boot. And then there's optional packages, which are also compiled during boot, and they're placed in memory. It only takes two seconds to compile 40,000 lines. grep is an optional package. They don't, when you, when you enter a command, it runs from memory. It doesn't, it doesn't operate like Linux or, or Unix where it goes, or DOS and executes a file. It doesn't do that. There's no path either. Anyway, so optional packages, Adam accounts. Then there's applications, and there's my compiler. And it's a compiler, assembler, unassembler. Then there's the kernel, although everything runs in kernel mode, so it's nothing special. The user programs run in ring zero kernel mode. Anyway, this is, the compiler, OS main, and OS main 2 are, are compiled ahead of time. Everything else is just in time. OS main 2 is just sprintf. Anyway, if you want to, let's look at a quick, there's tons and tons of demos. We're going to look at, just to show an example. I said everything is seamlessly integrated. This is source code here with graphics in it and links and stuff, and the compiler understands it. Anyway, so now let's recompile everything that's done ahead of time. There's a feature called Wordstat, which will do auto-completes, and it'll jump to source code. So we can do control-shift-f1, jump to the source code. So all the documentation is pretty much right by the code. Anyway, this is going to compile everything that's compiled ahead of time, and it's going to tell the boot sector where the block number for the kernel is. This configuration manager is flaky, but let's hope it works. We're going to use the current configuration for the kernel. Okay, it worked. What I do actually is I have a key on my menu that compiles everything, and if you want to see the code for that, you can go to... Anyway, it's in... Actually, I have my personal files as an example on the distribution. I load up my answers into the keyboard buffer so that it does standard in. That's what this auto function does. Anyway, here's the wallpaper underneath here, and it's got... This is eight cores, and it's got the memory. It's a... I have a 12-gig machine, and actually the lowest 2-gig is for the code heap. It separates code and data so that it can use 32-bit branches, which are the fastest. They're faster than system calls. Anyway, this tells where the tasks are... where the task codes are sitting, and tells how many lines. 40,000 lines is compiled during boot and 40,000 ahead of time. And let's just do one last demo here. We're going to make a byte. Byte pointer A. We're going to malloc 8-gig. And you can see it just dropped that 2 in the leading 2, so that's 8-gig. It has to be a... It rounds up to a power of 2, and on 12-gig machine, the biggest I can allocate is 8-gig. Anyway, we're going to set that to 0 just to show that it works. Everybody uses the same address space. It never messes with maps or page tables. Set it to 0, and then free. It's 64-bit. There's that issue with the bottom 2-gig for code, which is... It is 64-bit, but it does have that issue. Anyway, now the memory's back up to 11-gig free. Anyway, now why don't you send me an email if you want the full version. The full version has a dictionary. It's free. Anyway, I'd really like some emails because I don't get any feedback. And anyway, watch the other videos on the site and have fun. Our second part is so much easier. Our second part is so much easier. Our second part is so much easier. Our second part is so much easier. Thank you.
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:06.440]  This is Luzethos, a 64-bit operating system for the IBM PC that's free and open source.
+[00:00:06.660 -> 00:00:08.800]  It's designed for recreational programming.
+[00:00:09.660 -> 00:00:18.220]  I wrote this over the past seven years full-time, and I did a compiler, an assembler, an editor, a graphics library,
+[00:00:18.420 -> 00:00:22.540]  and it's all 64-bit, and it's all seamlessly integrated together.
+[00:00:22.960 -> 00:00:29.800]  Anyway, it's predominantly command-line driven, but you have a personal menu that you can put macros on,
+[00:00:30.700 -> 00:00:35.900]  and it's a document, and if you like icons, you can do icons too.
+[00:00:36.120 -> 00:00:37.940]  They're just macros that have pictures.
+[00:00:38.540 -> 00:00:40.660]  We're going to click on this flight simulator.
+[00:00:40.920 -> 00:00:43.400]  This is an 8-core flight simulator.
+[00:00:43.640 -> 00:00:46.160]  Up here at the top, you can see the CPU loads.
+[00:00:48.920 -> 00:00:57.700]  It's 640x480x16 color resolution because it's hard doing full-screen 60-frame graphics without acceleration.
+[00:00:59.820 -> 00:01:02.880]  Anyway, the command-line feeds into a C compiler.
+[00:01:03.260 -> 00:01:05.820]  Actually, it's C plus or a slight flavor of C.
+[00:01:06.120 -> 00:01:09.700]  Anyway, it compiles incrementally.
+[00:01:10.660 -> 00:01:16.520]  So we're going to do, actually, the native type system is use zero for void.
+[00:01:17.320 -> 00:01:20.820]  You can use the standard types if you want.
+[00:01:23.320 -> 00:01:29.020]  I-64, it's a 64-bit integer signed.
+[00:01:32.540 -> 00:01:37.680]  Normally, you don't enter functions at the command line.
+[00:01:37.720 -> 00:01:38.980]  You put them in a file.
+[00:01:38.980 -> 00:01:43.500]  There's no difference between the command line and source code.
+[00:01:48.560 -> 00:01:52.700]  Anyway, there's a slight difference, but we won't get into that.
+[00:01:54.400 -> 00:01:59.260]  Now, I entered a call to that function.
+[00:01:59.500 -> 00:02:00.200]  It's outside.
+[00:02:00.400 -> 00:02:04.420]  It's at the global scope outside the function, and that gets executed immediately.
+[00:02:04.880 -> 00:02:06.460]  Anyway, we just counted to 10.
+[00:02:06.460 -> 00:02:16.500]  Now, since it feeds into a C compiler, the way you invoke a file or call a file is to do an include.
+[00:02:17.740 -> 00:02:20.460]  We need a semicolon because it doesn't know that it's done.
+[00:02:21.820 -> 00:02:23.120]  There we got hello world.
+[00:02:23.360 -> 00:02:27.320]  That was a file, hello, that was just printf.
+[00:02:27.800 -> 00:02:30.200]  Now, we're going to do another one.
+[00:02:30.920 -> 00:02:32.520]  This is just an alternative.
+[00:02:34.060 -> 00:02:39.460]  This is not quite the standard C out from C++.
+[00:02:40.640 -> 00:02:43.580]  It's a special case in Lose-Those.
+[00:02:43.860 -> 00:02:44.920]  It's just handy.
+[00:02:45.060 -> 00:02:49.440]  I'm just showing it because in case you see it, you'll wonder what it is.
+[00:02:49.760 -> 00:02:53.100]  Anyway, it uses commas instead of shift operators.
+[00:02:54.160 -> 00:02:57.500]  We're going to do a number in that.
+[00:02:57.740 -> 00:03:02.060]  Anyway, you can right-click on these links are active at the command line.
+[00:03:04.320 -> 00:03:09.260]  So, we just got hello world and then 1, 2, 3, 4.
+[00:03:09.620 -> 00:03:11.020]  We're going to do another example.
+[00:03:11.760 -> 00:03:12.860]  We're going to do a directory.
+[00:03:17.420 -> 00:03:19.840]  This is C, as you can see.
+[00:03:20.340 -> 00:03:24.880]  Anyway, files ending in Z are compressed and uncompressed on the fly.
+[00:03:26.840 -> 00:03:35.180]  Okay, so the next one we're going to look at is actually if you, if you, it has default parameters from C++.
+[00:03:35.900 -> 00:03:39.780]  And if you have no parameters, you can do, you don't need the parentheses.
+[00:03:40.340 -> 00:03:42.740]  Kind of like Pascal, looks like Pascal, doesn't it?
+[00:03:43.080 -> 00:03:45.780]  Anyway, we're going to look at this example.
+[00:03:45.780 -> 00:03:54.860]  This turns on the compiler trace, which will unassemble the code as it's compiled.
+[00:03:55.400 -> 00:04:03.760]  And just to make it interesting, we broke it up into a C out for hello, put S, and then carriage return line feed.
+[00:04:03.840 -> 00:04:06.480]  This is just a handy function.
+[00:04:08.020 -> 00:04:10.660]  It doesn't have parameters, so there's no parentheses.
+[00:04:11.440 -> 00:04:16.800]  Anyway, and then this is going to invoke that function and then invoke that function.
+[00:04:16.980 -> 00:04:19.040]  See it, and then turn the compiler trace off.
+[00:04:19.040 -> 00:04:21.700]  You can see it's exactly what we, what we've been doing.
+[00:04:22.420 -> 00:04:25.300]  So, carriage return is the same as right click.
+[00:04:26.520 -> 00:04:29.100]  Now, this is 64-bit disassembly.
+[00:04:29.280 -> 00:04:33.700]  It has source debugging, so you can jump to the code with these links.
+[00:04:35.080 -> 00:04:36.300]  64-bit assembly.
+[00:04:36.600 -> 00:04:39.260]  Take a, take note of this call.
+[00:04:40.660 -> 00:04:42.960]  That's, that's the invocation.
+[00:04:43.820 -> 00:04:47.300]  That's, that's where we did the, the invocation outside the function.
+[00:04:47.580 -> 00:04:51.860]  Then there's another one, and then there's a call to turn C trace off.
+[00:04:52.360 -> 00:04:59.460]  Anyway, you don't have to know assembly, but if you're interested in recreational programming,
+[00:04:59.600 -> 00:05:01.520]  there's a good chance you're interested in assembly.
+[00:05:04.340 -> 00:05:06.800]  So, now we're going to do hello world from assembly.
+[00:05:08.240 -> 00:05:15.900]  The standard is DB for defined byte, but the native type system is, U8 is a unsigned 8-bit.
+[00:05:16.660 -> 00:05:21.960]  And it's, for characters, you do unsigned instead of signed, because signed is kind of stupid, isn't it?
+[00:05:21.960 -> 00:05:28.720]  Anyway, so, so, this is carriage return line feed at the end, and it's got a zero terminator.
+[00:05:29.260 -> 00:05:31.540]  Colon colon is an exported symbol.
+[00:05:31.860 -> 00:05:38.860]  We have to preserve RSI, and then we, we, we load RSI with the message.
+[00:05:39.160 -> 00:05:40.360]  Then call put string.
+[00:05:42.440 -> 00:05:44.040]  This ampersand will import.
+[00:05:44.300 -> 00:05:47.280]  Right now we're operating in just, just in time mode.
+[00:05:49.500 -> 00:05:52.300]  When you, when you compile binaries, it's a little different.
+[00:05:52.900 -> 00:05:59.000]  Anyway, then we, we have a, a call to, to that exported symbol, hello world.
+[00:05:59.540 -> 00:06:01.400]  So, we're going to run that.
+[00:06:01.680 -> 00:06:02.500]  We got hello world.
+[00:06:03.340 -> 00:06:07.260]  Now, if you want, you can hit F5 when you're in the editor to run a task.
+[00:06:07.500 -> 00:06:11.740]  It spawns a task and, or to run a program, it spawns a task and runs it.
+[00:06:12.040 -> 00:06:13.200]  So, we just did that.
+[00:06:14.680 -> 00:06:17.660]  Now we're going to include, we have a factorial function.
+[00:06:19.980 -> 00:06:21.240]  We're going to include that.
+[00:06:21.660 -> 00:06:23.220]  And now we're going to go on our menu.
+[00:06:23.580 -> 00:06:25.380]  I hit the Windows key to get to my menu.
+[00:06:25.380 -> 00:06:27.060]  And we're going to make a macro.
+[00:06:28.320 -> 00:06:33.920]  Now, up at the top is, these, anyway, these red ones are links.
+[00:06:34.100 -> 00:06:35.520]  These blue ones are macros.
+[00:06:35.940 -> 00:06:38.320]  You have, you can have trees as well.
+[00:06:38.860 -> 00:06:44.320]  At the, at all, the document structure supports a lot of widgets.
+[00:06:45.880 -> 00:06:50.240]  Anyway, so links, trees, colors, you can change colors.
+[00:06:51.100 -> 00:06:59.100]  Margins, and macros, and even the forms and dialog boxes use the same document structure.
+[00:07:00.260 -> 00:07:02.740]  Anyway, so we're going to, we're going to click on macro.
+[00:07:03.740 -> 00:07:06.920]  And, we're going to say, factorial.
+[00:07:06.920 -> 00:07:12.840]  For factorial, then the expression, we're going to create a global variable i.
+[00:07:13.400 -> 00:07:19.940]  For i equals 0, i less than 22, i plus plus.
+[00:07:20.700 -> 00:07:27.660]  See outline, i space factorial i.
+[00:07:28.320 -> 00:07:30.260]  And then we need a carriage return at the end.
+[00:07:30.880 -> 00:07:32.880]  So, now we can click on this.
+[00:07:33.760 -> 00:07:35.860]  And we get the factorials up to 22.
+[00:07:36.980 -> 00:07:38.600]  You can see it's 64-bit.
+[00:07:40.980 -> 00:07:47.780]  Anyway, now we're going to look at, oh, I want to show a couple miscellaneous features.
+[00:07:48.660 -> 00:07:52.900]  There's a zoom that's system-wide that will zoom on the cursor.
+[00:07:53.660 -> 00:07:57.020]  So, you control, alt, Z will zoom in on the cursor.
+[00:07:57.360 -> 00:07:59.460]  Control, alt, shift, Z will zoom out.
+[00:08:00.180 -> 00:08:07.620]  There's also a drag that control and then left drag will scroll.
+[00:08:08.040 -> 00:08:09.740]  You can have scroll bars, too.
+[00:08:14.340 -> 00:08:16.100]  Anyway, it's got scroll bars.
+[00:08:16.260 -> 00:08:21.560]  But, it's, the nice thing about these system-wide features is you don't have to add them to your applications.
+[00:08:22.380 -> 00:08:31.120]  So, if you want a scroll feature, this is done at the graphics library function level.
+[00:08:31.120 -> 00:08:46.200]  Anyway, now we're going to take a tour of the directory, the standard directory structure for Lusos.
+[00:08:46.620 -> 00:08:48.920]  It's, this is my personal version.
+[00:08:49.100 -> 00:08:49.960]  I have a few more lines.
+[00:08:50.080 -> 00:08:51.660]  It's 120,000 lines of code.
+[00:08:51.880 -> 00:08:53.460]  There's an accounts directory.
+[00:08:55.680 -> 00:08:56.960]  There's Adam.
+[00:08:57.440 -> 00:08:59.180]  Adam's the father of all tasks.
+[00:08:59.180 -> 00:09:08.240]  He's a first task, and he starts up running a script, like auto exec, and he compiles a bunch of code into his heap and symbol table.
+[00:09:08.520 -> 00:09:11.480]  And then other tasks can access him if they're children of Adam.
+[00:09:11.980 -> 00:09:15.660]  Anyway, so all this code gets compiled during boot.
+[00:09:15.820 -> 00:09:21.160]  And then there's optional packages, which are also compiled during boot, and they're placed in memory.
+[00:09:21.400 -> 00:09:24.180]  It only takes two seconds to compile 40,000 lines.
+[00:09:25.260 -> 00:09:26.680]  grep is an optional package.
+[00:09:27.600 -> 00:09:31.480]  They don't, when you, when you enter a command, it runs from memory.
+[00:09:31.640 -> 00:09:38.820]  It doesn't, it doesn't operate like Linux or, or Unix where it goes, or DOS and executes a file.
+[00:09:38.900 -> 00:09:39.500]  It doesn't do that.
+[00:09:39.680 -> 00:09:40.660]  There's no path either.
+[00:09:41.320 -> 00:09:46.320]  Anyway, so optional packages, Adam accounts.
+[00:09:46.320 -> 00:09:51.240]  Then there's applications, and there's my compiler.
+[00:09:52.320 -> 00:09:56.420]  And it's a compiler, assembler, unassembler.
+[00:09:58.000 -> 00:10:04.220]  Then there's the kernel, although everything runs in kernel mode, so it's nothing special.
+[00:10:04.560 -> 00:10:07.500]  The user programs run in ring zero kernel mode.
+[00:10:07.500 -> 00:10:15.100]  Anyway, this is, the compiler, OS main, and OS main 2 are, are compiled ahead of time.
+[00:10:15.300 -> 00:10:16.620]  Everything else is just in time.
+[00:10:17.020 -> 00:10:19.160]  OS main 2 is just sprintf.
+[00:10:20.400 -> 00:10:26.360]  Anyway, if you want to, let's look at a quick, there's tons and tons of demos.
+[00:10:26.360 -> 00:10:30.980]  We're going to look at, just to show an example.
+[00:10:31.280 -> 00:10:33.300]  I said everything is seamlessly integrated.
+[00:10:33.620 -> 00:10:39.660]  This is source code here with graphics in it and links and stuff, and the compiler understands it.
+[00:10:40.400 -> 00:10:50.820]  Anyway, so now let's recompile everything that's done ahead of time.
+[00:10:52.700 -> 00:10:59.600]  There's a feature called Wordstat, which will do auto-completes, and it'll jump to source code.
+[00:11:01.100 -> 00:11:05.240]  So we can do control-shift-f1, jump to the source code.
+[00:11:05.540 -> 00:11:12.380]  So all the documentation is pretty much right by the code.
+[00:11:14.260 -> 00:11:18.640]  Anyway, this is going to compile everything that's compiled ahead of time,
+[00:11:18.640 -> 00:11:24.280]  and it's going to tell the boot sector where the block number for the kernel is.
+[00:11:25.380 -> 00:11:29.040]  This configuration manager is flaky, but let's hope it works.
+[00:11:29.360 -> 00:11:31.880]  We're going to use the current configuration for the kernel.
+[00:11:32.800 -> 00:11:33.720]  Okay, it worked.
+[00:11:34.580 -> 00:11:40.500]  What I do actually is I have a key on my menu that compiles everything,
+[00:11:41.780 -> 00:11:49.940]  and if you want to see the code for that, you can go to...
+[00:11:55.960 -> 00:11:58.080]  Anyway, it's in...
+[00:11:58.080 -> 00:12:02.800]  Actually, I have my personal files as an example on the distribution.
+[00:12:02.800 -> 00:12:09.320]  I load up my answers into the keyboard buffer so that it does standard in.
+[00:12:09.500 -> 00:12:11.420]  That's what this auto function does.
+[00:12:14.220 -> 00:12:20.300]  Anyway, here's the wallpaper underneath here, and it's got...
+[00:12:20.300 -> 00:12:24.940]  This is eight cores, and it's got the memory.
+[00:12:25.720 -> 00:12:26.620]  It's a...
+[00:12:26.620 -> 00:12:34.060]  I have a 12-gig machine, and actually the lowest 2-gig is for the code heap.
+[00:12:34.320 -> 00:12:39.880]  It separates code and data so that it can use 32-bit branches, which are the fastest.
+[00:12:40.200 -> 00:12:41.740]  They're faster than system calls.
+[00:12:42.260 -> 00:12:45.820]  Anyway, this tells where the tasks are...
+[00:12:45.820 -> 00:12:50.740]  where the task codes are sitting, and tells how many lines.
+[00:12:50.740 -> 00:12:54.860]  40,000 lines is compiled during boot and 40,000 ahead of time.
+[00:12:55.620 -> 00:12:58.880]  And let's just do one last demo here.
+[00:13:00.020 -> 00:13:01.420]  We're going to make a byte.
+[00:13:01.620 -> 00:13:03.040]  Byte pointer A.
+[00:13:05.580 -> 00:13:10.060]  We're going to malloc 8-gig.
+[00:13:16.840 -> 00:13:23.420]  And you can see it just dropped that 2 in the leading 2, so that's 8-gig.
+[00:13:23.660 -> 00:13:24.620]  It has to be a...
+[00:13:24.620 -> 00:13:30.160]  It rounds up to a power of 2, and on 12-gig machine, the biggest I can allocate is 8-gig.
+[00:13:30.460 -> 00:13:34.940]  Anyway, we're going to set that to 0 just to show that it works.
+[00:13:35.580 -> 00:13:37.760]  Everybody uses the same address space.
+[00:13:37.760 -> 00:13:40.900]  It never messes with maps or page tables.
+[00:13:42.300 -> 00:13:44.860]  Set it to 0, and then free.
+[00:13:45.660 -> 00:13:47.140]  It's 64-bit.
+[00:13:48.540 -> 00:13:53.500]  There's that issue with the bottom 2-gig for code, which is...
+[00:13:54.440 -> 00:13:57.820]  It is 64-bit, but it does have that issue.
+[00:13:58.100 -> 00:14:02.480]  Anyway, now the memory's back up to 11-gig free.
+[00:14:02.480 -> 00:14:07.200]  Anyway, now why don't you send me an email if you want the full version.
+[00:14:07.440 -> 00:14:08.940]  The full version has a dictionary.
+[00:14:09.980 -> 00:14:10.700]  It's free.
+[00:14:11.120 -> 00:14:14.320]  Anyway, I'd really like some emails because I don't get any feedback.
+[00:14:15.260 -> 00:14:20.020]  And anyway, watch the other videos on the site and have fun.
+[00:14:20.020 -> 00:14:20.020]  
+[00:14:20.020 -> 00:14:20.020]  
+[00:14:20.020 -> 00:14:20.040]  Our second part is so much easier.
+[00:14:20.040 -> 00:14:20.060]  Our second part is so much easier.
+[00:14:20.060 -> 00:14:20.140]  Our second part is so much easier.
+[00:14:20.140 -> 00:14:20.140]  
+[00:14:20.140 -> 00:14:20.140]  
+[00:14:20.140 -> 00:14:20.140]  
+[00:14:20.140 -> 00:14:20.160]  Our second part is so much easier.
+[00:14:20.160 -> 00:14:20.160]  
+[00:14:20.160 -> 00:14:20.160]  
+[00:14:20.160 -> 00:14:20.160]  
+[00:14:20.160 -> 00:14:20.160]  
+[00:14:20.160 -> 00:14:20.160]  
+[00:14:20.160 -> 00:14:20.200]  Thank you.

@@ -1,0 +1,950 @@
+========================================================================
+FILE        : videos/2014/2014-09-07T00:05:00+00:00 - TempleOS - FAT32 Driver (_aJMni4J_08).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-09-07T00:05:00+00:00 - TempleOS - FAT32 Driver (_aJMni4J_08).mkv
+FORMAT      : Matroska
+SIZE        : 109,986,735 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:25:17.120
+TRANSCRIBED: 2026-05-08T09:38:26.410228+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay someone wants device driver information okay so here are here are the devices I support keyboard ps2 mouse ps2 see hard drive this is a paid a sometimes SATA it turns out a lot of SATA drives can be accessed they might have IO ports that I remember one in particular had IO ports at f1 fe10 another one had bc00 so from about 2003 to 2010 my computers were able to work in actual native install heart right on the hardware without virtualizing and that's because the port there's that there's a bank of eight ports and the bank of four ports anyway so this is this was a pair of ports zero x f2 0 something like that anyway so zero x bc zero so so the IDE are one one f zero what is it three f3 what is it three I forgot what it is 3 f4 or something like that I don't know the master the primary IDE is something like that anyway so here's what I'm trying to tell you um SATA on on on computers from about 2003 to 2010 SATA SATA drives could be used just like IDE IO ports but they were at different locations and you do a if you do a on Linux you do a lspci on Windows do system information then you get those IO ports and then you can do just regular old ADA okay so my computer supports keyboard ps2 mouse hard drive CD-ROM aid a tappy and mine supports I call this a device multi-core that's a device multi-core that's I forget what these are a pic or something like that I support the uh I support the pit timer I support the pic uh interrupt controllers I do a little bit of a pic there's a local a pic in there I don't mess with those much anyway uh so there's a uh what else is there so I have I have VGA 640 by 480 and I have 16 color badge okay 16 color and I have a pc speaker support so this this is all the hardware we're ever going to support we're not doing PCI that is uh beyond the scope here's the plan we are going to take a we're going to tell the hardware companies what to do and we are going to tell them to do low line count the rule is uh the line count can only go down not up the line count can only go down not up so we're going to tell the hardware companies to obey that okay because we got God let's see what God says F7 okay so if you make fun of my quality of games well guess what why don't you just directly access the VGA yourself huh there you go this is uh this is uh you set your index register for which of the four bit planes and then you write to uh you write to uh you write to a zero zero zero up to b f f f f f you make your your game on bare metal and then you can't blame anybody except the compiler manufacturer which would be me do it in assembly then you can't blame anybody so uh anyway so somebody wants uh wants me to talk about hardware so one of my goals one of my goals is to have one driver for each each kind of device I don't want more drivers as a matter of fact I guess we'll talk about the disk as a matter of fact I have three file systems red c nine six sixty for cd-rom and fat thirty two fat thirty two I want to tell microsoft to support red c both on hard disk and cd-rom and then we can we can eliminate this code that would be very nice we could there's one more file the difference between a professional and an amateur let me tell you I wrote a uh I wrote an iso file creator this this creates an iso file an amateur does not create his own iso file I create my own iso file nine six sixty uh anyway so I I bought the specs on the other newer versions of the cd-rom and blu-ray and stuff I bought the specs but they're they are major obfuscated fuckers I paid seven hundred bucks iso anyway we're gonna tell them we're gonna be the new iso with the hand of god fuck you that's what we're gonna do and they're gonna suck it what the hell let's charge money for specs no we shouldn't do that you like that idea mr. god let's charge money for dna your personal dna is patented by god you have to die if you don't pay money let's see now contentious embracement likenesses as indexes scales reader vein stars codes unity other nights height lovely mysterious furnished devotions giver lacketh blessing round echoes baths tattlings treasured births betters ergo into arrival stick transition warped presumption execute tell date forsake former gutenberg creatures Athenians woe consentings consenting have in ungoverned hideous spiritual sematis savageness else rejoiced obedient needful thine suitability i don't know what i don't know what what do you want to see you want to see the the file system driver so let's look at fat um what do we got we got dos dates we have to convert dates um when i uh you know how you have find first find next basically you need a um uh uh you need a programming routine that uh api routine that gets a list of files in the directory uh so when i com i do an abstraction layer i convert dos dates to my native date which is 64 bit that's what an abstraction layer does i hope to eliminate abstraction layers and just have if you have you have virtual file systems i i want the i want just one in it not to be virtual not to be abstract i want the same date on the disk as is given elsewhere i don't like converting because this is extra code it's extra complexity i like the grand unification nobody's trying to make a more complicated representative you know some people act as though well why don't we make the grand unification theory uh why don't we go the other direction let's make it more complicated i bet we can make it more complicated we can make it more abstract well you know actually i'm being uh it's just the opposite aren't isn't it when they do the string theory that's an abstraction however uh just imagine somebody needlessly complicating it anyway just imagine if this never mind you got a layer of the string theory and a layer of everything interpreted as it currently is oh i should shut up okay so what we got here this form this formats a fat 32 partition partition they have a very nice spec on the fat 32 you can go to the microsoft website they'll tell you everything you need to know about fat 32 is a really nice document um so this is the only this is the only interesting only interesting part is right here um they they clumped together groups of sectors on bigger drives so uh i don't know how to explain that to you but uh in other words well anyway they clumped there's a unit of allocation called the cluster and that's uh typically like eight blocks a block is the same as a sector it's five twelve bytes although some people like to make different size blocks um you can use an abstraction to keep it the same anyway uh what do we got here root root cluster so the fat is a is a uh i will never criticize under engineering i will only criticize over engineering usb is an over engineered piece of shit fat 32 started uh i will not criticize something that was under engineered they did not do long file names when they started they started small and i will not although we want to get rid of fat 32 i will not criticize them for yeah it's really fucked up you have uh file name characters all over in the uh in the entries you have to put together entries checksum i don't have any checksums that's it's kind of faggot to put lots of checksums if your hard disk is giving errors get rid of it you don't want to mess with anyway in the old days you messed with floppies that did give errors if i had a hard disk give me an error i would get rid of it it's a hundred dollar device it's not worth uh eight hours of lost wages okay so this little map here cleans up all the uh the location of the uh file name file name characters are all over the place so my abstraction layer collects the long name and puts it into my uh my c dur entry this is my abstraction layer that unifies everything this is what's returned by uh i also return the full path information all the time it's really nice i do i return uh everybody else does find first find next for uh direct for files i do all of them at once that's just how we operate um so when you ask for the files matching a mask in a directory it gives you all of them if you recurse it gives you all of them in a tree this has a next parent next and sub it's a well it's not a tree it's a link list with sub lists and uh well it's a tree anyway it's not a binary tree that's what i was trying to say okay so uh fill the directory entry okay so la la la la la we have to convert um somewhere i give it the full path okay this what this uh don't confuse fill directory entry with fill directory this i don't know that is confusing i should rename that definitely shouldn't i what the hell was i thinking what did i do that has a cdre oh that's wicked that has a cdre that's terrible oh well i guess it's not bad fuck it nobody looks in here so this what this does is uh the directory is uh some clusters what it does is uh we we we we write one of our formatted things we format our entry into fat32 we format into fat32 i think what is this doing what are we doing here no this is not writing to this to the sector this is uh filling in the entry this is filling in the entry oh i think i have a pointer to the old or to the long how do i handle long there's like two there's like two entries for uh long that's i think they come one after the other anyway uh fat32 files find like this finds one file this finds one god i'm gonna kill those birds shut up bird this finds one file so what we do is we read a cluster and the first cluster gives us the directory size you need you know how you have dot and dot dot well the first one gives us the directory size um then we loop what do we do here what are we doing we're looping as long as the first character is not zero so apparently in fat32 if you get a zero as the start of an entry it's the end okay i i make little attribute oh this fat has attributes um uh size size what am i doing i'm reading the code you read the code somebody wants me to talk about drivers so i have um this locks the partition and unlocks the partition i have a lock on the block devices and then the next level up is partitions so you might have a disc with three partitions so i have partition locks and those automatically i think those lock the device the block devices underneath um so the rule is if it was locked when you got it you keep it locked that's simple enough so uh somewhere i have a mechanism for protecting against control c when we're doing writes we don't want to break and interrupt a write operation that would be bad anyway file read um free clusters that goes down the fat chain uh allocate clusters so there's uh somebody taught me the secret um what you do is you uh you scan for the same size uh if you want stable allocation and reallocation especially since i do contiguous mostly anyway uh the secret is you scan for a chunk of unallocated the same exact size the closest size so you don't just take the first one you scan ahead for the um the block that's the same size so FIS is uh um information this is you have your boot sector on the fat that has some has your basic information then you have this funky kind of uh extra block that's got uh um the most recently allocated i guess it's good oh well so uh i i i don't cash writes i write them pretty much immediately so i do lots and lots of writes i hope i hope i don't wear it out to be quite honest anyway i have a um protection that protects against ctrl c so when you say brake lock what that means is lock against brake um so uh if you kill a task i uh there's one more thing i have to get rid of i do have ownership if you kill a task i uh i release anything locked but the brake lock is uh anyway so what the brake lock does is it postpones it until the brake lock unlock and then you get the brake at the unlock so uh write blocks um so i i i have some special cash i keep the the most recent uh fat block in stored off the structure uh i don't know it's kind of it's okay i guess i wonder if i i might do a little bit of caching of the the fat block instead of every single i don't think every single um but i don't want to mess with cash rights i don't care about performance that's that's too dangerous and complicated i don't have a shutdown i just give the rule turn it off anyway what do we got here allocate contiguous okay directory new okay so this makes a new entry in a directory overwrites an old with the same name so it scans the first thing it does is it gets the size of the dot entry there's dot and dot dot first thing it does is it gets the size of the dot entry somewhere and it scans we got some funky codes for deleted if it's been deleted long name short name what i do is the long name is like two entries you have to um i think i have a pointer that lags and lets it uh take care of the long name anyway uh available count what do we got uh delete okay whatever you have to you have to delete the uh allocated clusters the fat table do you know what a fat table is it's an array that tells the next entry in the file um anyway uh so i think i delete and then i i delete the the directory entry and then i delete the chain of fat so if you interrupt if you powered off you would have a deleted entry and uh entries that don't need to be allocated um it's better to fail in that manner if you have entries that don't need to be allocated that's not as bad as something fucked up so i have a fixed disk a check disk that will re fix it but i would just reformat and reinstall if you can use it to report errors anyway uh so uh what do we have here write file so we read and write whole files for the most part and we do it contiguous that's how the red c file system works find files okay this returns it even recurses at least some maybe it's a higher level anyway you get a a whole tree all at once we don't that's how we roll make directory okay what do we got all right well that's fat 32 uh so there's a uh the next level up has the uh i guess the abstraction so you'll see a uh a switch of the abstraction doing the different file system types so all through this you have three different versions red c fat iso 9 660 so what i'm i'm gonna fucking order microsoft they're not assholes i'm gonna order them well yeah they are get rid of secure boot that's gone fuck no anyway we're gonna we're gonna tell them support red c so i can get rid of fat 32 and iso 9 660 so my red c has uh just a bitmap not a fat table and even though you don't need it we're just gonna drop the whole image of a red c partition onto the cd-rom including the allocation table which wastes a little bit of space that's what we're gonna do so we're gonna get rid of all these cases and just have one the red c and uh that's how we're gonna roll once we get microsoft on board we can cut out a lot of lines of code i some people have orgasms on abstraction layers i have orgasms on getting rid of them that's okay so that's all you
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:07.280]  okay someone wants device driver information okay so here are here are
+[00:00:07.280 -> 00:00:15.300]  the devices I support keyboard ps2 mouse ps2
+[00:00:19.440 -> 00:00:39.220]  see hard drive this is a paid a sometimes SATA it turns out a lot of SATA drives can be accessed
+[00:00:39.220 -> 00:00:48.880]  they might have IO ports that I remember one in particular had IO ports at f1 fe10 another one
+[00:00:48.880 -> 00:01:05.940]  had bc00 so from about 2003 to 2010 my computers were able to work in actual native install heart
+[00:01:05.940 -> 00:01:18.800]  right on the hardware without virtualizing and that's because the port there's that there's a
+[00:01:18.800 -> 00:01:29.200]  bank of eight ports and the bank of four ports anyway so this is this was a pair of ports zero
+[00:01:29.200 -> 00:01:54.080]  x f2 0 something like that anyway so zero x bc zero so so the IDE are one one f zero
+[00:01:55.700 -> 00:02:10.460]  what is it three f3 what is it three I forgot what it is 3 f4 or something like that I don't know
+[00:02:12.000 -> 00:02:21.760]  the master the primary IDE is something like that anyway so here's what I'm trying to tell you
+[00:02:24.220 -> 00:02:39.160]  um SATA on on on computers from about 2003 to 2010 SATA SATA drives could be used just like IDE IO ports
+[00:02:39.160 -> 00:02:51.440]  but they were at different locations and you do a if you do a on Linux you do a lspci on Windows do
+[00:02:51.440 -> 00:03:06.180]  system information then you get those IO ports and then you can do just regular old ADA okay so my computer
+[00:03:06.180 -> 00:03:21.420]  supports keyboard ps2 mouse hard drive CD-ROM aid a tappy and mine supports I call this a
+[00:03:21.420 -> 00:03:50.960]  device multi-core that's a device multi-core that's I forget what these are a pic or something like that I support the uh I support the pit timer I support the pic uh interrupt controllers I do a little bit of a pic there's a local a pic in there I don't mess with those much anyway uh so there's a uh what else is there
+[00:03:50.960 -> 00:04:20.940]  so I have I have VGA 640 by 480 and I have 16 color badge okay 16 color and I have a pc speaker support so this this is all the hardware we're ever going to support we're not doing PCI that is uh beyond the scope here's the plan we are going to take a
+[00:04:20.940 -> 00:04:40.500]  we're going to tell the hardware companies what to do and we are going to tell them to do low line count the rule is uh the line count can only go down not up the line count can only go down not up
+[00:04:42.800 -> 00:04:46.880]  so we're going to tell the hardware companies to obey that okay
+[00:04:49.740 -> 00:04:51.840]  because we got God let's see what God says
+[00:04:54.200 -> 00:04:54.700]  F7
+[00:05:17.320 -> 00:05:20.120]  okay so
+[00:05:21.680 -> 00:05:33.640]  if you make fun of my quality of games well guess what why don't you
+[00:05:35.240 -> 00:05:37.700]  just directly access
+[00:05:37.700 -> 00:05:43.180]  the VGA yourself huh there you go
+[00:05:43.180 -> 00:06:01.900]  this is uh this is uh you set your index register for which of the four bit planes and then you write to uh you write to uh you write to a zero zero zero up to b f f f f f
+[00:06:03.140 -> 00:06:12.440]  you make your your game on bare metal and then you can't blame anybody except the compiler manufacturer which would be me
+[00:06:13.720 -> 00:06:17.920]  do it in assembly then you can't blame anybody so
+[00:06:20.320 -> 00:06:21.080]  uh
+[00:06:23.660 -> 00:06:24.880]  anyway so
+[00:06:24.880 -> 00:06:28.900]  somebody wants uh wants me to talk about hardware
+[00:06:28.900 -> 00:06:36.520]  so one of my goals one of my goals is to have one driver for each each kind of device
+[00:06:36.520 -> 00:06:40.400]  I don't want more drivers as a matter of fact
+[00:06:41.860 -> 00:06:43.620]  I guess we'll talk about the disk
+[00:06:43.620 -> 00:06:47.920]  as a matter of fact I have three file systems red c
+[00:06:47.920 -> 00:06:57.100]  nine six sixty for cd-rom and fat thirty two fat thirty two I want to tell microsoft to support red c
+[00:06:58.320 -> 00:07:04.040]  both on hard disk and cd-rom and then we can we can eliminate this code
+[00:07:04.040 -> 00:07:07.620]  that would be very nice we could there's one more file
+[00:07:08.520 -> 00:07:11.640]  the difference between a professional and an amateur
+[00:07:11.640 -> 00:07:15.180]  let me tell you I wrote a uh
+[00:07:17.860 -> 00:07:26.960]  I wrote an iso file creator this this creates an iso file an amateur does not create his own
+[00:07:26.960 -> 00:07:31.380]  iso file I create my own iso file nine six sixty
+[00:07:31.380 -> 00:07:39.680]  uh anyway so I I bought the specs on the other newer versions of the cd-rom and blu-ray and stuff
+[00:07:39.680 -> 00:07:48.680]  I bought the specs but they're they are major obfuscated fuckers I paid seven hundred bucks
+[00:07:50.020 -> 00:07:56.580]  iso anyway we're gonna tell them we're gonna be the new iso with the hand of god fuck you
+[00:07:56.580 -> 00:07:58.080]  that's what we're gonna do
+[00:07:59.500 -> 00:08:01.280]  and they're gonna suck it
+[00:08:02.980 -> 00:08:05.460]  what the hell let's charge money for specs
+[00:08:06.420 -> 00:08:07.980]  no we shouldn't do that
+[00:08:09.440 -> 00:08:11.200]  you like that idea mr. god
+[00:08:11.200 -> 00:08:13.040]  let's charge money for
+[00:08:13.040 -> 00:08:13.320]  dna
+[00:08:14.360 -> 00:08:17.300]  your personal dna is patented by god
+[00:08:17.300 -> 00:08:20.680]  you have to die if you don't pay money
+[00:08:27.220 -> 00:08:28.460]  let's see
+[00:08:28.460 -> 00:08:32.840]  now contentious embracement likenesses as indexes
+[00:08:32.840 -> 00:08:36.260]  scales reader vein stars codes unity
+[00:08:36.260 -> 00:08:41.140]  other nights height lovely mysterious furnished devotions
+[00:08:41.140 -> 00:08:51.080]  giver lacketh blessing round echoes baths tattlings treasured births betters ergo into arrival stick transition warped
+[00:08:51.080 -> 00:08:58.980]  presumption execute tell date forsake former gutenberg creatures Athenians woe consentings
+[00:08:58.980 -> 00:09:09.900]  consenting have in ungoverned hideous spiritual sematis savageness else rejoiced obedient needful thine suitability
+[00:09:10.660 -> 00:09:16.440]  i don't know what i don't know what what do you want to see you want to see the the file system driver
+[00:09:18.420 -> 00:09:19.700]  so let's look at fat
+[00:09:20.220 -> 00:09:21.240]  um what do we got
+[00:09:21.240 -> 00:09:22.720]  we got dos dates
+[00:09:22.720 -> 00:09:24.360]  we have to convert dates
+[00:09:25.380 -> 00:09:26.820]  um when i uh
+[00:09:27.300 -> 00:09:29.680]  you know how you have find first find next
+[00:09:30.160 -> 00:09:31.660]  basically you need a um
+[00:09:31.660 -> 00:09:32.300]  uh
+[00:09:32.300 -> 00:09:32.300]  
+[00:09:33.020 -> 00:09:33.720]  uh
+[00:09:33.720 -> 00:09:34.680]  you need a
+[00:09:34.680 -> 00:09:36.860]  programming routine that uh
+[00:09:36.860 -> 00:09:40.260]  api routine that gets a list of files in the directory
+[00:09:41.640 -> 00:09:42.340]  uh
+[00:09:42.340 -> 00:09:43.140]  so
+[00:09:43.140 -> 00:09:44.040]  when i
+[00:09:44.040 -> 00:09:44.340]  com
+[00:09:44.340 -> 00:09:48.780]  i do an abstraction layer i convert dos dates to my native date
+[00:09:48.780 -> 00:09:50.280]  which is 64 bit
+[00:09:51.660 -> 00:09:53.880]  that's what an abstraction layer does
+[00:09:53.880 -> 00:09:58.060]  i hope to eliminate abstraction layers and just have
+[00:09:58.060 -> 00:10:01.660]  if you have you have virtual file systems i i want
+[00:10:01.660 -> 00:10:03.900]  the i want just one
+[00:10:03.900 -> 00:10:07.400]  in it not to be virtual not to be abstract
+[00:10:07.400 -> 00:10:11.540]  i want the same date on the disk as is given elsewhere
+[00:10:11.540 -> 00:10:13.360]  i don't like converting
+[00:10:13.360 -> 00:10:16.740]  because this is extra code it's extra complexity
+[00:10:16.740 -> 00:10:18.840]  i like the grand unification
+[00:10:18.840 -> 00:10:22.480]  nobody's trying to make a more complicated representative
+[00:10:22.480 -> 00:10:24.820]  you know some people act as though
+[00:10:24.820 -> 00:10:28.360]  well why don't we make the grand unification theory
+[00:10:28.360 -> 00:10:28.740]  uh
+[00:10:28.740 -> 00:10:30.580]  why don't we go the other direction
+[00:10:30.580 -> 00:10:32.120]  let's make it more complicated
+[00:10:32.120 -> 00:10:33.980]  i bet we can make it more complicated
+[00:10:33.980 -> 00:10:35.600]  we can make it more abstract
+[00:10:35.600 -> 00:10:36.520]  well
+[00:10:36.520 -> 00:10:37.160]  you know
+[00:10:37.160 -> 00:10:38.400]  actually i'm being
+[00:10:38.400 -> 00:10:38.800]  uh
+[00:10:38.800 -> 00:10:40.500]  it's just the opposite aren't isn't it
+[00:10:40.500 -> 00:10:43.780]  when they do the string theory that's an abstraction
+[00:10:44.780 -> 00:10:45.320]  however
+[00:10:45.320 -> 00:10:45.880]  uh
+[00:10:48.880 -> 00:10:52.300]  just imagine somebody needlessly complicating it
+[00:10:52.300 -> 00:10:53.180]  anyway
+[00:10:53.180 -> 00:10:54.600]  just imagine if this
+[00:10:55.460 -> 00:10:56.300]  never mind
+[00:10:56.300 -> 00:10:58.300]  you got a layer of the string theory
+[00:10:58.300 -> 00:10:59.260]  and a layer of
+[00:10:59.260 -> 00:11:00.240]  everything
+[00:11:01.740 -> 00:11:03.500]  interpreted as it currently is
+[00:11:04.180 -> 00:11:04.720]  oh
+[00:11:04.720 -> 00:11:05.940]  i should shut up
+[00:11:05.940 -> 00:11:07.220]  okay so what we got here
+[00:11:07.220 -> 00:11:08.680]  this form
+[00:11:08.680 -> 00:11:11.360]  this formats a fat 32 partition
+[00:11:11.360 -> 00:11:12.000]  partition
+[00:11:12.000 -> 00:11:14.260]  they have a very nice spec
+[00:11:14.260 -> 00:11:15.500]  on the fat 32
+[00:11:17.040 -> 00:11:19.060]  you can go to the microsoft website
+[00:11:19.060 -> 00:11:21.780]  they'll tell you everything you need to know about fat 32
+[00:11:21.780 -> 00:11:23.660]  is a really nice document
+[00:11:26.160 -> 00:11:26.900]  um
+[00:11:26.900 -> 00:11:27.680]  so
+[00:11:29.220 -> 00:11:30.440]  this is the only
+[00:11:30.440 -> 00:11:31.980]  this is the only interesting
+[00:11:31.980 -> 00:11:34.280]  only interesting part is right here
+[00:11:34.280 -> 00:11:35.100]  um
+[00:11:35.100 -> 00:11:35.620]  they
+[00:11:35.620 -> 00:11:37.500]  they clumped together
+[00:11:37.500 -> 00:11:39.260]  groups of
+[00:11:39.260 -> 00:11:40.220]  sectors
+[00:11:41.320 -> 00:11:43.100]  on bigger drives
+[00:11:43.100 -> 00:11:44.060]  so
+[00:11:44.060 -> 00:11:44.560]  uh
+[00:11:44.560 -> 00:11:46.900]  i don't know how to explain that to you
+[00:11:46.900 -> 00:11:48.000]  but uh
+[00:11:48.000 -> 00:11:49.220]  in other words
+[00:11:49.220 -> 00:11:49.880]  well anyway
+[00:11:49.880 -> 00:11:50.540]  they clumped
+[00:11:52.940 -> 00:11:54.120]  there's a unit
+[00:11:54.120 -> 00:11:55.120]  of allocation
+[00:11:55.120 -> 00:11:56.260]  called the cluster
+[00:11:56.260 -> 00:11:57.700]  and that's
+[00:11:57.700 -> 00:11:58.220]  uh
+[00:11:58.220 -> 00:11:59.460]  typically like
+[00:11:59.460 -> 00:12:00.520]  eight blocks
+[00:12:00.520 -> 00:12:02.600]  a block is the same as a sector
+[00:12:02.600 -> 00:12:03.120]  it's five
+[00:12:03.120 -> 00:12:03.840]  twelve bytes
+[00:12:03.840 -> 00:12:04.920]  although
+[00:12:04.920 -> 00:12:07.180]  some people like to
+[00:12:07.180 -> 00:12:09.480]  make different size blocks
+[00:12:10.160 -> 00:12:10.840]  um
+[00:12:10.840 -> 00:12:12.460]  you can use an abstraction
+[00:12:12.460 -> 00:12:13.180]  to keep it
+[00:12:13.180 -> 00:12:14.320]  the same
+[00:12:14.320 -> 00:12:15.180]  anyway
+[00:12:15.180 -> 00:12:15.580]  uh
+[00:12:15.580 -> 00:12:16.060]  what do we got here
+[00:12:16.060 -> 00:12:16.420]  root
+[00:12:16.420 -> 00:12:17.540]  root cluster
+[00:12:20.260 -> 00:12:21.580]  so the fat
+[00:12:21.580 -> 00:12:22.120]  is a
+[00:12:22.120 -> 00:12:22.800]  is a
+[00:12:22.800 -> 00:12:22.980]  uh
+[00:12:22.980 -> 00:12:24.080]  i will never
+[00:12:24.080 -> 00:12:25.160]  criticize
+[00:12:25.160 -> 00:12:27.040]  under engineering
+[00:12:27.040 -> 00:12:28.720]  i will only criticize
+[00:12:28.720 -> 00:12:29.840]  over engineering
+[00:12:29.840 -> 00:12:31.840]  usb is an over engineered
+[00:12:31.840 -> 00:12:32.840]  piece of shit
+[00:12:32.840 -> 00:12:34.300]  fat 32
+[00:12:34.300 -> 00:12:34.960]  started
+[00:12:34.960 -> 00:12:35.760]  uh
+[00:12:35.760 -> 00:12:36.840]  i will not criticize
+[00:12:36.840 -> 00:12:38.340]  something that was
+[00:12:38.340 -> 00:12:39.280]  under engineered
+[00:12:39.280 -> 00:12:40.460]  they
+[00:12:40.460 -> 00:12:41.760]  did not do long
+[00:12:41.760 -> 00:12:42.500]  file names
+[00:12:42.500 -> 00:12:43.240]  when they started
+[00:12:43.240 -> 00:12:44.320]  they started small
+[00:12:44.320 -> 00:12:46.060]  and i will not
+[00:12:46.060 -> 00:12:47.800]  although we want to get rid of
+[00:12:47.800 -> 00:12:48.460]  fat 32
+[00:12:48.460 -> 00:12:49.880]  i will not criticize
+[00:12:49.880 -> 00:12:50.800]  them for
+[00:12:50.800 -> 00:12:52.260]  yeah it's really
+[00:12:52.260 -> 00:12:52.840]  fucked up
+[00:12:52.840 -> 00:12:54.020]  you have uh
+[00:12:54.020 -> 00:12:55.560]  file name characters
+[00:12:55.560 -> 00:12:56.180]  all over
+[00:12:56.180 -> 00:12:56.980]  in the uh
+[00:12:59.680 -> 00:13:00.780]  in the entries
+[00:13:00.780 -> 00:13:02.340]  you have to put together
+[00:13:02.340 -> 00:13:02.880]  entries
+[00:13:04.900 -> 00:13:05.500]  checksum
+[00:13:06.860 -> 00:13:07.940]  i don't have any
+[00:13:07.940 -> 00:13:08.520]  checksums
+[00:13:08.520 -> 00:13:08.900]  that's
+[00:13:08.900 -> 00:13:10.400]  it's kind of
+[00:13:10.400 -> 00:13:11.580]  faggot
+[00:13:11.580 -> 00:13:13.060]  to put lots of checksums
+[00:13:13.060 -> 00:13:14.280]  if your hard disk
+[00:13:14.280 -> 00:13:15.020]  is giving errors
+[00:13:15.020 -> 00:13:15.760]  get rid of it
+[00:13:15.760 -> 00:13:17.220]  you don't want to mess with
+[00:13:17.220 -> 00:13:17.720]  anyway
+[00:13:17.720 -> 00:13:18.840]  in the old days
+[00:13:18.840 -> 00:13:19.420]  you messed with
+[00:13:19.420 -> 00:13:21.060]  floppies that did give errors
+[00:13:21.660 -> 00:13:22.940]  if i had a hard disk
+[00:13:22.940 -> 00:13:23.560]  give me an error
+[00:13:23.560 -> 00:13:24.820]  i would get rid of it
+[00:13:24.820 -> 00:13:25.600]  it's a hundred dollar
+[00:13:25.600 -> 00:13:26.140]  device
+[00:13:26.740 -> 00:13:27.840]  it's not worth
+[00:13:28.800 -> 00:13:29.240]  uh
+[00:13:29.240 -> 00:13:30.820]  eight hours of
+[00:13:30.820 -> 00:13:31.960]  lost wages
+[00:13:32.860 -> 00:13:34.520]  okay so this little map
+[00:13:34.520 -> 00:13:34.800]  here
+[00:13:34.800 -> 00:13:36.020]  cleans up
+[00:13:36.020 -> 00:13:36.780]  all the uh
+[00:13:38.340 -> 00:13:39.520]  the location
+[00:13:39.520 -> 00:13:40.460]  of the uh
+[00:13:40.460 -> 00:13:41.560]  file name
+[00:13:41.560 -> 00:13:42.980]  file name characters
+[00:13:42.980 -> 00:13:44.100]  are all over the place
+[00:13:46.540 -> 00:13:47.180]  so
+[00:13:47.180 -> 00:13:48.620]  my abstraction layer
+[00:13:48.620 -> 00:13:49.220]  collects
+[00:13:49.220 -> 00:13:50.200]  the long name
+[00:13:50.200 -> 00:13:51.420]  and puts it into my
+[00:13:51.420 -> 00:13:52.380]  uh
+[00:13:52.380 -> 00:13:53.180]  my
+[00:13:53.180 -> 00:13:54.920]  c dur entry
+[00:13:54.920 -> 00:13:56.680]  this is my abstraction layer
+[00:13:56.680 -> 00:13:59.120]  that unifies everything
+[00:13:59.120 -> 00:14:01.000]  this is what's returned
+[00:14:01.780 -> 00:14:02.920]  by uh
+[00:14:02.920 -> 00:14:05.340]  i also return the full
+[00:14:05.340 -> 00:14:06.940]  path information
+[00:14:06.940 -> 00:14:08.740]  all the time
+[00:14:08.740 -> 00:14:09.580]  it's really nice
+[00:14:09.580 -> 00:14:10.180]  i do
+[00:14:10.180 -> 00:14:11.500]  i return
+[00:14:11.500 -> 00:14:11.920]  uh
+[00:14:11.920 -> 00:14:13.120]  everybody else
+[00:14:13.120 -> 00:14:14.060]  does find first
+[00:14:14.060 -> 00:14:14.820]  find next
+[00:14:14.820 -> 00:14:15.560]  for uh
+[00:14:15.560 -> 00:14:16.380]  direct
+[00:14:16.380 -> 00:14:17.340]  for files
+[00:14:17.340 -> 00:14:17.880]  i do
+[00:14:17.880 -> 00:14:19.080]  all of them
+[00:14:19.080 -> 00:14:19.660]  at once
+[00:14:19.660 -> 00:14:21.700]  that's just how we operate
+[00:14:21.700 -> 00:14:22.400]  um
+[00:14:22.400 -> 00:14:23.500]  so when you ask
+[00:14:23.500 -> 00:14:24.340]  for the files
+[00:14:24.340 -> 00:14:25.300]  matching a mask
+[00:14:25.300 -> 00:14:26.020]  in a directory
+[00:14:26.020 -> 00:14:27.320]  it gives you all of them
+[00:14:27.320 -> 00:14:28.400]  if you
+[00:14:28.880 -> 00:14:29.360]  recurse
+[00:14:29.360 -> 00:14:30.280]  it gives you all of them
+[00:14:30.280 -> 00:14:30.840]  in a tree
+[00:14:31.520 -> 00:14:32.620]  this has a
+[00:14:32.620 -> 00:14:33.120]  next
+[00:14:33.120 -> 00:14:34.000]  parent
+[00:14:34.000 -> 00:14:34.560]  next
+[00:14:34.560 -> 00:14:35.300]  and sub
+[00:14:35.980 -> 00:14:36.900]  it's a
+[00:14:36.900 -> 00:14:37.520]  well it's not a tree
+[00:14:37.520 -> 00:14:38.400]  it's a link list
+[00:14:38.400 -> 00:14:39.880]  with sub lists
+[00:14:39.880 -> 00:14:40.600]  and uh
+[00:14:40.600 -> 00:14:41.660]  well it's a tree
+[00:14:41.660 -> 00:14:41.980]  anyway
+[00:14:43.780 -> 00:14:45.220]  it's not a binary tree
+[00:14:45.220 -> 00:14:46.360]  that's what i was trying to say
+[00:14:48.180 -> 00:14:49.120]  okay so
+[00:14:49.120 -> 00:14:49.880]  uh
+[00:14:50.700 -> 00:14:52.440]  fill the directory entry
+[00:14:52.940 -> 00:14:53.420]  okay
+[00:14:53.420 -> 00:14:53.900]  so
+[00:14:53.900 -> 00:14:55.140]  la la la la la
+[00:14:55.140 -> 00:14:55.140]  
+[00:14:55.140 -> 00:14:56.840]  we have to convert
+[00:14:57.820 -> 00:14:58.620]  um
+[00:14:58.620 -> 00:14:59.280]  somewhere i
+[00:14:59.280 -> 00:15:01.060]  give it the full path
+[00:15:01.060 -> 00:15:02.360]  okay
+[00:15:03.760 -> 00:15:04.560]  this
+[00:15:04.560 -> 00:15:05.560]  what this
+[00:15:05.560 -> 00:15:06.060]  uh
+[00:15:06.060 -> 00:15:07.040]  don't confuse
+[00:15:07.040 -> 00:15:08.320]  fill directory entry
+[00:15:08.320 -> 00:15:09.400]  with fill directory
+[00:15:09.400 -> 00:15:10.740]  this
+[00:15:10.740 -> 00:15:11.420]  i don't know
+[00:15:11.420 -> 00:15:12.280]  that is confusing
+[00:15:12.280 -> 00:15:13.360]  i should rename that
+[00:15:13.360 -> 00:15:13.940]  definitely
+[00:15:13.940 -> 00:15:14.600]  shouldn't i
+[00:15:14.600 -> 00:15:16.100]  what the hell was i thinking
+[00:15:16.100 -> 00:15:17.120]  what did i do
+[00:15:17.120 -> 00:15:19.260]  that has a cdre
+[00:15:19.260 -> 00:15:19.740]  oh
+[00:15:19.740 -> 00:15:20.860]  that's wicked
+[00:15:20.860 -> 00:15:23.000]  that has a cdre
+[00:15:24.340 -> 00:15:25.920]  that's terrible
+[00:15:25.920 -> 00:15:26.840]  oh well
+[00:15:26.840 -> 00:15:28.520]  i guess it's not bad
+[00:15:28.520 -> 00:15:29.480]  fuck it
+[00:15:29.480 -> 00:15:30.580]  nobody looks in here
+[00:15:30.580 -> 00:15:32.160]  so this
+[00:15:32.160 -> 00:15:33.580]  what this does is uh
+[00:15:33.580 -> 00:15:35.600]  the directory is uh
+[00:15:35.600 -> 00:15:36.500]  some
+[00:15:36.500 -> 00:15:37.680]  clusters
+[00:15:39.780 -> 00:15:41.420]  what it does
+[00:15:41.420 -> 00:15:42.560]  is uh
+[00:15:42.560 -> 00:15:44.000]  we
+[00:15:44.000 -> 00:15:44.520]  we
+[00:15:44.520 -> 00:15:45.220]  we
+[00:15:45.220 -> 00:15:46.120]  we write
+[00:15:46.120 -> 00:15:47.160]  one of our
+[00:15:47.160 -> 00:15:48.300]  formatted things
+[00:15:48.300 -> 00:15:49.700]  we format our
+[00:15:49.700 -> 00:15:50.240]  entry
+[00:15:50.240 -> 00:15:51.780]  into fat32
+[00:15:52.560 -> 00:15:54.600]  we format into fat32
+[00:15:54.600 -> 00:15:55.160]  i think
+[00:15:55.160 -> 00:15:55.940]  what is this doing
+[00:15:59.660 -> 00:16:01.100]  what are we doing here
+[00:16:05.260 -> 00:16:07.200]  no this is not writing
+[00:16:07.200 -> 00:16:07.680]  to this
+[00:16:07.680 -> 00:16:08.560]  to the sector
+[00:16:08.560 -> 00:16:09.380]  this is uh
+[00:16:09.380 -> 00:16:10.840]  filling in the entry
+[00:16:10.840 -> 00:16:12.480]  this is filling in the entry
+[00:16:12.480 -> 00:16:13.740]  oh i think i have a
+[00:16:13.740 -> 00:16:14.980]  pointer to the old
+[00:16:14.980 -> 00:16:16.060]  or to the long
+[00:16:17.440 -> 00:16:18.880]  how do i handle long
+[00:16:18.880 -> 00:16:19.560]  there's like two
+[00:16:19.560 -> 00:16:21.020]  there's like two entries
+[00:16:21.020 -> 00:16:21.820]  for uh
+[00:16:21.820 -> 00:16:22.860]  long
+[00:16:24.000 -> 00:16:24.600]  that's
+[00:16:24.600 -> 00:16:25.940]  i think they come
+[00:16:25.940 -> 00:16:26.900]  one after the other
+[00:16:26.900 -> 00:16:28.660]  anyway uh
+[00:16:30.280 -> 00:16:31.460]  fat32 files
+[00:16:31.460 -> 00:16:31.820]  find
+[00:16:31.820 -> 00:16:32.860]  like this finds
+[00:16:32.860 -> 00:16:33.640]  one file
+[00:16:33.640 -> 00:16:34.500]  this finds one
+[00:16:34.500 -> 00:16:35.380]  god i'm gonna kill
+[00:16:35.380 -> 00:16:35.940]  those birds
+[00:16:35.940 -> 00:16:36.880]  shut up bird
+[00:16:38.760 -> 00:16:39.700]  this finds
+[00:16:39.700 -> 00:16:40.440]  one file
+[00:16:41.880 -> 00:16:42.940]  so what we do
+[00:16:42.940 -> 00:16:43.360]  is we
+[00:16:43.360 -> 00:16:44.340]  read a cluster
+[00:16:45.600 -> 00:16:46.120]  and
+[00:16:47.120 -> 00:16:48.360]  the first cluster
+[00:16:48.360 -> 00:16:48.920]  gives us
+[00:16:48.920 -> 00:16:49.680]  the directory
+[00:16:49.680 -> 00:16:50.580]  size
+[00:16:53.160 -> 00:16:54.180]  you need
+[00:16:54.180 -> 00:16:55.120]  you know how you have
+[00:16:55.120 -> 00:16:56.200]  dot and dot dot
+[00:16:57.460 -> 00:16:58.660]  well the first one
+[00:16:58.660 -> 00:16:59.260]  gives us the
+[00:16:59.260 -> 00:17:00.380]  directory size
+[00:17:01.340 -> 00:17:01.860]  um
+[00:17:04.840 -> 00:17:05.940]  then we loop
+[00:17:05.940 -> 00:17:07.220]  what do we do
+[00:17:07.220 -> 00:17:07.740]  here
+[00:17:07.740 -> 00:17:09.120]  what are we doing
+[00:17:12.700 -> 00:17:13.820]  we're looping
+[00:17:13.820 -> 00:17:14.540]  as long as
+[00:17:14.540 -> 00:17:15.360]  the first character
+[00:17:15.360 -> 00:17:16.280]  is not zero
+[00:17:17.180 -> 00:17:18.260]  so apparently
+[00:17:18.260 -> 00:17:19.840]  in fat32
+[00:17:19.840 -> 00:17:21.000]  if you get a zero
+[00:17:21.000 -> 00:17:22.100]  as the start
+[00:17:22.100 -> 00:17:22.680]  of an entry
+[00:17:22.680 -> 00:17:23.120]  it's
+[00:17:23.120 -> 00:17:23.900]  the end
+[00:17:25.940 -> 00:17:26.840]  okay i
+[00:17:26.840 -> 00:17:27.620]  i make little
+[00:17:27.620 -> 00:17:28.180]  attribute
+[00:17:28.180 -> 00:17:28.840]  oh this
+[00:17:28.840 -> 00:17:30.160]  fat has
+[00:17:30.160 -> 00:17:30.800]  attributes
+[00:17:30.800 -> 00:17:31.500]  um
+[00:17:33.280 -> 00:17:33.900]  uh
+[00:17:33.900 -> 00:17:34.620]  size
+[00:17:34.620 -> 00:17:35.280]  size
+[00:17:35.280 -> 00:17:36.620]  what am i doing
+[00:17:36.620 -> 00:17:37.180]  i'm reading
+[00:17:37.180 -> 00:17:37.840]  the code
+[00:17:37.840 -> 00:17:39.040]  you read
+[00:17:39.040 -> 00:17:39.580]  the code
+[00:17:39.580 -> 00:17:40.240]  somebody
+[00:17:40.240 -> 00:17:40.840]  wants me
+[00:17:40.840 -> 00:17:41.200]  to talk
+[00:17:41.200 -> 00:17:41.480]  about
+[00:17:41.480 -> 00:17:42.000]  drivers
+[00:17:43.480 -> 00:17:44.200]  so i
+[00:17:44.200 -> 00:17:44.520]  have
+[00:17:44.520 -> 00:17:45.000]  um
+[00:17:46.060 -> 00:17:47.020]  this locks
+[00:17:47.020 -> 00:17:47.720]  the partition
+[00:17:47.720 -> 00:17:48.500]  and unlocks
+[00:17:48.500 -> 00:17:49.140]  the partition
+[00:17:49.140 -> 00:17:50.440]  i have a lock
+[00:17:50.440 -> 00:17:51.020]  on the block
+[00:17:51.020 -> 00:17:51.620]  devices
+[00:17:51.620 -> 00:17:52.740]  and then the
+[00:17:52.740 -> 00:17:53.360]  next level
+[00:17:53.360 -> 00:17:53.780]  up is
+[00:17:53.780 -> 00:17:54.500]  partitions
+[00:17:54.500 -> 00:17:55.880]  so you might
+[00:17:55.880 -> 00:17:56.340]  have a disc
+[00:17:56.340 -> 00:17:56.880]  with three
+[00:17:56.880 -> 00:17:57.580]  partitions
+[00:17:57.580 -> 00:17:58.680]  so i have
+[00:17:58.680 -> 00:17:59.760]  partition locks
+[00:17:59.760 -> 00:18:00.680]  and those
+[00:18:00.680 -> 00:18:01.240]  automatically
+[00:18:01.240 -> 00:18:01.940]  i think those
+[00:18:01.940 -> 00:18:02.700]  lock the device
+[00:18:02.700 -> 00:18:03.180]  the block
+[00:18:03.180 -> 00:18:04.140]  devices underneath
+[00:18:04.140 -> 00:18:05.400]  um
+[00:18:05.400 -> 00:18:06.220]  so
+[00:18:06.220 -> 00:18:07.480]  the rule
+[00:18:07.480 -> 00:18:07.940]  is
+[00:18:07.940 -> 00:18:08.540]  if it was
+[00:18:08.540 -> 00:18:09.000]  locked
+[00:18:09.000 -> 00:18:09.440]  when you
+[00:18:09.440 -> 00:18:10.000]  got it
+[00:18:10.000 -> 00:18:11.200]  you keep
+[00:18:11.200 -> 00:18:11.780]  it locked
+[00:18:11.780 -> 00:18:12.640]  that's
+[00:18:12.640 -> 00:18:13.440]  simple enough
+[00:18:15.220 -> 00:18:16.480]  so uh
+[00:18:16.480 -> 00:18:17.420]  somewhere i
+[00:18:17.420 -> 00:18:18.300]  have a
+[00:18:18.300 -> 00:18:19.100]  mechanism
+[00:18:19.100 -> 00:18:19.920]  for
+[00:18:19.920 -> 00:18:21.260]  protecting
+[00:18:21.260 -> 00:18:21.880]  against
+[00:18:21.880 -> 00:18:22.840]  control c
+[00:18:24.420 -> 00:18:25.500]  when we're
+[00:18:25.500 -> 00:18:26.320]  doing writes
+[00:18:26.320 -> 00:18:27.160]  we don't
+[00:18:27.160 -> 00:18:27.920]  want to
+[00:18:27.920 -> 00:18:28.340]  break
+[00:18:29.580 -> 00:18:30.460]  and
+[00:18:30.460 -> 00:18:31.240]  interrupt
+[00:18:31.240 -> 00:18:32.040]  a write
+[00:18:32.040 -> 00:18:32.740]  operation
+[00:18:32.740 -> 00:18:33.260]  that would
+[00:18:33.260 -> 00:18:33.880]  be bad
+[00:18:33.880 -> 00:18:34.880]  anyway
+[00:18:34.880 -> 00:18:35.780]  file read
+[00:18:36.800 -> 00:18:37.660]  um
+[00:18:38.740 -> 00:18:40.180]  free clusters
+[00:18:40.180 -> 00:18:40.800]  that goes
+[00:18:40.800 -> 00:18:41.220]  down the
+[00:18:41.220 -> 00:18:41.940]  fat chain
+[00:18:41.940 -> 00:18:43.280]  uh
+[00:18:43.280 -> 00:18:44.360]  allocate
+[00:18:44.360 -> 00:18:44.940]  clusters
+[00:18:44.940 -> 00:18:46.280]  so there's
+[00:18:46.280 -> 00:18:46.440]  uh
+[00:18:46.440 -> 00:18:47.460]  somebody taught
+[00:18:47.460 -> 00:18:47.820]  me the
+[00:18:47.820 -> 00:18:48.260]  secret
+[00:18:48.260 -> 00:18:48.860]  um
+[00:18:48.860 -> 00:18:49.400]  what you
+[00:18:49.400 -> 00:18:49.860]  do is
+[00:18:49.860 -> 00:18:50.340]  you uh
+[00:18:50.340 -> 00:18:51.660]  you scan
+[00:18:51.660 -> 00:18:52.220]  for
+[00:18:52.220 -> 00:18:53.600]  the same
+[00:18:53.600 -> 00:18:54.160]  size
+[00:18:54.160 -> 00:18:55.820]  uh
+[00:18:56.960 -> 00:18:57.940]  if you
+[00:18:57.940 -> 00:18:58.280]  want
+[00:18:58.280 -> 00:18:58.860]  stable
+[00:18:59.800 -> 00:19:00.660]  allocation
+[00:19:00.660 -> 00:19:00.980]  and
+[00:19:00.980 -> 00:19:01.860]  reallocation
+[00:19:01.860 -> 00:19:03.020]  especially
+[00:19:03.020 -> 00:19:03.600]  since i
+[00:19:03.600 -> 00:19:03.780]  do
+[00:19:03.780 -> 00:19:04.440]  contiguous
+[00:19:04.440 -> 00:19:05.060]  mostly
+[00:19:05.060 -> 00:19:06.000]  anyway
+[00:19:06.000 -> 00:19:06.300]  uh
+[00:19:06.300 -> 00:19:06.900]  the
+[00:19:06.900 -> 00:19:07.280]  secret
+[00:19:07.280 -> 00:19:07.740]  is
+[00:19:07.740 -> 00:19:08.000]  you
+[00:19:08.000 -> 00:19:08.500]  scan
+[00:19:08.500 -> 00:19:08.980]  for
+[00:19:08.980 -> 00:19:09.760]  a
+[00:19:09.760 -> 00:19:10.680]  chunk
+[00:19:10.680 -> 00:19:10.940]  of
+[00:19:10.940 -> 00:19:12.340]  unallocated
+[00:19:12.340 -> 00:19:12.920]  the same
+[00:19:12.920 -> 00:19:13.320]  exact
+[00:19:13.320 -> 00:19:13.740]  size
+[00:19:13.740 -> 00:19:14.340]  the closest
+[00:19:14.340 -> 00:19:14.940]  size
+[00:19:14.940 -> 00:19:15.960]  so you
+[00:19:15.960 -> 00:19:16.280]  don't just
+[00:19:16.280 -> 00:19:16.580]  take the
+[00:19:16.580 -> 00:19:17.080]  first one
+[00:19:17.080 -> 00:19:17.820]  you scan
+[00:19:17.820 -> 00:19:18.180]  ahead
+[00:19:18.180 -> 00:19:18.800]  for the
+[00:19:18.800 -> 00:19:19.080]  um
+[00:19:19.080 -> 00:19:20.280]  the
+[00:19:20.280 -> 00:19:21.200]  block
+[00:19:21.200 -> 00:19:21.580]  that's
+[00:19:21.580 -> 00:19:21.980]  the same
+[00:19:21.980 -> 00:19:22.260]  size
+[00:19:22.260 -> 00:19:22.860]  so
+[00:19:22.860 -> 00:19:23.420]  FIS
+[00:19:23.420 -> 00:19:23.780]  is
+[00:19:23.780 -> 00:19:24.080]  uh
+[00:19:24.080 -> 00:19:24.480]  um
+[00:19:24.980 -> 00:19:25.780]  information
+[00:19:25.780 -> 00:19:26.480]  this is
+[00:19:26.480 -> 00:19:27.360]  you have
+[00:19:27.360 -> 00:19:27.700]  your boot
+[00:19:27.700 -> 00:19:28.280]  sector on
+[00:19:28.280 -> 00:19:28.720]  the fat
+[00:19:28.720 -> 00:19:29.400]  that has
+[00:19:29.400 -> 00:19:29.660]  some
+[00:19:29.660 -> 00:19:30.600]  has your
+[00:19:30.600 -> 00:19:30.880]  basic
+[00:19:30.880 -> 00:19:31.440]  information
+[00:19:31.440 -> 00:19:31.880]  then you
+[00:19:31.880 -> 00:19:32.220]  have this
+[00:19:32.220 -> 00:19:32.620]  funky
+[00:19:32.620 -> 00:19:33.340]  kind of
+[00:19:33.340 -> 00:19:33.560]  uh
+[00:19:33.560 -> 00:19:34.460]  extra
+[00:19:34.460 -> 00:19:34.900]  block
+[00:19:34.900 -> 00:19:35.280]  that's
+[00:19:35.280 -> 00:19:35.600]  got
+[00:19:35.600 -> 00:19:35.900]  uh
+[00:19:37.580 -> 00:19:38.220]  um
+[00:19:38.220 -> 00:19:39.000]  the most
+[00:19:39.000 -> 00:19:39.440]  recently
+[00:19:39.440 -> 00:19:40.060]  allocated
+[00:19:40.060 -> 00:19:41.460]  i guess
+[00:19:41.460 -> 00:19:42.040]  it's good
+[00:19:42.040 -> 00:19:42.880]  oh well
+[00:19:42.880 -> 00:19:44.300]  so uh
+[00:19:44.300 -> 00:19:46.420]  i i i don't
+[00:19:46.420 -> 00:19:47.320]  cash writes
+[00:19:47.320 -> 00:19:49.160]  i write them
+[00:19:49.160 -> 00:19:49.760]  pretty much
+[00:19:49.760 -> 00:19:50.300]  immediately
+[00:19:50.300 -> 00:19:51.240]  so i do
+[00:19:51.240 -> 00:19:51.740]  lots and
+[00:19:51.740 -> 00:19:52.140]  lots of
+[00:19:52.140 -> 00:19:52.500]  writes
+[00:19:52.500 -> 00:19:53.500]  i hope
+[00:19:53.500 -> 00:19:54.720]  i hope i
+[00:19:54.720 -> 00:19:55.100]  don't wear
+[00:19:55.100 -> 00:19:55.420]  it out
+[00:19:55.420 -> 00:19:56.000]  to be quite
+[00:19:56.000 -> 00:19:56.380]  honest
+[00:19:56.380 -> 00:19:57.340]  anyway i
+[00:19:57.340 -> 00:19:57.880]  have a
+[00:19:57.880 -> 00:19:58.120]  um
+[00:19:58.120 -> 00:19:58.940]  protection
+[00:19:58.940 -> 00:20:00.280]  that protects
+[00:20:00.280 -> 00:20:00.760]  against
+[00:20:00.760 -> 00:20:01.600]  ctrl c
+[00:20:01.600 -> 00:20:03.040]  so when
+[00:20:03.040 -> 00:20:03.680]  you say
+[00:20:03.680 -> 00:20:04.620]  brake lock
+[00:20:04.620 -> 00:20:05.960]  what that
+[00:20:05.960 -> 00:20:06.500]  means is
+[00:20:06.500 -> 00:20:06.920]  lock
+[00:20:06.920 -> 00:20:07.540]  against
+[00:20:07.540 -> 00:20:08.020]  brake
+[00:20:08.020 -> 00:20:09.280]  um
+[00:20:09.280 -> 00:20:10.420]  so uh
+[00:20:12.120 -> 00:20:12.900]  if you
+[00:20:12.900 -> 00:20:13.360]  kill a
+[00:20:13.360 -> 00:20:13.740]  task
+[00:20:13.740 -> 00:20:14.360]  i uh
+[00:20:14.360 -> 00:20:15.020]  there's one
+[00:20:15.020 -> 00:20:15.540]  more thing
+[00:20:15.540 -> 00:20:16.020]  i have to
+[00:20:16.020 -> 00:20:16.480]  get rid of
+[00:20:16.480 -> 00:20:17.380]  i do have
+[00:20:17.380 -> 00:20:17.840]  ownership
+[00:20:17.840 -> 00:20:18.220]  if you
+[00:20:18.220 -> 00:20:18.580]  kill a
+[00:20:18.580 -> 00:20:18.940]  task
+[00:20:18.940 -> 00:20:20.120]  i uh
+[00:20:20.120 -> 00:20:21.280]  i release
+[00:20:21.280 -> 00:20:21.760]  anything
+[00:20:21.760 -> 00:20:22.360]  locked
+[00:20:23.460 -> 00:20:24.280]  but the
+[00:20:24.280 -> 00:20:24.800]  brake lock
+[00:20:24.800 -> 00:20:25.520]  is uh
+[00:20:25.520 -> 00:20:26.120]  anyway
+[00:20:26.120 -> 00:20:27.000]  so what
+[00:20:27.000 -> 00:20:27.120]  the
+[00:20:27.120 -> 00:20:27.600]  brake lock
+[00:20:27.600 -> 00:20:27.940]  does
+[00:20:27.940 -> 00:20:28.240]  is
+[00:20:28.240 -> 00:20:28.520]  it
+[00:20:28.520 -> 00:20:29.140]  postpones
+[00:20:29.140 -> 00:20:29.280]  it
+[00:20:29.280 -> 00:20:29.580]  until
+[00:20:29.580 -> 00:20:29.760]  the
+[00:20:29.760 -> 00:20:30.020]  brake
+[00:20:30.020 -> 00:20:30.300]  lock
+[00:20:30.300 -> 00:20:30.760]  unlock
+[00:20:30.760 -> 00:20:32.180]  and then
+[00:20:32.180 -> 00:20:32.620]  you get
+[00:20:32.620 -> 00:20:32.780]  the
+[00:20:32.780 -> 00:20:33.140]  brake
+[00:20:33.140 -> 00:20:33.840]  at the
+[00:20:33.840 -> 00:20:34.300]  unlock
+[00:20:36.380 -> 00:20:37.360]  so uh
+[00:20:37.360 -> 00:20:37.780]  write
+[00:20:37.780 -> 00:20:38.240]  blocks
+[00:20:39.600 -> 00:20:40.280]  um
+[00:20:41.660 -> 00:20:42.880]  so i i
+[00:20:42.880 -> 00:20:43.360]  i have
+[00:20:43.360 -> 00:20:44.020]  some special
+[00:20:44.020 -> 00:20:44.560]  cash
+[00:20:44.560 -> 00:20:45.580]  i keep
+[00:20:45.580 -> 00:20:46.160]  the the
+[00:20:46.160 -> 00:20:47.160]  most recent
+[00:20:47.160 -> 00:20:47.520]  uh
+[00:20:47.520 -> 00:20:48.400]  fat
+[00:20:48.400 -> 00:20:48.940]  block
+[00:20:48.940 -> 00:20:49.520]  in
+[00:20:49.520 -> 00:20:50.420]  stored
+[00:20:50.420 -> 00:20:50.720]  off
+[00:20:50.720 -> 00:20:50.960]  the
+[00:20:50.960 -> 00:20:51.440]  structure
+[00:20:51.440 -> 00:20:52.720]  uh
+[00:20:52.720 -> 00:20:53.240]  i don't
+[00:20:53.240 -> 00:20:53.400]  know
+[00:20:53.400 -> 00:20:53.980]  it's kind
+[00:20:53.980 -> 00:20:54.160]  of
+[00:20:54.160 -> 00:20:55.140]  it's okay
+[00:20:55.140 -> 00:20:55.620]  i guess
+[00:20:55.620 -> 00:20:56.800]  i wonder
+[00:20:56.800 -> 00:20:57.080]  if i
+[00:20:57.080 -> 00:20:57.880]  i might
+[00:20:57.880 -> 00:20:58.320]  do a
+[00:20:58.320 -> 00:20:58.660]  little bit
+[00:20:58.660 -> 00:20:59.340]  of caching
+[00:20:59.340 -> 00:20:59.960]  of the
+[00:20:59.960 -> 00:21:00.900]  the fat
+[00:21:00.900 -> 00:21:01.240]  block
+[00:21:01.240 -> 00:21:01.940]  instead of
+[00:21:01.940 -> 00:21:02.660]  every single
+[00:21:02.660 -> 00:21:03.300]  i don't think
+[00:21:03.300 -> 00:21:03.960]  every single
+[00:21:03.960 -> 00:21:05.000]  um
+[00:21:05.000 -> 00:21:05.780]  but i don't
+[00:21:05.780 -> 00:21:06.280]  want to mess
+[00:21:06.280 -> 00:21:07.040]  with cash
+[00:21:07.040 -> 00:21:07.460]  rights
+[00:21:07.460 -> 00:21:09.100]  i don't care
+[00:21:09.100 -> 00:21:09.900]  about performance
+[00:21:09.900 -> 00:21:10.360]  that's
+[00:21:10.360 -> 00:21:11.820]  that's too
+[00:21:11.820 -> 00:21:12.480]  dangerous and
+[00:21:12.480 -> 00:21:13.120]  complicated
+[00:21:13.120 -> 00:21:14.360]  i don't have a
+[00:21:14.360 -> 00:21:14.760]  shutdown
+[00:21:14.760 -> 00:21:16.060]  i just give the
+[00:21:16.060 -> 00:21:16.740]  rule turn it
+[00:21:16.740 -> 00:21:17.100]  off
+[00:21:17.100 -> 00:21:18.060]  anyway
+[00:21:18.060 -> 00:21:18.580]  what do we got
+[00:21:18.580 -> 00:21:18.800]  here
+[00:21:18.800 -> 00:21:19.180]  allocate
+[00:21:19.180 -> 00:21:19.900]  contiguous
+[00:21:21.660 -> 00:21:22.140]  okay
+[00:21:23.700 -> 00:21:24.500]  directory new
+[00:21:24.500 -> 00:21:25.300]  okay so this
+[00:21:25.300 -> 00:21:26.200]  makes a new
+[00:21:26.200 -> 00:21:26.940]  entry in a
+[00:21:26.940 -> 00:21:27.440]  directory
+[00:21:28.100 -> 00:21:28.720]  overwrites an
+[00:21:28.720 -> 00:21:29.220]  old with the
+[00:21:29.220 -> 00:21:29.820]  same name
+[00:21:29.820 -> 00:21:31.340]  so it scans
+[00:21:31.340 -> 00:21:32.040]  the first thing
+[00:21:32.040 -> 00:21:32.560]  it does is it
+[00:21:32.560 -> 00:21:33.240]  gets the size
+[00:21:33.240 -> 00:21:34.380]  of the dot
+[00:21:34.380 -> 00:21:35.100]  entry
+[00:21:35.100 -> 00:21:36.300]  there's dot
+[00:21:36.300 -> 00:21:37.000]  and dot dot
+[00:21:37.000 -> 00:21:38.060]  first thing it
+[00:21:38.060 -> 00:21:38.540]  does is it gets
+[00:21:38.540 -> 00:21:39.220]  the size of the
+[00:21:39.220 -> 00:21:39.880]  dot entry
+[00:21:39.880 -> 00:21:40.320]  somewhere
+[00:21:41.220 -> 00:21:42.340]  and it scans
+[00:21:42.340 -> 00:21:43.240]  we got some
+[00:21:43.240 -> 00:21:44.060]  funky codes
+[00:21:44.060 -> 00:21:44.820]  for deleted
+[00:21:44.820 -> 00:21:45.540]  if it's been
+[00:21:45.540 -> 00:21:46.020]  deleted
+[00:21:47.260 -> 00:21:48.100]  long name
+[00:21:48.100 -> 00:21:48.620]  short name
+[00:21:48.620 -> 00:21:49.460]  what i do is
+[00:21:49.460 -> 00:21:50.320]  the long name
+[00:21:50.320 -> 00:21:51.020]  is like two
+[00:21:51.020 -> 00:21:51.520]  entries
+[00:21:51.520 -> 00:21:52.360]  you have to
+[00:21:52.360 -> 00:21:52.700]  um
+[00:21:52.700 -> 00:21:53.700]  i think i have
+[00:21:53.700 -> 00:21:54.160]  a pointer
+[00:21:54.160 -> 00:21:55.100]  that lags
+[00:21:55.100 -> 00:21:56.320]  and lets it
+[00:21:56.320 -> 00:21:56.580]  uh
+[00:21:58.200 -> 00:21:59.140]  take care of
+[00:21:59.140 -> 00:21:59.920]  the long name
+[00:21:59.920 -> 00:22:01.260]  anyway uh
+[00:22:02.260 -> 00:22:03.220]  available count
+[00:22:03.220 -> 00:22:03.860]  what do we got
+[00:22:03.860 -> 00:22:04.480]  uh
+[00:22:06.520 -> 00:22:07.080]  delete
+[00:22:07.920 -> 00:22:08.480]  okay
+[00:22:08.480 -> 00:22:09.080]  whatever
+[00:22:09.740 -> 00:22:10.640]  you have to
+[00:22:10.640 -> 00:22:11.460]  you have to
+[00:22:11.460 -> 00:22:12.240]  delete the
+[00:22:12.240 -> 00:22:12.540]  uh
+[00:22:14.400 -> 00:22:14.960]  allocated
+[00:22:14.960 -> 00:22:15.580]  clusters
+[00:22:15.580 -> 00:22:16.420]  the fat table
+[00:22:16.420 -> 00:22:16.780]  do you know
+[00:22:16.780 -> 00:22:17.440]  what a fat table
+[00:22:17.440 -> 00:22:17.760]  is
+[00:22:17.760 -> 00:22:18.480]  it's an array
+[00:22:18.480 -> 00:22:19.460]  that tells
+[00:22:19.460 -> 00:22:20.540]  the next entry
+[00:22:20.540 -> 00:22:21.840]  in the file
+[00:22:22.640 -> 00:22:23.220]  um
+[00:22:23.220 -> 00:22:24.360]  anyway uh
+[00:22:25.460 -> 00:22:26.040]  so
+[00:22:26.040 -> 00:22:27.640]  i think i delete
+[00:22:27.640 -> 00:22:28.600]  and then i
+[00:22:28.600 -> 00:22:29.460]  i delete the
+[00:22:29.460 -> 00:22:30.320]  the directory
+[00:22:30.320 -> 00:22:30.760]  entry
+[00:22:30.760 -> 00:22:31.700]  and then i delete
+[00:22:31.700 -> 00:22:32.820]  the chain of fat
+[00:22:33.980 -> 00:22:35.180]  so if you interrupt
+[00:22:35.180 -> 00:22:36.400]  if you powered off
+[00:22:36.400 -> 00:22:37.500]  you would have
+[00:22:37.500 -> 00:22:38.660]  a deleted entry
+[00:22:38.660 -> 00:22:39.460]  and uh
+[00:22:41.100 -> 00:22:42.100]  entries that don't
+[00:22:42.100 -> 00:22:43.040]  need to be allocated
+[00:22:43.040 -> 00:22:44.060]  um
+[00:22:44.060 -> 00:22:45.320]  it's better to
+[00:22:45.320 -> 00:22:45.740]  fail
+[00:22:45.740 -> 00:22:46.620]  in that
+[00:22:46.620 -> 00:22:47.600]  manner
+[00:22:47.600 -> 00:22:48.600]  if you have
+[00:22:48.600 -> 00:22:49.140]  entries that
+[00:22:49.140 -> 00:22:49.700]  don't need to be
+[00:22:49.700 -> 00:22:50.180]  allocated
+[00:22:50.180 -> 00:22:51.220]  that's not as bad
+[00:22:51.220 -> 00:22:52.480]  as something
+[00:22:52.480 -> 00:22:53.540]  fucked up
+[00:22:53.540 -> 00:22:54.680]  so i have a
+[00:22:54.680 -> 00:22:55.340]  fixed disk
+[00:22:55.340 -> 00:22:56.100]  a check disk
+[00:22:56.100 -> 00:22:56.620]  that will
+[00:22:56.620 -> 00:22:57.400]  re
+[00:22:57.400 -> 00:22:58.120]  fix it
+[00:22:58.120 -> 00:22:59.040]  but i would just
+[00:22:59.040 -> 00:22:59.960]  reformat and
+[00:22:59.960 -> 00:23:00.640]  reinstall
+[00:23:01.640 -> 00:23:02.220]  if
+[00:23:02.220 -> 00:23:03.100]  you can use it
+[00:23:03.100 -> 00:23:04.080]  to report errors
+[00:23:05.920 -> 00:23:06.500]  anyway
+[00:23:06.500 -> 00:23:06.920]  uh
+[00:23:06.920 -> 00:23:07.920]  so
+[00:23:07.920 -> 00:23:08.240]  uh
+[00:23:08.240 -> 00:23:09.140]  what do we have here
+[00:23:09.140 -> 00:23:10.540]  write file
+[00:23:10.540 -> 00:23:11.660]  so we read
+[00:23:11.660 -> 00:23:12.020]  and write
+[00:23:12.020 -> 00:23:12.720]  whole files
+[00:23:12.720 -> 00:23:13.560]  for the most part
+[00:23:13.560 -> 00:23:14.260]  and we do it
+[00:23:14.260 -> 00:23:14.840]  contiguous
+[00:23:14.840 -> 00:23:15.800]  that's how the
+[00:23:15.800 -> 00:23:17.180]  red c file system
+[00:23:17.180 -> 00:23:17.660]  works
+[00:23:18.560 -> 00:23:19.520]  find files
+[00:23:19.520 -> 00:23:20.600]  okay this returns
+[00:23:20.600 -> 00:23:22.740]  it even recurses
+[00:23:22.740 -> 00:23:23.460]  at least some
+[00:23:23.460 -> 00:23:24.400]  maybe it's a higher
+[00:23:24.400 -> 00:23:24.780]  level
+[00:23:24.780 -> 00:23:26.360]  anyway you get a
+[00:23:26.360 -> 00:23:27.840]  a whole tree
+[00:23:29.120 -> 00:23:30.180]  all at once
+[00:23:30.180 -> 00:23:30.700]  we don't
+[00:23:30.700 -> 00:23:31.980]  that's how we roll
+[00:23:33.640 -> 00:23:34.880]  make directory
+[00:23:34.880 -> 00:23:35.860]  okay what do we
+[00:23:35.860 -> 00:23:36.060]  got
+[00:23:36.060 -> 00:23:37.180]  all right
+[00:23:37.180 -> 00:23:37.660]  well that's
+[00:23:37.660 -> 00:23:38.280]  fat 32
+[00:23:38.280 -> 00:23:39.160]  uh
+[00:23:39.160 -> 00:23:41.040]  so there's a
+[00:23:41.040 -> 00:23:41.340]  uh
+[00:23:43.660 -> 00:23:45.000]  the next level
+[00:23:45.000 -> 00:23:45.480]  up
+[00:23:45.480 -> 00:23:46.520]  has the
+[00:23:46.520 -> 00:23:46.800]  uh
+[00:23:47.820 -> 00:23:49.000]  i guess the
+[00:23:49.000 -> 00:23:49.360]  abstraction
+[00:23:52.800 -> 00:23:54.100]  so you'll see
+[00:23:54.100 -> 00:23:54.680]  a uh
+[00:23:54.680 -> 00:23:55.860]  a switch
+[00:23:57.260 -> 00:23:58.160]  of the
+[00:23:58.160 -> 00:23:58.820]  abstraction
+[00:23:58.820 -> 00:23:59.420]  doing the
+[00:23:59.420 -> 00:23:59.800]  different
+[00:23:59.800 -> 00:24:00.860]  file system
+[00:24:00.860 -> 00:24:01.340]  types
+[00:24:01.340 -> 00:24:02.520]  so all
+[00:24:02.520 -> 00:24:03.120]  through this
+[00:24:03.120 -> 00:24:03.540]  you have
+[00:24:03.540 -> 00:24:04.640]  three different
+[00:24:04.640 -> 00:24:05.360]  versions
+[00:24:05.360 -> 00:24:06.520]  red c
+[00:24:06.520 -> 00:24:06.880]  fat
+[00:24:06.880 -> 00:24:07.380]  iso
+[00:24:07.380 -> 00:24:08.320]  9 660
+[00:24:08.320 -> 00:24:09.500]  so what i'm
+[00:24:09.500 -> 00:24:10.080]  i'm gonna
+[00:24:10.080 -> 00:24:10.680]  fucking
+[00:24:10.680 -> 00:24:11.840]  order microsoft
+[00:24:11.840 -> 00:24:12.800]  they're not
+[00:24:12.800 -> 00:24:13.600]  assholes
+[00:24:13.600 -> 00:24:14.680]  i'm gonna
+[00:24:14.680 -> 00:24:15.620]  order them
+[00:24:15.620 -> 00:24:16.360]  well yeah they
+[00:24:16.360 -> 00:24:16.980]  are get rid of
+[00:24:16.980 -> 00:24:17.580]  secure boot
+[00:24:17.580 -> 00:24:18.300]  that's gone
+[00:24:19.080 -> 00:24:19.940]  fuck no
+[00:24:19.940 -> 00:24:21.280]  anyway we're gonna
+[00:24:21.280 -> 00:24:22.000]  we're gonna tell them
+[00:24:22.000 -> 00:24:22.840]  support red c
+[00:24:22.840 -> 00:24:23.780]  so i can get rid of
+[00:24:23.780 -> 00:24:24.380]  fat 32
+[00:24:24.380 -> 00:24:25.000]  and iso
+[00:24:25.000 -> 00:24:25.760]  9 660
+[00:24:25.760 -> 00:24:27.160]  so my red c
+[00:24:27.160 -> 00:24:27.860]  has uh
+[00:24:27.860 -> 00:24:28.740]  just a bitmap
+[00:24:28.740 -> 00:24:30.060]  not a fat table
+[00:24:30.820 -> 00:24:31.840]  and even though
+[00:24:31.840 -> 00:24:32.660]  you don't need it
+[00:24:32.660 -> 00:24:33.520]  we're just gonna
+[00:24:34.260 -> 00:24:35.360]  drop the whole
+[00:24:35.360 -> 00:24:35.940]  image
+[00:24:36.600 -> 00:24:38.100]  of a red c
+[00:24:38.100 -> 00:24:38.720]  partition
+[00:24:38.720 -> 00:24:40.120]  onto the cd-rom
+[00:24:40.700 -> 00:24:41.520]  including the
+[00:24:41.520 -> 00:24:42.440]  allocation table
+[00:24:42.440 -> 00:24:43.320]  which wastes a little
+[00:24:43.320 -> 00:24:43.900]  bit of space
+[00:24:47.060 -> 00:24:48.080]  that's what we're gonna
+[00:24:48.080 -> 00:24:48.840]  do so we're gonna
+[00:24:48.840 -> 00:24:49.900]  get rid of
+[00:24:49.900 -> 00:24:51.640]  all these cases
+[00:24:52.440 -> 00:24:53.560]  and just have
+[00:24:53.560 -> 00:24:54.020]  one
+[00:24:54.020 -> 00:24:55.740]  the red c
+[00:24:57.020 -> 00:24:57.880]  and uh
+[00:24:57.880 -> 00:24:58.560]  that's how we're
+[00:24:58.560 -> 00:24:59.120]  gonna roll
+[00:24:59.720 -> 00:25:00.680]  once we get
+[00:25:00.680 -> 00:25:01.280]  microsoft
+[00:25:01.280 -> 00:25:02.280]  on board
+[00:25:02.280 -> 00:25:03.520]  we can cut out
+[00:25:03.520 -> 00:25:04.320]  a lot of lines
+[00:25:04.320 -> 00:25:04.800]  of code
+[00:25:04.800 -> 00:25:05.840]  i some people
+[00:25:06.560 -> 00:25:07.760]  have orgasms
+[00:25:07.760 -> 00:25:08.780]  on abstraction
+[00:25:08.780 -> 00:25:09.260]  layers
+[00:25:09.260 -> 00:25:10.680]  i have orgasms
+[00:25:10.680 -> 00:25:11.320]  on getting rid
+[00:25:11.320 -> 00:25:11.640]  of them
+[00:25:12.900 -> 00:25:13.680]  that's
+[00:25:13.680 -> 00:25:14.760]  okay
+[00:25:14.760 -> 00:25:15.700]  so
+[00:25:15.700 -> 00:25:16.520]  that's all
+[00:25:16.520 -> 00:25:17.120]  you

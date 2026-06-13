@@ -1,0 +1,71 @@
+========================================================================
+FILE        : videos/2014/2014-10-12T00:00:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #46 (P_v9oSUSTB4).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-10-12T00:00:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #46 (P_v9oSUSTB4).mkv
+FORMAT      : Matroska
+SIZE        : 19,277,868 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:04:46.920
+TRANSCRIBED: 2026-05-10T17:22:46.878572+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+Okay, this is Temple OS 5-Minute Random Code Walkthrough, Episode 46, and I'm your host, Terry Davis. So, I momentarily, I had a glitch when I did a random pick. What it, uh, the random pick, uh, I had a glitch the last time I recorded. So I have to, I, I'm gonna go to the same spot it picked. It picked, um, right here. This is in, uh, string 1A, which is in the kernel. It's, uh, um, most of the headers are in 1B, atom 1, atom 1B is where most of the assembly headers are. But this one's in atom 1C just because, uh, the reason they're separated is so that, um, you don't have duplicates. Anyway, these are, uh, for, uh, these are, for, uh, these take effect in the kernel compilation. Um, the kernel, uh, let me go ahead and show you. The kernel make file is just a big include. So all, all the code is 1B include. And so 1B is the, uh, assembly headers. Um, we have, uh, those are for, uh, well, anyway, those are for what's occurred before. So those are the assembly headers for the other stuff. And, um, the string 1A is, uh, down here. So, um, we put, we don't put the externs in 1A, 1B. We put them in 1A. It's just a dependency. You have to, you have to work out the dependencies. Anyway, so my convention is to put a, uh, underscore on, uh, on assembly or C callable assembly. So C callable has an underscore. Um, that, that's optional, but it's a good idea. Now these two upper, this is a string ignore. Or this is like string, string, string, high string, except I changed the order because, um, for consistency in my operating system. So the needle and then the haystack. Um, we're, we're doing ignore case. Anyway, so, um, this calls two upper, which is a, uh, an assembly, um, with registers. You pass parameters with registers. For, for C you pass with, uh, with the stack. Anyway, I don't do it like everybody else. So, um, use the standard stack frame. Um, this is because, uh, the, uh, the wallpaper, um, does a stack. It traces the stack and it gets the calling addresses. So if you screw up RBP, um, the wallpaper will crash. Anyway, so, um, now, you, the return value is in RAX. Like, this is, uh, setting it to zero. That's for, uh, not, string not found. Anyway, um, so, um, you don't have to preserve A, B, C, and D, um, registers. Um, if you want to see which registers, type, type reg. And then, um, down here, RSI, RDI, 10, 11, 14, 15, 12, and 13 have to be preserved. The other ones, you, you can always clobber. Um, except RBP and RSP, you don't want to clobber. Anyway, so, uh, so this two upper is, is an assembly routine. It's called in RAX. Okay, notice I clobber A, B, C, and D. Anyway, so, uh, these are the string. These are some string. I don't, uh, there's not really, well, um, I didn't have to use assembly. I could have used C. I don't know. I don't code my assembly all that optimal. I think this instruction is slow, for example. But, uh, I don't know. Anyway, so, that's that.
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:08.380]  Okay, this is Temple OS 5-Minute Random Code Walkthrough, Episode 46, and I'm your host, Terry Davis.
+[00:00:09.260 -> 00:00:14.500]  So, I momentarily, I had a glitch when I did a random pick.
+[00:00:15.380 -> 00:00:20.840]  What it, uh, the random pick, uh, I had a glitch the last time I recorded.
+[00:00:21.200 -> 00:00:24.960]  So I have to, I, I'm gonna go to the same spot it picked.
+[00:00:25.580 -> 00:00:27.460]  It picked, um, right here.
+[00:00:27.460 -> 00:00:31.480]  This is in, uh, string 1A, which is in the kernel.
+[00:00:33.260 -> 00:00:44.880]  It's, uh, um, most of the headers are in 1B, atom 1, atom 1B is where most of the assembly headers are.
+[00:00:45.120 -> 00:00:55.300]  But this one's in atom 1C just because, uh, the reason they're separated is so that, um,
+[00:00:55.300 -> 00:00:57.480]  you don't have duplicates.
+[00:00:57.920 -> 00:01:07.160]  Anyway, these are, uh, for, uh, these are, for, uh, these take effect in the kernel compilation.
+[00:01:07.760 -> 00:01:11.240]  Um, the kernel, uh, let me go ahead and show you.
+[00:01:11.760 -> 00:01:15.420]  The kernel make file is just a big include.
+[00:01:15.420 -> 00:01:18.740]  So all, all the code is 1B include.
+[00:01:19.260 -> 00:01:22.700]  And so 1B is the, uh, assembly headers.
+[00:01:23.480 -> 00:01:37.680]  Um, we have, uh, those are for, uh, well, anyway, those are for what's occurred before.
+[00:01:37.680 -> 00:01:42.080]  So those are the assembly headers for the other stuff.
+[00:01:43.060 -> 00:01:47.460]  And, um, the string 1A is, uh, down here.
+[00:01:48.060 -> 00:01:53.820]  So, um, we put, we don't put the externs in 1A, 1B.
+[00:01:54.060 -> 00:01:55.540]  We put them in 1A.
+[00:01:55.780 -> 00:01:56.860]  It's just a dependency.
+[00:01:57.440 -> 00:02:00.340]  You have to, you have to work out the dependencies.
+[00:02:00.340 -> 00:02:11.500]  Anyway, so my convention is to put a, uh, underscore on, uh, on assembly or C callable assembly.
+[00:02:12.080 -> 00:02:14.680]  So C callable has an underscore.
+[00:02:15.100 -> 00:02:18.720]  Um, that, that's optional, but it's a good idea.
+[00:02:19.060 -> 00:02:22.900]  Now these two upper, this is a string ignore.
+[00:02:22.900 -> 00:02:32.760]  Or this is like string, string, string, high string, except I changed the order because, um, for consistency in my operating system.
+[00:02:32.940 -> 00:02:35.120]  So the needle and then the haystack.
+[00:02:35.600 -> 00:02:38.500]  Um, we're, we're doing ignore case.
+[00:02:38.800 -> 00:02:46.360]  Anyway, so, um, this calls two upper, which is a, uh, an assembly, um, with registers.
+[00:02:46.360 -> 00:02:48.540]  You pass parameters with registers.
+[00:02:48.540 -> 00:02:52.940]  For, for C you pass with, uh, with the stack.
+[00:02:53.400 -> 00:02:55.980]  Anyway, I don't do it like everybody else.
+[00:02:57.040 -> 00:02:59.560]  So, um, use the standard stack frame.
+[00:02:59.820 -> 00:03:06.560]  Um, this is because, uh, the, uh, the wallpaper, um, does a stack.
+[00:03:07.100 -> 00:03:12.140]  It traces the stack and it gets the calling addresses.
+[00:03:12.260 -> 00:03:17.140]  So if you screw up RBP, um, the wallpaper will crash.
+[00:03:18.540 -> 00:03:24.160]  Anyway, so, um, now, you, the return value is in RAX.
+[00:03:24.520 -> 00:03:27.180]  Like, this is, uh, setting it to zero.
+[00:03:27.400 -> 00:03:30.160]  That's for, uh, not, string not found.
+[00:03:30.520 -> 00:03:38.700]  Anyway, um, so, um, you don't have to preserve A, B, C, and D, um, registers.
+[00:03:38.700 -> 00:03:45.440]  Um, if you want to see which registers, type, type reg.
+[00:03:45.840 -> 00:03:54.140]  And then, um, down here, RSI, RDI, 10, 11, 14, 15, 12, and 13 have to be preserved.
+[00:03:54.520 -> 00:03:57.060]  The other ones, you, you can always clobber.
+[00:03:57.640 -> 00:04:01.860]  Um, except RBP and RSP, you don't want to clobber.
+[00:04:03.060 -> 00:04:09.920]  Anyway, so, uh, so this two upper is, is an assembly routine.
+[00:04:09.920 -> 00:04:11.480]  It's called in RAX.
+[00:04:12.000 -> 00:04:14.560]  Okay, notice I clobber A, B, C, and D.
+[00:04:16.600 -> 00:04:22.540]  Anyway, so, uh, these are the string.
+[00:04:24.040 -> 00:04:25.160]  These are some string.
+[00:04:25.520 -> 00:04:32.520]  I don't, uh, there's not really, well, um, I didn't have to use assembly.
+[00:04:32.620 -> 00:04:33.960]  I could have used C.
+[00:04:34.320 -> 00:04:35.120]  I don't know.
+[00:04:35.840 -> 00:04:39.760]  I don't code my assembly all that optimal.
+[00:04:40.140 -> 00:04:42.740]  I think this instruction is slow, for example.
+[00:04:43.540 -> 00:04:44.860]  But, uh, I don't know.
+[00:04:45.300 -> 00:04:46.920]  Anyway, so, that's that.

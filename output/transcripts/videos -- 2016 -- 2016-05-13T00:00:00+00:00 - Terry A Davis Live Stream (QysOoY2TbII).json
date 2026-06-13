@@ -1,0 +1,5812 @@
+{
+  "source": {
+    "archive_identifier": "TerryADavis_TempleOS_Archive",
+    "filename": "videos/2016/2016-05-13T00:00:00+00:00 - Terry A Davis Live Stream (QysOoY2TbII).mkv",
+    "source_url": "https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2016/2016-05-13T00%3A00%3A00%2B00%3A00%20-%20Terry%20A%20Davis%20Live%20Stream%20%28QysOoY2TbII%29.mkv",
+    "derivative_url": null,
+    "file_format": "Matroska",
+    "file_size_bytes": 164002040
+  },
+  "transcription": {
+    "model": "large-v3",
+    "backend": "faster_whisper",
+    "language_detected": "en",
+    "transcribed_at_utc": "2026-06-04T18:24:25.553575+00:00",
+    "duration_seconds": 1226.45,
+    "platform": "Linux",
+    "machine": "x86_64"
+  },
+  "full_text": "Okay, I'm gonna profile my flight simulator and first-person shooter Someone pointed out that a car Mac uses fixed random numbers in my first-person shooter My first-person shooter I use dithering For color and that each pixel is a call each pixel calls a random number generator And I don't think it takes significant CPU. I could be wrong. Here's my random number generator. My random number generator consists of a multiply. That used to be expensive. I don't think it's very expensive anymore. This is accessing the number of access. Oh, and timestamp. Let's do a time on my random number generator. A billion, I'm gonna say, we're gonna execute it a billion times. Okay, a billion times, I bet it's, so eight seconds. That means, so let's do an analysis. If we had 640 pixels, 640 by 480 pixels, Well, that's a lot. Why don't we cut that down a little bit? How about divided by eight times 30 frames per second? This would be one million. So for, if we can do, so one million. Well, divided by whatever. Okay. It takes 8 nanoseconds to do my... 8 nanoseconds to do my... Anyway, a million... 8 million nanoseconds is about 8 milliseconds. So it's about 1 100th of the CPU. Now we're going to profile, see if that's correct. So we go to the games directory, Frankenstein. It's about a hundredth of this CPU. So we say profile, profile, is there depth number? Okay, this is single core. We're using about 20% of the CPU. We're using about 20% of the CPU. So it's idle 71%. So when I took a supercomputing course, we learned about this. Okay, my fill triangle, that's where it should be. That's where I want all the time. I want all the time to be in the fill triangle because that's where it should be. What was that, two, 3%? Say 3%. H line, that's part of the fill triangle. Fill triangle calls H line. Okay, that's important to know. The H line is, 7% out of 21% perhaps. This is updating the... You know what, I should sort these by... Okay, this is part of the screen update. That's the overhead to do the screen. Let's see if the random number even showed up. I'm looking for the random number. I don't even think it showed up in the statistics. It would be about 1 percent. It should be about 1 percent if it's an eighth of the screen. Carmack had a fast random number generator. You want to see a Carmack random number? We can actually... Let's replace our... Okay. We might as well do this for real. Well, let's see. Let's go ahead and... So it was eight seconds. Let's see how long... Okay, it's one second. So we can reduce it by... Is that even worth doing? I don't think it's... Okay, let's do it just for fun. We can put it into the... It's in the dither H line kernel. Here's the random numbers. I think I can do this. We don't. We can put this... Oh, what am I doing? What am I doing? Spacing out. Okay. Oh, we have to... I think I use this. Oh, this is 16. Okay, so let's... Okay. Oh, init. Okay, now... It was about 21. Let's make sure. This is Rand U16. Okay. So let's go. Oh, you know what we do? No, we don't do that. Okay. Okay, the second one will replace the first one. So let's try the old one and then the new one. So we're going to compile. So this is the old one. It's right here. Right about between 15 and 20. Between 15 and 20. Okay, I think we can merge the old into the new. Okay, so we laid that to rest. Let's do a profile of the first person shooter only uses 20% of one core. The flight simulator uses much, much more. It doesn't use dithering, by the way. So let's profile the flight simulator just to see. I want Intel to optimize for this test. This is what the Intel chip should be optimized for. When I'm in charge, Intel will optimize. They'll put all effort into optimizing this. Okay, so 15% idle. What is this? This is the flight simulator code itself. Wow, that's expensive. This is an optimization. It's using 15%. Wow. What I do is I don't redraw one pixel triangles every time. I only draw one pixel triangles once every so often, once every eight times or something. Basically, so I don't, it's supposed, well, anyway, it's expensive. I should make a cheaper formula. I made an expensive formula. So most of the triangles are getting aborted. No, it's not very many. I can get rid of this. It's a crazy thing that just confuses people. It doesn't help much. So what we want, we want the, H-line and triangle to be the majority. That's where it would make us happiest. Fill triangle. Yeah. Okay, it's only 4% fill triangle. The H-line is probably even less. Well, no, it should be more. The H-line is more. It's got to be more. The H-line, I bet it's 10%, 16%. So there's nothing else to speak of. Oh, damn it. Okay, so that's my analysis for... So we're going to make Intel optimize their processor for that test case. Let's see what God says. You know what? I should get rid of that triangle filter thing.",
+  "segments": [
+    {
+      "id": 1,
+      "start": 21.55,
+      "end": 59.97,
+      "text": "Okay, I'm gonna profile my flight simulator and first-person shooter Someone pointed out that a car Mac uses fixed random numbers in my first-person shooter My first-person shooter I use dithering For color and that each pixel is a call each pixel calls a random number generator",
+      "words": [
+        {
+          "word": "Okay,",
+          "start": 21.55,
+          "end": 21.99,
+          "probability": 0.7417
+        },
+        {
+          "word": "I'm",
+          "start": 22.01,
+          "end": 22.23,
+          "probability": 0.988
+        },
+        {
+          "word": "gonna",
+          "start": 22.23,
+          "end": 22.41,
+          "probability": 0.8135
+        },
+        {
+          "word": "profile",
+          "start": 22.41,
+          "end": 23.01,
+          "probability": 0.9878
+        },
+        {
+          "word": "my",
+          "start": 23.01,
+          "end": 23.75,
+          "probability": 0.9834
+        },
+        {
+          "word": "flight",
+          "start": 23.75,
+          "end": 24.79,
+          "probability": 0.7974
+        },
+        {
+          "word": "simulator",
+          "start": 24.79,
+          "end": 25.15,
+          "probability": 0.9985
+        },
+        {
+          "word": "and",
+          "start": 25.15,
+          "end": 25.57,
+          "probability": 0.8369
+        },
+        {
+          "word": "first",
+          "start": 25.57,
+          "end": 25.77,
+          "probability": 0.9639
+        },
+        {
+          "word": "-person",
+          "start": 25.77,
+          "end": 26.11,
+          "probability": 0.8779
+        },
+        {
+          "word": "shooter",
+          "start": 26.11,
+          "end": 26.37,
+          "probability": 0.9883
+        },
+        {
+          "word": "Someone",
+          "start": 26.37,
+          "end": 27.63,
+          "probability": 0.3413
+        },
+        {
+          "word": "pointed",
+          "start": 27.98,
+          "end": 28.5,
+          "probability": 0.9985
+        },
+        {
+          "word": "out",
+          "start": 28.5,
+          "end": 28.84,
+          "probability": 0.9985
+        },
+        {
+          "word": "that",
+          "start": 28.84,
+          "end": 29.06,
+          "probability": 0.9907
+        },
+        {
+          "word": "a",
+          "start": 29.06,
+          "end": 29.24,
+          "probability": 0.5493
+        },
+        {
+          "word": "car",
+          "start": 29.24,
+          "end": 30.06,
+          "probability": 0.752
+        },
+        {
+          "word": "Mac",
+          "start": 30.06,
+          "end": 30.32,
+          "probability": 0.7134
+        },
+        {
+          "word": "uses",
+          "start": 30.32,
+          "end": 32.28,
+          "probability": 0.7031
+        },
+        {
+          "word": "fixed",
+          "start": 33.66,
+          "end": 34.76,
+          "probability": 0.7417
+        },
+        {
+          "word": "random",
+          "start": 34.76,
+          "end": 35.16,
+          "probability": 0.9917
+        },
+        {
+          "word": "numbers",
+          "start": 35.16,
+          "end": 35.68,
+          "probability": 0.998
+        },
+        {
+          "word": "in",
+          "start": 35.68,
+          "end": 37.58,
+          "probability": 0.7646
+        },
+        {
+          "word": "my",
+          "start": 38.06,
+          "end": 38.34,
+          "probability": 0.9644
+        },
+        {
+          "word": "first",
+          "start": 38.34,
+          "end": 39.0,
+          "probability": 0.9634
+        },
+        {
+          "word": "-person",
+          "start": 39.0,
+          "end": 39.4,
+          "probability": 0.9282
+        },
+        {
+          "word": "shooter",
+          "start": 39.4,
+          "end": 39.76,
+          "probability": 0.9873
+        },
+        {
+          "word": "My",
+          "start": 39.79,
+          "end": 41.67,
+          "probability": 0.7397
+        },
+        {
+          "word": "first",
+          "start": 50.31,
+          "end": 50.65,
+          "probability": 0.9937
+        },
+        {
+          "word": "-person",
+          "start": 50.65,
+          "end": 50.99,
+          "probability": 0.927
+        },
+        {
+          "word": "shooter",
+          "start": 50.99,
+          "end": 51.23,
+          "probability": 0.9922
+        },
+        {
+          "word": "I",
+          "start": 51.23,
+          "end": 51.49,
+          "probability": 0.8403
+        },
+        {
+          "word": "use",
+          "start": 51.49,
+          "end": 51.67,
+          "probability": 0.9771
+        },
+        {
+          "word": "dithering",
+          "start": 51.67,
+          "end": 52.53,
+          "probability": 0.9857
+        },
+        {
+          "word": "For",
+          "start": 52.53,
+          "end": 54.05,
+          "probability": 0.7227
+        },
+        {
+          "word": "color",
+          "start": 54.05,
+          "end": 54.87,
+          "probability": 0.9971
+        },
+        {
+          "word": "and",
+          "start": 54.87,
+          "end": 55.43,
+          "probability": 0.9697
+        },
+        {
+          "word": "that",
+          "start": 55.43,
+          "end": 55.93,
+          "probability": 0.9941
+        },
+        {
+          "word": "each",
+          "start": 55.93,
+          "end": 56.21,
+          "probability": 0.999
+        },
+        {
+          "word": "pixel",
+          "start": 56.21,
+          "end": 56.69,
+          "probability": 0.9966
+        },
+        {
+          "word": "is",
+          "start": 56.69,
+          "end": 56.93,
+          "probability": 0.9854
+        },
+        {
+          "word": "a",
+          "start": 56.93,
+          "end": 57.11,
+          "probability": 0.9121
+        },
+        {
+          "word": "call",
+          "start": 57.11,
+          "end": 57.33,
+          "probability": 0.5654
+        },
+        {
+          "word": "each",
+          "start": 57.33,
+          "end": 58.15,
+          "probability": 0.873
+        },
+        {
+          "word": "pixel",
+          "start": 58.15,
+          "end": 58.53,
+          "probability": 0.9927
+        },
+        {
+          "word": "calls",
+          "start": 58.53,
+          "end": 58.83,
+          "probability": 0.9907
+        },
+        {
+          "word": "a",
+          "start": 58.83,
+          "end": 59.05,
+          "probability": 0.9634
+        },
+        {
+          "word": "random",
+          "start": 59.05,
+          "end": 59.29,
+          "probability": 0.9995
+        },
+        {
+          "word": "number",
+          "start": 59.29,
+          "end": 59.57,
+          "probability": 0.9946
+        },
+        {
+          "word": "generator",
+          "start": 59.57,
+          "end": 59.97,
+          "probability": 0.998
+        }
+      ],
+      "avg_logprob": -0.1213,
+      "no_speech_prob": 0.0079
+    },
+    {
+      "id": 2,
+      "start": 60.86,
+      "end": 93.75,
+      "text": "And I don't think it takes significant CPU. I could be wrong. Here's my random number generator. My random number generator consists of a multiply. That used to be expensive. I don't think it's very expensive anymore. This is accessing the number of access. Oh, and timestamp.",
+      "words": [
+        {
+          "word": "And",
+          "start": 60.86,
+          "end": 61.14,
+          "probability": 0.3503
+        },
+        {
+          "word": "I",
+          "start": 61.14,
+          "end": 61.44,
+          "probability": 0.936
+        },
+        {
+          "word": "don't",
+          "start": 61.44,
+          "end": 61.7,
+          "probability": 0.9976
+        },
+        {
+          "word": "think",
+          "start": 61.7,
+          "end": 61.92,
+          "probability": 0.9985
+        },
+        {
+          "word": "it",
+          "start": 61.92,
+          "end": 62.1,
+          "probability": 0.9937
+        },
+        {
+          "word": "takes",
+          "start": 62.1,
+          "end": 62.44,
+          "probability": 0.9438
+        },
+        {
+          "word": "significant",
+          "start": 62.44,
+          "end": 63.04,
+          "probability": 0.9854
+        },
+        {
+          "word": "CPU.",
+          "start": 63.04,
+          "end": 63.94,
+          "probability": 0.9805
+        },
+        {
+          "word": "I",
+          "start": 65.47,
+          "end": 66.09,
+          "probability": 0.9785
+        },
+        {
+          "word": "could",
+          "start": 66.09,
+          "end": 66.27,
+          "probability": 0.9995
+        },
+        {
+          "word": "be",
+          "start": 66.27,
+          "end": 66.43,
+          "probability": 1.0
+        },
+        {
+          "word": "wrong.",
+          "start": 66.43,
+          "end": 66.69,
+          "probability": 0.9995
+        },
+        {
+          "word": "Here's",
+          "start": 67.19,
+          "end": 67.81,
+          "probability": 0.9622
+        },
+        {
+          "word": "my",
+          "start": 67.81,
+          "end": 67.97,
+          "probability": 0.9985
+        },
+        {
+          "word": "random",
+          "start": 67.97,
+          "end": 68.29,
+          "probability": 0.9854
+        },
+        {
+          "word": "number",
+          "start": 68.29,
+          "end": 68.55,
+          "probability": 0.9971
+        },
+        {
+          "word": "generator.",
+          "start": 68.55,
+          "end": 68.99,
+          "probability": 0.9985
+        },
+        {
+          "word": "My",
+          "start": 73.0,
+          "end": 73.62,
+          "probability": 0.877
+        },
+        {
+          "word": "random",
+          "start": 73.62,
+          "end": 73.94,
+          "probability": 0.9976
+        },
+        {
+          "word": "number",
+          "start": 73.94,
+          "end": 74.22,
+          "probability": 0.9961
+        },
+        {
+          "word": "generator",
+          "start": 74.22,
+          "end": 74.7,
+          "probability": 0.999
+        },
+        {
+          "word": "consists",
+          "start": 74.7,
+          "end": 76.08,
+          "probability": 0.9531
+        },
+        {
+          "word": "of",
+          "start": 77.9,
+          "end": 78.46,
+          "probability": 0.9995
+        },
+        {
+          "word": "a",
+          "start": 78.46,
+          "end": 78.74,
+          "probability": 0.981
+        },
+        {
+          "word": "multiply.",
+          "start": 79.54,
+          "end": 80.52,
+          "probability": 0.9653
+        },
+        {
+          "word": "That",
+          "start": 80.6,
+          "end": 81.22,
+          "probability": 0.9927
+        },
+        {
+          "word": "used",
+          "start": 81.22,
+          "end": 81.48,
+          "probability": 1.0
+        },
+        {
+          "word": "to",
+          "start": 81.48,
+          "end": 81.68,
+          "probability": 1.0
+        },
+        {
+          "word": "be",
+          "start": 81.68,
+          "end": 81.8,
+          "probability": 1.0
+        },
+        {
+          "word": "expensive.",
+          "start": 81.8,
+          "end": 82.3,
+          "probability": 0.9995
+        },
+        {
+          "word": "I",
+          "start": 83.27,
+          "end": 83.89,
+          "probability": 0.9985
+        },
+        {
+          "word": "don't",
+          "start": 83.89,
+          "end": 84.05,
+          "probability": 0.9988
+        },
+        {
+          "word": "think",
+          "start": 84.05,
+          "end": 84.19,
+          "probability": 0.9995
+        },
+        {
+          "word": "it's",
+          "start": 84.19,
+          "end": 84.37,
+          "probability": 0.9985
+        },
+        {
+          "word": "very",
+          "start": 84.37,
+          "end": 84.55,
+          "probability": 0.9995
+        },
+        {
+          "word": "expensive",
+          "start": 84.55,
+          "end": 84.89,
+          "probability": 1.0
+        },
+        {
+          "word": "anymore.",
+          "start": 84.89,
+          "end": 85.37,
+          "probability": 0.9956
+        },
+        {
+          "word": "This",
+          "start": 88.59,
+          "end": 89.21,
+          "probability": 0.605
+        },
+        {
+          "word": "is",
+          "start": 89.21,
+          "end": 89.39,
+          "probability": 0.9956
+        },
+        {
+          "word": "accessing",
+          "start": 89.39,
+          "end": 90.37,
+          "probability": 0.9961
+        },
+        {
+          "word": "the",
+          "start": 90.37,
+          "end": 91.15,
+          "probability": 0.8975
+        },
+        {
+          "word": "number",
+          "start": 91.15,
+          "end": 91.59,
+          "probability": 0.998
+        },
+        {
+          "word": "of",
+          "start": 91.59,
+          "end": 91.77,
+          "probability": 0.9985
+        },
+        {
+          "word": "access.",
+          "start": 91.77,
+          "end": 92.05,
+          "probability": 0.8857
+        },
+        {
+          "word": "Oh,",
+          "start": 92.15,
+          "end": 92.31,
+          "probability": 0.9976
+        },
+        {
+          "word": "and",
+          "start": 92.43,
+          "end": 92.81,
+          "probability": 0.9985
+        },
+        {
+          "word": "timestamp.",
+          "start": 92.81,
+          "end": 93.75,
+          "probability": 0.9739
+        }
+      ],
+      "avg_logprob": -0.0771,
+      "no_speech_prob": 0.0051
+    },
+    {
+      "id": 3,
+      "start": 102.07,
+      "end": 175.02,
+      "text": "Let's do a time on my random number generator. A billion, I'm gonna say, we're gonna execute it a billion times. Okay, a billion times, I bet it's, so eight seconds. That means, so let's do an analysis. If we had 640 pixels, 640 by 480 pixels,",
+      "words": [
+        {
+          "word": "Let's",
+          "start": 102.07,
+          "end": 102.85,
+          "probability": 0.8479
+        },
+        {
+          "word": "do",
+          "start": 102.85,
+          "end": 102.97,
+          "probability": 0.9956
+        },
+        {
+          "word": "a",
+          "start": 102.97,
+          "end": 103.09,
+          "probability": 0.9658
+        },
+        {
+          "word": "time",
+          "start": 103.09,
+          "end": 103.47,
+          "probability": 0.9565
+        },
+        {
+          "word": "on",
+          "start": 103.47,
+          "end": 104.57,
+          "probability": 0.3433
+        },
+        {
+          "word": "my",
+          "start": 104.57,
+          "end": 106.13,
+          "probability": 0.9937
+        },
+        {
+          "word": "random",
+          "start": 106.13,
+          "end": 106.53,
+          "probability": 0.9741
+        },
+        {
+          "word": "number",
+          "start": 106.53,
+          "end": 106.83,
+          "probability": 0.9893
+        },
+        {
+          "word": "generator.",
+          "start": 106.83,
+          "end": 107.19,
+          "probability": 0.998
+        },
+        {
+          "word": "A",
+          "start": 108.13,
+          "end": 108.91,
+          "probability": 0.8491
+        },
+        {
+          "word": "billion,",
+          "start": 116.66,
+          "end": 117.14,
+          "probability": 0.9932
+        },
+        {
+          "word": "I'm",
+          "start": 117.36,
+          "end": 118.06,
+          "probability": 0.991
+        },
+        {
+          "word": "gonna",
+          "start": 120.78,
+          "end": 121.18,
+          "probability": 0.7295
+        },
+        {
+          "word": "say,",
+          "start": 121.18,
+          "end": 121.58,
+          "probability": 0.9902
+        },
+        {
+          "word": "we're",
+          "start": 121.72,
+          "end": 122.6,
+          "probability": 0.7969
+        },
+        {
+          "word": "gonna",
+          "start": 128.87,
+          "end": 128.89,
+          "probability": 0.9893
+        },
+        {
+          "word": "execute",
+          "start": 128.89,
+          "end": 129.31,
+          "probability": 0.9971
+        },
+        {
+          "word": "it",
+          "start": 129.31,
+          "end": 129.55,
+          "probability": 0.9863
+        },
+        {
+          "word": "a",
+          "start": 129.55,
+          "end": 129.67,
+          "probability": 0.9966
+        },
+        {
+          "word": "billion",
+          "start": 129.67,
+          "end": 129.89,
+          "probability": 0.9995
+        },
+        {
+          "word": "times.",
+          "start": 129.89,
+          "end": 130.37,
+          "probability": 0.999
+        },
+        {
+          "word": "Okay,",
+          "start": 130.69,
+          "end": 131.45,
+          "probability": 0.897
+        },
+        {
+          "word": "a",
+          "start": 150.49,
+          "end": 151.07,
+          "probability": 0.9951
+        },
+        {
+          "word": "billion",
+          "start": 154.72,
+          "end": 155.06,
+          "probability": 0.9995
+        },
+        {
+          "word": "times,",
+          "start": 155.06,
+          "end": 155.58,
+          "probability": 0.998
+        },
+        {
+          "word": "I",
+          "start": 155.66,
+          "end": 155.86,
+          "probability": 0.9502
+        },
+        {
+          "word": "bet",
+          "start": 155.86,
+          "end": 156.04,
+          "probability": 0.9907
+        },
+        {
+          "word": "it's,",
+          "start": 156.04,
+          "end": 156.34,
+          "probability": 0.9875
+        },
+        {
+          "word": "so",
+          "start": 156.34,
+          "end": 157.2,
+          "probability": 0.9819
+        },
+        {
+          "word": "eight",
+          "start": 160.4,
+          "end": 160.86,
+          "probability": 0.8052
+        },
+        {
+          "word": "seconds.",
+          "start": 160.86,
+          "end": 161.96,
+          "probability": 0.998
+        },
+        {
+          "word": "That",
+          "start": 163.31,
+          "end": 164.09,
+          "probability": 0.8916
+        },
+        {
+          "word": "means,",
+          "start": 164.09,
+          "end": 164.47,
+          "probability": 0.9995
+        },
+        {
+          "word": "so",
+          "start": 164.71,
+          "end": 165.95,
+          "probability": 0.9883
+        },
+        {
+          "word": "let's",
+          "start": 167.74,
+          "end": 168.08,
+          "probability": 0.9968
+        },
+        {
+          "word": "do",
+          "start": 168.08,
+          "end": 168.16,
+          "probability": 0.999
+        },
+        {
+          "word": "an",
+          "start": 168.16,
+          "end": 168.3,
+          "probability": 0.998
+        },
+        {
+          "word": "analysis.",
+          "start": 168.3,
+          "end": 168.74,
+          "probability": 0.9995
+        },
+        {
+          "word": "If",
+          "start": 168.94,
+          "end": 169.72,
+          "probability": 0.9966
+        },
+        {
+          "word": "we",
+          "start": 169.72,
+          "end": 169.92,
+          "probability": 0.9995
+        },
+        {
+          "word": "had",
+          "start": 169.92,
+          "end": 170.28,
+          "probability": 0.9976
+        },
+        {
+          "word": "640",
+          "start": 170.28,
+          "end": 171.56,
+          "probability": 0.97
+        },
+        {
+          "word": "pixels,",
+          "start": 171.56,
+          "end": 172.1,
+          "probability": 0.9741
+        },
+        {
+          "word": "640",
+          "start": 172.52,
+          "end": 173.24,
+          "probability": 0.9985
+        },
+        {
+          "word": "by",
+          "start": 173.24,
+          "end": 173.48,
+          "probability": 0.9858
+        },
+        {
+          "word": "480",
+          "start": 173.48,
+          "end": 174.0,
+          "probability": 0.9993
+        },
+        {
+          "word": "pixels,",
+          "start": 174.0,
+          "end": 175.02,
+          "probability": 0.9995
+        }
+      ],
+      "avg_logprob": -0.0936,
+      "no_speech_prob": 0.0734
+    },
+    {
+      "id": 4,
+      "start": 177.6,
+      "end": 224.06,
+      "text": "Well, that's a lot. Why don't we cut that down a little bit? How about divided by eight times 30 frames per second? This would be one million. So for, if we can do, so one million. Well, divided by whatever. Okay.",
+      "words": [
+        {
+          "word": "Well,",
+          "start": 177.6,
+          "end": 178.24,
+          "probability": 0.4417
+        },
+        {
+          "word": "that's",
+          "start": 178.38,
+          "end": 179.02,
+          "probability": 0.7583
+        },
+        {
+          "word": "a",
+          "start": 179.02,
+          "end": 179.16,
+          "probability": 0.7578
+        },
+        {
+          "word": "lot.",
+          "start": 179.16,
+          "end": 179.74,
+          "probability": 0.9985
+        },
+        {
+          "word": "Why",
+          "start": 179.92,
+          "end": 180.16,
+          "probability": 0.9844
+        },
+        {
+          "word": "don't",
+          "start": 180.16,
+          "end": 180.56,
+          "probability": 0.9958
+        },
+        {
+          "word": "we",
+          "start": 180.56,
+          "end": 180.64,
+          "probability": 0.9946
+        },
+        {
+          "word": "cut",
+          "start": 180.64,
+          "end": 180.84,
+          "probability": 0.9985
+        },
+        {
+          "word": "that",
+          "start": 180.84,
+          "end": 181.0,
+          "probability": 0.9976
+        },
+        {
+          "word": "down",
+          "start": 181.0,
+          "end": 181.26,
+          "probability": 0.999
+        },
+        {
+          "word": "a",
+          "start": 181.26,
+          "end": 181.36,
+          "probability": 0.9971
+        },
+        {
+          "word": "little",
+          "start": 181.36,
+          "end": 181.5,
+          "probability": 0.9966
+        },
+        {
+          "word": "bit?",
+          "start": 181.5,
+          "end": 181.72,
+          "probability": 0.998
+        },
+        {
+          "word": "How",
+          "start": 181.88,
+          "end": 182.26,
+          "probability": 0.5737
+        },
+        {
+          "word": "about",
+          "start": 182.26,
+          "end": 182.26,
+          "probability": 0.9062
+        },
+        {
+          "word": "divided",
+          "start": 182.26,
+          "end": 182.62,
+          "probability": 0.8311
+        },
+        {
+          "word": "by",
+          "start": 182.62,
+          "end": 182.8,
+          "probability": 0.9951
+        },
+        {
+          "word": "eight",
+          "start": 182.8,
+          "end": 183.06,
+          "probability": 0.8047
+        },
+        {
+          "word": "times",
+          "start": 183.06,
+          "end": 185.08,
+          "probability": 0.71
+        },
+        {
+          "word": "30",
+          "start": 185.08,
+          "end": 186.14,
+          "probability": 0.9805
+        },
+        {
+          "word": "frames",
+          "start": 186.14,
+          "end": 186.56,
+          "probability": 0.9951
+        },
+        {
+          "word": "per",
+          "start": 186.56,
+          "end": 186.86,
+          "probability": 0.998
+        },
+        {
+          "word": "second?",
+          "start": 186.86,
+          "end": 187.22,
+          "probability": 0.999
+        },
+        {
+          "word": "This",
+          "start": 192.86,
+          "end": 193.5,
+          "probability": 0.9873
+        },
+        {
+          "word": "would",
+          "start": 193.5,
+          "end": 193.76,
+          "probability": 0.9995
+        },
+        {
+          "word": "be",
+          "start": 193.76,
+          "end": 194.12,
+          "probability": 0.9995
+        },
+        {
+          "word": "one",
+          "start": 194.12,
+          "end": 195.36,
+          "probability": 0.7622
+        },
+        {
+          "word": "million.",
+          "start": 197.28,
+          "end": 197.72,
+          "probability": 0.9985
+        },
+        {
+          "word": "So",
+          "start": 199.36,
+          "end": 200.0,
+          "probability": 0.8071
+        },
+        {
+          "word": "for,",
+          "start": 200.0,
+          "end": 200.84,
+          "probability": 0.3223
+        },
+        {
+          "word": "if",
+          "start": 201.0,
+          "end": 202.08,
+          "probability": 0.9761
+        },
+        {
+          "word": "we",
+          "start": 203.2,
+          "end": 203.38,
+          "probability": 0.999
+        },
+        {
+          "word": "can",
+          "start": 203.38,
+          "end": 203.56,
+          "probability": 0.9956
+        },
+        {
+          "word": "do,",
+          "start": 203.56,
+          "end": 203.74,
+          "probability": 0.9985
+        },
+        {
+          "word": "so",
+          "start": 203.92,
+          "end": 205.22,
+          "probability": 0.9038
+        },
+        {
+          "word": "one",
+          "start": 206.88,
+          "end": 208.42,
+          "probability": 0.8359
+        },
+        {
+          "word": "million.",
+          "start": 209.99,
+          "end": 210.65,
+          "probability": 0.9995
+        },
+        {
+          "word": "Well,",
+          "start": 211.55,
+          "end": 212.19,
+          "probability": 0.978
+        },
+        {
+          "word": "divided",
+          "start": 212.49,
+          "end": 213.53,
+          "probability": 0.9951
+        },
+        {
+          "word": "by",
+          "start": 218.94,
+          "end": 219.26,
+          "probability": 0.9995
+        },
+        {
+          "word": "whatever.",
+          "start": 219.26,
+          "end": 220.48,
+          "probability": 0.8857
+        },
+        {
+          "word": "Okay.",
+          "start": 223.42,
+          "end": 224.06,
+          "probability": 0.9854
+        }
+      ],
+      "avg_logprob": -0.172,
+      "no_speech_prob": 0.1236
+    },
+    {
+      "id": 5,
+      "start": 228.87,
+      "end": 261.08,
+      "text": "It takes 8 nanoseconds to do my... 8 nanoseconds to do my... Anyway, a million... 8 million nanoseconds is about 8 milliseconds. So it's about 1 100th of the CPU. Now we're going to profile, see if that's correct.",
+      "words": [
+        {
+          "word": "It",
+          "start": 228.87,
+          "end": 229.13,
+          "probability": 0.6587
+        },
+        {
+          "word": "takes",
+          "start": 229.13,
+          "end": 229.41,
+          "probability": 0.9902
+        },
+        {
+          "word": "8",
+          "start": 229.41,
+          "end": 229.83,
+          "probability": 0.7002
+        },
+        {
+          "word": "nanoseconds",
+          "start": 229.83,
+          "end": 231.43,
+          "probability": 0.9688
+        },
+        {
+          "word": "to",
+          "start": 231.43,
+          "end": 232.59,
+          "probability": 0.6353
+        },
+        {
+          "word": "do",
+          "start": 233.3,
+          "end": 234.82,
+          "probability": 0.9849
+        },
+        {
+          "word": "my...",
+          "start": 234.82,
+          "end": 235.18,
+          "probability": 0.6726
+        },
+        {
+          "word": "8",
+          "start": 235.18,
+          "end": 236.62,
+          "probability": 0.6421
+        },
+        {
+          "word": "nanoseconds",
+          "start": 237.35,
+          "end": 238.29,
+          "probability": 0.9984
+        },
+        {
+          "word": "to",
+          "start": 238.29,
+          "end": 238.51,
+          "probability": 0.9888
+        },
+        {
+          "word": "do",
+          "start": 238.51,
+          "end": 238.71,
+          "probability": 1.0
+        },
+        {
+          "word": "my...",
+          "start": 238.71,
+          "end": 239.07,
+          "probability": 0.9961
+        },
+        {
+          "word": "Anyway,",
+          "start": 239.07,
+          "end": 239.59,
+          "probability": 0.8545
+        },
+        {
+          "word": "a",
+          "start": 239.85,
+          "end": 241.61,
+          "probability": 0.8218
+        },
+        {
+          "word": "million...",
+          "start": 242.09,
+          "end": 242.87,
+          "probability": 0.7913
+        },
+        {
+          "word": "8",
+          "start": 244.09,
+          "end": 246.17,
+          "probability": 0.604
+        },
+        {
+          "word": "million",
+          "start": 246.17,
+          "end": 247.09,
+          "probability": 0.9951
+        },
+        {
+          "word": "nanoseconds",
+          "start": 247.09,
+          "end": 247.97,
+          "probability": 0.9997
+        },
+        {
+          "word": "is",
+          "start": 247.97,
+          "end": 248.83,
+          "probability": 0.8984
+        },
+        {
+          "word": "about",
+          "start": 250.88,
+          "end": 251.14,
+          "probability": 1.0
+        },
+        {
+          "word": "8",
+          "start": 251.14,
+          "end": 251.54,
+          "probability": 0.9976
+        },
+        {
+          "word": "milliseconds.",
+          "start": 251.86,
+          "end": 253.24,
+          "probability": 0.9902
+        },
+        {
+          "word": "So",
+          "start": 253.62,
+          "end": 254.24,
+          "probability": 0.9414
+        },
+        {
+          "word": "it's",
+          "start": 254.24,
+          "end": 254.68,
+          "probability": 0.9067
+        },
+        {
+          "word": "about",
+          "start": 254.68,
+          "end": 254.86,
+          "probability": 1.0
+        },
+        {
+          "word": "1",
+          "start": 254.86,
+          "end": 255.88,
+          "probability": 0.8984
+        },
+        {
+          "word": "100th",
+          "start": 255.88,
+          "end": 256.82,
+          "probability": 0.6705
+        },
+        {
+          "word": "of",
+          "start": 256.82,
+          "end": 257.04,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 257.04,
+          "end": 257.24,
+          "probability": 1.0
+        },
+        {
+          "word": "CPU.",
+          "start": 257.24,
+          "end": 257.62,
+          "probability": 0.9995
+        },
+        {
+          "word": "Now",
+          "start": 258.34,
+          "end": 259.1,
+          "probability": 0.9995
+        },
+        {
+          "word": "we're",
+          "start": 259.1,
+          "end": 259.36,
+          "probability": 0.9934
+        },
+        {
+          "word": "going",
+          "start": 259.36,
+          "end": 259.42,
+          "probability": 0.9736
+        },
+        {
+          "word": "to",
+          "start": 259.42,
+          "end": 259.58,
+          "probability": 1.0
+        },
+        {
+          "word": "profile,",
+          "start": 259.58,
+          "end": 260.12,
+          "probability": 0.9985
+        },
+        {
+          "word": "see",
+          "start": 260.28,
+          "end": 260.48,
+          "probability": 1.0
+        },
+        {
+          "word": "if",
+          "start": 260.48,
+          "end": 260.62,
+          "probability": 1.0
+        },
+        {
+          "word": "that's",
+          "start": 260.62,
+          "end": 260.84,
+          "probability": 1.0
+        },
+        {
+          "word": "correct.",
+          "start": 260.84,
+          "end": 261.08,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.1022,
+      "no_speech_prob": 0.1548
+    },
+    {
+      "id": 6,
+      "start": 263.63,
+      "end": 322.61,
+      "text": "So we go to the games directory, Frankenstein. It's about a hundredth of this CPU. So we say profile, profile, is there depth number? Okay, this is single core. We're using about 20% of the CPU. We're using about 20% of the CPU.",
+      "words": [
+        {
+          "word": "So",
+          "start": 263.63,
+          "end": 264.11,
+          "probability": 0.7471
+        },
+        {
+          "word": "we",
+          "start": 264.11,
+          "end": 264.73,
+          "probability": 0.6094
+        },
+        {
+          "word": "go",
+          "start": 264.73,
+          "end": 265.07,
+          "probability": 0.9839
+        },
+        {
+          "word": "to",
+          "start": 265.07,
+          "end": 265.29,
+          "probability": 0.9917
+        },
+        {
+          "word": "the",
+          "start": 265.29,
+          "end": 265.55,
+          "probability": 0.9912
+        },
+        {
+          "word": "games",
+          "start": 265.55,
+          "end": 266.93,
+          "probability": 0.6768
+        },
+        {
+          "word": "directory,",
+          "start": 270.67,
+          "end": 271.13,
+          "probability": 0.9927
+        },
+        {
+          "word": "Frankenstein.",
+          "start": 272.0,
+          "end": 273.42,
+          "probability": 0.9749
+        },
+        {
+          "word": "It's",
+          "start": 273.76,
+          "end": 274.48,
+          "probability": 0.9924
+        },
+        {
+          "word": "about",
+          "start": 275.02,
+          "end": 275.46,
+          "probability": 0.9946
+        },
+        {
+          "word": "a",
+          "start": 275.46,
+          "end": 276.0,
+          "probability": 0.6226
+        },
+        {
+          "word": "hundredth",
+          "start": 276.0,
+          "end": 276.76,
+          "probability": 0.9287
+        },
+        {
+          "word": "of",
+          "start": 276.76,
+          "end": 276.8,
+          "probability": 0.999
+        },
+        {
+          "word": "this",
+          "start": 276.8,
+          "end": 277.06,
+          "probability": 0.7964
+        },
+        {
+          "word": "CPU.",
+          "start": 277.06,
+          "end": 277.82,
+          "probability": 0.9844
+        },
+        {
+          "word": "So",
+          "start": 278.54,
+          "end": 279.26,
+          "probability": 0.9331
+        },
+        {
+          "word": "we",
+          "start": 279.26,
+          "end": 279.84,
+          "probability": 0.8989
+        },
+        {
+          "word": "say",
+          "start": 279.84,
+          "end": 280.08,
+          "probability": 0.9194
+        },
+        {
+          "word": "profile,",
+          "start": 280.08,
+          "end": 280.66,
+          "probability": 0.7661
+        },
+        {
+          "word": "profile,",
+          "start": 281.0,
+          "end": 281.92,
+          "probability": 0.7954
+        },
+        {
+          "word": "is",
+          "start": 284.23,
+          "end": 285.03,
+          "probability": 0.9595
+        },
+        {
+          "word": "there",
+          "start": 285.03,
+          "end": 285.23,
+          "probability": 0.9844
+        },
+        {
+          "word": "depth",
+          "start": 285.23,
+          "end": 286.31,
+          "probability": 0.8066
+        },
+        {
+          "word": "number?",
+          "start": 291.05,
+          "end": 291.37,
+          "probability": 0.9751
+        },
+        {
+          "word": "Okay,",
+          "start": 291.65,
+          "end": 292.37,
+          "probability": 0.918
+        },
+        {
+          "word": "this",
+          "start": 292.53,
+          "end": 293.91,
+          "probability": 0.9927
+        },
+        {
+          "word": "is",
+          "start": 293.97,
+          "end": 294.23,
+          "probability": 0.9995
+        },
+        {
+          "word": "single",
+          "start": 294.23,
+          "end": 294.67,
+          "probability": 0.9893
+        },
+        {
+          "word": "core.",
+          "start": 294.67,
+          "end": 295.05,
+          "probability": 0.9629
+        },
+        {
+          "word": "We're",
+          "start": 295.27,
+          "end": 295.95,
+          "probability": 0.9976
+        },
+        {
+          "word": "using",
+          "start": 304.63,
+          "end": 304.87,
+          "probability": 1.0
+        },
+        {
+          "word": "about",
+          "start": 304.87,
+          "end": 305.23,
+          "probability": 0.9995
+        },
+        {
+          "word": "20",
+          "start": 305.23,
+          "end": 306.47,
+          "probability": 0.9863
+        },
+        {
+          "word": "%",
+          "start": 306.47,
+          "end": 306.91,
+          "probability": 0.9819
+        },
+        {
+          "word": "of",
+          "start": 306.91,
+          "end": 307.07,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 307.07,
+          "end": 307.17,
+          "probability": 0.998
+        },
+        {
+          "word": "CPU.",
+          "start": 307.17,
+          "end": 307.51,
+          "probability": 0.9995
+        },
+        {
+          "word": "We're",
+          "start": 307.75,
+          "end": 308.47,
+          "probability": 0.9985
+        },
+        {
+          "word": "using",
+          "start": 320.79,
+          "end": 320.97,
+          "probability": 1.0
+        },
+        {
+          "word": "about",
+          "start": 320.97,
+          "end": 321.17,
+          "probability": 0.9995
+        },
+        {
+          "word": "20",
+          "start": 321.17,
+          "end": 321.49,
+          "probability": 1.0
+        },
+        {
+          "word": "%",
+          "start": 321.49,
+          "end": 321.87,
+          "probability": 1.0
+        },
+        {
+          "word": "of",
+          "start": 321.87,
+          "end": 322.11,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 322.11,
+          "end": 322.25,
+          "probability": 1.0
+        },
+        {
+          "word": "CPU.",
+          "start": 322.25,
+          "end": 322.61,
+          "probability": 0.9995
+        }
+      ],
+      "avg_logprob": -0.1043,
+      "no_speech_prob": 0.0404
+    },
+    {
+      "id": 7,
+      "start": 324.98,
+      "end": 361.63,
+      "text": "So it's idle 71%. So when I took a supercomputing course, we learned about this. Okay, my fill triangle, that's where it should be. That's where I want all the time. I want all the time to be in the fill triangle because that's where it should be. What was that, two, 3%? Say 3%. H line, that's part of the fill triangle. Fill triangle calls H line. Okay, that's important to know. The H line is,",
+      "words": [
+        {
+          "word": "So",
+          "start": 324.98,
+          "end": 325.36,
+          "probability": 0.6641
+        },
+        {
+          "word": "it's",
+          "start": 325.36,
+          "end": 325.54,
+          "probability": 0.8699
+        },
+        {
+          "word": "idle",
+          "start": 325.54,
+          "end": 325.78,
+          "probability": 0.8979
+        },
+        {
+          "word": "71%.",
+          "start": 325.78,
+          "end": 326.84,
+          "probability": 0.7017
+        },
+        {
+          "word": "So",
+          "start": 329.14,
+          "end": 331.12,
+          "probability": 0.8989
+        },
+        {
+          "word": "when",
+          "start": 332.05,
+          "end": 332.27,
+          "probability": 0.9692
+        },
+        {
+          "word": "I",
+          "start": 332.27,
+          "end": 332.39,
+          "probability": 0.9976
+        },
+        {
+          "word": "took",
+          "start": 332.39,
+          "end": 332.57,
+          "probability": 0.9985
+        },
+        {
+          "word": "a",
+          "start": 332.57,
+          "end": 332.69,
+          "probability": 0.8877
+        },
+        {
+          "word": "supercomputing",
+          "start": 332.69,
+          "end": 333.45,
+          "probability": 0.8547
+        },
+        {
+          "word": "course,",
+          "start": 333.45,
+          "end": 333.79,
+          "probability": 0.999
+        },
+        {
+          "word": "we",
+          "start": 333.87,
+          "end": 334.21,
+          "probability": 0.9053
+        },
+        {
+          "word": "learned",
+          "start": 334.21,
+          "end": 334.43,
+          "probability": 0.9541
+        },
+        {
+          "word": "about",
+          "start": 334.43,
+          "end": 334.69,
+          "probability": 0.999
+        },
+        {
+          "word": "this.",
+          "start": 334.69,
+          "end": 335.01,
+          "probability": 0.999
+        },
+        {
+          "word": "Okay,",
+          "start": 335.19,
+          "end": 335.63,
+          "probability": 0.8657
+        },
+        {
+          "word": "my",
+          "start": 335.63,
+          "end": 335.79,
+          "probability": 0.9956
+        },
+        {
+          "word": "fill",
+          "start": 335.79,
+          "end": 336.01,
+          "probability": 0.9238
+        },
+        {
+          "word": "triangle,",
+          "start": 336.01,
+          "end": 336.43,
+          "probability": 0.9707
+        },
+        {
+          "word": "that's",
+          "start": 336.65,
+          "end": 337.33,
+          "probability": 0.999
+        },
+        {
+          "word": "where",
+          "start": 337.33,
+          "end": 337.55,
+          "probability": 0.9995
+        },
+        {
+          "word": "it",
+          "start": 337.55,
+          "end": 337.71,
+          "probability": 0.999
+        },
+        {
+          "word": "should",
+          "start": 337.71,
+          "end": 337.89,
+          "probability": 1.0
+        },
+        {
+          "word": "be.",
+          "start": 337.89,
+          "end": 338.15,
+          "probability": 1.0
+        },
+        {
+          "word": "That's",
+          "start": 338.65,
+          "end": 339.09,
+          "probability": 0.9983
+        },
+        {
+          "word": "where",
+          "start": 339.09,
+          "end": 339.21,
+          "probability": 0.9985
+        },
+        {
+          "word": "I",
+          "start": 339.21,
+          "end": 339.41,
+          "probability": 0.999
+        },
+        {
+          "word": "want",
+          "start": 339.41,
+          "end": 339.65,
+          "probability": 0.999
+        },
+        {
+          "word": "all",
+          "start": 339.65,
+          "end": 339.87,
+          "probability": 0.9946
+        },
+        {
+          "word": "the",
+          "start": 339.87,
+          "end": 340.07,
+          "probability": 0.9976
+        },
+        {
+          "word": "time.",
+          "start": 340.07,
+          "end": 340.35,
+          "probability": 0.998
+        },
+        {
+          "word": "I",
+          "start": 340.39,
+          "end": 340.83,
+          "probability": 0.9961
+        },
+        {
+          "word": "want",
+          "start": 340.83,
+          "end": 341.03,
+          "probability": 0.9985
+        },
+        {
+          "word": "all",
+          "start": 341.03,
+          "end": 341.25,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 341.25,
+          "end": 341.49,
+          "probability": 0.999
+        },
+        {
+          "word": "time",
+          "start": 341.49,
+          "end": 341.77,
+          "probability": 1.0
+        },
+        {
+          "word": "to",
+          "start": 341.77,
+          "end": 342.13,
+          "probability": 0.999
+        },
+        {
+          "word": "be",
+          "start": 342.13,
+          "end": 342.29,
+          "probability": 1.0
+        },
+        {
+          "word": "in",
+          "start": 342.29,
+          "end": 342.47,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 342.47,
+          "end": 342.61,
+          "probability": 0.9995
+        },
+        {
+          "word": "fill",
+          "start": 342.61,
+          "end": 342.81,
+          "probability": 0.999
+        },
+        {
+          "word": "triangle",
+          "start": 342.81,
+          "end": 343.25,
+          "probability": 0.9985
+        },
+        {
+          "word": "because",
+          "start": 343.25,
+          "end": 344.51,
+          "probability": 0.6753
+        },
+        {
+          "word": "that's",
+          "start": 347.07,
+          "end": 347.77,
+          "probability": 0.9993
+        },
+        {
+          "word": "where",
+          "start": 347.77,
+          "end": 347.91,
+          "probability": 0.9995
+        },
+        {
+          "word": "it",
+          "start": 347.91,
+          "end": 348.03,
+          "probability": 0.9995
+        },
+        {
+          "word": "should",
+          "start": 348.03,
+          "end": 348.15,
+          "probability": 1.0
+        },
+        {
+          "word": "be.",
+          "start": 348.15,
+          "end": 348.31,
+          "probability": 1.0
+        },
+        {
+          "word": "What",
+          "start": 348.41,
+          "end": 348.51,
+          "probability": 0.9888
+        },
+        {
+          "word": "was",
+          "start": 348.51,
+          "end": 348.63,
+          "probability": 0.999
+        },
+        {
+          "word": "that,",
+          "start": 348.63,
+          "end": 348.77,
+          "probability": 0.9976
+        },
+        {
+          "word": "two,",
+          "start": 348.83,
+          "end": 348.99,
+          "probability": 0.7422
+        },
+        {
+          "word": "3",
+          "start": 349.07,
+          "end": 349.19,
+          "probability": 0.8413
+        },
+        {
+          "word": "%?",
+          "start": 349.19,
+          "end": 349.49,
+          "probability": 0.8301
+        },
+        {
+          "word": "Say",
+          "start": 349.95,
+          "end": 350.39,
+          "probability": 0.3909
+        },
+        {
+          "word": "3%.",
+          "start": 350.39,
+          "end": 351.07,
+          "probability": 0.9255
+        },
+        {
+          "word": "H",
+          "start": 351.07,
+          "end": 352.13,
+          "probability": 0.8896
+        },
+        {
+          "word": "line,",
+          "start": 353.7,
+          "end": 353.9,
+          "probability": 0.7046
+        },
+        {
+          "word": "that's",
+          "start": 354.06,
+          "end": 354.28,
+          "probability": 0.9985
+        },
+        {
+          "word": "part",
+          "start": 354.28,
+          "end": 354.46,
+          "probability": 0.999
+        },
+        {
+          "word": "of",
+          "start": 354.46,
+          "end": 354.62,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 354.62,
+          "end": 354.66,
+          "probability": 0.999
+        },
+        {
+          "word": "fill",
+          "start": 354.66,
+          "end": 354.84,
+          "probability": 0.9966
+        },
+        {
+          "word": "triangle.",
+          "start": 354.84,
+          "end": 355.34,
+          "probability": 0.999
+        },
+        {
+          "word": "Fill",
+          "start": 356.19,
+          "end": 356.63,
+          "probability": 0.9883
+        },
+        {
+          "word": "triangle",
+          "start": 356.63,
+          "end": 357.09,
+          "probability": 0.9966
+        },
+        {
+          "word": "calls",
+          "start": 357.09,
+          "end": 357.43,
+          "probability": 0.9858
+        },
+        {
+          "word": "H",
+          "start": 357.43,
+          "end": 357.67,
+          "probability": 0.8691
+        },
+        {
+          "word": "line.",
+          "start": 357.67,
+          "end": 357.97,
+          "probability": 0.9902
+        },
+        {
+          "word": "Okay,",
+          "start": 358.39,
+          "end": 358.83,
+          "probability": 0.9966
+        },
+        {
+          "word": "that's",
+          "start": 358.89,
+          "end": 359.09,
+          "probability": 0.9998
+        },
+        {
+          "word": "important",
+          "start": 359.09,
+          "end": 359.37,
+          "probability": 1.0
+        },
+        {
+          "word": "to",
+          "start": 359.37,
+          "end": 359.79,
+          "probability": 1.0
+        },
+        {
+          "word": "know.",
+          "start": 359.79,
+          "end": 359.97,
+          "probability": 0.9995
+        },
+        {
+          "word": "The",
+          "start": 360.27,
+          "end": 360.71,
+          "probability": 0.999
+        },
+        {
+          "word": "H",
+          "start": 360.71,
+          "end": 360.95,
+          "probability": 0.999
+        },
+        {
+          "word": "line",
+          "start": 360.95,
+          "end": 361.27,
+          "probability": 0.9995
+        },
+        {
+          "word": "is,",
+          "start": 361.27,
+          "end": 361.63,
+          "probability": 0.9937
+        }
+      ],
+      "avg_logprob": -0.0973,
+      "no_speech_prob": 0.011
+    },
+    {
+      "id": 8,
+      "start": 363.33,
+      "end": 396.97,
+      "text": "7% out of 21% perhaps. This is updating the... You know what, I should sort these by... Okay, this is part of the screen update. That's the overhead to do the screen.",
+      "words": [
+        {
+          "word": "7",
+          "start": 363.33,
+          "end": 363.89,
+          "probability": 0.3567
+        },
+        {
+          "word": "%",
+          "start": 363.89,
+          "end": 364.25,
+          "probability": 0.7231
+        },
+        {
+          "word": "out",
+          "start": 364.25,
+          "end": 364.53,
+          "probability": 0.9097
+        },
+        {
+          "word": "of",
+          "start": 364.53,
+          "end": 364.69,
+          "probability": 0.9893
+        },
+        {
+          "word": "21",
+          "start": 364.69,
+          "end": 365.13,
+          "probability": 0.7446
+        },
+        {
+          "word": "%",
+          "start": 365.13,
+          "end": 365.43,
+          "probability": 0.479
+        },
+        {
+          "word": "perhaps.",
+          "start": 365.43,
+          "end": 367.77,
+          "probability": 0.4983
+        },
+        {
+          "word": "This",
+          "start": 371.53,
+          "end": 372.09,
+          "probability": 0.6714
+        },
+        {
+          "word": "is",
+          "start": 372.09,
+          "end": 372.33,
+          "probability": 0.9961
+        },
+        {
+          "word": "updating",
+          "start": 372.33,
+          "end": 374.01,
+          "probability": 0.8647
+        },
+        {
+          "word": "the...",
+          "start": 374.01,
+          "end": 374.73,
+          "probability": 0.6453
+        },
+        {
+          "word": "You",
+          "start": 380.14,
+          "end": 383.78,
+          "probability": 0.5298
+        },
+        {
+          "word": "know",
+          "start": 386.15,
+          "end": 386.31,
+          "probability": 0.999
+        },
+        {
+          "word": "what,",
+          "start": 386.31,
+          "end": 386.41,
+          "probability": 0.9644
+        },
+        {
+          "word": "I",
+          "start": 386.49,
+          "end": 386.65,
+          "probability": 0.9937
+        },
+        {
+          "word": "should",
+          "start": 386.65,
+          "end": 386.69,
+          "probability": 0.998
+        },
+        {
+          "word": "sort",
+          "start": 386.69,
+          "end": 387.29,
+          "probability": 0.9575
+        },
+        {
+          "word": "these",
+          "start": 387.29,
+          "end": 388.39,
+          "probability": 0.9937
+        },
+        {
+          "word": "by...",
+          "start": 388.39,
+          "end": 389.61,
+          "probability": 0.9058
+        },
+        {
+          "word": "Okay,",
+          "start": 389.64,
+          "end": 390.9,
+          "probability": 0.7217
+        },
+        {
+          "word": "this",
+          "start": 393.03,
+          "end": 393.33,
+          "probability": 0.998
+        },
+        {
+          "word": "is",
+          "start": 393.33,
+          "end": 393.53,
+          "probability": 0.9937
+        },
+        {
+          "word": "part",
+          "start": 393.53,
+          "end": 393.69,
+          "probability": 0.9854
+        },
+        {
+          "word": "of",
+          "start": 393.69,
+          "end": 393.81,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 393.81,
+          "end": 393.89,
+          "probability": 0.9746
+        },
+        {
+          "word": "screen",
+          "start": 393.89,
+          "end": 394.17,
+          "probability": 0.9829
+        },
+        {
+          "word": "update.",
+          "start": 394.17,
+          "end": 394.57,
+          "probability": 0.999
+        },
+        {
+          "word": "That's",
+          "start": 394.75,
+          "end": 395.23,
+          "probability": 0.9976
+        },
+        {
+          "word": "the",
+          "start": 395.23,
+          "end": 395.41,
+          "probability": 0.999
+        },
+        {
+          "word": "overhead",
+          "start": 395.41,
+          "end": 395.95,
+          "probability": 0.9946
+        },
+        {
+          "word": "to",
+          "start": 395.95,
+          "end": 396.35,
+          "probability": 0.9956
+        },
+        {
+          "word": "do",
+          "start": 396.35,
+          "end": 396.55,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 396.55,
+          "end": 396.69,
+          "probability": 0.998
+        },
+        {
+          "word": "screen.",
+          "start": 396.69,
+          "end": 396.97,
+          "probability": 0.9985
+        }
+      ],
+      "avg_logprob": -0.1841,
+      "no_speech_prob": 0.088
+    },
+    {
+      "id": 9,
+      "start": 401.03,
+      "end": 446.43,
+      "text": "Let's see if the random number even showed up. I'm looking for the random number. I don't even think it showed up in the statistics. It would be about 1 percent. It should be about 1 percent if it's an eighth of the screen. Carmack had a fast random number generator. You want to see a Carmack random number?",
+      "words": [
+        {
+          "word": "Let's",
+          "start": 401.03,
+          "end": 401.55,
+          "probability": 0.9377
+        },
+        {
+          "word": "see",
+          "start": 401.55,
+          "end": 401.81,
+          "probability": 0.644
+        },
+        {
+          "word": "if",
+          "start": 401.81,
+          "end": 402.09,
+          "probability": 0.9922
+        },
+        {
+          "word": "the",
+          "start": 402.09,
+          "end": 402.27,
+          "probability": 0.9951
+        },
+        {
+          "word": "random",
+          "start": 402.27,
+          "end": 402.71,
+          "probability": 0.981
+        },
+        {
+          "word": "number",
+          "start": 402.71,
+          "end": 402.97,
+          "probability": 0.9731
+        },
+        {
+          "word": "even",
+          "start": 402.97,
+          "end": 403.23,
+          "probability": 0.9907
+        },
+        {
+          "word": "showed",
+          "start": 403.23,
+          "end": 403.59,
+          "probability": 0.999
+        },
+        {
+          "word": "up.",
+          "start": 403.59,
+          "end": 403.93,
+          "probability": 0.9995
+        },
+        {
+          "word": "I'm",
+          "start": 406.21,
+          "end": 406.73,
+          "probability": 0.9971
+        },
+        {
+          "word": "looking",
+          "start": 406.73,
+          "end": 406.91,
+          "probability": 0.9995
+        },
+        {
+          "word": "for",
+          "start": 406.91,
+          "end": 407.17,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 407.17,
+          "end": 407.31,
+          "probability": 0.9995
+        },
+        {
+          "word": "random",
+          "start": 407.31,
+          "end": 407.53,
+          "probability": 0.999
+        },
+        {
+          "word": "number.",
+          "start": 407.53,
+          "end": 407.91,
+          "probability": 0.9976
+        },
+        {
+          "word": "I",
+          "start": 413.62,
+          "end": 414.14,
+          "probability": 0.999
+        },
+        {
+          "word": "don't",
+          "start": 414.14,
+          "end": 414.3,
+          "probability": 0.9998
+        },
+        {
+          "word": "even",
+          "start": 414.3,
+          "end": 414.44,
+          "probability": 0.9927
+        },
+        {
+          "word": "think",
+          "start": 414.44,
+          "end": 414.6,
+          "probability": 0.9941
+        },
+        {
+          "word": "it",
+          "start": 414.6,
+          "end": 414.7,
+          "probability": 0.9985
+        },
+        {
+          "word": "showed",
+          "start": 414.7,
+          "end": 414.92,
+          "probability": 0.9995
+        },
+        {
+          "word": "up",
+          "start": 414.92,
+          "end": 415.2,
+          "probability": 0.9995
+        },
+        {
+          "word": "in",
+          "start": 415.2,
+          "end": 415.36,
+          "probability": 0.9966
+        },
+        {
+          "word": "the",
+          "start": 415.36,
+          "end": 415.5,
+          "probability": 0.9434
+        },
+        {
+          "word": "statistics.",
+          "start": 415.5,
+          "end": 416.02,
+          "probability": 0.999
+        },
+        {
+          "word": "It",
+          "start": 416.5,
+          "end": 416.98,
+          "probability": 0.9976
+        },
+        {
+          "word": "would",
+          "start": 419.57,
+          "end": 419.69,
+          "probability": 0.9937
+        },
+        {
+          "word": "be",
+          "start": 419.69,
+          "end": 419.85,
+          "probability": 0.9995
+        },
+        {
+          "word": "about",
+          "start": 419.85,
+          "end": 420.07,
+          "probability": 0.9995
+        },
+        {
+          "word": "1",
+          "start": 420.07,
+          "end": 420.33,
+          "probability": 0.7109
+        },
+        {
+          "word": "percent.",
+          "start": 420.33,
+          "end": 420.75,
+          "probability": 0.0989
+        },
+        {
+          "word": "It",
+          "start": 426.07,
+          "end": 426.15,
+          "probability": 0.9434
+        },
+        {
+          "word": "should",
+          "start": 426.15,
+          "end": 426.23,
+          "probability": 0.939
+        },
+        {
+          "word": "be",
+          "start": 426.23,
+          "end": 426.35,
+          "probability": 0.999
+        },
+        {
+          "word": "about",
+          "start": 426.35,
+          "end": 426.55,
+          "probability": 1.0
+        },
+        {
+          "word": "1",
+          "start": 426.55,
+          "end": 426.85,
+          "probability": 0.9985
+        },
+        {
+          "word": "percent",
+          "start": 426.85,
+          "end": 427.27,
+          "probability": 0.9712
+        },
+        {
+          "word": "if",
+          "start": 427.27,
+          "end": 427.87,
+          "probability": 0.8691
+        },
+        {
+          "word": "it's",
+          "start": 427.87,
+          "end": 428.13,
+          "probability": 0.9995
+        },
+        {
+          "word": "an",
+          "start": 428.13,
+          "end": 428.25,
+          "probability": 0.9546
+        },
+        {
+          "word": "eighth",
+          "start": 428.25,
+          "end": 428.45,
+          "probability": 0.9946
+        },
+        {
+          "word": "of",
+          "start": 428.45,
+          "end": 428.61,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 428.61,
+          "end": 428.71,
+          "probability": 1.0
+        },
+        {
+          "word": "screen.",
+          "start": 428.71,
+          "end": 429.05,
+          "probability": 0.9995
+        },
+        {
+          "word": "Carmack",
+          "start": 436.11,
+          "end": 436.63,
+          "probability": 0.6379
+        },
+        {
+          "word": "had",
+          "start": 436.63,
+          "end": 436.89,
+          "probability": 0.9976
+        },
+        {
+          "word": "a",
+          "start": 436.89,
+          "end": 437.15,
+          "probability": 1.0
+        },
+        {
+          "word": "fast",
+          "start": 437.15,
+          "end": 438.95,
+          "probability": 0.9937
+        },
+        {
+          "word": "random",
+          "start": 438.95,
+          "end": 439.43,
+          "probability": 0.999
+        },
+        {
+          "word": "number",
+          "start": 439.43,
+          "end": 439.93,
+          "probability": 1.0
+        },
+        {
+          "word": "generator.",
+          "start": 439.93,
+          "end": 441.15,
+          "probability": 0.998
+        },
+        {
+          "word": "You",
+          "start": 443.47,
+          "end": 443.99,
+          "probability": 0.9263
+        },
+        {
+          "word": "want",
+          "start": 443.99,
+          "end": 444.19,
+          "probability": 0.998
+        },
+        {
+          "word": "to",
+          "start": 444.19,
+          "end": 444.27,
+          "probability": 1.0
+        },
+        {
+          "word": "see",
+          "start": 444.27,
+          "end": 444.79,
+          "probability": 0.9976
+        },
+        {
+          "word": "a",
+          "start": 444.79,
+          "end": 445.01,
+          "probability": 0.9995
+        },
+        {
+          "word": "Carmack",
+          "start": 445.01,
+          "end": 445.77,
+          "probability": 0.9985
+        },
+        {
+          "word": "random",
+          "start": 445.77,
+          "end": 446.07,
+          "probability": 0.9995
+        },
+        {
+          "word": "number?",
+          "start": 446.07,
+          "end": 446.43,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.0781,
+      "no_speech_prob": 0.0301
+    },
+    {
+      "id": 10,
+      "start": 447.6,
+      "end": 544.12,
+      "text": "We can actually... Let's replace our... Okay. We might as well do this for real. Well, let's see. Let's go ahead and... So it was eight seconds. Let's see how long... Okay, it's one second. So we can reduce it by... Is that even worth doing? I don't think it's... Okay, let's do it just for fun.",
+      "words": [
+        {
+          "word": "We",
+          "start": 447.6,
+          "end": 448.08,
+          "probability": 0.4556
+        },
+        {
+          "word": "can",
+          "start": 481.23,
+          "end": 481.55,
+          "probability": 0.9912
+        },
+        {
+          "word": "actually...",
+          "start": 481.55,
+          "end": 482.23,
+          "probability": 0.6046
+        },
+        {
+          "word": "Let's",
+          "start": 482.23,
+          "end": 483.01,
+          "probability": 0.947
+        },
+        {
+          "word": "replace",
+          "start": 483.01,
+          "end": 483.77,
+          "probability": 0.9663
+        },
+        {
+          "word": "our...",
+          "start": 483.77,
+          "end": 484.79,
+          "probability": 0.9878
+        },
+        {
+          "word": "Okay.",
+          "start": 484.79,
+          "end": 485.95,
+          "probability": 0.9097
+        },
+        {
+          "word": "We",
+          "start": 490.02,
+          "end": 490.5,
+          "probability": 0.9961
+        },
+        {
+          "word": "might",
+          "start": 490.5,
+          "end": 490.72,
+          "probability": 1.0
+        },
+        {
+          "word": "as",
+          "start": 490.72,
+          "end": 490.84,
+          "probability": 1.0
+        },
+        {
+          "word": "well",
+          "start": 490.84,
+          "end": 490.94,
+          "probability": 1.0
+        },
+        {
+          "word": "do",
+          "start": 490.94,
+          "end": 491.12,
+          "probability": 0.9995
+        },
+        {
+          "word": "this",
+          "start": 491.12,
+          "end": 491.32,
+          "probability": 1.0
+        },
+        {
+          "word": "for",
+          "start": 491.32,
+          "end": 491.52,
+          "probability": 1.0
+        },
+        {
+          "word": "real.",
+          "start": 491.52,
+          "end": 491.74,
+          "probability": 1.0
+        },
+        {
+          "word": "Well,",
+          "start": 492.96,
+          "end": 493.44,
+          "probability": 0.8628
+        },
+        {
+          "word": "let's",
+          "start": 493.44,
+          "end": 494.08,
+          "probability": 0.9995
+        },
+        {
+          "word": "see.",
+          "start": 494.08,
+          "end": 494.18,
+          "probability": 0.9995
+        },
+        {
+          "word": "Let's",
+          "start": 497.56,
+          "end": 498.04,
+          "probability": 0.9978
+        },
+        {
+          "word": "go",
+          "start": 498.04,
+          "end": 498.14,
+          "probability": 1.0
+        },
+        {
+          "word": "ahead",
+          "start": 498.14,
+          "end": 498.36,
+          "probability": 1.0
+        },
+        {
+          "word": "and...",
+          "start": 498.36,
+          "end": 498.76,
+          "probability": 0.9856
+        },
+        {
+          "word": "So",
+          "start": 498.76,
+          "end": 499.56,
+          "probability": 0.7866
+        },
+        {
+          "word": "it",
+          "start": 503.69,
+          "end": 503.81,
+          "probability": 0.7734
+        },
+        {
+          "word": "was",
+          "start": 503.81,
+          "end": 503.95,
+          "probability": 1.0
+        },
+        {
+          "word": "eight",
+          "start": 503.95,
+          "end": 504.47,
+          "probability": 0.6367
+        },
+        {
+          "word": "seconds.",
+          "start": 504.47,
+          "end": 504.81,
+          "probability": 0.999
+        },
+        {
+          "word": "Let's",
+          "start": 505.67,
+          "end": 506.15,
+          "probability": 0.9995
+        },
+        {
+          "word": "see",
+          "start": 506.15,
+          "end": 506.33,
+          "probability": 1.0
+        },
+        {
+          "word": "how",
+          "start": 506.33,
+          "end": 506.59,
+          "probability": 0.998
+        },
+        {
+          "word": "long...",
+          "start": 506.59,
+          "end": 507.25,
+          "probability": 0.9368
+        },
+        {
+          "word": "Okay,",
+          "start": 507.25,
+          "end": 508.39,
+          "probability": 0.9932
+        },
+        {
+          "word": "it's",
+          "start": 527.39,
+          "end": 527.55,
+          "probability": 0.9495
+        },
+        {
+          "word": "one",
+          "start": 527.55,
+          "end": 527.99,
+          "probability": 0.9951
+        },
+        {
+          "word": "second.",
+          "start": 527.99,
+          "end": 529.31,
+          "probability": 0.9272
+        },
+        {
+          "word": "So",
+          "start": 532.13,
+          "end": 532.61,
+          "probability": 0.9912
+        },
+        {
+          "word": "we",
+          "start": 532.61,
+          "end": 532.79,
+          "probability": 0.9995
+        },
+        {
+          "word": "can",
+          "start": 532.79,
+          "end": 532.95,
+          "probability": 1.0
+        },
+        {
+          "word": "reduce",
+          "start": 532.95,
+          "end": 533.25,
+          "probability": 1.0
+        },
+        {
+          "word": "it",
+          "start": 533.25,
+          "end": 533.43,
+          "probability": 1.0
+        },
+        {
+          "word": "by...",
+          "start": 533.43,
+          "end": 533.75,
+          "probability": 0.948
+        },
+        {
+          "word": "Is",
+          "start": 533.75,
+          "end": 534.67,
+          "probability": 0.9985
+        },
+        {
+          "word": "that",
+          "start": 534.67,
+          "end": 534.83,
+          "probability": 1.0
+        },
+        {
+          "word": "even",
+          "start": 534.83,
+          "end": 535.03,
+          "probability": 1.0
+        },
+        {
+          "word": "worth",
+          "start": 535.03,
+          "end": 535.27,
+          "probability": 1.0
+        },
+        {
+          "word": "doing?",
+          "start": 535.27,
+          "end": 535.61,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 539.88,
+          "end": 540.36,
+          "probability": 0.9912
+        },
+        {
+          "word": "don't",
+          "start": 540.36,
+          "end": 540.54,
+          "probability": 1.0
+        },
+        {
+          "word": "think",
+          "start": 540.54,
+          "end": 540.68,
+          "probability": 1.0
+        },
+        {
+          "word": "it's...",
+          "start": 540.68,
+          "end": 540.9,
+          "probability": 0.9284
+        },
+        {
+          "word": "Okay,",
+          "start": 540.9,
+          "end": 541.52,
+          "probability": 0.7832
+        },
+        {
+          "word": "let's",
+          "start": 542.7,
+          "end": 543.2,
+          "probability": 1.0
+        },
+        {
+          "word": "do",
+          "start": 543.2,
+          "end": 543.34,
+          "probability": 1.0
+        },
+        {
+          "word": "it",
+          "start": 543.34,
+          "end": 543.46,
+          "probability": 1.0
+        },
+        {
+          "word": "just",
+          "start": 543.46,
+          "end": 543.62,
+          "probability": 0.9995
+        },
+        {
+          "word": "for",
+          "start": 543.62,
+          "end": 543.84,
+          "probability": 1.0
+        },
+        {
+          "word": "fun.",
+          "start": 543.84,
+          "end": 544.12,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.0752,
+      "no_speech_prob": 0.1455
+    },
+    {
+      "id": 11,
+      "start": 547.42,
+      "end": 775.06,
+      "text": "We can put it into the... It's in the dither H line kernel. Here's the random numbers. I think I can do this. We don't. We can put this... Oh, what am I doing? What am I doing? Spacing out. Okay. Oh, we have to... I think I use this. Oh, this is 16. Okay, so let's... Okay. Oh, init. Okay, now...",
+      "words": [
+        {
+          "word": "We",
+          "start": 547.42,
+          "end": 547.82,
+          "probability": 0.7891
+        },
+        {
+          "word": "can",
+          "start": 547.82,
+          "end": 547.96,
+          "probability": 0.998
+        },
+        {
+          "word": "put",
+          "start": 547.96,
+          "end": 548.18,
+          "probability": 0.9951
+        },
+        {
+          "word": "it",
+          "start": 548.18,
+          "end": 548.28,
+          "probability": 0.9941
+        },
+        {
+          "word": "into",
+          "start": 548.28,
+          "end": 548.56,
+          "probability": 0.9629
+        },
+        {
+          "word": "the...",
+          "start": 548.56,
+          "end": 549.14,
+          "probability": 0.5823
+        },
+        {
+          "word": "It's",
+          "start": 549.14,
+          "end": 550.16,
+          "probability": 0.9482
+        },
+        {
+          "word": "in",
+          "start": 551.85,
+          "end": 551.99,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 551.99,
+          "end": 552.17,
+          "probability": 0.9976
+        },
+        {
+          "word": "dither",
+          "start": 552.17,
+          "end": 552.57,
+          "probability": 0.9524
+        },
+        {
+          "word": "H",
+          "start": 552.57,
+          "end": 553.67,
+          "probability": 0.4185
+        },
+        {
+          "word": "line",
+          "start": 555.21,
+          "end": 556.45,
+          "probability": 0.7173
+        },
+        {
+          "word": "kernel.",
+          "start": 556.45,
+          "end": 557.49,
+          "probability": 0.6738
+        },
+        {
+          "word": "Here's",
+          "start": 572.83,
+          "end": 573.27,
+          "probability": 0.9897
+        },
+        {
+          "word": "the",
+          "start": 573.27,
+          "end": 573.33,
+          "probability": 0.9995
+        },
+        {
+          "word": "random",
+          "start": 573.33,
+          "end": 573.63,
+          "probability": 0.9985
+        },
+        {
+          "word": "numbers.",
+          "start": 573.63,
+          "end": 574.03,
+          "probability": 0.999
+        },
+        {
+          "word": "I",
+          "start": 574.89,
+          "end": 575.33,
+          "probability": 0.9995
+        },
+        {
+          "word": "think",
+          "start": 575.33,
+          "end": 575.57,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 575.57,
+          "end": 575.71,
+          "probability": 1.0
+        },
+        {
+          "word": "can",
+          "start": 575.71,
+          "end": 575.85,
+          "probability": 1.0
+        },
+        {
+          "word": "do",
+          "start": 575.85,
+          "end": 576.03,
+          "probability": 1.0
+        },
+        {
+          "word": "this.",
+          "start": 576.03,
+          "end": 576.35,
+          "probability": 1.0
+        },
+        {
+          "word": "We",
+          "start": 589.91,
+          "end": 590.35,
+          "probability": 0.9976
+        },
+        {
+          "word": "don't.",
+          "start": 590.35,
+          "end": 590.63,
+          "probability": 0.978
+        },
+        {
+          "word": "We",
+          "start": 607.54,
+          "end": 607.98,
+          "probability": 0.9912
+        },
+        {
+          "word": "can",
+          "start": 607.98,
+          "end": 608.1,
+          "probability": 1.0
+        },
+        {
+          "word": "put",
+          "start": 608.1,
+          "end": 608.32,
+          "probability": 1.0
+        },
+        {
+          "word": "this...",
+          "start": 608.32,
+          "end": 608.88,
+          "probability": 0.9963
+        },
+        {
+          "word": "Oh,",
+          "start": 608.88,
+          "end": 609.86,
+          "probability": 0.9888
+        },
+        {
+          "word": "what",
+          "start": 616.39,
+          "end": 616.47,
+          "probability": 1.0
+        },
+        {
+          "word": "am",
+          "start": 616.47,
+          "end": 616.57,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 616.57,
+          "end": 616.65,
+          "probability": 1.0
+        },
+        {
+          "word": "doing?",
+          "start": 616.65,
+          "end": 616.81,
+          "probability": 1.0
+        },
+        {
+          "word": "What",
+          "start": 616.93,
+          "end": 616.97,
+          "probability": 0.9414
+        },
+        {
+          "word": "am",
+          "start": 616.97,
+          "end": 617.05,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 617.05,
+          "end": 617.13,
+          "probability": 1.0
+        },
+        {
+          "word": "doing?",
+          "start": 617.13,
+          "end": 617.25,
+          "probability": 1.0
+        },
+        {
+          "word": "Spacing",
+          "start": 618.6,
+          "end": 619.04,
+          "probability": 0.8818
+        },
+        {
+          "word": "out.",
+          "start": 619.04,
+          "end": 619.24,
+          "probability": 0.9995
+        },
+        {
+          "word": "Okay.",
+          "start": 620.39,
+          "end": 620.83,
+          "probability": 0.9609
+        },
+        {
+          "word": "Oh,",
+          "start": 626.56,
+          "end": 627.0,
+          "probability": 0.9922
+        },
+        {
+          "word": "we",
+          "start": 627.1,
+          "end": 627.26,
+          "probability": 1.0
+        },
+        {
+          "word": "have",
+          "start": 627.26,
+          "end": 627.58,
+          "probability": 1.0
+        },
+        {
+          "word": "to...",
+          "start": 627.58,
+          "end": 627.94,
+          "probability": 0.9993
+        },
+        {
+          "word": "I",
+          "start": 627.94,
+          "end": 628.8,
+          "probability": 0.9985
+        },
+        {
+          "word": "think",
+          "start": 674.72,
+          "end": 675.0,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 675.0,
+          "end": 675.14,
+          "probability": 1.0
+        },
+        {
+          "word": "use",
+          "start": 675.14,
+          "end": 675.34,
+          "probability": 0.689
+        },
+        {
+          "word": "this.",
+          "start": 675.34,
+          "end": 675.82,
+          "probability": 1.0
+        },
+        {
+          "word": "Oh,",
+          "start": 676.06,
+          "end": 676.5,
+          "probability": 0.6743
+        },
+        {
+          "word": "this",
+          "start": 691.09,
+          "end": 691.25,
+          "probability": 0.7656
+        },
+        {
+          "word": "is",
+          "start": 691.25,
+          "end": 691.41,
+          "probability": 0.9443
+        },
+        {
+          "word": "16.",
+          "start": 691.41,
+          "end": 691.79,
+          "probability": 0.2654
+        },
+        {
+          "word": "Okay,",
+          "start": 726.04,
+          "end": 726.48,
+          "probability": 0.999
+        },
+        {
+          "word": "so",
+          "start": 726.64,
+          "end": 726.86,
+          "probability": 1.0
+        },
+        {
+          "word": "let's...",
+          "start": 726.86,
+          "end": 727.26,
+          "probability": 0.9997
+        },
+        {
+          "word": "Okay.",
+          "start": 727.26,
+          "end": 728.1,
+          "probability": 0.9932
+        },
+        {
+          "word": "Oh,",
+          "start": 737.37,
+          "end": 737.81,
+          "probability": 0.3008
+        },
+        {
+          "word": "init.",
+          "start": 740.95,
+          "end": 741.23,
+          "probability": 0.9351
+        },
+        {
+          "word": "Okay,",
+          "start": 774.06,
+          "end": 774.5,
+          "probability": 0.9951
+        },
+        {
+          "word": "now...",
+          "start": 774.62,
+          "end": 775.06,
+          "probability": 0.8342
+        }
+      ],
+      "avg_logprob": -0.0988,
+      "no_speech_prob": 0.088
+    },
+    {
+      "id": 12,
+      "start": 776.78,
+      "end": 919.68,
+      "text": "It was about 21. Let's make sure. This is Rand U16. Okay. So let's go. Oh, you know what we do? No, we don't do that. Okay. Okay, the second one will replace the first one. So let's try the old one and then the new one. So we're going to compile. So this is the old one. It's right here. Right about between 15 and 20. Between 15 and 20.",
+      "words": [
+        {
+          "word": "It",
+          "start": 776.78,
+          "end": 777.1,
+          "probability": 0.3838
+        },
+        {
+          "word": "was",
+          "start": 777.1,
+          "end": 777.26,
+          "probability": 0.9785
+        },
+        {
+          "word": "about",
+          "start": 777.26,
+          "end": 777.46,
+          "probability": 0.9961
+        },
+        {
+          "word": "21.",
+          "start": 777.46,
+          "end": 777.96,
+          "probability": 0.8906
+        },
+        {
+          "word": "Let's",
+          "start": 791.05,
+          "end": 791.49,
+          "probability": 0.9854
+        },
+        {
+          "word": "make",
+          "start": 791.49,
+          "end": 791.63,
+          "probability": 0.9985
+        },
+        {
+          "word": "sure.",
+          "start": 791.63,
+          "end": 791.91,
+          "probability": 0.9985
+        },
+        {
+          "word": "This",
+          "start": 798.41,
+          "end": 798.85,
+          "probability": 0.9922
+        },
+        {
+          "word": "is",
+          "start": 798.85,
+          "end": 799.11,
+          "probability": 0.9976
+        },
+        {
+          "word": "Rand",
+          "start": 799.11,
+          "end": 799.81,
+          "probability": 0.1685
+        },
+        {
+          "word": "U16.",
+          "start": 817.8,
+          "end": 818.48,
+          "probability": 0.8618
+        },
+        {
+          "word": "Okay.",
+          "start": 819.02,
+          "end": 819.46,
+          "probability": 0.8003
+        },
+        {
+          "word": "So",
+          "start": 820.66,
+          "end": 821.1,
+          "probability": 0.9644
+        },
+        {
+          "word": "let's",
+          "start": 821.1,
+          "end": 821.66,
+          "probability": 0.8313
+        },
+        {
+          "word": "go.",
+          "start": 821.66,
+          "end": 821.84,
+          "probability": 1.0
+        },
+        {
+          "word": "Oh,",
+          "start": 822.89,
+          "end": 823.33,
+          "probability": 0.9976
+        },
+        {
+          "word": "you",
+          "start": 823.33,
+          "end": 823.41,
+          "probability": 1.0
+        },
+        {
+          "word": "know",
+          "start": 823.41,
+          "end": 823.47,
+          "probability": 1.0
+        },
+        {
+          "word": "what",
+          "start": 823.47,
+          "end": 823.59,
+          "probability": 0.9995
+        },
+        {
+          "word": "we",
+          "start": 823.59,
+          "end": 823.63,
+          "probability": 1.0
+        },
+        {
+          "word": "do?",
+          "start": 823.63,
+          "end": 823.73,
+          "probability": 1.0
+        },
+        {
+          "word": "No,",
+          "start": 823.99,
+          "end": 824.43,
+          "probability": 0.9995
+        },
+        {
+          "word": "we",
+          "start": 824.49,
+          "end": 824.61,
+          "probability": 1.0
+        },
+        {
+          "word": "don't",
+          "start": 824.61,
+          "end": 824.75,
+          "probability": 1.0
+        },
+        {
+          "word": "do",
+          "start": 824.75,
+          "end": 824.87,
+          "probability": 1.0
+        },
+        {
+          "word": "that.",
+          "start": 824.87,
+          "end": 825.01,
+          "probability": 1.0
+        },
+        {
+          "word": "Okay.",
+          "start": 832.55,
+          "end": 832.99,
+          "probability": 0.999
+        },
+        {
+          "word": "Okay,",
+          "start": 850.68,
+          "end": 851.12,
+          "probability": 0.9316
+        },
+        {
+          "word": "the",
+          "start": 851.18,
+          "end": 851.3,
+          "probability": 0.9995
+        },
+        {
+          "word": "second",
+          "start": 851.3,
+          "end": 851.6,
+          "probability": 0.999
+        },
+        {
+          "word": "one",
+          "start": 851.6,
+          "end": 851.88,
+          "probability": 1.0
+        },
+        {
+          "word": "will",
+          "start": 851.88,
+          "end": 852.12,
+          "probability": 0.9771
+        },
+        {
+          "word": "replace",
+          "start": 852.12,
+          "end": 852.66,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 852.66,
+          "end": 852.94,
+          "probability": 1.0
+        },
+        {
+          "word": "first",
+          "start": 852.94,
+          "end": 853.2,
+          "probability": 1.0
+        },
+        {
+          "word": "one.",
+          "start": 853.2,
+          "end": 853.44,
+          "probability": 1.0
+        },
+        {
+          "word": "So",
+          "start": 855.15,
+          "end": 855.59,
+          "probability": 0.9761
+        },
+        {
+          "word": "let's",
+          "start": 855.59,
+          "end": 855.91,
+          "probability": 0.9993
+        },
+        {
+          "word": "try",
+          "start": 855.91,
+          "end": 856.07,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 856.07,
+          "end": 856.23,
+          "probability": 1.0
+        },
+        {
+          "word": "old",
+          "start": 856.23,
+          "end": 856.43,
+          "probability": 1.0
+        },
+        {
+          "word": "one",
+          "start": 856.43,
+          "end": 856.63,
+          "probability": 1.0
+        },
+        {
+          "word": "and",
+          "start": 856.63,
+          "end": 856.91,
+          "probability": 0.9487
+        },
+        {
+          "word": "then",
+          "start": 856.91,
+          "end": 857.07,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 857.07,
+          "end": 857.21,
+          "probability": 1.0
+        },
+        {
+          "word": "new",
+          "start": 857.21,
+          "end": 857.39,
+          "probability": 1.0
+        },
+        {
+          "word": "one.",
+          "start": 857.39,
+          "end": 857.57,
+          "probability": 1.0
+        },
+        {
+          "word": "So",
+          "start": 857.81,
+          "end": 858.25,
+          "probability": 0.9976
+        },
+        {
+          "word": "we're",
+          "start": 858.25,
+          "end": 858.47,
+          "probability": 0.9983
+        },
+        {
+          "word": "going",
+          "start": 858.47,
+          "end": 858.49,
+          "probability": 0.9595
+        },
+        {
+          "word": "to",
+          "start": 858.49,
+          "end": 858.61,
+          "probability": 1.0
+        },
+        {
+          "word": "compile.",
+          "start": 858.61,
+          "end": 858.91,
+          "probability": 0.998
+        },
+        {
+          "word": "So",
+          "start": 876.99,
+          "end": 877.43,
+          "probability": 0.9976
+        },
+        {
+          "word": "this",
+          "start": 877.43,
+          "end": 877.65,
+          "probability": 1.0
+        },
+        {
+          "word": "is",
+          "start": 877.65,
+          "end": 877.79,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 877.79,
+          "end": 877.91,
+          "probability": 1.0
+        },
+        {
+          "word": "old",
+          "start": 877.91,
+          "end": 878.13,
+          "probability": 1.0
+        },
+        {
+          "word": "one.",
+          "start": 878.13,
+          "end": 878.39,
+          "probability": 0.9888
+        },
+        {
+          "word": "It's",
+          "start": 878.53,
+          "end": 878.77,
+          "probability": 0.7805
+        },
+        {
+          "word": "right",
+          "start": 883.13,
+          "end": 883.45,
+          "probability": 1.0
+        },
+        {
+          "word": "here.",
+          "start": 883.45,
+          "end": 883.79,
+          "probability": 1.0
+        },
+        {
+          "word": "Right",
+          "start": 883.91,
+          "end": 884.35,
+          "probability": 0.8936
+        },
+        {
+          "word": "about",
+          "start": 884.79,
+          "end": 885.05,
+          "probability": 0.9946
+        },
+        {
+          "word": "between",
+          "start": 885.05,
+          "end": 885.83,
+          "probability": 0.9902
+        },
+        {
+          "word": "15",
+          "start": 894.73,
+          "end": 895.45,
+          "probability": 0.9995
+        },
+        {
+          "word": "and",
+          "start": 895.45,
+          "end": 895.69,
+          "probability": 1.0
+        },
+        {
+          "word": "20.",
+          "start": 895.69,
+          "end": 896.03,
+          "probability": 1.0
+        },
+        {
+          "word": "Between",
+          "start": 896.41,
+          "end": 896.85,
+          "probability": 0.9971
+        },
+        {
+          "word": "15",
+          "start": 918.42,
+          "end": 919.1,
+          "probability": 1.0
+        },
+        {
+          "word": "and",
+          "start": 919.1,
+          "end": 919.38,
+          "probability": 1.0
+        },
+        {
+          "word": "20.",
+          "start": 919.38,
+          "end": 919.68,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.0766,
+      "no_speech_prob": 0.1016
+    },
+    {
+      "id": 13,
+      "start": 930.8,
+      "end": 994.4,
+      "text": "Okay, I think we can merge the old into the new. Okay, so we laid that to rest. Let's do a profile of the first person shooter only uses 20% of one core. The flight simulator uses much, much more. It doesn't use dithering, by the way.",
+      "words": [
+        {
+          "word": "Okay,",
+          "start": 930.8,
+          "end": 931.34,
+          "probability": 0.5669
+        },
+        {
+          "word": "I",
+          "start": 931.4,
+          "end": 931.74,
+          "probability": 0.9575
+        },
+        {
+          "word": "think",
+          "start": 931.74,
+          "end": 933.44,
+          "probability": 0.9961
+        },
+        {
+          "word": "we",
+          "start": 937.5,
+          "end": 937.7,
+          "probability": 0.9199
+        },
+        {
+          "word": "can",
+          "start": 937.7,
+          "end": 937.98,
+          "probability": 0.998
+        },
+        {
+          "word": "merge",
+          "start": 937.98,
+          "end": 939.28,
+          "probability": 0.5259
+        },
+        {
+          "word": "the",
+          "start": 940.47,
+          "end": 940.95,
+          "probability": 0.9995
+        },
+        {
+          "word": "old",
+          "start": 940.95,
+          "end": 941.25,
+          "probability": 0.998
+        },
+        {
+          "word": "into",
+          "start": 941.25,
+          "end": 941.53,
+          "probability": 0.9985
+        },
+        {
+          "word": "the",
+          "start": 941.53,
+          "end": 941.83,
+          "probability": 1.0
+        },
+        {
+          "word": "new.",
+          "start": 941.83,
+          "end": 942.01,
+          "probability": 1.0
+        },
+        {
+          "word": "Okay,",
+          "start": 961.42,
+          "end": 962.06,
+          "probability": 0.9429
+        },
+        {
+          "word": "so",
+          "start": 968.2,
+          "end": 969.36,
+          "probability": 0.9443
+        },
+        {
+          "word": "we",
+          "start": 969.87,
+          "end": 970.81,
+          "probability": 0.999
+        },
+        {
+          "word": "laid",
+          "start": 970.81,
+          "end": 970.97,
+          "probability": 0.9619
+        },
+        {
+          "word": "that",
+          "start": 970.97,
+          "end": 971.21,
+          "probability": 1.0
+        },
+        {
+          "word": "to",
+          "start": 971.21,
+          "end": 971.37,
+          "probability": 1.0
+        },
+        {
+          "word": "rest.",
+          "start": 971.37,
+          "end": 971.63,
+          "probability": 1.0
+        },
+        {
+          "word": "Let's",
+          "start": 974.61,
+          "end": 975.25,
+          "probability": 0.9963
+        },
+        {
+          "word": "do",
+          "start": 975.25,
+          "end": 975.37,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 975.37,
+          "end": 975.47,
+          "probability": 1.0
+        },
+        {
+          "word": "profile",
+          "start": 975.47,
+          "end": 975.85,
+          "probability": 0.998
+        },
+        {
+          "word": "of",
+          "start": 975.85,
+          "end": 976.23,
+          "probability": 0.7974
+        },
+        {
+          "word": "the",
+          "start": 976.23,
+          "end": 977.17,
+          "probability": 0.5693
+        },
+        {
+          "word": "first",
+          "start": 977.17,
+          "end": 978.55,
+          "probability": 0.9648
+        },
+        {
+          "word": "person",
+          "start": 978.55,
+          "end": 978.87,
+          "probability": 0.6147
+        },
+        {
+          "word": "shooter",
+          "start": 978.87,
+          "end": 979.21,
+          "probability": 0.9995
+        },
+        {
+          "word": "only",
+          "start": 979.21,
+          "end": 979.49,
+          "probability": 0.9922
+        },
+        {
+          "word": "uses",
+          "start": 979.49,
+          "end": 979.87,
+          "probability": 1.0
+        },
+        {
+          "word": "20",
+          "start": 979.87,
+          "end": 980.15,
+          "probability": 0.998
+        },
+        {
+          "word": "%",
+          "start": 980.15,
+          "end": 980.51,
+          "probability": 0.9897
+        },
+        {
+          "word": "of",
+          "start": 980.51,
+          "end": 980.79,
+          "probability": 1.0
+        },
+        {
+          "word": "one",
+          "start": 980.79,
+          "end": 981.13,
+          "probability": 0.9927
+        },
+        {
+          "word": "core.",
+          "start": 981.13,
+          "end": 981.63,
+          "probability": 0.999
+        },
+        {
+          "word": "The",
+          "start": 983.16,
+          "end": 983.8,
+          "probability": 0.998
+        },
+        {
+          "word": "flight",
+          "start": 983.8,
+          "end": 984.62,
+          "probability": 0.9736
+        },
+        {
+          "word": "simulator",
+          "start": 984.62,
+          "end": 984.96,
+          "probability": 1.0
+        },
+        {
+          "word": "uses",
+          "start": 984.96,
+          "end": 985.58,
+          "probability": 0.9995
+        },
+        {
+          "word": "much,",
+          "start": 985.58,
+          "end": 986.88,
+          "probability": 0.9995
+        },
+        {
+          "word": "much",
+          "start": 986.94,
+          "end": 987.18,
+          "probability": 1.0
+        },
+        {
+          "word": "more.",
+          "start": 987.18,
+          "end": 987.46,
+          "probability": 1.0
+        },
+        {
+          "word": "It",
+          "start": 991.66,
+          "end": 992.3,
+          "probability": 0.999
+        },
+        {
+          "word": "doesn't",
+          "start": 992.3,
+          "end": 992.64,
+          "probability": 0.9998
+        },
+        {
+          "word": "use",
+          "start": 992.64,
+          "end": 992.88,
+          "probability": 1.0
+        },
+        {
+          "word": "dithering,",
+          "start": 992.88,
+          "end": 993.62,
+          "probability": 0.9987
+        },
+        {
+          "word": "by",
+          "start": 993.7,
+          "end": 994.04,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 994.04,
+          "end": 994.22,
+          "probability": 1.0
+        },
+        {
+          "word": "way.",
+          "start": 994.22,
+          "end": 994.4,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.0553,
+      "no_speech_prob": 0.1588
+    },
+    {
+      "id": 14,
+      "start": 995.77,
+      "end": 1052.78,
+      "text": "So let's profile the flight simulator just to see. I want Intel to optimize for this test. This is what the Intel chip should be optimized for. When I'm in charge, Intel will optimize. They'll put all effort into optimizing this. Okay, so 15% idle. What is this?",
+      "words": [
+        {
+          "word": "So",
+          "start": 995.77,
+          "end": 996.49,
+          "probability": 0.8057
+        },
+        {
+          "word": "let's",
+          "start": 997.39,
+          "end": 997.75,
+          "probability": 0.9248
+        },
+        {
+          "word": "profile",
+          "start": 997.75,
+          "end": 998.03,
+          "probability": 0.9917
+        },
+        {
+          "word": "the",
+          "start": 998.03,
+          "end": 998.35,
+          "probability": 0.9941
+        },
+        {
+          "word": "flight",
+          "start": 998.35,
+          "end": 998.59,
+          "probability": 0.7622
+        },
+        {
+          "word": "simulator",
+          "start": 998.59,
+          "end": 998.93,
+          "probability": 0.9985
+        },
+        {
+          "word": "just",
+          "start": 998.93,
+          "end": 999.41,
+          "probability": 0.8223
+        },
+        {
+          "word": "to",
+          "start": 999.41,
+          "end": 999.57,
+          "probability": 0.999
+        },
+        {
+          "word": "see.",
+          "start": 999.57,
+          "end": 999.85,
+          "probability": 0.9995
+        },
+        {
+          "word": "I",
+          "start": 1000.64,
+          "end": 1001.36,
+          "probability": 0.9893
+        },
+        {
+          "word": "want",
+          "start": 1001.36,
+          "end": 1001.7,
+          "probability": 0.999
+        },
+        {
+          "word": "Intel",
+          "start": 1001.7,
+          "end": 1002.16,
+          "probability": 0.8755
+        },
+        {
+          "word": "to",
+          "start": 1002.16,
+          "end": 1002.52,
+          "probability": 0.999
+        },
+        {
+          "word": "optimize",
+          "start": 1002.52,
+          "end": 1002.96,
+          "probability": 0.9976
+        },
+        {
+          "word": "for",
+          "start": 1002.96,
+          "end": 1004.24,
+          "probability": 0.9678
+        },
+        {
+          "word": "this",
+          "start": 1005.59,
+          "end": 1006.01,
+          "probability": 0.9995
+        },
+        {
+          "word": "test.",
+          "start": 1006.01,
+          "end": 1006.57,
+          "probability": 0.9976
+        },
+        {
+          "word": "This",
+          "start": 1007.41,
+          "end": 1008.13,
+          "probability": 0.9976
+        },
+        {
+          "word": "is",
+          "start": 1008.13,
+          "end": 1008.27,
+          "probability": 0.9971
+        },
+        {
+          "word": "what",
+          "start": 1008.27,
+          "end": 1008.47,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 1008.47,
+          "end": 1008.65,
+          "probability": 0.9932
+        },
+        {
+          "word": "Intel",
+          "start": 1008.65,
+          "end": 1008.99,
+          "probability": 0.9985
+        },
+        {
+          "word": "chip",
+          "start": 1008.99,
+          "end": 1009.37,
+          "probability": 0.958
+        },
+        {
+          "word": "should",
+          "start": 1009.37,
+          "end": 1009.61,
+          "probability": 0.9985
+        },
+        {
+          "word": "be",
+          "start": 1009.61,
+          "end": 1009.77,
+          "probability": 0.9956
+        },
+        {
+          "word": "optimized",
+          "start": 1009.77,
+          "end": 1010.17,
+          "probability": 0.998
+        },
+        {
+          "word": "for.",
+          "start": 1010.17,
+          "end": 1010.61,
+          "probability": 0.9995
+        },
+        {
+          "word": "When",
+          "start": 1012.41,
+          "end": 1013.13,
+          "probability": 0.9917
+        },
+        {
+          "word": "I'm",
+          "start": 1013.13,
+          "end": 1013.47,
+          "probability": 0.9983
+        },
+        {
+          "word": "in",
+          "start": 1013.47,
+          "end": 1013.79,
+          "probability": 0.9541
+        },
+        {
+          "word": "charge,",
+          "start": 1017.12,
+          "end": 1018.22,
+          "probability": 0.9937
+        },
+        {
+          "word": "Intel",
+          "start": 1018.44,
+          "end": 1019.1,
+          "probability": 0.9932
+        },
+        {
+          "word": "will",
+          "start": 1019.1,
+          "end": 1019.36,
+          "probability": 0.9951
+        },
+        {
+          "word": "optimize.",
+          "start": 1019.36,
+          "end": 1019.82,
+          "probability": 0.9844
+        },
+        {
+          "word": "They'll",
+          "start": 1020.14,
+          "end": 1020.8,
+          "probability": 0.9937
+        },
+        {
+          "word": "put",
+          "start": 1020.8,
+          "end": 1021.0,
+          "probability": 0.999
+        },
+        {
+          "word": "all",
+          "start": 1021.0,
+          "end": 1021.3,
+          "probability": 0.999
+        },
+        {
+          "word": "effort",
+          "start": 1021.3,
+          "end": 1021.76,
+          "probability": 0.9902
+        },
+        {
+          "word": "into",
+          "start": 1021.76,
+          "end": 1022.24,
+          "probability": 0.9937
+        },
+        {
+          "word": "optimizing",
+          "start": 1022.24,
+          "end": 1022.88,
+          "probability": 0.9985
+        },
+        {
+          "word": "this.",
+          "start": 1022.88,
+          "end": 1023.4,
+          "probability": 0.999
+        },
+        {
+          "word": "Okay,",
+          "start": 1038.26,
+          "end": 1038.98,
+          "probability": 0.8877
+        },
+        {
+          "word": "so",
+          "start": 1039.08,
+          "end": 1039.92,
+          "probability": 0.9956
+        },
+        {
+          "word": "15",
+          "start": 1040.85,
+          "end": 1041.85,
+          "probability": 0.8726
+        },
+        {
+          "word": "%",
+          "start": 1045.79,
+          "end": 1046.29,
+          "probability": 0.9272
+        },
+        {
+          "word": "idle.",
+          "start": 1046.29,
+          "end": 1046.67,
+          "probability": 0.9902
+        },
+        {
+          "word": "What",
+          "start": 1047.01,
+          "end": 1047.73,
+          "probability": 0.998
+        },
+        {
+          "word": "is",
+          "start": 1052.3,
+          "end": 1052.46,
+          "probability": 0.998
+        },
+        {
+          "word": "this?",
+          "start": 1052.46,
+          "end": 1052.78,
+          "probability": 0.9995
+        }
+      ],
+      "avg_logprob": -0.0611,
+      "no_speech_prob": 0.0858
+    },
+    {
+      "id": 15,
+      "start": 1054.32,
+      "end": 1091.01,
+      "text": "This is the flight simulator code itself. Wow, that's expensive. This is an optimization. It's using 15%. Wow. What I do is I don't redraw one pixel triangles every time. I only draw one pixel triangles once every so often, once every eight times or something.",
+      "words": [
+        {
+          "word": "This",
+          "start": 1054.32,
+          "end": 1054.78,
+          "probability": 0.9189
+        },
+        {
+          "word": "is",
+          "start": 1054.78,
+          "end": 1054.98,
+          "probability": 0.9966
+        },
+        {
+          "word": "the",
+          "start": 1054.98,
+          "end": 1055.16,
+          "probability": 0.9961
+        },
+        {
+          "word": "flight",
+          "start": 1055.16,
+          "end": 1055.96,
+          "probability": 0.3015
+        },
+        {
+          "word": "simulator",
+          "start": 1055.96,
+          "end": 1056.44,
+          "probability": 0.9971
+        },
+        {
+          "word": "code",
+          "start": 1056.44,
+          "end": 1057.52,
+          "probability": 0.9922
+        },
+        {
+          "word": "itself.",
+          "start": 1057.52,
+          "end": 1057.98,
+          "probability": 0.98
+        },
+        {
+          "word": "Wow,",
+          "start": 1059.54,
+          "end": 1060.3,
+          "probability": 0.9673
+        },
+        {
+          "word": "that's",
+          "start": 1063.6,
+          "end": 1064.06,
+          "probability": 0.9954
+        },
+        {
+          "word": "expensive.",
+          "start": 1064.06,
+          "end": 1064.38,
+          "probability": 0.998
+        },
+        {
+          "word": "This",
+          "start": 1064.66,
+          "end": 1065.24,
+          "probability": 0.9951
+        },
+        {
+          "word": "is",
+          "start": 1065.24,
+          "end": 1065.42,
+          "probability": 0.9966
+        },
+        {
+          "word": "an",
+          "start": 1065.42,
+          "end": 1065.7,
+          "probability": 0.7378
+        },
+        {
+          "word": "optimization.",
+          "start": 1067.24,
+          "end": 1069.38,
+          "probability": 0.9883
+        },
+        {
+          "word": "It's",
+          "start": 1071.14,
+          "end": 1071.9,
+          "probability": 0.9324
+        },
+        {
+          "word": "using",
+          "start": 1071.9,
+          "end": 1071.96,
+          "probability": 0.999
+        },
+        {
+          "word": "15%.",
+          "start": 1071.96,
+          "end": 1072.98,
+          "probability": 0.8979
+        },
+        {
+          "word": "Wow.",
+          "start": 1072.98,
+          "end": 1073.36,
+          "probability": 0.9951
+        },
+        {
+          "word": "What",
+          "start": 1075.81,
+          "end": 1076.57,
+          "probability": 0.9932
+        },
+        {
+          "word": "I",
+          "start": 1076.57,
+          "end": 1076.73,
+          "probability": 0.9995
+        },
+        {
+          "word": "do",
+          "start": 1076.73,
+          "end": 1076.89,
+          "probability": 1.0
+        },
+        {
+          "word": "is",
+          "start": 1076.89,
+          "end": 1077.09,
+          "probability": 0.9995
+        },
+        {
+          "word": "I",
+          "start": 1077.09,
+          "end": 1077.31,
+          "probability": 0.9878
+        },
+        {
+          "word": "don't",
+          "start": 1077.31,
+          "end": 1078.17,
+          "probability": 0.999
+        },
+        {
+          "word": "redraw",
+          "start": 1078.17,
+          "end": 1078.67,
+          "probability": 0.9971
+        },
+        {
+          "word": "one",
+          "start": 1078.67,
+          "end": 1079.15,
+          "probability": 0.9448
+        },
+        {
+          "word": "pixel",
+          "start": 1079.15,
+          "end": 1079.65,
+          "probability": 0.7075
+        },
+        {
+          "word": "triangles",
+          "start": 1079.65,
+          "end": 1080.21,
+          "probability": 0.999
+        },
+        {
+          "word": "every",
+          "start": 1080.21,
+          "end": 1081.31,
+          "probability": 0.9985
+        },
+        {
+          "word": "time.",
+          "start": 1081.31,
+          "end": 1081.69,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 1082.11,
+          "end": 1082.87,
+          "probability": 0.9995
+        },
+        {
+          "word": "only",
+          "start": 1084.53,
+          "end": 1084.77,
+          "probability": 1.0
+        },
+        {
+          "word": "draw",
+          "start": 1084.77,
+          "end": 1085.09,
+          "probability": 1.0
+        },
+        {
+          "word": "one",
+          "start": 1085.09,
+          "end": 1085.33,
+          "probability": 0.999
+        },
+        {
+          "word": "pixel",
+          "start": 1085.33,
+          "end": 1085.79,
+          "probability": 0.999
+        },
+        {
+          "word": "triangles",
+          "start": 1085.79,
+          "end": 1086.73,
+          "probability": 0.9985
+        },
+        {
+          "word": "once",
+          "start": 1086.73,
+          "end": 1087.33,
+          "probability": 0.9985
+        },
+        {
+          "word": "every",
+          "start": 1087.33,
+          "end": 1087.61,
+          "probability": 0.9985
+        },
+        {
+          "word": "so",
+          "start": 1087.61,
+          "end": 1087.79,
+          "probability": 0.9819
+        },
+        {
+          "word": "often,",
+          "start": 1087.79,
+          "end": 1088.23,
+          "probability": 1.0
+        },
+        {
+          "word": "once",
+          "start": 1088.29,
+          "end": 1089.03,
+          "probability": 0.9985
+        },
+        {
+          "word": "every",
+          "start": 1089.03,
+          "end": 1089.29,
+          "probability": 1.0
+        },
+        {
+          "word": "eight",
+          "start": 1089.29,
+          "end": 1090.05,
+          "probability": 0.9912
+        },
+        {
+          "word": "times",
+          "start": 1090.05,
+          "end": 1090.43,
+          "probability": 1.0
+        },
+        {
+          "word": "or",
+          "start": 1090.43,
+          "end": 1090.71,
+          "probability": 0.9985
+        },
+        {
+          "word": "something.",
+          "start": 1090.71,
+          "end": 1091.01,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.0811,
+      "no_speech_prob": 0.01
+    },
+    {
+      "id": 16,
+      "start": 1092.46,
+      "end": 1130.4,
+      "text": "Basically, so I don't, it's supposed, well, anyway, it's expensive. I should make a cheaper formula. I made an expensive formula. So most of the triangles are getting aborted. No, it's not very many. I can get rid of this. It's a crazy thing that just confuses people. It doesn't help much. So what we want, we want the,",
+      "words": [
+        {
+          "word": "Basically,",
+          "start": 1092.46,
+          "end": 1092.96,
+          "probability": 0.5234
+        },
+        {
+          "word": "so",
+          "start": 1094.27,
+          "end": 1094.77,
+          "probability": 0.7832
+        },
+        {
+          "word": "I",
+          "start": 1094.77,
+          "end": 1094.87,
+          "probability": 0.9902
+        },
+        {
+          "word": "don't,",
+          "start": 1094.87,
+          "end": 1095.07,
+          "probability": 0.9998
+        },
+        {
+          "word": "it's",
+          "start": 1095.07,
+          "end": 1096.15,
+          "probability": 0.9978
+        },
+        {
+          "word": "supposed,",
+          "start": 1096.28,
+          "end": 1096.5,
+          "probability": 0.9995
+        },
+        {
+          "word": "well,",
+          "start": 1096.78,
+          "end": 1097.14,
+          "probability": 0.999
+        },
+        {
+          "word": "anyway,",
+          "start": 1097.2,
+          "end": 1097.46,
+          "probability": 1.0
+        },
+        {
+          "word": "it's",
+          "start": 1097.62,
+          "end": 1098.52,
+          "probability": 0.9998
+        },
+        {
+          "word": "expensive.",
+          "start": 1098.52,
+          "end": 1098.84,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 1099.28,
+          "end": 1099.78,
+          "probability": 1.0
+        },
+        {
+          "word": "should",
+          "start": 1099.78,
+          "end": 1099.98,
+          "probability": 1.0
+        },
+        {
+          "word": "make",
+          "start": 1099.98,
+          "end": 1100.18,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 1100.18,
+          "end": 1100.3,
+          "probability": 0.9976
+        },
+        {
+          "word": "cheaper",
+          "start": 1100.3,
+          "end": 1100.7,
+          "probability": 1.0
+        },
+        {
+          "word": "formula.",
+          "start": 1100.7,
+          "end": 1101.94,
+          "probability": 0.9995
+        },
+        {
+          "word": "I",
+          "start": 1104.16,
+          "end": 1104.66,
+          "probability": 0.9995
+        },
+        {
+          "word": "made",
+          "start": 1104.66,
+          "end": 1104.88,
+          "probability": 1.0
+        },
+        {
+          "word": "an",
+          "start": 1104.88,
+          "end": 1105.12,
+          "probability": 0.9116
+        },
+        {
+          "word": "expensive",
+          "start": 1105.12,
+          "end": 1105.42,
+          "probability": 0.9756
+        },
+        {
+          "word": "formula.",
+          "start": 1105.42,
+          "end": 1106.12,
+          "probability": 1.0
+        },
+        {
+          "word": "So",
+          "start": 1106.62,
+          "end": 1107.12,
+          "probability": 0.9897
+        },
+        {
+          "word": "most",
+          "start": 1107.12,
+          "end": 1107.54,
+          "probability": 0.8491
+        },
+        {
+          "word": "of",
+          "start": 1107.54,
+          "end": 1107.76,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 1107.76,
+          "end": 1107.82,
+          "probability": 1.0
+        },
+        {
+          "word": "triangles",
+          "start": 1107.82,
+          "end": 1108.22,
+          "probability": 0.9995
+        },
+        {
+          "word": "are",
+          "start": 1108.22,
+          "end": 1108.52,
+          "probability": 1.0
+        },
+        {
+          "word": "getting",
+          "start": 1108.52,
+          "end": 1108.8,
+          "probability": 1.0
+        },
+        {
+          "word": "aborted.",
+          "start": 1108.8,
+          "end": 1109.54,
+          "probability": 0.9988
+        },
+        {
+          "word": "No,",
+          "start": 1109.72,
+          "end": 1110.22,
+          "probability": 0.9961
+        },
+        {
+          "word": "it's",
+          "start": 1110.36,
+          "end": 1110.46,
+          "probability": 1.0
+        },
+        {
+          "word": "not",
+          "start": 1110.46,
+          "end": 1110.58,
+          "probability": 1.0
+        },
+        {
+          "word": "very",
+          "start": 1110.58,
+          "end": 1110.74,
+          "probability": 1.0
+        },
+        {
+          "word": "many.",
+          "start": 1110.74,
+          "end": 1110.96,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 1111.08,
+          "end": 1111.56,
+          "probability": 1.0
+        },
+        {
+          "word": "can",
+          "start": 1111.56,
+          "end": 1111.7,
+          "probability": 0.9917
+        },
+        {
+          "word": "get",
+          "start": 1111.7,
+          "end": 1111.88,
+          "probability": 1.0
+        },
+        {
+          "word": "rid",
+          "start": 1111.88,
+          "end": 1112.04,
+          "probability": 1.0
+        },
+        {
+          "word": "of",
+          "start": 1112.04,
+          "end": 1112.16,
+          "probability": 1.0
+        },
+        {
+          "word": "this.",
+          "start": 1112.16,
+          "end": 1112.34,
+          "probability": 1.0
+        },
+        {
+          "word": "It's",
+          "start": 1112.66,
+          "end": 1113.16,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 1113.16,
+          "end": 1113.22,
+          "probability": 1.0
+        },
+        {
+          "word": "crazy",
+          "start": 1113.22,
+          "end": 1113.56,
+          "probability": 1.0
+        },
+        {
+          "word": "thing",
+          "start": 1113.56,
+          "end": 1113.92,
+          "probability": 1.0
+        },
+        {
+          "word": "that",
+          "start": 1113.92,
+          "end": 1114.08,
+          "probability": 0.9961
+        },
+        {
+          "word": "just",
+          "start": 1114.08,
+          "end": 1114.22,
+          "probability": 1.0
+        },
+        {
+          "word": "confuses",
+          "start": 1114.22,
+          "end": 1114.78,
+          "probability": 0.9995
+        },
+        {
+          "word": "people.",
+          "start": 1114.78,
+          "end": 1115.06,
+          "probability": 1.0
+        },
+        {
+          "word": "It",
+          "start": 1119.61,
+          "end": 1120.11,
+          "probability": 0.9932
+        },
+        {
+          "word": "doesn't",
+          "start": 1120.11,
+          "end": 1120.53,
+          "probability": 1.0
+        },
+        {
+          "word": "help",
+          "start": 1120.53,
+          "end": 1121.03,
+          "probability": 0.8506
+        },
+        {
+          "word": "much.",
+          "start": 1121.03,
+          "end": 1121.49,
+          "probability": 1.0
+        },
+        {
+          "word": "So",
+          "start": 1128.16,
+          "end": 1128.66,
+          "probability": 0.9941
+        },
+        {
+          "word": "what",
+          "start": 1128.66,
+          "end": 1128.92,
+          "probability": 0.9961
+        },
+        {
+          "word": "we",
+          "start": 1128.92,
+          "end": 1129.1,
+          "probability": 1.0
+        },
+        {
+          "word": "want,",
+          "start": 1129.1,
+          "end": 1129.48,
+          "probability": 1.0
+        },
+        {
+          "word": "we",
+          "start": 1129.52,
+          "end": 1129.76,
+          "probability": 0.999
+        },
+        {
+          "word": "want",
+          "start": 1129.76,
+          "end": 1130.04,
+          "probability": 1.0
+        },
+        {
+          "word": "the,",
+          "start": 1130.04,
+          "end": 1130.4,
+          "probability": 0.9995
+        }
+      ],
+      "avg_logprob": -0.0532,
+      "no_speech_prob": 0.0378
+    },
+    {
+      "id": 17,
+      "start": 1131.25,
+      "end": 1176.78,
+      "text": "H-line and triangle to be the majority. That's where it would make us happiest. Fill triangle. Yeah. Okay, it's only 4% fill triangle. The H-line is probably even less. Well, no, it should be more. The H-line is more. It's got to be more. The H-line, I bet it's 10%, 16%. So there's nothing else to speak of.",
+      "words": [
+        {
+          "word": "H",
+          "start": 1131.25,
+          "end": 1131.67,
+          "probability": 0.541
+        },
+        {
+          "word": "-line",
+          "start": 1131.67,
+          "end": 1131.99,
+          "probability": 0.6809
+        },
+        {
+          "word": "and",
+          "start": 1131.99,
+          "end": 1132.45,
+          "probability": 0.9868
+        },
+        {
+          "word": "triangle",
+          "start": 1132.45,
+          "end": 1133.01,
+          "probability": 0.9814
+        },
+        {
+          "word": "to",
+          "start": 1133.01,
+          "end": 1133.39,
+          "probability": 0.9858
+        },
+        {
+          "word": "be",
+          "start": 1133.39,
+          "end": 1133.55,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 1133.55,
+          "end": 1133.71,
+          "probability": 0.9995
+        },
+        {
+          "word": "majority.",
+          "start": 1133.71,
+          "end": 1134.03,
+          "probability": 0.998
+        },
+        {
+          "word": "That's",
+          "start": 1134.83,
+          "end": 1135.35,
+          "probability": 0.9966
+        },
+        {
+          "word": "where",
+          "start": 1135.35,
+          "end": 1135.57,
+          "probability": 0.998
+        },
+        {
+          "word": "it",
+          "start": 1135.57,
+          "end": 1136.47,
+          "probability": 0.981
+        },
+        {
+          "word": "would",
+          "start": 1136.47,
+          "end": 1136.65,
+          "probability": 0.9995
+        },
+        {
+          "word": "make",
+          "start": 1136.65,
+          "end": 1136.89,
+          "probability": 0.9995
+        },
+        {
+          "word": "us",
+          "start": 1136.89,
+          "end": 1137.09,
+          "probability": 0.9995
+        },
+        {
+          "word": "happiest.",
+          "start": 1137.09,
+          "end": 1137.51,
+          "probability": 0.9985
+        },
+        {
+          "word": "Fill",
+          "start": 1142.86,
+          "end": 1143.38,
+          "probability": 0.7441
+        },
+        {
+          "word": "triangle.",
+          "start": 1143.38,
+          "end": 1143.6,
+          "probability": 0.981
+        },
+        {
+          "word": "Yeah.",
+          "start": 1144.34,
+          "end": 1144.86,
+          "probability": 0.958
+        },
+        {
+          "word": "Okay,",
+          "start": 1145.28,
+          "end": 1145.8,
+          "probability": 0.9038
+        },
+        {
+          "word": "it's",
+          "start": 1145.88,
+          "end": 1146.0,
+          "probability": 0.9995
+        },
+        {
+          "word": "only",
+          "start": 1146.0,
+          "end": 1146.16,
+          "probability": 1.0
+        },
+        {
+          "word": "4",
+          "start": 1146.16,
+          "end": 1146.42,
+          "probability": 0.9512
+        },
+        {
+          "word": "%",
+          "start": 1146.42,
+          "end": 1146.8,
+          "probability": 0.9639
+        },
+        {
+          "word": "fill",
+          "start": 1146.8,
+          "end": 1147.14,
+          "probability": 0.998
+        },
+        {
+          "word": "triangle.",
+          "start": 1147.14,
+          "end": 1147.52,
+          "probability": 1.0
+        },
+        {
+          "word": "The",
+          "start": 1147.82,
+          "end": 1148.34,
+          "probability": 0.9995
+        },
+        {
+          "word": "H",
+          "start": 1148.34,
+          "end": 1148.62,
+          "probability": 0.9956
+        },
+        {
+          "word": "-line",
+          "start": 1148.62,
+          "end": 1148.9,
+          "probability": 0.9998
+        },
+        {
+          "word": "is",
+          "start": 1148.9,
+          "end": 1149.12,
+          "probability": 1.0
+        },
+        {
+          "word": "probably",
+          "start": 1149.12,
+          "end": 1149.28,
+          "probability": 1.0
+        },
+        {
+          "word": "even",
+          "start": 1149.28,
+          "end": 1149.58,
+          "probability": 1.0
+        },
+        {
+          "word": "less.",
+          "start": 1149.58,
+          "end": 1149.94,
+          "probability": 1.0
+        },
+        {
+          "word": "Well,",
+          "start": 1150.81,
+          "end": 1151.33,
+          "probability": 0.9326
+        },
+        {
+          "word": "no,",
+          "start": 1151.47,
+          "end": 1151.69,
+          "probability": 0.9731
+        },
+        {
+          "word": "it",
+          "start": 1151.71,
+          "end": 1151.77,
+          "probability": 1.0
+        },
+        {
+          "word": "should",
+          "start": 1151.77,
+          "end": 1151.81,
+          "probability": 1.0
+        },
+        {
+          "word": "be",
+          "start": 1151.81,
+          "end": 1151.93,
+          "probability": 1.0
+        },
+        {
+          "word": "more.",
+          "start": 1151.93,
+          "end": 1152.13,
+          "probability": 1.0
+        },
+        {
+          "word": "The",
+          "start": 1152.25,
+          "end": 1152.61,
+          "probability": 0.9927
+        },
+        {
+          "word": "H",
+          "start": 1152.61,
+          "end": 1152.95,
+          "probability": 1.0
+        },
+        {
+          "word": "-line",
+          "start": 1152.95,
+          "end": 1153.15,
+          "probability": 1.0
+        },
+        {
+          "word": "is",
+          "start": 1153.15,
+          "end": 1153.41,
+          "probability": 1.0
+        },
+        {
+          "word": "more.",
+          "start": 1153.41,
+          "end": 1154.35,
+          "probability": 0.9932
+        },
+        {
+          "word": "It's",
+          "start": 1154.45,
+          "end": 1154.73,
+          "probability": 0.9995
+        },
+        {
+          "word": "got",
+          "start": 1154.73,
+          "end": 1154.85,
+          "probability": 0.916
+        },
+        {
+          "word": "to",
+          "start": 1154.85,
+          "end": 1154.99,
+          "probability": 1.0
+        },
+        {
+          "word": "be",
+          "start": 1154.99,
+          "end": 1155.07,
+          "probability": 1.0
+        },
+        {
+          "word": "more.",
+          "start": 1155.07,
+          "end": 1155.31,
+          "probability": 1.0
+        },
+        {
+          "word": "The",
+          "start": 1158.88,
+          "end": 1159.4,
+          "probability": 0.4534
+        },
+        {
+          "word": "H",
+          "start": 1159.4,
+          "end": 1159.74,
+          "probability": 1.0
+        },
+        {
+          "word": "-line,",
+          "start": 1159.74,
+          "end": 1160.1,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 1160.18,
+          "end": 1161.12,
+          "probability": 1.0
+        },
+        {
+          "word": "bet",
+          "start": 1161.44,
+          "end": 1161.64,
+          "probability": 1.0
+        },
+        {
+          "word": "it's",
+          "start": 1161.64,
+          "end": 1161.94,
+          "probability": 1.0
+        },
+        {
+          "word": "10%,",
+          "start": 1161.94,
+          "end": 1163.44,
+          "probability": 0.8518
+        },
+        {
+          "word": "16%.",
+          "start": 1163.44,
+          "end": 1164.16,
+          "probability": 0.999
+        },
+        {
+          "word": "So",
+          "start": 1164.16,
+          "end": 1165.16,
+          "probability": 0.9932
+        },
+        {
+          "word": "there's",
+          "start": 1169.16,
+          "end": 1170.48,
+          "probability": 0.7771
+        },
+        {
+          "word": "nothing",
+          "start": 1175.6,
+          "end": 1175.8,
+          "probability": 1.0
+        },
+        {
+          "word": "else",
+          "start": 1175.8,
+          "end": 1176.12,
+          "probability": 1.0
+        },
+        {
+          "word": "to",
+          "start": 1176.12,
+          "end": 1176.34,
+          "probability": 1.0
+        },
+        {
+          "word": "speak",
+          "start": 1176.34,
+          "end": 1176.56,
+          "probability": 1.0
+        },
+        {
+          "word": "of.",
+          "start": 1176.56,
+          "end": 1176.78,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.059,
+      "no_speech_prob": 0.0633
+    },
+    {
+      "id": 18,
+      "start": 1185.74,
+      "end": 1226.45,
+      "text": "Oh, damn it. Okay, so that's my analysis for... So we're going to make Intel optimize their processor for that test case. Let's see what God says. You know what? I should get rid of that triangle filter thing.",
+      "words": [
+        {
+          "word": "Oh,",
+          "start": 1185.74,
+          "end": 1186.14,
+          "probability": 0.4993
+        },
+        {
+          "word": "damn",
+          "start": 1186.32,
+          "end": 1186.66,
+          "probability": 0.8403
+        },
+        {
+          "word": "it.",
+          "start": 1186.66,
+          "end": 1186.84,
+          "probability": 0.9868
+        },
+        {
+          "word": "Okay,",
+          "start": 1198.95,
+          "end": 1199.35,
+          "probability": 0.8564
+        },
+        {
+          "word": "so",
+          "start": 1199.49,
+          "end": 1200.31,
+          "probability": 0.9966
+        },
+        {
+          "word": "that's",
+          "start": 1200.41,
+          "end": 1200.85,
+          "probability": 0.9958
+        },
+        {
+          "word": "my",
+          "start": 1200.85,
+          "end": 1201.01,
+          "probability": 0.9995
+        },
+        {
+          "word": "analysis",
+          "start": 1201.01,
+          "end": 1201.71,
+          "probability": 0.999
+        },
+        {
+          "word": "for...",
+          "start": 1201.71,
+          "end": 1202.41,
+          "probability": 0.7029
+        },
+        {
+          "word": "So",
+          "start": 1202.41,
+          "end": 1203.39,
+          "probability": 0.978
+        },
+        {
+          "word": "we're",
+          "start": 1207.35,
+          "end": 1207.59,
+          "probability": 0.9446
+        },
+        {
+          "word": "going",
+          "start": 1207.59,
+          "end": 1207.65,
+          "probability": 0.9058
+        },
+        {
+          "word": "to",
+          "start": 1207.65,
+          "end": 1207.79,
+          "probability": 1.0
+        },
+        {
+          "word": "make",
+          "start": 1207.79,
+          "end": 1207.95,
+          "probability": 1.0
+        },
+        {
+          "word": "Intel",
+          "start": 1207.95,
+          "end": 1208.41,
+          "probability": 0.9966
+        },
+        {
+          "word": "optimize",
+          "start": 1208.41,
+          "end": 1209.45,
+          "probability": 0.7881
+        },
+        {
+          "word": "their",
+          "start": 1209.45,
+          "end": 1209.77,
+          "probability": 0.9937
+        },
+        {
+          "word": "processor",
+          "start": 1209.77,
+          "end": 1210.23,
+          "probability": 1.0
+        },
+        {
+          "word": "for",
+          "start": 1210.23,
+          "end": 1210.91,
+          "probability": 0.9995
+        },
+        {
+          "word": "that",
+          "start": 1210.91,
+          "end": 1211.67,
+          "probability": 0.9995
+        },
+        {
+          "word": "test",
+          "start": 1211.67,
+          "end": 1212.69,
+          "probability": 0.998
+        },
+        {
+          "word": "case.",
+          "start": 1212.69,
+          "end": 1213.05,
+          "probability": 0.9995
+        },
+        {
+          "word": "Let's",
+          "start": 1213.78,
+          "end": 1214.18,
+          "probability": 0.9993
+        },
+        {
+          "word": "see",
+          "start": 1214.18,
+          "end": 1214.2,
+          "probability": 1.0
+        },
+        {
+          "word": "what",
+          "start": 1214.2,
+          "end": 1214.32,
+          "probability": 1.0
+        },
+        {
+          "word": "God",
+          "start": 1214.32,
+          "end": 1214.5,
+          "probability": 0.9624
+        },
+        {
+          "word": "says.",
+          "start": 1214.5,
+          "end": 1214.7,
+          "probability": 0.9995
+        },
+        {
+          "word": "You",
+          "start": 1218.45,
+          "end": 1218.85,
+          "probability": 0.9995
+        },
+        {
+          "word": "know",
+          "start": 1218.85,
+          "end": 1218.97,
+          "probability": 1.0
+        },
+        {
+          "word": "what?",
+          "start": 1218.97,
+          "end": 1219.11,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 1219.15,
+          "end": 1219.23,
+          "probability": 0.9971
+        },
+        {
+          "word": "should",
+          "start": 1219.23,
+          "end": 1219.33,
+          "probability": 0.9956
+        },
+        {
+          "word": "get",
+          "start": 1219.33,
+          "end": 1219.47,
+          "probability": 1.0
+        },
+        {
+          "word": "rid",
+          "start": 1219.47,
+          "end": 1219.67,
+          "probability": 1.0
+        },
+        {
+          "word": "of",
+          "start": 1219.67,
+          "end": 1219.87,
+          "probability": 1.0
+        },
+        {
+          "word": "that",
+          "start": 1219.87,
+          "end": 1220.03,
+          "probability": 0.9595
+        },
+        {
+          "word": "triangle",
+          "start": 1220.03,
+          "end": 1221.41,
+          "probability": 0.999
+        },
+        {
+          "word": "filter",
+          "start": 1224.39,
+          "end": 1225.67,
+          "probability": 0.9995
+        },
+        {
+          "word": "thing.",
+          "start": 1225.73,
+          "end": 1226.45,
+          "probability": 0.999
+        }
+      ],
+      "avg_logprob": -0.0791,
+      "no_speech_prob": 0.0711
+    }
+  ]
+}

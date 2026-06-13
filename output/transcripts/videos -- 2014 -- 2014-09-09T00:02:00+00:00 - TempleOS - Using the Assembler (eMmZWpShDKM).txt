@@ -1,0 +1,227 @@
+========================================================================
+FILE        : videos/2014/2014-09-09T00:02:00+00:00 - TempleOS - Using the Assembler (eMmZWpShDKM).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-09-09T00:02:00+00:00 - TempleOS - Using the Assembler (eMmZWpShDKM).mp4
+FORMAT      : MPEG4
+SIZE        : 76,820,109 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:22:11.460
+TRANSCRIBED: 2026-05-08T13:19:49.428543+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+Okay, I'm going to cover the assembler. So, you can, there are three, three assembler situations. You can have, you can have an assembly block inside of a C function, you can have an assembly block outside of a C function, or you can even have just instructions. It's smart enough that when an opcode starts a statement, it knows it's a assembly instruction. So, you'll frequently see in my, in the operating system code, you'll frequently see, I equals zero, I less than one. Let's just do that. F5, no, let's see. Okay, so let's unassemble that. Unassemble function main. So, there's the push, push flags, clear interrupts, that turns them off, set up the for loop, do the for loop, pop the flags. So, if you know what the stack is doing, you can mess with it, but you have to know what you're doing. That's dangerous. But, if you're a, I do it all the time. Anyway, so, if you have an assembly block by itself, this is, let's say, define, in other assembly assemblers, you say define byte. Well, in this operating system, it's define, you wait. And then, we have a string, but it's not zero terminated. You have to zero terminate it. So, now we define, now I have a convention. This is, this is not mandatory, although I don't have to tell you that. I might as well just say it's mandatory. You put an underscore if it's C callable. So, I normally follow the standard, the old-fashioned stack frame. So, now, let's go ahead and call, put, move, RSI. So, we have to preserve RSI. I can tell you which registers you have to preserve. So, in between C instructions, you can clobber AX, CX, DX. Basically, you can always clobber these, except not RBP and RSP. So, we have to preserve RSI. So, we have to preserve RSI. I don't know where we want to put it. We can put it here. Well, that was almost catastrophic. My video dies if I crash. So, that would have been bad. Okay. So, we have a function. This is a, in assembly, you basically have labels. And they're in, when you mix them with C, they look like just numbers. Call calls a number. So, I just did hello world. And it worked. I might want a new line. A couple new lines. Now, we do it again. We got that. We put a couple new lines in the beginning. Okay. So, to unassemble, you can say unassemble my function. This is just a number. So, what do we have here? We have, there's the function. Scott put string. Now, you might find a situation where you have to say import. Like, for example, put chars. We're going to do an alternative. Okay. So, one colon is not exported. Two colons is exported. It's an exported symbol. Okay. Okay. Okay. We're going to call put chars. Let's call the, this is a C function. So, we're going to pass one parameter. So, we have, we're going to move. Let's go ahead and put it in RAX. Now, we put, how about that? And we say push RAX. Now, these, the standard is to use the pop return. Okay. Now, let's, let's go ahead and do this. And then we'll explain it. Okay. Okay. Okay. So, it printed hello question mark. I'm a little bit nervous. If I crash, I'm dead. Anyway. Okay. So, if we don't have this, I, oh, I better not do that. It might crash. The alternative is to put an ampersand. That also works. The safest is to do an import. So, the, the, you say import, put chars, and you put a semicolon. You do a comma list and then a semicolon. And, and then you're free to use it. Okay. So, if you have a, you can use local labels, add at one. You can even renumber. Watch this. Control shift L. Oh, let's go ahead and, let's loop. Add at one. How about, if you're, if you're, move RCX five. We have to preserve it. It'll get clobbered. Oh, I have to, I almost screwed that up, didn't I? Paying attention? Okay. Okay. Pop RCX. Okay. So, uh, watch this. Control shift L. Renumber assembly local labels for function. Now, it just changed it to five. It goes by fives. Five, ten, fifteen, twenty. So, um, a little, uh, Every, uh, every, uh, every, uh, every time you have a double colon, that makes a new section. And then you can add repeated, uh, local labels. Okay. So, double colon is, is a export and it's a new section. Single is not exported and it's not a new section. Okay. Add at, add at is a local label. Um, so, uh, let's go ahead and, now, there's a more sophisticated way. That was raw. Uh, these, uh, these labels are like raw numbers. Um, you can bind them with an extern, um, extern, underscore, underscore extern will bind a, uh, an assembly label with a, uh, with a C function header. So, uh, so, uh, so, this has no args. Um, and then we can use, uh, we can say function one. Oh, my function. My function one. I'm very nervous. I already lost a video because I crashed it. Okay. So, uh, this is more normal. Okay. So, uh, there's one more thing. Uh, we, we want to cover class. That's my struct. Okay. So, if we have a class. U8. Name 32. U8. Address 32. Um, to do that, uh, uh, oh, what do we want to do? Let's just go ahead and, uh, move, rax, comma, my struct, my struct, uh, let's just do that. Oh, no, let's. My struct dot address. And then we say call put, uh, hex, uh, use 64. This is rax. It preserves registers. I have a handful of, uh, assembly useful functions. There's a few assembly callable functions. Um, not very many. Um, this, we're going to print out rax. And, uh, let's go ahead and move rax, comma, carriage return. Call, uh, put chars. So, I do believe, uh, is this going to work? We're going to print the offset number and then print in carriage return. I hope I don't crash it. Okay, we printed 20. That's hexadecimal for 20. Okay, now we're going to go ahead and, uh, we're going to do a parameter. Um, how about count? I-64 count. Okay, now, um, move rcx, comma. Okay, now, there's some, these are very important. SF stack frame, stack frame arg123. Stack frame arg123f, rbp. Okay, so, uh, now I say push rcx, pop rcx loop, add at one. Add at one. I hope I don't crash anything. Oh, I almost crashed it. Holy. Okay. Okay. Function one. Okay, we printed the number twice. This is a stupid program. I'm sorry for a stupid example. Okay, so, um, let me explain. This is a opcode, a funny opcode. Um, go to the compiler directory in the opcodes file. And, uh, there you will find all my opcodes. Um, I don't, I didn't enter all the opcodes. There's, uh, no MMX, no SSE. Um, let's look for return one. Okay, so there's a return, and then there's a return one that has a, uh, a, uh, count. Um, excuse me, this is not for me. Anyway, so, uh, uh, so, um, let me explain why I did this. If you, if you look at, uh, mul, there's a, uh, there's a two argument integer multiply, and there's a one argument integer multiply. Um, the reason I, I deambiguous, I make it deambiguous, is because I use the same compiler lex, the lexical analyzer breaks these up into pieces. And, uh, it's the same as the C. So this is just like C code. Uh, this is exactly the same lexical analyzer as C. So it doesn't recognize, there's nothing special about a carriage return, just like a C program. So what I had to do is I had, I had a problem. If, if I just said return eight like this, then I wouldn't know that there was an argument. So I have to say return one eight. This is a little known, this pops the stack. This pops eight off the stack. That's, that's to get rid of the parameter that was pushed. And this is the convention that my, um, functions use. Except variable parameter count doesn't use that. Anyway, so, uh, uh, so I think I covered everything. Um, now there's a dollar sign. If you, if you want, you can say dollar sign, dollar sign equals 10. That's a 10, not a 16. Okay, now let's see what we have. 2A. Okay, okay. So, uh, dollar sign, dollar. I think, how do you align? Oh, I guess you have to do it this way. Equals dollar sign, dollar sign, ampersand, minus, or tilt, tilde seven. So this is how you align. 28. So 10 plus 32 is, uh, 2A. Oh, then it, um, it, you don't want that. Anyway, you just do the math. 30. So, um, there's a, uh, sometimes I put a pad. U0 pad. Now what that is, is, uh, the, when it's Lexing, unfortunately, it's a symbol ahead. So if I say assert dollar sign, dollar sign, ampersand, seven, not dollar sign, dollar sign, ampersand, seven. This is to make sure it's aligned. If I do this, uh, my assert, by the way, is a precompiler that prints a message if it's false. That's how we learned it in my class. It's not a runtime assert. Not a runtime assert. Anyway, uh, I think what I do is, uh, I do a pad because, uh, it, um, it's, it's lagging a symbol. This is really ugly. But my compiler, in this particular case, lags a symbol. In other words, it's, uh, it hasn't gotten caught up at this point. So you have to do a, a, a no-op. That's what this is. Um, anyway, you'll see that in, in the header. Anyway, um, let's see if we have any other, um, other, I might as well tell you about, uh, Okay, I might as well tell you about, uh, DU8, uh, dupe. Um, you say 10, 10 dupe, uh, I guess we can put anything. How about, uh, A? Let's see what that does. And then we put a exported my data. And then we put a dump. That's just a symbol. Let's go ahead and get rid of all this. Dump my data. So we have 41, we have a bunch of A's. And, uh, how about DU16. Uh, let's do CD. Let's see what happens. Okay, so A, A, A, A, A, A, A, A, A, A, CD, CD, CD. Okay, so you get the idea. Let's see if I covered all the, uh, assembler, uh, directives. I think it's in directives. Uh-oh. Holy see, where did I? Uh-oh, I'm sorry. Guidelines? No, we want, uh, let's see, find directory. I'm just going to do this quickly. Find directory. Okay, compiler overview. Wow, that's pretty. Okay, include a pound DXC. That doesn't, executes code at compile time. Let's see, here's the assembler. Um, so I told you about the dollar sign. Label defines an export global. It's also a new section. It also marks a new section. Finds a non-exported. Add at, it's a local. Do you, do you, okay, I forgot use. There's import. List is kind of broken. Oh, I can, you can align. Not in a structure, by the way. Um, that's only limited. You don't, you can't really align. Oh, by the way, you, you do not, you do not have the right to tell where the code goes. That is not your option. Um, you do not have the right to tell where the code goes. Um, I made an exception. Uh, let's see. Module org. Uh, I don't even know how this works. Let's see. Zero X, uh, I'm going to put it just in some safe memory that I know exists. Uh, du eight. Oh, what? Oh. Let's see what this does. Module org. okay now let's dump 0x, this is just some crazy apps okay, so it did work okay, so you can specify where it goes but you really shouldn't be doing that okay okay
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:15.900]  Okay, I'm going to cover the assembler. So, you can, there are three, three
+[00:00:15.900 -> 00:00:27.980]  assembler situations. You can have, you can have an assembly block inside of a C
+[00:00:27.980 -> 00:00:33.620]  function, you can have an assembly block outside of a C function, or you can even
+[00:00:33.620 -> 00:00:41.620]  have just instructions. It's smart enough that when an opcode starts a
+[00:00:41.620 -> 00:00:55.360]  statement, it knows it's a assembly instruction. So, you'll frequently see in
+[00:00:55.360 -> 00:01:05.240]  my, in the operating system code, you'll frequently see, I equals zero, I less than one.
+[00:01:08.520 -> 00:01:21.960]  Let's just do that. F5, no, let's see. Okay, so let's unassemble that. Unassemble function
+[00:01:21.960 -> 00:01:31.960]  main. So, there's the push, push flags, clear interrupts, that turns them off, set up the
+[00:01:31.960 -> 00:01:38.540]  for loop, do the for loop, pop the flags. So, if you know what the stack is doing, you can
+[00:01:38.540 -> 00:01:48.340]  mess with it, but you have to know what you're doing. That's dangerous. But, if you're a, I do it all the time.
+[00:01:48.340 -> 00:02:09.120]  Anyway, so, if you have an assembly block by itself, this is, let's say, define, in other assembly assemblers, you say define byte.
+[00:02:09.120 -> 00:02:20.740]  Well, in this operating system, it's define, you wait. And then, we have a string, but it's not zero terminated.
+[00:02:21.020 -> 00:02:35.540]  You have to zero terminate it. So, now we define, now I have a convention. This is, this is not mandatory, although I don't have to tell you that.
+[00:02:36.740 -> 00:02:44.760]  I might as well just say it's mandatory. You put an underscore if it's C callable.
+[00:02:51.660 -> 00:03:13.760]  So, I normally follow the standard, the old-fashioned stack frame. So, now, let's go ahead and call,
+[00:03:18.300 -> 00:03:36.040]  put, move, RSI. So, we have to preserve RSI. I can tell you which registers you have to preserve.
+[00:03:40.040 -> 00:03:52.500]  So, in between C instructions, you can clobber AX, CX, DX. Basically, you can always clobber these, except not RBP and RSP.
+[00:03:55.540 -> 00:04:00.720]  So, we have to preserve RSI.
+[00:04:11.880 -> 00:04:20.380]  So, we have to preserve RSI. I don't know where we want to put it. We can put it here.
+[00:04:24.240 -> 00:04:31.240]  Well, that was almost catastrophic. My video dies if I crash. So, that would have been bad.
+[00:04:31.240 -> 00:04:51.820]  Okay. So, we have a function. This is a, in assembly, you basically have labels. And they're in, when you mix them with C, they look like just numbers.
+[00:04:52.960 -> 00:05:03.680]  Call calls a number. So, I just did hello world. And it worked. I might want a new line. A couple new lines.
+[00:05:03.940 -> 00:05:08.020]  Now, we do it again. We got that. We put a couple new lines in the beginning.
+[00:05:08.020 -> 00:05:19.600]  Okay. So, to unassemble, you can say unassemble my function. This is just a number. So, what do we have here?
+[00:05:20.240 -> 00:05:34.880]  We have, there's the function. Scott put string. Now, you might find a situation where you have to say import.
+[00:05:34.880 -> 00:05:56.140]  Like, for example, put chars. We're going to do an alternative. Okay. So, one colon is not exported. Two colons is exported. It's an exported symbol. Okay.
+[00:05:59.520 -> 00:06:18.100]  Okay. Okay. We're going to call put chars. Let's call the, this is a C function. So, we're going to pass one parameter.
+[00:06:18.100 -> 00:06:29.620]  So, we have, we're going to move. Let's go ahead and put it in RAX. Now, we put, how about that?
+[00:06:30.000 -> 00:06:46.000]  And we say push RAX. Now, these, the standard is to use the pop return. Okay. Now,
+[00:06:48.280 -> 00:06:53.620]  let's, let's go ahead and do this. And then we'll explain it. Okay.
+[00:06:56.960 -> 00:07:02.980]  Okay. Okay. So, it printed hello question mark. I'm a little bit nervous. If I crash, I'm dead.
+[00:07:03.920 -> 00:07:12.640]  Anyway. Okay. So, if we don't have this, I, oh, I better not do that. It might crash.
+[00:07:14.820 -> 00:07:35.160]  The alternative is to put an ampersand. That also works. The safest is to do an import. So, the, the, you say import, put chars, and you put a semicolon. You do a comma list and then a semicolon. And, and then you're free to use it.
+[00:07:37.140 -> 00:07:59.460]  Okay. So, if you have a, you can use local labels, add at one. You can even renumber. Watch this. Control shift L. Oh, let's go ahead and, let's loop. Add at one.
+[00:08:00.380 -> 00:08:20.460]  How about, if you're, if you're, move RCX five. We have to preserve it. It'll get clobbered. Oh, I have to, I almost screwed that up, didn't I? Paying attention? Okay.
+[00:08:20.460 -> 00:08:45.600]  Okay. Pop RCX. Okay. So, uh, watch this. Control shift L. Renumber assembly local labels for function. Now, it just changed it to five. It goes by fives. Five, ten, fifteen, twenty. So, um, a little, uh,
+[00:08:48.920 -> 00:09:06.020]  Every, uh, every, uh, every, uh, every time you have a double colon, that makes a new section. And then you can add repeated, uh, local labels.
+[00:09:06.020 -> 00:09:33.100]  Okay. So, double colon is, is a export and it's a new section. Single is not exported and it's not a new section. Okay. Add at, add at is a local label. Um, so, uh, let's go ahead and, now, there's a more sophisticated way.
+[00:09:33.100 -> 00:10:00.540]  That was raw. Uh, these, uh, these labels are like raw numbers. Um, you can bind them with an extern, um, extern, underscore, underscore extern will bind a, uh, an assembly label with a, uh, with a C function header.
+[00:10:03.100 -> 00:10:12.900]  So, uh, so, uh, so, this has no args. Um, and then we can use, uh, we can say function one.
+[00:10:14.680 -> 00:10:24.200]  Oh, my function. My function one. I'm very nervous. I already lost a video because I crashed it.
+[00:10:29.560 -> 00:10:33.140]  Okay. So, uh, this is more normal.
+[00:10:34.600 -> 00:10:43.200]  Okay. So, uh, there's one more thing. Uh, we, we want to cover class.
+[00:10:43.200 -> 00:10:46.700]  That's my struct.
+[00:10:49.100 -> 00:10:54.780]  Okay. So, if we have a class.
+[00:10:55.520 -> 00:10:56.320]  U8.
+[00:10:56.720 -> 00:10:58.200]  Name 32.
+[00:10:59.840 -> 00:11:00.640]  U8.
+[00:11:02.500 -> 00:11:04.100]  Address 32.
+[00:11:06.300 -> 00:11:12.280]  Um, to do that, uh, uh, oh, what do we want to do?
+[00:11:13.200 -> 00:11:27.920]  Let's just go ahead and, uh, move, rax, comma, my struct, my struct, uh, let's just do that.
+[00:11:28.360 -> 00:11:29.520]  Oh, no, let's.
+[00:11:33.580 -> 00:11:37.280]  My struct dot address.
+[00:11:38.540 -> 00:11:49.560]  And then we say call put, uh, hex, uh, use 64.
+[00:11:50.080 -> 00:11:53.060]  This is rax. It preserves registers.
+[00:11:53.060 -> 00:11:58.840]  I have a handful of, uh, assembly useful functions.
+[00:12:00.760 -> 00:12:04.880]  There's a few assembly callable functions.
+[00:12:05.560 -> 00:12:07.520]  Um, not very many.
+[00:12:08.140 -> 00:12:10.660]  Um, this, we're going to print out rax.
+[00:12:11.420 -> 00:12:18.160]  And, uh, let's go ahead and move rax, comma, carriage return.
+[00:12:19.960 -> 00:12:23.060]  Call, uh, put chars.
+[00:12:23.880 -> 00:12:26.440]  So, I do believe, uh, is this going to work?
+[00:12:26.580 -> 00:12:30.380]  We're going to print the offset number and then print in carriage return.
+[00:12:30.520 -> 00:12:31.640]  I hope I don't crash it.
+[00:12:32.840 -> 00:12:34.400]  Okay, we printed 20.
+[00:12:35.180 -> 00:12:38.540]  That's hexadecimal for 20.
+[00:12:38.740 -> 00:12:43.220]  Okay, now we're going to go ahead and, uh, we're going to do a parameter.
+[00:12:43.980 -> 00:12:46.380]  Um, how about count?
+[00:12:46.820 -> 00:12:49.180]  I-64 count.
+[00:12:50.060 -> 00:12:56.480]  Okay, now, um, move rcx, comma.
+[00:12:56.480 -> 00:12:59.360]  Okay, now, there's some, these are very important.
+[00:13:00.060 -> 00:13:05.040]  SF stack frame, stack frame arg123.
+[00:13:07.920 -> 00:13:10.780]  Stack frame arg123f, rbp.
+[00:13:11.460 -> 00:13:25.240]  Okay, so, uh, now I say push rcx, pop rcx loop, add at one.
+[00:13:26.680 -> 00:13:27.640]  Add at one.
+[00:13:27.800 -> 00:13:28.860]  I hope I don't crash anything.
+[00:13:29.180 -> 00:13:30.360]  Oh, I almost crashed it.
+[00:13:30.940 -> 00:13:31.300]  Holy.
+[00:13:32.560 -> 00:13:33.160]  Okay.
+[00:13:36.880 -> 00:13:37.480]  Okay.
+[00:13:39.100 -> 00:13:40.060]  Function one.
+[00:13:42.700 -> 00:13:44.580]  Okay, we printed the number twice.
+[00:13:44.840 -> 00:13:46.300]  This is a stupid program.
+[00:13:46.480 -> 00:13:48.140]  I'm sorry for a stupid example.
+[00:13:49.440 -> 00:13:52.780]  Okay, so, um, let me explain.
+[00:13:52.780 -> 00:13:55.440]  This is a opcode, a funny opcode.
+[00:13:55.980 -> 00:14:00.480]  Um, go to the compiler directory in the opcodes file.
+[00:14:01.540 -> 00:14:05.580]  And, uh, there you will find all my opcodes.
+[00:14:05.940 -> 00:14:09.120]  Um, I don't, I didn't enter all the opcodes.
+[00:14:09.320 -> 00:14:11.660]  There's, uh, no MMX, no SSE.
+[00:14:13.720 -> 00:14:16.880]  Um, let's look for return one.
+[00:14:17.620 -> 00:14:26.760]  Okay, so there's a return, and then there's a return one that has a, uh, a, uh, count.
+[00:14:27.120 -> 00:14:30.480]  Um, excuse me, this is not for me.
+[00:14:30.700 -> 00:14:40.180]  Anyway, so, uh, uh, so, um, let me explain why I did this.
+[00:14:40.180 -> 00:14:50.200]  If you, if you look at, uh, mul, there's a, uh, there's a two argument integer multiply,
+[00:14:50.560 -> 00:14:52.780]  and there's a one argument integer multiply.
+[00:14:53.260 -> 00:15:04.240]  Um, the reason I, I deambiguous, I make it deambiguous, is because I use the same compiler
+[00:15:06.480 -> 00:15:10.400]  lex, the lexical analyzer breaks these up into pieces.
+[00:15:11.540 -> 00:15:13.880]  And, uh, it's the same as the C.
+[00:15:14.320 -> 00:15:16.380]  So this is just like C code.
+[00:15:16.980 -> 00:15:22.800]  Uh, this is exactly the same lexical analyzer as C.
+[00:15:23.000 -> 00:15:28.660]  So it doesn't recognize, there's nothing special about a carriage return, just like a C program.
+[00:15:29.320 -> 00:15:32.660]  So what I had to do is I had, I had a problem.
+[00:15:32.800 -> 00:15:40.300]  If, if I just said return eight like this, then I wouldn't know that there was an argument.
+[00:15:40.560 -> 00:15:42.700]  So I have to say return one eight.
+[00:15:42.980 -> 00:15:45.460]  This is a little known, this pops the stack.
+[00:15:45.700 -> 00:15:47.420]  This pops eight off the stack.
+[00:15:47.580 -> 00:15:50.380]  That's, that's to get rid of the parameter that was pushed.
+[00:15:50.720 -> 00:15:55.000]  And this is the convention that my, um, functions use.
+[00:15:56.920 -> 00:16:00.060]  Except variable parameter count doesn't use that.
+[00:16:01.240 -> 00:16:07.200]  Anyway, so, uh, uh, so I think I covered everything.
+[00:16:07.620 -> 00:16:09.320]  Um, now there's a dollar sign.
+[00:16:09.540 -> 00:16:14.240]  If you, if you want, you can say dollar sign, dollar sign equals 10.
+[00:16:14.720 -> 00:16:16.780]  That's a 10, not a 16.
+[00:16:17.720 -> 00:16:19.540]  Okay, now let's see what we have.
+[00:16:21.480 -> 00:16:22.000]  2A.
+[00:16:22.000 -> 00:16:22.640]  Okay, okay.
+[00:16:23.220 -> 00:16:26.240]  So, uh, dollar sign, dollar.
+[00:16:26.380 -> 00:16:27.880]  I think, how do you align?
+[00:16:28.140 -> 00:16:29.680]  Oh, I guess you have to do it this way.
+[00:16:30.240 -> 00:16:36.860]  Equals dollar sign, dollar sign, ampersand, minus, or tilt, tilde seven.
+[00:16:38.220 -> 00:16:40.480]  So this is how you align.
+[00:16:41.240 -> 00:16:41.560]  28.
+[00:16:42.600 -> 00:16:46.960]  So 10 plus 32 is, uh, 2A.
+[00:16:46.960 -> 00:16:50.740]  Oh, then it, um, it, you don't want that.
+[00:16:52.740 -> 00:16:54.680]  Anyway, you just do the math.
+[00:16:55.420 -> 00:16:55.800]  30.
+[00:16:58.360 -> 00:17:04.740]  So, um, there's a, uh, sometimes I put a pad.
+[00:17:05.620 -> 00:17:06.660]  U0 pad.
+[00:17:07.460 -> 00:17:16.260]  Now what that is, is, uh, the, when it's Lexing, unfortunately, it's a symbol ahead.
+[00:17:16.820 -> 00:17:28.460]  So if I say assert dollar sign, dollar sign, ampersand, seven, not dollar sign, dollar sign, ampersand, seven.
+[00:17:28.460 -> 00:17:30.500]  This is to make sure it's aligned.
+[00:17:30.860 -> 00:17:40.060]  If I do this, uh, my assert, by the way, is a precompiler that prints a message if it's false.
+[00:17:40.320 -> 00:17:42.540]  That's how we learned it in my class.
+[00:17:42.840 -> 00:17:45.680]  It's not a runtime assert.
+[00:17:46.380 -> 00:17:47.900]  Not a runtime assert.
+[00:17:47.900 -> 00:17:59.040]  Anyway, uh, I think what I do is, uh, I do a pad because, uh, it, um, it's, it's lagging a symbol.
+[00:17:59.280 -> 00:18:00.300]  This is really ugly.
+[00:18:00.640 -> 00:18:04.700]  But my compiler, in this particular case, lags a symbol.
+[00:18:05.060 -> 00:18:09.820]  In other words, it's, uh, it hasn't gotten caught up at this point.
+[00:18:10.280 -> 00:18:13.380]  So you have to do a, a, a no-op.
+[00:18:13.540 -> 00:18:14.400]  That's what this is.
+[00:18:14.400 -> 00:18:18.160]  Um, anyway, you'll see that in, in the header.
+[00:18:18.460 -> 00:18:24.300]  Anyway, um, let's see if we have any other, um, other, I might as well tell you about, uh,
+[00:18:35.100 -> 00:18:40.660]  Okay, I might as well tell you about, uh, DU8, uh, dupe.
+[00:18:41.240 -> 00:18:48.340]  Um, you say 10, 10 dupe, uh, I guess we can put anything.
+[00:18:48.660 -> 00:18:50.000]  How about, uh, A?
+[00:18:51.880 -> 00:18:53.180]  Let's see what that does.
+[00:18:53.340 -> 00:18:57.380]  And then we put a exported my data.
+[00:18:59.620 -> 00:19:01.500]  And then we put a dump.
+[00:19:01.800 -> 00:19:02.920]  That's just a symbol.
+[00:19:03.720 -> 00:19:06.080]  Let's go ahead and get rid of all this.
+[00:19:08.620 -> 00:19:10.540]  Dump my data.
+[00:19:13.240 -> 00:19:16.060]  So we have 41, we have a bunch of A's.
+[00:19:17.140 -> 00:19:21.080]  And, uh, how about DU16.
+[00:19:22.680 -> 00:19:24.280]  Uh, let's do CD.
+[00:19:25.420 -> 00:19:26.520]  Let's see what happens.
+[00:19:27.640 -> 00:19:31.420]  Okay, so A, A, A, A, A, A, A, A, A, A, CD, CD, CD.
+[00:19:32.020 -> 00:19:33.500]  Okay, so you get the idea.
+[00:19:34.080 -> 00:19:39.580]  Let's see if I covered all the, uh, assembler, uh, directives.
+[00:19:43.360 -> 00:19:45.080]  I think it's in directives.
+[00:19:46.120 -> 00:19:46.400]  Uh-oh.
+[00:19:50.860 -> 00:19:52.160]  Holy see, where did I?
+[00:19:55.460 -> 00:19:56.660]  Uh-oh, I'm sorry.
+[00:19:56.940 -> 00:19:57.380]  Guidelines?
+[00:20:00.320 -> 00:20:04.220]  No, we want, uh, let's see, find directory.
+[00:20:04.440 -> 00:20:05.920]  I'm just going to do this quickly.
+[00:20:07.220 -> 00:20:08.300]  Find directory.
+[00:20:09.280 -> 00:20:11.680]  Okay, compiler overview.
+[00:20:12.200 -> 00:20:13.020]  Wow, that's pretty.
+[00:20:14.960 -> 00:20:17.400]  Okay, include a pound DXC.
+[00:20:17.500 -> 00:20:21.160]  That doesn't, executes code at compile time.
+[00:20:21.520 -> 00:20:22.740]  Let's see, here's the assembler.
+[00:20:23.080 -> 00:20:25.480]  Um, so I told you about the dollar sign.
+[00:20:26.920 -> 00:20:28.960]  Label defines an export global.
+[00:20:29.300 -> 00:20:30.540]  It's also a new section.
+[00:20:30.780 -> 00:20:32.320]  It also marks a new section.
+[00:20:32.640 -> 00:20:34.240]  Finds a non-exported.
+[00:20:34.280 -> 00:20:35.320]  Add at, it's a local.
+[00:20:36.140 -> 00:20:39.680]  Do you, do you, okay, I forgot use.
+[00:20:39.940 -> 00:20:40.820]  There's import.
+[00:20:41.460 -> 00:20:42.980]  List is kind of broken.
+[00:20:43.340 -> 00:20:44.740]  Oh, I can, you can align.
+[00:20:45.140 -> 00:20:46.980]  Not in a structure, by the way.
+[00:20:47.700 -> 00:20:49.380]  Um, that's only limited.
+[00:20:49.980 -> 00:20:52.080]  You don't, you can't really align.
+[00:20:52.580 -> 00:20:55.120]  Oh, by the way, you, you do not,
+[00:20:55.760 -> 00:21:00.340]  you do not have the right to tell where the code goes.
+[00:21:00.340 -> 00:21:03.040]  That is not your option.
+[00:21:03.040 -> 00:21:07.720]  Um, you do not have the right to tell where the code goes.
+[00:21:08.460 -> 00:21:12.940]  Um, I made an exception.
+[00:21:13.760 -> 00:21:15.620]  Uh, let's see.
+[00:21:17.940 -> 00:21:18.940]  Module org.
+[00:21:21.060 -> 00:21:23.400]  Uh, I don't even know how this works.
+[00:21:23.560 -> 00:21:23.840]  Let's see.
+[00:21:24.560 -> 00:21:31.080]  Zero X, uh, I'm going to put it just in some safe memory that I know exists.
+[00:21:31.080 -> 00:21:35.280]  Uh, du eight.
+[00:21:36.380 -> 00:21:37.720]  Oh, what?
+[00:21:38.940 -> 00:21:39.100]  Oh.
+[00:21:42.440 -> 00:21:44.180]  Let's see what this does.
+[00:21:44.860 -> 00:21:45.600]  Module org.
+[00:21:47.900 -> 00:21:48.580]  okay
+[00:21:50.480 -> 00:21:52.100]  now let's dump
+[00:21:52.860 -> 00:21:55.100]  0x, this is just some crazy
+[00:21:55.100 -> 00:21:55.580]  apps
+[00:22:00.100 -> 00:22:01.080]  okay, so
+[00:22:01.080 -> 00:22:02.160]  it did work
+[00:22:02.160 -> 00:22:05.360]  okay, so you can specify
+[00:22:05.360 -> 00:22:06.380]  where it goes
+[00:22:06.380 -> 00:22:08.740]  but you really shouldn't be doing that
+[00:22:10.660 -> 00:22:11.340]  okay
+[00:22:11.340 -> 00:22:11.460]  okay

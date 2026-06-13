@@ -1,0 +1,1070 @@
+========================================================================
+FILE        : videos/2016/2016-04-03T00:04:00+00:00 - Terry A Davis Live Stream (8_R1pzwLD3c).mp4
+SOURCE URL  : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2016/2016-04-03T00:04:00+00:00 - Terry A Davis Live Stream (8_R1pzwLD3c).mp4
+DERIVATIVE  : (none — streamed from video)
+FORMAT      : MPEG4
+SIZE        : 374,545,185 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:41:54.140
+TRANSCRIBED : 2026-05-14T16:26:00.426066+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+Take care. Take care. Take care. Take care. Take care. Take care. Take care. Take care. Take care. Take care. Take care. Take care. Take care. Take care. Take care. Take care. so I saw I saw a demo of Valgrind which is a Linux tool for code code code analysis so Valgrind is a Linux tool for code analysis now you're you're gonna see some stuff that we operate differently from what you might be used to I don't know why malloc and free are confusing to people but anyway sometimes we we frequently return mallocated items that's just a duh I'm not sure what let's say you uh somebody's there there's a beginner who thinks that um so uh so so so Okay. Okay. Okay. Okay. Okay. So I just... Okay. So I just blotted a... So this function DC new returns something that was mallocated. I think it goes without saying that the person said that you always free what you malloc. Well, I think it's pretty self-evident how malloc and free work. I don't know what you want to say. Sometimes you pass it out of the function. This function right here passes mallocated chunk out of the function. That can happen in all types of... Like... I haven't analyzed, but it's normal. It's not a... Now there's a... So... This will be a shock, I guess. Um... Okay. So... GetString returns a mallocated string. Uh... Oh. Yeah. Well... That's what you need to free it. You need to free it. So the person sounded like they, uh... Thought there was a problem. The person sounded like they thought there was a problem with this getString. Uh... That's how we operate. I don't know what your problem is. It can be... Unlimited. Anyway... Um... So he saw some strings being passed around. You can pass this string to something else and free it later. Uh... I don't know. Um... I don't think it's... You don't make rules for the problem. It's just obvious. If you allocate it, then you try to free it. And, uh... Um... Somebody is gonna accuse me of having a leak. Now there's... Okay. If you go to memory, uh... There's a debug. There's not a debug. Okay. Heap rep. There's heap log. Where's heap log? Where is heap log? Where is heap log? Oh, heap... Heap log rep. Where is heap log rep? Oh, that must... No. Wow! I should list that. It's under debug. You know, I'm gonna... I'm gonna show you how we fix that. Heap log. Heap log rep. Debugging heap. Now is that my imagination, or... Was that not listed in memory? Oh, well. Debugging heap. So it's not listed. Maybe... Oh, you'll find it. Oh, shit. Okay. I'm going to... I'm going to... Uh... So... This is a for example. Okay, so... We wanna make... Uh... The help system. Debug heap. We want to be... Uh... Memory debug. Debug heap. We want to be... Also listed. Memory debug. Okay, so... Let's do a... Find... Debug... Debugging heap. Keep. Oh, it's under mask. Task. Okay. Let's see. Memory. Task. Keep walk. Keep walk. Keep walk. Keep walk. You think we should... Why don't we call it memory... Debug... You know what I'm gonna do? Screw it. Uh... Memory... Debug... Memory debugging. Escape. Let's go here. Memory debugging. I'm just... Being brutal. Okay, now watch this. All I have to do is reboot. Pow! And then F1. Under memory. Memory debugging. Okay. Okay. Okay. So heap log. Uh... You can study the code. It's actually pretty simple. Um... This is all the code for the heap log. Um... What it does is... It has a... Uh... A hook... In... Malik... And a hook in free. And what does it do? It... Um... Every time you malicate something. It... Uh... It makes a node. We're... We're using our own little bit of memory. And we're... Um... Storing it into a queue. And every time you free. Well it goes looking... It goes looking for the right one. And then it gets rid of that. Out of the queue. It's not efficient. But it... This is... It's slow. Obviously. We... If... If this was that important. We could use a hash table. Um... In fact. Do I use a hash table? I do use a hash table. Then... Okay. It's stored two ways. It's... Is it stored as a hash and as a... No. It's not. Not hashing. Heap log room. It looks like it's hashing. I... It is hashing right there. Oh it's in... Oh okay. It's a... Okay. So we set up a... A hash table. When we start up the... Heap log... Uh... There's two types. Address and... Heap log. There's two types of reports. And it sets up the hash table. Uh... Right here. Hash size. It makes it... It's a... It's a... What it is. Is it's an array of... Circular queues. And we initialize them all to zero. And then when we go looking. We... We know which one... It would... Get put into. How big is our hash? Our hash size is... Plenty. So that means we break it up into... 4096... Little queues. And search those. So... Uh... It's probably going to... Uh... Okay. Let's just... Do it. Heap log. Oops. Directory. Now if I say heap log rep... You son of a bitch. You son of a bitch. What is it? What is it? Now we have it under memory. Heap log address rep. Heap log size rep. Okay. One of them... I know the difference. Anyway. Heap log address rep. Uh-oh. We have a lot of... Allocated things. Now what do you suppose this might be? This... This would be alarming. They would say, Oh no. You're not freeing. But you know what this is? We started the heap log here. And we printed all this stuff... Onto... The screen. Now each one of these is an allocation. Each of these commands is an allocation. Carriage return is an allocation. Let's go look... And see where it's... This is the caller stack. We save about four callers. Um... Now where is this? Print... Parse dollar sign command. Okay. If it's parse dollar sign command... That's... That's for the... What we've printed on the window. Now somebody says... Yeah, it shouldn't leak. No. What are you talking about? As we print... As a matter of fact... Well anyway... So parse dollar sign command... All those are... All those are for... The screen. Here's... Here's something different. Lex file push. Uh... Now it's possible... Uh... Our stellar command... So that's pretty useless, isn't it? That's life. Let's see about... Um... Anyway... Uh... So somebody's gonna complain about leaky strings. Uh... When you allocate code... Who... When it's R... This is... This is allocated memory. Um... I leave stuff allocated all the time. I don't know. I don't know what to tell you. Uh... If you think there's a problem with... The command line... Allocating strings... I don't know what to tell you. If you think there's a problem with allocate... When you do code... Sometimes it frees. Um... When... Actually if you do functions... It does not free. You have to kill the task... To... To free it. Start a new task. Or if you run it in a pop-up... Then it... Um... If you run it in a pop-up... Then when it gets done... All the memory... That was associated gets freed. That's why you don't run these... At the command line. Well you can. I shouldn't have said that. There's nothing wrong with it. It's just... You can only do it... A hundred times. Okay. That's a little joke. Okay. Okay. So how many times would we have to... Run this? Okay. Now we're gonna... Anyway, if you... Keep running it... It... Let me show you. I got that far. Okay. Now if you say... Who... Minus R... We have all the... Driving game... Code and variables. Now if we say... Now if we include it again... Now who... Minus R... Now we have double... Two of our... Two of all of them. Two of all of them. Now if we say... Who... Minus R... Now we have three of all of them. So... Um... It would take a while to... To run out of memory. In this case. You... You never have a memory problem. I'm just telling you that the thing works wonderfully. You never have a memory problem. If you really want to... If you... If it really bothers you... Then run it as a pop-up... Uh... Icon. And uh... Then it gets freed... When it's done. Um... This... The memory will fragment. Uh... So you do need... Don't worry. You'll reboot for other reasons. Long before you ever run out of memory. Uh... So uh... You know what I was gonna tell you. This is really profound. Uh... This is the... The... The kernel code... Um... When I'm working... Let's say I'm working on... Uh... Let's just... Let's just try something. Let's say I'm working on vroom. Um... And I have... Uh... I have a problem. Okay... Uh... Let's say when I allocate the track... There's something wrong. Track find... Track slice... Init track. Okay... Let's say I'm trying to build the track. And we are... Uh... As a matter of fact... What is this doing? Track slice... I can't use my code jump. This is allocating... And it's storing into a queue... That's a global variable. Um... Maybe somebody thinks there's a problem. So... Uh... You know what we can do? Uh... This is... Ridiculous. What size of track? Let's see... Size of... Track... C8. It's 200. Okay... So... Let's go to... Uh... The kernel... Into... Oh... This is not so easy. Ha ha ha... Oh... I started it. So... There's a... Uh... Oh... Let's... Let's... Let's use the... Uh... The hook. I said there's a hook. Technically you can use it if you want. Heap log malloc. Right here is the hook. Um... So what... Let's go look at the... Uh... When we install... Heap rep. Where do we... Install the hook? What? What? This is the heap rep. It's not heap log. Okay. I was looking at the wrong tool. They're easy to confuse. Heap log. Okay. So... I told you there's a hook. So let's just... Uh... Heap log malloc. This is not what I wanted to demonstrate. Uh... Okay. So... Let's say you're working on... Uh... I might as well show this. You're working on vroom. We might... We can put this right at the top. Okay. So... If m size... Uh... You can... You can request... Okay. The size and the heap control are stored for each allocated item. So... It's really... Um... Luxurious. Um... I don't... Um... I waste memory. I don't know what you want to call it. Um... If it equals equals 200... Uh... Raw... Print... 100... Comma... Percent X... Okay. So... What we can do... Every time the operating system... This is at the operating system level. Every time it allocates a 200, then we print with a time delay the address outside of windowing. Okay. So if I run this... Um... It's dangerous, but it's okay. Oh shit. It didn't work. Uh... Uh... It's not... It's rounded up to a power of... Uh... Or two of them. 200 is a multiple of eight. Uh... I'm embarrassed. Let's see. Where did I get the size? It's a track. The size of track. Come on. Uh... Uh... Raw... Print... Oh, no. Uh... Print... Oh, no. Uh... Uh... Uh... Uh... Okay. Let's... Size of... Track. Oh, maybe I don't allocate single tracks. It's 200. Control F. Malik. We don't call Malik. We don't do that. Uh... Uh... No. No. It's a little sown bitch. It's not malikating yet, I guess. Track route. Yeah, it is. I know it's malikating. Let's see. Let's see. Uh... Uh... Uh... Uh... Uh... Uh... Go ahead. Go ahead. Go ahead. Go ahead. Go ahead. Go ahead. Go ahead. Go ahead. Go ahead. Go ahead. Go ahead. Go ahead. Go ahead. Go ahead. Go ahead. Go ahead. Go ahead. Go ahead. Go ahead. Go ahead. Go ahead. Go ahead. Go ahead. Go ahead. Oh, you know what it is? That's embarrassing. Oh, shit. We're going to make this fucker work if it's the last thing I do. Address. Okay. The heap control. It's possible the size has not been filled in. Is that what it is? That's a major goof. That's a goof. Call it caller. Okay. Okay. So, in the kernel, in Malik. Heap log Malik. We have not filled in the size, apparently. I could swear it fills in the size. There's the size right there. Okay. And then there's the hook. Oh! What if it's... Oh! The other answer. You know what it is? I'll tell you what it is. Size. I64. Do you think it's... Oh, shit. Okay. Okay. Okay. Okay. We have to... Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. The other answer. Minus start. Don't we want plus minus? I think we want that. Son of a bitch. I'm guessing. Oh, we want the size. Yeah, of course we want. What if we call this cm used and then we say addr.size equals 200. You son of a bitch. Didn't do anything. I'm guessing. It's not getting called at all. Heat log malic. Oh, we have to. I think there's a flag. Okay. Oh, well. Are we having fun? No. I think there's a flag in addition. Now that's just crazy. I guess we want to be able to turn it on and off. Heat log. Heat log active. How about that? Change it. Change it. Change it. Change it. Change it. Change it. Change it. Change it. Change it. Change it. Change it. Change it. Change it. Change it. Change it. Change it. Change it. Change it. Change it. Change it. Change it. Change it. Change it. Change it. for that is because it's the entire system and we really we really don't want to be doing that so what we do is c task test equals current task and what we do here if FS test and then well that I could swear it's we got a crash okay FS test and you can't be doing any allocations this this print does does an allocation so it's recursive but the size is not the same let's just do raw print is too it's not going to be at 200 only if it's a 200 is it going to recurse isn't it but it's obviously not working let's say let's say 210 since that's not going to happen okay so 210 did not happen 200 did happen let's let's do 2201 let's do 200 hey it worked yay okay yay so this is tricky because the raw print calls malloc and it would be the same task so we print for a millisecond so what you can do is you can say if the 555 if a ddr equals 0x111 let's say you let's say you were debugging you can put anyway you can put special debug code now here's the here's what I was going to tell you there's a there's a system flag system flag system debug which is just a single bit and you can say anyway you can you can turn the bit on and off and then check it and you can know if you make the you can recompile the kernel okay you can recompile the kernel and modify the well I if I had a memory corruption problem you can there's there's an initialization flag when you compile the kernel make OS install see see see probe for enter enter this cache you can say heaping it keeping it keeping it let's say 12 so what's going to happen is every time an allocation is done off the heap it's going to fill it in with 12 so this is how you can test for un initialized so it should be a little bit slower so if we just do a malloc don't not like 20 don't know like 20 it's initialized to 12 you see that initialized everything on the heap to 12 so we anyway you can there's that's good for debugging it gets expensive if you do flood fill because it does a big heap allocation anyway uh what I was gonna say is if you want if you know assembly this is a bad a bad one let's say you you you can modify the kernel to search for uh an address um let's say you're uh you're you can um you can put debug code into the kernel and recompile it and uh that's what I can do maybe you're searching for the the time that a uh a uh uh allocation got corrupted anyway maybe you have a memory corruption problem you can put checks in to see when it happened at various points in the kernel um it doesn't really I guess the Linux has a lot of debugging doesn't it I think they have every time you uh do a syscall you can do something I don't really have that but uh anyway oh well what fun so now I uh I changed my help it's a little bit redundant don't you think I need to uh clean it up I uh I do task and debugging heap walk is in heap heap rep debugging heap walk is in heap heap rep yeah this uh you can store um even more information um anyway oh well enough so so the help index is stored in memory and somebody might think it is a leak but that's not how I look at it um you you you
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:08.060 -> 00:00:08.620]  Take care.
+[00:00:13.560 -> 00:00:14.200]  Take care.
+[00:00:16.860 -> 00:00:17.460]  Take care.
+[00:00:18.440 -> 00:00:18.800]  Take care.
+[00:00:18.920 -> 00:00:19.840]  Take care.
+[00:00:20.100 -> 00:00:20.540]  Take care.
+[00:00:20.540 -> 00:00:20.560]  Take care.
+[00:00:20.560 -> 00:00:20.560]  
+[00:00:20.560 -> 00:00:20.560]  
+[00:00:20.560 -> 00:00:20.560]  
+[00:00:20.560 -> 00:00:20.560]  
+[00:00:20.560 -> 00:00:20.560]  
+[00:00:20.560 -> 00:00:20.560]  
+[00:00:20.560 -> 00:00:20.560]  
+[00:00:20.560 -> 00:00:20.560]  
+[00:00:20.560 -> 00:00:20.560]  
+[00:00:20.560 -> 00:00:20.560]  
+[00:00:20.560 -> 00:00:20.560]  
+[00:00:20.560 -> 00:00:20.560]  
+[00:00:20.560 -> 00:00:20.580]  Take care.
+[00:00:20.580 -> 00:00:20.640]  Take care.
+[00:00:20.660 -> 00:00:20.700]  Take care.
+[00:00:20.700 -> 00:00:20.700]  
+[00:00:20.700 -> 00:00:20.700]  
+[00:00:20.700 -> 00:00:20.700]  
+[00:00:20.700 -> 00:00:20.700]  
+[00:00:20.700 -> 00:00:20.700]  
+[00:00:20.700 -> 00:00:20.700]  
+[00:00:20.700 -> 00:00:20.700]  
+[00:00:20.700 -> 00:00:20.700]  
+[00:00:20.700 -> 00:00:20.700]  
+[00:00:20.700 -> 00:00:20.700]  
+[00:00:20.700 -> 00:00:20.700]  
+[00:00:20.700 -> 00:00:20.700]  
+[00:00:20.700 -> 00:00:20.700]  
+[00:00:20.700 -> 00:00:20.700]  
+[00:00:20.700 -> 00:00:20.700]  
+[00:00:20.700 -> 00:00:20.700]  
+[00:00:20.700 -> 00:00:20.820]  Take care.
+[00:00:20.880 -> 00:00:21.080]  Take care.
+[00:00:21.540 -> 00:00:21.980]  Take care.
+[00:00:22.540 -> 00:00:22.900]  Take care.
+[00:00:23.540 -> 00:00:23.980]  Take care.
+[00:00:27.380 -> 00:00:27.820]  Take care.
+[00:00:30.880 -> 00:00:49.540]  so I saw I saw a demo of Valgrind which is a Linux tool for code code code
+[00:00:49.540 -> 00:01:12.360]  analysis so Valgrind is a Linux tool for code analysis now you're you're gonna see some stuff
+[00:01:12.360 -> 00:01:28.920]  that we operate differently from what you might be used to I don't know why malloc and free are confusing
+[00:01:28.920 -> 00:01:39.180]  to people but anyway sometimes we we frequently return mallocated items that's just a duh
+[00:01:41.800 -> 00:01:54.160]  I'm not sure what let's say you uh somebody's there there's a beginner who thinks that um
+[00:02:09.560 -> 00:02:11.380]  so uh
+[00:02:14.480 -> 00:02:15.880]  so
+[00:02:23.160 -> 00:02:24.560]  so
+[00:02:24.560 -> 00:02:24.840]  so
+[00:02:29.200 -> 00:02:30.600]  Okay.
+[00:03:02.000 -> 00:03:03.040]  Okay.
+[00:03:03.620 -> 00:03:04.660]  Okay.
+[00:03:04.660 -> 00:03:04.760]  Okay.
+[00:03:04.760 -> 00:03:04.880]  Okay.
+[00:03:04.980 -> 00:03:04.980]  
+[00:03:18.420 -> 00:03:20.100]  So I just...
+[00:03:21.240 -> 00:03:22.280]  Okay.
+[00:03:29.840 -> 00:03:32.280]  So I just blotted a...
+[00:03:36.220 -> 00:03:43.580]  So this function DC new returns something that was mallocated.
+[00:03:44.660 -> 00:03:53.100]  I think it goes without saying that the person said that you always free what you malloc.
+[00:03:53.100 -> 00:04:03.600]  Well, I think it's pretty self-evident how malloc and free work.
+[00:04:03.600 -> 00:04:05.740]  I don't know what you want to say.
+[00:04:06.380 -> 00:04:10.600]  Sometimes you pass it out of the function.
+[00:04:11.260 -> 00:04:16.780]  This function right here passes mallocated chunk out of the function.
+[00:04:16.780 -> 00:04:19.460]  That can happen in all types of...
+[00:04:20.420 -> 00:04:21.160]  Like...
+[00:04:21.160 -> 00:04:25.080]  I haven't analyzed, but it's normal.
+[00:04:25.680 -> 00:04:26.780]  It's not a...
+[00:04:27.300 -> 00:04:28.780]  Now there's a...
+[00:04:33.780 -> 00:04:34.240]  So...
+[00:04:34.240 -> 00:04:36.100]  This will be a shock, I guess.
+[00:04:42.220 -> 00:04:43.620]  Um...
+[00:04:48.400 -> 00:04:49.800]  Okay.
+[00:04:50.160 -> 00:04:50.940]  So...
+[00:04:50.940 -> 00:04:53.880]  GetString returns a mallocated string.
+[00:04:55.080 -> 00:04:56.480]  Uh...
+[00:04:56.480 -> 00:04:57.520]  Oh.
+[00:04:57.820 -> 00:04:58.000]  Yeah.
+[00:04:58.440 -> 00:04:59.840]  Well...
+[00:05:03.120 -> 00:05:04.860]  That's what you need to free it.
+[00:05:04.860 -> 00:05:04.860]  
+[00:05:05.600 -> 00:05:07.480]  You need to free it.
+[00:05:08.040 -> 00:05:11.820]  So the person sounded like they, uh...
+[00:05:11.820 -> 00:05:12.860]  Thought there was a problem.
+[00:05:13.540 -> 00:05:17.600]  The person sounded like they thought there was a problem with this getString.
+[00:05:18.900 -> 00:05:19.580]  Uh...
+[00:05:20.860 -> 00:05:22.440]  That's how we operate.
+[00:05:22.440 -> 00:05:24.120]  I don't know what your problem is.
+[00:05:26.260 -> 00:05:27.680]  It can be...
+[00:05:28.640 -> 00:05:29.280]  Unlimited.
+[00:05:30.840 -> 00:05:31.480]  Anyway...
+[00:05:31.480 -> 00:05:32.420]  Um...
+[00:05:32.420 -> 00:05:35.420]  So he saw some strings being passed around.
+[00:05:36.200 -> 00:05:39.800]  You can pass this string to something else and free it later.
+[00:05:40.800 -> 00:05:41.440]  Uh...
+[00:05:41.440 -> 00:05:41.920]  I don't know.
+[00:05:46.520 -> 00:05:47.160]  Um...
+[00:05:49.560 -> 00:05:51.240]  I don't think it's...
+[00:05:51.240 -> 00:05:52.420]  You don't make rules for the problem.
+[00:05:52.420 -> 00:05:54.100]  It's just obvious.
+[00:05:54.520 -> 00:05:57.560]  If you allocate it, then you try to free it.
+[00:05:58.320 -> 00:06:00.480]  And, uh...
+[00:06:00.480 -> 00:06:01.560]  Um...
+[00:06:01.560 -> 00:06:03.720]  Somebody is gonna accuse me of having a leak.
+[00:06:04.280 -> 00:06:04.920]  Now there's...
+[00:06:04.920 -> 00:06:05.060]  Okay.
+[00:06:08.240 -> 00:06:10.420]  If you go to memory, uh...
+[00:06:11.580 -> 00:06:12.680]  There's a debug.
+[00:06:17.500 -> 00:06:18.720]  There's not a debug.
+[00:06:19.280 -> 00:06:19.780]  Okay.
+[00:06:25.980 -> 00:06:26.780]  Heap rep.
+[00:06:27.600 -> 00:06:28.680]  There's heap log.
+[00:06:28.980 -> 00:06:29.640]  Where's heap log?
+[00:06:33.200 -> 00:06:34.480]  Where is heap log?
+[00:06:35.160 -> 00:06:35.720]  Where is heap log?
+[00:06:35.720 -> 00:06:36.620]  Oh, heap...
+[00:06:40.620 -> 00:06:41.720]  Heap log rep.
+[00:06:41.920 -> 00:06:43.000]  Where is heap log rep?
+[00:06:43.400 -> 00:06:44.680]  Oh, that must...
+[00:06:44.680 -> 00:06:44.760]  No.
+[00:06:45.160 -> 00:06:45.540]  Wow!
+[00:06:45.960 -> 00:06:46.840]  I should list that.
+[00:06:48.820 -> 00:06:49.900]  It's under debug.
+[00:06:52.580 -> 00:06:53.720]  You know, I'm gonna...
+[00:06:53.720 -> 00:06:55.560]  I'm gonna show you how we fix that.
+[00:06:56.340 -> 00:06:56.820]  Heap log.
+[00:06:57.320 -> 00:06:58.360]  Heap log rep.
+[00:06:58.600 -> 00:06:59.440]  Debugging heap.
+[00:07:00.280 -> 00:07:04.880]  Now is that my imagination, or...
+[00:07:07.340 -> 00:07:09.200]  Was that not listed in memory?
+[00:07:09.960 -> 00:07:10.760]  Oh, well.
+[00:07:16.880 -> 00:07:17.700]  Debugging heap.
+[00:07:18.340 -> 00:07:19.580]  So it's not listed.
+[00:07:21.360 -> 00:07:21.880]  Maybe...
+[00:07:21.880 -> 00:07:22.680]  Oh, you'll find it.
+[00:07:22.860 -> 00:07:23.420]  Oh, shit.
+[00:07:24.900 -> 00:07:26.080]  Okay.
+[00:07:26.740 -> 00:07:27.820]  I'm going to...
+[00:07:27.820 -> 00:07:27.820]  
+[00:07:27.820 -> 00:07:31.240]  I'm going to...
+[00:07:31.240 -> 00:07:32.780]  Uh...
+[00:07:32.780 -> 00:07:33.480]  So...
+[00:07:33.480 -> 00:07:34.720]  This is a for example.
+[00:07:35.280 -> 00:07:36.840]  Okay, so...
+[00:07:38.580 -> 00:07:40.720]  We wanna make...
+[00:07:40.720 -> 00:07:41.320]  Uh...
+[00:07:41.320 -> 00:07:42.260]  The help system.
+[00:07:43.380 -> 00:07:44.440]  Debug heap.
+[00:07:44.700 -> 00:07:46.140]  We want to be...
+[00:07:46.140 -> 00:07:46.720]  Uh...
+[00:07:47.320 -> 00:07:48.540]  Memory debug.
+[00:07:50.920 -> 00:07:52.400]  Debug heap.
+[00:07:52.680 -> 00:07:54.580]  We want to be...
+[00:07:54.580 -> 00:07:55.860]  Also listed.
+[00:07:56.660 -> 00:07:57.780]  Memory debug.
+[00:07:58.860 -> 00:08:00.640]  Okay, so...
+[00:08:00.640 -> 00:08:02.140]  Let's do a...
+[00:08:02.140 -> 00:08:03.120]  Find...
+[00:08:04.980 -> 00:08:06.160]  Debug...
+[00:08:06.160 -> 00:08:07.960]  Debugging heap.
+[00:08:07.960 -> 00:08:08.140]  Keep.
+[00:08:11.680 -> 00:08:13.880]  Oh, it's under mask.
+[00:08:15.120 -> 00:08:16.300]  Task.
+[00:08:23.160 -> 00:08:24.400]  Okay.
+[00:08:24.800 -> 00:08:25.200]  Let's see.
+[00:08:27.000 -> 00:08:28.020]  Memory.
+[00:08:29.680 -> 00:08:30.920]  Task.
+[00:08:32.600 -> 00:08:34.000]  Keep walk.
+[00:08:34.980 -> 00:08:34.980]  
+[00:08:36.340 -> 00:08:36.440]  Keep walk.
+[00:08:37.100 -> 00:08:37.700]  Keep walk.
+[00:08:37.700 -> 00:08:37.700]  
+[00:08:37.700 -> 00:08:37.700]  
+[00:08:37.700 -> 00:08:37.780]  Keep walk.
+[00:08:37.780 -> 00:08:37.780]  
+[00:08:37.780 -> 00:08:37.780]  
+[00:08:37.940 -> 00:08:37.940]  
+[00:08:37.960 -> 00:08:40.000]  You think we should...
+[00:08:40.000 -> 00:08:42.960]  Why don't we call it memory...
+[00:08:47.040 -> 00:08:47.880]  Debug...
+[00:08:47.880 -> 00:08:47.880]  
+[00:08:48.140 -> 00:08:48.720]  You know what I'm gonna do?
+[00:08:49.140 -> 00:08:49.960]  Screw it.
+[00:08:51.560 -> 00:08:52.400]  Uh...
+[00:08:53.520 -> 00:08:54.360]  Memory...
+[00:08:57.420 -> 00:08:58.260]  Debug...
+[00:09:00.460 -> 00:09:01.680]  Memory debugging.
+[00:09:05.560 -> 00:09:06.520]  Escape.
+[00:09:07.000 -> 00:09:08.340]  Let's go here.
+[00:09:09.520 -> 00:09:10.460]  Memory debugging.
+[00:09:13.660 -> 00:09:15.080]  I'm just...
+[00:09:15.080 -> 00:09:16.200]  Being brutal.
+[00:09:18.600 -> 00:09:20.420]  Okay, now watch this.
+[00:09:20.560 -> 00:09:21.560]  All I have to do is reboot.
+[00:09:22.560 -> 00:09:23.180]  Pow!
+[00:09:23.700 -> 00:09:24.700]  And then F1.
+[00:09:25.180 -> 00:09:26.120]  Under memory.
+[00:09:29.540 -> 00:09:30.980]  Memory debugging.
+[00:09:37.000 -> 00:09:37.640]  Okay.
+[00:09:40.400 -> 00:09:41.040]  Okay.
+[00:09:41.040 -> 00:09:41.100]  Okay.
+[00:09:41.380 -> 00:09:42.320]  So heap log.
+[00:09:42.820 -> 00:09:43.460]  Uh...
+[00:09:43.460 -> 00:09:44.720]  You can study the code.
+[00:09:44.880 -> 00:09:46.000]  It's actually pretty simple.
+[00:09:47.500 -> 00:09:48.140]  Um...
+[00:09:48.140 -> 00:09:50.620]  This is all the code for the heap log.
+[00:09:51.220 -> 00:09:51.820]  Um...
+[00:09:51.820 -> 00:09:53.160]  What it does is...
+[00:09:53.160 -> 00:09:55.060]  It has a...
+[00:09:55.060 -> 00:09:56.280]  Uh...
+[00:09:56.280 -> 00:09:57.660]  A hook...
+[00:09:57.660 -> 00:09:58.900]  In...
+[00:09:58.900 -> 00:09:59.820]  Malik...
+[00:09:59.820 -> 00:10:00.960]  And a hook in free.
+[00:10:00.960 -> 00:10:00.960]  
+[00:10:00.960 -> 00:10:00.960]  
+[00:10:00.960 -> 00:10:00.960]  
+[00:10:00.960 -> 00:10:00.960]  
+[00:10:00.960 -> 00:10:00.960]  
+[00:10:00.960 -> 00:10:00.960]  
+[00:10:00.960 -> 00:10:00.960]  
+[00:10:00.960 -> 00:10:00.960]  
+[00:10:00.960 -> 00:10:00.960]  
+[00:10:00.960 -> 00:10:00.960]  
+[00:10:00.960 -> 00:10:00.960]  
+[00:10:02.420 -> 00:10:03.600]  And what does it do?
+[00:10:04.700 -> 00:10:05.140]  It...
+[00:10:05.140 -> 00:10:05.360]  Um...
+[00:10:05.360 -> 00:10:07.140]  Every time you malicate something.
+[00:10:07.680 -> 00:10:08.200]  It...
+[00:10:08.200 -> 00:10:08.920]  Uh...
+[00:10:08.920 -> 00:10:09.940]  It makes a node.
+[00:10:10.740 -> 00:10:11.260]  We're...
+[00:10:11.260 -> 00:10:13.020]  We're using our own little bit of memory.
+[00:10:13.700 -> 00:10:14.740]  And we're...
+[00:10:14.740 -> 00:10:15.380]  Um...
+[00:10:15.380 -> 00:10:16.680]  Storing it into a queue.
+[00:10:17.800 -> 00:10:19.900]  And every time you free.
+[00:10:21.180 -> 00:10:22.940]  Well it goes looking...
+[00:10:22.940 -> 00:10:24.820]  It goes looking for the right one.
+[00:10:25.080 -> 00:10:26.500]  And then it gets rid of that.
+[00:10:26.740 -> 00:10:27.720]  Out of the queue.
+[00:10:27.720 -> 00:10:28.760]  It's not efficient.
+[00:10:29.100 -> 00:10:29.500]  But it...
+[00:10:29.500 -> 00:10:30.240]  This is...
+[00:10:30.240 -> 00:10:30.780]  It's slow.
+[00:10:31.000 -> 00:10:31.540]  Obviously.
+[00:10:34.740 -> 00:10:35.300]  We...
+[00:10:35.300 -> 00:10:35.520]  If...
+[00:10:35.520 -> 00:10:36.900]  If this was that important.
+[00:10:36.920 -> 00:10:38.320]  We could use a hash table.
+[00:10:39.640 -> 00:10:40.200]  Um...
+[00:10:40.200 -> 00:10:40.560]  In fact.
+[00:10:40.640 -> 00:10:41.620]  Do I use a hash table?
+[00:10:41.780 -> 00:10:43.380]  I do use a hash table.
+[00:10:44.560 -> 00:10:45.120]  Then...
+[00:10:45.120 -> 00:10:45.480]  Okay.
+[00:10:45.520 -> 00:10:46.980]  It's stored two ways.
+[00:10:48.040 -> 00:10:48.520]  It's...
+[00:10:48.520 -> 00:10:51.460]  Is it stored as a hash and as a...
+[00:10:52.720 -> 00:10:53.280]  No.
+[00:10:53.280 -> 00:10:53.800]  It's not.
+[00:10:53.900 -> 00:10:54.780]  Not hashing.
+[00:10:58.380 -> 00:10:59.440]  Heap log room.
+[00:10:59.700 -> 00:11:01.160]  It looks like it's hashing.
+[00:11:08.200 -> 00:11:08.820]  I...
+[00:11:11.440 -> 00:11:13.500]  It is hashing right there.
+[00:11:14.140 -> 00:11:14.960]  Oh it's in...
+[00:11:14.960 -> 00:11:15.440]  Oh okay.
+[00:11:15.900 -> 00:11:17.020]  It's a...
+[00:11:18.040 -> 00:11:18.660]  Okay.
+[00:11:18.840 -> 00:11:20.020]  So we set up a...
+[00:11:20.020 -> 00:11:21.020]  A hash table.
+[00:11:21.740 -> 00:11:24.160]  When we start up the...
+[00:11:24.160 -> 00:11:26.500]  Heap log...
+[00:11:27.200 -> 00:11:27.800]  Uh...
+[00:11:27.800 -> 00:11:29.480]  There's two types.
+[00:11:29.660 -> 00:11:31.380]  Address and...
+[00:11:31.380 -> 00:11:32.400]  Heap log.
+[00:11:33.760 -> 00:11:35.260]  There's two types of reports.
+[00:11:35.880 -> 00:11:37.940]  And it sets up the hash table.
+[00:11:38.240 -> 00:11:38.840]  Uh...
+[00:11:38.840 -> 00:11:39.260]  Right here.
+[00:11:39.860 -> 00:11:40.820]  Hash size.
+[00:11:41.700 -> 00:11:43.080]  It makes it...
+[00:11:43.080 -> 00:11:43.460]  It's a...
+[00:11:43.460 -> 00:11:43.900]  It's a...
+[00:11:43.900 -> 00:11:44.820]  What it is.
+[00:11:44.880 -> 00:11:47.060]  Is it's an array of...
+[00:11:47.060 -> 00:11:48.300]  Circular queues.
+[00:11:48.300 -> 00:11:50.740]  And we initialize them all to zero.
+[00:11:51.140 -> 00:11:52.960]  And then when we go looking.
+[00:11:52.960 -> 00:11:53.380]  We...
+[00:11:53.380 -> 00:11:54.700]  We know which one...
+[00:11:54.700 -> 00:11:55.760]  It would...
+[00:11:55.760 -> 00:11:56.820]  Get put into.
+[00:11:58.180 -> 00:11:59.580]  How big is our hash?
+[00:12:00.320 -> 00:12:02.080]  Our hash size is...
+[00:12:02.080 -> 00:12:02.720]  Plenty.
+[00:12:03.220 -> 00:12:05.300]  So that means we break it up into...
+[00:12:07.900 -> 00:12:08.540]  4096...
+[00:12:09.480 -> 00:12:10.700]  Little queues.
+[00:12:11.040 -> 00:12:11.960]  And search those.
+[00:12:14.100 -> 00:12:14.820]  So...
+[00:12:15.680 -> 00:12:16.400]  Uh...
+[00:12:16.400 -> 00:12:19.020]  It's probably going to...
+[00:12:19.020 -> 00:12:19.620]  Uh...
+[00:12:19.620 -> 00:12:19.920]  Okay.
+[00:12:19.920 -> 00:12:20.680]  Let's just...
+[00:12:20.680 -> 00:12:21.380]  Do it.
+[00:12:21.720 -> 00:12:22.240]  Heap log.
+[00:12:26.020 -> 00:12:26.740]  Oops.
+[00:12:28.200 -> 00:12:28.920]  Directory.
+[00:12:30.040 -> 00:12:34.100]  Now if I say heap log rep...
+[00:12:34.100 -> 00:12:35.680]  You son of a bitch.
+[00:12:39.380 -> 00:12:40.680]  You son of a bitch.
+[00:12:40.960 -> 00:12:41.700]  What is it?
+[00:12:41.860 -> 00:12:41.880]  What is it?
+[00:12:43.980 -> 00:12:45.540]  Now we have it under memory.
+[00:12:48.360 -> 00:12:50.280]  Heap log address rep.
+[00:12:50.540 -> 00:12:51.440]  Heap log size rep.
+[00:12:51.880 -> 00:12:52.120]  Okay.
+[00:12:52.580 -> 00:12:53.280]  One of them...
+[00:12:53.280 -> 00:12:54.040]  I know the difference.
+[00:12:54.400 -> 00:12:54.680]  Anyway.
+[00:12:55.380 -> 00:12:58.320]  Heap log address rep.
+[00:13:00.160 -> 00:13:00.960]  Uh-oh.
+[00:13:00.960 -> 00:13:02.560]  We have a lot of...
+[00:13:03.180 -> 00:13:04.120]  Allocated things.
+[00:13:04.480 -> 00:13:06.220]  Now what do you suppose this might be?
+[00:13:06.380 -> 00:13:06.640]  This...
+[00:13:06.640 -> 00:13:07.760]  This would be alarming.
+[00:13:08.020 -> 00:13:08.460]  They would say,
+[00:13:08.600 -> 00:13:09.000]  Oh no.
+[00:13:09.000 -> 00:13:10.440]  You're not freeing.
+[00:13:10.840 -> 00:13:12.140]  But you know what this is?
+[00:13:14.120 -> 00:13:16.420]  We started the heap log here.
+[00:13:16.860 -> 00:13:20.160]  And we printed all this stuff...
+[00:13:21.800 -> 00:13:22.500]  Onto...
+[00:13:22.500 -> 00:13:23.240]  The screen.
+[00:13:24.200 -> 00:13:26.000]  Now each one of these is an allocation.
+[00:13:26.920 -> 00:13:28.780]  Each of these commands is an allocation.
+[00:13:29.280 -> 00:13:30.880]  Carriage return is an allocation.
+[00:13:31.580 -> 00:13:33.200]  Let's go look...
+[00:13:33.200 -> 00:13:34.720]  And see where it's...
+[00:13:34.720 -> 00:13:36.300]  This is the caller stack.
+[00:13:37.500 -> 00:13:39.300]  We save about four callers.
+[00:13:42.420 -> 00:13:43.040]  Um...
+[00:13:43.040 -> 00:13:44.060]  Now where is this?
+[00:13:44.340 -> 00:13:44.740]  Print...
+[00:13:44.740 -> 00:13:46.680]  Parse dollar sign command.
+[00:13:47.520 -> 00:13:48.140]  Okay.
+[00:13:48.920 -> 00:13:51.140]  If it's parse dollar sign command...
+[00:13:51.140 -> 00:13:51.520]  That's...
+[00:13:51.520 -> 00:13:52.840]  That's for the...
+[00:13:53.540 -> 00:13:55.480]  What we've printed on the window.
+[00:13:56.100 -> 00:13:57.500]  Now somebody says...
+[00:13:57.500 -> 00:13:58.240]  Yeah, it shouldn't leak.
+[00:13:58.400 -> 00:13:58.620]  No.
+[00:13:58.620 -> 00:13:59.700]  What are you talking about?
+[00:14:03.820 -> 00:14:04.620]  As we print...
+[00:14:05.820 -> 00:14:06.620]  As a matter of fact...
+[00:14:07.540 -> 00:14:07.620]  Well anyway...
+[00:14:08.600 -> 00:14:09.920]  So parse dollar sign command...
+[00:14:09.920 -> 00:14:10.740]  All those are...
+[00:14:10.740 -> 00:14:12.220]  All those are for...
+[00:14:12.220 -> 00:14:12.960]  The screen.
+[00:14:13.880 -> 00:14:14.440]  Here's...
+[00:14:14.440 -> 00:14:15.300]  Here's something different.
+[00:14:15.500 -> 00:14:16.500]  Lex file push.
+[00:14:18.340 -> 00:14:19.340]  Uh...
+[00:14:19.340 -> 00:14:21.820]  Now it's possible...
+[00:14:23.160 -> 00:14:24.160]  Uh...
+[00:14:24.160 -> 00:14:26.180]  Our stellar command...
+[00:14:27.800 -> 00:14:30.200]  So that's pretty useless, isn't it?
+[00:14:30.680 -> 00:14:31.800]  That's life.
+[00:14:32.880 -> 00:14:34.620]  Let's see about...
+[00:14:34.620 -> 00:14:36.560]  Um...
+[00:14:36.560 -> 00:14:38.440]  Anyway...
+[00:14:38.440 -> 00:14:39.580]  Uh...
+[00:14:39.580 -> 00:14:42.180]  So somebody's gonna complain about leaky strings.
+[00:14:45.840 -> 00:14:47.240]  Uh...
+[00:14:47.240 -> 00:14:49.180]  When you allocate code...
+[00:14:50.660 -> 00:14:51.480]  Who...
+[00:14:51.480 -> 00:14:53.180]  When it's R...
+[00:14:57.900 -> 00:14:59.840]  This is...
+[00:14:59.840 -> 00:15:02.560]  This is allocated memory.
+[00:15:06.380 -> 00:15:07.780]  Um...
+[00:15:11.560 -> 00:15:13.640]  I leave stuff allocated all the time.
+[00:15:14.040 -> 00:15:14.360]  I don't know.
+[00:15:15.980 -> 00:15:17.240]  I don't know what to tell you.
+[00:15:17.700 -> 00:15:18.140]  Uh...
+[00:15:18.140 -> 00:15:19.780]  If you think there's a problem with...
+[00:15:22.660 -> 00:15:23.780]  The command line...
+[00:15:25.460 -> 00:15:26.340]  Allocating strings...
+[00:15:26.340 -> 00:15:27.340]  I don't know what to tell you.
+[00:15:27.700 -> 00:15:29.580]  If you think there's a problem with allocate...
+[00:15:29.580 -> 00:15:30.940]  When you do code...
+[00:15:30.940 -> 00:15:31.760]  Sometimes it frees.
+[00:15:32.580 -> 00:15:33.020]  Um...
+[00:15:33.700 -> 00:15:34.140]  When...
+[00:15:34.680 -> 00:15:36.280]  Actually if you do functions...
+[00:15:36.280 -> 00:15:37.160]  It does not free.
+[00:15:37.160 -> 00:15:39.100]  You have to kill the task...
+[00:15:39.100 -> 00:15:39.780]  To...
+[00:15:39.780 -> 00:15:40.600]  To free it.
+[00:15:41.680 -> 00:15:42.720]  Start a new task.
+[00:15:43.360 -> 00:15:45.540]  Or if you run it in a pop-up...
+[00:15:45.540 -> 00:15:46.280]  Then it...
+[00:15:46.280 -> 00:15:46.900]  Um...
+[00:15:46.900 -> 00:15:48.600]  If you run it in a pop-up...
+[00:15:48.600 -> 00:15:50.560]  Then when it gets done...
+[00:15:50.560 -> 00:15:51.600]  All the memory...
+[00:15:51.600 -> 00:15:53.240]  That was associated gets freed.
+[00:15:54.700 -> 00:15:56.600]  That's why you don't run these...
+[00:15:56.600 -> 00:15:57.560]  At the command line.
+[00:15:57.720 -> 00:15:58.220]  Well you can.
+[00:15:59.880 -> 00:16:01.060]  I shouldn't have said that.
+[00:16:01.300 -> 00:16:02.460]  There's nothing wrong with it.
+[00:16:02.540 -> 00:16:03.160]  It's just...
+[00:16:03.160 -> 00:16:04.540]  You can only do it...
+[00:16:04.540 -> 00:16:05.260]  A hundred times.
+[00:16:06.220 -> 00:16:06.260]  Okay.
+[00:16:07.280 -> 00:16:08.300]  That's a little joke.
+[00:16:09.700 -> 00:16:10.400]  Okay.
+[00:16:11.620 -> 00:16:11.620]  
+[00:16:11.720 -> 00:16:12.420]  Okay.
+[00:16:12.420 -> 00:16:14.360]  So how many times would we have to...
+[00:16:14.360 -> 00:16:15.260]  Run this?
+[00:16:16.900 -> 00:16:17.600]  Okay.
+[00:16:17.680 -> 00:16:18.720]  Now we're gonna...
+[00:16:18.720 -> 00:16:18.720]  
+[00:16:19.200 -> 00:16:20.340]  Anyway, if you...
+[00:16:20.340 -> 00:16:21.560]  Keep running it...
+[00:16:21.560 -> 00:16:22.500]  It...
+[00:16:22.500 -> 00:16:24.040]  Let me show you.
+[00:16:24.120 -> 00:16:25.400]  I got that far.
+[00:16:25.400 -> 00:16:26.680]  Okay.
+[00:16:28.240 -> 00:16:30.000]  Now if you say...
+[00:16:30.000 -> 00:16:30.520]  Who...
+[00:16:30.520 -> 00:16:32.340]  Minus R...
+[00:16:32.340 -> 00:16:34.400]  We have all the...
+[00:16:35.420 -> 00:16:36.400]  Driving game...
+[00:16:37.120 -> 00:16:38.660]  Code and variables.
+[00:16:39.380 -> 00:16:40.280]  Now if we say...
+[00:16:40.280 -> 00:16:41.400]  Now if we include it again...
+[00:16:43.820 -> 00:16:45.580]  Now who...
+[00:16:45.580 -> 00:16:46.560]  Minus R...
+[00:16:46.560 -> 00:16:47.400]  Now we have double...
+[00:16:48.800 -> 00:16:49.740]  Two of our...
+[00:16:49.740 -> 00:16:50.620]  Two of all of them.
+[00:16:51.480 -> 00:16:51.660]  Two of all of them.
+[00:16:51.660 -> 00:16:53.580]  Now if we say...
+[00:16:56.120 -> 00:16:56.600]  Who...
+[00:16:56.600 -> 00:16:59.020]  Minus R...
+[00:16:59.020 -> 00:17:00.780]  Now we have three of all of them.
+[00:17:01.780 -> 00:17:02.260]  So...
+[00:17:02.260 -> 00:17:02.900]  Um...
+[00:17:03.740 -> 00:17:05.640]  It would take a while to...
+[00:17:05.640 -> 00:17:06.620]  To run out of memory.
+[00:17:06.900 -> 00:17:07.800]  In this case.
+[00:17:08.540 -> 00:17:09.020]  You...
+[00:17:09.020 -> 00:17:10.340]  You never have a memory problem.
+[00:17:10.440 -> 00:17:12.680]  I'm just telling you that the thing works wonderfully.
+[00:17:13.160 -> 00:17:14.800]  You never have a memory problem.
+[00:17:14.800 -> 00:17:16.600]  If you really want to...
+[00:17:16.600 -> 00:17:17.080]  If you...
+[00:17:17.080 -> 00:17:18.460]  If it really bothers you...
+[00:17:18.460 -> 00:17:20.440]  Then run it as a pop-up...
+[00:17:20.440 -> 00:17:21.360]  Uh...
+[00:17:21.360 -> 00:17:21.880]  Icon.
+[00:17:22.920 -> 00:17:24.040]  And uh...
+[00:17:24.040 -> 00:17:25.180]  Then it gets freed...
+[00:17:25.180 -> 00:17:25.800]  When it's done.
+[00:17:26.680 -> 00:17:27.040]  Um...
+[00:17:27.040 -> 00:17:27.340]  This...
+[00:17:27.340 -> 00:17:28.460]  The memory will fragment.
+[00:17:29.400 -> 00:17:29.960]  Uh...
+[00:17:31.260 -> 00:17:32.700]  So you do need...
+[00:17:32.700 -> 00:17:33.740]  Don't worry.
+[00:17:34.540 -> 00:17:36.580]  You'll reboot for other reasons.
+[00:17:37.620 -> 00:17:39.920]  Long before you ever run out of memory.
+[00:17:41.600 -> 00:17:42.160]  Uh...
+[00:17:42.160 -> 00:17:43.300]  So uh...
+[00:17:43.300 -> 00:17:44.480]  You know what I was gonna tell you.
+[00:17:44.480 -> 00:17:46.480]  This is really profound.
+[00:17:48.980 -> 00:17:49.860]  Uh...
+[00:17:53.100 -> 00:17:54.720]  This is the...
+[00:17:55.940 -> 00:17:56.820]  The...
+[00:17:56.820 -> 00:17:59.480]  The kernel code...
+[00:18:00.760 -> 00:18:01.640]  Um...
+[00:18:01.640 -> 00:18:03.600]  When I'm working...
+[00:18:03.600 -> 00:18:05.540]  Let's say I'm working on...
+[00:18:05.540 -> 00:18:06.380]  Uh...
+[00:18:06.380 -> 00:18:08.180]  Let's just...
+[00:18:08.180 -> 00:18:09.160]  Let's just try something.
+[00:18:10.420 -> 00:18:12.960]  Let's say I'm working on vroom.
+[00:18:12.960 -> 00:18:13.740]  Um...
+[00:18:13.740 -> 00:18:15.240]  And I have...
+[00:18:15.240 -> 00:18:15.960]  Uh...
+[00:18:18.620 -> 00:18:20.100]  I have a problem.
+[00:18:21.220 -> 00:18:22.060]  Okay...
+[00:18:23.260 -> 00:18:24.100]  Uh...
+[00:18:25.580 -> 00:18:27.740]  Let's say when I allocate the track...
+[00:18:27.740 -> 00:18:28.720]  There's something wrong.
+[00:18:29.400 -> 00:18:29.960]  Track find...
+[00:18:32.820 -> 00:18:34.500]  Track slice...
+[00:18:34.500 -> 00:18:35.960]  Init track.
+[00:18:35.960 -> 00:18:36.620]  Okay...
+[00:18:36.620 -> 00:18:38.260]  Let's say I'm trying to build the track.
+[00:18:39.260 -> 00:18:40.380]  And we are...
+[00:18:41.460 -> 00:18:42.020]  Uh...
+[00:18:42.020 -> 00:18:42.940]  As a matter of fact...
+[00:18:42.940 -> 00:18:43.560]  What is this doing?
+[00:18:46.300 -> 00:18:47.420]  Track slice...
+[00:18:47.420 -> 00:18:49.300]  I can't use my code jump.
+[00:18:49.960 -> 00:18:51.680]  This is allocating...
+[00:18:51.680 -> 00:18:53.600]  And it's storing into a queue...
+[00:18:53.600 -> 00:18:55.080]  That's a global variable.
+[00:18:56.840 -> 00:18:57.400]  Um...
+[00:18:57.400 -> 00:18:59.300]  Maybe somebody thinks there's a problem.
+[00:19:00.280 -> 00:19:00.740]  So...
+[00:19:00.740 -> 00:19:01.400]  Uh...
+[00:19:02.140 -> 00:19:03.740]  You know what we can do?
+[00:19:04.060 -> 00:19:04.720]  Uh...
+[00:19:04.720 -> 00:19:05.540]  This is...
+[00:19:05.540 -> 00:19:06.220]  Ridiculous.
+[00:19:08.780 -> 00:19:10.320]  What size of track?
+[00:19:10.760 -> 00:19:11.680]  Let's see...
+[00:19:13.280 -> 00:19:14.800]  Size of...
+[00:19:17.960 -> 00:19:18.720]  Track...
+[00:19:22.720 -> 00:19:23.760]  C8.
+[00:19:24.000 -> 00:19:24.560]  It's 200.
+[00:19:25.820 -> 00:19:26.860]  Okay...
+[00:19:26.860 -> 00:19:27.920]  So...
+[00:19:27.920 -> 00:19:30.780]  Let's go to...
+[00:19:30.780 -> 00:19:31.980]  Uh...
+[00:19:31.980 -> 00:19:33.860]  The kernel...
+[00:19:33.860 -> 00:19:35.480]  Into...
+[00:19:35.480 -> 00:19:36.140]  Oh...
+[00:19:36.140 -> 00:19:36.960]  This is not so easy.
+[00:19:39.580 -> 00:19:42.080]  Ha ha ha...
+[00:19:42.080 -> 00:19:43.320]  Oh...
+[00:19:43.320 -> 00:19:44.260]  I started it.
+[00:19:48.760 -> 00:19:49.380]  So...
+[00:19:49.380 -> 00:19:50.160]  There's a...
+[00:19:50.160 -> 00:19:50.600]  Uh...
+[00:19:50.600 -> 00:19:50.920]  Oh...
+[00:19:50.920 -> 00:19:51.100]  Let's...
+[00:19:51.100 -> 00:19:51.300]  Let's...
+[00:19:51.300 -> 00:19:52.420]  Let's use the...
+[00:19:52.420 -> 00:19:53.540]  Uh...
+[00:19:53.540 -> 00:19:54.160]  The hook.
+[00:19:54.820 -> 00:19:55.820]  I said there's a hook.
+[00:19:56.740 -> 00:19:58.580]  Technically you can use it if you want.
+[00:20:03.720 -> 00:20:05.460]  Heap log malloc.
+[00:20:05.700 -> 00:20:07.140]  Right here is the hook.
+[00:20:11.700 -> 00:20:12.320]  Um...
+[00:20:12.320 -> 00:20:13.960]  So what...
+[00:20:13.960 -> 00:20:15.960]  Let's go look at the...
+[00:20:30.380 -> 00:20:31.460]  Uh...
+[00:20:31.460 -> 00:20:31.960]  When we install...
+[00:20:35.380 -> 00:20:36.680]  Heap rep.
+[00:20:52.480 -> 00:20:54.580]  Where do we...
+[00:20:54.580 -> 00:20:55.880]  Install the hook?
+[00:21:05.000 -> 00:21:05.680]  What?
+[00:21:05.680 -> 00:21:06.320]  What?
+[00:21:10.220 -> 00:21:11.460]  This is the heap rep.
+[00:21:11.660 -> 00:21:12.360]  It's not heap log.
+[00:21:13.020 -> 00:21:13.340]  Okay.
+[00:21:13.680 -> 00:21:15.680]  I was looking at the wrong tool.
+[00:21:15.940 -> 00:21:17.280]  They're easy to confuse.
+[00:21:18.280 -> 00:21:19.100]  Heap log.
+[00:21:19.300 -> 00:21:19.640]  Okay.
+[00:21:20.780 -> 00:21:21.380]  So...
+[00:21:24.220 -> 00:21:25.860]  I told you there's a hook.
+[00:21:27.180 -> 00:21:28.900]  So let's just...
+[00:21:28.900 -> 00:21:30.060]  Uh...
+[00:21:30.060 -> 00:21:31.100]  Heap log malloc.
+[00:21:38.340 -> 00:21:40.800]  This is not what I wanted to demonstrate.
+[00:21:43.800 -> 00:21:44.420]  Uh...
+[00:21:44.420 -> 00:21:44.840]  Okay.
+[00:21:45.840 -> 00:21:46.460]  So...
+[00:21:46.460 -> 00:21:48.100]  Let's say you're working on...
+[00:21:49.500 -> 00:21:50.120]  Uh...
+[00:21:50.120 -> 00:21:52.140]  I might as well show this.
+[00:21:57.420 -> 00:21:59.120]  You're working on vroom.
+[00:22:00.920 -> 00:22:01.780]  We might...
+[00:22:01.780 -> 00:22:02.920]  We can put this right at the top.
+[00:22:14.780 -> 00:22:15.340]  Okay.
+[00:22:17.080 -> 00:22:17.960]  So...
+[00:22:17.960 -> 00:22:22.420]  If m size...
+[00:22:25.440 -> 00:22:26.320]  Uh...
+[00:22:26.320 -> 00:22:27.520]  You can...
+[00:22:27.520 -> 00:22:28.840]  You can request...
+[00:22:28.840 -> 00:22:29.100]  Okay.
+[00:22:29.560 -> 00:22:34.820]  The size and the heap control are stored for each allocated item.
+[00:22:34.820 -> 00:22:35.040]  So...
+[00:22:35.820 -> 00:22:36.640]  It's really...
+[00:22:36.640 -> 00:22:37.340]  Um...
+[00:22:37.340 -> 00:22:37.940]  Luxurious.
+[00:22:38.660 -> 00:22:39.160]  Um...
+[00:22:39.160 -> 00:22:40.820]  I don't...
+[00:22:45.200 -> 00:22:45.700]  Um...
+[00:22:45.700 -> 00:22:46.780]  I waste memory.
+[00:22:46.920 -> 00:22:48.040]  I don't know what you want to call it.
+[00:22:51.660 -> 00:22:53.060]  Um...
+[00:22:53.060 -> 00:22:56.340]  If it equals equals 200...
+[00:22:56.340 -> 00:22:57.420]  Uh...
+[00:22:57.420 -> 00:22:58.540]  Raw...
+[00:22:58.540 -> 00:22:59.040]  Print...
+[00:23:02.480 -> 00:23:03.880]  100...
+[00:23:03.880 -> 00:23:05.300]  Comma...
+[00:23:05.300 -> 00:23:07.220]  Percent X...
+[00:23:07.220 -> 00:23:09.020]  Okay.
+[00:23:10.340 -> 00:23:11.740]  So...
+[00:23:11.740 -> 00:23:15.060]  What we can do...
+[00:23:16.840 -> 00:23:19.360]  Every time the operating system...
+[00:23:19.360 -> 00:23:21.240]  This is at the operating system level.
+[00:23:21.760 -> 00:23:30.760]  Every time it allocates a 200, then we print with a time delay the address outside of windowing.
+[00:23:31.000 -> 00:23:31.640]  Okay.
+[00:23:31.740 -> 00:23:33.860]  So if I run this...
+[00:23:34.780 -> 00:23:35.500]  Um...
+[00:23:35.500 -> 00:23:37.440]  It's dangerous, but it's okay.
+[00:23:39.400 -> 00:23:40.420]  Oh shit.
+[00:23:40.520 -> 00:23:41.140]  It didn't work.
+[00:23:47.860 -> 00:23:48.500]  Uh...
+[00:23:49.820 -> 00:23:50.460]  Uh...
+[00:23:53.080 -> 00:23:54.360]  It's not...
+[00:23:57.420 -> 00:23:59.880]  It's rounded up to a power of...
+[00:23:59.880 -> 00:24:00.520]  Uh...
+[00:24:00.520 -> 00:24:01.220]  Or two of them.
+[00:24:04.780 -> 00:24:06.660]  200 is a multiple of eight.
+[00:24:08.080 -> 00:24:08.140]  Uh...
+[00:24:13.060 -> 00:24:13.960]  I'm embarrassed.
+[00:24:15.540 -> 00:24:16.160]  Let's see.
+[00:24:18.040 -> 00:24:19.340]  Where did I get the size?
+[00:24:19.960 -> 00:24:20.980]  It's a track.
+[00:24:21.260 -> 00:24:22.060]  The size of track.
+[00:24:23.000 -> 00:24:23.260]  Come on.
+[00:24:30.540 -> 00:24:31.020]  Uh...
+[00:24:31.020 -> 00:24:31.540]  Uh...
+[00:24:31.540 -> 00:24:31.860]  Raw...
+[00:24:32.380 -> 00:24:32.860]  Print...
+[00:24:32.860 -> 00:24:33.120]  Oh, no.
+[00:24:33.620 -> 00:24:33.800]  Uh...
+[00:24:33.800 -> 00:24:33.800]  
+[00:24:33.800 -> 00:24:33.800]  
+[00:24:33.800 -> 00:24:33.900]  Print...
+[00:24:33.900 -> 00:24:33.920]  Oh, no.
+[00:24:34.780 -> 00:24:35.260]  Uh...
+[00:24:37.740 -> 00:24:38.220]  Uh...
+[00:24:38.220 -> 00:24:38.360]  Uh...
+[00:24:38.360 -> 00:24:38.360]  
+[00:24:38.360 -> 00:24:38.380]  Uh...
+[00:24:38.380 -> 00:24:38.880]  Okay.
+[00:24:39.860 -> 00:24:40.720]  Let's...
+[00:24:40.720 -> 00:24:41.380]  Size of...
+[00:24:43.920 -> 00:24:44.780]  Track.
+[00:24:45.720 -> 00:24:48.640]  Oh, maybe I don't allocate single tracks.
+[00:24:49.060 -> 00:24:49.880]  It's 200.
+[00:24:53.100 -> 00:24:54.760]  Control F. Malik.
+[00:24:58.660 -> 00:25:00.660]  We don't call Malik.
+[00:25:01.300 -> 00:25:02.460]  We don't do that.
+[00:25:02.600 -> 00:25:03.440]  Uh...
+[00:25:05.300 -> 00:25:06.160]  Uh...
+[00:25:06.160 -> 00:25:06.320]  No.
+[00:25:06.320 -> 00:25:06.320]  
+[00:25:06.320 -> 00:25:06.320]  
+[00:25:06.320 -> 00:25:06.320]  
+[00:25:06.320 -> 00:25:06.320]  
+[00:25:06.320 -> 00:25:06.320]  
+[00:25:06.320 -> 00:25:06.320]  
+[00:25:06.380 -> 00:25:06.380]  
+[00:25:06.840 -> 00:25:06.840]  
+[00:25:06.840 -> 00:25:06.840]  
+[00:25:06.840 -> 00:25:06.840]  
+[00:25:06.880 -> 00:25:06.880]  
+[00:25:06.880 -> 00:25:06.880]  
+[00:25:06.920 -> 00:25:06.920]  
+[00:25:07.320 -> 00:25:07.920]  No.
+[00:25:07.920 -> 00:25:08.640]  It's a little sown bitch.
+[00:25:11.040 -> 00:25:12.880]  It's not malikating yet, I guess.
+[00:25:20.860 -> 00:25:21.620]  Track route.
+[00:25:22.060 -> 00:25:22.580]  Yeah, it is.
+[00:25:23.020 -> 00:25:24.240]  I know it's malikating.
+[00:25:32.180 -> 00:25:32.820]  Let's see.
+[00:25:33.040 -> 00:25:33.200]  Let's see.
+[00:25:34.540 -> 00:25:34.980]  Uh...
+[00:25:34.980 -> 00:25:35.240]  Uh...
+[00:25:35.240 -> 00:25:35.440]  Uh...
+[00:25:37.300 -> 00:25:37.740]  Uh...
+[00:25:37.740 -> 00:25:37.740]  
+[00:25:37.740 -> 00:25:37.780]  Uh...
+[00:25:37.780 -> 00:25:37.780]  
+[00:25:37.780 -> 00:25:37.780]  
+[00:25:37.780 -> 00:25:37.780]  
+[00:25:37.780 -> 00:25:37.780]  
+[00:25:37.780 -> 00:25:37.780]  
+[00:25:37.780 -> 00:25:37.780]  
+[00:25:37.780 -> 00:25:37.780]  
+[00:25:37.780 -> 00:25:37.780]  
+[00:25:37.780 -> 00:25:37.780]  
+[00:25:37.780 -> 00:25:37.780]  
+[00:25:37.780 -> 00:25:37.780]  
+[00:25:37.780 -> 00:25:37.780]  
+[00:25:37.780 -> 00:25:37.780]  
+[00:25:37.780 -> 00:25:37.900]  Uh...
+[00:25:44.160 -> 00:25:45.360]  Go ahead.
+[00:25:45.360 -> 00:25:45.380]  Go ahead.
+[00:25:45.380 -> 00:25:45.380]  
+[00:25:45.380 -> 00:25:45.840]  Go ahead.
+[00:25:46.100 -> 00:25:46.960]  Go ahead.
+[00:25:46.960 -> 00:25:46.960]  
+[00:25:46.960 -> 00:25:47.080]  Go ahead.
+[00:25:47.080 -> 00:25:47.900]  Go ahead.
+[00:25:47.900 -> 00:25:48.140]  Go ahead.
+[00:25:48.140 -> 00:25:50.420]  Go ahead.
+[00:25:50.420 -> 00:25:51.080]  Go ahead.
+[00:25:51.080 -> 00:25:51.660]  Go ahead.
+[00:25:51.660 -> 00:25:54.720]  Go ahead.
+[00:25:54.720 -> 00:25:55.220]  Go ahead.
+[00:25:55.220 -> 00:25:55.320]  Go ahead.
+[00:25:55.320 -> 00:25:55.320]  
+[00:25:55.320 -> 00:25:55.320]  
+[00:25:55.320 -> 00:25:55.320]  
+[00:25:55.320 -> 00:25:55.320]  
+[00:25:55.320 -> 00:25:55.320]  
+[00:25:55.320 -> 00:25:55.320]  
+[00:25:55.320 -> 00:25:55.340]  Go ahead.
+[00:25:55.340 -> 00:25:55.340]  
+[00:25:55.340 -> 00:25:55.340]  
+[00:25:55.340 -> 00:25:55.340]  
+[00:25:55.340 -> 00:25:55.340]  
+[00:25:55.340 -> 00:25:55.340]  
+[00:25:55.340 -> 00:25:55.340]  
+[00:25:55.340 -> 00:25:55.340]  
+[00:25:55.340 -> 00:25:55.340]  
+[00:25:55.340 -> 00:25:55.340]  
+[00:25:55.340 -> 00:25:55.420]  Go ahead.
+[00:25:55.420 -> 00:25:56.260]  Go ahead.
+[00:25:56.260 -> 00:25:56.260]  
+[00:25:56.260 -> 00:25:56.260]  
+[00:25:56.260 -> 00:25:56.260]  
+[00:25:56.340 -> 00:25:57.280]  Go ahead.
+[00:25:57.380 -> 00:25:57.880]  Go ahead.
+[00:25:57.980 -> 00:25:58.720]  Go ahead.
+[00:25:58.920 -> 00:25:59.540]  Go ahead.
+[00:25:59.540 -> 00:26:00.240]  Go ahead.
+[00:26:01.460 -> 00:26:02.340]  Go ahead.
+[00:26:02.620 -> 00:26:04.580]  Go ahead.
+[00:26:04.640 -> 00:26:07.720]  Go ahead.
+[00:26:16.000 -> 00:26:17.660]  Oh, you know what it is?
+[00:26:18.580 -> 00:26:19.540]  That's embarrassing.
+[00:26:20.800 -> 00:26:21.620]  Oh, shit.
+[00:26:28.860 -> 00:26:30.660]  We're going to make this fucker work
+[00:26:30.660 -> 00:26:32.020]  if it's the last thing I do.
+[00:26:37.720 -> 00:26:38.520]  Address.
+[00:26:42.900 -> 00:26:43.720]  Okay.
+[00:26:56.440 -> 00:26:58.020]  The heap control.
+[00:27:01.240 -> 00:27:04.580]  It's possible the size has not been filled in.
+[00:27:08.280 -> 00:27:09.960]  Is that what it is?
+[00:27:10.540 -> 00:27:13.780]  That's a major goof.
+[00:27:14.240 -> 00:27:15.120]  That's a goof.
+[00:27:21.800 -> 00:27:23.800]  Call it caller.
+[00:27:26.560 -> 00:27:27.440]  Okay.
+[00:27:27.860 -> 00:27:27.880]  Okay.
+[00:27:27.880 -> 00:27:35.600]  So, in the kernel, in Malik.
+[00:27:48.460 -> 00:27:50.340]  Heap log Malik.
+[00:27:51.520 -> 00:27:56.160]  We have not filled in the size, apparently.
+[00:27:56.700 -> 00:27:58.920]  I could swear it fills in the size.
+[00:27:59.000 -> 00:28:00.320]  There's the size right there.
+[00:28:01.540 -> 00:28:02.300]  Okay.
+[00:28:03.440 -> 00:28:05.120]  And then there's the hook.
+[00:28:07.200 -> 00:28:07.960]  Oh!
+[00:28:08.340 -> 00:28:09.020]  What if it's...
+[00:28:09.020 -> 00:28:09.460]  Oh!
+[00:28:09.840 -> 00:28:11.220]  The other answer.
+[00:28:13.480 -> 00:28:14.960]  You know what it is?
+[00:28:15.220 -> 00:28:16.540]  I'll tell you what it is.
+[00:28:17.400 -> 00:28:18.120]  Size.
+[00:28:20.420 -> 00:28:20.800]  I64.
+[00:28:24.660 -> 00:28:27.640]  Do you think it's...
+[00:28:27.640 -> 00:28:29.020]  Oh, shit.
+[00:28:34.760 -> 00:28:35.660]  Okay.
+[00:28:36.640 -> 00:28:36.640]  
+[00:28:36.680 -> 00:28:37.580]  Okay.
+[00:28:37.780 -> 00:28:38.060]  Okay.
+[00:28:53.620 -> 00:28:54.580]  Okay.
+[00:28:56.580 -> 00:28:58.300]  We have to...
+[00:28:58.300 -> 00:28:58.500]  Okay.
+[00:28:58.500 -> 00:28:58.500]  
+[00:28:58.760 -> 00:28:58.760]  
+[00:28:58.780 -> 00:28:58.780]  
+[00:28:58.800 -> 00:28:58.800]  
+[00:28:58.800 -> 00:28:58.800]  
+[00:28:58.800 -> 00:28:58.800]  
+[00:28:58.800 -> 00:28:58.800]  
+[00:28:58.800 -> 00:28:58.800]  
+[00:28:58.800 -> 00:28:58.800]  
+[00:28:58.800 -> 00:28:58.800]  
+[00:28:58.800 -> 00:28:58.800]  
+[00:28:58.800 -> 00:28:58.800]  
+[00:28:58.800 -> 00:28:58.800]  
+[00:28:58.800 -> 00:28:58.800]  
+[00:28:58.800 -> 00:28:58.800]  
+[00:28:58.800 -> 00:28:58.800]  
+[00:28:58.800 -> 00:28:58.800]  
+[00:28:58.800 -> 00:28:58.800]  
+[00:28:58.800 -> 00:28:58.800]  
+[00:28:58.800 -> 00:28:58.800]  
+[00:28:58.800 -> 00:28:58.800]  
+[00:28:58.800 -> 00:28:58.800]  
+[00:28:58.800 -> 00:28:58.800]  
+[00:28:58.800 -> 00:28:58.800]  
+[00:28:58.800 -> 00:28:58.800]  
+[00:28:58.800 -> 00:28:58.800]  
+[00:28:58.800 -> 00:28:58.920]  Okay.
+[00:28:58.920 -> 00:28:59.560]  Okay.
+[00:28:59.560 -> 00:28:59.560]  
+[00:28:59.560 -> 00:28:59.560]  
+[00:28:59.560 -> 00:28:59.900]  Okay.
+[00:28:59.900 -> 00:29:00.320]  Okay.
+[00:29:00.400 -> 00:29:00.800]  Okay.
+[00:29:00.800 -> 00:29:00.800]  
+[00:29:00.800 -> 00:29:00.800]  
+[00:29:00.800 -> 00:29:00.800]  
+[00:29:00.800 -> 00:29:00.800]  
+[00:29:00.800 -> 00:29:00.800]  
+[00:29:00.800 -> 00:29:01.380]  Okay.
+[00:29:01.380 -> 00:29:01.380]  
+[00:29:01.380 -> 00:29:01.380]  
+[00:29:01.380 -> 00:29:01.380]  
+[00:29:01.380 -> 00:29:02.220]  Okay.
+[00:29:02.600 -> 00:29:03.440]  Okay.
+[00:29:04.340 -> 00:29:04.820]  Okay.
+[00:29:08.600 -> 00:29:09.560]  Okay.
+[00:29:10.080 -> 00:29:10.280]  Okay.
+[00:29:10.640 -> 00:29:10.640]  
+[00:29:10.640 -> 00:29:10.640]  
+[00:29:10.640 -> 00:29:10.640]  
+[00:29:10.640 -> 00:29:10.640]  
+[00:29:10.640 -> 00:29:10.640]  
+[00:29:14.260 -> 00:29:15.600]  The other answer.
+[00:29:31.340 -> 00:29:32.420]  Minus start.
+[00:29:32.860 -> 00:29:34.620]  Don't we want plus minus?
+[00:29:41.420 -> 00:29:42.840]  I think we want that.
+[00:29:44.060 -> 00:29:45.200]  Son of a bitch.
+[00:29:45.540 -> 00:29:46.380]  I'm guessing.
+[00:29:52.240 -> 00:29:53.600]  Oh, we want the size.
+[00:29:53.600 -> 00:29:55.740]  Yeah, of course we want.
+[00:30:00.600 -> 00:30:20.020]  What if we call this cm used and then we say addr.size equals 200.
+[00:30:31.380 -> 00:30:32.940]  You son of a bitch.
+[00:30:48.360 -> 00:30:49.540]  Didn't do anything.
+[00:30:49.840 -> 00:30:49.980]  I'm guessing.
+[00:30:49.980 -> 00:30:52.460]  It's not getting called at all.
+[00:30:55.840 -> 00:30:59.440]  Heat log malic.
+[00:30:59.440 -> 00:30:59.440]  
+[00:31:20.560 -> 00:31:21.520]  Oh, we have to.
+[00:31:21.520 -> 00:31:22.660]  I think there's a flag.
+[00:31:25.380 -> 00:31:26.000]  Okay.
+[00:31:36.920 -> 00:31:38.080]  Oh, well.
+[00:31:38.360 -> 00:31:39.740]  Are we having fun?
+[00:31:40.220 -> 00:31:40.840]  No.
+[00:31:42.520 -> 00:31:45.960]  I think there's a flag in addition.
+[00:31:47.520 -> 00:31:49.420]  Now that's just crazy.
+[00:31:50.960 -> 00:31:54.140]  I guess we want to be able to turn it on and off.
+[00:32:00.440 -> 00:32:01.220]  Heat log.
+[00:32:04.980 -> 00:32:06.080]  Heat log active.
+[00:32:06.220 -> 00:32:06.740]  How about that?
+[00:32:06.740 -> 00:32:06.760]  Change it.
+[00:32:08.660 -> 00:32:09.620]  Change it.
+[00:32:13.040 -> 00:32:14.000]  Change it.
+[00:32:15.420 -> 00:32:16.380]  Change it.
+[00:32:18.040 -> 00:32:19.000]  Change it.
+[00:32:22.520 -> 00:32:23.080]  Change it.
+[00:32:24.260 -> 00:32:24.460]  Change it.
+[00:32:24.760 -> 00:32:25.780]  Change it.
+[00:32:25.780 -> 00:32:25.800]  Change it.
+[00:32:25.800 -> 00:32:25.820]  Change it.
+[00:32:25.820 -> 00:32:25.820]  
+[00:32:25.820 -> 00:32:25.820]  
+[00:32:25.820 -> 00:32:25.820]  
+[00:32:25.820 -> 00:32:25.820]  
+[00:32:25.820 -> 00:32:25.820]  
+[00:32:25.820 -> 00:32:25.820]  
+[00:32:25.820 -> 00:32:25.820]  
+[00:32:25.880 -> 00:32:25.900]  Change it.
+[00:32:25.900 -> 00:32:25.900]  
+[00:32:25.940 -> 00:32:26.160]  Change it.
+[00:32:26.160 -> 00:32:26.160]  
+[00:32:26.160 -> 00:32:26.160]  
+[00:32:26.160 -> 00:32:26.280]  Change it.
+[00:32:26.280 -> 00:32:26.280]  
+[00:32:26.280 -> 00:32:26.280]  
+[00:32:26.280 -> 00:32:26.340]  Change it.
+[00:32:26.340 -> 00:32:26.340]  
+[00:32:26.340 -> 00:32:26.540]  Change it.
+[00:32:26.760 -> 00:32:27.240]  Change it.
+[00:32:27.240 -> 00:32:27.240]  
+[00:32:27.240 -> 00:32:27.240]  
+[00:32:27.360 -> 00:32:27.840]  Change it.
+[00:32:27.840 -> 00:32:27.840]  
+[00:32:27.840 -> 00:32:27.860]  Change it.
+[00:32:27.860 -> 00:32:27.860]  
+[00:32:27.860 -> 00:32:27.860]  
+[00:32:27.860 -> 00:32:27.880]  Change it.
+[00:32:27.920 -> 00:32:27.920]  
+[00:32:27.920 -> 00:32:27.920]  
+[00:32:28.060 -> 00:32:28.080]  Change it.
+[00:32:29.300 -> 00:32:29.920]  Change it.
+[00:32:29.920 -> 00:32:30.860]  Change it.
+[00:32:31.000 -> 00:32:31.500]  Change it.
+[00:32:32.840 -> 00:32:33.480]  Change it.
+[00:32:33.480 -> 00:32:47.460]  for that is because it's the entire system and we really we really don't
+[00:32:47.460 -> 00:32:55.580]  want to be doing that so what we do is c task test equals current task
+[00:33:00.860 -> 00:33:12.340]  and what we do here if FS test and then well that
+[00:33:24.780 -> 00:33:26.320]  I could swear it's
+[00:33:34.420 -> 00:33:35.880]  we got a crash
+[00:33:47.580 -> 00:33:48.700]  okay
+[00:34:00.840 -> 00:34:02.520]  FS test
+[00:34:05.600 -> 00:34:09.260]  and you can't be doing any allocations
+[00:34:09.260 -> 00:34:17.180]  this this print does does an allocation so it's recursive
+[00:34:25.380 -> 00:34:28.200]  but the size is not the same
+[00:34:46.640 -> 00:34:49.100]  let's just do
+[00:34:52.800 -> 00:34:59.920]  raw print is too it's not going to be at 200 only if it's a 200 is it going to
+[00:34:59.920 -> 00:35:03.100]  recurse isn't it but it's obviously not working
+[00:35:09.820 -> 00:35:10.980]  let's say
+[00:35:10.980 -> 00:35:14.180]  let's say 210 since that's not going to happen
+[00:35:18.780 -> 00:35:24.340]  okay so 210 did not happen 200 did happen
+[00:35:25.460 -> 00:35:28.180]  let's let's do 2201
+[00:35:30.580 -> 00:35:31.940]  let's do 200
+[00:35:32.760 -> 00:35:33.960]  hey it worked
+[00:35:33.960 -> 00:35:35.520]  yay okay
+[00:35:37.220 -> 00:35:37.920]  yay
+[00:35:38.660 -> 00:35:44.780]  so this is tricky because the raw print calls malloc and it would be the same task
+[00:35:44.780 -> 00:36:01.720]  so we print for a millisecond so what you can do is you can say if the 555 if a ddr equals 0x111
+[00:36:02.340 -> 00:36:06.780]  let's say you let's say you were debugging you can put
+[00:36:16.380 -> 00:36:21.620]  anyway you can put special debug code now here's the here's what I was going to tell you
+[00:36:23.520 -> 00:36:26.880]  there's a there's a system flag
+[00:36:27.560 -> 00:36:28.420]  system flag
+[00:36:28.420 -> 00:36:28.760]  system debug
+[00:36:28.760 -> 00:36:30.540]  which is just a single bit
+[00:36:30.540 -> 00:36:32.280]  and you can say
+[00:36:42.280 -> 00:36:42.940]  anyway
+[00:36:42.940 -> 00:36:44.020]  you can
+[00:36:48.140 -> 00:36:51.040]  you can turn the bit on and off
+[00:36:51.040 -> 00:37:01.740]  and then check it and you can know if you make the you can recompile the
+[00:37:01.740 -> 00:37:02.080]  kernel
+[00:37:20.320 -> 00:37:31.860]  okay you can recompile the kernel and modify the well I if I had a
+[00:37:31.860 -> 00:37:41.080]  memory corruption problem you can there's there's an initialization flag when you
+[00:37:41.080 -> 00:37:56.400]  compile the kernel make OS install see see see probe
+[00:38:03.480 -> 00:38:18.460]  for enter enter this cache you can say heaping it keeping it keeping it let's say 12 so what's going
+[00:38:18.460 -> 00:38:25.640]  to happen is every time an allocation is done off the heap it's going to fill it in with 12 so this
+[00:38:25.640 -> 00:38:40.640]  is how you can test for un initialized so it should be a little bit slower so if we just do a malloc don't
+[00:38:41.320 -> 00:38:55.260]  not like 20 don't know like 20 it's initialized to 12 you see that initialized everything on the heap
+[00:38:55.260 -> 00:39:09.960]  to 12 so we anyway you can there's that's good for debugging it gets expensive if you do flood fill
+[00:39:09.960 -> 00:39:24.100]  because it does a big heap allocation anyway uh what I was gonna say is if you want if you know assembly
+[00:39:24.100 -> 00:39:35.400]  this is a bad a bad one let's say you you you can modify the kernel to search for uh an address um
+[00:39:36.980 -> 00:40:05.380]  let's say you're uh you're you can um you can put debug code into the kernel and recompile it and uh that's what I can do maybe you're searching for the the time that a uh a uh uh
+[00:40:05.380 -> 00:40:16.580]  allocation got corrupted anyway maybe you have a memory corruption problem you can put checks in to see when it happened at various points in the kernel
+[00:40:16.580 -> 00:40:26.520]  um it doesn't really I guess the Linux has a lot of debugging doesn't it I think they have every time you uh do a syscall you can do something
+[00:40:26.520 -> 00:40:36.740]  I don't really have that but uh anyway oh well what fun so now I uh I changed my help
+[00:40:38.280 -> 00:40:42.980]  it's a little bit redundant don't you think I need to uh clean it up
+[00:40:44.140 -> 00:40:53.200]  I uh I do task and debugging heap walk is in heap heap rep
+[00:40:57.480 -> 00:41:03.460]  debugging heap walk is in heap heap rep
+[00:41:09.480 -> 00:41:11.040]  yeah this uh
+[00:41:15.120 -> 00:41:23.800]  you can store um even more information um anyway oh well enough
+[00:41:35.060 -> 00:41:35.760]  so
+[00:41:36.620 -> 00:41:45.540]  so the help index is stored in memory and somebody might think it is a leak but that's not how I look at it
+[00:41:45.540 -> 00:41:46.500]  um
+[00:41:46.500 -> 00:41:47.120]  you
+[00:41:47.120 -> 00:41:47.240]  you
+[00:41:52.920 -> 00:41:54.160]  you
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.160 -> 00:41:54.160]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  
+[00:41:54.140 -> 00:41:54.140]  

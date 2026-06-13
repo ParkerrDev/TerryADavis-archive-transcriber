@@ -1,0 +1,251 @@
+========================================================================
+FILE        : videos/2016/2016-04-03T00:02:00+00:00 - Terry A Davis Live Stream (RYw9e4D4yZk).mp4
+SOURCE URL  : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2016/2016-04-03T00:02:00+00:00 - Terry A Davis Live Stream (RYw9e4D4yZk).mp4
+DERIVATIVE  : (none — streamed from video)
+FORMAT      : MPEG4
+SIZE        : 127,031,270 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:16:32.700
+TRANSCRIBED : 2026-05-12T01:18:46.222211+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+talk about spawning new we don't have a fork we have a spawn and the way it works is first of all there's all tasks have the same memory map so in other operating systems you have different memory maps and each task has a c task record this is a task record all all this stuff is thrown together in there when the task is swapped out the registers are stored here when it's not running I should say I don't have the same terminology as Linux each task has can have one each task on core zero can have one window there are no child windows in temple OS so what that means is you make a pop-up if you want so all all applications run on core zero and they create slaves on the other cores so the FS segment register points to the current task and the current task is not indicated by a PID it's indicated by a if you look up here 3F D7 it's a it's a it's in it that's the task record address it's always eight characters eight nibbles anyway so FS FS segment register points to the current task record and as a matter of fact if you want let's let's go right to that tasks input buffer crosstalk crosstalk and then I'm just gonna cheat here a little bit no let's not do zero X where we have three F D7 5 C to 8 3 F D7 5 C to 8 comma DIR are you watching ready one two three go I just stuck characters into his input buffer I can put characters into my own input buffer by saying auto when you're compiling the kernel you want to put the answers to the kernel question in with auto this it's like standard in it's like feeding standard in so it can get tricky when you have pop-ups so no yes so if you have a pop-up let's do yes we have a one pop-up no we have a zero okay so that's a child task it can be modal or not a child task you see they're a child task or it's global so we were going to talk about fork we don't have fork we have spawn I should say okay so let's just go uh use zero my task c doc star doc and this guy says spawn address my task doc okay you have a dot out you have a standard in and standard out in in temple OS you have the document that you are putting you have the document you are displaying you have the document you are displaying and you have the border document um if we go to the task record well anyway so uh uh goodbye let's see what this does watch this pow i have a new use fire doc expecting comma oh i left that over expecting comma what is your malfunction again a oh doc put what is that oh shit shit shit i can swear it's stock put it's not what okay uh hold on a second c task no no no it's stock put i know it's stock put what are you talking about uh uh uh uh uh uh uh uh uh uh uh uh uh uh uh uh uh uh uh uh uh uh uh uh uh uh uh uh there we go okay there we got goodbye so what happened here is it spawned a task and immediately exited and it didn't do anything now if we say god print task okay so he's passing his standard his standard out is being passed as a parameter let's look at spawn you should get you should memorize this the address of the code the address of the function a data item the name and then the target CPU minus one is that anyway I don't remember I think it's a current okay so okay now let's go control B let's do a tiny sleep sleep for a hundred okay it's gonna make a heat it's gonna make a thousand tasks and they're all gonna sleep and then they're all gonna print and that the the standard out has a lock so we got that did not take very long okay so let's see pow okay so they all now if you want to do multiple cores job come I and seven wow that's actually seven course let's uh let's slow it down so that we can see what's going on let's put it on let's put 10 let's do 10 seconds ready pow okay so these do not have windows okay on the mat on the uh wallpaper is all the cores there they were waiting okay so if you now there is a trick uh as a matter of fact what we did is bad because you see this code this is in the memory of the parent we we we execute those and we are not synchronous and then we exit and we free the the code memory so this mem this code memory has been freed if we exit so we need to wait for them to finish uh well if you want to do it the african way you can do it like that now it's only a problem if it gets reused or we can you want to how would we do this i-64i you know what we do tell you what we do block i minus minus you might ask what does this do well how about let's kick this up to okay okay okay oh i did it for a long time we got now we don't have preemption anymore we used to have preemption but i got rid of it because my users are stupid they can't handle okay so uh you know what we do here here we say while count yield and it exited beautiful beautiful just for grins what do you think will happen if we say percent d count it's not going to be pretty print there is no preemption and therefore therefore this code pretty much executes atomically uh now except for multi-core well multi-core means uh you might you might not think we have multi-core but we do 4i equals 0i less than 1 1 2 3 1 2 3 okay we are going to make the computer sweat okay so let's uh let's do oh that's not going to be any good well no anyway it's multi-core take my word for it so each task has a symbol table task inherit or if it's not found in the child that searches the parent so if you say who minus r there are no symbols but if we if we run this if we hit f5 it's a new task if we hit include it's the same task now if we say who minus r so all the compiler symbols go into the it's kind of like the scope of an environment variable except uh anyway so we can say count now let's unassemble my task do you remember i want to point out you see this lock that's for multi-core um it doesn't always work um it doesn't put the lock on correctly for some if you do a fancy addressing and it's only well anyway so there we go so all tasks have the same memory map at all times all memory is accessible at all times so for example uh if i say address account over here and over here i say i64 star pointer equals 0x 3f d77 d90 star pointer equals 1 2 3 4 5 6 and if i go over here and i say count 1 2 3 4 5 6 so it's uh it's super simple other operating systems have to worry about inter-process communication well everything is wide open and we're all on the same map so sometimes i call this uh single process multiple thread as opposed to multi-processing i think to imagine the entire operating system has one process and all the tasks are threads except they're they all share the same memory it's it's it's i don't even know why i have to explain it it's it's the simplest case all memory is no paging and there is paging but it's not really used anyway
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:10.320]  talk about spawning new we don't have a fork we have a spawn and the way it
+[00:00:10.320 -> 00:00:22.940]  works is first of all there's all tasks have the same memory map so in other
+[00:00:22.940 -> 00:00:35.120]  operating systems you have different memory maps and each task has a c task
+[00:00:35.120 -> 00:00:45.960]  record this is a task record all all this stuff is thrown together in there when
+[00:00:45.960 -> 00:00:54.240]  the task is swapped out the registers are stored here when it's not running I
+[00:00:54.240 -> 00:01:01.920]  should say I don't have the same terminology as Linux each task has can
+[00:01:01.920 -> 00:01:08.640]  have one each task on core zero can have one window there are no child windows in
+[00:01:08.640 -> 00:01:19.740]  temple OS so what that means is you make a pop-up if you want so all all
+[00:01:19.740 -> 00:01:32.100]  applications run on core zero and they create slaves on the other cores so the
+[00:01:32.100 -> 00:01:39.960]  FS segment register points to the current task and the current task is not
+[00:01:39.960 -> 00:01:52.560]  indicated by a PID it's indicated by a if you look up here 3F D7 it's a it's a it's
+[00:01:52.560 -> 00:02:00.620]  in it that's the task record address it's always eight characters
+[00:02:00.620 -> 00:02:12.820]  eight nibbles anyway so FS FS segment register points to the current task
+[00:02:12.820 -> 00:02:19.680]  record and as a matter of fact if you want let's let's go right to that tasks
+[00:02:19.680 -> 00:02:28.200]  input buffer crosstalk crosstalk and then I'm just gonna cheat here a little bit no
+[00:02:28.200 -> 00:02:46.840]  let's not do zero X where we have three F D7 5 C to 8 3 F D7 5 C to 8 comma DIR are you
+[00:02:46.840 -> 00:02:55.460]  watching ready one two three go I just stuck characters into his input buffer I can
+[00:02:55.460 -> 00:03:06.400]  put characters into my own input buffer by saying auto when you're compiling the
+[00:03:06.400 -> 00:03:14.560]  kernel you want to put the answers to the kernel question in with auto this it's like
+[00:03:14.560 -> 00:03:22.760]  standard in it's like feeding standard in so it can get tricky when you have pop-ups
+[00:03:27.000 -> 00:03:42.760]  so no yes so if you have a pop-up let's do yes we have a one pop-up no we have a zero okay so that's a child task
+[00:03:43.840 -> 00:04:02.700]  it can be modal or not a child task you see they're a child task or it's global so we were going to talk about fork we don't have fork we have spawn I should say okay so
+[00:04:03.900 -> 00:04:04.820]  let's just go
+[00:04:04.820 -> 00:04:05.820]  uh use zero
+[00:04:08.720 -> 00:04:32.380]  my task c doc star doc and this guy says spawn address my task doc okay you have a dot out you have a standard in and standard out
+[00:04:32.380 -> 00:04:40.580]  in in temple OS you have the document that you are putting you have the document you are displaying
+[00:04:42.520 -> 00:04:45.540]  you have the document you are displaying and you have the border document
+[00:04:48.360 -> 00:04:53.660]  um if we go to the task record well anyway so uh
+[00:04:53.660 -> 00:04:55.060]  uh
+[00:04:56.940 -> 00:04:57.680]  goodbye
+[00:04:59.720 -> 00:05:02.360]  let's see what this does watch this pow
+[00:05:03.300 -> 00:05:09.200]  i have a new use fire doc expecting comma oh i left that over
+[00:05:13.040 -> 00:05:14.320]  expecting comma
+[00:05:18.520 -> 00:05:24.360]  what is your malfunction again a oh doc put what is that
+[00:05:27.740 -> 00:05:36.520]  oh shit shit shit i can swear it's stock put it's not
+[00:05:39.740 -> 00:05:47.680]  what okay uh hold on a second c task no no no it's stock put i know it's stock put what are you talking about
+[00:05:49.000 -> 00:05:49.300]  uh
+[00:05:58.100 -> 00:05:58.400]  uh
+[00:05:58.400 -> 00:05:58.840]  uh
+[00:05:58.840 -> 00:05:58.840]  
+[00:05:58.840 -> 00:05:58.840]  
+[00:05:58.840 -> 00:05:58.840]  
+[00:05:58.840 -> 00:05:58.840]  
+[00:05:58.840 -> 00:05:58.840]  
+[00:05:58.840 -> 00:05:58.880]  uh
+[00:05:58.880 -> 00:05:59.260]  uh
+[00:05:59.260 -> 00:05:59.320]  uh
+[00:05:59.320 -> 00:05:59.320]  
+[00:06:08.340 -> 00:06:08.640]  uh
+[00:06:10.340 -> 00:06:10.640]  uh
+[00:06:11.800 -> 00:06:12.100]  uh
+[00:06:15.280 -> 00:06:15.580]  uh
+[00:06:15.580 -> 00:06:15.780]  uh
+[00:06:15.780 -> 00:06:15.780]  
+[00:06:15.780 -> 00:06:15.780]  
+[00:06:15.780 -> 00:06:15.820]  uh
+[00:06:15.820 -> 00:06:15.840]  uh
+[00:06:15.840 -> 00:06:15.840]  
+[00:06:15.840 -> 00:06:15.840]  
+[00:06:15.840 -> 00:06:15.980]  uh
+[00:06:15.980 -> 00:06:15.980]  
+[00:06:15.980 -> 00:06:16.060]  uh
+[00:06:16.060 -> 00:06:16.100]  uh
+[00:06:16.100 -> 00:06:16.100]  
+[00:06:16.100 -> 00:06:16.140]  uh
+[00:06:16.140 -> 00:06:16.140]  
+[00:06:16.140 -> 00:06:16.180]  uh
+[00:06:16.180 -> 00:06:16.180]  
+[00:06:16.180 -> 00:06:16.280]  uh
+[00:06:16.280 -> 00:06:16.360]  uh
+[00:06:16.360 -> 00:06:16.660]  uh
+[00:06:16.660 -> 00:06:16.660]  
+[00:06:16.660 -> 00:06:16.660]  
+[00:06:16.660 -> 00:06:16.660]  
+[00:06:16.660 -> 00:06:16.680]  uh
+[00:06:16.680 -> 00:06:16.680]  
+[00:06:16.680 -> 00:06:16.680]  
+[00:06:16.680 -> 00:06:16.840]  uh
+[00:06:16.840 -> 00:06:16.840]  
+[00:06:16.840 -> 00:06:17.020]  uh
+[00:06:17.020 -> 00:06:17.220]  uh
+[00:06:17.220 -> 00:06:17.220]  
+[00:06:17.220 -> 00:06:17.220]  
+[00:06:17.220 -> 00:06:17.260]  uh
+[00:06:17.260 -> 00:06:17.260]  
+[00:06:17.260 -> 00:06:17.260]  
+[00:06:17.260 -> 00:06:17.260]  
+[00:06:17.260 -> 00:06:17.260]  
+[00:06:17.260 -> 00:06:17.260]  
+[00:06:17.260 -> 00:06:17.260]  
+[00:06:17.260 -> 00:06:17.300]  uh
+[00:06:17.300 -> 00:06:17.300]  
+[00:06:17.300 -> 00:06:17.300]  
+[00:06:17.300 -> 00:06:17.300]  
+[00:06:17.300 -> 00:06:17.300]  
+[00:06:17.300 -> 00:06:17.300]  
+[00:06:17.300 -> 00:06:17.300]  
+[00:06:17.300 -> 00:06:17.300]  
+[00:06:17.300 -> 00:06:17.300]  
+[00:06:17.300 -> 00:06:17.300]  
+[00:06:17.300 -> 00:06:17.300]  
+[00:06:17.300 -> 00:06:17.620]  uh
+[00:06:17.620 -> 00:06:17.620]  
+[00:06:17.620 -> 00:06:17.620]  
+[00:06:17.620 -> 00:06:17.620]  
+[00:06:17.620 -> 00:06:17.620]  
+[00:06:17.620 -> 00:06:17.620]  
+[00:06:17.620 -> 00:06:17.620]  
+[00:06:17.620 -> 00:06:17.620]  
+[00:06:17.620 -> 00:06:17.620]  
+[00:06:17.680 -> 00:06:24.280]  there we go okay there we got goodbye so what happened here is it spawned a task
+[00:06:24.280 -> 00:06:31.060]  and immediately exited and it didn't do anything now if we say god print
+[00:06:41.840 -> 00:06:49.300]  task okay so he's passing his standard his standard out is being passed as a parameter
+[00:06:51.460 -> 00:06:59.840]  let's look at spawn you should get you should memorize this the address of the code the
+[00:06:59.840 -> 00:07:10.360]  address of the function a data item the name and then the target CPU minus one is
+[00:07:10.360 -> 00:07:15.140]  that anyway I don't remember I think it's a current okay so
+[00:07:32.620 -> 00:07:41.480]  okay now let's go control B let's do a tiny sleep
+[00:07:44.360 -> 00:07:51.320]  sleep for a hundred okay it's gonna make a heat it's gonna make a thousand tasks and they're all
+[00:07:51.320 -> 00:07:57.700]  gonna sleep and then they're all gonna print and that the the standard out has a lock so
+[00:07:59.240 -> 00:08:14.860]  we got that did not take very long okay so let's see pow okay so they all
+[00:08:17.880 -> 00:08:20.180]  now if you want to do multiple cores
+[00:08:24.800 -> 00:08:28.300]  job come I and seven
+[00:08:31.320 -> 00:08:37.300]  wow that's actually seven course let's uh let's slow it down so that we can see what's going on
+[00:08:37.300 -> 00:08:50.220]  let's put it on let's put 10 let's do 10 seconds ready pow okay so these do not have windows okay on the mat on the uh
+[00:08:50.220 -> 00:09:02.900]  wallpaper is all the cores there they were waiting okay so if you now there is a trick uh
+[00:09:05.740 -> 00:09:07.600]  as a matter of fact
+[00:09:10.420 -> 00:09:21.580]  what we did is bad because you see this code this is in the memory of the parent
+[00:09:25.120 -> 00:09:37.180]  we we we execute those and we are not synchronous and then we exit and we free the the code memory so
+[00:09:37.180 -> 00:09:44.740]  this mem this code memory has been freed if we exit so we need to wait for them to finish
+[00:09:46.680 -> 00:09:51.280]  uh well if you want to do it the african way
+[00:09:55.020 -> 00:09:56.760]  you can do it like that
+[00:10:05.820 -> 00:10:09.460]  now it's only a problem if it gets reused
+[00:10:11.020 -> 00:10:21.020]  or we can you want to how would we do this i-64i you know what we do tell you what we do block
+[00:10:23.460 -> 00:10:24.840]  i minus minus
+[00:10:28.240 -> 00:10:32.700]  you might ask what does this do well
+[00:10:34.280 -> 00:10:35.200]  how about
+[00:10:42.840 -> 00:10:44.280]  let's kick this up to
+[00:10:50.240 -> 00:10:50.740]  okay
+[00:10:57.300 -> 00:10:57.760]  okay
+[00:10:57.760 -> 00:10:57.880]  okay
+[00:10:59.840 -> 00:11:03.120]  oh i did it for a long time we got
+[00:11:08.940 -> 00:11:16.160]  now we don't have preemption anymore we used to have preemption but i got rid of it because
+[00:11:18.280 -> 00:11:20.220]  my users are stupid
+[00:11:23.840 -> 00:11:24.960]  they can't handle
+[00:11:26.160 -> 00:11:27.260]  okay so uh
+[00:11:28.320 -> 00:11:30.220]  you know what we do here here we say
+[00:11:31.320 -> 00:11:32.920]  while count
+[00:11:34.080 -> 00:11:34.880]  yield
+[00:11:44.440 -> 00:11:45.780]  and it exited
+[00:11:46.720 -> 00:11:47.360]  beautiful
+[00:11:48.440 -> 00:11:49.080]  beautiful
+[00:11:50.640 -> 00:11:52.120]  just for grins
+[00:11:53.580 -> 00:11:56.440]  what do you think will happen if we say percent d
+[00:11:57.320 -> 00:11:57.960]  count
+[00:11:59.220 -> 00:12:00.740]  it's not going to be pretty
+[00:12:09.180 -> 00:12:12.800]  print there is no preemption and therefore
+[00:12:17.200 -> 00:12:17.860]  therefore
+[00:12:19.040 -> 00:12:20.280]  this code
+[00:12:21.140 -> 00:12:23.140]  pretty much executes atomically
+[00:12:23.140 -> 00:12:23.460]  uh
+[00:12:25.960 -> 00:12:27.980]  now except for multi-core
+[00:12:27.980 -> 00:12:30.120]  well multi-core means uh
+[00:12:32.720 -> 00:12:37.320]  you might you might not think we have multi-core but we do
+[00:12:41.960 -> 00:12:44.860]  4i equals 0i less than
+[00:12:45.560 -> 00:12:47.840]  1 1 2 3 1 2 3
+[00:12:51.240 -> 00:12:55.100]  okay we are going to make the computer sweat
+[00:12:59.300 -> 00:12:59.920]  okay
+[00:13:01.700 -> 00:13:02.320]  so
+[00:13:03.700 -> 00:13:04.660]  let's uh
+[00:13:06.180 -> 00:13:07.200]  let's do
+[00:13:08.420 -> 00:13:10.080]  oh that's not going to be any good
+[00:13:10.080 -> 00:13:12.120]  well no anyway
+[00:13:13.200 -> 00:13:15.540]  it's multi-core take my word for it
+[00:13:17.080 -> 00:13:17.700]  so
+[00:13:20.100 -> 00:13:22.220]  each task has a symbol table
+[00:13:22.900 -> 00:13:24.000]  task inherit
+[00:13:24.000 -> 00:13:27.500]  or if it's not found in the child that searches the parent
+[00:13:27.500 -> 00:13:29.100]  so if you say who
+[00:13:30.700 -> 00:13:31.700]  minus r
+[00:13:34.340 -> 00:13:40.600]  there are no symbols but if we if we run this if we hit f5 it's a new task
+[00:13:40.600 -> 00:13:42.620]  if we hit include
+[00:13:43.560 -> 00:13:45.120]  it's the same task
+[00:13:45.980 -> 00:13:47.440]  now if we say who
+[00:13:48.560 -> 00:13:49.600]  minus r
+[00:13:51.400 -> 00:13:55.600]  so all the compiler symbols go into the
+[00:13:55.600 -> 00:13:58.760]  it's kind of like the scope of an environment variable
+[00:13:59.440 -> 00:14:01.080]  except uh anyway
+[00:14:01.840 -> 00:14:03.060]  so we can say count
+[00:14:05.760 -> 00:14:06.860]  now let's unassemble
+[00:14:09.280 -> 00:14:10.100]  my task
+[00:14:12.080 -> 00:14:12.900]  do you remember
+[00:14:13.920 -> 00:14:15.360]  i want to point out
+[00:14:15.360 -> 00:14:17.020]  you see this lock
+[00:14:17.020 -> 00:14:19.360]  that's for multi-core
+[00:14:23.180 -> 00:14:23.440]  um
+[00:14:26.940 -> 00:14:28.080]  it doesn't always work
+[00:14:32.860 -> 00:14:36.160]  um it doesn't put the lock on correctly
+[00:14:37.100 -> 00:14:38.100]  for some
+[00:14:40.020 -> 00:14:42.040]  if you do a fancy addressing
+[00:14:42.820 -> 00:14:44.200]  and it's only
+[00:14:44.200 -> 00:14:45.260]  well anyway
+[00:14:51.120 -> 00:14:52.940]  so there we go
+[00:14:52.940 -> 00:14:55.440]  so all tasks have the same memory map
+[00:14:56.180 -> 00:14:57.040]  at all times
+[00:14:57.040 -> 00:14:59.900]  all memory is accessible at all times
+[00:14:59.900 -> 00:15:05.280]  so for example uh if i say address account over here
+[00:15:06.940 -> 00:15:08.520]  and over here i say
+[00:15:09.500 -> 00:15:11.660]  i64 star pointer
+[00:15:12.380 -> 00:15:13.600]  equals 0x
+[00:15:14.300 -> 00:15:15.220]  3f
+[00:15:15.820 -> 00:15:16.880]  d77
+[00:15:17.740 -> 00:15:18.860]  d90
+[00:15:20.540 -> 00:15:21.580]  star pointer
+[00:15:21.580 -> 00:15:23.980]  equals 1 2 3 4 5 6
+[00:15:24.700 -> 00:15:26.100]  and if i go over here
+[00:15:27.720 -> 00:15:29.120]  and i say count
+[00:15:30.360 -> 00:15:32.460]  1 2 3 4 5 6
+[00:15:34.120 -> 00:15:34.760]  so
+[00:15:37.080 -> 00:15:37.920]  it's uh
+[00:15:37.920 -> 00:15:39.100]  it's super simple
+[00:15:40.600 -> 00:15:45.400]  other operating systems have to worry about inter-process communication
+[00:15:46.220 -> 00:15:49.440]  well everything is wide open and we're all on the same map
+[00:15:49.440 -> 00:15:50.200]  so
+[00:15:50.200 -> 00:15:52.300]  sometimes i call this uh
+[00:15:53.280 -> 00:15:55.760]  single process multiple thread
+[00:15:56.400 -> 00:15:58.400]  as opposed to multi-processing
+[00:16:00.080 -> 00:16:00.600]  i think
+[00:16:01.120 -> 00:16:05.920]  to imagine the entire operating system has one process
+[00:16:08.800 -> 00:16:11.600]  and all the tasks are threads
+[00:16:13.920 -> 00:16:16.720]  except they're they all share the same memory
+[00:16:16.720 -> 00:16:18.060]  it's it's it's
+[00:16:18.060 -> 00:16:21.720]  i don't even know why i have to explain it
+[00:16:21.720 -> 00:16:24.720]  it's it's the simplest case all memory is
+[00:16:26.560 -> 00:16:30.100]  no paging and there is paging but it's not really used
+[00:16:31.980 -> 00:16:32.700]  anyway

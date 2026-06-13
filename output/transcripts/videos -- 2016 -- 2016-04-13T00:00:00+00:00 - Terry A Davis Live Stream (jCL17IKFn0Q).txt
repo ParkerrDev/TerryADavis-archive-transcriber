@@ -1,0 +1,342 @@
+========================================================================
+FILE        : videos/2016/2016-04-13T00:00:00+00:00 - Terry A Davis Live Stream (jCL17IKFn0Q).webm
+SOURCE URL  : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2016/2016-04-13T00:00:00+00:00 - Terry A Davis Live Stream (jCL17IKFn0Q).webm
+DERIVATIVE  : (none — streamed from video)
+FORMAT      : WebM
+SIZE        : 109,332,056 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:27:40.040
+TRANSCRIBED : 2026-05-14T19:22:42.876508+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+so um an interrupt is what uh what is an interrupt uh if you're sitting in your room and your phone rings that's an interrupt if you pick up if the phone doesn't have a working buzzer and you pick it up every five seconds that's called polling and if you uh if you you can pull if uh if your friend agrees to wait on the line for five minutes then as long as you check the phone every three minutes as long as he waits for five minutes you're okay but and what what that means is uh the mouse if you can't get interrupt 12 working just check it every 50 times a second and uh that's good enough um okay well let's in the kernel in the ints k ints first you have to set up the two interrupt controllers um 8259 uh we learned this in school um that just needs hold on oh okay anyway uh there's one at 20 port 20 and there's one at port port a zero there um these are these are the traditional uh ibm pc interrupts they start with uh it's zero zero to uh well there's there's 16 interrupts starting with zero anyway um the processor can have has 256 uh vectors that means um uh what would be the analogy i guess you have a doorbell you have a telephone buzzer you have a uh i don't know anyway there's 16 different um hardware interrupts the others are um can be software uh what that means is uh oh i don't think i want to teach i just want to show you my operator system i'm not going to teach you x86 architecture so i set up my interrupts i don't use the achi advanced interrupt controller or whatever the hell that is i uh there's there's a newer mechanism for interrupts that's newer than the old school but it's really complicated so i don't um um i did a demo in my demo lecture directory if you go to demo lectures do pci interrupts this this attempts to uh or this does pci interrupts i'm gonna hit a keyboard about five times okay so instead of instead of instead of 16 interrupts you have like a b c and d but it's pretty crazy i don't even understand it to be quite honest um i hit my keyboard eight times so this is this is the usb but uh uh uh this is the ace advanced interrupt controller um so there's a b c and d but there's uh i don't even understand it anyway i i read through it enough to uh make this demo and then i forgot the the problem is uh even if i it's too complicated uh figuring out which interrupt goes to what device so i decided that was beyond the scope of temple os um it's actually clusterfucked on purpose by the cia but never mind anyway so using the old interrupts so we have to set up the uh the 256 vectors um only only 16 are hardware so do you know what a software interrupt is it's basically uh well uh i i think i only use one software interrupt and that's non-maskable i don't remember um software interrupts are slow and i have no reason to use them i don't change privilege privilege levels and i don't change stack so the software interrupts are uh i don't even think linux likes to use them they use a uh syscall and stuff or whatever so there's uh 16 hardware interrupts number number two is the now these two uh these two controllers uh they're cascaded what that means is uh um the secondary chip uh is connected to one pin on the primary and so interrupt two they have masters and slaves anyway so in the uh let's go find the intel data sheet this is your best friend if you're making an operating system um what are we looking for we are looking for i think number three number three a okay we're looking for interrupts so uh everybody at os dev is working working on 32-bit operating systems um we need to look at the interrupt table for interrupt descriptor table for uh you get these basically the first uh four times 256 bytes are uh in real mode that's your interrupt vector table um in uh protected mode and long mode you have a register that points to your table so you can put it in other places in real mode it used to go at address zero and that's why um you don't see those used for other things that's why things don't start at address zero in real mode uh so uh let's look at uh 64-bit mode i don't think this basically they're double the size and uh there's three types of interrupt descriptor table entries uh handling in 64-bit mode okay 64-bit mode okay so it's uh there's this is 32 and another 32 and another 32 and another 32 and another 32 so it's double the size um so the vector is uh kind of broken in pieces isn't that lovely so you have uh you have the vector starting zero to 15 16 to 32 and then the rest of it and uh then you have there's three types of uh interrupt descriptor table entries uh there's a trap there's a irq and there's a uh i don't know i i we only do the irqs pretty much um i don't do software interrupts i did a long time ago for uh i did some math operations i had multiply and divide i think uh for anyway i had it um that was way back in 2005 anyway um so these these have to normally you change from ring three to ring zero to do system information you know all this stuff got really messed up now they don't even most of this stuff is uh is uh uh vestigial i don't know what you want to call it i think i think uh i think linux uses uh sys calls linux and windows so this stuff is kind of like this did you know how humans have tail bones anyway so uh so i i you saw where the first 16 bits were uh the first 16 bits of the vector and then the other 16 and then the other 32 so right here it's filling in an interrupt table vector i do post fix typecasting so i have a pointer and i'm typecasting it and uh there's three different types there's an irq there's a trap and there's a task a task gate uh one of them has one of them turns off the uh the interrupt flag and one keeps it on that's there's there's there's an irq which is a hardware and then i don't remember there's one that that keeps normally you want to turn off interrupts until you finish and enable them um so that when the vector is called that's normally called with interrupts off and then um you need to oh well let's go look at a hand a handler so i uh oh i forgot i totally forgot the first 32 interrupts are uh are processor uh uh uh uh traps or so i don't know what the terminology is the first 32 interrupts are uh you interrupt 13 is a protected protection fault isn't that what it is um there's a uh page fault i should know anyway uh there's divide by zero which is number zero and then there's an unmaskable there's one that that happens even if interrupts are turned off and what i reserved that for i got to thinking uh what do i do with if a core has is crashed and a core has interrupts turned off and so what i decided was uh i was going to use my unmaskable for uh rescuing a uh a core that got turned off i think i think that's what this is i remember so when you start getting into multi-core interrupts um they're done they're kind of like software interrupts you write a number to it to a uh you make a software interrupt by uh for a multi-core by uh uh uh you multi-core interrupt you write the interrupt number you want to be generated and stuff like that non-maskable generate non-maskable so you just these numbers here are uh you start getting into uh instead of using the interrupt pin they start they start sending stuff over the bus uh what do they call those system management i don't know if that's system management i don't know anyway the advanced interrupts are something i don't want to deal with um so once you once you have let's go look at so i use the timer interrupt which is number zero where is my interrupt handler the timer uh i have a jiffy count i think this is called a thousand times a second it's interrupt zero which means it's interrupt 32 um there it's hard there it's hardware interrupt zero zero out of 16 and it's uh it's mapped to vector 32 which is the first one um after the uh the ones used for the processor it calls a uh it calls a calls a routine that i have now i generate a uh multi-core interrupt on all the other cores every time i get it only core zero i don't know is that true only core zero gets interrupts and um i generate an interrupt so i get a thousand interrupts a second and in my interrupt handler i i i i interrupt all the other cores a thousand times a second and uh i used to uh do preemption and i would i would change tasks but i i i don't do preemption anymore and so this timer interrupt doesn't really do a whole lot um it used to be critical for preemption but that i decided was beyond the scope uh so uh as you can see i've uh i've i've made some deliberate choices to keep it uh simple simple and when i started seeing it getting cruddy crappy and clusterfucked i said this is not this is beyond the scope of what i want so i got rid of preemption we we don't use the advanced interrupts um they don't really provide anything better i mean a keyboard is a keyboard right it's not like you have a good keyboard handler and a bad keyboard handler you know a mouse either a mouse works or it doesn't work it's not like there's a good mouse and you can't make the mouse better with usb handlers or something so uh so let's go look at so interrupt zero zero is the timer one is the keyboard 12 is the mouse and uh uh are those the only ones we deal with uh now the keyboard and the mouse are ps2 legacy mode i don't use usb mode um and uh they they they routed them into the same io ports and so they get mixed up um your keyboard and mouse uh data packets get mixed up unless you access them in the interrupt whenever you get a one interrupt read all make sure to read all the keyboard byte packet bytes when you get a 12 interrupt make sure to read all the mouse bytes and it turns out i've had computers where the bios enabled the keyboard but it it up the mouse and so i had to pull the mouse when the bios starts it it sets these things up and gets them running and um i've had cases where the the mouse interrupt didn't work and i fortunately i could pull um if the timer interrupt is interrupting a thousand times a second then all you do is you it's like you pick up the telephone a thousand times a second as long as you can check it real fast it's not really a problem so in my so i do am i missing one i think i'm missing one i don't remember anyway uh so when i set up my keyboard uh this is keyboard handler uh this is keyboard handler this initializes the keyboard it it calls the the routine to set the vector in the table and then it uh unmasks it there's a uh it's keyboard is number one and what are we doing zero one that's a two because it's a bit value bit you have eight bits in in the mask a one is interrupt zero so it reads the old value of the mask and then it clears the bit and then it it pokes it to it sends it out and um so we're telling it i irq keyboard so irq keyboard is my actual this is my actual handler when the vector is triggered it uh it goes to this routine now i um i made my compiler smart enough to uh the old compilers used to uh turbo compiler turbo c everyone used to write interrupt routines and so the compiler had a key word now whatever whenever it whenever it sees the interrupt routine the interrupt keyword then that means the return is an iret and all the all the registers that normally get destroyed it is careful to preserve those so it preserves all these and it uses an iret so uh my compiler is so kick ass that it has a uh it has an interrupt keyword for uh putting in front in front of uh interrupt keyword in front of the handler and that's all you have to do here it's clearing the direction when you do a um move move string constant or there's anyway that gets preserved the interrupt uh pops the flags when it's done and that returns them anyway so what do we do in here we uh we acknowledge the interrupt to the this is to the master um when we do interrupt 12 let's go ahead and look at the mouse so the mouse it has an interrupt handler and this has to acknowledge both the master and the slave acknowledge the slave and then you acknowledge the master these are the two interrupt controllers that each do eight they're cascaded and we read a packet i um i check if we've had a timeout error and reset it sometimes a i think a packet is like three bytes or something and uh four bytes four bytes if if something got screwed up you would want to you want to flush the old few couple bites if it's been too long you want i don't know some of this stuff i'm i'm not actually sure is necessary but i do it um as a matter of fact when you're using vmware um as a matter of fact why it when you're using vmware once in a while you can i'm pretty sure you can miss a a byte and then you get out of sync if you're expecting three byte packets and you get out of sync that's bad so uh i i get the time stamp the time stamp is the fastest uh timer you can read what i mean is uh well h pet is just as fat there i'm not talking about frequency i'm talking about how fast you can read it there's the there's a uh well h pet is pretty fast but i've had things that didn't have an h high performance event timer um the problem with the time stamp count is uh it's this is like three gigahertz but the uh the processor gets throttled and stuff like that so it's actually um it's anyway um so uh i use a fifo for my packets they're so tiny i i really didn't need that but i i went ahead and did it uh i think it's three bytes um and uh this is checking if we have too many and uh what is it doing oh it's transferring them from a uh there's two fifos fifo zero and fifo two um i i think that's just uh why did i do that if it gets a a well-formed packet it transfers it and as a matter of fact i might do that in the timer i have a uh window manager task um i have a couple of executives um the atom task doesn't really the atom doesn't run the atom task doesn't run all the time the seth tasks do run the window manager runs the atom task i think stays asleep until he actually gets a request the window manager runs um the window manager runs 50 times a second i think no 30 times a second we we refresh the screen 30 times a second i don't even remember uh so i have a couple of uh maintenance i think we process the mouse packets and keyboard packets i think they call it pumping the packets um so he has a the window manager has a sleep uh window manager sleep so this is kind of like the uh the idle i don't know what you want to call it when i can go ahead and explain when you're uh when you grab a window and move it what has happened is the window manager has detected the left button down on the title bar and that enters like a state machine um when it gets the left button down if the old left button was down and the new left button is up okay what we in that case we want old old left button is we want old left button old left button up new left button down then some of these things stay in a loop and uh as they're looping they're calling uh the sleep and uh that's the way the uh the window manager manages so you get these loops where it's calling the sleep waiting for the button to be released and so the sleep uh uh i think anyway the sleep pumps the uh the it pumps the messages so it it takes them out of the fifo and processes them and gives and it gives them to the windows that are the tasks in question so uh how about that uh let's let's call it call it a day how about that how about that!
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:05.980 -> 00:00:14.700]  so um an interrupt is what uh what is an interrupt uh
+[00:00:17.940 -> 00:00:24.440]  if you're sitting in your room and your phone rings that's an interrupt if you pick up if the
+[00:00:24.440 -> 00:00:32.020]  phone doesn't have a working buzzer and you pick it up every five seconds that's called polling and
+[00:00:35.820 -> 00:00:37.060]  if you uh
+[00:00:40.760 -> 00:00:48.800]  if you you can pull if uh if your friend agrees to wait on the line for five minutes
+[00:00:49.360 -> 00:00:55.940]  then as long as you check the phone every three minutes as long as he waits for five minutes you're
+[00:00:55.940 -> 00:01:09.000]  okay but and what what that means is uh the mouse if you can't get interrupt 12 working
+[00:01:09.000 -> 00:01:17.980]  just check it every 50 times a second and uh that's good enough
+[00:01:20.020 -> 00:01:22.660]  um okay well let's
+[00:01:26.680 -> 00:01:31.440]  in the kernel in the ints k ints
+[00:01:34.920 -> 00:01:46.280]  first you have to set up the two interrupt controllers um 8259 uh we learned this in school um
+[00:01:49.920 -> 00:01:52.840]  that just needs hold on oh okay anyway uh
+[00:01:55.180 -> 00:02:05.080]  there's one at 20 port 20 and there's one at port port a zero there um these are these are the
+[00:02:05.080 -> 00:02:13.580]  traditional uh ibm pc interrupts they start with uh it's zero zero to
+[00:02:13.580 -> 00:02:21.720]  uh well there's there's 16 interrupts starting with zero anyway um
+[00:02:24.940 -> 00:02:32.680]  the processor can have has 256 uh vectors that means um
+[00:02:36.700 -> 00:02:44.780]  uh what would be the analogy i guess you have a doorbell you have a telephone buzzer you have a uh
+[00:02:46.000 -> 00:02:55.440]  i don't know anyway there's 16 different um hardware interrupts the others are um can be software uh what
+[00:02:55.440 -> 00:03:02.660]  that means is uh oh i don't think i want to teach i just want to show you my operator
+[00:03:02.680 -> 00:03:12.020]  system i'm not going to teach you x86 architecture so i set up my interrupts i don't use the achi
+[00:03:12.640 -> 00:03:19.080]  advanced interrupt controller or whatever the hell that is i uh there's there's a newer
+[00:03:19.900 -> 00:03:27.320]  mechanism for interrupts that's newer than the old school but it's really complicated so i don't um
+[00:03:27.320 -> 00:03:37.620]  um i did a demo in my demo lecture directory if you go to demo lectures do pci interrupts
+[00:03:37.620 -> 00:03:46.940]  this this attempts to uh or this does pci interrupts i'm gonna hit a keyboard about five times okay so
+[00:03:48.300 -> 00:03:56.020]  instead of instead of instead of 16 interrupts you have like a b c and d but it's pretty crazy i don't
+[00:03:56.020 -> 00:04:05.160]  even understand it to be quite honest um i hit my keyboard eight times so this is this is the usb but uh
+[00:04:06.100 -> 00:04:19.620]  uh uh this is the ace advanced interrupt controller um so there's a b c and d but there's uh
+[00:04:20.520 -> 00:04:29.120]  i don't even understand it anyway i i read through it enough to uh make this demo and then i forgot the
+[00:04:29.120 -> 00:04:38.900]  the problem is uh even if i it's too complicated uh figuring out which interrupt goes to what device
+[00:04:40.000 -> 00:04:49.960]  so i decided that was beyond the scope of temple os um it's actually clusterfucked on purpose by the cia
+[00:04:51.660 -> 00:05:00.820]  but never mind anyway so using the old interrupts so we have to set up the uh the 256 vectors um
+[00:05:01.560 -> 00:05:08.060]  only only 16 are hardware so do you know what a software interrupt is it's basically uh well
+[00:05:10.280 -> 00:05:20.340]  uh i i think i only use one software interrupt and that's non-maskable i don't remember um software
+[00:05:20.340 -> 00:05:26.260]  interrupts are slow and i have no reason to use them i don't change privilege privilege levels and i
+[00:05:26.260 -> 00:05:31.680]  don't change stack so the software interrupts are uh i don't even think linux likes to use them
+[00:05:31.680 -> 00:05:36.520]  they use a uh syscall and stuff or whatever
+[00:05:40.160 -> 00:05:51.020]  so there's uh 16 hardware interrupts number number two is the now these two uh these two controllers
+[00:05:53.380 -> 00:06:05.420]  uh they're cascaded what that means is uh um the secondary chip uh is connected to one pin on the primary
+[00:06:06.540 -> 00:06:13.060]  and so interrupt two they have masters and slaves anyway
+[00:06:15.260 -> 00:06:24.460]  so in the uh let's go find the intel data sheet this is your best friend if you're making an operating system
+[00:06:25.460 -> 00:06:26.080]  um
+[00:06:28.180 -> 00:06:30.780]  what are we looking for we are looking for
+[00:06:35.580 -> 00:06:38.980]  i think number three number three a
+[00:06:45.640 -> 00:06:55.920]  okay we're looking for interrupts so uh everybody at os dev is working working on 32-bit operating systems
+[00:06:55.920 -> 00:07:07.460]  um we need to look at the interrupt table for interrupt descriptor table for uh you get these
+[00:07:09.100 -> 00:07:12.120]  basically the first uh
+[00:07:14.320 -> 00:07:24.280]  four times 256 bytes are uh in real mode that's your interrupt vector table
+[00:07:25.200 -> 00:07:34.900]  um in uh protected mode and long mode you have a register that points to your table so you can put it in other
+[00:07:34.900 -> 00:07:40.720]  places in real mode it used to go at address zero and that's why um
+[00:07:43.060 -> 00:07:51.120]  you don't see those used for other things that's why things don't start at address zero in real mode
+[00:07:53.160 -> 00:07:59.960]  uh so uh let's look at uh 64-bit mode
+[00:08:02.880 -> 00:08:04.220]  i don't think this
+[00:08:06.480 -> 00:08:10.320]  basically they're double the size and uh
+[00:08:12.220 -> 00:08:16.220]  there's three types of interrupt descriptor table entries
+[00:08:16.220 -> 00:08:27.160]  uh handling in 64-bit mode okay 64-bit mode okay so it's uh
+[00:08:28.840 -> 00:08:36.700]  there's this is 32 and another 32 and another 32 and another 32 and another 32 so it's double the size
+[00:08:37.420 -> 00:08:41.040]  um so the vector is uh kind of broken in pieces
+[00:08:43.340 -> 00:08:53.260]  isn't that lovely so you have uh you have the vector starting zero to 15 16 to 32 and then the rest of it
+[00:08:53.920 -> 00:09:04.320]  and uh then you have there's three types of uh interrupt descriptor table entries uh there's a trap there's a
+[00:09:04.920 -> 00:09:10.480]  irq and there's a uh i don't know i i
+[00:09:14.780 -> 00:09:21.280]  we only do the irqs pretty much um i don't do software interrupts i did a long time ago for uh
+[00:09:22.620 -> 00:09:28.260]  i did some math operations i had multiply and divide i think uh for
+[00:09:29.140 -> 00:09:35.280]  anyway i had it um that was way back in 2005 anyway um
+[00:09:37.440 -> 00:09:45.920]  so these these have to normally you change from ring three to ring zero to do system information you know
+[00:09:45.920 -> 00:09:51.820]  all this stuff got really messed up now they don't even most of this stuff is uh is uh
+[00:09:51.820 -> 00:10:01.020]  uh vestigial i don't know what you want to call it i think i think uh i think linux uses uh sys calls
+[00:10:01.020 -> 00:10:10.360]  linux and windows so this stuff is kind of like this did you know how humans have tail bones anyway
+[00:10:12.440 -> 00:10:21.620]  so uh so i i you saw where the first 16 bits were uh the first 16 bits of the vector
+[00:10:22.380 -> 00:10:28.780]  and then the other 16 and then the other 32 so right here it's filling in an interrupt table vector
+[00:10:29.420 -> 00:10:41.060]  i do post fix typecasting so i have a pointer and i'm typecasting it and uh there's three different
+[00:10:41.060 -> 00:10:46.820]  types there's an irq there's a trap and there's a task a task gate
+[00:10:46.820 -> 00:10:57.560]  uh one of them has one of them turns off the uh the interrupt flag and one keeps it on that's there's
+[00:10:57.560 -> 00:11:04.900]  there's there's an irq which is a hardware and then i don't remember there's one that that keeps
+[00:11:05.760 -> 00:11:13.880]  normally you want to turn off interrupts until you finish and enable them um so that when the vector is
+[00:11:13.880 -> 00:11:21.540]  called that's normally called with interrupts off and then um you need to oh well let's go look at a hand
+[00:11:21.540 -> 00:11:35.160]  a handler so i uh oh i forgot i totally forgot the first 32 interrupts are uh are processor uh uh uh
+[00:11:35.480 -> 00:11:44.840]  uh traps or so i don't know what the terminology is the first 32 interrupts are uh you interrupt 13 is a
+[00:11:44.840 -> 00:11:45.340]  protected
+[00:11:47.320 -> 00:11:56.360]  protection fault isn't that what it is um there's a uh page fault i should know anyway
+[00:12:00.280 -> 00:12:08.200]  uh there's divide by zero which is number zero and then there's an unmaskable there's one that that
+[00:12:08.200 -> 00:12:17.200]  happens even if interrupts are turned off and what i reserved that for i got to thinking uh what do i do
+[00:12:17.200 -> 00:12:25.600]  with if a core has is crashed and a core has interrupts turned off and so what i decided was uh
+[00:12:26.760 -> 00:12:35.780]  i was going to use my unmaskable for uh rescuing a uh a core that got turned off i think
+[00:12:38.820 -> 00:12:46.420]  i think that's what this is i remember so when you start getting into multi-core interrupts um they're
+[00:12:46.420 -> 00:12:51.600]  done they're kind of like software interrupts you write a number to it to a uh
+[00:12:54.160 -> 00:12:59.820]  you make a software interrupt by uh for a multi-core by uh
+[00:13:02.060 -> 00:13:02.320]  uh
+[00:13:02.880 -> 00:13:03.700]  uh
+[00:13:06.620 -> 00:13:07.440]  you
+[00:13:09.020 -> 00:13:17.220]  multi-core interrupt you write the interrupt number you want to be generated and stuff like that
+[00:13:18.000 -> 00:13:24.780]  non-maskable generate non-maskable so you just these numbers here are uh
+[00:13:27.640 -> 00:13:34.780]  you start getting into uh instead of using the interrupt pin they start they start sending stuff
+[00:13:34.780 -> 00:13:35.600]  over the bus
+[00:13:36.720 -> 00:13:41.660]  uh what do they call those system management i don't know if that's system management i don't know
+[00:13:42.080 -> 00:13:46.560]  anyway the advanced interrupts are something i don't want to deal with
+[00:13:46.560 -> 00:13:56.280]  um so once you once you have let's go look at so i use the timer interrupt which is number zero
+[00:13:57.020 -> 00:13:58.840]  where is my interrupt handler
+[00:14:00.920 -> 00:14:10.640]  the timer uh i have a jiffy count i think this is called a thousand times a second it's interrupt zero
+[00:14:11.160 -> 00:14:20.420]  which means it's interrupt 32 um there it's hard there it's hardware interrupt zero zero out of 16
+[00:14:21.220 -> 00:14:30.280]  and it's uh it's mapped to vector 32 which is the first one um after the uh
+[00:14:33.000 -> 00:14:37.960]  the ones used for the processor it calls a uh
+[00:14:40.660 -> 00:14:50.200]  it calls a calls a routine that i have now i generate a uh multi-core interrupt on all the other cores
+[00:14:50.420 -> 00:14:55.780]  every time i get it only core zero i don't know is that true only core zero gets interrupts
+[00:14:58.060 -> 00:15:06.340]  and um i generate an interrupt so i get a thousand interrupts a second and in my interrupt handler i
+[00:15:07.300 -> 00:15:15.080]  i i i interrupt all the other cores a thousand times a second and uh i used to uh do preemption and
+[00:15:15.080 -> 00:15:22.940]  i would i would change tasks but i i i don't do preemption anymore and so this timer interrupt doesn't
+[00:15:22.940 -> 00:15:31.560]  really do a whole lot um it used to be critical for preemption but that i decided was beyond the scope
+[00:15:31.560 -> 00:15:39.860]  uh so uh as you can see i've uh i've i've made some deliberate choices to keep it uh simple simple
+[00:15:40.460 -> 00:15:46.220]  and when i started seeing it getting cruddy crappy and clusterfucked i said this is not
+[00:15:46.760 -> 00:15:53.500]  this is beyond the scope of what i want so i got rid of preemption we we don't use the advanced interrupts
+[00:15:55.780 -> 00:16:02.080]  um they don't really provide anything better i mean a keyboard is a keyboard right it's not like
+[00:16:02.080 -> 00:16:07.740]  you have a good keyboard handler and a bad keyboard handler you know a mouse either a mouse works or
+[00:16:07.740 -> 00:16:11.920]  it doesn't work it's not like there's a good mouse and you can't make the mouse better with
+[00:16:14.180 -> 00:16:28.460]  usb handlers or something so uh so let's go look at so interrupt zero zero is the timer one is the keyboard
+[00:16:31.040 -> 00:16:35.360]  12 is the mouse and uh
+[00:16:38.300 -> 00:16:47.220]  uh are those the only ones we deal with uh now the keyboard and the mouse are ps2 legacy mode
+[00:16:47.840 -> 00:17:00.220]  i don't use usb mode um and uh they they they routed them into the same io ports and so
+[00:17:00.220 -> 00:17:11.200]  they get mixed up um your keyboard and mouse uh data packets get mixed up unless you access them in
+[00:17:11.200 -> 00:17:19.620]  the interrupt whenever you get a one interrupt read all make sure to read all the keyboard byte packet
+[00:17:19.620 -> 00:17:27.040]  bytes when you get a 12 interrupt make sure to read all the mouse bytes and it turns out i've had
+[00:17:27.040 -> 00:17:35.800]  computers where the bios enabled the keyboard but it it up the mouse and so i had to pull the mouse
+[00:17:36.560 -> 00:17:41.600]  when the bios starts it it sets these things up and gets them running and um
+[00:17:43.400 -> 00:17:50.840]  i've had cases where the the mouse interrupt didn't work and i fortunately i could pull um if the timer
+[00:17:50.840 -> 00:17:56.880]  interrupt is interrupting a thousand times a second then all you do is you it's like you pick up the
+[00:17:56.880 -> 00:18:02.660]  telephone a thousand times a second as long as you can check it real fast it's not really a problem
+[00:18:06.080 -> 00:18:08.740]  so in my so i do
+[00:18:10.920 -> 00:18:18.500]  am i missing one i think i'm missing one i don't remember anyway uh so when i set up my keyboard
+[00:18:18.500 -> 00:18:27.180]  uh this is keyboard handler uh this is keyboard handler
+[00:18:27.180 -> 00:18:32.960]  this initializes the keyboard it it calls the the routine to set the vector in the table
+[00:18:33.700 -> 00:18:40.420]  and then it uh unmasks it there's a uh it's keyboard is number one
+[00:18:40.420 -> 00:18:52.220]  and what are we doing zero one that's a two because it's a bit value bit you have eight bits in in the mask
+[00:18:53.380 -> 00:19:03.920]  a one is interrupt zero so it reads the old value of the mask and then it clears the bit and then it
+[00:19:03.920 -> 00:19:06.840]  it pokes it to it sends it out
+[00:19:09.460 -> 00:19:18.700]  and um so we're telling it i irq keyboard so irq keyboard is my actual this is my actual handler
+[00:19:19.680 -> 00:19:31.320]  when the vector is triggered it uh it goes to this routine now i um i made my compiler smart enough to uh
+[00:19:36.380 -> 00:19:40.020]  the old compilers used to uh
+[00:19:46.440 -> 00:19:48.460]  turbo compiler turbo c
+[00:19:51.080 -> 00:19:56.780]  everyone used to write interrupt routines and so the compiler had a key word
+[00:19:59.200 -> 00:20:06.000]  now whatever whenever it whenever it sees the interrupt routine the interrupt keyword then that
+[00:20:06.000 -> 00:20:12.280]  means the return is an iret and all the all the registers that normally get destroyed
+[00:20:13.260 -> 00:20:20.440]  it is careful to preserve those so it preserves all these and it uses an iret
+[00:20:22.960 -> 00:20:28.760]  so uh my compiler is so kick ass that it has a uh
+[00:20:32.760 -> 00:20:38.640]  it has an interrupt keyword for uh putting in front in front of uh
+[00:20:42.880 -> 00:20:47.680]  interrupt keyword in front of the handler and that's all you have to do
+[00:20:47.680 -> 00:20:50.280]  here it's clearing the direction
+[00:20:53.120 -> 00:20:58.840]  when you do a um move move string constant or there's
+[00:21:01.280 -> 00:21:01.640]  anyway
+[00:21:04.400 -> 00:21:12.700]  that gets preserved the interrupt uh pops the flags when it's done and that returns them anyway
+[00:21:13.560 -> 00:21:15.620]  so what do we do in here we uh
+[00:21:18.060 -> 00:21:26.200]  we acknowledge the interrupt to the this is to the master um when we do interrupt 12 let's go ahead and
+[00:21:26.200 -> 00:21:35.560]  look at the mouse so the mouse it has an interrupt handler and this has to acknowledge both the master and the slave
+[00:21:36.140 -> 00:21:42.040]  acknowledge the slave and then you acknowledge the master these are the two interrupt controllers that each do eight
+[00:21:42.040 -> 00:21:46.440]  they're cascaded and we read a packet
+[00:21:49.480 -> 00:21:51.040]  i um
+[00:21:53.720 -> 00:21:58.560]  i check if we've had a timeout error and reset it
+[00:21:59.700 -> 00:22:05.880]  sometimes a i think a packet is like three bytes or something and uh
+[00:22:07.220 -> 00:22:08.160]  four bytes
+[00:22:08.160 -> 00:22:08.480]  four bytes
+[00:22:09.160 -> 00:22:11.560]  if if something got screwed up
+[00:22:12.160 -> 00:22:16.680]  you would want to you want to flush the old few couple bites
+[00:22:17.320 -> 00:22:20.080]  if it's been too long you want i don't know
+[00:22:20.600 -> 00:22:24.500]  some of this stuff i'm i'm not actually sure is necessary but i do it
+[00:22:24.500 -> 00:22:25.260]  um
+[00:22:26.460 -> 00:22:29.140]  as a matter of fact when you're using vmware
+[00:22:30.000 -> 00:22:30.580]  um
+[00:22:31.240 -> 00:22:32.380]  as a matter of fact why
+[00:22:35.300 -> 00:22:35.860]  it
+[00:22:35.860 -> 00:22:38.720]  when you're using vmware once in a while
+[00:22:40.180 -> 00:22:43.760]  you can i'm pretty sure you can miss a
+[00:22:45.400 -> 00:22:48.400]  a byte and then you get out of sync
+[00:22:49.100 -> 00:22:52.680]  if you're expecting three byte packets and you get out of sync that's bad
+[00:22:53.680 -> 00:22:54.580]  so uh
+[00:22:55.660 -> 00:23:02.320]  i i get the time stamp the time stamp is the fastest uh timer you can read
+[00:23:03.360 -> 00:23:04.780]  what i mean is uh
+[00:23:07.940 -> 00:23:10.720]  well h pet is just as fat
+[00:23:11.400 -> 00:23:14.600]  there i'm not talking about frequency i'm talking about how fast you can read it
+[00:23:14.600 -> 00:23:20.180]  there's the there's a uh well h pet is pretty fast but i've had things that didn't have an h high
+[00:23:20.180 -> 00:23:26.360]  performance event timer um the problem with the time stamp count is uh
+[00:23:27.060 -> 00:23:34.060]  it's this is like three gigahertz but the uh the processor gets throttled and stuff like that so
+[00:23:34.060 -> 00:23:36.620]  it's actually um it's
+[00:23:40.220 -> 00:23:49.480]  anyway um so uh i use a fifo for my packets they're so tiny i i really didn't need that but i i went
+[00:23:49.480 -> 00:24:01.600]  ahead and did it uh i think it's three bytes um and uh this is checking if we have too many and uh
+[00:24:04.060 -> 00:24:08.060]  what is it doing oh it's transferring them from a uh
+[00:24:14.180 -> 00:24:25.160]  there's two fifos fifo zero and fifo two um i i think that's just uh why did i do that if it gets a
+[00:24:25.160 -> 00:24:35.120]  a well-formed packet it transfers it and as a matter of fact i might do that in the timer i have a uh
+[00:24:35.640 -> 00:24:37.320]  window manager task
+[00:24:39.300 -> 00:24:47.500]  um i have a couple of executives um the atom task doesn't really the atom doesn't run the atom task
+[00:24:47.500 -> 00:24:58.040]  doesn't run all the time the seth tasks do run the window manager runs the atom task i think stays
+[00:24:58.040 -> 00:25:03.760]  asleep until he actually gets a request the window manager runs um
+[00:25:07.000 -> 00:25:16.680]  the window manager runs 50 times a second i think no 30 times a second we we refresh the screen 30 times a
+[00:25:16.680 -> 00:25:26.480]  second i don't even remember uh so i have a couple of uh maintenance
+[00:25:28.840 -> 00:25:36.140]  i think we process the mouse packets and keyboard packets i think they call it pumping the packets
+[00:25:37.000 -> 00:25:45.420]  um so he has a the window manager has a sleep uh window manager sleep so
+[00:25:47.880 -> 00:25:54.140]  this is kind of like the uh the idle i don't know what you want to call it when
+[00:25:55.660 -> 00:26:01.900]  i can go ahead and explain when you're uh when you grab a window and move it
+[00:26:02.720 -> 00:26:12.480]  what has happened is the window manager has detected the left button down on the title bar
+[00:26:13.200 -> 00:26:21.800]  and that enters like a state machine um when it gets the left button down if the old left button was
+[00:26:21.800 -> 00:26:30.100]  down and the new left button is up okay what we in that case we want old old left button is
+[00:26:31.760 -> 00:26:44.160]  we want old left button old left button up new left button down then some of these things stay in a loop and uh
+[00:26:45.200 -> 00:26:58.380]  as they're looping they're calling uh the sleep and uh that's the way the uh the window manager manages
+[00:26:58.380 -> 00:27:04.180]  so you get these loops where it's calling the sleep waiting for the button to be released
+[00:27:04.840 -> 00:27:07.200]  and so the sleep uh
+[00:27:13.360 -> 00:27:24.360]  uh i think anyway the sleep pumps the uh the it pumps the messages so it it takes them out of the fifo
+[00:27:24.360 -> 00:27:33.240]  and processes them and gives and it gives them to the windows that are the tasks in question so uh
+[00:27:33.240 -> 00:27:39.580]  how about that uh let's let's call it call it a day
+[00:27:39.580 -> 00:27:39.580]  
+[00:27:39.580 -> 00:27:39.580]  
+[00:27:39.580 -> 00:27:39.580]  
+[00:27:39.580 -> 00:27:39.580]  
+[00:27:39.580 -> 00:27:39.580]  
+[00:27:39.580 -> 00:27:39.580]  
+[00:27:39.580 -> 00:27:39.580]  
+[00:27:39.580 -> 00:27:39.580]  
+[00:27:39.580 -> 00:27:39.580]  
+[00:27:39.580 -> 00:27:39.580]  
+[00:27:39.580 -> 00:27:39.580]  
+[00:27:39.580 -> 00:27:39.580]  
+[00:27:39.580 -> 00:27:39.580]  
+[00:27:39.580 -> 00:27:39.580]  
+[00:27:39.580 -> 00:27:39.580]  
+[00:27:39.580 -> 00:27:39.580]  
+[00:27:39.580 -> 00:27:39.580]  
+[00:27:39.580 -> 00:27:39.580]  
+[00:27:39.580 -> 00:27:39.580]  
+[00:27:39.580 -> 00:27:39.580]  
+[00:27:39.580 -> 00:27:39.580]  
+[00:27:39.580 -> 00:27:39.660]  how about that
+[00:27:39.660 -> 00:27:39.720]  how about that
+[00:27:39.720 -> 00:27:39.720]  
+[00:27:39.720 -> 00:27:39.720]  
+[00:27:39.720 -> 00:27:39.720]  
+[00:27:39.720 -> 00:27:39.720]  
+[00:27:39.720 -> 00:27:39.720]  
+[00:27:39.720 -> 00:27:39.720]  
+[00:27:39.720 -> 00:27:39.720]  
+[00:27:39.720 -> 00:27:39.720]  
+[00:27:39.720 -> 00:27:39.720]  
+[00:27:39.720 -> 00:27:39.720]  
+[00:27:39.720 -> 00:27:39.720]  
+[00:27:39.720 -> 00:27:39.720]  
+[00:27:39.720 -> 00:27:39.720]  
+[00:27:39.720 -> 00:27:39.720]  
+[00:27:39.720 -> 00:27:39.720]  
+[00:27:39.720 -> 00:27:39.720]  
+[00:27:39.720 -> 00:27:39.720]  
+[00:27:39.720 -> 00:27:39.720]  
+[00:27:39.720 -> 00:27:39.720]  
+[00:27:39.960 -> 00:27:40.060]  !
+[00:27:40.060 -> 00:27:40.060]  
+[00:27:40.060 -> 00:27:40.060]  
+[00:27:40.060 -> 00:27:40.060]  
+[00:27:45.820 -> 00:27:45.820]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  
+[00:27:40.040 -> 00:27:40.040]  

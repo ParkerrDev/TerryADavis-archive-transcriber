@@ -1,0 +1,463 @@
+========================================================================
+FILE        : videos/2014/2014-07-22T00:09:00+00:00 - TempleOS - God for Larry Page 7 22 J (pVfU01_3uCo).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-07-22T00:09:00+00:00 - TempleOS - God for Larry Page 7 22 J (pVfU01_3uCo).mp4
+FORMAT      : MPEG4
+SIZE        : 52,077,997 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:14:40.700
+TRANSCRIBED: 2026-05-08T03:55:56.760081+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay so I'll just keep talking about it and not worry about repeating or organized just because I want to the more you get exposed the more you absorb by osmosis so there's I was going to go through the whole API so we were talking about disk blocks so the thing you have to know is there's partitions and there's block devices and there's drives a drive a block device is is a is a for example a hard disk a partition you can have multiple partitions on one hard disk so there's drive to drive is synonymous with partition maybe I should get rid of the duplicate uh duplicate partition is usually when it's uh away from the customer or the user anyway um so uh drives are identified by a letter how about I do this guess what this is going to do bow um let me explain uh so class rep um the the structures the class structures that the compiler owns are retained all that information is kept on all the classes and it can be used to uh um dump a record it it it will fetch the the information the compiler has and dump the record this is an interesting kludge not a kludge I don't know what you want to call it um this helps it um this tells the class name of the previous uh parameter this this has the class name of the previous parameter um so in other words uh I think it's the same as if we say this it's it's identical it can figure that out so uh this is a uh partition structure 3f if you know anything about drives you know there's a gap at the beginning uh root cluster two now my my red c file system there's uh sectors per cluster i set it equal to one um i want i want it as uh simple as possible i like it i like getting rid of uh concepts like i don't have physical and virtual memory i have memory i don't have different files i don't have ad i don't have uh virtual file system i just have file system i don't want clusters i just want blocks but it you have to you have to have clusters if you go relative to the start i could get bold and go absolute i'd have to think about that absolute block instead of relative to the partition um anyway uh so maybe i should do that i could do some work anyway uh so there's uh um we could anyway um so what do we want to talk about you can read a block um u8 buffer 512 um read block you can do a database it would be fast but the only problem is that we don't support fast io partition buffer block count partition buffer block uh i think it has to be within the partition let's say 0x3f let's say 0x3f partition buffer block count then we say dump buffer count 512 okay so this is the boot this is the first block of the partition uh wow it doesn't have it doesn't look like it has it's bootable but it is bootable what the maybe i'm confused is that oh that's the boot code okay never mind that's the boot code i have very simple boot loaders i think that's a boot we can unassemble you want to do that let's unassemble um okay so technically this is uh c boot boot structure code c boot boot structure buffer how about i call it boot record address boot record address boot record if it crashes we typically hard crash okay so now let's unassemble unassemble address or boot record code boot record dot code and we give it number of instructions let's say 20 and then we say if it's real mode 16-bit unassembly is not well supported okay that does not look good what did what's the upper so we can dump memory if we say dm now we have addresses what is this 680 so we are not looking at the correct thing by a long shot okay so this is not what we want that's for we most definitely have a uh i don't know what the hell is going on what's what's the offset of code son of a bitch let's do this uh class rep address br okay that has that's definitely a no-op signature 4d i don't know what that is reserved sectors oh that doesn't look good root cluster this is probably fat 32 no code let's go to the what it jumps to 58 58 plus what is it the beginning or the end i forget it's the end 58 plus 3 how about don't u8 pointer 50 b that doesn't look good what the that's not good either why isn't there a boot record and why is why is sectors messed up this looks like this is not it that's the long long story short this is not it is this relative to the offset last rep boot record exception partition i don't think we were looking in the right place boot record p p offset this this let's it's in memory let's go ahead and oh that's on the stack 5 8 plus what's 5 8 a a 8 bo wait a no what what what what 5 8 bo it's right around here maybe okay yeah there's a 66 that's definitely an instruction okay okay so what the what the fuck is my problem read boot record don't boot record class rip it's the wrong structure what what is this structure what's the signature in this signature oh it's correct there look at that code i don't know oh well what let's dump some more code let's dump 50 lines okay oh that's the dap the record for for interrupt we use interrupt okay we just didn't we just didn't have enough so we use interrupt 13 which is interrupt 13 number 42 is the BIOS for loading and there's a there's a structure a dap that's what that is right there I don't know why the the offset from this is where it starts right here B3 let's see if that agrees with B3 so if we take this this oops oops if we take 0x that plus 5 8 plus 2 I think we want 2 we get 94 that's not B3 what is going on oh well I don't know what's going on there there there there there there there
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.840 -> 00:00:09.340]  okay so I'll just keep talking about it and not worry about repeating or organized just because
+[00:00:10.660 -> 00:00:19.240]  I want to the more you get exposed the more you absorb by osmosis so there's
+[00:00:23.320 -> 00:00:31.120]  I was going to go through the whole API so we were talking about disk blocks
+[00:00:36.640 -> 00:00:42.760]  so the thing you have to know is there's partitions and there's block devices
+[00:00:43.740 -> 00:00:55.640]  and there's drives a drive a block device is is a is a for example a hard disk a partition you can
+[00:00:55.640 -> 00:01:07.500]  have multiple partitions on one hard disk so there's drive to drive is synonymous with partition
+[00:01:08.700 -> 00:01:12.000]  maybe I should get rid of the duplicate
+[00:01:14.700 -> 00:01:21.300]  uh duplicate partition is usually when it's uh away from the customer or the user
+[00:01:24.280 -> 00:01:26.620]  anyway um so uh
+[00:01:29.740 -> 00:01:31.800]  drives are identified by a letter
+[00:01:35.160 -> 00:01:39.200]  how about I do this guess what this is going to do
+[00:01:39.200 -> 00:01:40.700]  bow
+[00:01:40.700 -> 00:01:41.760]  um
+[00:01:43.840 -> 00:01:45.300]  let me explain
+[00:01:45.300 -> 00:01:46.220]  uh
+[00:01:49.320 -> 00:01:51.360]  so class rep
+[00:01:52.300 -> 00:01:53.140]  um
+[00:01:55.960 -> 00:02:00.820]  the the structures the class structures that the compiler owns
+[00:02:01.560 -> 00:02:05.740]  are retained all that information is kept on all the classes
+[00:02:06.620 -> 00:02:09.120]  and it can be used
+[00:02:09.120 -> 00:02:10.300]  to uh
+[00:02:12.440 -> 00:02:13.060]  um
+[00:02:13.060 -> 00:02:14.200]  dump a record
+[00:02:14.200 -> 00:02:19.360]  it it it will fetch the the information the compiler has and dump the record
+[00:02:19.360 -> 00:02:21.040]  this is an interesting
+[00:02:21.040 -> 00:02:23.740]  kludge not a kludge I don't know what you want to call it
+[00:02:23.740 -> 00:02:27.220]  um this helps it um this tells the
+[00:02:27.220 -> 00:02:32.160]  class name of the previous uh parameter
+[00:02:33.300 -> 00:02:33.560]  this
+[00:02:35.060 -> 00:02:38.160]  this has the class name of the previous parameter
+[00:02:38.160 -> 00:02:39.320]  um
+[00:02:39.320 -> 00:02:40.660]  so
+[00:02:42.800 -> 00:02:44.460]  in other words uh
+[00:02:44.460 -> 00:02:46.160]  I think it's the same as
+[00:02:46.160 -> 00:02:47.880]  if we say this
+[00:02:49.260 -> 00:02:50.760]  it's it's identical
+[00:02:50.760 -> 00:02:52.440]  it can figure that out
+[00:02:53.560 -> 00:02:54.620]  so uh
+[00:02:55.160 -> 00:02:57.280]  this is a uh
+[00:02:57.280 -> 00:02:58.540]  partition
+[00:02:58.540 -> 00:02:59.660]  structure
+[00:02:59.660 -> 00:03:01.120]  3f
+[00:03:01.120 -> 00:03:02.960]  if you know anything about drives
+[00:03:02.960 -> 00:03:04.040]  you know there's a gap
+[00:03:04.040 -> 00:03:04.860]  at the beginning
+[00:03:06.100 -> 00:03:06.900]  uh
+[00:03:06.900 -> 00:03:08.720]  root cluster
+[00:03:08.720 -> 00:03:09.120]  two
+[00:03:09.120 -> 00:03:10.440]  now my
+[00:03:10.440 -> 00:03:12.280]  my red c file system
+[00:03:12.280 -> 00:03:13.100]  there's uh
+[00:03:13.100 -> 00:03:14.500]  sectors per cluster
+[00:03:14.500 -> 00:03:15.840]  i set it equal to one
+[00:03:15.840 -> 00:03:16.700]  um
+[00:03:16.700 -> 00:03:17.360]  i want
+[00:03:17.360 -> 00:03:18.760]  i want it as uh
+[00:03:18.760 -> 00:03:20.620]  simple as possible
+[00:03:21.340 -> 00:03:22.500]  i like it
+[00:03:22.500 -> 00:03:24.420]  i like getting rid of uh
+[00:03:25.600 -> 00:03:26.200]  concepts
+[00:03:26.200 -> 00:03:28.940]  like i don't have physical and virtual memory
+[00:03:28.940 -> 00:03:29.840]  i have memory
+[00:03:29.840 -> 00:03:31.460]  i don't have
+[00:03:32.640 -> 00:03:33.700]  different files
+[00:03:33.700 -> 00:03:34.720]  i don't have ad
+[00:03:34.720 -> 00:03:35.680]  i don't have uh
+[00:03:35.680 -> 00:03:37.580]  virtual file system
+[00:03:37.580 -> 00:03:38.820]  i just have file system
+[00:03:38.820 -> 00:03:40.580]  i don't want
+[00:03:40.580 -> 00:03:41.340]  clusters
+[00:03:41.340 -> 00:03:42.540]  i just want blocks
+[00:03:42.540 -> 00:03:43.800]  but it
+[00:03:43.800 -> 00:03:44.700]  you have to
+[00:03:44.700 -> 00:03:46.040]  you have to have clusters
+[00:03:46.040 -> 00:03:47.060]  if you go relative
+[00:03:47.060 -> 00:03:47.760]  to the start
+[00:03:47.760 -> 00:03:48.840]  i could
+[00:03:48.840 -> 00:03:49.800]  get bold
+[00:03:49.800 -> 00:03:51.280]  and go absolute
+[00:03:51.280 -> 00:03:53.480]  i'd have to think about that
+[00:03:55.060 -> 00:03:56.200]  absolute block
+[00:03:56.200 -> 00:03:57.340]  instead of relative
+[00:03:57.340 -> 00:03:58.400]  to the partition
+[00:03:58.400 -> 00:03:59.440]  um
+[00:03:59.440 -> 00:04:00.880]  anyway uh
+[00:04:00.880 -> 00:04:01.680]  so
+[00:04:03.120 -> 00:04:04.560]  maybe i should do that
+[00:04:04.560 -> 00:04:05.820]  i could do some work
+[00:04:05.820 -> 00:04:07.340]  anyway uh
+[00:04:08.600 -> 00:04:10.080]  so there's uh
+[00:04:10.080 -> 00:04:10.560]  um
+[00:04:14.780 -> 00:04:15.820]  we could
+[00:04:15.820 -> 00:04:17.340]  anyway
+[00:04:17.340 -> 00:04:18.260]  um
+[00:04:21.000 -> 00:04:21.800]  so
+[00:04:21.800 -> 00:04:23.700]  what do we want to talk about
+[00:04:23.700 -> 00:04:25.160]  you can read a block
+[00:04:26.100 -> 00:04:26.900]  um
+[00:04:26.900 -> 00:04:28.140]  u8
+[00:04:28.140 -> 00:04:28.940]  buffer
+[00:04:28.940 -> 00:04:30.320]  512
+[00:04:31.920 -> 00:04:32.720]  um
+[00:04:32.720 -> 00:04:34.580]  read block
+[00:04:34.580 -> 00:04:35.860]  you can do a database
+[00:04:39.600 -> 00:04:40.880]  it would be fast
+[00:04:40.880 -> 00:04:42.220]  but the only problem is
+[00:04:42.220 -> 00:04:43.380]  that we don't support
+[00:04:43.380 -> 00:04:44.800]  fast io
+[00:04:44.800 -> 00:04:47.020]  partition buffer block count
+[00:04:47.940 -> 00:04:49.220]  partition buffer
+[00:04:50.380 -> 00:04:51.020]  block
+[00:04:51.020 -> 00:04:51.740]  uh
+[00:04:51.740 -> 00:04:54.020]  i think it has to be within the partition
+[00:04:54.020 -> 00:04:56.520]  let's say 0x3f
+[00:04:58.440 -> 00:04:59.080]  let's say 0x3f
+[00:04:59.080 -> 00:05:00.020]  partition buffer block
+[00:05:00.880 -> 00:05:01.520]  count
+[00:05:02.760 -> 00:05:04.060]  then we say dump
+[00:05:05.240 -> 00:05:06.240]  buffer count
+[00:05:06.240 -> 00:05:06.980]  512
+[00:05:09.900 -> 00:05:11.740]  okay so this is the boot
+[00:05:11.740 -> 00:05:13.840]  this is the first block of the partition
+[00:05:14.680 -> 00:05:15.320]  uh
+[00:05:16.960 -> 00:05:18.260]  wow it doesn't have
+[00:05:19.060 -> 00:05:20.500]  it doesn't look like it has
+[00:05:20.500 -> 00:05:21.240]  it's bootable
+[00:05:21.240 -> 00:05:22.600]  but it is bootable
+[00:05:22.600 -> 00:05:23.080]  what the
+[00:05:24.340 -> 00:05:25.820]  maybe i'm confused
+[00:05:29.780 -> 00:05:30.520]  is that
+[00:05:30.520 -> 00:05:31.920]  oh that's the boot code
+[00:05:31.920 -> 00:05:32.480]  okay
+[00:05:33.120 -> 00:05:33.940]  never mind
+[00:05:34.820 -> 00:05:36.060]  that's the boot code
+[00:05:36.060 -> 00:05:38.520]  i have very simple boot loaders
+[00:05:38.520 -> 00:05:40.520]  i think that's a boot
+[00:05:40.520 -> 00:05:41.520]  we can unassemble
+[00:05:41.520 -> 00:05:42.460]  you want to do that
+[00:05:42.460 -> 00:05:44.080]  let's unassemble
+[00:05:44.080 -> 00:05:44.600]  um
+[00:05:46.560 -> 00:05:47.880]  okay so
+[00:05:47.880 -> 00:05:50.340]  technically this is uh
+[00:05:50.340 -> 00:05:52.120]  c boot
+[00:05:53.520 -> 00:05:54.940]  boot structure
+[00:05:56.120 -> 00:05:57.000]  code
+[00:05:57.000 -> 00:05:58.720]  c boot
+[00:05:59.880 -> 00:06:01.360]  boot structure
+[00:06:02.640 -> 00:06:03.520]  buffer
+[00:06:05.900 -> 00:06:07.140]  how about
+[00:06:08.340 -> 00:06:10.220]  i call it boot record
+[00:06:12.720 -> 00:06:14.500]  address boot record
+[00:06:16.620 -> 00:06:18.180]  address boot record
+[00:06:18.180 -> 00:06:19.840]  if it crashes we typically
+[00:06:19.840 -> 00:06:22.120]  hard crash
+[00:06:22.120 -> 00:06:24.520]  okay so now let's unassemble
+[00:06:25.840 -> 00:06:26.720]  unassemble
+[00:06:28.220 -> 00:06:29.100]  address
+[00:06:29.100 -> 00:06:30.920]  or boot record
+[00:06:33.500 -> 00:06:34.180]  code
+[00:06:34.180 -> 00:06:35.120]  boot record
+[00:06:35.120 -> 00:06:36.000]  dot code
+[00:06:36.720 -> 00:06:37.400]  and
+[00:06:37.400 -> 00:06:39.640]  we give it number of instructions
+[00:06:40.680 -> 00:06:41.520]  let's say
+[00:06:41.520 -> 00:06:42.020]  20
+[00:06:42.020 -> 00:06:43.760]  and then we say
+[00:06:45.540 -> 00:06:46.920]  if it's real mode
+[00:06:46.920 -> 00:06:47.680]  16-bit
+[00:06:47.680 -> 00:06:48.800]  unassembly
+[00:06:48.800 -> 00:06:49.820]  is not well supported
+[00:06:53.180 -> 00:06:54.980]  okay that does not look good
+[00:06:56.880 -> 00:06:57.760]  what did
+[00:06:57.760 -> 00:06:58.800]  what's the upper
+[00:07:01.380 -> 00:07:03.180]  so we can dump
+[00:07:03.180 -> 00:07:04.220]  memory
+[00:07:05.020 -> 00:07:06.120]  if we say
+[00:07:06.120 -> 00:07:06.700]  dm
+[00:07:08.920 -> 00:07:09.700]  now
+[00:07:09.700 -> 00:07:10.940]  we have
+[00:07:10.940 -> 00:07:11.660]  addresses
+[00:07:13.280 -> 00:07:14.360]  what is this
+[00:07:14.360 -> 00:07:14.960]  680
+[00:07:18.280 -> 00:07:21.020]  so we are not looking at the correct thing
+[00:07:21.020 -> 00:07:22.200]  by a long shot
+[00:07:22.200 -> 00:07:23.200]  okay
+[00:07:23.200 -> 00:07:23.720]  so
+[00:07:24.680 -> 00:07:26.100]  this is not
+[00:07:26.100 -> 00:07:27.640]  what we want
+[00:07:33.180 -> 00:07:34.220]  that's for
+[00:07:46.300 -> 00:07:49.260]  we most definitely have a
+[00:07:49.260 -> 00:07:49.380]  uh
+[00:08:12.020 -> 00:08:13.780]  i don't know what the hell is going on
+[00:08:16.140 -> 00:08:16.980]  what's
+[00:08:16.980 -> 00:08:18.400]  what's the offset of code
+[00:08:18.400 -> 00:08:19.540]  son of a bitch
+[00:08:23.480 -> 00:08:24.820]  let's do this
+[00:08:24.820 -> 00:08:26.240]  uh
+[00:08:31.260 -> 00:08:32.100]  class
+[00:08:32.100 -> 00:08:32.840]  rep
+[00:08:34.560 -> 00:08:35.920]  address br
+[00:08:40.380 -> 00:08:41.060]  okay
+[00:08:41.060 -> 00:08:41.900]  that has
+[00:08:41.900 -> 00:08:43.320]  that's definitely a
+[00:08:43.320 -> 00:08:43.900]  no-op
+[00:08:43.900 -> 00:08:45.120]  signature
+[00:08:47.860 -> 00:08:48.540]  4d
+[00:08:48.540 -> 00:08:50.460]  i don't know what that is
+[00:08:52.500 -> 00:08:53.180]  reserved
+[00:08:54.640 -> 00:08:55.320]  sectors
+[00:08:55.320 -> 00:08:56.740]  oh that doesn't look good
+[00:08:56.740 -> 00:08:58.340]  root cluster
+[00:08:58.340 -> 00:08:59.020]  this is probably
+[00:08:59.020 -> 00:08:59.900]  fat 32
+[00:08:59.900 -> 00:09:00.940]  no
+[00:09:04.760 -> 00:09:05.360]  code
+[00:09:07.680 -> 00:09:08.800]  let's go to the
+[00:09:08.800 -> 00:09:09.960]  what it jumps to
+[00:09:10.600 -> 00:09:11.200]  58
+[00:09:13.240 -> 00:09:13.840]  58
+[00:09:13.840 -> 00:09:14.660]  plus
+[00:09:17.940 -> 00:09:19.240]  what is it
+[00:09:19.240 -> 00:09:19.680]  the beginning
+[00:09:19.680 -> 00:09:20.280]  or the end
+[00:09:20.280 -> 00:09:20.840]  i forget
+[00:09:20.840 -> 00:09:22.540]  it's the end
+[00:09:22.540 -> 00:09:23.900]  58
+[00:09:23.900 -> 00:09:24.300]  plus
+[00:09:24.300 -> 00:09:24.720]  3
+[00:09:26.920 -> 00:09:28.040]  how about
+[00:09:29.880 -> 00:09:30.740]  don't
+[00:09:30.740 -> 00:09:31.800]  u8
+[00:09:31.800 -> 00:09:32.240]  pointer
+[00:09:33.440 -> 00:09:34.300]  50
+[00:09:36.280 -> 00:09:37.140]  b
+[00:09:40.720 -> 00:09:42.340]  that doesn't look good
+[00:09:42.340 -> 00:09:43.660]  what the
+[00:09:46.840 -> 00:09:48.500]  that's not good either
+[00:09:54.260 -> 00:09:56.220]  why isn't there a boot record
+[00:09:56.220 -> 00:09:56.960]  and why is
+[00:10:01.600 -> 00:10:03.280]  why is sectors
+[00:10:03.280 -> 00:10:04.000]  messed up
+[00:10:07.760 -> 00:10:09.040]  this looks like
+[00:10:09.860 -> 00:10:11.140]  this is not it
+[00:10:11.800 -> 00:10:13.060]  that's the long
+[00:10:13.060 -> 00:10:13.780]  long story short
+[00:10:13.780 -> 00:10:14.740]  this is not it
+[00:10:14.740 -> 00:10:16.440]  is this relative
+[00:10:16.440 -> 00:10:17.460]  to the offset
+[00:10:21.120 -> 00:10:22.400]  last rep
+[00:10:23.620 -> 00:10:25.080]  boot record
+[00:10:30.340 -> 00:10:32.100]  exception partition
+[00:10:34.820 -> 00:10:37.760]  i don't think we were looking in the right place
+[00:10:37.760 -> 00:10:39.520]  boot record
+[00:10:42.200 -> 00:10:43.120]  p
+[00:10:43.120 -> 00:10:45.300]  p offset
+[00:10:46.540 -> 00:10:47.340]  this
+[00:10:47.340 -> 00:10:47.540]  this
+[00:10:53.040 -> 00:10:53.840]  let's
+[00:10:53.840 -> 00:10:54.640]  it's in memory
+[00:10:54.640 -> 00:10:55.840]  let's go ahead
+[00:10:55.840 -> 00:10:56.140]  and
+[00:10:57.180 -> 00:10:58.900]  oh that's on the stack
+[00:11:01.940 -> 00:11:02.740]  5
+[00:11:02.740 -> 00:11:03.240]  8
+[00:11:04.660 -> 00:11:05.460]  plus
+[00:11:05.460 -> 00:11:07.300]  what's 5 8
+[00:11:07.300 -> 00:11:08.300]  a
+[00:11:08.300 -> 00:11:09.780]  a 8
+[00:11:09.780 -> 00:11:10.640]  bo
+[00:11:13.740 -> 00:11:14.660]  wait a
+[00:11:14.660 -> 00:11:15.020]  no
+[00:11:15.020 -> 00:11:16.080]  what
+[00:11:16.080 -> 00:11:16.380]  what
+[00:11:16.380 -> 00:11:16.720]  what
+[00:11:16.720 -> 00:11:17.240]  what
+[00:11:17.240 -> 00:11:18.160]  5 8
+[00:11:19.220 -> 00:11:19.980]  bo
+[00:11:19.980 -> 00:11:21.120]  it's right around here
+[00:11:25.180 -> 00:11:25.940]  maybe
+[00:11:26.980 -> 00:11:27.740]  okay
+[00:11:27.740 -> 00:11:28.920]  yeah there's a 66
+[00:11:28.920 -> 00:11:30.460]  that's definitely an instruction
+[00:11:30.460 -> 00:11:31.440]  okay
+[00:11:31.440 -> 00:11:31.520]  okay
+[00:11:32.440 -> 00:11:33.160]  so what the
+[00:11:34.060 -> 00:11:35.720]  what the fuck
+[00:11:35.720 -> 00:11:36.800]  is my problem
+[00:11:37.640 -> 00:11:38.480]  read
+[00:11:38.480 -> 00:11:39.520]  boot record
+[00:11:39.520 -> 00:11:40.000]  don't
+[00:11:40.000 -> 00:11:40.860]  boot record
+[00:11:40.860 -> 00:11:42.420]  class rip
+[00:11:43.760 -> 00:11:45.780]  it's the wrong structure
+[00:11:45.780 -> 00:11:46.200]  what
+[00:11:46.200 -> 00:11:47.360]  what is this structure
+[00:12:00.500 -> 00:12:01.760]  what's the signature
+[00:12:01.760 -> 00:12:02.460]  in this
+[00:12:03.660 -> 00:12:04.380]  signature
+[00:12:04.380 -> 00:12:05.440]  oh it's correct
+[00:12:05.440 -> 00:12:05.800]  there
+[00:12:05.800 -> 00:12:06.460]  look at that
+[00:12:06.460 -> 00:12:07.640]  code
+[00:12:26.100 -> 00:12:26.880]  i don't know
+[00:12:26.880 -> 00:12:27.380]  oh well
+[00:12:28.880 -> 00:12:29.380]  what
+[00:12:37.100 -> 00:12:39.160]  let's dump some more code
+[00:12:39.160 -> 00:12:40.260]  let's dump
+[00:12:40.260 -> 00:12:42.920]  50 lines
+[00:12:44.840 -> 00:12:45.960]  okay
+[00:12:49.800 -> 00:12:50.920]  oh
+[00:12:50.920 -> 00:12:53.360]  that's the dap
+[00:12:57.020 -> 00:12:58.140]  the
+[00:12:58.140 -> 00:12:59.740]  record
+[00:12:59.740 -> 00:13:00.200]  for
+[00:13:00.200 -> 00:13:01.520]  for
+[00:13:02.540 -> 00:13:03.380]  interrupt
+[00:13:03.380 -> 00:13:05.180]  we use
+[00:13:05.180 -> 00:13:05.540]  interrupt
+[00:13:08.360 -> 00:13:09.200]  okay
+[00:13:09.200 -> 00:13:09.620]  we just
+[00:13:09.620 -> 00:13:09.920]  didn't
+[00:13:09.920 -> 00:13:10.400]  we just didn't
+[00:13:10.400 -> 00:13:10.700]  have enough
+[00:13:12.200 -> 00:13:13.040]  so
+[00:13:20.120 -> 00:13:20.600]  we use
+[00:13:20.600 -> 00:13:20.900]  interrupt
+[00:13:20.900 -> 00:13:21.500]  13
+[00:13:21.500 -> 00:13:22.620]  which is
+[00:13:22.620 -> 00:13:23.880]  interrupt
+[00:13:23.880 -> 00:13:24.440]  13
+[00:13:24.440 -> 00:13:24.780]  number
+[00:13:24.780 -> 00:13:25.300]  42
+[00:13:25.300 -> 00:13:26.560]  is
+[00:13:26.560 -> 00:13:26.800]  the
+[00:13:26.800 -> 00:13:27.320]  BIOS
+[00:13:27.320 -> 00:13:28.600]  for loading
+[00:13:28.600 -> 00:13:29.740]  and
+[00:13:29.740 -> 00:13:30.780]  there's a
+[00:13:30.780 -> 00:13:31.820]  there's a structure
+[00:13:31.820 -> 00:13:32.780]  a dap
+[00:13:32.780 -> 00:13:34.540]  that's what that is
+[00:13:34.540 -> 00:13:35.080]  right there
+[00:13:35.080 -> 00:13:36.560]  I don't know why
+[00:13:36.560 -> 00:13:36.760]  the
+[00:13:38.960 -> 00:13:40.040]  the offset
+[00:13:40.040 -> 00:13:40.560]  from
+[00:13:41.880 -> 00:13:43.320]  this is where it starts
+[00:13:43.320 -> 00:13:43.920]  right here
+[00:13:45.640 -> 00:13:46.320]  B3
+[00:13:47.380 -> 00:13:48.680]  let's see if that
+[00:13:48.680 -> 00:13:50.400]  agrees with
+[00:13:51.420 -> 00:13:52.100]  B3
+[00:13:53.480 -> 00:13:54.160]  so
+[00:13:54.160 -> 00:13:57.160]  if we take
+[00:14:00.580 -> 00:14:01.980]  this
+[00:14:01.980 -> 00:14:02.060]  this
+[00:14:02.060 -> 00:14:04.320]  oops
+[00:14:04.320 -> 00:14:04.540]  oops
+[00:14:13.080 -> 00:14:14.980]  if we take
+[00:14:14.980 -> 00:14:16.160]  0x
+[00:14:16.160 -> 00:14:17.200]  that
+[00:14:17.200 -> 00:14:18.040]  plus
+[00:14:18.040 -> 00:14:19.920]  5 8
+[00:14:21.100 -> 00:14:21.620]  plus
+[00:14:22.220 -> 00:14:22.740]  2
+[00:14:22.740 -> 00:14:23.740]  I think we want
+[00:14:23.740 -> 00:14:24.060]  2
+[00:14:25.760 -> 00:14:26.660]  we get
+[00:14:29.560 -> 00:14:30.080]  94
+[00:14:30.080 -> 00:14:30.760]  that's not
+[00:14:30.760 -> 00:14:31.300]  B3
+[00:14:33.960 -> 00:14:35.280]  what is going on
+[00:14:36.940 -> 00:14:38.000]  oh well I don't know
+[00:14:38.000 -> 00:14:38.580]  what's going on
+[00:14:38.580 -> 00:14:38.600]  there
+[00:14:38.600 -> 00:14:38.920]  there
+[00:14:40.700 -> 00:14:40.960]  there
+[00:14:40.960 -> 00:14:42.080]  there
+[00:14:42.080 -> 00:14:42.160]  there
+[00:14:42.160 -> 00:14:43.000]  there
+[00:14:43.000 -> 00:14:44.860]  there
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:44.860 -> 00:14:44.860]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  
+[00:14:40.700 -> 00:14:40.700]  

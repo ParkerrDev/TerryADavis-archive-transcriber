@@ -1,0 +1,147 @@
+========================================================================
+FILE        : videos/2014/2014-09-29T00:17:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #34 (SZmCQoLwmao).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-09-29T00:17:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #34 (SZmCQoLwmao).mp4
+FORMAT      : MPEG4
+SIZE        : 30,686,514 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:07:34.320
+TRANSCRIBED: 2026-05-10T16:55:40.130148+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+Okay, this is Temple OS 5-Minute Random Code Walkthrough, Episode 34, and I'm your host, Terry Davis. And we are in, looks like the kernel debug. Kernel debug, yeah, okay. So this is set a breakpoint, okay. Address, task, and then if it's live or not. Well, this works, but it's pretty useless. So first of all, first of all, the breakpoint is a linked list with next, and it's an address, and it's a value. When you insert a breakpoint, you change a byte of code to a CC. I think it's a CC. Anyway, so, in the, in the scheduler, when you, when you, when you change tasks, you remove all the breakpoints associated with one task, this is on context save, so when you save tasks, when you save a context, you remove all the breakpoints with one, associated with one task, replace them with the code that's supposed to be there, and then when you restore the, the next task that's going to run, you, you re, you insert all the breakpoints for that task. So, the breakpoint is implemented as a one byte instruction, CC, CC is the opcode, so if you see a CC, that's a breakpoint, and, when you hit a breakpoint, you get a, a, a fault, I think it's number three, where can we, I'm looking for the names of the, if, if, if, if, if, if, if, if, if, if, if, if, if, if, if, if, if, have a list of all the faults and breakpoint is 0 1 2 3 breakpoint is fault number three so when you so what we were looking at was where you insert a breakpoint so it creates a new link list entry it saves it you tell it an address it it it accesses the the code that you just set the breakpoint on to see what was already there and then it's a stack so it push it does the link list like a stack and if the if the task is the current task and it's live then go ahead and put the breakpoint in right now otherwise it'll get inserted the next time the task is is loaded notice we put the we we we pushed the flags and we we turned off interrupts what that does is it makes it makes the tasks list of breakpoints stable so that we don't hit this routine twice at the same time it's a critical section we there can only be one task in here at a time because we have interrupts locked that's only for core 0 core 1 could actually interfere with this but nobody on core 1 is going to set a breakpoint only core 0 is allowed to set breakpoints I anyway so we can let's take a quick look at the now when you hit when you hit a breakpoint it generates software or generates interrupt 3 so if we look at the interrupts it hits the generic we we we set up all the interrupts to to access the the generic fault handler and the generic fault all the interrupts come in here but they've pushed their number and when we hit this fault handler we save the context and then basically we low jump into the debugger it says go to fault 2 so I'm going to jump into the debugger we do a little more stuff is this is kind of a mess isn't it but it's necessary it's it's ugly that's what it is it's really really ugly so let's look for the interrupts there's a breakpoint so if we hit a breakpoint we we minus minus the RIP so we back up a byte I guess it advances past the breakpoint so we want to be on top of the breakpoint so that when we print the RIP in in the exception we get the right address of the RIP RIP and we print the RIP and we print the symbolic no we don't I can swear we print yeah we do print the symbolic of the RIP anyway so there's the interrupt names that's where we that's where we say it's a that's where we get the breakpoint here's the interrupt names these are I do the first 32 are reserved and then I do some software interrupts anyway so how about that so so so so so so so
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:06.680]  Okay, this is Temple OS 5-Minute Random Code Walkthrough, Episode 34, and I'm your host, Terry Davis.
+[00:00:09.300 -> 00:00:12.880]  And we are in, looks like the kernel debug.
+[00:00:14.780 -> 00:00:16.860]  Kernel debug, yeah, okay.
+[00:00:17.240 -> 00:00:20.800]  So this is set a breakpoint, okay.
+[00:00:21.380 -> 00:00:25.680]  Address, task, and then if it's live or not.
+[00:00:28.540 -> 00:00:32.640]  Well, this works, but it's pretty useless.
+[00:00:33.820 -> 00:00:35.280]  So first of all,
+[00:00:40.200 -> 00:00:41.600]  first of all,
+[00:00:46.380 -> 00:00:53.920]  the breakpoint is a linked list with next,
+[00:00:53.920 -> 00:00:57.320]  and it's an address,
+[00:00:59.340 -> 00:01:00.840]  and it's a value.
+[00:01:01.300 -> 00:01:02.520]  When you insert a breakpoint,
+[00:01:02.820 -> 00:01:07.080]  you change a byte of code to a CC.
+[00:01:07.560 -> 00:01:09.080]  I think it's a CC.
+[00:01:09.080 -> 00:01:12.140]  Anyway, so,
+[00:01:13.280 -> 00:01:14.500]  in the,
+[00:01:16.940 -> 00:01:18.740]  in the scheduler,
+[00:01:20.140 -> 00:01:20.600]  when you,
+[00:01:25.700 -> 00:01:26.980]  when you,
+[00:01:30.180 -> 00:01:32.260]  when you change tasks,
+[00:01:32.260 -> 00:01:38.000]  you remove all the breakpoints associated with one task,
+[00:01:39.200 -> 00:01:41.580]  this is on context save,
+[00:01:42.020 -> 00:01:43.780]  so when you save tasks,
+[00:01:44.040 -> 00:01:45.960]  when you save a context,
+[00:01:46.440 -> 00:01:48.820]  you remove all the breakpoints with one,
+[00:01:48.940 -> 00:01:50.840]  associated with one task,
+[00:01:53.500 -> 00:01:55.940]  replace them with the code that's supposed to be there,
+[00:01:56.160 -> 00:01:58.560]  and then when you restore the,
+[00:01:58.560 -> 00:02:00.660]  the next task that's going to run,
+[00:02:01.520 -> 00:02:01.640]  you,
+[00:02:01.640 -> 00:02:02.840]  you re,
+[00:02:02.960 -> 00:02:05.540]  you insert all the breakpoints for that task.
+[00:02:07.080 -> 00:02:07.760]  So,
+[00:02:11.480 -> 00:02:16.940]  the breakpoint is implemented as a one byte instruction,
+[00:02:18.080 -> 00:02:18.760]  CC,
+[00:02:19.640 -> 00:02:21.200]  CC is the opcode,
+[00:02:21.340 -> 00:02:22.280]  so if you see a CC,
+[00:02:22.500 -> 00:02:23.280]  that's a breakpoint,
+[00:02:23.280 -> 00:02:24.200]  and,
+[00:02:24.320 -> 00:02:25.840]  when you hit a breakpoint,
+[00:02:26.800 -> 00:02:28.040]  you get a,
+[00:02:28.040 -> 00:02:29.060]  a,
+[00:02:29.060 -> 00:02:30.120]  a fault,
+[00:02:32.260 -> 00:02:33.940]  I think it's number three,
+[00:02:39.040 -> 00:02:40.160]  where can we,
+[00:02:45.520 -> 00:02:47.900]  I'm looking for the names of the,
+[00:02:53.120 -> 00:02:53.520]  if,
+[00:02:56.240 -> 00:02:56.640]  if,
+[00:02:56.640 -> 00:02:56.700]  if,
+[00:02:57.320 -> 00:02:57.320]  
+[00:02:59.940 -> 00:03:00.140]  if,
+[00:03:00.140 -> 00:03:00.280]  if,
+[00:03:00.780 -> 00:03:00.780]  
+[00:03:00.960 -> 00:03:01.240]  if,
+[00:03:01.240 -> 00:03:01.260]  if,
+[00:03:01.260 -> 00:03:01.260]  
+[00:03:01.260 -> 00:03:01.340]  if,
+[00:03:01.480 -> 00:03:01.580]  if,
+[00:03:01.680 -> 00:03:01.680]  
+[00:03:01.680 -> 00:03:01.680]  
+[00:03:01.680 -> 00:03:01.680]  
+[00:03:01.680 -> 00:03:01.680]  
+[00:03:01.680 -> 00:03:01.680]  
+[00:03:01.680 -> 00:03:01.680]  
+[00:03:01.680 -> 00:03:01.680]  
+[00:03:01.680 -> 00:03:01.680]  
+[00:03:01.680 -> 00:03:01.680]  
+[00:03:01.680 -> 00:03:01.720]  if,
+[00:03:01.720 -> 00:03:01.780]  if,
+[00:03:01.780 -> 00:03:01.780]  
+[00:03:01.780 -> 00:03:01.780]  
+[00:03:01.780 -> 00:03:01.780]  
+[00:03:01.780 -> 00:03:01.780]  
+[00:03:01.780 -> 00:03:02.440]  if,
+[00:03:02.780 -> 00:03:02.780]  
+[00:03:02.920 -> 00:03:02.920]  
+[00:03:02.920 -> 00:03:02.920]  
+[00:03:02.920 -> 00:03:02.920]  
+[00:03:02.920 -> 00:03:02.920]  
+[00:03:02.920 -> 00:03:02.920]  
+[00:03:02.920 -> 00:03:02.920]  
+[00:03:02.920 -> 00:03:02.920]  
+[00:03:03.040 -> 00:03:03.040]  
+[00:03:03.040 -> 00:03:03.040]  
+[00:03:03.120 -> 00:03:03.120]  
+[00:03:03.120 -> 00:03:03.440]  if,
+[00:03:03.440 -> 00:03:03.440]  
+[00:03:03.440 -> 00:03:03.440]  
+[00:03:03.440 -> 00:03:03.440]  
+[00:03:03.440 -> 00:03:03.440]  
+[00:03:03.440 -> 00:03:03.780]  if,
+[00:03:03.940 -> 00:03:03.940]  
+[00:03:03.960 -> 00:03:03.960]  
+[00:03:03.960 -> 00:03:03.960]  
+[00:03:03.960 -> 00:03:03.960]  
+[00:03:03.960 -> 00:03:03.960]  
+[00:03:03.960 -> 00:03:03.960]  
+[00:03:05.660 -> 00:03:06.040]  if,
+[00:03:07.040 -> 00:03:07.440]  if,
+[00:03:07.440 -> 00:03:07.440]  
+[00:03:07.940 -> 00:03:08.340]  if,
+[00:03:08.340 -> 00:03:19.200]  have a list of all the faults and breakpoint is 0 1 2 3 breakpoint is fault
+[00:03:19.200 -> 00:03:30.160]  number three so when you so what we were looking at was where you insert a
+[00:03:30.160 -> 00:03:39.180]  breakpoint so it creates a new link list entry it saves it you tell it an address
+[00:03:39.180 -> 00:03:46.140]  it it it accesses the the code that you just set the breakpoint on to see what
+[00:03:46.140 -> 00:03:58.140]  was already there and then it's a stack so it push it does the link list like a
+[00:03:58.140 -> 00:04:07.280]  stack and if the if the task is the current task and it's live then go ahead
+[00:04:07.280 -> 00:04:12.440]  and put the breakpoint in right now otherwise it'll get inserted the next
+[00:04:12.440 -> 00:04:24.800]  time the task is is loaded notice we put the we we we pushed the flags and we we
+[00:04:24.800 -> 00:04:33.720]  turned off interrupts what that does is it makes it makes the tasks list of
+[00:04:33.720 -> 00:04:44.620]  breakpoints stable so that we don't hit this routine twice at the same time it's a
+[00:04:44.620 -> 00:04:52.740]  critical section we there can only be one task in here at a time because we have
+[00:04:52.740 -> 00:05:00.200]  interrupts locked that's only for core 0 core 1 could actually interfere with
+[00:05:00.200 -> 00:05:06.240]  this but nobody on core 1 is going to set a breakpoint only core 0 is allowed to
+[00:05:06.240 -> 00:05:21.620]  set breakpoints I anyway so we can let's take a quick look at the now when you hit
+[00:05:21.620 -> 00:05:33.760]  when you hit a breakpoint it generates software or generates interrupt 3 so if we
+[00:05:33.760 -> 00:05:44.600]  look at the interrupts it hits the generic we we we set up all the interrupts to to
+[00:05:44.600 -> 00:05:53.980]  access the the generic fault handler and the generic fault all the interrupts come in
+[00:05:53.980 -> 00:06:01.640]  here but they've pushed their number and when we hit this fault handler we save the
+[00:06:01.640 -> 00:06:10.600]  context and then basically we low jump into the debugger it says go to fault 2 so I'm
+[00:06:13.540 -> 00:06:24.540]  going to jump into the debugger we do a little more stuff is this is kind of a mess isn't it but it's
+[00:06:24.540 -> 00:06:33.220]  necessary it's it's ugly that's what it is it's really really ugly so let's look for the interrupts
+[00:06:33.220 -> 00:07:00.580]  there's a breakpoint so if we hit a breakpoint we we minus minus the RIP so we back up a byte I guess it advances past the breakpoint so we want to be on top of the breakpoint so that when we print the RIP in in the exception we get the right address of the RIP
+[00:07:00.580 -> 00:07:08.780]  RIP and we print the RIP and we print the symbolic no we don't I can swear we print yeah we do print the symbolic of the RIP
+[00:07:13.740 -> 00:07:33.740]  anyway so there's the interrupt names that's where we that's where we say it's a that's where we get the breakpoint here's the interrupt names these are I do the first 32 are reserved and then I do some software interrupts anyway so how about that
+[00:07:34.160 -> 00:07:34.200]  so
+[00:07:34.200 -> 00:07:34.220]  so
+[00:07:34.220 -> 00:07:34.240]  so
+[00:07:34.240 -> 00:07:34.260]  so
+[00:07:34.260 -> 00:07:34.280]  so
+[00:07:34.280 -> 00:07:34.300]  so
+[00:07:34.300 -> 00:07:34.320]  so

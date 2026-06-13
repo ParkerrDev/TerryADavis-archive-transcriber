@@ -1,0 +1,8121 @@
+{
+  "source": {
+    "archive_identifier": "TerryADavis_TempleOS_Archive",
+    "filename": "videos/2014/2014-09-01T00:05:00+00:00 - TempleOS - Memory Identity Mapped, 2 Gig Code Heap (0Oyl7Z6Vx34).mp4",
+    "source_url": "https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-09-01T00:05:00+00:00 - TempleOS - Memory Identity Mapped, 2 Gig Code Heap (0Oyl7Z6Vx34).mp4",
+    "file_format": "MPEG4",
+    "file_size_bytes": 37420862
+  },
+  "transcription": {
+    "model": "mlx-community/whisper-large-v3-turbo",
+    "language_detected": "en",
+    "transcribed_at_utc": "2026-05-08T04:43:38.031155+00:00",
+    "duration_seconds": 611.77
+  },
+  "full_text": "So this MIT guy was on a video talking about airplane crashes and how they figured out all the airplane crash causes and how there hasn't been an airplane crash in the United States since 2003 or something like that. But anyway, so this genius MIT guy, he's like, I was impressed. I was legitimately impressed. He's talking about crash dumps. And everybody knows what, you know what's funny though? Well, anyway, so this genius MIT guy gets on there. And he starts saying, yeah, I came across this really squirrely stack code. I got to thinking about this. You know what? He probably thought 7-FF-FF-FF-FF was stack. He probably thought that was stack. This genius MIT guy doesn't know what identity map implies. So it's like right up there on the billboard. Ring zero only, identity mapped. So, okay, Mr. Genius MIT guy. Okay, Mr. Genius. If it's identity mapped, how many tasks can have 7-FF-FF as stack? I'll give you a clue. Just one task gets one stack address. Another task gets another stack address. And you're not even, you made a stupid assumption. First of all, I finally figured out what the hell he was talking about. He's talking about me. It's genius. So he thinks, well, okay, long story short. I put code in addresses under 2 gigs. If you know assembly language, there's a... If you call a... If you call a function, this is what... This is... There's only so many addressing modes. And this mode is... There's relative 32-bit. The format of the... Let me go ahead and show you. Let's go to my compiler assembler directory. Let's look for the call opcode in my opcode file. This format is relative 32-bit. The 16-bit is not available. Anyway, there is no relative 64-bit. There's only one instruction that has a 64-bit immediate. And that instruction is... You can do a move... You can do a move RAX. And then you can do a 64-bit value. And then you can do a call RAX. But this sucks ass. I don't like that. So what I... I made a rule. All code goes in the lowest 250... Or 2 gig. So let's unassemble. Let's see how it... Okay, so... Main is... Oh, okay. Actually, on this machine, I don't have a lot of memory. So I give it less than 2 gig. Because it's a separate heap. You can't intermix. Anyway. Anyway, so... This is at 3F. If I had more memory, it would... Anyway... So the genius didn't know what identity map means. So... Memrip... So this reports on usage. Okay. So... There's the low... Shut up, birds. Anyway... CodeHeap has... Certain amount used. The... The... CodeHeap. DataHeap. Um... This tells what it's used for. There's a hash table on each task. There's, uh... Some documents. Document structures. There... The big thing is the, uh... Disc cache. Disc cache is, uh... I forget... What is it? 64 meg? What is it? I forget what this is. I should know. Let's do a quick check. So... So... Actually... Oh, oh, oh, oh, oh, oh. It is... One... It's 128. So... 128. It scales to the amount of memory. It's, uh... Identity map. So you can't... You cannot grow stuff. So it stays the same, uh... Size. So the stacks are fixed size. The disc cache is fixed size. Uh... It kind of sucks. But, uh... There's a lot of upside. The upside is... Is it way simpler? And it's faster. Um... You know, it even... I run... I go with, uh... Um... There's, uh... Page tables. Oh, where's page tables? Uh... Fixed area for page tables. So here's the page tables. I have, uh... Um... What do I have? Uh... 128 meg... 128, uh... 180,000. 180,000. Uh... I could swear. Okay, so... Two meg... I... I don't have very... I use, uh... Two... Two meg page tables. So... And I identify... I always map, uh... 128 gig... Damn, there's a lot of numbers to remember. I always map 128 gig... Of space. Um... You can adjust it if... If you recompile. Change the constant. Anyway, uh... So... This is the Adam task. He's the main guy. He has the disk cache. The window manager task... Has... Why doesn't this show... Oh... I didn't fix this report. It's, uh... Wait a minute. Where's the window manager? Oh, there it is. There it is. Okay. Here's the window manager. Uh... The... There's a buffer for the screen. Several buffers and stuff. That's the graphics code. Um... Okay. What about the RAM disk? Where's the RAM disk? Oh, there it is. RAM disk. RAM disk is, uh... 128 gig... 128 meg. So, uh... That's... That's how the memory is used. So, the lowest... So, let's go to, uh... This is kind of, uh... So, I mark... I mark, uh... The first, uh... Few pages as, uh... Not present so that you get a null dereference crash. There's a guy who likes to brag about, uh... Making null dereference... Not crash. So, I... So, uh... This area has the kernel... Kernel left over from when it booted. This has, uh... Some bitch, those birds. Anyway, so the code heap... Um... The rest... The rest of the memory... So, uh... I made a drawing. It's pretty pointless. I used to, uh... Allocate separate pools for each core. But now, all the cores... Share pools. So, there's a, uh... There's a... There's a code heap in the lowest 2 gig... Code... Code block pool. Then there's a data block pool... For the rest. And the stack comes off the data block pool. Anyway, well... Good enough.",
+  "segments": [
+    {
+      "id": 0,
+      "start": 0.94,
+      "end": 23.92,
+      "text": "So this MIT guy was on a video talking about airplane crashes and how they figured out all the airplane crash causes and how there hasn't been an airplane crash in the United States since 2003 or something like that.",
+      "words": [
+        {
+          "word": "So",
+          "start": 0.94,
+          "end": 1.74,
+          "probability": 0.5991
+        },
+        {
+          "word": "this",
+          "start": 1.74,
+          "end": 2.16,
+          "probability": 0.8818
+        },
+        {
+          "word": "MIT",
+          "start": 2.16,
+          "end": 3.92,
+          "probability": 0.897
+        },
+        {
+          "word": "guy",
+          "start": 3.92,
+          "end": 4.58,
+          "probability": 0.9805
+        },
+        {
+          "word": "was",
+          "start": 4.58,
+          "end": 5.56,
+          "probability": 0.98
+        },
+        {
+          "word": "on",
+          "start": 5.56,
+          "end": 6.72,
+          "probability": 0.981
+        },
+        {
+          "word": "a",
+          "start": 6.72,
+          "end": 6.9,
+          "probability": 0.978
+        },
+        {
+          "word": "video",
+          "start": 6.9,
+          "end": 8.04,
+          "probability": 0.9971
+        },
+        {
+          "word": "talking",
+          "start": 8.04,
+          "end": 8.62,
+          "probability": 0.9893
+        },
+        {
+          "word": "about",
+          "start": 8.62,
+          "end": 9.0,
+          "probability": 0.9995
+        },
+        {
+          "word": "airplane",
+          "start": 9.0,
+          "end": 9.7,
+          "probability": 0.9844
+        },
+        {
+          "word": "crashes",
+          "start": 9.7,
+          "end": 10.38,
+          "probability": 0.9985
+        },
+        {
+          "word": "and",
+          "start": 10.38,
+          "end": 10.74,
+          "probability": 0.9634
+        },
+        {
+          "word": "how",
+          "start": 10.74,
+          "end": 11.0,
+          "probability": 0.9985
+        },
+        {
+          "word": "they",
+          "start": 11.0,
+          "end": 12.02,
+          "probability": 0.9937
+        },
+        {
+          "word": "figured",
+          "start": 12.02,
+          "end": 12.44,
+          "probability": 0.9937
+        },
+        {
+          "word": "out",
+          "start": 12.44,
+          "end": 12.72,
+          "probability": 0.9995
+        },
+        {
+          "word": "all",
+          "start": 12.72,
+          "end": 13.52,
+          "probability": 0.9966
+        },
+        {
+          "word": "the",
+          "start": 13.52,
+          "end": 13.72,
+          "probability": 0.9956
+        },
+        {
+          "word": "airplane",
+          "start": 13.72,
+          "end": 14.24,
+          "probability": 0.9985
+        },
+        {
+          "word": "crash",
+          "start": 14.24,
+          "end": 14.64,
+          "probability": 0.9932
+        },
+        {
+          "word": "causes",
+          "start": 14.64,
+          "end": 15.54,
+          "probability": 0.9976
+        },
+        {
+          "word": "and",
+          "start": 15.54,
+          "end": 18.0,
+          "probability": 0.7886
+        },
+        {
+          "word": "how",
+          "start": 18.0,
+          "end": 18.24,
+          "probability": 0.998
+        },
+        {
+          "word": "there",
+          "start": 18.24,
+          "end": 18.44,
+          "probability": 0.998
+        },
+        {
+          "word": "hasn't",
+          "start": 18.44,
+          "end": 18.74,
+          "probability": 0.9971
+        },
+        {
+          "word": "been",
+          "start": 18.74,
+          "end": 18.9,
+          "probability": 0.9976
+        },
+        {
+          "word": "an",
+          "start": 18.9,
+          "end": 19.06,
+          "probability": 0.9819
+        },
+        {
+          "word": "airplane",
+          "start": 19.06,
+          "end": 19.38,
+          "probability": 0.9995
+        },
+        {
+          "word": "crash",
+          "start": 19.38,
+          "end": 19.68,
+          "probability": 0.999
+        },
+        {
+          "word": "in",
+          "start": 19.68,
+          "end": 19.96,
+          "probability": 0.9976
+        },
+        {
+          "word": "the",
+          "start": 19.96,
+          "end": 20.04,
+          "probability": 0.9297
+        },
+        {
+          "word": "United",
+          "start": 20.04,
+          "end": 20.24,
+          "probability": 0.9795
+        },
+        {
+          "word": "States",
+          "start": 20.24,
+          "end": 20.6,
+          "probability": 0.9985
+        },
+        {
+          "word": "since",
+          "start": 20.6,
+          "end": 21.06,
+          "probability": 0.9995
+        },
+        {
+          "word": "2003",
+          "start": 21.06,
+          "end": 22.5,
+          "probability": 0.9985
+        },
+        {
+          "word": "or",
+          "start": 22.5,
+          "end": 22.98,
+          "probability": 0.9951
+        },
+        {
+          "word": "something",
+          "start": 22.98,
+          "end": 23.32,
+          "probability": 0.9995
+        },
+        {
+          "word": "like",
+          "start": 23.32,
+          "end": 23.62,
+          "probability": 0.9995
+        },
+        {
+          "word": "that.",
+          "start": 23.62,
+          "end": 23.92,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.2281,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 1,
+      "start": 23.92,
+      "end": 32.8,
+      "text": "But anyway, so this genius MIT guy, he's like, I was impressed.",
+      "words": [
+        {
+          "word": "But",
+          "start": 23.92,
+          "end": 23.98,
+          "probability": 0.3096
+        },
+        {
+          "word": "anyway,",
+          "start": 23.98,
+          "end": 25.12,
+          "probability": 0.9648
+        },
+        {
+          "word": "so",
+          "start": 25.46,
+          "end": 27.8,
+          "probability": 0.9951
+        },
+        {
+          "word": "this",
+          "start": 27.8,
+          "end": 28.1,
+          "probability": 0.999
+        },
+        {
+          "word": "genius",
+          "start": 28.1,
+          "end": 28.96,
+          "probability": 0.897
+        },
+        {
+          "word": "MIT",
+          "start": 28.96,
+          "end": 29.34,
+          "probability": 0.9976
+        },
+        {
+          "word": "guy,",
+          "start": 29.34,
+          "end": 30.08,
+          "probability": 1.0
+        },
+        {
+          "word": "he's",
+          "start": 30.32,
+          "end": 31.68,
+          "probability": 0.999
+        },
+        {
+          "word": "like,",
+          "start": 31.68,
+          "end": 31.92,
+          "probability": 0.9961
+        },
+        {
+          "word": "I",
+          "start": 32.0,
+          "end": 32.22,
+          "probability": 1.0
+        },
+        {
+          "word": "was",
+          "start": 32.22,
+          "end": 32.5,
+          "probability": 1.0
+        },
+        {
+          "word": "impressed.",
+          "start": 32.5,
+          "end": 32.8,
+          "probability": 0.9995
+        }
+      ],
+      "avg_logprob": -0.1764,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 2,
+      "start": 32.8,
+      "end": 34.36,
+      "text": "I was legitimately impressed.",
+      "words": [
+        {
+          "word": "I",
+          "start": 32.8,
+          "end": 33.16,
+          "probability": 0.9995
+        },
+        {
+          "word": "was",
+          "start": 33.16,
+          "end": 33.3,
+          "probability": 1.0
+        },
+        {
+          "word": "legitimately",
+          "start": 33.3,
+          "end": 33.84,
+          "probability": 1.0
+        },
+        {
+          "word": "impressed.",
+          "start": 33.84,
+          "end": 34.36,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.1764,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 3,
+      "start": 34.36,
+      "end": 36.16,
+      "text": "He's talking about crash dumps.",
+      "words": [
+        {
+          "word": "He's",
+          "start": 34.36,
+          "end": 34.76,
+          "probability": 1.0
+        },
+        {
+          "word": "talking",
+          "start": 34.76,
+          "end": 34.94,
+          "probability": 1.0
+        },
+        {
+          "word": "about",
+          "start": 34.94,
+          "end": 35.2,
+          "probability": 1.0
+        },
+        {
+          "word": "crash",
+          "start": 35.2,
+          "end": 35.6,
+          "probability": 0.9912
+        },
+        {
+          "word": "dumps.",
+          "start": 35.6,
+          "end": 36.16,
+          "probability": 0.9873
+        }
+      ],
+      "avg_logprob": -0.1764,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 4,
+      "start": 36.5,
+      "end": 43.58,
+      "text": "And everybody knows what, you know what's funny though?",
+      "words": [
+        {
+          "word": "And",
+          "start": 36.5,
+          "end": 37.1,
+          "probability": 0.8887
+        },
+        {
+          "word": "everybody",
+          "start": 37.1,
+          "end": 39.68,
+          "probability": 0.9985
+        },
+        {
+          "word": "knows",
+          "start": 39.68,
+          "end": 40.4,
+          "probability": 1.0
+        },
+        {
+          "word": "what,",
+          "start": 40.4,
+          "end": 40.78,
+          "probability": 1.0
+        },
+        {
+          "word": "you",
+          "start": 40.94,
+          "end": 42.78,
+          "probability": 0.999
+        },
+        {
+          "word": "know",
+          "start": 42.78,
+          "end": 42.86,
+          "probability": 1.0
+        },
+        {
+          "word": "what's",
+          "start": 42.86,
+          "end": 43.06,
+          "probability": 0.9585
+        },
+        {
+          "word": "funny",
+          "start": 43.06,
+          "end": 43.36,
+          "probability": 1.0
+        },
+        {
+          "word": "though?",
+          "start": 43.36,
+          "end": 43.58,
+          "probability": 0.3845
+        }
+      ],
+      "avg_logprob": -0.1764,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 5,
+      "start": 44.38,
+      "end": 48.08,
+      "text": "Well, anyway, so this genius MIT guy gets on there.",
+      "words": [
+        {
+          "word": "Well,",
+          "start": 44.38,
+          "end": 44.98,
+          "probability": 0.9961
+        },
+        {
+          "word": "anyway,",
+          "start": 45.08,
+          "end": 45.26,
+          "probability": 1.0
+        },
+        {
+          "word": "so",
+          "start": 45.64,
+          "end": 45.82,
+          "probability": 1.0
+        },
+        {
+          "word": "this",
+          "start": 45.82,
+          "end": 46.02,
+          "probability": 1.0
+        },
+        {
+          "word": "genius",
+          "start": 46.02,
+          "end": 46.6,
+          "probability": 0.9995
+        },
+        {
+          "word": "MIT",
+          "start": 46.6,
+          "end": 47.1,
+          "probability": 1.0
+        },
+        {
+          "word": "guy",
+          "start": 47.1,
+          "end": 47.46,
+          "probability": 1.0
+        },
+        {
+          "word": "gets",
+          "start": 47.46,
+          "end": 47.74,
+          "probability": 0.9995
+        },
+        {
+          "word": "on",
+          "start": 47.74,
+          "end": 47.94,
+          "probability": 0.979
+        },
+        {
+          "word": "there.",
+          "start": 47.94,
+          "end": 48.08,
+          "probability": 0.9976
+        }
+      ],
+      "avg_logprob": -0.1764,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 6,
+      "start": 48.08,
+      "end": 56.26,
+      "text": "And he starts saying, yeah, I came across this really squirrely stack code.",
+      "words": [
+        {
+          "word": "And",
+          "start": 48.08,
+          "end": 48.18,
+          "probability": 0.172
+        },
+        {
+          "word": "he",
+          "start": 48.18,
+          "end": 48.56,
+          "probability": 0.522
+        },
+        {
+          "word": "starts",
+          "start": 48.56,
+          "end": 48.8,
+          "probability": 0.9849
+        },
+        {
+          "word": "saying,",
+          "start": 48.8,
+          "end": 49.18,
+          "probability": 0.9985
+        },
+        {
+          "word": "yeah,",
+          "start": 49.76,
+          "end": 49.9,
+          "probability": 0.9316
+        },
+        {
+          "word": "I",
+          "start": 50.02,
+          "end": 50.08,
+          "probability": 0.9902
+        },
+        {
+          "word": "came",
+          "start": 50.08,
+          "end": 50.34,
+          "probability": 1.0
+        },
+        {
+          "word": "across",
+          "start": 50.34,
+          "end": 50.82,
+          "probability": 1.0
+        },
+        {
+          "word": "this",
+          "start": 50.82,
+          "end": 51.32,
+          "probability": 1.0
+        },
+        {
+          "word": "really",
+          "start": 51.32,
+          "end": 52.6,
+          "probability": 0.9917
+        },
+        {
+          "word": "squirrely",
+          "start": 52.6,
+          "end": 53.84,
+          "probability": 0.9839
+        },
+        {
+          "word": "stack",
+          "start": 53.84,
+          "end": 55.3,
+          "probability": 0.9854
+        },
+        {
+          "word": "code.",
+          "start": 55.3,
+          "end": 56.26,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.2703,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 7,
+      "start": 57.24,
+      "end": 59.58,
+      "text": "I got to thinking about this.",
+      "words": [
+        {
+          "word": "I",
+          "start": 57.24,
+          "end": 58.12,
+          "probability": 0.998
+        },
+        {
+          "word": "got",
+          "start": 58.12,
+          "end": 58.32,
+          "probability": 0.999
+        },
+        {
+          "word": "to",
+          "start": 58.32,
+          "end": 58.48,
+          "probability": 0.999
+        },
+        {
+          "word": "thinking",
+          "start": 58.48,
+          "end": 58.84,
+          "probability": 0.9995
+        },
+        {
+          "word": "about",
+          "start": 58.84,
+          "end": 59.18,
+          "probability": 1.0
+        },
+        {
+          "word": "this.",
+          "start": 59.18,
+          "end": 59.58,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.2703,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 8,
+      "start": 59.8,
+      "end": 61.18,
+      "text": "You know what?",
+      "words": [
+        {
+          "word": "You",
+          "start": 59.8,
+          "end": 60.54,
+          "probability": 0.9976
+        },
+        {
+          "word": "know",
+          "start": 60.54,
+          "end": 60.72,
+          "probability": 1.0
+        },
+        {
+          "word": "what?",
+          "start": 60.72,
+          "end": 61.18,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.2703,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 9,
+      "start": 62.2,
+      "end": 69.16,
+      "text": "He probably thought 7-FF-FF-FF-FF was stack.",
+      "words": [
+        {
+          "word": "He",
+          "start": 62.1,
+          "end": 62.54,
+          "probability": 0.9995
+        },
+        {
+          "word": "probably",
+          "start": 62.54,
+          "end": 63.06,
+          "probability": 1.0
+        },
+        {
+          "word": "thought",
+          "start": 63.06,
+          "end": 63.66,
+          "probability": 1.0
+        },
+        {
+          "word": "7",
+          "start": 63.66,
+          "end": 65.32,
+          "probability": 0.9902
+        },
+        {
+          "word": "-FF",
+          "start": 65.32,
+          "end": 66.0,
+          "probability": 0.6074
+        },
+        {
+          "word": "-FF",
+          "start": 66.0,
+          "end": 66.54,
+          "probability": 0.8755
+        },
+        {
+          "word": "-FF",
+          "start": 66.54,
+          "end": 67.58,
+          "probability": 0.9238
+        },
+        {
+          "word": "-FF",
+          "start": 67.58,
+          "end": 67.94,
+          "probability": 0.7134
+        },
+        {
+          "word": "was",
+          "start": 67.94,
+          "end": 68.72,
+          "probability": 0.9565
+        },
+        {
+          "word": "stack.",
+          "start": 68.72,
+          "end": 69.16,
+          "probability": 0.9941
+        }
+      ],
+      "avg_logprob": -0.2703,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 10,
+      "start": 69.62,
+      "end": 71.32,
+      "text": "He probably thought that was stack.",
+      "words": [
+        {
+          "word": "He",
+          "start": 69.62,
+          "end": 70.14,
+          "probability": 1.0
+        },
+        {
+          "word": "probably",
+          "start": 70.14,
+          "end": 70.38,
+          "probability": 1.0
+        },
+        {
+          "word": "thought",
+          "start": 70.38,
+          "end": 70.6,
+          "probability": 1.0
+        },
+        {
+          "word": "that",
+          "start": 70.6,
+          "end": 70.76,
+          "probability": 1.0
+        },
+        {
+          "word": "was",
+          "start": 70.76,
+          "end": 70.94,
+          "probability": 0.9995
+        },
+        {
+          "word": "stack.",
+          "start": 70.94,
+          "end": 71.32,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.2703,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 11,
+      "start": 71.32,
+      "end": 77.3,
+      "text": "This genius MIT guy doesn't know what identity map implies.",
+      "words": [
+        {
+          "word": "This",
+          "start": 71.32,
+          "end": 72.72,
+          "probability": 0.3491
+        },
+        {
+          "word": "genius",
+          "start": 72.72,
+          "end": 73.22,
+          "probability": 0.8882
+        },
+        {
+          "word": "MIT",
+          "start": 73.22,
+          "end": 73.66,
+          "probability": 0.9727
+        },
+        {
+          "word": "guy",
+          "start": 73.66,
+          "end": 74.26,
+          "probability": 0.9468
+        },
+        {
+          "word": "doesn't",
+          "start": 74.26,
+          "end": 75.04,
+          "probability": 0.9326
+        },
+        {
+          "word": "know",
+          "start": 75.04,
+          "end": 75.2,
+          "probability": 0.999
+        },
+        {
+          "word": "what",
+          "start": 75.2,
+          "end": 75.38,
+          "probability": 0.9893
+        },
+        {
+          "word": "identity",
+          "start": 75.38,
+          "end": 75.8,
+          "probability": 0.9507
+        },
+        {
+          "word": "map",
+          "start": 75.8,
+          "end": 76.3,
+          "probability": 0.9722
+        },
+        {
+          "word": "implies.",
+          "start": 76.3,
+          "end": 77.3,
+          "probability": 0.9722
+        }
+      ],
+      "avg_logprob": -0.3032,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 12,
+      "start": 78.5,
+      "end": 82.44,
+      "text": "So it's like right up there on the billboard.",
+      "words": [
+        {
+          "word": "So",
+          "start": 78.5,
+          "end": 78.56,
+          "probability": 0.8511
+        },
+        {
+          "word": "it's",
+          "start": 78.56,
+          "end": 79.46,
+          "probability": 0.6948
+        },
+        {
+          "word": "like",
+          "start": 79.46,
+          "end": 79.64,
+          "probability": 0.7095
+        },
+        {
+          "word": "right",
+          "start": 79.64,
+          "end": 79.84,
+          "probability": 0.9985
+        },
+        {
+          "word": "up",
+          "start": 79.84,
+          "end": 80.0,
+          "probability": 1.0
+        },
+        {
+          "word": "there",
+          "start": 80.0,
+          "end": 80.2,
+          "probability": 1.0
+        },
+        {
+          "word": "on",
+          "start": 80.2,
+          "end": 80.44,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 80.44,
+          "end": 80.64,
+          "probability": 1.0
+        },
+        {
+          "word": "billboard.",
+          "start": 80.64,
+          "end": 82.44,
+          "probability": 0.9912
+        }
+      ],
+      "avg_logprob": -0.3032,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 13,
+      "start": 82.96,
+      "end": 85.42,
+      "text": "Ring zero only, identity mapped.",
+      "words": [
+        {
+          "word": "Ring",
+          "start": 82.96,
+          "end": 83.76,
+          "probability": 0.9644
+        },
+        {
+          "word": "zero",
+          "start": 83.76,
+          "end": 84.02,
+          "probability": 0.623
+        },
+        {
+          "word": "only,",
+          "start": 84.02,
+          "end": 84.48,
+          "probability": 0.9878
+        },
+        {
+          "word": "identity",
+          "start": 84.6,
+          "end": 85.0,
+          "probability": 0.998
+        },
+        {
+          "word": "mapped.",
+          "start": 85.0,
+          "end": 85.42,
+          "probability": 0.9395
+        }
+      ],
+      "avg_logprob": -0.3032,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 14,
+      "start": 86.56,
+      "end": 90.32,
+      "text": "So, okay, Mr. Genius MIT guy.",
+      "words": [
+        {
+          "word": "So,",
+          "start": 86.56,
+          "end": 86.66,
+          "probability": 0.8784
+        },
+        {
+          "word": "okay,",
+          "start": 87.06,
+          "end": 87.34,
+          "probability": 0.9268
+        },
+        {
+          "word": "Mr.",
+          "start": 87.46,
+          "end": 87.72,
+          "probability": 0.9873
+        },
+        {
+          "word": "Genius",
+          "start": 87.86,
+          "end": 88.24,
+          "probability": 0.9297
+        },
+        {
+          "word": "MIT",
+          "start": 88.24,
+          "end": 89.7,
+          "probability": 0.9736
+        },
+        {
+          "word": "guy.",
+          "start": 89.7,
+          "end": 90.32,
+          "probability": 0.9829
+        }
+      ],
+      "avg_logprob": -0.3032,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 15,
+      "start": 97.1,
+      "end": 98.76,
+      "text": "Okay, Mr. Genius.",
+      "words": [
+        {
+          "word": "Okay,",
+          "start": 97.1,
+          "end": 97.86,
+          "probability": 0.7222
+        },
+        {
+          "word": "Mr.",
+          "start": 98.06,
+          "end": 98.28,
+          "probability": 0.9902
+        },
+        {
+          "word": "Genius.",
+          "start": 98.5,
+          "end": 98.76,
+          "probability": 0.998
+        }
+      ],
+      "avg_logprob": -0.2116,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 16,
+      "start": 99.18,
+      "end": 108.86,
+      "text": "If it's identity mapped, how many tasks can have 7-FF-FF as stack?",
+      "words": [
+        {
+          "word": "If",
+          "start": 99.18,
+          "end": 99.22,
+          "probability": 0.9922
+        },
+        {
+          "word": "it's",
+          "start": 99.22,
+          "end": 99.44,
+          "probability": 0.9966
+        },
+        {
+          "word": "identity",
+          "start": 99.44,
+          "end": 100.92,
+          "probability": 0.9536
+        },
+        {
+          "word": "mapped,",
+          "start": 100.92,
+          "end": 101.42,
+          "probability": 0.9839
+        },
+        {
+          "word": "how",
+          "start": 101.48,
+          "end": 104.1,
+          "probability": 0.9976
+        },
+        {
+          "word": "many",
+          "start": 104.1,
+          "end": 104.42,
+          "probability": 1.0
+        },
+        {
+          "word": "tasks",
+          "start": 104.42,
+          "end": 105.02,
+          "probability": 0.998
+        },
+        {
+          "word": "can",
+          "start": 105.02,
+          "end": 105.5,
+          "probability": 1.0
+        },
+        {
+          "word": "have",
+          "start": 105.5,
+          "end": 106.12,
+          "probability": 0.9985
+        },
+        {
+          "word": "7",
+          "start": 106.12,
+          "end": 107.4,
+          "probability": 0.9819
+        },
+        {
+          "word": "-FF",
+          "start": 107.4,
+          "end": 107.96,
+          "probability": 0.5317
+        },
+        {
+          "word": "-FF",
+          "start": 107.96,
+          "end": 108.32,
+          "probability": 0.0163
+        },
+        {
+          "word": "as",
+          "start": 108.32,
+          "end": 108.6,
+          "probability": 0.8145
+        },
+        {
+          "word": "stack?",
+          "start": 108.6,
+          "end": 108.86,
+          "probability": 0.9531
+        }
+      ],
+      "avg_logprob": -0.2116,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 17,
+      "start": 109.18,
+      "end": 110.28,
+      "text": "I'll give you a clue.",
+      "words": [
+        {
+          "word": "I'll",
+          "start": 109.18,
+          "end": 109.56,
+          "probability": 0.999
+        },
+        {
+          "word": "give",
+          "start": 109.56,
+          "end": 109.68,
+          "probability": 1.0
+        },
+        {
+          "word": "you",
+          "start": 109.68,
+          "end": 109.82,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 109.82,
+          "end": 110.0,
+          "probability": 1.0
+        },
+        {
+          "word": "clue.",
+          "start": 110.0,
+          "end": 110.28,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.2116,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 18,
+      "start": 110.84,
+      "end": 114.72,
+      "text": "Just one task gets one stack address.",
+      "words": [
+        {
+          "word": "Just",
+          "start": 110.84,
+          "end": 111.02,
+          "probability": 0.8745
+        },
+        {
+          "word": "one",
+          "start": 111.02,
+          "end": 112.22,
+          "probability": 0.9985
+        },
+        {
+          "word": "task",
+          "start": 112.22,
+          "end": 112.72,
+          "probability": 1.0
+        },
+        {
+          "word": "gets",
+          "start": 112.72,
+          "end": 113.38,
+          "probability": 0.9995
+        },
+        {
+          "word": "one",
+          "start": 113.38,
+          "end": 113.8,
+          "probability": 1.0
+        },
+        {
+          "word": "stack",
+          "start": 113.8,
+          "end": 114.24,
+          "probability": 0.999
+        },
+        {
+          "word": "address.",
+          "start": 114.24,
+          "end": 114.72,
+          "probability": 0.9995
+        }
+      ],
+      "avg_logprob": -0.2116,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 19,
+      "start": 115.1,
+      "end": 117.76,
+      "text": "Another task gets another stack address.",
+      "words": [
+        {
+          "word": "Another",
+          "start": 115.1,
+          "end": 115.74,
+          "probability": 0.9995
+        },
+        {
+          "word": "task",
+          "start": 115.74,
+          "end": 116.26,
+          "probability": 1.0
+        },
+        {
+          "word": "gets",
+          "start": 116.26,
+          "end": 116.54,
+          "probability": 1.0
+        },
+        {
+          "word": "another",
+          "start": 116.54,
+          "end": 116.84,
+          "probability": 1.0
+        },
+        {
+          "word": "stack",
+          "start": 116.84,
+          "end": 117.32,
+          "probability": 1.0
+        },
+        {
+          "word": "address.",
+          "start": 117.32,
+          "end": 117.76,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.2116,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 20,
+      "start": 117.76,
+      "end": 121.22,
+      "text": "And you're not even, you made a stupid assumption.",
+      "words": [
+        {
+          "word": "And",
+          "start": 117.76,
+          "end": 118.6,
+          "probability": 0.3127
+        },
+        {
+          "word": "you're",
+          "start": 118.6,
+          "end": 118.74,
+          "probability": 0.9414
+        },
+        {
+          "word": "not",
+          "start": 118.74,
+          "end": 118.92,
+          "probability": 0.9995
+        },
+        {
+          "word": "even,",
+          "start": 118.92,
+          "end": 119.22,
+          "probability": 1.0
+        },
+        {
+          "word": "you",
+          "start": 119.42,
+          "end": 119.86,
+          "probability": 0.9985
+        },
+        {
+          "word": "made",
+          "start": 119.86,
+          "end": 120.1,
+          "probability": 0.999
+        },
+        {
+          "word": "a",
+          "start": 120.1,
+          "end": 120.28,
+          "probability": 0.9995
+        },
+        {
+          "word": "stupid",
+          "start": 120.28,
+          "end": 120.64,
+          "probability": 1.0
+        },
+        {
+          "word": "assumption.",
+          "start": 120.64,
+          "end": 121.22,
+          "probability": 0.9966
+        }
+      ],
+      "avg_logprob": -0.2771,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 21,
+      "start": 121.86,
+      "end": 127.94,
+      "text": "First of all, I finally figured out what the hell he was talking about.",
+      "words": [
+        {
+          "word": "First",
+          "start": 121.86,
+          "end": 122.42,
+          "probability": 0.9995
+        },
+        {
+          "word": "of",
+          "start": 122.42,
+          "end": 122.6,
+          "probability": 1.0
+        },
+        {
+          "word": "all,",
+          "start": 122.6,
+          "end": 122.88,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 123.08,
+          "end": 126.3,
+          "probability": 0.9165
+        },
+        {
+          "word": "finally",
+          "start": 126.3,
+          "end": 126.62,
+          "probability": 1.0
+        },
+        {
+          "word": "figured",
+          "start": 126.62,
+          "end": 126.92,
+          "probability": 1.0
+        },
+        {
+          "word": "out",
+          "start": 126.92,
+          "end": 127.06,
+          "probability": 1.0
+        },
+        {
+          "word": "what",
+          "start": 127.06,
+          "end": 127.22,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 127.22,
+          "end": 127.3,
+          "probability": 1.0
+        },
+        {
+          "word": "hell",
+          "start": 127.3,
+          "end": 127.52,
+          "probability": 1.0
+        },
+        {
+          "word": "he",
+          "start": 127.52,
+          "end": 127.62,
+          "probability": 0.999
+        },
+        {
+          "word": "was",
+          "start": 127.62,
+          "end": 127.78,
+          "probability": 1.0
+        },
+        {
+          "word": "talking",
+          "start": 127.78,
+          "end": 127.9,
+          "probability": 0.7837
+        },
+        {
+          "word": "about.",
+          "start": 127.9,
+          "end": 127.94,
+          "probability": 0.8149
+        }
+      ],
+      "avg_logprob": -0.2771,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 22,
+      "start": 128.38,
+      "end": 129.98,
+      "text": "He's talking about me.",
+      "words": [
+        {
+          "word": "He's",
+          "start": 128.38,
+          "end": 128.94,
+          "probability": 0.9688
+        },
+        {
+          "word": "talking",
+          "start": 128.94,
+          "end": 129.22,
+          "probability": 0.9995
+        },
+        {
+          "word": "about",
+          "start": 129.22,
+          "end": 129.54,
+          "probability": 1.0
+        },
+        {
+          "word": "me.",
+          "start": 129.54,
+          "end": 129.98,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.2771,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 23,
+      "start": 132.24,
+      "end": 133.12,
+      "text": "It's genius.",
+      "words": [
+        {
+          "word": "It's",
+          "start": 132.24,
+          "end": 132.8,
+          "probability": 0.7402
+        },
+        {
+          "word": "genius.",
+          "start": 132.8,
+          "end": 133.12,
+          "probability": 0.8584
+        }
+      ],
+      "avg_logprob": -0.2771,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 24,
+      "start": 133.58,
+      "end": 137.16,
+      "text": "So he thinks, well, okay, long story short.",
+      "words": [
+        {
+          "word": "So",
+          "start": 133.58,
+          "end": 133.64,
+          "probability": 0.8975
+        },
+        {
+          "word": "he",
+          "start": 133.64,
+          "end": 134.0,
+          "probability": 0.8945
+        },
+        {
+          "word": "thinks,",
+          "start": 134.0,
+          "end": 134.9,
+          "probability": 0.9897
+        },
+        {
+          "word": "well,",
+          "start": 135.28,
+          "end": 135.54,
+          "probability": 0.9941
+        },
+        {
+          "word": "okay,",
+          "start": 135.78,
+          "end": 136.0,
+          "probability": 0.9839
+        },
+        {
+          "word": "long",
+          "start": 136.24,
+          "end": 136.5,
+          "probability": 1.0
+        },
+        {
+          "word": "story",
+          "start": 136.5,
+          "end": 136.8,
+          "probability": 1.0
+        },
+        {
+          "word": "short.",
+          "start": 136.8,
+          "end": 137.16,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.2771,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 25,
+      "start": 137.16,
+      "end": 148.36,
+      "text": "I put code in addresses under 2 gigs.",
+      "words": [
+        {
+          "word": "I",
+          "start": 137.16,
+          "end": 138.7,
+          "probability": 0.9321
+        },
+        {
+          "word": "put",
+          "start": 138.7,
+          "end": 139.04,
+          "probability": 0.9985
+        },
+        {
+          "word": "code",
+          "start": 139.04,
+          "end": 140.54,
+          "probability": 0.9443
+        },
+        {
+          "word": "in",
+          "start": 140.54,
+          "end": 142.52,
+          "probability": 0.9644
+        },
+        {
+          "word": "addresses",
+          "start": 142.52,
+          "end": 143.08,
+          "probability": 0.9956
+        },
+        {
+          "word": "under",
+          "start": 143.08,
+          "end": 143.78,
+          "probability": 0.9966
+        },
+        {
+          "word": "2",
+          "start": 143.78,
+          "end": 148.06,
+          "probability": 0.7295
+        },
+        {
+          "word": "gigs.",
+          "start": 148.06,
+          "end": 148.36,
+          "probability": 0.4329
+        }
+      ],
+      "avg_logprob": -0.4896,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 26,
+      "start": 151.66,
+      "end": 158.84,
+      "text": "If you know assembly language, there's a...",
+      "words": [
+        {
+          "word": "If",
+          "start": 151.66,
+          "end": 152.78,
+          "probability": 0.5737
+        },
+        {
+          "word": "you",
+          "start": 152.78,
+          "end": 152.88,
+          "probability": 0.998
+        },
+        {
+          "word": "know",
+          "start": 152.88,
+          "end": 152.98,
+          "probability": 0.9878
+        },
+        {
+          "word": "assembly",
+          "start": 152.98,
+          "end": 153.48,
+          "probability": 0.8823
+        },
+        {
+          "word": "language,",
+          "start": 153.48,
+          "end": 154.04,
+          "probability": 0.9956
+        },
+        {
+          "word": "there's",
+          "start": 155.96,
+          "end": 158.08,
+          "probability": 0.7871
+        },
+        {
+          "word": "a...",
+          "start": 158.08,
+          "end": 158.84,
+          "probability": 0.5024
+        }
+      ],
+      "avg_logprob": -0.3686,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 27,
+      "start": 160.98,
+      "end": 163.78,
+      "text": "If you call a...",
+      "words": [
+        {
+          "word": "If",
+          "start": 160.98,
+          "end": 162.1,
+          "probability": 0.8975
+        },
+        {
+          "word": "you",
+          "start": 162.1,
+          "end": 162.22,
+          "probability": 1.0
+        },
+        {
+          "word": "call",
+          "start": 162.22,
+          "end": 162.74,
+          "probability": 0.9995
+        },
+        {
+          "word": "a...",
+          "start": 162.74,
+          "end": 163.78,
+          "probability": 0.8271
+        }
+      ],
+      "avg_logprob": -0.3686,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 28,
+      "start": 166.28,
+      "end": 171.98,
+      "text": "If you call a function, this is what...",
+      "words": [
+        {
+          "word": "If",
+          "start": 166.28,
+          "end": 167.4,
+          "probability": 0.959
+        },
+        {
+          "word": "you",
+          "start": 167.4,
+          "end": 167.54,
+          "probability": 1.0
+        },
+        {
+          "word": "call",
+          "start": 167.54,
+          "end": 168.16,
+          "probability": 0.9995
+        },
+        {
+          "word": "a",
+          "start": 168.16,
+          "end": 168.64,
+          "probability": 1.0
+        },
+        {
+          "word": "function,",
+          "start": 168.64,
+          "end": 170.22,
+          "probability": 0.9844
+        },
+        {
+          "word": "this",
+          "start": 170.72,
+          "end": 171.36,
+          "probability": 0.8022
+        },
+        {
+          "word": "is",
+          "start": 171.36,
+          "end": 171.58,
+          "probability": 1.0
+        },
+        {
+          "word": "what...",
+          "start": 171.58,
+          "end": 171.98,
+          "probability": 0.6738
+        }
+      ],
+      "avg_logprob": -0.3686,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 29,
+      "start": 171.98,
+      "end": 172.76,
+      "text": "This is...",
+      "words": [
+        {
+          "word": "This",
+          "start": 171.98,
+          "end": 172.28,
+          "probability": 0.2498
+        },
+        {
+          "word": "is...",
+          "start": 172.28,
+          "end": 172.76,
+          "probability": 0.5435
+        }
+      ],
+      "avg_logprob": -0.3771,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 30,
+      "start": 172.76,
+      "end": 175.04,
+      "text": "There's only so many addressing modes.",
+      "words": [
+        {
+          "word": "There's",
+          "start": 172.76,
+          "end": 173.48,
+          "probability": 0.7378
+        },
+        {
+          "word": "only",
+          "start": 173.48,
+          "end": 173.66,
+          "probability": 1.0
+        },
+        {
+          "word": "so",
+          "start": 173.66,
+          "end": 173.88,
+          "probability": 0.9995
+        },
+        {
+          "word": "many",
+          "start": 173.88,
+          "end": 174.1,
+          "probability": 1.0
+        },
+        {
+          "word": "addressing",
+          "start": 174.1,
+          "end": 174.56,
+          "probability": 0.9961
+        },
+        {
+          "word": "modes.",
+          "start": 174.56,
+          "end": 175.04,
+          "probability": 0.999
+        }
+      ],
+      "avg_logprob": -0.3771,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 31,
+      "start": 175.36,
+      "end": 179.62,
+      "text": "And this mode is...",
+      "words": [
+        {
+          "word": "And",
+          "start": 175.36,
+          "end": 175.52,
+          "probability": 0.479
+        },
+        {
+          "word": "this",
+          "start": 175.52,
+          "end": 178.46,
+          "probability": 0.6841
+        },
+        {
+          "word": "mode",
+          "start": 178.46,
+          "end": 178.86,
+          "probability": 0.9995
+        },
+        {
+          "word": "is...",
+          "start": 178.86,
+          "end": 179.62,
+          "probability": 0.9873
+        }
+      ],
+      "avg_logprob": -0.3771,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 32,
+      "start": 179.62,
+      "end": 184.28,
+      "text": "There's relative 32-bit.",
+      "words": [
+        {
+          "word": "There's",
+          "start": 179.62,
+          "end": 180.52,
+          "probability": 0.9985
+        },
+        {
+          "word": "relative",
+          "start": 180.52,
+          "end": 183.18,
+          "probability": 0.6064
+        },
+        {
+          "word": "32",
+          "start": 183.18,
+          "end": 183.88,
+          "probability": 0.999
+        },
+        {
+          "word": "-bit.",
+          "start": 183.88,
+          "end": 184.28,
+          "probability": 0.9834
+        }
+      ],
+      "avg_logprob": -0.3771,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 33,
+      "start": 185.48,
+      "end": 187.5,
+      "text": "The format of the...",
+      "words": [
+        {
+          "word": "The",
+          "start": 185.48,
+          "end": 186.28,
+          "probability": 0.9805
+        },
+        {
+          "word": "format",
+          "start": 186.28,
+          "end": 186.98,
+          "probability": 0.999
+        },
+        {
+          "word": "of",
+          "start": 186.98,
+          "end": 187.2,
+          "probability": 0.9897
+        },
+        {
+          "word": "the...",
+          "start": 187.2,
+          "end": 187.5,
+          "probability": 0.978
+        }
+      ],
+      "avg_logprob": -0.3771,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 34,
+      "start": 187.5,
+      "end": 188.64,
+      "text": "Let me go ahead and show you.",
+      "words": [
+        {
+          "word": "Let",
+          "start": 187.5,
+          "end": 187.74,
+          "probability": 0.6792
+        },
+        {
+          "word": "me",
+          "start": 187.74,
+          "end": 187.84,
+          "probability": 0.9824
+        },
+        {
+          "word": "go",
+          "start": 187.84,
+          "end": 188.0,
+          "probability": 0.9995
+        },
+        {
+          "word": "ahead",
+          "start": 188.0,
+          "end": 188.16,
+          "probability": 1.0
+        },
+        {
+          "word": "and",
+          "start": 188.16,
+          "end": 188.28,
+          "probability": 0.9834
+        },
+        {
+          "word": "show",
+          "start": 188.28,
+          "end": 188.48,
+          "probability": 0.9888
+        },
+        {
+          "word": "you.",
+          "start": 188.48,
+          "end": 188.64,
+          "probability": 0.9736
+        }
+      ],
+      "avg_logprob": -0.3771,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 35,
+      "start": 189.34,
+      "end": 194.46,
+      "text": "Let's go to my compiler assembler directory.",
+      "words": [
+        {
+          "word": "Let's",
+          "start": 189.34,
+          "end": 190.14,
+          "probability": 0.9995
+        },
+        {
+          "word": "go",
+          "start": 190.14,
+          "end": 190.34,
+          "probability": 1.0
+        },
+        {
+          "word": "to",
+          "start": 190.34,
+          "end": 190.68,
+          "probability": 1.0
+        },
+        {
+          "word": "my",
+          "start": 190.68,
+          "end": 192.4,
+          "probability": 0.8696
+        },
+        {
+          "word": "compiler",
+          "start": 192.4,
+          "end": 193.0,
+          "probability": 0.9829
+        },
+        {
+          "word": "assembler",
+          "start": 193.0,
+          "end": 193.8,
+          "probability": 0.9448
+        },
+        {
+          "word": "directory.",
+          "start": 193.8,
+          "end": 194.46,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.3771,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 36,
+      "start": 196.24,
+      "end": 200.74,
+      "text": "Let's look for the call opcode in my opcode file.",
+      "words": [
+        {
+          "word": "Let's",
+          "start": 196.24,
+          "end": 197.2,
+          "probability": 0.5063
+        },
+        {
+          "word": "look",
+          "start": 197.2,
+          "end": 197.52,
+          "probability": 0.9048
+        },
+        {
+          "word": "for",
+          "start": 197.52,
+          "end": 197.74,
+          "probability": 0.9683
+        },
+        {
+          "word": "the",
+          "start": 197.74,
+          "end": 198.3,
+          "probability": 0.8955
+        },
+        {
+          "word": "call",
+          "start": 198.3,
+          "end": 198.68,
+          "probability": 0.833
+        },
+        {
+          "word": "opcode",
+          "start": 198.68,
+          "end": 199.3,
+          "probability": 0.9536
+        },
+        {
+          "word": "in",
+          "start": 199.3,
+          "end": 199.52,
+          "probability": 0.9712
+        },
+        {
+          "word": "my",
+          "start": 199.52,
+          "end": 199.76,
+          "probability": 0.9941
+        },
+        {
+          "word": "opcode",
+          "start": 199.76,
+          "end": 200.32,
+          "probability": 0.9951
+        },
+        {
+          "word": "file.",
+          "start": 200.32,
+          "end": 200.74,
+          "probability": 0.9966
+        }
+      ],
+      "avg_logprob": -0.3115,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 37,
+      "start": 202.58,
+      "end": 206.66,
+      "text": "This format is relative 32-bit.",
+      "words": [
+        {
+          "word": "This",
+          "start": 202.58,
+          "end": 203.54,
+          "probability": 0.9819
+        },
+        {
+          "word": "format",
+          "start": 203.54,
+          "end": 204.5,
+          "probability": 0.9976
+        },
+        {
+          "word": "is",
+          "start": 204.5,
+          "end": 204.98,
+          "probability": 0.998
+        },
+        {
+          "word": "relative",
+          "start": 204.98,
+          "end": 205.46,
+          "probability": 0.979
+        },
+        {
+          "word": "32",
+          "start": 205.46,
+          "end": 206.24,
+          "probability": 0.9937
+        },
+        {
+          "word": "-bit.",
+          "start": 206.24,
+          "end": 206.66,
+          "probability": 0.8936
+        }
+      ],
+      "avg_logprob": -0.3115,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 38,
+      "start": 208.48,
+      "end": 211.6,
+      "text": "The 16-bit is not available.",
+      "words": [
+        {
+          "word": "The",
+          "start": 208.48,
+          "end": 209.44,
+          "probability": 0.9956
+        },
+        {
+          "word": "16",
+          "start": 209.44,
+          "end": 209.76,
+          "probability": 0.9995
+        },
+        {
+          "word": "-bit",
+          "start": 209.76,
+          "end": 210.1,
+          "probability": 0.999
+        },
+        {
+          "word": "is",
+          "start": 210.1,
+          "end": 210.28,
+          "probability": 0.9995
+        },
+        {
+          "word": "not",
+          "start": 210.28,
+          "end": 210.52,
+          "probability": 1.0
+        },
+        {
+          "word": "available.",
+          "start": 210.52,
+          "end": 211.6,
+          "probability": 0.999
+        }
+      ],
+      "avg_logprob": -0.3115,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 39,
+      "start": 212.42,
+      "end": 216.2,
+      "text": "Anyway, there is no relative 64-bit.",
+      "words": [
+        {
+          "word": "Anyway,",
+          "start": 212.42,
+          "end": 212.96,
+          "probability": 0.9707
+        },
+        {
+          "word": "there",
+          "start": 213.32,
+          "end": 213.88,
+          "probability": 1.0
+        },
+        {
+          "word": "is",
+          "start": 213.88,
+          "end": 214.08,
+          "probability": 1.0
+        },
+        {
+          "word": "no",
+          "start": 214.08,
+          "end": 214.38,
+          "probability": 1.0
+        },
+        {
+          "word": "relative",
+          "start": 214.38,
+          "end": 215.08,
+          "probability": 0.9995
+        },
+        {
+          "word": "64",
+          "start": 215.08,
+          "end": 215.74,
+          "probability": 0.999
+        },
+        {
+          "word": "-bit.",
+          "start": 215.74,
+          "end": 216.2,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.3115,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 40,
+      "start": 217.04,
+      "end": 221.96,
+      "text": "There's only one instruction that has a 64-bit immediate.",
+      "words": [
+        {
+          "word": "There's",
+          "start": 217.04,
+          "end": 217.7,
+          "probability": 0.7812
+        },
+        {
+          "word": "only",
+          "start": 217.7,
+          "end": 217.96,
+          "probability": 0.9976
+        },
+        {
+          "word": "one",
+          "start": 217.96,
+          "end": 218.5,
+          "probability": 0.981
+        },
+        {
+          "word": "instruction",
+          "start": 218.5,
+          "end": 219.06,
+          "probability": 0.9854
+        },
+        {
+          "word": "that",
+          "start": 219.06,
+          "end": 219.4,
+          "probability": 0.9678
+        },
+        {
+          "word": "has",
+          "start": 219.4,
+          "end": 219.7,
+          "probability": 0.998
+        },
+        {
+          "word": "a",
+          "start": 219.7,
+          "end": 219.92,
+          "probability": 0.9863
+        },
+        {
+          "word": "64",
+          "start": 219.92,
+          "end": 220.64,
+          "probability": 0.9888
+        },
+        {
+          "word": "-bit",
+          "start": 220.64,
+          "end": 221.06,
+          "probability": 0.853
+        },
+        {
+          "word": "immediate.",
+          "start": 221.06,
+          "end": 221.96,
+          "probability": 0.957
+        }
+      ],
+      "avg_logprob": -0.3033,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 41,
+      "start": 222.94,
+      "end": 225.34,
+      "text": "And that instruction is...",
+      "words": [
+        {
+          "word": "And",
+          "start": 222.94,
+          "end": 223.48,
+          "probability": 0.939
+        },
+        {
+          "word": "that",
+          "start": 223.48,
+          "end": 223.74,
+          "probability": 0.9976
+        },
+        {
+          "word": "instruction",
+          "start": 223.74,
+          "end": 224.42,
+          "probability": 0.9995
+        },
+        {
+          "word": "is...",
+          "start": 224.42,
+          "end": 225.34,
+          "probability": 0.6113
+        }
+      ],
+      "avg_logprob": -0.3033,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 42,
+      "start": 226.22,
+      "end": 227.96,
+      "text": "You can do a move...",
+      "words": [
+        {
+          "word": "You",
+          "start": 226.22,
+          "end": 226.88,
+          "probability": 0.9585
+        },
+        {
+          "word": "can",
+          "start": 226.88,
+          "end": 227.04,
+          "probability": 1.0
+        },
+        {
+          "word": "do",
+          "start": 227.04,
+          "end": 227.18,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 227.18,
+          "end": 227.34,
+          "probability": 1.0
+        },
+        {
+          "word": "move...",
+          "start": 227.34,
+          "end": 227.96,
+          "probability": 0.5508
+        }
+      ],
+      "avg_logprob": -0.3033,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 43,
+      "start": 230.3,
+      "end": 232.4,
+      "text": "You can do a move RAX.",
+      "words": [
+        {
+          "word": "You",
+          "start": 230.3,
+          "end": 230.96,
+          "probability": 0.9922
+        },
+        {
+          "word": "can",
+          "start": 230.96,
+          "end": 231.14,
+          "probability": 0.999
+        },
+        {
+          "word": "do",
+          "start": 231.14,
+          "end": 231.2,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 231.2,
+          "end": 231.34,
+          "probability": 1.0
+        },
+        {
+          "word": "move",
+          "start": 231.34,
+          "end": 231.58,
+          "probability": 0.9937
+        },
+        {
+          "word": "RAX.",
+          "start": 231.58,
+          "end": 232.4,
+          "probability": 0.7607
+        }
+      ],
+      "avg_logprob": -0.3033,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 44,
+      "start": 233.14,
+      "end": 237.46,
+      "text": "And then you can do a 64-bit value.",
+      "words": [
+        {
+          "word": "And",
+          "start": 233.14,
+          "end": 233.8,
+          "probability": 1.0
+        },
+        {
+          "word": "then",
+          "start": 233.8,
+          "end": 234.08,
+          "probability": 1.0
+        },
+        {
+          "word": "you",
+          "start": 234.08,
+          "end": 234.42,
+          "probability": 0.9912
+        },
+        {
+          "word": "can",
+          "start": 234.42,
+          "end": 234.6,
+          "probability": 1.0
+        },
+        {
+          "word": "do",
+          "start": 234.6,
+          "end": 234.78,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 234.78,
+          "end": 234.96,
+          "probability": 1.0
+        },
+        {
+          "word": "64",
+          "start": 234.96,
+          "end": 235.98,
+          "probability": 0.999
+        },
+        {
+          "word": "-bit",
+          "start": 235.98,
+          "end": 236.46,
+          "probability": 1.0
+        },
+        {
+          "word": "value.",
+          "start": 236.46,
+          "end": 237.46,
+          "probability": 0.9951
+        }
+      ],
+      "avg_logprob": -0.3033,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 45,
+      "start": 237.76,
+      "end": 240.3,
+      "text": "And then you can do a call RAX.",
+      "words": [
+        {
+          "word": "And",
+          "start": 237.76,
+          "end": 238.08,
+          "probability": 0.9995
+        },
+        {
+          "word": "then",
+          "start": 238.08,
+          "end": 238.24,
+          "probability": 1.0
+        },
+        {
+          "word": "you",
+          "start": 238.24,
+          "end": 238.4,
+          "probability": 1.0
+        },
+        {
+          "word": "can",
+          "start": 238.4,
+          "end": 238.62,
+          "probability": 1.0
+        },
+        {
+          "word": "do",
+          "start": 238.62,
+          "end": 238.78,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 238.78,
+          "end": 238.92,
+          "probability": 1.0
+        },
+        {
+          "word": "call",
+          "start": 238.92,
+          "end": 239.42,
+          "probability": 0.9985
+        },
+        {
+          "word": "RAX.",
+          "start": 239.42,
+          "end": 240.3,
+          "probability": 0.9995
+        }
+      ],
+      "avg_logprob": -0.3033,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 46,
+      "start": 240.3,
+      "end": 242.9,
+      "text": "But this sucks ass.",
+      "words": [
+        {
+          "word": "But",
+          "start": 240.3,
+          "end": 241.16,
+          "probability": 0.5186
+        },
+        {
+          "word": "this",
+          "start": 241.16,
+          "end": 241.88,
+          "probability": 0.958
+        },
+        {
+          "word": "sucks",
+          "start": 241.88,
+          "end": 242.56,
+          "probability": 0.9863
+        },
+        {
+          "word": "ass.",
+          "start": 242.56,
+          "end": 242.9,
+          "probability": 0.9893
+        }
+      ],
+      "avg_logprob": -0.423,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 47,
+      "start": 243.06,
+      "end": 243.86,
+      "text": "I don't like that.",
+      "words": [
+        {
+          "word": "I",
+          "start": 243.06,
+          "end": 243.16,
+          "probability": 1.0
+        },
+        {
+          "word": "don't",
+          "start": 243.16,
+          "end": 243.36,
+          "probability": 1.0
+        },
+        {
+          "word": "like",
+          "start": 243.36,
+          "end": 243.58,
+          "probability": 1.0
+        },
+        {
+          "word": "that.",
+          "start": 243.58,
+          "end": 243.86,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.423,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 48,
+      "start": 244.48,
+      "end": 245.26,
+      "text": "So what I...",
+      "words": [
+        {
+          "word": "So",
+          "start": 244.48,
+          "end": 244.8,
+          "probability": 0.855
+        },
+        {
+          "word": "what",
+          "start": 244.8,
+          "end": 244.96,
+          "probability": 0.2184
+        },
+        {
+          "word": "I...",
+          "start": 244.96,
+          "end": 245.26,
+          "probability": 0.6182
+        }
+      ],
+      "avg_logprob": -0.423,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 49,
+      "start": 245.26,
+      "end": 246.1,
+      "text": "I made a rule.",
+      "words": [
+        {
+          "word": "I",
+          "start": 245.26,
+          "end": 245.44,
+          "probability": 0.9927
+        },
+        {
+          "word": "made",
+          "start": 245.44,
+          "end": 245.62,
+          "probability": 0.9932
+        },
+        {
+          "word": "a",
+          "start": 245.62,
+          "end": 245.74,
+          "probability": 1.0
+        },
+        {
+          "word": "rule.",
+          "start": 245.74,
+          "end": 246.1,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.423,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 50,
+      "start": 246.54,
+      "end": 249.56,
+      "text": "All code goes in the lowest 250...",
+      "words": [
+        {
+          "word": "All",
+          "start": 246.54,
+          "end": 247.24,
+          "probability": 0.999
+        },
+        {
+          "word": "code",
+          "start": 247.24,
+          "end": 247.6,
+          "probability": 0.9995
+        },
+        {
+          "word": "goes",
+          "start": 247.6,
+          "end": 247.92,
+          "probability": 0.9995
+        },
+        {
+          "word": "in",
+          "start": 247.92,
+          "end": 248.08,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 248.08,
+          "end": 248.2,
+          "probability": 1.0
+        },
+        {
+          "word": "lowest",
+          "start": 248.2,
+          "end": 248.56,
+          "probability": 0.9995
+        },
+        {
+          "word": "250...",
+          "start": 248.56,
+          "end": 249.56,
+          "probability": 0.791
+        }
+      ],
+      "avg_logprob": -0.423,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 51,
+      "start": 249.56,
+      "end": 250.52,
+      "text": "Or 2 gig.",
+      "words": [
+        {
+          "word": "Or",
+          "start": 249.56,
+          "end": 249.62,
+          "probability": 0.459
+        },
+        {
+          "word": "2",
+          "start": 249.62,
+          "end": 250.22,
+          "probability": 0.7676
+        },
+        {
+          "word": "gig.",
+          "start": 250.22,
+          "end": 250.52,
+          "probability": 0.9673
+        }
+      ],
+      "avg_logprob": -0.423,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 52,
+      "start": 253.12,
+      "end": 255.34,
+      "text": "So let's unassemble.",
+      "words": [
+        {
+          "word": "So",
+          "start": 253.12,
+          "end": 253.82,
+          "probability": 0.4236
+        },
+        {
+          "word": "let's",
+          "start": 253.82,
+          "end": 254.52,
+          "probability": 0.9736
+        },
+        {
+          "word": "unassemble.",
+          "start": 254.52,
+          "end": 255.34,
+          "probability": 0.9873
+        }
+      ],
+      "avg_logprob": -0.423,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 53,
+      "start": 257.76,
+      "end": 259.3,
+      "text": "Let's see how it...",
+      "words": [
+        {
+          "word": "Let's",
+          "start": 257.76,
+          "end": 258.46,
+          "probability": 0.9922
+        },
+        {
+          "word": "see",
+          "start": 258.46,
+          "end": 258.64,
+          "probability": 0.9956
+        },
+        {
+          "word": "how",
+          "start": 258.64,
+          "end": 258.86,
+          "probability": 1.0
+        },
+        {
+          "word": "it...",
+          "start": 258.86,
+          "end": 259.3,
+          "probability": 0.999
+        }
+      ],
+      "avg_logprob": -0.423,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 54,
+      "start": 263.04,
+      "end": 264.44,
+      "text": "Okay, so...",
+      "words": [
+        {
+          "word": "Okay,",
+          "start": 263.04,
+          "end": 263.74,
+          "probability": 0.9771
+        },
+        {
+          "word": "so...",
+          "start": 263.74,
+          "end": 264.44,
+          "probability": 0.9883
+        }
+      ],
+      "avg_logprob": -0.423,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 55,
+      "start": 269.96,
+      "end": 271.08,
+      "text": "Main is...",
+      "words": [
+        {
+          "word": "Main",
+          "start": 269.96,
+          "end": 270.52,
+          "probability": 0.2317
+        },
+        {
+          "word": "is...",
+          "start": 270.52,
+          "end": 271.08,
+          "probability": 0.5898
+        }
+      ],
+      "avg_logprob": -0.3495,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 56,
+      "start": 271.08,
+      "end": 271.9,
+      "text": "Oh, okay.",
+      "words": [
+        {
+          "word": "Oh,",
+          "start": 271.08,
+          "end": 271.54,
+          "probability": 0.75
+        },
+        {
+          "word": "okay.",
+          "start": 271.82,
+          "end": 271.9,
+          "probability": 0.958
+        }
+      ],
+      "avg_logprob": -0.3495,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 57,
+      "start": 272.06,
+      "end": 274.56,
+      "text": "Actually, on this machine, I don't have a lot of memory.",
+      "words": [
+        {
+          "word": "Actually,",
+          "start": 272.06,
+          "end": 272.36,
+          "probability": 0.9985
+        },
+        {
+          "word": "on",
+          "start": 272.48,
+          "end": 272.56,
+          "probability": 1.0
+        },
+        {
+          "word": "this",
+          "start": 272.56,
+          "end": 272.74,
+          "probability": 1.0
+        },
+        {
+          "word": "machine,",
+          "start": 272.74,
+          "end": 273.1,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 273.14,
+          "end": 273.34,
+          "probability": 1.0
+        },
+        {
+          "word": "don't",
+          "start": 273.34,
+          "end": 273.82,
+          "probability": 1.0
+        },
+        {
+          "word": "have",
+          "start": 273.82,
+          "end": 273.96,
+          "probability": 1.0
+        },
+        {
+          "word": "a",
+          "start": 273.96,
+          "end": 274.08,
+          "probability": 1.0
+        },
+        {
+          "word": "lot",
+          "start": 274.08,
+          "end": 274.18,
+          "probability": 1.0
+        },
+        {
+          "word": "of",
+          "start": 274.18,
+          "end": 274.3,
+          "probability": 1.0
+        },
+        {
+          "word": "memory.",
+          "start": 274.3,
+          "end": 274.56,
+          "probability": 0.9976
+        }
+      ],
+      "avg_logprob": -0.3495,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 58,
+      "start": 274.58,
+      "end": 276.7,
+      "text": "So I give it less than 2 gig.",
+      "words": [
+        {
+          "word": "So",
+          "start": 274.58,
+          "end": 274.76,
+          "probability": 0.958
+        },
+        {
+          "word": "I",
+          "start": 274.76,
+          "end": 274.86,
+          "probability": 0.7544
+        },
+        {
+          "word": "give",
+          "start": 274.86,
+          "end": 275.32,
+          "probability": 0.9888
+        },
+        {
+          "word": "it",
+          "start": 275.32,
+          "end": 275.48,
+          "probability": 1.0
+        },
+        {
+          "word": "less",
+          "start": 275.48,
+          "end": 275.8,
+          "probability": 0.9995
+        },
+        {
+          "word": "than",
+          "start": 275.8,
+          "end": 276.12,
+          "probability": 1.0
+        },
+        {
+          "word": "2",
+          "start": 276.12,
+          "end": 276.36,
+          "probability": 0.8218
+        },
+        {
+          "word": "gig.",
+          "start": 276.36,
+          "end": 276.7,
+          "probability": 0.8467
+        }
+      ],
+      "avg_logprob": -0.3495,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 59,
+      "start": 277.04,
+      "end": 278.74,
+      "text": "Because it's a separate heap.",
+      "words": [
+        {
+          "word": "Because",
+          "start": 277.04,
+          "end": 277.6,
+          "probability": 0.9966
+        },
+        {
+          "word": "it's",
+          "start": 277.6,
+          "end": 277.78,
+          "probability": 0.998
+        },
+        {
+          "word": "a",
+          "start": 277.78,
+          "end": 277.88,
+          "probability": 1.0
+        },
+        {
+          "word": "separate",
+          "start": 277.88,
+          "end": 278.26,
+          "probability": 1.0
+        },
+        {
+          "word": "heap.",
+          "start": 278.26,
+          "end": 278.74,
+          "probability": 0.9995
+        }
+      ],
+      "avg_logprob": -0.3495,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 60,
+      "start": 278.92,
+      "end": 280.42,
+      "text": "You can't intermix.",
+      "words": [
+        {
+          "word": "You",
+          "start": 278.92,
+          "end": 279.0,
+          "probability": 0.999
+        },
+        {
+          "word": "can't",
+          "start": 279.0,
+          "end": 279.46,
+          "probability": 1.0
+        },
+        {
+          "word": "intermix.",
+          "start": 279.46,
+          "end": 280.42,
+          "probability": 0.999
+        }
+      ],
+      "avg_logprob": -0.3495,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 61,
+      "start": 280.74,
+      "end": 281.04,
+      "text": "Anyway.",
+      "words": [
+        {
+          "word": "Anyway.",
+          "start": 280.74,
+          "end": 281.04,
+          "probability": 0.9487
+        }
+      ],
+      "avg_logprob": -0.3495,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 62,
+      "start": 281.56,
+      "end": 284.56,
+      "text": "Anyway, so...",
+      "words": [
+        {
+          "word": "Anyway,",
+          "start": 281.56,
+          "end": 282.12,
+          "probability": 0.1981
+        },
+        {
+          "word": "so...",
+          "start": 283.56,
+          "end": 284.56,
+          "probability": 0.4746
+        }
+      ],
+      "avg_logprob": -0.3495,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 63,
+      "start": 284.56,
+      "end": 286.24,
+      "text": "This is at 3F.",
+      "words": [
+        {
+          "word": "This",
+          "start": 284.56,
+          "end": 285.12,
+          "probability": 0.978
+        },
+        {
+          "word": "is",
+          "start": 285.12,
+          "end": 285.28,
+          "probability": 1.0
+        },
+        {
+          "word": "at",
+          "start": 285.28,
+          "end": 285.54,
+          "probability": 0.9956
+        },
+        {
+          "word": "3F.",
+          "start": 285.54,
+          "end": 286.24,
+          "probability": 0.9766
+        }
+      ],
+      "avg_logprob": -0.3495,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 64,
+      "start": 286.68,
+      "end": 288.68,
+      "text": "If I had more memory, it would...",
+      "words": [
+        {
+          "word": "If",
+          "start": 286.68,
+          "end": 287.04,
+          "probability": 0.9961
+        },
+        {
+          "word": "I",
+          "start": 287.04,
+          "end": 287.12,
+          "probability": 0.9995
+        },
+        {
+          "word": "had",
+          "start": 287.12,
+          "end": 287.3,
+          "probability": 0.9985
+        },
+        {
+          "word": "more",
+          "start": 287.3,
+          "end": 287.52,
+          "probability": 1.0
+        },
+        {
+          "word": "memory,",
+          "start": 287.52,
+          "end": 287.92,
+          "probability": 1.0
+        },
+        {
+          "word": "it",
+          "start": 288.04,
+          "end": 288.1,
+          "probability": 1.0
+        },
+        {
+          "word": "would...",
+          "start": 288.1,
+          "end": 288.68,
+          "probability": 0.999
+        }
+      ],
+      "avg_logprob": -0.3495,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 65,
+      "start": 289.42,
+      "end": 289.44,
+      "text": "Anyway...",
+      "words": [
+        {
+          "word": "Anyway...",
+          "start": 289.42,
+          "end": 289.7,
+          "probability": 0.6479
+        }
+      ],
+      "avg_logprob": -0.3495,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 66,
+      "start": 289.7,
+      "end": 295.86,
+      "text": "So the genius didn't know what identity map means.",
+      "words": [
+        {
+          "word": "So",
+          "start": 289.7,
+          "end": 291.5,
+          "probability": 0.438
+        },
+        {
+          "word": "the",
+          "start": 291.5,
+          "end": 291.74,
+          "probability": 0.7744
+        },
+        {
+          "word": "genius",
+          "start": 291.74,
+          "end": 292.68,
+          "probability": 0.9253
+        },
+        {
+          "word": "didn't",
+          "start": 292.68,
+          "end": 293.12,
+          "probability": 0.9917
+        },
+        {
+          "word": "know",
+          "start": 293.12,
+          "end": 293.38,
+          "probability": 0.9985
+        },
+        {
+          "word": "what",
+          "start": 293.38,
+          "end": 293.68,
+          "probability": 0.9902
+        },
+        {
+          "word": "identity",
+          "start": 293.68,
+          "end": 294.46,
+          "probability": 0.875
+        },
+        {
+          "word": "map",
+          "start": 294.46,
+          "end": 294.94,
+          "probability": 0.9839
+        },
+        {
+          "word": "means.",
+          "start": 294.94,
+          "end": 295.86,
+          "probability": 0.9937
+        }
+      ],
+      "avg_logprob": -0.6169,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 67,
+      "start": 299.14,
+      "end": 300.0,
+      "text": "So...",
+      "words": [
+        {
+          "word": "So...",
+          "start": 299.14,
+          "end": 300.0,
+          "probability": 0.488
+        }
+      ],
+      "avg_logprob": -0.6169,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 68,
+      "start": 300.0,
+      "end": 302.2,
+      "text": "Memrip...",
+      "words": [
+        {
+          "word": "Memrip...",
+          "start": 300.0,
+          "end": 302.2,
+          "probability": 0.2598
+        }
+      ],
+      "avg_logprob": -0.6169,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 69,
+      "start": 302.2,
+      "end": 306.12,
+      "text": "So this reports on usage.",
+      "words": [
+        {
+          "word": "So",
+          "start": 302.2,
+          "end": 303.3,
+          "probability": 0.8584
+        },
+        {
+          "word": "this",
+          "start": 303.3,
+          "end": 303.56,
+          "probability": 0.9775
+        },
+        {
+          "word": "reports",
+          "start": 303.56,
+          "end": 305.02,
+          "probability": 0.8535
+        },
+        {
+          "word": "on",
+          "start": 305.02,
+          "end": 305.62,
+          "probability": 0.9824
+        },
+        {
+          "word": "usage.",
+          "start": 305.62,
+          "end": 306.12,
+          "probability": 0.9805
+        }
+      ],
+      "avg_logprob": -0.6169,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 70,
+      "start": 307.62,
+      "end": 308.7,
+      "text": "Okay.",
+      "words": [
+        {
+          "word": "Okay.",
+          "start": 307.62,
+          "end": 308.7,
+          "probability": 0.7559
+        }
+      ],
+      "avg_logprob": -0.6169,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 71,
+      "start": 309.68,
+      "end": 310.64,
+      "text": "So...",
+      "words": [
+        {
+          "word": "So...",
+          "start": 309.68,
+          "end": 310.64,
+          "probability": 0.8701
+        }
+      ],
+      "avg_logprob": -0.6169,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 72,
+      "start": 310.64,
+      "end": 312.36,
+      "text": "There's the low...",
+      "words": [
+        {
+          "word": "There's",
+          "start": 310.64,
+          "end": 311.8,
+          "probability": 0.9443
+        },
+        {
+          "word": "the",
+          "start": 311.8,
+          "end": 311.96,
+          "probability": 0.9932
+        },
+        {
+          "word": "low...",
+          "start": 311.96,
+          "end": 312.36,
+          "probability": 0.6323
+        }
+      ],
+      "avg_logprob": -0.6169,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 73,
+      "start": 312.36,
+      "end": 313.04,
+      "text": "Shut up, birds.",
+      "words": [
+        {
+          "word": "Shut",
+          "start": 312.36,
+          "end": 312.6,
+          "probability": 0.9727
+        },
+        {
+          "word": "up,",
+          "start": 312.6,
+          "end": 312.76,
+          "probability": 0.998
+        },
+        {
+          "word": "birds.",
+          "start": 312.84,
+          "end": 313.04,
+          "probability": 0.9824
+        }
+      ],
+      "avg_logprob": -0.6169,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 74,
+      "start": 315.36,
+      "end": 315.7,
+      "text": "Anyway...",
+      "words": [
+        {
+          "word": "Anyway...",
+          "start": 315.36,
+          "end": 316.06,
+          "probability": 0.958
+        }
+      ],
+      "avg_logprob": -0.6169,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 75,
+      "start": 317.44,
+      "end": 319.46,
+      "text": "CodeHeap has...",
+      "words": [
+        {
+          "word": "CodeHeap",
+          "start": 317.44,
+          "end": 318.84,
+          "probability": 0.854
+        },
+        {
+          "word": "has...",
+          "start": 318.84,
+          "end": 319.46,
+          "probability": 0.9805
+        }
+      ],
+      "avg_logprob": -0.6169,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 76,
+      "start": 319.7,
+      "end": 321.16,
+      "text": "Certain amount used.",
+      "words": [
+        {
+          "word": "Certain",
+          "start": 319.7,
+          "end": 320.34,
+          "probability": 0.3882
+        },
+        {
+          "word": "amount",
+          "start": 320.34,
+          "end": 320.58,
+          "probability": 0.9971
+        },
+        {
+          "word": "used.",
+          "start": 320.58,
+          "end": 321.16,
+          "probability": 0.9902
+        }
+      ],
+      "avg_logprob": -0.4189,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 77,
+      "start": 321.78,
+      "end": 321.84,
+      "text": "The...",
+      "words": [
+        {
+          "word": "The...",
+          "start": 321.78,
+          "end": 321.84,
+          "probability": 0.4922
+        }
+      ],
+      "avg_logprob": -0.4189,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 78,
+      "start": 321.84,
+      "end": 322.74,
+      "text": "The...",
+      "words": [
+        {
+          "word": "The...",
+          "start": 321.84,
+          "end": 322.74,
+          "probability": 0.179
+        }
+      ],
+      "avg_logprob": -0.4189,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 79,
+      "start": 322.74,
+      "end": 323.1,
+      "text": "CodeHeap.",
+      "words": [
+        {
+          "word": "CodeHeap.",
+          "start": 322.74,
+          "end": 323.1,
+          "probability": 0.6294
+        }
+      ],
+      "avg_logprob": -0.4189,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 80,
+      "start": 323.48,
+      "end": 324.04,
+      "text": "DataHeap.",
+      "words": [
+        {
+          "word": "DataHeap.",
+          "start": 323.48,
+          "end": 324.04,
+          "probability": 0.957
+        }
+      ],
+      "avg_logprob": -0.4189,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 81,
+      "start": 324.74,
+      "end": 325.3,
+      "text": "Um...",
+      "words": [
+        {
+          "word": "Um...",
+          "start": 324.74,
+          "end": 325.3,
+          "probability": 0.7168
+        }
+      ],
+      "avg_logprob": -0.4189,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 82,
+      "start": 325.3,
+      "end": 326.7,
+      "text": "This tells what it's used for.",
+      "words": [
+        {
+          "word": "This",
+          "start": 325.3,
+          "end": 325.54,
+          "probability": 0.7061
+        },
+        {
+          "word": "tells",
+          "start": 325.54,
+          "end": 325.76,
+          "probability": 0.9868
+        },
+        {
+          "word": "what",
+          "start": 325.76,
+          "end": 325.98,
+          "probability": 0.9741
+        },
+        {
+          "word": "it's",
+          "start": 325.98,
+          "end": 326.16,
+          "probability": 0.9868
+        },
+        {
+          "word": "used",
+          "start": 326.16,
+          "end": 326.38,
+          "probability": 0.9985
+        },
+        {
+          "word": "for.",
+          "start": 326.38,
+          "end": 326.7,
+          "probability": 0.9995
+        }
+      ],
+      "avg_logprob": -0.4189,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 83,
+      "start": 327.02,
+      "end": 329.2,
+      "text": "There's a hash table on each task.",
+      "words": [
+        {
+          "word": "There's",
+          "start": 327.02,
+          "end": 327.58,
+          "probability": 0.9971
+        },
+        {
+          "word": "a",
+          "start": 327.58,
+          "end": 327.66,
+          "probability": 0.998
+        },
+        {
+          "word": "hash",
+          "start": 327.66,
+          "end": 327.92,
+          "probability": 0.9395
+        },
+        {
+          "word": "table",
+          "start": 327.92,
+          "end": 328.3,
+          "probability": 0.9971
+        },
+        {
+          "word": "on",
+          "start": 328.3,
+          "end": 328.56,
+          "probability": 0.9917
+        },
+        {
+          "word": "each",
+          "start": 328.56,
+          "end": 328.78,
+          "probability": 0.9995
+        },
+        {
+          "word": "task.",
+          "start": 328.78,
+          "end": 329.2,
+          "probability": 0.999
+        }
+      ],
+      "avg_logprob": -0.4189,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 84,
+      "start": 329.46,
+      "end": 330.26,
+      "text": "There's, uh...",
+      "words": [
+        {
+          "word": "There's,",
+          "start": 329.46,
+          "end": 329.88,
+          "probability": 0.999
+        },
+        {
+          "word": "uh...",
+          "start": 330.02,
+          "end": 330.26,
+          "probability": 0.9302
+        }
+      ],
+      "avg_logprob": -0.4189,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 85,
+      "start": 330.26,
+      "end": 332.06,
+      "text": "Some documents.",
+      "words": [
+        {
+          "word": "Some",
+          "start": 330.26,
+          "end": 331.1,
+          "probability": 0.8477
+        },
+        {
+          "word": "documents.",
+          "start": 331.1,
+          "end": 332.06,
+          "probability": 0.792
+        }
+      ],
+      "avg_logprob": -0.4189,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 86,
+      "start": 332.92,
+      "end": 334.04,
+      "text": "Document structures.",
+      "words": [
+        {
+          "word": "Document",
+          "start": 332.92,
+          "end": 333.48,
+          "probability": 0.521
+        },
+        {
+          "word": "structures.",
+          "start": 333.48,
+          "end": 334.04,
+          "probability": 0.9717
+        }
+      ],
+      "avg_logprob": -0.4189,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 87,
+      "start": 334.48,
+      "end": 334.76,
+      "text": "There...",
+      "words": [
+        {
+          "word": "There...",
+          "start": 334.48,
+          "end": 334.76,
+          "probability": 0.5342
+        }
+      ],
+      "avg_logprob": -0.4189,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 88,
+      "start": 334.76,
+      "end": 338.16,
+      "text": "The big thing is the, uh...",
+      "words": [
+        {
+          "word": "The",
+          "start": 334.76,
+          "end": 335.2,
+          "probability": 0.9985
+        },
+        {
+          "word": "big",
+          "start": 335.2,
+          "end": 335.46,
+          "probability": 0.9985
+        },
+        {
+          "word": "thing",
+          "start": 335.46,
+          "end": 335.72,
+          "probability": 1.0
+        },
+        {
+          "word": "is",
+          "start": 335.72,
+          "end": 335.98,
+          "probability": 1.0
+        },
+        {
+          "word": "the,",
+          "start": 335.98,
+          "end": 336.28,
+          "probability": 0.9912
+        },
+        {
+          "word": "uh...",
+          "start": 336.28,
+          "end": 338.16,
+          "probability": 0.9951
+        }
+      ],
+      "avg_logprob": -0.4189,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 89,
+      "start": 338.16,
+      "end": 338.92,
+      "text": "Disc cache.",
+      "words": [
+        {
+          "word": "Disc",
+          "start": 338.16,
+          "end": 338.42,
+          "probability": 0.2864
+        },
+        {
+          "word": "cache.",
+          "start": 338.42,
+          "end": 338.92,
+          "probability": 0.155
+        }
+      ],
+      "avg_logprob": -0.4189,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 90,
+      "start": 339.76,
+      "end": 341.86,
+      "text": "Disc cache is, uh...",
+      "words": [
+        {
+          "word": "Disc",
+          "start": 339.76,
+          "end": 340.32,
+          "probability": 0.9849
+        },
+        {
+          "word": "cache",
+          "start": 340.32,
+          "end": 340.88,
+          "probability": 0.9897
+        },
+        {
+          "word": "is,",
+          "start": 340.88,
+          "end": 341.24,
+          "probability": 0.9995
+        },
+        {
+          "word": "uh...",
+          "start": 341.42,
+          "end": 341.86,
+          "probability": 0.9971
+        }
+      ],
+      "avg_logprob": -0.4189,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 91,
+      "start": 341.86,
+      "end": 342.58,
+      "text": "I forget...",
+      "words": [
+        {
+          "word": "I",
+          "start": 341.86,
+          "end": 342.16,
+          "probability": 0.9985
+        },
+        {
+          "word": "forget...",
+          "start": 342.16,
+          "end": 342.58,
+          "probability": 0.6245
+        }
+      ],
+      "avg_logprob": -0.4189,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 92,
+      "start": 342.58,
+      "end": 342.82,
+      "text": "What is it?",
+      "words": [
+        {
+          "word": "What",
+          "start": 342.58,
+          "end": 342.68,
+          "probability": 0.6626
+        },
+        {
+          "word": "is",
+          "start": 342.68,
+          "end": 342.74,
+          "probability": 0.9932
+        },
+        {
+          "word": "it?",
+          "start": 342.74,
+          "end": 342.82,
+          "probability": 0.8218
+        }
+      ],
+      "avg_logprob": -0.4189,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 93,
+      "start": 342.9,
+      "end": 343.92,
+      "text": "64 meg?",
+      "words": [
+        {
+          "word": "64",
+          "start": 342.9,
+          "end": 343.32,
+          "probability": 0.9814
+        },
+        {
+          "word": "meg?",
+          "start": 343.32,
+          "end": 343.92,
+          "probability": 0.6846
+        }
+      ],
+      "avg_logprob": -0.4189,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 94,
+      "start": 344.12,
+      "end": 344.66,
+      "text": "What is it?",
+      "words": [
+        {
+          "word": "What",
+          "start": 344.12,
+          "end": 344.38,
+          "probability": 0.6885
+        },
+        {
+          "word": "is",
+          "start": 344.38,
+          "end": 344.56,
+          "probability": 0.9995
+        },
+        {
+          "word": "it?",
+          "start": 344.56,
+          "end": 344.66,
+          "probability": 0.9971
+        }
+      ],
+      "avg_logprob": -0.4189,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 95,
+      "start": 344.74,
+      "end": 345.88,
+      "text": "I forget what this is.",
+      "words": [
+        {
+          "word": "I",
+          "start": 344.74,
+          "end": 344.92,
+          "probability": 1.0
+        },
+        {
+          "word": "forget",
+          "start": 344.92,
+          "end": 345.24,
+          "probability": 0.9995
+        },
+        {
+          "word": "what",
+          "start": 345.24,
+          "end": 345.44,
+          "probability": 0.9976
+        },
+        {
+          "word": "this",
+          "start": 345.44,
+          "end": 345.66,
+          "probability": 1.0
+        },
+        {
+          "word": "is.",
+          "start": 345.66,
+          "end": 345.88,
+          "probability": 0.9961
+        }
+      ],
+      "avg_logprob": -0.4189,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 96,
+      "start": 346.38,
+      "end": 347.14,
+      "text": "I should know.",
+      "words": [
+        {
+          "word": "I",
+          "start": 346.38,
+          "end": 346.8,
+          "probability": 0.9976
+        },
+        {
+          "word": "should",
+          "start": 346.8,
+          "end": 346.98,
+          "probability": 0.8774
+        },
+        {
+          "word": "know.",
+          "start": 346.98,
+          "end": 347.14,
+          "probability": 0.9712
+        }
+      ],
+      "avg_logprob": -0.4189,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 97,
+      "start": 347.32,
+      "end": 348.6,
+      "text": "Let's do a quick check.",
+      "words": [
+        {
+          "word": "Let's",
+          "start": 347.32,
+          "end": 347.76,
+          "probability": 0.9995
+        },
+        {
+          "word": "do",
+          "start": 347.76,
+          "end": 347.88,
+          "probability": 0.9995
+        },
+        {
+          "word": "a",
+          "start": 347.88,
+          "end": 347.98,
+          "probability": 1.0
+        },
+        {
+          "word": "quick",
+          "start": 347.98,
+          "end": 348.24,
+          "probability": 0.9995
+        },
+        {
+          "word": "check.",
+          "start": 348.24,
+          "end": 348.6,
+          "probability": 0.9932
+        }
+      ],
+      "avg_logprob": -0.4189,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 98,
+      "start": 351.88,
+      "end": 352.68,
+      "text": "So...",
+      "words": [
+        {
+          "word": "So...",
+          "start": 351.88,
+          "end": 352.68,
+          "probability": 0.2157
+        }
+      ],
+      "avg_logprob": -0.6757,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 99,
+      "start": 352.68,
+      "end": 353.04,
+      "text": "So...",
+      "words": [
+        {
+          "word": "So...",
+          "start": 352.68,
+          "end": 353.04,
+          "probability": 0.1602
+        }
+      ],
+      "avg_logprob": -0.6757,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 100,
+      "start": 353.04,
+      "end": 353.04,
+      "text": "",
+      "words": [],
+      "avg_logprob": -0.6757,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 101,
+      "start": 353.04,
+      "end": 353.72,
+      "text": "Actually...",
+      "words": [
+        {
+          "word": "Actually...",
+          "start": 353.04,
+          "end": 353.72,
+          "probability": 0.4744
+        }
+      ],
+      "avg_logprob": -0.6757,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 102,
+      "start": 353.72,
+      "end": 355.48,
+      "text": "Oh, oh, oh, oh, oh, oh.",
+      "words": [
+        {
+          "word": "Oh,",
+          "start": 353.72,
+          "end": 353.88,
+          "probability": 0.2598
+        },
+        {
+          "word": "oh,",
+          "start": 353.94,
+          "end": 354.1,
+          "probability": 0.998
+        },
+        {
+          "word": "oh,",
+          "start": 354.32,
+          "end": 354.72,
+          "probability": 0.9995
+        },
+        {
+          "word": "oh,",
+          "start": 354.84,
+          "end": 355.2,
+          "probability": 0.9995
+        },
+        {
+          "word": "oh,",
+          "start": 355.2,
+          "end": 355.36,
+          "probability": 0.999
+        },
+        {
+          "word": "oh.",
+          "start": 355.36,
+          "end": 355.48,
+          "probability": 0.9971
+        }
+      ],
+      "avg_logprob": -0.6757,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 103,
+      "start": 357.26,
+      "end": 358.86,
+      "text": "It is...",
+      "words": [
+        {
+          "word": "It",
+          "start": 357.26,
+          "end": 358.06,
+          "probability": 0.9893
+        },
+        {
+          "word": "is...",
+          "start": 358.06,
+          "end": 358.86,
+          "probability": 0.7441
+        }
+      ],
+      "avg_logprob": -0.6757,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 104,
+      "start": 358.86,
+      "end": 360.2,
+      "text": "One...",
+      "words": [
+        {
+          "word": "One...",
+          "start": 358.86,
+          "end": 360.2,
+          "probability": 0.625
+        }
+      ],
+      "avg_logprob": -0.6757,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 105,
+      "start": 361.52,
+      "end": 362.7,
+      "text": "It's 128.",
+      "words": [
+        {
+          "word": "It's",
+          "start": 361.52,
+          "end": 362.32,
+          "probability": 0.8599
+        },
+        {
+          "word": "128.",
+          "start": 362.32,
+          "end": 362.7,
+          "probability": 0.9883
+        }
+      ],
+      "avg_logprob": -0.6757,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 106,
+      "start": 364.54,
+      "end": 364.7,
+      "text": "So...",
+      "words": [
+        {
+          "word": "So...",
+          "start": 364.54,
+          "end": 364.94,
+          "probability": 0.979
+        }
+      ],
+      "avg_logprob": -0.6757,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 107,
+      "start": 369.1,
+      "end": 369.9,
+      "text": "128.",
+      "words": [
+        {
+          "word": "128.",
+          "start": 369.1,
+          "end": 369.9,
+          "probability": 0.9473
+        }
+      ],
+      "avg_logprob": -0.6757,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 108,
+      "start": 370.6,
+      "end": 373.12,
+      "text": "It scales to the amount of memory.",
+      "words": [
+        {
+          "word": "It",
+          "start": 370.6,
+          "end": 371.36,
+          "probability": 0.9751
+        },
+        {
+          "word": "scales",
+          "start": 371.36,
+          "end": 371.84,
+          "probability": 0.9922
+        },
+        {
+          "word": "to",
+          "start": 371.84,
+          "end": 372.24,
+          "probability": 0.9976
+        },
+        {
+          "word": "the",
+          "start": 372.24,
+          "end": 372.38,
+          "probability": 1.0
+        },
+        {
+          "word": "amount",
+          "start": 372.38,
+          "end": 372.62,
+          "probability": 1.0
+        },
+        {
+          "word": "of",
+          "start": 372.62,
+          "end": 372.74,
+          "probability": 1.0
+        },
+        {
+          "word": "memory.",
+          "start": 372.74,
+          "end": 373.12,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.6757,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 109,
+      "start": 374.02,
+      "end": 375.18,
+      "text": "It's, uh...",
+      "words": [
+        {
+          "word": "It's,",
+          "start": 374.02,
+          "end": 374.66,
+          "probability": 0.7734
+        },
+        {
+          "word": "uh...",
+          "start": 375.02,
+          "end": 375.18,
+          "probability": 0.4836
+        }
+      ],
+      "avg_logprob": -0.3288,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 110,
+      "start": 375.18,
+      "end": 375.68,
+      "text": "Identity map.",
+      "words": [
+        {
+          "word": "Identity",
+          "start": 375.18,
+          "end": 375.38,
+          "probability": 0.8828
+        },
+        {
+          "word": "map.",
+          "start": 375.38,
+          "end": 375.68,
+          "probability": 0.6177
+        }
+      ],
+      "avg_logprob": -0.3288,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 111,
+      "start": 375.84,
+      "end": 376.48,
+      "text": "So you can't...",
+      "words": [
+        {
+          "word": "So",
+          "start": 375.84,
+          "end": 375.9,
+          "probability": 0.9722
+        },
+        {
+          "word": "you",
+          "start": 375.9,
+          "end": 376.08,
+          "probability": 0.769
+        },
+        {
+          "word": "can't...",
+          "start": 376.08,
+          "end": 376.48,
+          "probability": 0.7544
+        }
+      ],
+      "avg_logprob": -0.3288,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 112,
+      "start": 376.48,
+      "end": 378.4,
+      "text": "You cannot grow stuff.",
+      "words": [
+        {
+          "word": "You",
+          "start": 376.48,
+          "end": 376.6,
+          "probability": 0.9507
+        },
+        {
+          "word": "cannot",
+          "start": 376.6,
+          "end": 376.92,
+          "probability": 0.9668
+        },
+        {
+          "word": "grow",
+          "start": 376.92,
+          "end": 377.56,
+          "probability": 0.98
+        },
+        {
+          "word": "stuff.",
+          "start": 377.56,
+          "end": 378.4,
+          "probability": 0.8091
+        }
+      ],
+      "avg_logprob": -0.3288,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 113,
+      "start": 378.84,
+      "end": 381.28,
+      "text": "So it stays the same, uh...",
+      "words": [
+        {
+          "word": "So",
+          "start": 378.84,
+          "end": 379.2,
+          "probability": 0.9961
+        },
+        {
+          "word": "it",
+          "start": 379.2,
+          "end": 379.34,
+          "probability": 0.9912
+        },
+        {
+          "word": "stays",
+          "start": 379.34,
+          "end": 379.68,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 379.68,
+          "end": 379.86,
+          "probability": 0.998
+        },
+        {
+          "word": "same,",
+          "start": 379.86,
+          "end": 380.28,
+          "probability": 0.9995
+        },
+        {
+          "word": "uh...",
+          "start": 380.46,
+          "end": 381.28,
+          "probability": 0.9717
+        }
+      ],
+      "avg_logprob": -0.3288,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 114,
+      "start": 381.28,
+      "end": 381.72,
+      "text": "Size.",
+      "words": [
+        {
+          "word": "Size.",
+          "start": 381.28,
+          "end": 381.72,
+          "probability": 0.9233
+        }
+      ],
+      "avg_logprob": -0.3288,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 115,
+      "start": 382.04,
+      "end": 384.14,
+      "text": "So the stacks are fixed size.",
+      "words": [
+        {
+          "word": "So",
+          "start": 382.04,
+          "end": 382.64,
+          "probability": 0.9961
+        },
+        {
+          "word": "the",
+          "start": 382.64,
+          "end": 382.82,
+          "probability": 0.9946
+        },
+        {
+          "word": "stacks",
+          "start": 382.82,
+          "end": 383.2,
+          "probability": 0.9961
+        },
+        {
+          "word": "are",
+          "start": 383.2,
+          "end": 383.42,
+          "probability": 0.9985
+        },
+        {
+          "word": "fixed",
+          "start": 383.42,
+          "end": 383.72,
+          "probability": 0.9922
+        },
+        {
+          "word": "size.",
+          "start": 383.72,
+          "end": 384.14,
+          "probability": 0.8047
+        }
+      ],
+      "avg_logprob": -0.3288,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 116,
+      "start": 384.4,
+      "end": 386.1,
+      "text": "The disc cache is fixed size.",
+      "words": [
+        {
+          "word": "The",
+          "start": 384.4,
+          "end": 384.48,
+          "probability": 0.999
+        },
+        {
+          "word": "disc",
+          "start": 384.48,
+          "end": 384.8,
+          "probability": 0.4475
+        },
+        {
+          "word": "cache",
+          "start": 384.8,
+          "end": 385.16,
+          "probability": 0.8901
+        },
+        {
+          "word": "is",
+          "start": 385.16,
+          "end": 385.38,
+          "probability": 0.999
+        },
+        {
+          "word": "fixed",
+          "start": 385.38,
+          "end": 385.7,
+          "probability": 0.9995
+        },
+        {
+          "word": "size.",
+          "start": 385.7,
+          "end": 386.1,
+          "probability": 0.9985
+        }
+      ],
+      "avg_logprob": -0.3288,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 117,
+      "start": 386.82,
+      "end": 387.38,
+      "text": "Uh...",
+      "words": [
+        {
+          "word": "Uh...",
+          "start": 386.82,
+          "end": 387.38,
+          "probability": 0.959
+        }
+      ],
+      "avg_logprob": -0.3288,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 118,
+      "start": 387.38,
+      "end": 388.48,
+      "text": "It kind of sucks.",
+      "words": [
+        {
+          "word": "It",
+          "start": 387.38,
+          "end": 387.82,
+          "probability": 0.6377
+        },
+        {
+          "word": "kind",
+          "start": 387.82,
+          "end": 387.98,
+          "probability": 0.5957
+        },
+        {
+          "word": "of",
+          "start": 387.98,
+          "end": 388.06,
+          "probability": 1.0
+        },
+        {
+          "word": "sucks.",
+          "start": 388.06,
+          "end": 388.48,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.3288,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 119,
+      "start": 388.8,
+      "end": 389.58,
+      "text": "But, uh...",
+      "words": [
+        {
+          "word": "But,",
+          "start": 388.8,
+          "end": 388.98,
+          "probability": 0.9961
+        },
+        {
+          "word": "uh...",
+          "start": 388.98,
+          "end": 389.58,
+          "probability": 0.9956
+        }
+      ],
+      "avg_logprob": -0.3288,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 120,
+      "start": 389.58,
+      "end": 390.96,
+      "text": "There's a lot of upside.",
+      "words": [
+        {
+          "word": "There's",
+          "start": 389.58,
+          "end": 390.04,
+          "probability": 0.998
+        },
+        {
+          "word": "a",
+          "start": 390.04,
+          "end": 390.14,
+          "probability": 1.0
+        },
+        {
+          "word": "lot",
+          "start": 390.14,
+          "end": 390.32,
+          "probability": 0.9995
+        },
+        {
+          "word": "of",
+          "start": 390.32,
+          "end": 390.44,
+          "probability": 1.0
+        },
+        {
+          "word": "upside.",
+          "start": 390.44,
+          "end": 390.96,
+          "probability": 0.9883
+        }
+      ],
+      "avg_logprob": -0.3288,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 121,
+      "start": 391.6,
+      "end": 392.88,
+      "text": "The upside is...",
+      "words": [
+        {
+          "word": "The",
+          "start": 391.6,
+          "end": 392.08,
+          "probability": 0.9976
+        },
+        {
+          "word": "upside",
+          "start": 392.08,
+          "end": 392.54,
+          "probability": 0.9995
+        },
+        {
+          "word": "is...",
+          "start": 392.54,
+          "end": 392.88,
+          "probability": 0.75
+        }
+      ],
+      "avg_logprob": -0.3288,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 122,
+      "start": 392.88,
+      "end": 393.82,
+      "text": "Is it way simpler?",
+      "words": [
+        {
+          "word": "Is",
+          "start": 392.88,
+          "end": 393.0,
+          "probability": 0.7637
+        },
+        {
+          "word": "it",
+          "start": 393.0,
+          "end": 393.12,
+          "probability": 0.7993
+        },
+        {
+          "word": "way",
+          "start": 393.12,
+          "end": 393.34,
+          "probability": 0.9976
+        },
+        {
+          "word": "simpler?",
+          "start": 393.34,
+          "end": 393.82,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.3288,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 123,
+      "start": 394.04,
+      "end": 394.68,
+      "text": "And it's faster.",
+      "words": [
+        {
+          "word": "And",
+          "start": 394.04,
+          "end": 394.08,
+          "probability": 0.9653
+        },
+        {
+          "word": "it's",
+          "start": 394.08,
+          "end": 394.22,
+          "probability": 1.0
+        },
+        {
+          "word": "faster.",
+          "start": 394.22,
+          "end": 394.68,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.3288,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 124,
+      "start": 396.26,
+      "end": 396.9,
+      "text": "Um...",
+      "words": [
+        {
+          "word": "Um...",
+          "start": 396.26,
+          "end": 396.9,
+          "probability": 0.9346
+        }
+      ],
+      "avg_logprob": -0.3288,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 125,
+      "start": 396.9,
+      "end": 398.84,
+      "text": "You know, it even...",
+      "words": [
+        {
+          "word": "You",
+          "start": 396.9,
+          "end": 398.02,
+          "probability": 0.6191
+        },
+        {
+          "word": "know,",
+          "start": 398.02,
+          "end": 398.18,
+          "probability": 0.999
+        },
+        {
+          "word": "it",
+          "start": 398.36,
+          "end": 398.38,
+          "probability": 0.3206
+        },
+        {
+          "word": "even...",
+          "start": 398.38,
+          "end": 398.84,
+          "probability": 0.603
+        }
+      ],
+      "avg_logprob": -0.4519,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 126,
+      "start": 398.84,
+      "end": 399.76,
+      "text": "I run...",
+      "words": [
+        {
+          "word": "I",
+          "start": 398.84,
+          "end": 399.28,
+          "probability": 0.9873
+        },
+        {
+          "word": "run...",
+          "start": 399.28,
+          "end": 399.76,
+          "probability": 0.7983
+        }
+      ],
+      "avg_logprob": -0.4519,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 127,
+      "start": 399.76,
+      "end": 400.9,
+      "text": "I go with, uh...",
+      "words": [
+        {
+          "word": "I",
+          "start": 399.76,
+          "end": 399.84,
+          "probability": 0.9966
+        },
+        {
+          "word": "go",
+          "start": 399.84,
+          "end": 400.04,
+          "probability": 0.9995
+        },
+        {
+          "word": "with,",
+          "start": 400.04,
+          "end": 400.34,
+          "probability": 1.0
+        },
+        {
+          "word": "uh...",
+          "start": 400.5,
+          "end": 400.9,
+          "probability": 0.501
+        }
+      ],
+      "avg_logprob": -0.4519,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 128,
+      "start": 401.76,
+      "end": 402.38,
+      "text": "Um...",
+      "words": [
+        {
+          "word": "Um...",
+          "start": 401.76,
+          "end": 402.38,
+          "probability": 0.4409
+        }
+      ],
+      "avg_logprob": -0.4519,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 129,
+      "start": 402.38,
+      "end": 403.9,
+      "text": "There's, uh...",
+      "words": [
+        {
+          "word": "There's,",
+          "start": 402.38,
+          "end": 402.86,
+          "probability": 0.9854
+        },
+        {
+          "word": "uh...",
+          "start": 402.94,
+          "end": 403.9,
+          "probability": 0.9941
+        }
+      ],
+      "avg_logprob": -0.4519,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 130,
+      "start": 405.18,
+      "end": 406.38,
+      "text": "Page tables.",
+      "words": [
+        {
+          "word": "Page",
+          "start": 405.18,
+          "end": 405.82,
+          "probability": 0.9824
+        },
+        {
+          "word": "tables.",
+          "start": 405.82,
+          "end": 406.38,
+          "probability": 0.9116
+        }
+      ],
+      "avg_logprob": -0.4519,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 131,
+      "start": 407.16,
+      "end": 408.78,
+      "text": "Oh, where's page tables?",
+      "words": [
+        {
+          "word": "Oh,",
+          "start": 407.16,
+          "end": 407.8,
+          "probability": 0.999
+        },
+        {
+          "word": "where's",
+          "start": 407.84,
+          "end": 408.14,
+          "probability": 0.877
+        },
+        {
+          "word": "page",
+          "start": 408.14,
+          "end": 408.4,
+          "probability": 0.9258
+        },
+        {
+          "word": "tables?",
+          "start": 408.4,
+          "end": 408.78,
+          "probability": 0.9995
+        }
+      ],
+      "avg_logprob": -0.4519,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 132,
+      "start": 410.06,
+      "end": 410.7,
+      "text": "Uh...",
+      "words": [
+        {
+          "word": "Uh...",
+          "start": 410.06,
+          "end": 410.7,
+          "probability": 0.7886
+        }
+      ],
+      "avg_logprob": -0.4519,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 133,
+      "start": 410.7,
+      "end": 412.28,
+      "text": "Fixed area for page tables.",
+      "words": [
+        {
+          "word": "Fixed",
+          "start": 410.7,
+          "end": 411.22,
+          "probability": 0.9951
+        },
+        {
+          "word": "area",
+          "start": 411.22,
+          "end": 411.4,
+          "probability": 0.999
+        },
+        {
+          "word": "for",
+          "start": 411.4,
+          "end": 411.64,
+          "probability": 1.0
+        },
+        {
+          "word": "page",
+          "start": 411.64,
+          "end": 411.92,
+          "probability": 1.0
+        },
+        {
+          "word": "tables.",
+          "start": 411.92,
+          "end": 412.28,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.4519,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 134,
+      "start": 412.58,
+      "end": 414.02,
+      "text": "So here's the page tables.",
+      "words": [
+        {
+          "word": "So",
+          "start": 412.58,
+          "end": 413.02,
+          "probability": 0.999
+        },
+        {
+          "word": "here's",
+          "start": 413.02,
+          "end": 413.28,
+          "probability": 0.8818
+        },
+        {
+          "word": "the",
+          "start": 413.28,
+          "end": 413.38,
+          "probability": 0.9976
+        },
+        {
+          "word": "page",
+          "start": 413.38,
+          "end": 413.68,
+          "probability": 1.0
+        },
+        {
+          "word": "tables.",
+          "start": 413.68,
+          "end": 414.02,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.4519,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 135,
+      "start": 414.18,
+      "end": 415.9,
+      "text": "I have, uh...",
+      "words": [
+        {
+          "word": "I",
+          "start": 414.18,
+          "end": 414.26,
+          "probability": 0.9995
+        },
+        {
+          "word": "have,",
+          "start": 414.26,
+          "end": 414.66,
+          "probability": 1.0
+        },
+        {
+          "word": "uh...",
+          "start": 414.78,
+          "end": 415.9,
+          "probability": 0.9985
+        }
+      ],
+      "avg_logprob": -0.4519,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 136,
+      "start": 417.3,
+      "end": 417.94,
+      "text": "Um...",
+      "words": [
+        {
+          "word": "Um...",
+          "start": 417.3,
+          "end": 417.94,
+          "probability": 0.7617
+        }
+      ],
+      "avg_logprob": -0.4519,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 137,
+      "start": 417.94,
+      "end": 418.54,
+      "text": "What do I have?",
+      "words": [
+        {
+          "word": "What",
+          "start": 417.94,
+          "end": 418.12,
+          "probability": 0.9985
+        },
+        {
+          "word": "do",
+          "start": 418.12,
+          "end": 418.2,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 418.2,
+          "end": 418.28,
+          "probability": 1.0
+        },
+        {
+          "word": "have?",
+          "start": 418.28,
+          "end": 418.54,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.4519,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 138,
+      "start": 418.9,
+      "end": 419.1,
+      "text": "Uh...",
+      "words": [
+        {
+          "word": "Uh...",
+          "start": 418.9,
+          "end": 419.1,
+          "probability": 0.5254
+        }
+      ],
+      "avg_logprob": -0.4519,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 139,
+      "start": 419.1,
+      "end": 420.48,
+      "text": "128 meg...",
+      "words": [
+        {
+          "word": "128",
+          "start": 419.1,
+          "end": 419.56,
+          "probability": 0.9741
+        },
+        {
+          "word": "meg...",
+          "start": 419.56,
+          "end": 420.48,
+          "probability": 0.7314
+        }
+      ],
+      "avg_logprob": -0.4519,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 140,
+      "start": 420.48,
+      "end": 422.56,
+      "text": "128, uh...",
+      "words": [
+        {
+          "word": "128,",
+          "start": 420.48,
+          "end": 421.24,
+          "probability": 0.9707
+        },
+        {
+          "word": "uh...",
+          "start": 421.66,
+          "end": 422.56,
+          "probability": 0.9971
+        }
+      ],
+      "avg_logprob": -0.4519,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 141,
+      "start": 423.68,
+      "end": 425.1,
+      "text": "180,000.",
+      "words": [
+        {
+          "word": "180",
+          "start": 423.68,
+          "end": 424.4,
+          "probability": 0.6626
+        },
+        {
+          "word": ",000.",
+          "start": 424.4,
+          "end": 425.1,
+          "probability": 0.9775
+        }
+      ],
+      "avg_logprob": -0.4826,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 142,
+      "start": 425.92,
+      "end": 427.36,
+      "text": "180,000.",
+      "words": [
+        {
+          "word": "180",
+          "start": 425.92,
+          "end": 426.64,
+          "probability": 0.6577
+        },
+        {
+          "word": ",000.",
+          "start": 426.64,
+          "end": 427.36,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.4826,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 143,
+      "start": 427.72,
+      "end": 428.42,
+      "text": "Uh...",
+      "words": [
+        {
+          "word": "Uh...",
+          "start": 427.72,
+          "end": 428.42,
+          "probability": 0.1003
+        }
+      ],
+      "avg_logprob": -0.4826,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 144,
+      "start": 428.42,
+      "end": 429.52,
+      "text": "I could swear.",
+      "words": [
+        {
+          "word": "I",
+          "start": 428.42,
+          "end": 428.94,
+          "probability": 0.9902
+        },
+        {
+          "word": "could",
+          "start": 428.94,
+          "end": 429.16,
+          "probability": 0.9185
+        },
+        {
+          "word": "swear.",
+          "start": 429.16,
+          "end": 429.52,
+          "probability": 0.9761
+        }
+      ],
+      "avg_logprob": -0.4826,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 145,
+      "start": 432.08,
+      "end": 433.52,
+      "text": "Okay, so...",
+      "words": [
+        {
+          "word": "Okay,",
+          "start": 432.08,
+          "end": 432.8,
+          "probability": 0.978
+        },
+        {
+          "word": "so...",
+          "start": 432.8,
+          "end": 433.52,
+          "probability": 0.9814
+        }
+      ],
+      "avg_logprob": -0.4826,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 146,
+      "start": 433.52,
+      "end": 435.48,
+      "text": "Two meg...",
+      "words": [
+        {
+          "word": "Two",
+          "start": 433.52,
+          "end": 434.88,
+          "probability": 0.2791
+        },
+        {
+          "word": "meg...",
+          "start": 434.88,
+          "end": 435.48,
+          "probability": 0.896
+        }
+      ],
+      "avg_logprob": -0.4826,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 147,
+      "start": 435.48,
+      "end": 435.86,
+      "text": "I...",
+      "words": [
+        {
+          "word": "I...",
+          "start": 435.48,
+          "end": 435.86,
+          "probability": 0.7188
+        }
+      ],
+      "avg_logprob": -0.4826,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 148,
+      "start": 438.52,
+      "end": 439.86,
+      "text": "I don't have very...",
+      "words": [
+        {
+          "word": "I",
+          "start": 438.52,
+          "end": 439.24,
+          "probability": 0.9946
+        },
+        {
+          "word": "don't",
+          "start": 439.24,
+          "end": 439.36,
+          "probability": 0.958
+        },
+        {
+          "word": "have",
+          "start": 439.36,
+          "end": 439.56,
+          "probability": 0.9985
+        },
+        {
+          "word": "very...",
+          "start": 439.56,
+          "end": 439.86,
+          "probability": 0.8477
+        }
+      ],
+      "avg_logprob": -0.4826,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 149,
+      "start": 439.86,
+      "end": 440.92,
+      "text": "I use, uh...",
+      "words": [
+        {
+          "word": "I",
+          "start": 439.86,
+          "end": 440.14,
+          "probability": 0.999
+        },
+        {
+          "word": "use,",
+          "start": 440.14,
+          "end": 440.52,
+          "probability": 0.9971
+        },
+        {
+          "word": "uh...",
+          "start": 440.58,
+          "end": 440.92,
+          "probability": 0.5986
+        }
+      ],
+      "avg_logprob": -0.4826,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 150,
+      "start": 440.92,
+      "end": 441.22,
+      "text": "Two...",
+      "words": [
+        {
+          "word": "Two...",
+          "start": 440.92,
+          "end": 441.22,
+          "probability": 0.4268
+        }
+      ],
+      "avg_logprob": -0.4826,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 151,
+      "start": 441.22,
+      "end": 442.56,
+      "text": "Two meg page tables.",
+      "words": [
+        {
+          "word": "Two",
+          "start": 441.22,
+          "end": 441.48,
+          "probability": 0.9834
+        },
+        {
+          "word": "meg",
+          "start": 441.48,
+          "end": 441.78,
+          "probability": 0.9976
+        },
+        {
+          "word": "page",
+          "start": 441.78,
+          "end": 442.16,
+          "probability": 0.9966
+        },
+        {
+          "word": "tables.",
+          "start": 442.16,
+          "end": 442.56,
+          "probability": 0.9878
+        }
+      ],
+      "avg_logprob": -0.4826,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 152,
+      "start": 443.18,
+      "end": 443.88,
+      "text": "So...",
+      "words": [
+        {
+          "word": "So...",
+          "start": 443.18,
+          "end": 443.88,
+          "probability": 0.9189
+        }
+      ],
+      "avg_logprob": -0.4826,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 153,
+      "start": 443.88,
+      "end": 444.68,
+      "text": "And I identify...",
+      "words": [
+        {
+          "word": "And",
+          "start": 443.88,
+          "end": 444.1,
+          "probability": 0.7207
+        },
+        {
+          "word": "I",
+          "start": 444.1,
+          "end": 444.26,
+          "probability": 0.9941
+        },
+        {
+          "word": "identify...",
+          "start": 444.26,
+          "end": 444.68,
+          "probability": 0.7705
+        }
+      ],
+      "avg_logprob": -0.4826,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 154,
+      "start": 444.68,
+      "end": 446.14,
+      "text": "I always map, uh...",
+      "words": [
+        {
+          "word": "I",
+          "start": 444.68,
+          "end": 444.86,
+          "probability": 0.9932
+        },
+        {
+          "word": "always",
+          "start": 444.86,
+          "end": 445.26,
+          "probability": 0.999
+        },
+        {
+          "word": "map,",
+          "start": 445.26,
+          "end": 445.7,
+          "probability": 0.9995
+        },
+        {
+          "word": "uh...",
+          "start": 445.9,
+          "end": 446.14,
+          "probability": 0.9424
+        }
+      ],
+      "avg_logprob": -0.4826,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 155,
+      "start": 446.14,
+      "end": 447.9,
+      "text": "128 gig...",
+      "words": [
+        {
+          "word": "128",
+          "start": 446.14,
+          "end": 446.68,
+          "probability": 0.9941
+        },
+        {
+          "word": "gig...",
+          "start": 446.68,
+          "end": 447.9,
+          "probability": 0.5449
+        }
+      ],
+      "avg_logprob": -0.4826,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 156,
+      "start": 447.9,
+      "end": 449.66,
+      "text": "Damn, there's a lot of numbers to remember.",
+      "words": [
+        {
+          "word": "Damn,",
+          "start": 447.9,
+          "end": 448.32,
+          "probability": 0.9839
+        },
+        {
+          "word": "there's",
+          "start": 448.32,
+          "end": 448.56,
+          "probability": 0.9995
+        },
+        {
+          "word": "a",
+          "start": 448.56,
+          "end": 448.68,
+          "probability": 1.0
+        },
+        {
+          "word": "lot",
+          "start": 448.68,
+          "end": 448.76,
+          "probability": 0.9995
+        },
+        {
+          "word": "of",
+          "start": 448.76,
+          "end": 448.86,
+          "probability": 1.0
+        },
+        {
+          "word": "numbers",
+          "start": 448.86,
+          "end": 449.14,
+          "probability": 1.0
+        },
+        {
+          "word": "to",
+          "start": 449.14,
+          "end": 449.34,
+          "probability": 0.9976
+        },
+        {
+          "word": "remember.",
+          "start": 449.34,
+          "end": 449.66,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.4826,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 157,
+      "start": 449.66,
+      "end": 452.84,
+      "text": "I always map 128 gig...",
+      "words": [
+        {
+          "word": "I",
+          "start": 449.66,
+          "end": 450.98,
+          "probability": 0.9722
+        },
+        {
+          "word": "always",
+          "start": 450.98,
+          "end": 451.28,
+          "probability": 0.999
+        },
+        {
+          "word": "map",
+          "start": 451.28,
+          "end": 451.6,
+          "probability": 0.9951
+        },
+        {
+          "word": "128",
+          "start": 451.6,
+          "end": 452.08,
+          "probability": 0.9946
+        },
+        {
+          "word": "gig...",
+          "start": 452.08,
+          "end": 452.84,
+          "probability": 0.2578
+        }
+      ],
+      "avg_logprob": -0.3493,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 158,
+      "start": 453.38,
+      "end": 454.1,
+      "text": "Of space.",
+      "words": [
+        {
+          "word": "Of",
+          "start": 453.26,
+          "end": 453.6,
+          "probability": 0.2109
+        },
+        {
+          "word": "space.",
+          "start": 453.6,
+          "end": 454.1,
+          "probability": 0.9937
+        }
+      ],
+      "avg_logprob": -0.3493,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 159,
+      "start": 455.16,
+      "end": 455.84,
+      "text": "Um...",
+      "words": [
+        {
+          "word": "Um...",
+          "start": 455.16,
+          "end": 455.84,
+          "probability": 0.2551
+        }
+      ],
+      "avg_logprob": -0.3493,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 160,
+      "start": 455.84,
+      "end": 457.18,
+      "text": "You can adjust it if...",
+      "words": [
+        {
+          "word": "You",
+          "start": 455.84,
+          "end": 455.98,
+          "probability": 0.9907
+        },
+        {
+          "word": "can",
+          "start": 455.98,
+          "end": 456.14,
+          "probability": 1.0
+        },
+        {
+          "word": "adjust",
+          "start": 456.14,
+          "end": 456.46,
+          "probability": 0.999
+        },
+        {
+          "word": "it",
+          "start": 456.46,
+          "end": 456.74,
+          "probability": 0.999
+        },
+        {
+          "word": "if...",
+          "start": 456.74,
+          "end": 457.18,
+          "probability": 0.5664
+        }
+      ],
+      "avg_logprob": -0.3493,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 161,
+      "start": 457.18,
+      "end": 457.66,
+      "text": "If you recompile.",
+      "words": [
+        {
+          "word": "If",
+          "start": 457.18,
+          "end": 457.42,
+          "probability": 0.8975
+        },
+        {
+          "word": "you",
+          "start": 457.42,
+          "end": 457.52,
+          "probability": 0.998
+        },
+        {
+          "word": "recompile.",
+          "start": 457.52,
+          "end": 457.86,
+          "probability": 0.9961
+        }
+      ],
+      "avg_logprob": -0.3493,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 162,
+      "start": 458.72,
+      "end": 459.64,
+      "text": "Change the constant.",
+      "words": [
+        {
+          "word": "Change",
+          "start": 458.72,
+          "end": 459.14,
+          "probability": 0.9858
+        },
+        {
+          "word": "the",
+          "start": 459.14,
+          "end": 459.32,
+          "probability": 0.6201
+        },
+        {
+          "word": "constant.",
+          "start": 459.32,
+          "end": 459.64,
+          "probability": 0.9858
+        }
+      ],
+      "avg_logprob": -0.3493,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 163,
+      "start": 459.9,
+      "end": 460.66,
+      "text": "Anyway, uh...",
+      "words": [
+        {
+          "word": "Anyway,",
+          "start": 459.9,
+          "end": 460.16,
+          "probability": 0.9941
+        },
+        {
+          "word": "uh...",
+          "start": 460.44,
+          "end": 460.78,
+          "probability": 0.9912
+        }
+      ],
+      "avg_logprob": -0.3493,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 164,
+      "start": 463.16,
+      "end": 463.84,
+      "text": "So...",
+      "words": [
+        {
+          "word": "So...",
+          "start": 463.16,
+          "end": 463.84,
+          "probability": 0.8887
+        }
+      ],
+      "avg_logprob": -0.3493,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 165,
+      "start": 463.84,
+      "end": 465.76,
+      "text": "This is the Adam task.",
+      "words": [
+        {
+          "word": "This",
+          "start": 463.84,
+          "end": 464.4,
+          "probability": 0.9844
+        },
+        {
+          "word": "is",
+          "start": 464.4,
+          "end": 464.66,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 464.66,
+          "end": 464.92,
+          "probability": 0.9888
+        },
+        {
+          "word": "Adam",
+          "start": 464.92,
+          "end": 465.28,
+          "probability": 0.6113
+        },
+        {
+          "word": "task.",
+          "start": 465.28,
+          "end": 465.76,
+          "probability": 0.9927
+        }
+      ],
+      "avg_logprob": -0.3493,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 166,
+      "start": 465.86,
+      "end": 466.94,
+      "text": "He's the main guy.",
+      "words": [
+        {
+          "word": "He's",
+          "start": 465.86,
+          "end": 466.2,
+          "probability": 0.9971
+        },
+        {
+          "word": "the",
+          "start": 466.2,
+          "end": 466.34,
+          "probability": 1.0
+        },
+        {
+          "word": "main",
+          "start": 466.34,
+          "end": 466.58,
+          "probability": 0.999
+        },
+        {
+          "word": "guy.",
+          "start": 466.58,
+          "end": 466.94,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.3493,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 167,
+      "start": 468.0,
+      "end": 469.68,
+      "text": "He has the disk cache.",
+      "words": [
+        {
+          "word": "He",
+          "start": 468.0,
+          "end": 468.68,
+          "probability": 0.999
+        },
+        {
+          "word": "has",
+          "start": 468.68,
+          "end": 468.88,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 468.88,
+          "end": 469.04,
+          "probability": 0.9995
+        },
+        {
+          "word": "disk",
+          "start": 469.04,
+          "end": 469.34,
+          "probability": 0.856
+        },
+        {
+          "word": "cache.",
+          "start": 469.34,
+          "end": 469.68,
+          "probability": 0.9927
+        }
+      ],
+      "avg_logprob": -0.3493,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 168,
+      "start": 469.98,
+      "end": 471.66,
+      "text": "The window manager task...",
+      "words": [
+        {
+          "word": "The",
+          "start": 469.98,
+          "end": 470.34,
+          "probability": 0.9995
+        },
+        {
+          "word": "window",
+          "start": 470.34,
+          "end": 470.64,
+          "probability": 0.98
+        },
+        {
+          "word": "manager",
+          "start": 470.64,
+          "end": 471.14,
+          "probability": 0.9995
+        },
+        {
+          "word": "task...",
+          "start": 471.14,
+          "end": 471.66,
+          "probability": 0.9844
+        }
+      ],
+      "avg_logprob": -0.3493,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 169,
+      "start": 473.28,
+      "end": 473.96,
+      "text": "Has...",
+      "words": [
+        {
+          "word": "Has...",
+          "start": 473.28,
+          "end": 473.96,
+          "probability": 0.999
+        }
+      ],
+      "avg_logprob": -0.3493,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 170,
+      "start": 473.96,
+      "end": 475.48,
+      "text": "Why doesn't this show...",
+      "words": [
+        {
+          "word": "Why",
+          "start": 473.96,
+          "end": 474.26,
+          "probability": 0.9956
+        },
+        {
+          "word": "doesn't",
+          "start": 474.26,
+          "end": 474.54,
+          "probability": 1.0
+        },
+        {
+          "word": "this",
+          "start": 474.54,
+          "end": 474.76,
+          "probability": 1.0
+        },
+        {
+          "word": "show...",
+          "start": 474.76,
+          "end": 475.48,
+          "probability": 0.877
+        }
+      ],
+      "avg_logprob": -0.3493,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 171,
+      "start": 475.48,
+      "end": 476.54,
+      "text": "Oh...",
+      "words": [
+        {
+          "word": "Oh...",
+          "start": 475.48,
+          "end": 476.54,
+          "probability": 0.708
+        }
+      ],
+      "avg_logprob": -0.3493,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 172,
+      "start": 478.92,
+      "end": 480.88,
+      "text": "I didn't fix this report.",
+      "words": [
+        {
+          "word": "I",
+          "start": 478.92,
+          "end": 479.44,
+          "probability": 0.6958
+        },
+        {
+          "word": "didn't",
+          "start": 479.44,
+          "end": 479.66,
+          "probability": 0.8521
+        },
+        {
+          "word": "fix",
+          "start": 479.66,
+          "end": 480.08,
+          "probability": 0.9326
+        },
+        {
+          "word": "this",
+          "start": 480.08,
+          "end": 480.36,
+          "probability": 0.998
+        },
+        {
+          "word": "report.",
+          "start": 480.36,
+          "end": 480.88,
+          "probability": 0.998
+        }
+      ],
+      "avg_logprob": -0.4387,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 173,
+      "start": 483.26,
+      "end": 484.3,
+      "text": "It's, uh...",
+      "words": [
+        {
+          "word": "It's,",
+          "start": 483.26,
+          "end": 483.78,
+          "probability": 0.7764
+        },
+        {
+          "word": "uh...",
+          "start": 483.78,
+          "end": 484.3,
+          "probability": 0.6064
+        }
+      ],
+      "avg_logprob": -0.4387,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 174,
+      "start": 484.3,
+      "end": 485.26,
+      "text": "Wait a minute.",
+      "words": [
+        {
+          "word": "Wait",
+          "start": 484.3,
+          "end": 485.02,
+          "probability": 0.9937
+        },
+        {
+          "word": "a",
+          "start": 485.02,
+          "end": 485.14,
+          "probability": 1.0
+        },
+        {
+          "word": "minute.",
+          "start": 485.14,
+          "end": 485.26,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.4387,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 175,
+      "start": 485.32,
+      "end": 486.36,
+      "text": "Where's the window manager?",
+      "words": [
+        {
+          "word": "Where's",
+          "start": 485.32,
+          "end": 485.62,
+          "probability": 0.9971
+        },
+        {
+          "word": "the",
+          "start": 485.62,
+          "end": 485.74,
+          "probability": 1.0
+        },
+        {
+          "word": "window",
+          "start": 485.74,
+          "end": 485.94,
+          "probability": 0.8804
+        },
+        {
+          "word": "manager?",
+          "start": 485.94,
+          "end": 486.36,
+          "probability": 0.999
+        }
+      ],
+      "avg_logprob": -0.4387,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 176,
+      "start": 486.52,
+      "end": 487.14,
+      "text": "Oh, there it is.",
+      "words": [
+        {
+          "word": "Oh,",
+          "start": 486.52,
+          "end": 486.66,
+          "probability": 0.9995
+        },
+        {
+          "word": "there",
+          "start": 486.74,
+          "end": 486.84,
+          "probability": 1.0
+        },
+        {
+          "word": "it",
+          "start": 486.84,
+          "end": 486.96,
+          "probability": 1.0
+        },
+        {
+          "word": "is.",
+          "start": 486.96,
+          "end": 487.14,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.4387,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 177,
+      "start": 487.36,
+      "end": 487.86,
+      "text": "There it is.",
+      "words": [
+        {
+          "word": "There",
+          "start": 487.36,
+          "end": 487.62,
+          "probability": 0.9771
+        },
+        {
+          "word": "it",
+          "start": 487.62,
+          "end": 487.74,
+          "probability": 1.0
+        },
+        {
+          "word": "is.",
+          "start": 487.74,
+          "end": 487.86,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.4387,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 178,
+      "start": 487.94,
+      "end": 488.14,
+      "text": "Okay.",
+      "words": [
+        {
+          "word": "Okay.",
+          "start": 487.94,
+          "end": 488.14,
+          "probability": 0.9707
+        }
+      ],
+      "avg_logprob": -0.4387,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 179,
+      "start": 488.7,
+      "end": 489.98,
+      "text": "Here's the window manager.",
+      "words": [
+        {
+          "word": "Here's",
+          "start": 488.7,
+          "end": 489.08,
+          "probability": 0.9932
+        },
+        {
+          "word": "the",
+          "start": 489.08,
+          "end": 489.2,
+          "probability": 1.0
+        },
+        {
+          "word": "window",
+          "start": 489.2,
+          "end": 489.44,
+          "probability": 0.9995
+        },
+        {
+          "word": "manager.",
+          "start": 489.44,
+          "end": 489.98,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.4387,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 180,
+      "start": 492.92,
+      "end": 493.44,
+      "text": "Uh...",
+      "words": [
+        {
+          "word": "Uh...",
+          "start": 492.92,
+          "end": 493.44,
+          "probability": 0.5649
+        }
+      ],
+      "avg_logprob": -0.4387,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 181,
+      "start": 493.44,
+      "end": 494.22,
+      "text": "The...",
+      "words": [
+        {
+          "word": "The...",
+          "start": 493.44,
+          "end": 494.22,
+          "probability": 0.5107
+        }
+      ],
+      "avg_logprob": -0.4387,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 182,
+      "start": 494.22,
+      "end": 496.6,
+      "text": "There's a buffer for the screen.",
+      "words": [
+        {
+          "word": "There's",
+          "start": 494.22,
+          "end": 495.1,
+          "probability": 0.9961
+        },
+        {
+          "word": "a",
+          "start": 495.1,
+          "end": 495.22,
+          "probability": 0.9995
+        },
+        {
+          "word": "buffer",
+          "start": 495.22,
+          "end": 495.58,
+          "probability": 1.0
+        },
+        {
+          "word": "for",
+          "start": 495.58,
+          "end": 495.82,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 495.82,
+          "end": 496.0,
+          "probability": 1.0
+        },
+        {
+          "word": "screen.",
+          "start": 496.0,
+          "end": 496.6,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.4387,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 183,
+      "start": 497.62,
+      "end": 499.18,
+      "text": "Several buffers and stuff.",
+      "words": [
+        {
+          "word": "Several",
+          "start": 497.62,
+          "end": 498.14,
+          "probability": 0.9971
+        },
+        {
+          "word": "buffers",
+          "start": 498.14,
+          "end": 498.66,
+          "probability": 1.0
+        },
+        {
+          "word": "and",
+          "start": 498.66,
+          "end": 498.92,
+          "probability": 0.999
+        },
+        {
+          "word": "stuff.",
+          "start": 498.92,
+          "end": 499.18,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.4387,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 184,
+      "start": 499.62,
+      "end": 501.16,
+      "text": "That's the graphics code.",
+      "words": [
+        {
+          "word": "That's",
+          "start": 499.62,
+          "end": 500.14,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 500.14,
+          "end": 500.28,
+          "probability": 1.0
+        },
+        {
+          "word": "graphics",
+          "start": 500.28,
+          "end": 500.72,
+          "probability": 0.9995
+        },
+        {
+          "word": "code.",
+          "start": 500.72,
+          "end": 501.16,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.4387,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 185,
+      "start": 502.18,
+      "end": 502.7,
+      "text": "Um...",
+      "words": [
+        {
+          "word": "Um...",
+          "start": 502.18,
+          "end": 502.7,
+          "probability": 0.4465
+        }
+      ],
+      "avg_logprob": -0.4387,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 186,
+      "start": 502.7,
+      "end": 502.94,
+      "text": "Okay.",
+      "words": [
+        {
+          "word": "Okay.",
+          "start": 502.7,
+          "end": 502.94,
+          "probability": 0.9966
+        }
+      ],
+      "avg_logprob": -0.4387,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 187,
+      "start": 503.1,
+      "end": 504.18,
+      "text": "What about the RAM disk?",
+      "words": [
+        {
+          "word": "What",
+          "start": 503.1,
+          "end": 503.34,
+          "probability": 0.9902
+        },
+        {
+          "word": "about",
+          "start": 503.34,
+          "end": 503.48,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 503.48,
+          "end": 503.62,
+          "probability": 1.0
+        },
+        {
+          "word": "RAM",
+          "start": 503.62,
+          "end": 503.88,
+          "probability": 0.9707
+        },
+        {
+          "word": "disk?",
+          "start": 503.88,
+          "end": 504.18,
+          "probability": 0.8501
+        }
+      ],
+      "avg_logprob": -0.4387,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 188,
+      "start": 504.5,
+      "end": 505.62,
+      "text": "Where's the RAM disk?",
+      "words": [
+        {
+          "word": "Where's",
+          "start": 504.5,
+          "end": 504.94,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 504.94,
+          "end": 505.04,
+          "probability": 1.0
+        },
+        {
+          "word": "RAM",
+          "start": 505.04,
+          "end": 505.28,
+          "probability": 0.9995
+        },
+        {
+          "word": "disk?",
+          "start": 505.28,
+          "end": 505.62,
+          "probability": 0.9995
+        }
+      ],
+      "avg_logprob": -0.4387,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 189,
+      "start": 506.58,
+      "end": 507.6,
+      "text": "Oh, there it is.",
+      "words": [
+        {
+          "word": "Oh,",
+          "start": 506.58,
+          "end": 507.16,
+          "probability": 0.4441
+        },
+        {
+          "word": "there",
+          "start": 507.26,
+          "end": 507.36,
+          "probability": 0.9956
+        },
+        {
+          "word": "it",
+          "start": 507.36,
+          "end": 507.48,
+          "probability": 0.9922
+        },
+        {
+          "word": "is.",
+          "start": 507.48,
+          "end": 507.6,
+          "probability": 0.999
+        }
+      ],
+      "avg_logprob": -0.404,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 190,
+      "start": 507.76,
+      "end": 508.2,
+      "text": "RAM disk.",
+      "words": [
+        {
+          "word": "RAM",
+          "start": 507.76,
+          "end": 507.86,
+          "probability": 0.2202
+        },
+        {
+          "word": "disk.",
+          "start": 507.86,
+          "end": 508.2,
+          "probability": 0.647
+        }
+      ],
+      "avg_logprob": -0.404,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 191,
+      "start": 508.44,
+      "end": 509.94,
+      "text": "RAM disk is, uh...",
+      "words": [
+        {
+          "word": "RAM",
+          "start": 508.44,
+          "end": 508.96,
+          "probability": 0.9644
+        },
+        {
+          "word": "disk",
+          "start": 508.96,
+          "end": 509.3,
+          "probability": 0.9976
+        },
+        {
+          "word": "is,",
+          "start": 509.3,
+          "end": 509.66,
+          "probability": 0.9814
+        },
+        {
+          "word": "uh...",
+          "start": 509.66,
+          "end": 509.94,
+          "probability": 0.5015
+        }
+      ],
+      "avg_logprob": -0.404,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 192,
+      "start": 509.94,
+      "end": 511.26,
+      "text": "128 gig...",
+      "words": [
+        {
+          "word": "128",
+          "start": 509.94,
+          "end": 510.46,
+          "probability": 0.9668
+        },
+        {
+          "word": "gig...",
+          "start": 510.46,
+          "end": 511.26,
+          "probability": 0.4595
+        }
+      ],
+      "avg_logprob": -0.404,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 193,
+      "start": 511.26,
+      "end": 512.86,
+      "text": "128 meg.",
+      "words": [
+        {
+          "word": "128",
+          "start": 511.26,
+          "end": 511.88,
+          "probability": 0.9873
+        },
+        {
+          "word": "meg.",
+          "start": 511.88,
+          "end": 512.86,
+          "probability": 0.4385
+        }
+      ],
+      "avg_logprob": -0.404,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 194,
+      "start": 517.6,
+      "end": 518.2,
+      "text": "So, uh...",
+      "words": [
+        {
+          "word": "So,",
+          "start": 517.6,
+          "end": 518.18,
+          "probability": 0.9282
+        },
+        {
+          "word": "uh...",
+          "start": 518.18,
+          "end": 518.47,
+          "probability": 0.9434
+        }
+      ],
+      "avg_logprob": -0.404,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 195,
+      "start": 519.28,
+      "end": 519.86,
+      "text": "That's...",
+      "words": [
+        {
+          "word": "That's...",
+          "start": 519.28,
+          "end": 519.86,
+          "probability": 0.7148
+        }
+      ],
+      "avg_logprob": -0.404,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 196,
+      "start": 519.86,
+      "end": 521.1,
+      "text": "That's how the memory is used.",
+      "words": [
+        {
+          "word": "That's",
+          "start": 519.86,
+          "end": 520.12,
+          "probability": 0.8486
+        },
+        {
+          "word": "how",
+          "start": 520.12,
+          "end": 520.22,
+          "probability": 0.877
+        },
+        {
+          "word": "the",
+          "start": 520.22,
+          "end": 520.36,
+          "probability": 0.9917
+        },
+        {
+          "word": "memory",
+          "start": 520.36,
+          "end": 520.66,
+          "probability": 0.9932
+        },
+        {
+          "word": "is",
+          "start": 520.66,
+          "end": 520.82,
+          "probability": 0.6704
+        },
+        {
+          "word": "used.",
+          "start": 520.82,
+          "end": 521.1,
+          "probability": 0.999
+        }
+      ],
+      "avg_logprob": -0.404,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 197,
+      "start": 521.42,
+      "end": 522.98,
+      "text": "So, the lowest...",
+      "words": [
+        {
+          "word": "So,",
+          "start": 521.42,
+          "end": 521.58,
+          "probability": 0.9966
+        },
+        {
+          "word": "the",
+          "start": 521.82,
+          "end": 522.16,
+          "probability": 0.999
+        },
+        {
+          "word": "lowest...",
+          "start": 522.16,
+          "end": 522.98,
+          "probability": 0.6514
+        }
+      ],
+      "avg_logprob": -0.404,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 198,
+      "start": 524.96,
+      "end": 526.54,
+      "text": "So, let's go to, uh...",
+      "words": [
+        {
+          "word": "So,",
+          "start": 524.96,
+          "end": 525.54,
+          "probability": 0.9678
+        },
+        {
+          "word": "let's",
+          "start": 525.58,
+          "end": 525.84,
+          "probability": 0.9995
+        },
+        {
+          "word": "go",
+          "start": 525.84,
+          "end": 526.04,
+          "probability": 0.9995
+        },
+        {
+          "word": "to,",
+          "start": 526.04,
+          "end": 526.34,
+          "probability": 0.9995
+        },
+        {
+          "word": "uh...",
+          "start": 526.52,
+          "end": 526.81,
+          "probability": 0.9961
+        }
+      ],
+      "avg_logprob": -0.404,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 199,
+      "start": 527.28,
+      "end": 528.54,
+      "text": "This is kind of, uh...",
+      "words": [
+        {
+          "word": "This",
+          "start": 527.28,
+          "end": 527.56,
+          "probability": 0.9961
+        },
+        {
+          "word": "is",
+          "start": 527.56,
+          "end": 527.7,
+          "probability": 1.0
+        },
+        {
+          "word": "kind",
+          "start": 527.7,
+          "end": 528.0,
+          "probability": 0.9971
+        },
+        {
+          "word": "of,",
+          "start": 528.0,
+          "end": 528.36,
+          "probability": 1.0
+        },
+        {
+          "word": "uh...",
+          "start": 528.46,
+          "end": 528.75,
+          "probability": 0.999
+        }
+      ],
+      "avg_logprob": -0.404,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 200,
+      "start": 534.79,
+      "end": 536.57,
+      "text": "So, I mark...",
+      "words": [
+        {
+          "word": "So,",
+          "start": 534.79,
+          "end": 535.51,
+          "probability": 0.5767
+        },
+        {
+          "word": "I",
+          "start": 535.79,
+          "end": 535.99,
+          "probability": 0.9912
+        },
+        {
+          "word": "mark...",
+          "start": 535.99,
+          "end": 536.57,
+          "probability": 0.4917
+        }
+      ],
+      "avg_logprob": -0.2978,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 201,
+      "start": 536.57,
+      "end": 537.97,
+      "text": "I mark, uh...",
+      "words": [
+        {
+          "word": "I",
+          "start": 536.57,
+          "end": 537.05,
+          "probability": 0.9019
+        },
+        {
+          "word": "mark,",
+          "start": 537.05,
+          "end": 537.43,
+          "probability": 0.9966
+        },
+        {
+          "word": "uh...",
+          "start": 537.65,
+          "end": 537.97,
+          "probability": 0.5322
+        }
+      ],
+      "avg_logprob": -0.2978,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 202,
+      "start": 537.97,
+      "end": 538.85,
+      "text": "The first, uh...",
+      "words": [
+        {
+          "word": "The",
+          "start": 537.97,
+          "end": 537.97,
+          "probability": 0.1409
+        },
+        {
+          "word": "first,",
+          "start": 537.97,
+          "end": 538.35,
+          "probability": 0.9932
+        },
+        {
+          "word": "uh...",
+          "start": 538.41,
+          "end": 538.85,
+          "probability": 0.7119
+        }
+      ],
+      "avg_logprob": -0.2978,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 203,
+      "start": 538.85,
+      "end": 540.89,
+      "text": "Few pages as, uh...",
+      "words": [
+        {
+          "word": "Few",
+          "start": 538.85,
+          "end": 539.03,
+          "probability": 0.2729
+        },
+        {
+          "word": "pages",
+          "start": 539.03,
+          "end": 539.55,
+          "probability": 0.9922
+        },
+        {
+          "word": "as,",
+          "start": 539.55,
+          "end": 540.05,
+          "probability": 0.9448
+        },
+        {
+          "word": "uh...",
+          "start": 540.17,
+          "end": 540.89,
+          "probability": 0.979
+        }
+      ],
+      "avg_logprob": -0.2978,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 204,
+      "start": 540.89,
+      "end": 543.91,
+      "text": "Not present so that you get a null dereference crash.",
+      "words": [
+        {
+          "word": "Not",
+          "start": 540.89,
+          "end": 541.11,
+          "probability": 0.9731
+        },
+        {
+          "word": "present",
+          "start": 541.11,
+          "end": 541.55,
+          "probability": 0.9868
+        },
+        {
+          "word": "so",
+          "start": 541.55,
+          "end": 541.85,
+          "probability": 0.4912
+        },
+        {
+          "word": "that",
+          "start": 541.85,
+          "end": 542.01,
+          "probability": 0.9717
+        },
+        {
+          "word": "you",
+          "start": 542.01,
+          "end": 542.15,
+          "probability": 0.9893
+        },
+        {
+          "word": "get",
+          "start": 542.15,
+          "end": 542.33,
+          "probability": 0.9634
+        },
+        {
+          "word": "a",
+          "start": 542.33,
+          "end": 542.47,
+          "probability": 0.9619
+        },
+        {
+          "word": "null",
+          "start": 542.47,
+          "end": 542.73,
+          "probability": 0.7495
+        },
+        {
+          "word": "dereference",
+          "start": 542.73,
+          "end": 543.51,
+          "probability": 0.9463
+        },
+        {
+          "word": "crash.",
+          "start": 543.51,
+          "end": 543.91,
+          "probability": 0.9565
+        }
+      ],
+      "avg_logprob": -0.2978,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 205,
+      "start": 544.51,
+      "end": 547.39,
+      "text": "There's a guy who likes to brag about, uh...",
+      "words": [
+        {
+          "word": "There's",
+          "start": 544.51,
+          "end": 545.15,
+          "probability": 0.9644
+        },
+        {
+          "word": "a",
+          "start": 545.15,
+          "end": 545.19,
+          "probability": 0.9971
+        },
+        {
+          "word": "guy",
+          "start": 545.19,
+          "end": 545.39,
+          "probability": 0.9985
+        },
+        {
+          "word": "who",
+          "start": 545.39,
+          "end": 545.55,
+          "probability": 0.9448
+        },
+        {
+          "word": "likes",
+          "start": 545.55,
+          "end": 545.71,
+          "probability": 0.9951
+        },
+        {
+          "word": "to",
+          "start": 545.71,
+          "end": 545.89,
+          "probability": 0.999
+        },
+        {
+          "word": "brag",
+          "start": 545.89,
+          "end": 546.19,
+          "probability": 0.9971
+        },
+        {
+          "word": "about,",
+          "start": 546.19,
+          "end": 546.57,
+          "probability": 0.9985
+        },
+        {
+          "word": "uh...",
+          "start": 546.91,
+          "end": 547.39,
+          "probability": 0.9717
+        }
+      ],
+      "avg_logprob": -0.2978,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 206,
+      "start": 547.39,
+      "end": 549.29,
+      "text": "Making null dereference...",
+      "words": [
+        {
+          "word": "Making",
+          "start": 547.39,
+          "end": 547.69,
+          "probability": 0.9736
+        },
+        {
+          "word": "null",
+          "start": 547.69,
+          "end": 548.11,
+          "probability": 0.5913
+        },
+        {
+          "word": "dereference...",
+          "start": 548.11,
+          "end": 549.29,
+          "probability": 0.8677
+        }
+      ],
+      "avg_logprob": -0.2978,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 207,
+      "start": 549.29,
+      "end": 550.61,
+      "text": "Not crash.",
+      "words": [
+        {
+          "word": "Not",
+          "start": 549.29,
+          "end": 550.09,
+          "probability": 0.9927
+        },
+        {
+          "word": "crash.",
+          "start": 550.09,
+          "end": 550.61,
+          "probability": 0.9961
+        }
+      ],
+      "avg_logprob": -0.2978,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 208,
+      "start": 551.01,
+      "end": 552.41,
+      "text": "So, I...",
+      "words": [
+        {
+          "word": "So,",
+          "start": 551.01,
+          "end": 551.47,
+          "probability": 0.9541
+        },
+        {
+          "word": "I...",
+          "start": 551.59,
+          "end": 552.41,
+          "probability": 0.9297
+        }
+      ],
+      "avg_logprob": -0.2978,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 209,
+      "start": 552.41,
+      "end": 554.51,
+      "text": "So, uh...",
+      "words": [
+        {
+          "word": "So,",
+          "start": 552.41,
+          "end": 553.49,
+          "probability": 0.3079
+        },
+        {
+          "word": "uh...",
+          "start": 553.71,
+          "end": 554.51,
+          "probability": 0.3005
+        }
+      ],
+      "avg_logprob": -0.5276,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 210,
+      "start": 554.51,
+      "end": 556.91,
+      "text": "This area has the kernel...",
+      "words": [
+        {
+          "word": "This",
+          "start": 554.51,
+          "end": 555.41,
+          "probability": 0.7495
+        },
+        {
+          "word": "area",
+          "start": 555.41,
+          "end": 555.77,
+          "probability": 0.9917
+        },
+        {
+          "word": "has",
+          "start": 555.77,
+          "end": 556.15,
+          "probability": 0.6914
+        },
+        {
+          "word": "the",
+          "start": 556.15,
+          "end": 556.29,
+          "probability": 0.8008
+        },
+        {
+          "word": "kernel...",
+          "start": 556.29,
+          "end": 556.91,
+          "probability": 0.543
+        }
+      ],
+      "avg_logprob": -0.5276,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 211,
+      "start": 556.91,
+      "end": 559.09,
+      "text": "Kernel left over from when it booted.",
+      "words": [
+        {
+          "word": "Kernel",
+          "start": 556.91,
+          "end": 557.47,
+          "probability": 0.5513
+        },
+        {
+          "word": "left",
+          "start": 557.47,
+          "end": 557.75,
+          "probability": 0.7793
+        },
+        {
+          "word": "over",
+          "start": 557.75,
+          "end": 558.05,
+          "probability": 0.9893
+        },
+        {
+          "word": "from",
+          "start": 558.05,
+          "end": 558.29,
+          "probability": 0.9746
+        },
+        {
+          "word": "when",
+          "start": 558.29,
+          "end": 558.47,
+          "probability": 0.9932
+        },
+        {
+          "word": "it",
+          "start": 558.47,
+          "end": 558.59,
+          "probability": 0.9976
+        },
+        {
+          "word": "booted.",
+          "start": 558.59,
+          "end": 559.09,
+          "probability": 0.9971
+        }
+      ],
+      "avg_logprob": -0.5276,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 212,
+      "start": 559.95,
+      "end": 562.23,
+      "text": "This has, uh...",
+      "words": [
+        {
+          "word": "This",
+          "start": 559.95,
+          "end": 560.27,
+          "probability": 0.9829
+        },
+        {
+          "word": "has,",
+          "start": 560.27,
+          "end": 560.67,
+          "probability": 0.9971
+        },
+        {
+          "word": "uh...",
+          "start": 560.87,
+          "end": 562.23,
+          "probability": 0.9805
+        }
+      ],
+      "avg_logprob": -0.5276,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 213,
+      "start": 563.11,
+      "end": 564.43,
+      "text": "Some bitch, those birds.",
+      "words": [
+        {
+          "word": "Some",
+          "start": 563.11,
+          "end": 563.51,
+          "probability": 0.0706
+        },
+        {
+          "word": "bitch,",
+          "start": 563.51,
+          "end": 563.91,
+          "probability": 0.501
+        },
+        {
+          "word": "those",
+          "start": 563.93,
+          "end": 564.05,
+          "probability": 0.8618
+        },
+        {
+          "word": "birds.",
+          "start": 564.05,
+          "end": 564.43,
+          "probability": 0.9976
+        }
+      ],
+      "avg_logprob": -0.5276,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 214,
+      "start": 566.03,
+      "end": 568.77,
+      "text": "Anyway, so the code heap...",
+      "words": [
+        {
+          "word": "Anyway,",
+          "start": 566.03,
+          "end": 566.79,
+          "probability": 0.981
+        },
+        {
+          "word": "so",
+          "start": 566.97,
+          "end": 567.07,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 567.07,
+          "end": 567.19,
+          "probability": 0.9619
+        },
+        {
+          "word": "code",
+          "start": 567.19,
+          "end": 567.47,
+          "probability": 0.9268
+        },
+        {
+          "word": "heap...",
+          "start": 567.47,
+          "end": 568.77,
+          "probability": 0.3901
+        }
+      ],
+      "avg_logprob": -0.5276,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 215,
+      "start": 570.51,
+      "end": 571.27,
+      "text": "Um...",
+      "words": [
+        {
+          "word": "Um...",
+          "start": 570.51,
+          "end": 571.27,
+          "probability": 0.8818
+        }
+      ],
+      "avg_logprob": -0.5276,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 216,
+      "start": 571.27,
+      "end": 573.21,
+      "text": "The rest...",
+      "words": [
+        {
+          "word": "The",
+          "start": 571.27,
+          "end": 572.59,
+          "probability": 0.1312
+        },
+        {
+          "word": "rest...",
+          "start": 572.59,
+          "end": 573.21,
+          "probability": 0.5049
+        }
+      ],
+      "avg_logprob": -0.4208,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 217,
+      "start": 573.21,
+      "end": 575.29,
+      "text": "The rest of the memory...",
+      "words": [
+        {
+          "word": "The",
+          "start": 573.21,
+          "end": 573.67,
+          "probability": 0.4561
+        },
+        {
+          "word": "rest",
+          "start": 573.67,
+          "end": 573.83,
+          "probability": 0.9976
+        },
+        {
+          "word": "of",
+          "start": 573.83,
+          "end": 574.01,
+          "probability": 0.9575
+        },
+        {
+          "word": "the",
+          "start": 574.01,
+          "end": 574.11,
+          "probability": 0.9663
+        },
+        {
+          "word": "memory...",
+          "start": 574.11,
+          "end": 575.29,
+          "probability": 0.7197
+        }
+      ],
+      "avg_logprob": -0.4208,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 218,
+      "start": 578.37,
+      "end": 579.29,
+      "text": "So, uh...",
+      "words": [
+        {
+          "word": "So,",
+          "start": 578.37,
+          "end": 579.09,
+          "probability": 0.8374
+        },
+        {
+          "word": "uh...",
+          "start": 579.09,
+          "end": 579.45,
+          "probability": 0.7974
+        }
+      ],
+      "avg_logprob": -0.4208,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 219,
+      "start": 581.33,
+      "end": 582.79,
+      "text": "I made a drawing.",
+      "words": [
+        {
+          "word": "I",
+          "start": 581.33,
+          "end": 582.05,
+          "probability": 0.9448
+        },
+        {
+          "word": "made",
+          "start": 582.05,
+          "end": 582.23,
+          "probability": 0.9917
+        },
+        {
+          "word": "a",
+          "start": 582.23,
+          "end": 582.35,
+          "probability": 0.9863
+        },
+        {
+          "word": "drawing.",
+          "start": 582.35,
+          "end": 582.79,
+          "probability": 0.9985
+        }
+      ],
+      "avg_logprob": -0.4208,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 220,
+      "start": 583.03,
+      "end": 583.91,
+      "text": "It's pretty pointless.",
+      "words": [
+        {
+          "word": "It's",
+          "start": 583.03,
+          "end": 583.15,
+          "probability": 0.9976
+        },
+        {
+          "word": "pretty",
+          "start": 583.15,
+          "end": 583.35,
+          "probability": 0.9995
+        },
+        {
+          "word": "pointless.",
+          "start": 583.35,
+          "end": 583.91,
+          "probability": 0.9971
+        }
+      ],
+      "avg_logprob": -0.4208,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 221,
+      "start": 584.55,
+      "end": 586.05,
+      "text": "I used to, uh...",
+      "words": [
+        {
+          "word": "I",
+          "start": 584.55,
+          "end": 584.87,
+          "probability": 0.8164
+        },
+        {
+          "word": "used",
+          "start": 584.87,
+          "end": 585.11,
+          "probability": 0.9834
+        },
+        {
+          "word": "to,",
+          "start": 585.11,
+          "end": 585.41,
+          "probability": 0.9985
+        },
+        {
+          "word": "uh...",
+          "start": 585.43,
+          "end": 586.05,
+          "probability": 0.4688
+        }
+      ],
+      "avg_logprob": -0.3614,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 222,
+      "start": 586.05,
+      "end": 588.63,
+      "text": "Allocate separate pools for each core.",
+      "words": [
+        {
+          "word": "Allocate",
+          "start": 586.05,
+          "end": 586.55,
+          "probability": 0.5264
+        },
+        {
+          "word": "separate",
+          "start": 586.55,
+          "end": 587.01,
+          "probability": 0.979
+        },
+        {
+          "word": "pools",
+          "start": 587.01,
+          "end": 587.47,
+          "probability": 0.9683
+        },
+        {
+          "word": "for",
+          "start": 587.47,
+          "end": 587.93,
+          "probability": 0.9707
+        },
+        {
+          "word": "each",
+          "start": 587.93,
+          "end": 588.21,
+          "probability": 0.998
+        },
+        {
+          "word": "core.",
+          "start": 588.21,
+          "end": 588.63,
+          "probability": 0.9224
+        }
+      ],
+      "avg_logprob": -0.3614,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 223,
+      "start": 588.95,
+      "end": 591.01,
+      "text": "But now, all the cores...",
+      "words": [
+        {
+          "word": "But",
+          "start": 588.95,
+          "end": 589.47,
+          "probability": 0.9526
+        },
+        {
+          "word": "now,",
+          "start": 589.47,
+          "end": 589.75,
+          "probability": 0.9629
+        },
+        {
+          "word": "all",
+          "start": 589.95,
+          "end": 590.05,
+          "probability": 0.9971
+        },
+        {
+          "word": "the",
+          "start": 590.05,
+          "end": 590.21,
+          "probability": 0.981
+        },
+        {
+          "word": "cores...",
+          "start": 590.21,
+          "end": 591.01,
+          "probability": 0.4773
+        }
+      ],
+      "avg_logprob": -0.3614,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 224,
+      "start": 591.01,
+      "end": 592.21,
+      "text": "Share pools.",
+      "words": [
+        {
+          "word": "Share",
+          "start": 591.01,
+          "end": 591.45,
+          "probability": 0.6548
+        },
+        {
+          "word": "pools.",
+          "start": 591.45,
+          "end": 592.21,
+          "probability": 0.6235
+        }
+      ],
+      "avg_logprob": -0.3614,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 225,
+      "start": 592.61,
+      "end": 594.23,
+      "text": "So, there's a, uh...",
+      "words": [
+        {
+          "word": "So,",
+          "start": 592.61,
+          "end": 593.21,
+          "probability": 0.9575
+        },
+        {
+          "word": "there's",
+          "start": 593.33,
+          "end": 593.57,
+          "probability": 0.9736
+        },
+        {
+          "word": "a,",
+          "start": 593.57,
+          "end": 593.77,
+          "probability": 0.979
+        },
+        {
+          "word": "uh...",
+          "start": 593.79,
+          "end": 594.23,
+          "probability": 0.8818
+        }
+      ],
+      "avg_logprob": -0.3614,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 226,
+      "start": 594.23,
+      "end": 594.69,
+      "text": "There's a...",
+      "words": [
+        {
+          "word": "There's",
+          "start": 594.23,
+          "end": 594.45,
+          "probability": 0.9834
+        },
+        {
+          "word": "a...",
+          "start": 594.45,
+          "end": 594.69,
+          "probability": 0.7471
+        }
+      ],
+      "avg_logprob": -0.3614,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 227,
+      "start": 594.69,
+      "end": 598.25,
+      "text": "There's a code heap in the lowest 2 gig...",
+      "words": [
+        {
+          "word": "There's",
+          "start": 594.69,
+          "end": 595.25,
+          "probability": 0.9746
+        },
+        {
+          "word": "a",
+          "start": 595.25,
+          "end": 595.35,
+          "probability": 0.9976
+        },
+        {
+          "word": "code",
+          "start": 595.35,
+          "end": 595.61,
+          "probability": 0.9165
+        },
+        {
+          "word": "heap",
+          "start": 595.61,
+          "end": 595.89,
+          "probability": 0.9497
+        },
+        {
+          "word": "in",
+          "start": 595.89,
+          "end": 596.13,
+          "probability": 0.8853
+        },
+        {
+          "word": "the",
+          "start": 596.13,
+          "end": 596.25,
+          "probability": 0.9971
+        },
+        {
+          "word": "lowest",
+          "start": 596.25,
+          "end": 596.57,
+          "probability": 0.98
+        },
+        {
+          "word": "2",
+          "start": 596.57,
+          "end": 596.85,
+          "probability": 0.6733
+        },
+        {
+          "word": "gig...",
+          "start": 596.85,
+          "end": 598.25,
+          "probability": 0.5786
+        }
+      ],
+      "avg_logprob": -0.3614,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 228,
+      "start": 598.25,
+      "end": 599.21,
+      "text": "Code...",
+      "words": [
+        {
+          "word": "Code...",
+          "start": 598.25,
+          "end": 599.21,
+          "probability": 0.6582
+        }
+      ],
+      "avg_logprob": -0.3614,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 229,
+      "start": 599.21,
+      "end": 600.29,
+      "text": "Code block pool.",
+      "words": [
+        {
+          "word": "Code",
+          "start": 599.21,
+          "end": 599.57,
+          "probability": 0.9272
+        },
+        {
+          "word": "block",
+          "start": 599.57,
+          "end": 599.95,
+          "probability": 0.9282
+        },
+        {
+          "word": "pool.",
+          "start": 599.95,
+          "end": 600.29,
+          "probability": 0.9902
+        }
+      ],
+      "avg_logprob": -0.3614,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 230,
+      "start": 600.83,
+      "end": 603.05,
+      "text": "Then there's a data block pool...",
+      "words": [
+        {
+          "word": "Then",
+          "start": 600.83,
+          "end": 601.09,
+          "probability": 0.9722
+        },
+        {
+          "word": "there's",
+          "start": 601.09,
+          "end": 601.31,
+          "probability": 0.8945
+        },
+        {
+          "word": "a",
+          "start": 601.31,
+          "end": 601.41,
+          "probability": 0.9971
+        },
+        {
+          "word": "data",
+          "start": 601.41,
+          "end": 601.73,
+          "probability": 0.9814
+        },
+        {
+          "word": "block",
+          "start": 601.73,
+          "end": 602.27,
+          "probability": 0.9771
+        },
+        {
+          "word": "pool...",
+          "start": 602.27,
+          "end": 603.05,
+          "probability": 0.6797
+        }
+      ],
+      "avg_logprob": -0.3614,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 231,
+      "start": 603.05,
+      "end": 603.85,
+      "text": "For the rest.",
+      "words": [
+        {
+          "word": "For",
+          "start": 603.05,
+          "end": 603.35,
+          "probability": 0.959
+        },
+        {
+          "word": "the",
+          "start": 603.35,
+          "end": 603.49,
+          "probability": 0.999
+        },
+        {
+          "word": "rest.",
+          "start": 603.49,
+          "end": 603.85,
+          "probability": 0.999
+        }
+      ],
+      "avg_logprob": -0.3614,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 232,
+      "start": 604.37,
+      "end": 607.05,
+      "text": "And the stack comes off the data block pool.",
+      "words": [
+        {
+          "word": "And",
+          "start": 604.37,
+          "end": 605.01,
+          "probability": 0.9922
+        },
+        {
+          "word": "the",
+          "start": 605.01,
+          "end": 605.19,
+          "probability": 0.9155
+        },
+        {
+          "word": "stack",
+          "start": 605.19,
+          "end": 605.49,
+          "probability": 0.9761
+        },
+        {
+          "word": "comes",
+          "start": 605.49,
+          "end": 605.85,
+          "probability": 0.9922
+        },
+        {
+          "word": "off",
+          "start": 605.85,
+          "end": 606.03,
+          "probability": 0.9922
+        },
+        {
+          "word": "the",
+          "start": 606.03,
+          "end": 606.21,
+          "probability": 0.9873
+        },
+        {
+          "word": "data",
+          "start": 606.21,
+          "end": 606.43,
+          "probability": 0.9917
+        },
+        {
+          "word": "block",
+          "start": 606.43,
+          "end": 606.75,
+          "probability": 0.9971
+        },
+        {
+          "word": "pool.",
+          "start": 606.75,
+          "end": 607.05,
+          "probability": 0.9556
+        }
+      ],
+      "avg_logprob": -0.3614,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 233,
+      "start": 609.47,
+      "end": 610.15,
+      "text": "Anyway, well...",
+      "words": [
+        {
+          "word": "Anyway,",
+          "start": 609.47,
+          "end": 610.11,
+          "probability": 0.8545
+        },
+        {
+          "word": "well...",
+          "start": 610.11,
+          "end": 610.43,
+          "probability": 0.9663
+        }
+      ],
+      "avg_logprob": -0.3614,
+      "no_speech_prob": 0.0
+    },
+    {
+      "id": 234,
+      "start": 610.75,
+      "end": 611.77,
+      "text": "Good enough.",
+      "words": [
+        {
+          "word": "Good",
+          "start": 610.75,
+          "end": 611.43,
+          "probability": 0.8188
+        },
+        {
+          "word": "enough.",
+          "start": 611.43,
+          "end": 611.77,
+          "probability": 0.9902
+        }
+      ],
+      "avg_logprob": -0.3614,
+      "no_speech_prob": 0.0
+    }
+  ]
+}

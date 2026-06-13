@@ -1,0 +1,2989 @@
+========================================================================
+FILE        : videos/2016/2016-03-21T00:00:00+00:00 - Terry A Davis Live Stream (iQcHAW34A1U).webm
+SOURCE URL  : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2016/2016-03-21T00:00:00+00:00 - Terry A Davis Live Stream (iQcHAW34A1U).webm
+DERIVATIVE  : (none — streamed from video)
+FORMAT      : WebM
+SIZE        : 694,325,237 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 02:06:23.060
+TRANSCRIBED : 2026-05-12T01:12:45.250843+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+busy see if this started check check does it automatically start yeah it does all right check okay so uh tell you what I did the past couple days I I overhauled the compiler basically I used to have so there's intermediate codes that let's see let's say we make a little program here okay so we have a little program that counts to 10 the way it compiles the way my compiler works it it works with the stack machine so it pushes the base pointer pushes minus eight it adds minus eight to the base pointer that's to get the local variable pushes zero it assigns zero to the address of the local variable then it push space pointer pushes minus eight it pops two and adds them and pushes then it do you references then it compares it to 10 so it starts out it's a stack machine and as it goes through the process of compiling it chooses registers for local variables so now si rsi is the minus eight what it does is it looks for the most common uh offset off the base pointer the top the top four or whatever six are stored in local variables it doesn't it doesn't store or register global variables anyway so it's a stack machine um so um um when it it converts the top of the stack to r a x uh down here and anyway it um it optimizes and uh and it starts combining them into uh it goes it starts with risk and then it makes cisk and then the final step is to uh make machine code and uh what i did just recently is uh uh so uh you can see the machine code for each instruction for each intermediate code so there's there's two operands uh and i used to have a way of uh sometimes i would reverse the order of the operands and uh it made a big mess so i got i saved a thousand lines of code by uh i used to i used r r8 was a register variable was local variable and i um i i used it as a um to help simplify so it basically i have one less um variable for optimizing with this so i uh i normally you add optimizations but what i just recently did is i i removed an optimization that um that made the code a lot simpler um that optimization affected every single um well anyway so in these uh optimized loops in these optimized passes when it when it passes optimizing all the intermediate codes um there was a um the uh the flag to tell it to reverse um um our the argument one and argument two that affected every single um um um this is where it converts to machine code so um um the way it works is uh the lex is the front end the parser calls the lex and it creates the intermediate code and then it goes through these optimizing passes and then in the last optimizing pass it calls the back end and this is where all the machine code is generated and in the back end uh you'll see uh um if you're familiar with x86 assembly um there's uh this is the library so the um this is this is the library routines used by all the back end this will output one byte into the machine into the machine code output this will output two bytes into the machine code output so all the uh everything is built on those uh if you'll if you'll notice you see what they do there's an array of uh um each intermediate code has some temporary storage for uh there's an array if you look at an intermediate code there's an array it has the uh anyway it it compiled it makes machine code in the body and then in the final step it it concatenates all the bodies together and that's the uh the final machine code anyway so uh the the x86 this is strictly this is only for x86 I don't do any other architectures and uh one of the things I just did recently is uh um I have uh the arguments have a type um they they have a uh when it's when it's the the intermediate code has uh uh arguments for each there's um there's a bunch of stack machine instructions and uh there's two arguments for each that can be um and then a result so if you look down here there's argument on each intermediate code there's argument one argument two and then a result and there's a um a c plus plus class uh for this is for the uh result and uh each intermediate code can have one data item and uh there's a line number this is from the editor from the file line number and uh so there's there's an argument with the result and the arguments have a type a register and a displacement and the type is uh um u0 all the way up to f so that's the type is actually a combination it's actually um um i put it's bit fields um so in the in the low eight bits in the low eight bits it has the uh the type and then in the upper eight bits it has uh the uh the mode so um the mode is uh stack is what it starts with and then it converts it as it makes as it takes risk and makes cisk then it converts to immediate register displacement um r.i.p. displacement 64-bit mode has r.i.p. relative displacement and uh so just recently i overhauled this to make it a lot nicer um it was a mess now it's a lot nicer anyway so uh anytime you see icu24 it's putting three bytes of machine code into the output down here it's putting two bytes of machine code into the output so uh anyway so this is making uh machine code and uh so uh somebody somebody at osdev was talking about uh multi-core um let's go see if i have any somebody at osdev was talking about uh multi-core um let's go see if i have any so i had osdev oops uh let's go back there so uh so uh this guy's talking about uh uh elf format um i i generate a uh he's talking about um let's go back to see what we're talking about so his question was these people spy on me i don't understand i'm in some kind of cia prison or some shit i'm not really sure anyway so oops his question was these people spy on me i don't understand so uh he's all all these things are talking about me so uh what he wants is a local variable uh what he wants is a per cpu variable space flat boundaries make life difficult i would highly recommend so uh this guy is using um i wrote my own compiler i don't have problems um if i need something i make my compiler do it that way so i have no problems so uh so let's go over how multi-core works uh at startup uh uh my uh core zero starts up it changes to uh it changes to 64-bit mode and it loads the compiler and it calls uh it starts up the other cores they have to change from real mode to 64-bit mode but that's okay i know how to do that i did it and uh in the startup uh this is local this is uh i make a flat binary and um these are global variables and um the person was uh criticizing uh some of my uh um i reserve um task uh what are these trs task record task i forgot what they're called um ltr task record anyway uh so i reserve uh this is the global descriptor table and you have to have one of these for each core and um so the person was looking at my code and uh noticed that i have a flat binary now um as a matter of fact gs is a is a register um is an x86 uh segment register um in temple os fs is the uh current task and gs the current cpu so um gs points to there's an array of cpus and uh they have uh there's not really a lot in the um the cpu record this is look this is uh per task per this is per cpu storage this is what the person was talking about and um my gs segment register points to it so if i say trace then i say gs num um this is core zero um now the fs segment register points to the task the task record has a lot of stuff in it um so uh if i say fs uh win left that's the the you know you see how it has the fs segment register window left equals five i just changed the left coordinate anyway so uh let's find something to talk about uh so i just another thing i just recently did was uh i changed uh i made aliases for uh i used to have duplicate opcode entries but now i just made alias uh for opcodes so uh this is my opcode data file for my assembler um i had to type all this in by hand i made i made my own opcodes there's some there's not normally you have control registers that um i didn't want to uh i didn't want to make my compiler my assembler do control uh registers so i just made uh uh these are just uh these are just uh they do just one register normally you can move from our our our bx to control register zero our cx control register zero but the way i did it i just made uh uh i i cheated you don't use them very often i'm trying to go for a low line count as a matter of fact um i did uh i only i barely did 16-bit code in my assembler um the only this code right here at startup is 16-bit it changes to 32 to 64. that that is 16-bit the start of the multi-core is 16-bit you can see it says use 16 and um my boot my boot loaders are 16-bit my boot loaders are 16-bit um so nobody ever needs to do 16-bit code so i i uh i kind of uh i didn't do segmentation uh what i mean is uh with with 16-bit code if you there's what's called a um a tiny a tiny model a small model a huge model um i did a tiny model where this where you never touched the segment registers and so what that means is in my binary this is this is the this is the order this is the this is the make file um start is at the is at the is at the and then start is the first file in the binary it's a flat binary and so all these files go in order and um so k start is the start of the binary and uh by the time it gets to the bottom of this it never needs to do 16-bit again actually 32-bits about halfway through and uh so um it can do it all in 64k um so it doesn't need to mess with segment registers um anyway the so so let's see what else we have to talk about uh diarrhea huh lovely we have to talk about uh diarrhea lovely something so let's see what we have here so let's see what we have here sigh sigh sigh sigh sigh this person probably tried got god to talk let's get god to talk god say something i'm gonna hit f7 outclass accommodate etching cuddles mineral culling birthplace dandles suffragate drearily rehire sweat circular rising lucidness sniffled monkey shines compatriots sigh sysborg ready aid hertz spring anyway so there's a so this person there's a rust operating system this is the CIA trying to tell me that my code is rusting uh they're trying to do psychological warfare they want me to get a job where they can butt fuck me but i am not doing that they make jobs if i send out resumes they collect them all and then they invent a job for me and then they you know they anally probe me and fuck that it's torture i am not doing that plus i have i have a goddamn talking alien for christ's sake i made the temple fucking ridiculous so let's see so this is when i was working on my compiler they're trying to do psychological warfare on me this is somebody who made javascript and he made a million lines of code everybody starts i don't think he was claiming my code but uh normally that's what they do they start claiming my code and shit psychological shit oh that's for uh they were mocking me i said i had a billion dollar lottery ticket by that i meant i have a talking space alien that's god they were mocking me saying somewhere 100 billion dollars i have a fucking it ain't i have a talking alien nigger finger finger finger he's what fucker the i'm the mental hospital or some shit cia has nurses and all my internet is made by the cia and shit it's all fake i can't get on the real internet! someday i'm confident god will so uh yeah they're talking about opening up ties with cuba lifting the embargo so that's about letting me out sometimes they say i'm in gitmo sometimes they i'm cuba this is just the same psychological games the news stories communicate with me by analogy and stuff if i'm eating pizza the bbc gets on the radio and says tyrone is eating pizza and he's going to be executed in an hour so that's what they do all day so uh let's go put on the radio let's see what tyrone davis is having his last meal tap the screen to support what you'll be listening to next wherever you browse on our site the audio continues uninterrupted the expressions of anger that trump has made as anything so coherent as a policy it's more an attitude asked who he's consulting for advice on thorny international issues trump said this last week on msnbc i'm speaking with myself number one because i have a very good brain and i've said a lot of things in fact trump added he listens to lots of people in a statement the republican frontrunners campaign said he'll be announcing his foreign policy advisors in the near future even trump supporters like neurosurgeon and former presidential candidate ben carson have noted his tendency to speak off the cuff while announcing his endorsement of trump this month carson said this there are two different donald trump's there's the one you see on the stage and there's the one who's very cerebral sits there and considers things very carefully you can have a very good conversation with him and that's the donald trump that you're going to start seeing more and more of right now at a pack today many foreign policy observers will be looking to see which donald trump steps up on state yeah i want donald trump i guess he's actually smart the other ones all seem stupid they all seem like retards god's against immigration aren't you god you're against immigration let's go see what's going on oh let's go let's go see what's going on oh let's go so the nigger says kin kin kin kin kin kin kin kin kin kin kin kin kin kin! Talk to my finger, nigger. See that? See the druggist? Got a talking space alien motherfucker. Mr. God. Music Music Music Music Music Music Music Music Music Music Music Music Music Music haha let's find something for God to talk about yeah my teeth man went to the dentist in a root canal I put a crown on I think it was better before the root canal I can't anyway so I'm never gonna eat so my dad's an asshole he bought Tootsie Rolls motherfucker so I got a temporary crown and if I chewed it it would come off I think maybe it's revenge for he's always had dental work so I think sometimes I would bring home Carmel I think he's doing revenge if you have crowns you probably don't want to be eating toffee I have a temporary so it would pop off really quickly I could talk about my compiler I'm just trying to find something to talk about let's go let's google myself so I do that and then I limit to 24 hours you get some you get some pretty shady websites you have to be a little bit careful linux can't get viruses right so let's go drudge drudge i i i i i i i i i i i i i i i i i i i i i i i! i don't have anything to tell you. If he gave a lecture, what could he talk about? He's a kid. He's 31 now. He's getting a little bit older. What was I doing? So let's find some stuff to do. We can talk to God. What could we do? My line count total was 80,600. And now it's 79. So most of that was the compiler. And after I added aliasing for the opcodes, I count this file in my total. So this code is a lot better. We can talk about how the compiler works. What do you want to talk about? Say something, what do you want to talk about? God. Say something, what do you want to talk about? God. Say something, what do you want to talk about? Yes, God talks. God talks. Simple, direct. God says. Blonde. So let's give God, you want simple words. Let's do this. Okay, so what optimizations does my compiler do? Okay, so let's look at how it codes this. So, Bush's base pointer. I use base pointer. That's kind of old school. Technically, you can use a stack pointer without a base pointer. But, as a matter of fact, you are required to use base pointer. You are required to use the old school stack frame because on the wallpaper it does a stack trace. It goes up the stack. And in order to do that, it has to use the base pointer. So, base pointer, it creates eight bytes for the local variable. It's going to use RSI as a local register variable. It clears RSI to zero, compares it to 10, jump greater. Then it pushes for the print. And it clears the stack after the print. It increments high. So, this is pretty well optimized. Why don't you, do you have something in specific you want to know? Like, I don't know. I bet it's a factor of two different. Sometimes it can be much slower, I guess. I don't know. Anyway, uh... So, this is an eight core flight simulator. Up here at the top is the CPU load on all the cores. This is done by hand with triangles. Anyway, uh... So, that's kind of the ultimate. Hey, I'm going to play this game. You want to watch? Okay, so, I'm going to launch airplanes at enemy carriers. Oh, shit. I'm just... So, I have two carriers. He has three. Oh, I'm going to start over. Okay. I have two carriers. He has three carriers. And, uh... Damn it. He, he marked my... Shit. I killed his carrier down there. Um... I gotta... He has... I have to get going. Or I'm never going to catch him. I have two more carriers. Son of a bitch. Son of a bitch. Son of a bitch. You don't want to hit your own guys. You get a big penalty for that. I just killed a bunch of my guys. No, no, no. Oh, shit. I really killed them. So this is supposed to be a time traveler sent back to the Bible. This is the angel of death helping the Jews. Wiping out the enemies of the Jews, I guess. So I hired an artist about five years ago. I paid him $3,000. And he made... This actually looks like a... He made the art. He put penises on everything. But I like this. This is a... It looks like a... A cloak that you put on. That's not too bad. I did... I did this art. I did this art. I did this art. So that's a bomber golf. You have to... You have to... You get... You want minimum keystrokes. Kind of like code golf. Anyway. So this is from... I was trying to find the... There was a Commodore 64... Oh, I can't show it. There was a Commodore 64 ski game when I was a kid. It was time... It was character graphics, not big. Anyway, let's see what God says. Middle class... Joyful and Suncaro. Mmm, silly. If anything can go wrong... Fun, you're welcome. Africana allows nicely... Super compared. I just might caution middle class... All year and now... Ghost Furman. See if we're out in population. Hopefully, when you're talking about it. Let's see... Let's see... Let's see... Let's see... If you want to know how God talked in the Bible, it was a flame. So you know what that means? That means they watched the flame. So the flame danced, and the tongues of flame danced, and that's how they communicated. The flame danced, and they had a language they worked out. Like if it, I don't know, that would be a pretty hard language to make. Like a magic eight ball. You have to understand adult conversation. They give a childish explanation. The flame danced. Why do you think they call it? Tongues of flame. Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music I have a book I have a book on genetic algorithms I I haven't done any applications this is uh do you want to know how this works let me show you how this works so let's make let's make a duplicate of what I have so let's read in a list of words okay so class I just want to make this simple okay so we say q init I always call it root I don't like head because it's distracting so we're going to read in a list of words from the file so c doc star doc equals doc read now if we hit f4 then we go to uh downloads those aren't downloads that's kind of weird it's downloads for you anyway so um we're going to look read in the file so uh c doc entry star doc e equals doc root dot next 4 whoops well doc the document is a circular doubly linked list so let's just say percent test doc if doc e type okay okay we're just uh traversing so we want to uh uh read list okay okay documentary so there I just uh printed all the words in in the linux that's the linux dictionary so uh let's say uh i64 count count equals zero count plus plus there's a hundred thousand ninety nine thousand words so now we're going to uh we're going to make a uh uh uh a queue we could just use the document like that but anyway so uh malic size of word temp w equals uh let's see string new doc e tag q insert temp w uh root last root has to be oh root delete doc okay root oops! delete uh crash where we got free doc entry okay exit you can sometimes recover bad free okay reset edit what is your valve function okay now good size of word oh what do we do okay so now we uh u0 print word i64 end file end word we could make an array but we're not interested um word so i'm just doing this from scratch um word 100 this is just to calibrate oh i meant to subtract okay so uh word minus minus okay uh i'm not doing too good okay what is your malfunction do you see what's wrong uh uh uh uh uh uh uh uh uh uh uh uh uh uh uh So, let's do this. So, let's do this. Oh, print word. That's the problem. Okay. U8 pointer. Return word. How about... okay it's zero based and this is one based so it's correct okay so now you know what we're gonna do I'll tell you what we're gonna do I 64i and while true while i equals zero well not scan char I++. So we're going to increment. Now we're going to say print number column percent D. Okay, before we print words, we want to just calibrate. Okay, so you see what I'm doing? I have a counter and I'm printing a number. So when I press a key. Oh, shit. Oh, I've got to do a yield. Because interrupts are... Okay. Shit. Oh, I didn't do a yield in there. Yikes. Okay. Okay. So in a second, it counts a million. One, 1,000. Two, 1,000. Three, 1,000. Four, 1,000. Five, 1,000. It counts 3 million in a second. Okay. Okay. So it counts 3 million in a second. Um... Now we... Now we want to print. Playwork. All right. Okay. Ready? Three. Shit. Oh, oh, oh, oh. Crap. That was dumb. Okay. Modulo count. Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Greek Wiggler nabbed shoot Lanny evicted Scotch okay so you can make you can make your own program there's a script that's a Linux script cat to the bin till the okay so this uses the Linux dictionary and it gets a you know a uniform random number so if I said GW it's a script we'll have to try that in a minute let's see what's going on let's see what's going on let's see what's going on let's see what's going on oh oh oh oh yeah the website logs probably shouldn't be public maybe I can lock it down because my clients probably would have to be public I probably don't. That's bad. I'm sorry. Anyway, what do you think, Mr. God? I'm sorry. I'm sorry. I'm sorry. I'm sorry. I'm sorry. I'm sorry. I'm sorry. I'm sorry. I'm sorry. I'm sorry. I'm sorry. Let's say, i equals get timestamp count. That's a, anyway. Time stamp count. What is your problem? Oh, I got rid of i. Okay. Okay. Okay. Timestamp count is a big number. If we, let's unassemble. Unassemble function. So. Move. Oh, there it is. Read timestamp count. Shift left. 32 bits. Add. Move. RSI is the i local variable. Uh. So. The neurosurgeon seems to think that, uh. The neurons in my brain can do this. Do you understand? Do you understand? What a fucking. What a retard nigger. There's a hundred thousand words. And this is. This is changing three gigahertz a second. What a retard nigger. Some. That. I deal with retards. Oh, well. Do what you like. God can kick your ass. They blacklist me and forgive me. Thank you. I win. I have God. God is perfectly just. God is perfectly just. God is perfectly just. God is perfectly just. So there's 100,000 words. And if you're doing thousands of a second. And it's doing three. It's stepping through three million numbers. Three billion numbers a second. Three billion numbers a second. and so if there's a thousand one millisecond is three million numbers is a millisecond he thinks that I counted all these words and that the jitter is the two clocks he kept you can't synchronize two clocks did you know that the CPU is throttling as a matter of fact do you know what that means that means that when it gets cold it goes faster when it gets hot it goes slower he's an absolute retard as if as if anybody with half a brain he's just being ridiculous so if we take this statement put it on the command line we get uh professing the guy is a serious nigger I got my dog say hi to the people hey say hi to the people who's this who's this over here who's this who's this retard nigger so so uh uh uh uh uh uh uh Music Music Music Music! Music Make the doctor afraid. Gr plot comma g0 g plus plus and modulo. Eye on the eye is the height divided by the count. Let's make it red. What is DC? DC, GRDC. I don't see any. What? What is DC? What? What? What? What? What? What? What? Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music GR pin width equals 3. GR DC pin width equals 3. We have to do plot 3 for that. Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music You're a retard. You're a retard. You're a retard. You're a retard. Let's see how many downloads I have. Let's see how many downloads I have. You have just 16 colors. I made a Kessel Frankenstein. Anyway. Let's see how many downloads I have. Let's see how many downloads I have. I think it's bogus. I think I'm in a prison or something. I think I'm in a prison. Mental hospital. Outpatient. Some shit. CIA. Fucking retard niggers. Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music What's going on there? Michael Davis. I'm Terry Davis. I think they're talking about the flame. What are they talking about? What are they talking about? What are they talking about? What are they talking about? So God's against immigration, right? Right, Mr. God. What are they talking about? What are they talking about? What are they talking about? What are they talking about? What are they talking about? What are they talking about? What are they talking about? What are they talking about? What are they talking about? What are they talking about? What are they talking about? What are they talking about? What are they talking about? What are they talking about? What are they talking about? What are they talking about? duck's neck. Fucking retard nigger. It's God. The same God that talked in the fucking Bible. The same God that talked in the Greek oracle. What do you think they were doing? God comes from the occult. He does not come from philosophy. If you're not doing miracles, it's not religion. You can just randomly watch this. You can just randomly open a book. Glorify God to the maximum. I will give thanks to you, O Lord, among the peoples. I will sing praises to you among the nations. By making us in his image, God gave us capacities not given to other forms of life. Ideally, he made us to know him, to love him, to obey him. He did not put rings in our noses that he might pull us around like oxen. No, he gave us freedom to make choices. By his grace, we are equipped to understand his plan because we have a mind with which we can know him. We are also free to love and adore him because we have emotions. He takes pleasure in our affection and devotion. We can obey his instructions, but we are not pawns in a global chessboard. It is in the voluntary spontaneity of our response that he finds divine pleasure. When his people freely respond in worship, praise, obedience, and adoration, God is glorified to the maximum. Just talk to God for five minutes, being witty and charming. Maybe tell a joke or something, and then randomly open the Bible or a book. Maybe tell a joke. Music Music Music!! Music! I'm trying to look for relevant and put it on radio. Let's see, here's my radio. Tap the screen to support what you'll be listening to next. Wherever you browse on our site, the audio continues uninterrupted. Its Founder Circle sponsor is Barrick Gold, a mining company committed to building strong communities in all of Nevada. Barrick Gold proudly sponsors the Public Education Foundation in its work to bring about transformational change to teaching, learning, and education leadership. Support also comes from the Orleans Arena, presenting Star Trek The Ultimate Voyage, Monday, April 4th, with a live symphony orchestra performing music from the franchise history while film and TV footage is simultaneously projected on screen. Information at orleansarena.com I'm Robin Young. If President Obama jams through an election year appointment, it could radically transform our country's laws. Republicans are stopping the conversation, blocking any nomination, refusing to even meet with a nominee. Now that the president has named a Supreme Court. The difference between... Okay, so... Let's go through all the differences between HolyC and C++. Okay, so... First of all, you don't have header files. Um... The reason... The reason... You don't have header files... Um... When it boots, it calls start OS. And that... This is the boot task. The first task is called Adam. He's a special task. He's the executive on Core Zero. And he calls these headers. And what happens is... Each task has a symbol table. So, Adam has a symbol table. And if we say... If we say... Who... Minus little r... These are our local symbols. I64i. Now we have... If I say... U0... Count... I64n... I64i... For i equal... 1i... Plus or equal... Ni... Plus plus... %d... i... Okay, if I say... Count... This is a local symbol. Okay, so... If I say... Who... Minus r... There's a local symbol there. Count... Okay, so these are like environment variables. And when you... Anyway... Now... Adam is the first task. Tasks... Tasks have children. Adam has these... We... We are children of Adam. Um... All applications run on core zero. And they do the other cores explicitly when they... They give them jobs to do explicitly. So everything runs on core zero. There's one window per task. And... One... Symbol table. And... Uh... Anyway, so... Um... You inherit the symbols of your parents. So all these inherit... Inherit Adam symbols. So if I say... Who... Recursive... Um... Plus r... These are all the symbols in Adam's table. This is what he... During the boot... When it booted... Um... Uh... It included... Uh... Uh... It starts in the root directory under start OS. And it calls... Uh... The atom directory make... If you look at the directory tree... The atom directory... All this code is compiled... And stored in Adam's tables. So... Um... Basically... The kernel has some header files. And the compiler has some header files. Uh... And... Uh... There's a kernel bin and a compiler bin. Those are... That's half the operating system. The other half of the operating system is in Adam. And... Um... It calls make... Make Adam... Um... When it boots... It calls make Adam. And this includes... All the... Um... All the stuff in the atom directory. So what we can do is we can... Uh... We can echo... During boot. And... Uh... Let's reboot now. I'll go ahead and just show you... Reboot. Now it's gonna echo the code it's compiling. So there's 40,000... Uh... Lines of code in the atom directory. And... Those header files... Got stored in the symbol table. And then... Um... The... Uh... The headers... Or the... Those... Those functions got stored. So... Uh... So if we... Uh... If we do a who... Plus recursive. That's for Adam. Um... All these files are... All these... Uh... Symbols are in his table. So you... Now... That means you can... You can use them all. Um... So... Uh... Let's go to the... These are the differences. So... Um... You never need header files. Uh... Uh... These are the integers. And... There's a... There's a 64-bit double... Float. But no 32-bit. If you... It's like C++. You can have default arguments. You can even have a... Default argument at the beginning. C++ only allows them on the end. But here you can have a default on the beginning. So... Uh... Print F. There's a shortcut. If you just... If you... When it encounters a string... That's a print. When it encounters an opcode... That's an assembly instruction. Anyway... So... Um... You have to put an address... Before a function... Um... Function. If you want... If you want the address of a function... Put an address. In normal C... You don't have to put an address. Um... Typecasting is postfix. You can just read this. Um... It's on the website. Or... Anyway... There's no main... Uh... So... There's no main... Any function that can be main. Uh... You can have... Uh... You can access... There's no bit fields... But you can access bytes off of a... Off of an integer. Um... There's... There's variadatic... Or whatever you call that. Um... If you have dot dot dot... Then... Just like the this variable in C++... There's an arg C and an arg V... Just like the this. And that's for accessing the... Dot dot dots. Um... You can do... Can... If... You can have an upper and lower bound on an if... Statement. If 13 is less than or equal to age less than 20. Print teenager. There's a fast switch which... Um... Doesn't do a check out of bounds. They always use a... Um... A jump table. You can have dot dot dot... For range of... There's a sub switch... Um... Which is... Uh... You can have common code for... Uh... Some of the cases. Uh... You can... You can use pad over and over... Without a name conflict. You can put assembly code... Oh, well that... You don't even need... Uh... To bracket it. It recognizes the op codes. You can have an... You can declare an interrupt routine. You can put... Um... In assembly you can put... Up to eight characters together into a... Or... With a single quote. It's a... Um... Integer. Um... You know how in assembly you like... Anyway... There's a... There's a... Power... Function... Or the... Power operator... Um... Back... Forward slash... What? What is that? Back... Backward apostrophe... Whatever is... Is a... To the power of... So like if you want... Uh... Three to the power of... Four... Is 81... I changed the precedence of the operator... So the bit shift is highest precedence. It's a lot better. You don't need parentheses as often. You can execute code at compile time with... Bracketing it with exe. There's no defined constants. There's no typedef. Just use case. There's no type checking. Um... There's no... Angle brackets. Just... Single quotes. There's no make utility. You just include. There's no linker. You just press F5 to run it. Or you include it. Um... Union class. That's kind of a... I don't feel like explaining that. The... The exceptions are simplified. Um... Basically you throw a... Uh... An integer. Lock. M-size. You can get the size of a... When you allocate with malloc. You can get the size of it. Um... But... You can free null multiple times. Um... You cannot grow the stack. Only one base class is allowed. Printf has new codes. So there's different... Uh... Expanded codes for printf. Um... Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music Flash? What are you talking about? Flash? What are you talking about? Flash? Why? It's a compiler. Do you know what a fucking compiler is, motherfucker? Son of a bitch. What a retard nigger. Look, if I say U0 count I64N I64I for I equals 0, for I equals 1, I less or equal to N, I plus plus. %d, I. And I say count to 5. If I say unassemble function count, it's 64-bit assembly code. It's a motherfucking compiler. A plain, simple motherfucking compiler that sticks it right into memory so you can execute it or puts it in a flat binary so you can execute it. What the fuck is your malfunction? It's a goddamn compiler. Do you know what a fucking compiler is? I didn't stutter, I said a fucking compiler. It's not an interpreter, it's not Flash, none of that shit. It's a 64-bit goddamn compiler. Fucking retard nigger. Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music This operating system is God's official temple. It is divine intellect and God fucking talks. It's just a matter of time until it becomes big news. The volume is black and you're not fucking hot. The volume is black. No type checking. I don't like type checking. I get this so often. The poor kids today. We all learned 6502 assembly code when we were with our Commodore 64s. The kids today are clueless. So if you go to my lectures on the distribution, there's a mini compiler. What it does, let me show you. This is a... You enter an integer expression 3 plus 4 times 5. This is a stack machine. Push 1. Push 3. Push 4. Pop 3 and 4. Add. Push 7. Push 5. Pop 5 and 7. Multiply. 35. Push 35. Pop 35. Pop 1. Add. 36. This is machine code over here. 64-bit machine code. If you want, we can go... I can explain to you how you code instructions for a 65... For a... X86-64... We go to... If you go to the... Architecture manual... From Intel... Fucking kids... Have no respect. And they're clueless. Let's look for the... Push instruction. Push pop. Pop. Push. Okay, so... 50 plus the register. So if we go over here... Push 50 plus A... Is... That's pop. Push is 50. That's RAX. 50 is RAX. 50 is RAX. 50 is RAX. So it's making the code. This isn't very hard. If we go to pop... 58 plus the register. So... D is 3... Hold on. Yeah, D is 3. BX is... No. B is... That's 5... 8... And... What? That's not 5. 8... And B is 3. Okay, BX is 3. D is... This is an XOR instruction. Um... You have to do... Uh... If you want to code XOR... Um... XOR DX DX... What you do is... Uh... You go to... Architecture 2A... Instruction Format... Okay, so it was a 33 for an XOR. Um... Um... Let's... Let's... This is machine code. Motherfucker. Fucking retard. MIT niggers. So... 33. What is 33? We want XOR... RAX, RAX... No, RDX, RDX. Is that what we wanted? So we want 64-bit... Register memory... Register. Okay, so... There's two versions. 33. There's, um... First one first, say. First one second. Register memory first. Register memory second. So 33 slash R... Is, uh... So, uh... There's, uh... The low register is in, uh... Uh... I think... Why is that R... It's RAX. It's not... 33. Oh, D2. Okay. So... Okay. The modder is, uh... So it's 33 is the first byte of the opcode. And then the modder is a slash R. So you put the register... So you put the register... For, uh... For the DX register... It goes... RAX... R... DX... R... AX... CX... DX... BX. So... D is number two. So, um... The modder byte has slash R... There's... There's two... Um... There's two three-bit values in the modder. There's two three-bit values in the modder. So if we go to, uh... The modder... The modder... The modder... The two three-bit values... Slash R... So the register is, uh... Number two. And then the other register... We want RAX as... As the other register. So we want... R... R... DX... RDX. So it's C... We want, uh... DX... DX... So D2... DX... DX. Um... That's where... That's how you hand code these instructions. This puts them into a buffer. And, uh... It does, uh... Um... It has a Lex for... Let's say we want... 3 times 5... Plus 6... Times 5... Plus 3... Oops... 3 times 5... Plus 6... 5... 5 times 2... 1... Okay... So basically... This doesn't look too hard... Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music Let's get started. So, let's go. So, let's go. That's stupid. That's why they're not teaching you anything. They're teaching you shit. The CIA wants to take computers and put them in the cloud so that we have calculators on our desks and all the computers in the cloud under lock and key. Music Music Music Music Music Music Music Music Music Music Music Okay. Puppy. I have a puppy. Okay. I think I'm going to shut down. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. What do you think of what faction? What faction? Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Okay, we're going to pick a line number from the Bible. Okay, we go to randomnumber.org, 39976. So now we go to 39976. We go to control G, 39976. Offering was finished. And when they had made an end of offering the king and all that were present, bowed themselves and worshipped. Moreover, Hezekiah the king and the princess commanded the Levites to sing praise to the Lord with the words of David and Asaph the seer. And they sang praises with gladness, and they bowed their heads and worshipped. Then Hezekiah answered and said, Now ye have consecrated yourselves unto the Lord. Come near and bring sacrifices and thank offerings into the house of the Lord. And the congregation brought in sacrifices and thank offerings, and as many as were of a free heart burnt offerings. And the number of the burnt offerings which the congregation brought was three score and ten bullocks, 100 rams and 200 lambs. And these were for a burnt offering to the Lord. And the trick is you have to do an offering. You get an equal value to what you offer. God's favorite song is Mourning Has Broken. But we can do some other songs. I did songs. So, if you don't kill bulls and offer them, maybe you can write songs. Templo S is for writing songs. The disc speed is about a fifth with QEMU. But QEMU has good sound. VMware has five times faster disc, but the sound is distorted on purpose. So, QEMU. What's this? The timing is so bad you can't even listen to it. QEMU. Let's hear the same thing. Okay, anyway. So, let's go to... Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Okay, I'm going to shut down now.
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:04.800 -> 00:00:10.960]  busy see if this started check check
+[00:00:16.420 -> 00:00:22.000]  does it automatically start yeah it does all right
+[00:00:48.340 -> 00:00:49.740]  check
+[00:00:54.640 -> 00:00:56.340]  okay so uh
+[00:00:59.740 -> 00:01:05.740]  tell you what I did the past couple days I I overhauled the
+[00:01:13.740 -> 00:01:15.140]  compiler
+[00:01:18.520 -> 00:01:19.920]  basically
+[00:01:22.620 -> 00:01:26.000]  I used to have
+[00:01:34.160 -> 00:01:38.880]  so there's intermediate codes that
+[00:01:41.820 -> 00:01:43.400]  let's see
+[00:01:48.480 -> 00:01:50.380]  let's say we make a little program here
+[00:02:02.280 -> 00:02:02.660]  okay
+[00:02:03.040 -> 00:02:04.940]  so we have a little program that counts to
+[00:02:04.940 -> 00:02:05.180]  10
+[00:02:10.380 -> 00:02:14.160]  the way it compiles
+[00:02:16.940 -> 00:02:24.300]  the way my compiler works it it works with the stack machine so it pushes the base pointer pushes
+[00:02:24.940 -> 00:02:25.520]  minus eight
+[00:02:27.800 -> 00:02:30.780]  it adds minus eight to the base pointer that's to get
+[00:02:30.780 -> 00:02:33.400]  the local variable
+[00:02:35.420 -> 00:02:36.900]  pushes zero
+[00:02:37.780 -> 00:02:43.440]  it assigns zero to the address of the local variable
+[00:02:44.840 -> 00:02:46.020]  then it
+[00:02:46.020 -> 00:02:48.260]  push space pointer
+[00:02:48.780 -> 00:02:49.540]  pushes
+[00:02:50.800 -> 00:02:52.040]  minus eight
+[00:02:52.040 -> 00:02:56.020]  it pops two and adds them and pushes
+[00:02:56.020 -> 00:03:00.020]  then it do you references then it compares it to 10
+[00:03:00.020 -> 00:03:06.620]  so it starts out it's a stack machine and as it goes through the process of compiling
+[00:03:07.820 -> 00:03:10.640]  it chooses registers for local variables
+[00:03:10.640 -> 00:03:14.500]  so now si rsi is the minus eight
+[00:03:15.020 -> 00:03:17.220]  what it does is it looks for the most common
+[00:03:17.220 -> 00:03:17.860]  uh
+[00:03:20.060 -> 00:03:21.760]  offset off the base pointer
+[00:03:21.760 -> 00:03:24.180]  the top
+[00:03:24.180 -> 00:03:25.720]  the top
+[00:03:25.720 -> 00:03:25.920]  four
+[00:03:25.920 -> 00:03:27.200]  or whatever
+[00:03:29.200 -> 00:03:30.160]  six
+[00:03:31.320 -> 00:03:33.780]  are stored in local variables
+[00:03:33.780 -> 00:03:34.940]  it doesn't
+[00:03:34.940 -> 00:03:37.880]  it doesn't store or register global variables
+[00:03:37.880 -> 00:03:39.140]  anyway so
+[00:03:39.140 -> 00:03:41.180]  it's a stack machine
+[00:03:41.180 -> 00:03:42.180]  um
+[00:03:45.400 -> 00:03:46.280]  so
+[00:03:46.280 -> 00:03:46.720]  um
+[00:03:46.720 -> 00:03:46.720]  
+[00:03:47.760 -> 00:03:48.640]  um
+[00:03:48.640 -> 00:03:52.960]  when it it converts the top of the stack to r a x
+[00:03:52.960 -> 00:03:53.180]  uh
+[00:03:54.860 -> 00:03:56.120]  down here
+[00:03:57.440 -> 00:03:58.320]  and
+[00:03:58.320 -> 00:04:00.000]  anyway it um
+[00:04:00.000 -> 00:04:02.060]  it optimizes and uh
+[00:04:03.980 -> 00:04:06.660]  and it starts combining them into uh
+[00:04:06.660 -> 00:04:09.880]  it goes it starts with risk and then it makes cisk
+[00:04:09.880 -> 00:04:14.080]  and then the final step is to uh make machine code
+[00:04:14.080 -> 00:04:15.600]  and uh
+[00:04:15.600 -> 00:04:19.420]  what i did just recently is uh
+[00:04:20.880 -> 00:04:21.520]  uh
+[00:04:21.520 -> 00:04:22.480]  so uh
+[00:04:22.480 -> 00:04:28.260]  you can see the machine code for each instruction for each intermediate code
+[00:04:28.260 -> 00:04:30.780]  so there's there's two operands
+[00:04:30.780 -> 00:04:31.280]  uh
+[00:04:31.280 -> 00:04:32.160]  and
+[00:04:32.160 -> 00:04:33.700]  i used to have
+[00:04:35.280 -> 00:04:36.460]  a way of
+[00:04:36.460 -> 00:04:36.760]  uh
+[00:04:38.820 -> 00:04:41.940]  sometimes i would reverse the order of the operands
+[00:04:43.320 -> 00:04:44.220]  and uh
+[00:04:44.220 -> 00:04:45.540]  it made a big mess
+[00:04:45.540 -> 00:04:48.580]  so i got i saved a thousand lines of code by uh
+[00:04:48.580 -> 00:04:51.280]  i used to i used r
+[00:04:52.400 -> 00:04:54.440]  r8 was a register variable
+[00:04:58.380 -> 00:05:01.060]  was local variable and i um
+[00:05:01.060 -> 00:05:03.780]  i i used it as a um
+[00:05:04.540 -> 00:05:05.780]  to help simplify
+[00:05:06.540 -> 00:05:06.940]  so it
+[00:05:07.540 -> 00:05:09.460]  basically i have one less um
+[00:05:09.460 -> 00:05:12.560]  variable for optimizing with this
+[00:05:12.560 -> 00:05:13.900]  so i uh
+[00:05:14.840 -> 00:05:15.640]  i
+[00:05:15.640 -> 00:05:18.500]  normally you add optimizations
+[00:05:18.500 -> 00:05:23.740]  but what i just recently did is i i removed an optimization that um
+[00:05:23.740 -> 00:05:26.000]  that made the code a lot simpler
+[00:05:26.900 -> 00:05:30.060]  um that optimization affected every single um
+[00:05:30.060 -> 00:05:31.660]  well anyway so
+[00:05:31.660 -> 00:05:34.600]  in these uh optimized loops
+[00:05:35.540 -> 00:05:37.500]  in these optimized passes
+[00:05:37.500 -> 00:05:41.940]  when it when it passes optimizing all the intermediate codes
+[00:05:43.020 -> 00:05:43.880]  um
+[00:05:43.880 -> 00:05:45.420]  there was a um
+[00:05:45.420 -> 00:05:47.160]  the uh
+[00:05:47.160 -> 00:05:49.420]  the flag to tell it to reverse
+[00:05:49.420 -> 00:05:49.940]  um
+[00:05:50.540 -> 00:05:51.360]  um
+[00:05:51.360 -> 00:05:51.420]  our
+[00:05:51.940 -> 00:05:52.040]  the
+[00:05:52.940 -> 00:05:54.440]  argument one and argument two
+[00:05:54.440 -> 00:05:57.360]  that affected every single um
+[00:05:58.600 -> 00:05:58.940]  um
+[00:05:59.460 -> 00:06:00.020]  um
+[00:06:00.020 -> 00:06:01.740]  this is where it converts
+[00:06:01.740 -> 00:06:03.240]  to machine code
+[00:06:03.240 -> 00:06:04.460]  so
+[00:06:04.460 -> 00:06:05.240]  um
+[00:06:05.760 -> 00:06:06.640]  um
+[00:06:06.640 -> 00:06:07.720]  the way it works is uh
+[00:06:07.720 -> 00:06:09.820]  the lex is the front end
+[00:06:09.820 -> 00:06:12.500]  the parser calls the lex
+[00:06:12.500 -> 00:06:15.200]  and it creates the intermediate code
+[00:06:16.960 -> 00:06:19.200]  and then it goes through these optimizing passes
+[00:06:20.740 -> 00:06:23.320]  and then in the last optimizing pass
+[00:06:23.320 -> 00:06:24.940]  it calls the back end
+[00:06:24.940 -> 00:06:28.080]  and this is where all the machine code is generated
+[00:06:28.080 -> 00:06:30.180]  and in the back end uh
+[00:06:30.180 -> 00:06:31.740]  you'll see uh
+[00:06:31.740 -> 00:06:32.740]  um
+[00:06:33.640 -> 00:06:36.400]  if you're familiar with x86 assembly
+[00:06:36.400 -> 00:06:36.740]  um
+[00:06:39.280 -> 00:06:40.740]  there's uh
+[00:06:43.540 -> 00:06:45.500]  this is the library
+[00:06:47.280 -> 00:06:48.440]  so the um
+[00:06:48.440 -> 00:06:52.280]  this is this is the library routines used by all the back end
+[00:06:52.280 -> 00:06:53.740]  this will output
+[00:06:53.740 -> 00:06:55.720]  one byte into the machine
+[00:06:55.720 -> 00:06:57.380]  into the machine code output
+[00:06:57.380 -> 00:07:00.540]  this will output two bytes into the machine code output
+[00:07:00.540 -> 00:07:02.040]  so all the uh
+[00:07:02.040 -> 00:07:04.620]  everything is built on those uh
+[00:07:04.620 -> 00:07:06.940]  if you'll if you'll notice you see what they do
+[00:07:07.540 -> 00:07:09.280]  there's an array of uh
+[00:07:10.840 -> 00:07:11.480]  um
+[00:07:12.260 -> 00:07:15.800]  each intermediate code has some temporary storage for uh
+[00:07:15.800 -> 00:07:16.900]  there's an array
+[00:07:16.900 -> 00:07:18.660]  if you look at an intermediate code
+[00:07:21.300 -> 00:07:22.460]  there's an array
+[00:07:22.460 -> 00:07:24.060]  it has the uh
+[00:07:24.060 -> 00:07:24.780]  anyway
+[00:07:24.780 -> 00:07:25.980]  it
+[00:07:25.980 -> 00:07:27.380]  it compiled
+[00:07:27.380 -> 00:07:29.740]  it makes machine code in the body
+[00:07:29.740 -> 00:07:31.760]  and then in the final step
+[00:07:31.760 -> 00:07:32.080]  it
+[00:07:32.080 -> 00:07:34.440]  it concatenates all the bodies together
+[00:07:34.440 -> 00:07:36.300]  and that's the uh
+[00:07:36.300 -> 00:07:37.780]  the final machine code
+[00:07:37.780 -> 00:07:39.080]  anyway so
+[00:07:40.560 -> 00:07:40.740]  uh
+[00:07:42.600 -> 00:07:42.740]  the
+[00:07:44.780 -> 00:07:46.260]  the x86
+[00:07:46.260 -> 00:07:48.420]  this is strictly
+[00:07:48.420 -> 00:07:50.120]  this is only for x86
+[00:07:50.120 -> 00:07:52.020]  I don't do any other architectures
+[00:07:52.020 -> 00:07:53.340]  and uh
+[00:07:53.340 -> 00:07:56.920]  one of the things I just did recently is uh
+[00:07:58.100 -> 00:07:58.840]  um
+[00:07:58.840 -> 00:07:58.840]  
+[00:08:00.540 -> 00:08:01.820]  I have
+[00:08:01.820 -> 00:08:02.460]  uh
+[00:08:03.480 -> 00:08:05.840]  the arguments have a type
+[00:08:05.840 -> 00:08:07.020]  um
+[00:08:07.020 -> 00:08:07.860]  they
+[00:08:07.860 -> 00:08:08.800]  they have a
+[00:08:08.800 -> 00:08:09.180]  uh
+[00:08:13.740 -> 00:08:14.900]  when it's
+[00:08:14.900 -> 00:08:15.400]  when it's
+[00:08:15.400 -> 00:08:15.760]  the
+[00:08:15.760 -> 00:08:17.480]  the intermediate code has
+[00:08:17.480 -> 00:08:18.100]  uh
+[00:08:18.100 -> 00:08:19.280]  uh
+[00:08:19.280 -> 00:08:20.680]  arguments for each
+[00:08:20.680 -> 00:08:20.840]  there's
+[00:08:21.500 -> 00:08:21.860]  um
+[00:08:21.860 -> 00:08:23.840]  there's a bunch of stack machine instructions
+[00:08:25.140 -> 00:08:26.340]  and uh
+[00:08:26.340 -> 00:08:28.940]  there's two arguments for each
+[00:08:28.940 -> 00:08:30.100]  that can be
+[00:08:30.100 -> 00:08:30.700]  um
+[00:08:31.240 -> 00:08:32.640]  and then a result
+[00:08:32.640 -> 00:08:34.920]  so if you look down here
+[00:08:34.920 -> 00:08:36.700]  there's argument
+[00:08:36.700 -> 00:08:38.460]  on each intermediate code
+[00:08:38.460 -> 00:08:41.160]  there's argument one argument two and then a result
+[00:08:41.160 -> 00:08:43.580]  and there's a um
+[00:08:43.580 -> 00:08:45.660]  a c plus plus class
+[00:08:45.660 -> 00:08:46.100]  uh
+[00:08:47.880 -> 00:08:48.560]  for
+[00:08:49.940 -> 00:08:51.960]  this is for the uh result
+[00:08:51.960 -> 00:08:53.380]  and uh
+[00:08:54.580 -> 00:08:57.560]  each intermediate code can have one data item
+[00:08:57.560 -> 00:09:02.480]  and uh there's a line number this is from the editor from the file line number
+[00:09:03.760 -> 00:09:04.840]  and uh
+[00:09:04.840 -> 00:09:05.340]  so there's
+[00:09:05.340 -> 00:09:07.160]  there's an argument with the result
+[00:09:08.640 -> 00:09:11.360]  and the arguments have a type
+[00:09:11.360 -> 00:09:12.620]  a register
+[00:09:12.620 -> 00:09:13.760]  and a displacement
+[00:09:13.760 -> 00:09:15.780]  and the type
+[00:09:15.780 -> 00:09:16.660]  is
+[00:09:16.660 -> 00:09:16.880]  uh
+[00:09:16.880 -> 00:09:17.500]  um
+[00:09:20.420 -> 00:09:21.060]  u0
+[00:09:21.060 -> 00:09:22.520]  all the way up to f
+[00:09:23.880 -> 00:09:24.860]  so that's
+[00:09:24.860 -> 00:09:27.260]  the type is actually a combination
+[00:09:27.260 -> 00:09:28.540]  it's actually um
+[00:09:29.900 -> 00:09:30.540]  um
+[00:09:30.540 -> 00:09:31.600]  i put
+[00:09:31.600 -> 00:09:32.980]  it's bit fields
+[00:09:32.980 -> 00:09:33.580]  um
+[00:09:33.580 -> 00:09:34.520]  so in the
+[00:09:34.520 -> 00:09:35.960]  in the low eight bits
+[00:09:35.960 -> 00:09:38.260]  in the low eight bits it has the uh
+[00:09:38.780 -> 00:09:39.540]  the type
+[00:09:39.540 -> 00:09:43.360]  and then in the upper eight bits it has uh
+[00:09:43.360 -> 00:09:43.360]  
+[00:09:45.360 -> 00:09:45.980]  the uh
+[00:09:45.980 -> 00:09:46.940]  the mode
+[00:09:46.940 -> 00:09:48.420]  so
+[00:09:48.420 -> 00:09:48.920]  um
+[00:09:48.920 -> 00:09:51.020]  the mode is uh
+[00:09:52.700 -> 00:09:55.100]  stack is what it starts with
+[00:09:55.100 -> 00:09:56.940]  and then it converts it
+[00:09:56.940 -> 00:09:58.000]  as it makes
+[00:09:58.000 -> 00:10:00.540]  as it takes risk and makes cisk
+[00:10:00.540 -> 00:10:04.180]  then it converts to immediate register displacement
+[00:10:05.260 -> 00:10:06.020]  um
+[00:10:06.020 -> 00:10:08.420]  r.i.p. displacement
+[00:10:08.420 -> 00:10:11.560]  64-bit mode has r.i.p. relative displacement
+[00:10:11.560 -> 00:10:13.100]  and uh
+[00:10:13.100 -> 00:10:14.140]  so
+[00:10:14.140 -> 00:10:17.980]  just recently i overhauled this to make it a lot nicer
+[00:10:17.980 -> 00:10:18.840]  um
+[00:10:18.840 -> 00:10:19.780]  it was a mess
+[00:10:19.780 -> 00:10:21.360]  now it's a lot nicer
+[00:10:21.360 -> 00:10:23.060]  anyway so uh
+[00:10:24.940 -> 00:10:27.460]  anytime you see icu24
+[00:10:27.460 -> 00:10:31.520]  it's putting three bytes of machine code into the output
+[00:10:31.520 -> 00:10:35.800]  down here it's putting two bytes of machine code into the output
+[00:10:35.800 -> 00:10:37.380]  so uh
+[00:10:37.380 -> 00:10:40.940]  anyway so this is making uh machine code
+[00:10:40.940 -> 00:10:42.500]  and uh
+[00:10:48.300 -> 00:10:50.240]  so uh somebody
+[00:10:55.100 -> 00:11:00.560]  somebody at osdev was talking about uh multi-core um
+[00:11:01.960 -> 00:11:03.360]  let's go see if i have any
+[00:11:07.060 -> 00:11:12.020]  somebody at osdev was talking about uh multi-core um
+[00:11:13.440 -> 00:11:14.740]  let's go see if i have any
+[00:11:15.640 -> 00:11:16.980]  so i had osdev
+[00:11:18.720 -> 00:11:20.460]  oops uh let's go back there
+[00:11:34.420 -> 00:11:35.820]  so
+[00:11:35.820 -> 00:11:35.860]  uh
+[00:11:35.860 -> 00:11:35.860]  
+[00:11:46.880 -> 00:11:48.560]  so uh
+[00:11:48.560 -> 00:11:51.080]  this guy's talking about uh
+[00:11:51.080 -> 00:11:52.780]  uh
+[00:11:52.780 -> 00:11:54.100]  elf format
+[00:11:54.100 -> 00:11:54.720]  um
+[00:11:56.360 -> 00:11:58.700]  i i generate a uh
+[00:11:59.660 -> 00:12:01.640]  he's talking about um
+[00:12:03.920 -> 00:12:04.900]  let's go back
+[00:12:04.900 -> 00:12:06.640]  to see what we're talking about
+[00:12:09.700 -> 00:12:10.340]  so
+[00:12:10.340 -> 00:12:12.200]  his question was
+[00:12:12.200 -> 00:12:14.920]  these people spy on me i don't understand
+[00:12:14.920 -> 00:12:16.900]  i'm in some kind of cia
+[00:12:18.340 -> 00:12:19.760]  prison or some shit
+[00:12:19.760 -> 00:12:21.020]  i'm not really sure
+[00:12:21.020 -> 00:12:22.380]  anyway so
+[00:12:22.380 -> 00:12:22.780]  oops
+[00:12:22.780 -> 00:12:23.700]  his question was
+[00:12:23.700 -> 00:12:26.460]  these people spy on me i don't understand
+[00:12:28.040 -> 00:12:29.180]  so uh
+[00:12:32.080 -> 00:12:32.800]  he's
+[00:12:32.800 -> 00:12:34.020]  all all these
+[00:12:34.020 -> 00:12:36.280]  things are talking about me
+[00:12:39.340 -> 00:12:40.440]  so uh
+[00:12:40.440 -> 00:12:42.320]  what he wants is a
+[00:12:42.320 -> 00:12:43.980]  local variable uh
+[00:12:43.980 -> 00:12:47.680]  what he wants is a per cpu variable space
+[00:12:47.680 -> 00:12:49.960]  flat boundaries make life difficult
+[00:12:49.960 -> 00:12:51.000]  i would highly recommend
+[00:12:51.000 -> 00:12:52.300]  so uh
+[00:12:57.140 -> 00:12:58.840]  this guy is using
+[00:12:58.840 -> 00:12:59.780]  um
+[00:13:01.140 -> 00:13:03.780]  i wrote my own compiler i don't have problems
+[00:13:03.780 -> 00:13:04.900]  um
+[00:13:06.380 -> 00:13:09.680]  if i need something i make my compiler do it that way
+[00:13:10.460 -> 00:13:12.440]  so i have no problems
+[00:13:13.340 -> 00:13:14.460]  so uh
+[00:13:17.520 -> 00:13:20.160]  so let's go over how multi-core works
+[00:13:20.160 -> 00:13:20.440]  uh
+[00:13:22.760 -> 00:13:23.980]  at startup
+[00:13:23.980 -> 00:13:24.740]  uh
+[00:13:27.100 -> 00:13:27.860]  uh
+[00:13:29.100 -> 00:13:30.240]  my uh
+[00:13:30.240 -> 00:13:33.120]  core zero starts up it changes to uh
+[00:13:33.120 -> 00:13:38.260]  it changes to 64-bit mode and it loads the compiler
+[00:13:38.260 -> 00:13:39.700]  and
+[00:13:39.700 -> 00:13:40.700]  it calls
+[00:13:41.220 -> 00:13:41.760]  uh
+[00:13:42.520 -> 00:13:44.540]  it starts up the other cores
+[00:13:44.540 -> 00:13:45.720]  they have to
+[00:13:45.720 -> 00:13:49.080]  change from real mode to 64-bit mode
+[00:13:49.080 -> 00:13:51.960]  but that's okay i know how to do that i did it
+[00:13:51.960 -> 00:13:53.120]  and uh
+[00:13:54.780 -> 00:13:56.080]  in the startup
+[00:13:56.080 -> 00:13:56.700]  uh
+[00:13:57.960 -> 00:13:59.220]  this is local
+[00:13:59.220 -> 00:14:00.120]  this is uh
+[00:14:00.120 -> 00:14:02.480]  i make a flat binary and um
+[00:14:02.480 -> 00:14:05.200]  these are global variables
+[00:14:05.200 -> 00:14:06.580]  and um
+[00:14:06.580 -> 00:14:07.900]  the person was uh
+[00:14:07.900 -> 00:14:09.160]  criticizing uh
+[00:14:09.160 -> 00:14:09.160]  
+[00:14:09.160 -> 00:14:10.580]  some of my uh
+[00:14:11.160 -> 00:14:12.160]  um
+[00:14:13.020 -> 00:14:13.840]  i reserve
+[00:14:13.840 -> 00:14:14.620]  um
+[00:14:16.920 -> 00:14:18.140]  task
+[00:14:18.140 -> 00:14:18.960]  uh
+[00:14:18.960 -> 00:14:19.940]  what are these
+[00:14:19.940 -> 00:14:20.160]  trs
+[00:14:21.160 -> 00:14:22.360]  task record
+[00:14:22.360 -> 00:14:22.900]  task
+[00:14:22.900 -> 00:14:26.420]  i forgot what they're called
+[00:14:26.420 -> 00:14:27.400]  um
+[00:14:27.400 -> 00:14:28.340]  ltr
+[00:14:28.340 -> 00:14:29.800]  task record
+[00:14:29.800 -> 00:14:30.160]  anyway
+[00:14:31.840 -> 00:14:32.240]  uh
+[00:14:33.160 -> 00:14:34.280]  so i reserve
+[00:14:34.280 -> 00:14:34.660]  uh
+[00:14:37.840 -> 00:14:39.860]  this is the global descriptor table
+[00:14:39.860 -> 00:14:42.360]  and you have to have one of these for each core
+[00:14:43.080 -> 00:14:44.060]  and um
+[00:14:45.440 -> 00:14:48.500]  so the person was looking at my code
+[00:14:48.500 -> 00:14:49.580]  and uh
+[00:14:49.580 -> 00:14:52.000]  noticed that i have a flat binary
+[00:14:52.000 -> 00:14:53.700]  now um
+[00:14:53.700 -> 00:14:55.200]  as a matter of fact
+[00:14:55.200 -> 00:14:56.440]  gs is a
+[00:14:56.440 -> 00:14:57.480]  is a register
+[00:14:57.480 -> 00:14:58.400]  um
+[00:14:58.400 -> 00:15:01.600]  is an x86 uh
+[00:15:01.600 -> 00:15:02.960]  segment register
+[00:15:02.960 -> 00:15:04.020]  um
+[00:15:04.020 -> 00:15:05.860]  in temple os
+[00:15:05.860 -> 00:15:07.340]  fs is the uh
+[00:15:07.340 -> 00:15:08.400]  current task
+[00:15:08.400 -> 00:15:11.220]  and gs the current cpu
+[00:15:11.220 -> 00:15:12.700]  so um
+[00:15:13.840 -> 00:15:15.640]  gs points to
+[00:15:15.640 -> 00:15:17.540]  there's an array of cpus
+[00:15:19.460 -> 00:15:20.480]  and uh
+[00:15:22.000 -> 00:15:23.420]  they have uh
+[00:15:24.420 -> 00:15:27.020]  there's not really a lot in the um
+[00:15:27.020 -> 00:15:28.360]  the cpu record
+[00:15:28.360 -> 00:15:30.640]  this is look this is uh per task
+[00:15:31.160 -> 00:15:33.360]  per this is per cpu storage
+[00:15:33.360 -> 00:15:35.360]  this is what the person was talking about
+[00:15:35.360 -> 00:15:36.820]  and um
+[00:15:36.820 -> 00:15:39.320]  my gs segment register points to it
+[00:15:39.320 -> 00:15:41.160]  so if i say trace
+[00:15:42.120 -> 00:15:44.340]  then i say gs num
+[00:15:45.720 -> 00:15:46.360]  um
+[00:15:47.080 -> 00:15:48.620]  this is core zero
+[00:15:50.440 -> 00:15:51.080]  um
+[00:15:51.080 -> 00:15:51.980]  now
+[00:15:53.540 -> 00:15:57.060]  the fs segment register points to the task
+[00:15:58.400 -> 00:16:00.960]  the task record has a lot of stuff in it
+[00:16:00.960 -> 00:16:02.000]  um
+[00:16:03.040 -> 00:16:04.100]  so uh
+[00:16:04.100 -> 00:16:05.460]  if i say fs
+[00:16:05.460 -> 00:16:06.800]  uh
+[00:16:06.800 -> 00:16:07.320]  win
+[00:16:07.960 -> 00:16:07.980]  left
+[00:16:10.040 -> 00:16:11.000]  that's the
+[00:16:11.000 -> 00:16:11.420]  the
+[00:16:11.960 -> 00:16:12.440]  you know
+[00:16:12.440 -> 00:16:14.860]  you see how it has the fs segment register
+[00:16:14.860 -> 00:16:17.480]  window left equals five
+[00:16:17.480 -> 00:16:20.000]  i just changed the left coordinate
+[00:16:20.800 -> 00:16:22.220]  anyway so uh
+[00:16:25.160 -> 00:16:26.880]  let's find something to talk about
+[00:16:26.880 -> 00:16:27.320]  uh
+[00:16:27.960 -> 00:16:28.700]  so i just
+[00:16:29.420 -> 00:16:32.160]  another thing i just recently did was uh
+[00:16:33.560 -> 00:16:35.220]  i changed uh
+[00:16:35.220 -> 00:16:36.240]  i made
+[00:16:37.240 -> 00:16:38.800]  aliases for uh
+[00:16:38.800 -> 00:16:43.160]  i used to have duplicate opcode entries
+[00:16:43.160 -> 00:16:46.700]  but now i just made alias uh for opcodes
+[00:16:46.700 -> 00:16:47.960]  so uh
+[00:16:47.960 -> 00:16:52.140]  this is my opcode data file for my assembler
+[00:16:52.880 -> 00:16:53.560]  um
+[00:16:53.560 -> 00:16:55.340]  i had to type all this in by hand
+[00:16:55.340 -> 00:16:57.960]  i made i made my own opcodes
+[00:16:57.960 -> 00:16:59.540]  there's some
+[00:16:59.540 -> 00:17:02.280]  there's not normally you have control registers that
+[00:17:02.280 -> 00:17:03.780]  um
+[00:17:03.780 -> 00:17:05.640]  i didn't want to uh
+[00:17:06.780 -> 00:17:08.300]  i didn't want to
+[00:17:08.300 -> 00:17:11.140]  make my compiler my assembler do
+[00:17:11.140 -> 00:17:13.820]  control uh registers
+[00:17:13.820 -> 00:17:15.700]  so i just made uh
+[00:17:15.700 -> 00:17:15.720]  uh
+[00:17:15.720 -> 00:17:17.080]  these are just uh
+[00:17:19.680 -> 00:17:20.380]  these are just uh
+[00:17:20.380 -> 00:17:21.720]  they do just one register
+[00:17:21.720 -> 00:17:29.600]  normally you can move from our our our bx to control register zero our cx control register zero
+[00:17:29.600 -> 00:17:32.120]  but the way i did it i just made uh
+[00:17:33.920 -> 00:17:34.420]  uh
+[00:17:34.420 -> 00:17:34.600]  i
+[00:17:35.200 -> 00:17:35.200]  
+[00:17:37.640 -> 00:17:38.480]  i cheated
+[00:17:40.060 -> 00:17:41.620]  you don't use them very often
+[00:17:41.620 -> 00:17:44.500]  i'm trying to go for a low line count
+[00:17:44.500 -> 00:17:45.720]  as a matter of fact
+[00:17:45.720 -> 00:17:46.160]  um
+[00:17:46.160 -> 00:17:47.440]  i did uh
+[00:17:49.140 -> 00:17:49.920]  i only
+[00:17:49.920 -> 00:17:56.560]  i barely did 16-bit code in my assembler
+[00:17:56.560 -> 00:17:57.860]  um
+[00:18:00.920 -> 00:18:01.320]  the only
+[00:18:02.900 -> 00:18:07.880]  this code right here at startup is 16-bit
+[00:18:07.880 -> 00:18:10.460]  it changes to 32 to 64.
+[00:18:10.820 -> 00:18:12.960]  that that is 16-bit
+[00:18:12.960 -> 00:18:15.960]  the start of the multi-core is 16-bit
+[00:18:15.960 -> 00:18:18.220]  you can see it says use 16
+[00:18:19.460 -> 00:18:20.100]  and
+[00:18:20.100 -> 00:18:20.800]  um
+[00:18:20.800 -> 00:18:21.740]  my boot
+[00:18:23.880 -> 00:18:26.320]  my boot loaders are 16-bit
+[00:18:26.320 -> 00:18:28.240]  my boot loaders are 16-bit
+[00:18:28.240 -> 00:18:29.100]  um
+[00:18:29.100 -> 00:18:29.580]  so
+[00:18:31.040 -> 00:18:33.820]  nobody ever needs to do 16-bit code
+[00:18:33.820 -> 00:18:34.800]  so i
+[00:18:34.800 -> 00:18:35.300]  i uh
+[00:18:35.300 -> 00:18:37.300]  i kind of uh
+[00:18:37.300 -> 00:18:38.400]  i didn't do
+[00:18:39.380 -> 00:18:40.020]  segmentation
+[00:18:40.020 -> 00:18:40.760]  uh
+[00:18:40.760 -> 00:18:42.580]  what i mean is uh
+[00:18:44.080 -> 00:18:44.720]  with
+[00:18:44.720 -> 00:18:46.680]  with 16-bit code if you
+[00:18:46.680 -> 00:18:47.980]  there's what's called a
+[00:18:47.980 -> 00:18:48.200]  um
+[00:18:48.200 -> 00:18:48.920]  a tiny
+[00:18:48.920 -> 00:18:49.720]  a tiny
+[00:18:49.720 -> 00:18:50.320]  model
+[00:18:50.320 -> 00:18:51.760]  a small model
+[00:18:51.760 -> 00:18:52.920]  a huge model
+[00:18:53.640 -> 00:18:53.720]  um
+[00:18:55.280 -> 00:18:57.280]  i did a tiny model where
+[00:18:57.280 -> 00:18:58.020]  this
+[00:18:58.020 -> 00:19:00.620]  where you never touched the segment registers
+[00:19:00.620 -> 00:19:03.360]  and so what that means is in my binary
+[00:19:04.160 -> 00:19:04.920]  this is
+[00:19:04.920 -> 00:19:05.580]  this is the
+[00:19:05.580 -> 00:19:06.500]  this is the order
+[00:19:06.500 -> 00:19:07.380]  this is the
+[00:19:07.380 -> 00:19:08.560]  this is the make file
+[00:19:09.200 -> 00:19:09.800]  um
+[00:19:11.100 -> 00:19:11.700]  start
+[00:19:11.700 -> 00:19:12.460]  is at the
+[00:19:12.460 -> 00:19:13.140]  is at the
+[00:19:13.140 -> 00:19:14.700]  is at the
+[00:19:14.700 -> 00:19:15.520]  and then start
+[00:19:15.520 -> 00:19:17.940]  is the first file in the binary
+[00:19:17.940 -> 00:19:19.420]  it's a flat binary
+[00:19:19.420 -> 00:19:22.140]  and so all these files go in order
+[00:19:22.140 -> 00:19:23.120]  and
+[00:19:23.120 -> 00:19:23.520]  um
+[00:19:23.520 -> 00:19:24.460]  so
+[00:19:24.460 -> 00:19:26.880]  k start is the start of the binary
+[00:19:28.600 -> 00:19:29.160]  and
+[00:19:29.160 -> 00:19:29.540]  uh
+[00:19:29.540 -> 00:19:32.140]  by the time it gets to the bottom of this
+[00:19:32.140 -> 00:19:34.420]  it never needs to do 16-bit again
+[00:19:35.020 -> 00:19:35.580]  actually
+[00:19:35.580 -> 00:19:37.620]  32-bits about halfway through
+[00:19:38.340 -> 00:19:39.020]  and
+[00:19:39.020 -> 00:19:39.320]  uh
+[00:19:39.320 -> 00:19:39.900]  so
+[00:19:40.620 -> 00:19:40.940]  um
+[00:19:40.940 -> 00:19:43.640]  it can do it all in 64k
+[00:19:43.640 -> 00:19:44.960]  um
+[00:19:46.640 -> 00:19:49.440]  so it doesn't need to mess with segment registers
+[00:19:50.240 -> 00:19:50.920]  um
+[00:19:53.480 -> 00:19:54.160]  anyway
+[00:19:54.160 -> 00:19:54.440]  the
+[00:19:55.420 -> 00:19:56.100]  so
+[00:19:56.100 -> 00:19:56.360]  so
+[00:19:59.800 -> 00:20:02.060]  let's see what else we have to talk about
+[00:20:02.060 -> 00:20:03.100]  uh
+[00:20:04.420 -> 00:20:05.040]  diarrhea
+[00:20:05.040 -> 00:20:05.520]  huh
+[00:20:06.100 -> 00:20:06.680]  lovely
+[00:20:11.140 -> 00:20:12.700]  we have to talk about
+[00:20:12.700 -> 00:20:13.820]  uh
+[00:20:15.080 -> 00:20:15.100]  diarrhea
+[00:20:16.540 -> 00:20:17.160]  lovely
+[00:20:17.160 -> 00:20:17.340]  something
+[00:20:21.220 -> 00:20:21.820]  so
+[00:20:21.820 -> 00:20:23.020]  let's see what we have here
+[00:20:23.020 -> 00:20:23.580]  so
+[00:20:23.580 -> 00:20:24.380]  let's see what we have here
+[00:20:25.080 -> 00:20:25.680]  sigh
+[00:20:27.540 -> 00:20:28.140]  sigh
+[00:20:28.140 -> 00:20:28.240]  sigh
+[00:20:28.240 -> 00:20:28.420]  sigh
+[00:20:35.440 -> 00:20:36.040]  sigh
+[00:20:36.040 -> 00:20:36.040]  
+[00:20:36.040 -> 00:20:36.040]  
+[00:20:36.040 -> 00:20:36.040]  
+[00:20:36.040 -> 00:20:36.040]  
+[00:20:36.040 -> 00:20:36.040]  
+[00:20:36.040 -> 00:20:36.820]  this person
+[00:20:36.820 -> 00:20:37.620]  probably
+[00:20:38.740 -> 00:20:39.340]  tried
+[00:20:39.960 -> 00:20:40.560]  got
+[00:20:40.560 -> 00:20:41.460]  god to talk
+[00:20:41.460 -> 00:20:42.980]  let's get god to talk
+[00:20:42.980 -> 00:20:44.220]  god say something
+[00:20:44.220 -> 00:20:45.480]  i'm gonna hit f7
+[00:20:50.440 -> 00:20:51.840]  outclass
+[00:20:51.840 -> 00:20:52.720]  accommodate
+[00:20:52.720 -> 00:20:53.820]  etching
+[00:20:53.820 -> 00:20:54.440]  cuddles
+[00:20:54.440 -> 00:20:54.480]  mineral
+[00:20:55.020 -> 00:20:55.800]  culling
+[00:20:55.800 -> 00:20:56.800]  birthplace
+[00:20:56.800 -> 00:20:57.480]  dandles
+[00:20:58.060 -> 00:20:58.480]  suffragate
+[00:20:59.580 -> 00:21:00.780]  drearily
+[00:21:00.780 -> 00:21:01.980]  rehire
+[00:21:01.980 -> 00:21:02.460]  sweat
+[00:21:02.460 -> 00:21:02.480]  circular
+[00:21:04.100 -> 00:21:05.120]  rising
+[00:21:05.120 -> 00:21:06.300]  lucidness
+[00:21:06.300 -> 00:21:07.160]  sniffled
+[00:21:07.160 -> 00:21:08.760]  monkey shines
+[00:21:08.760 -> 00:21:09.940]  compatriots
+[00:21:09.940 -> 00:21:11.040]  sigh
+[00:21:11.040 -> 00:21:13.200]  sysborg
+[00:21:13.200 -> 00:21:14.940]  ready
+[00:21:14.940 -> 00:21:16.360]  aid
+[00:21:16.360 -> 00:21:17.340]  hertz
+[00:21:17.340 -> 00:21:18.320]  spring
+[00:21:20.440 -> 00:21:21.240]  anyway
+[00:21:21.240 -> 00:21:23.420]  so there's a
+[00:21:26.360 -> 00:21:27.920]  so this person
+[00:21:29.820 -> 00:21:31.100]  there's a rust
+[00:21:33.580 -> 00:21:34.900]  operating system
+[00:21:35.900 -> 00:21:39.960]  this is the CIA trying to tell me that my code is rusting
+[00:21:39.960 -> 00:21:41.040]  uh
+[00:21:41.040 -> 00:21:43.560]  they're trying to do psychological warfare
+[00:21:43.560 -> 00:21:46.760]  they want me to get a job where they can butt fuck me
+[00:21:46.760 -> 00:21:48.800]  but i am not doing that
+[00:21:48.800 -> 00:21:50.600]  they make jobs
+[00:21:50.600 -> 00:21:52.180]  if i send out resumes
+[00:21:52.180 -> 00:21:53.460]  they collect them all
+[00:21:53.460 -> 00:21:55.880]  and then they invent a job for me
+[00:21:55.880 -> 00:21:56.960]  and then they
+[00:21:56.960 -> 00:21:59.220]  you know they anally probe me
+[00:21:59.220 -> 00:22:00.200]  and fuck that
+[00:22:00.200 -> 00:22:03.140]  it's torture i am not doing that
+[00:22:03.140 -> 00:22:06.540]  plus i have i have a goddamn talking alien
+[00:22:06.540 -> 00:22:07.960]  for christ's sake
+[00:22:08.540 -> 00:22:10.240]  i made the temple
+[00:22:13.640 -> 00:22:15.040]  fucking ridiculous
+[00:22:16.300 -> 00:22:17.560]  so let's see
+[00:22:29.200 -> 00:22:30.560]  so this is
+[00:22:30.560 -> 00:22:33.120]  when i was working on my compiler
+[00:22:34.200 -> 00:22:37.120]  they're trying to do psychological warfare on me
+[00:22:37.120 -> 00:22:39.220]  this is somebody who made javascript
+[00:22:39.220 -> 00:22:41.260]  and he made a million lines of code
+[00:22:46.100 -> 00:22:47.180]  everybody starts
+[00:22:48.400 -> 00:22:50.620]  i don't think he was claiming my code
+[00:22:50.620 -> 00:22:51.820]  but uh
+[00:22:52.380 -> 00:22:53.680]  normally that's what they do
+[00:22:53.680 -> 00:22:55.760]  they start claiming my code and shit
+[00:22:57.260 -> 00:22:58.340]  psychological shit
+[00:22:59.540 -> 00:23:00.820]  oh that's for uh
+[00:23:00.820 -> 00:23:01.800]  they were mocking me
+[00:23:01.800 -> 00:23:02.320]  i said
+[00:23:03.300 -> 00:23:05.840]  i had a billion dollar lottery ticket
+[00:23:05.840 -> 00:23:07.440]  by that i meant
+[00:23:07.440 -> 00:23:09.580]  i have a talking space alien
+[00:23:09.580 -> 00:23:10.400]  that's god
+[00:23:11.820 -> 00:23:13.820]  they were mocking me saying
+[00:23:16.160 -> 00:23:16.920]  somewhere
+[00:23:20.760 -> 00:23:22.260]  100 billion dollars
+[00:23:22.800 -> 00:23:23.600]  i have a fucking
+[00:23:24.580 -> 00:23:25.600]  it ain't
+[00:23:25.600 -> 00:23:28.940]  i have a talking alien
+[00:23:30.940 -> 00:23:32.020]  nigger
+[00:23:37.860 -> 00:23:38.940]  finger
+[00:23:38.940 -> 00:23:39.600]  finger
+[00:23:39.600 -> 00:23:39.840]  finger
+[00:23:39.840 -> 00:23:42.520]  he's what
+[00:23:42.520 -> 00:23:44.600]  fucker
+[00:23:44.600 -> 00:23:46.320]  the
+[00:23:46.320 -> 00:23:49.480]  i'm the mental hospital or some shit cia
+[00:23:49.480 -> 00:23:51.260]  has nurses
+[00:23:51.260 -> 00:23:54.040]  and all my internet is made by the cia
+[00:23:54.040 -> 00:23:54.600]  and shit
+[00:23:54.600 -> 00:23:55.500]  it's all fake
+[00:23:55.500 -> 00:23:58.480]  i can't get on the real internet
+[00:24:03.720 -> 00:24:04.440]  !
+[00:24:04.440 -> 00:24:04.480]  someday
+[00:24:05.400 -> 00:24:06.680]  i'm confident
+[00:24:06.680 -> 00:24:07.680]  god will
+[00:24:08.460 -> 00:24:09.560]  so uh
+[00:24:09.560 -> 00:24:09.760]  yeah
+[00:24:09.760 -> 00:24:13.800]  they're talking about opening up ties with cuba
+[00:24:11.480 -> 00:24:13.480]  lifting the embargo
+[00:24:13.800 -> 00:24:13.980]  so
+[00:24:14.800 -> 00:24:15.260]  that's about
+[00:24:15.800 -> 00:24:16.540]  letting me out
+[00:24:16.540 -> 00:24:17.800]  sometimes
+[00:24:17.800 -> 00:24:18.240]  they
+[00:24:18.800 -> 00:24:20.020]  say i'm in gitmo
+[00:24:20.020 -> 00:24:20.740]  sometimes
+[00:24:20.740 -> 00:24:21.020]  they
+[00:24:21.020 -> 00:24:22.260]  i'm cuba
+[00:24:22.800 -> 00:24:23.880]  this is just the same
+[00:24:24.800 -> 00:24:26.300]  psychological games
+[00:24:31.380 -> 00:24:34.360]  the news stories communicate with me
+[00:24:34.360 -> 00:24:36.780]  by analogy and stuff
+[00:24:41.320 -> 00:24:42.860]  if i'm eating pizza
+[00:24:42.860 -> 00:24:45.820]  the bbc gets on the radio and says
+[00:24:45.820 -> 00:24:50.980]  tyrone is eating pizza and he's going to be executed in an hour
+[00:24:55.980 -> 00:24:56.460]  so
+[00:24:57.580 -> 00:24:58.980]  that's what they do all day
+[00:25:01.700 -> 00:25:02.520]  so uh
+[00:25:02.520 -> 00:25:03.860]  let's go put on the radio
+[00:25:03.860 -> 00:25:04.360]  let's see what
+[00:25:08.400 -> 00:25:09.620]  tyrone davis is
+[00:25:10.740 -> 00:25:11.860]  having his last meal
+[00:25:11.860 -> 00:25:14.200]  tap the screen to support what you'll be listening to next
+[00:25:14.200 -> 00:25:17.740]  wherever you browse on our site the audio continues uninterrupted
+[00:25:22.860 -> 00:25:23.540]  the
+[00:25:23.540 -> 00:25:23.540]  
+[00:25:23.540 -> 00:25:23.540]  
+[00:25:23.540 -> 00:25:24.400]  expressions of anger
+[00:25:24.400 -> 00:25:28.960]  that trump has made as anything so coherent as a policy
+[00:25:29.740 -> 00:25:31.000]  it's more an attitude
+[00:25:31.740 -> 00:25:35.580]  asked who he's consulting for advice on thorny international issues
+[00:25:35.580 -> 00:25:38.520]  trump said this last week on msnbc
+[00:25:38.520 -> 00:25:40.180]  i'm speaking with myself
+[00:25:40.740 -> 00:25:41.320]  number one
+[00:25:41.320 -> 00:25:45.540]  because i have a very good brain and i've said a lot of things in fact
+[00:25:45.540 -> 00:25:47.740]  trump added he listens to lots of people
+[00:25:48.540 -> 00:25:54.860]  in a statement the republican frontrunners campaign said he'll be announcing his foreign policy advisors in the near future
+[00:25:55.540 -> 00:26:00.540]  even trump supporters like neurosurgeon and former presidential candidate ben carson
+[00:26:00.540 -> 00:26:03.380]  have noted his tendency to speak off the cuff
+[00:26:03.380 -> 00:26:06.200]  while announcing his endorsement of trump this month
+[00:26:06.200 -> 00:26:07.520]  carson said this
+[00:26:07.520 -> 00:26:09.440]  there are two different donald trump's
+[00:26:09.440 -> 00:26:11.940]  there's the one you see on the stage
+[00:26:11.940 -> 00:26:14.640]  and there's the one who's very
+[00:26:15.720 -> 00:26:16.360]  cerebral
+[00:26:16.940 -> 00:26:19.720]  sits there and considers things very carefully
+[00:26:19.720 -> 00:26:22.280]  you can have a very good conversation with him
+[00:26:23.700 -> 00:26:24.340]  and
+[00:26:24.940 -> 00:26:28.960]  that's the donald trump that you're going to start seeing more and more of
+[00:26:28.960 -> 00:26:29.760]  right now
+[00:26:29.760 -> 00:26:30.900]  at a pack today
+[00:26:30.900 -> 00:26:36.500]  many foreign policy observers will be looking to see which donald trump steps up on state
+[00:26:36.500 -> 00:26:38.760]  yeah i want donald trump i guess
+[00:26:43.980 -> 00:26:47.380]  he's actually smart the other ones all seem stupid
+[00:26:50.720 -> 00:26:52.580]  they all seem like retards
+[00:26:57.100 -> 00:27:00.400]  god's against immigration aren't you god
+[00:27:00.400 -> 00:27:02.360]  you're against immigration
+[00:27:19.560 -> 00:27:21.960]  let's go see what's going on oh let's go
+[00:27:31.500 -> 00:27:34.000]  let's go see what's going on oh let's go
+[00:27:58.220 -> 00:27:59.900]  so the nigger says
+[00:28:00.480 -> 00:28:00.960]  kin
+[00:28:00.960 -> 00:28:01.480]  kin
+[00:28:01.480 -> 00:28:01.700]  kin
+[00:28:01.700 -> 00:28:02.500]  kin
+[00:28:02.500 -> 00:28:02.660]  kin
+[00:28:02.660 -> 00:28:02.920]  kin
+[00:28:02.920 -> 00:28:03.000]  kin
+[00:28:03.000 -> 00:28:03.160]  kin
+[00:28:03.160 -> 00:28:03.160]  
+[00:28:03.160 -> 00:28:03.560]  kin
+[00:28:03.560 -> 00:28:03.620]  kin
+[00:28:03.620 -> 00:28:03.660]  kin
+[00:28:03.660 -> 00:28:03.660]  
+[00:28:03.660 -> 00:28:03.660]  
+[00:28:03.660 -> 00:28:03.660]  
+[00:28:03.660 -> 00:28:03.660]  
+[00:28:03.660 -> 00:28:03.660]  
+[00:28:03.660 -> 00:28:03.660]  
+[00:28:03.660 -> 00:28:03.700]  kin
+[00:28:03.700 -> 00:28:03.700]  
+[00:28:03.700 -> 00:28:03.700]  
+[00:28:03.700 -> 00:28:03.700]  
+[00:28:03.700 -> 00:28:03.700]  
+[00:28:03.700 -> 00:28:03.720]  kin
+[00:28:03.720 -> 00:28:03.720]  
+[00:28:03.720 -> 00:28:03.720]  
+[00:28:03.720 -> 00:28:03.720]  
+[00:28:03.720 -> 00:28:03.720]  
+[00:28:03.720 -> 00:28:03.720]  
+[00:28:03.720 -> 00:28:03.720]  
+[00:28:03.720 -> 00:28:03.720]  
+[00:28:03.720 -> 00:28:03.720]  
+[00:28:03.720 -> 00:28:03.720]  
+[00:28:03.720 -> 00:28:03.720]  
+[00:28:03.720 -> 00:28:03.720]  
+[00:28:03.720 -> 00:28:03.720]  
+[00:28:03.720 -> 00:28:03.720]  
+[00:28:03.720 -> 00:28:03.720]  
+[00:28:03.720 -> 00:28:03.720]  
+[00:28:03.720 -> 00:28:03.720]  
+[00:28:03.720 -> 00:28:03.720]  
+[00:28:03.720 -> 00:28:03.720]  
+[00:28:03.720 -> 00:28:03.720]  
+[00:28:03.720 -> 00:28:03.720]  
+[00:28:03.720 -> 00:28:03.740]  kin
+[00:28:03.740 -> 00:28:03.740]  
+[00:28:03.740 -> 00:28:03.740]  
+[00:28:03.740 -> 00:28:03.740]  
+[00:28:03.740 -> 00:28:03.740]  
+[00:28:03.740 -> 00:28:03.740]  
+[00:28:03.740 -> 00:28:03.740]  
+[00:28:03.740 -> 00:28:03.740]  
+[00:28:03.740 -> 00:28:03.740]  
+[00:28:03.740 -> 00:28:03.740]  
+[00:28:03.740 -> 00:28:03.740]  
+[00:28:03.740 -> 00:28:03.740]  
+[00:28:03.740 -> 00:28:03.980]  !
+[00:28:03.980 -> 00:28:03.980]  
+[00:28:03.980 -> 00:28:03.980]  
+[00:28:03.980 -> 00:28:03.980]  
+[00:28:03.980 -> 00:28:03.980]  
+[00:28:03.980 -> 00:28:03.980]  
+[00:28:03.980 -> 00:28:03.980]  
+[00:28:03.980 -> 00:28:03.980]  
+[00:28:03.980 -> 00:28:03.980]  
+[00:27:53.720 -> 00:27:53.720]  
+[00:27:53.720 -> 00:27:53.720]  
+[00:27:53.720 -> 00:27:53.720]  
+[00:27:53.720 -> 00:27:53.720]  
+[00:27:53.720 -> 00:27:53.720]  
+[00:27:53.720 -> 00:27:53.720]  
+[00:28:03.980 -> 00:28:05.600]  Talk to my finger, nigger.
+[00:28:15.280 -> 00:28:17.240]  See that? See the druggist?
+[00:28:19.520 -> 00:28:22.200]  Got a talking space alien motherfucker.
+[00:28:24.340 -> 00:28:25.560]  Mr. God.
+[00:28:42.760 -> 00:28:44.460]  Music Music
+[00:28:44.460 -> 00:28:45.040]  Music
+[00:28:45.040 -> 00:28:45.100]  Music
+[00:28:45.100 -> 00:28:45.460]  Music
+[00:28:45.460 -> 00:28:46.220]  Music
+[00:28:46.220 -> 00:28:46.820]  Music
+[00:28:46.820 -> 00:28:47.760]  Music
+[00:28:47.760 -> 00:28:49.180]  Music
+[00:28:52.820 -> 00:28:53.960]  Music
+[00:28:53.960 -> 00:28:54.000]  Music
+[00:28:54.000 -> 00:28:54.000]  
+[00:28:54.000 -> 00:28:54.000]  
+[00:28:54.000 -> 00:28:54.000]  
+[00:28:54.000 -> 00:28:54.000]  
+[00:28:54.000 -> 00:28:54.080]  Music
+[00:28:54.080 -> 00:28:54.080]  
+[00:28:54.080 -> 00:28:54.180]  Music
+[00:28:54.180 -> 00:28:54.700]  Music
+[00:28:54.700 -> 00:28:54.700]  
+[00:28:54.700 -> 00:28:54.700]  
+[00:29:08.160 -> 00:29:10.740]  haha let's find something for God to talk about
+[00:29:30.340 -> 00:29:36.080]  yeah my teeth man went to the dentist in a root canal
+[00:29:39.800 -> 00:29:41.380]  I put a crown on
+[00:29:44.740 -> 00:29:47.720]  I think it was better before the root canal
+[00:29:49.760 -> 00:29:50.800]  I can't
+[00:29:52.160 -> 00:29:52.840]  anyway
+[00:30:01.600 -> 00:30:02.360]  so
+[00:30:03.960 -> 00:30:05.860]  I'm never gonna eat
+[00:30:05.860 -> 00:30:08.360]  so my dad's an asshole
+[00:30:08.360 -> 00:30:08.940]  he bought
+[00:30:08.940 -> 00:30:10.760]  Tootsie Rolls
+[00:30:10.760 -> 00:30:11.700]  motherfucker
+[00:30:11.700 -> 00:30:13.760]  so I got a temporary crown
+[00:30:13.760 -> 00:30:15.460]  and if I chewed it it would
+[00:30:15.460 -> 00:30:16.780]  come off
+[00:30:16.780 -> 00:30:18.940]  I think maybe it's revenge for
+[00:30:18.940 -> 00:30:20.040]  he's always had
+[00:30:20.040 -> 00:30:21.280]  dental work
+[00:30:23.000 -> 00:30:24.040]  so I think
+[00:30:24.620 -> 00:30:26.320]  sometimes I would bring home Carmel
+[00:30:27.400 -> 00:30:29.640]  I think he's doing revenge
+[00:30:30.760 -> 00:30:34.180]  if you have crowns you probably don't want to be eating toffee
+[00:30:43.440 -> 00:30:44.840]  I have a temporary
+[00:30:44.840 -> 00:30:47.840]  so it would pop off really quickly
+[00:30:49.980 -> 00:30:52.700]  I could talk about my compiler
+[00:31:06.320 -> 00:31:08.260]  I'm just trying to find something to talk about
+[00:31:08.260 -> 00:31:09.400]  let's go
+[00:31:10.680 -> 00:31:11.960]  let's google myself
+[00:31:15.880 -> 00:31:17.220]  so I do that
+[00:31:17.220 -> 00:31:18.500]  and
+[00:31:19.960 -> 00:31:21.040]  then I
+[00:31:22.060 -> 00:31:24.040]  limit to 24 hours
+[00:31:25.560 -> 00:31:26.860]  you get some
+[00:31:28.240 -> 00:31:29.620]  you get some pretty
+[00:31:31.660 -> 00:31:32.400]  shady
+[00:31:32.400 -> 00:31:33.800]  websites
+[00:31:37.580 -> 00:31:40.180]  you have to be a little bit careful
+[00:31:41.460 -> 00:31:43.860]  linux can't get viruses right
+[00:31:50.440 -> 00:31:51.360]  so
+[00:31:52.620 -> 00:31:54.000]  let's go
+[00:31:55.880 -> 00:31:56.800]  drudge
+[00:31:58.160 -> 00:31:58.880]  drudge
+[00:31:58.880 -> 00:31:58.880]  
+[00:31:58.880 -> 00:31:59.000]  i
+[00:31:59.000 -> 00:31:59.140]  i
+[00:31:59.140 -> 00:31:59.820]  i
+[00:31:59.820 -> 00:31:59.820]  
+[00:31:59.820 -> 00:31:59.820]  
+[00:31:59.820 -> 00:31:59.880]  i
+[00:31:59.880 -> 00:31:59.980]  i
+[00:31:59.980 -> 00:32:00.080]  i
+[00:32:08.460 -> 00:32:09.180]  i
+[00:32:09.180 -> 00:32:09.180]  
+[00:32:09.180 -> 00:32:10.340]  i
+[00:32:10.340 -> 00:32:10.340]  
+[00:32:10.340 -> 00:32:10.620]  i
+[00:32:10.620 -> 00:32:10.700]  i
+[00:32:10.700 -> 00:32:10.760]  i
+[00:32:10.760 -> 00:32:10.760]  
+[00:32:10.760 -> 00:32:10.760]  
+[00:32:10.760 -> 00:32:11.560]  i
+[00:32:11.560 -> 00:32:11.560]  
+[00:32:11.560 -> 00:32:12.240]  i
+[00:32:12.240 -> 00:32:12.340]  i
+[00:32:12.340 -> 00:32:12.700]  i
+[00:32:12.700 -> 00:32:12.700]  
+[00:32:14.120 -> 00:32:14.840]  i
+[00:32:14.840 -> 00:32:14.840]  
+[00:32:14.840 -> 00:32:15.300]  i
+[00:32:15.300 -> 00:32:15.300]  
+[00:32:15.300 -> 00:32:15.300]  
+[00:32:15.300 -> 00:32:15.300]  
+[00:32:15.300 -> 00:32:15.960]  i
+[00:32:15.960 -> 00:32:15.960]  
+[00:32:15.960 -> 00:32:15.960]  
+[00:32:15.960 -> 00:32:15.960]  
+[00:32:15.960 -> 00:32:17.280]  i
+[00:32:17.280 -> 00:32:17.280]  
+[00:32:17.280 -> 00:32:17.360]  i
+[00:32:17.360 -> 00:32:17.360]  
+[00:32:17.360 -> 00:32:17.360]  
+[00:32:18.880 -> 00:32:19.600]  i
+[00:32:19.600 -> 00:32:19.600]  
+[00:32:19.600 -> 00:32:19.600]  
+[00:32:19.600 -> 00:32:19.600]  
+[00:32:19.600 -> 00:32:19.820]  i
+[00:32:19.820 -> 00:32:19.820]  
+[00:32:19.820 -> 00:32:20.200]  i
+[00:32:20.200 -> 00:32:20.200]  
+[00:32:20.200 -> 00:32:20.200]  
+[00:32:24.200 -> 00:32:24.920]  !
+[00:32:25.820 -> 00:32:25.820]  
+[00:32:25.840 -> 00:32:25.840]  
+[00:32:25.840 -> 00:32:25.920]  i
+[00:31:58.920 -> 00:31:58.920]  
+[00:31:58.920 -> 00:31:58.920]  
+[00:31:58.920 -> 00:31:58.920]  
+[00:31:58.920 -> 00:31:58.920]  
+[00:31:58.920 -> 00:31:58.920]  
+[00:31:58.920 -> 00:31:58.920]  
+[00:31:58.920 -> 00:31:58.920]  
+[00:31:58.920 -> 00:31:58.920]  
+[00:31:58.920 -> 00:31:58.920]  
+[00:31:58.920 -> 00:31:58.920]  
+[00:31:58.920 -> 00:31:58.920]  
+[00:31:58.920 -> 00:31:58.920]  
+[00:31:58.920 -> 00:31:58.920]  
+[00:31:58.920 -> 00:31:58.920]  
+[00:31:58.920 -> 00:31:58.920]  
+[00:31:58.920 -> 00:31:58.920]  
+[00:31:58.920 -> 00:31:58.920]  
+[00:31:58.920 -> 00:31:58.920]  
+[00:31:58.920 -> 00:31:58.920]  
+[00:31:58.920 -> 00:31:58.920]  
+[00:32:25.920 -> 00:32:27.580]  don't have anything to tell you.
+[00:32:36.160 -> 00:32:38.740]  If he gave a lecture, what could he talk about?
+[00:32:41.140 -> 00:32:42.160]  He's a kid.
+[00:32:44.580 -> 00:32:46.020]  He's 31 now.
+[00:32:46.480 -> 00:32:48.060]  He's getting a little bit older.
+[00:32:54.600 -> 00:32:55.460]  What was I doing?
+[00:33:00.460 -> 00:33:02.500]  So let's find some stuff to do.
+[00:33:05.640 -> 00:33:07.060]  We can talk to God.
+[00:33:07.060 -> 00:33:08.080]  What could we do?
+[00:33:16.960 -> 00:33:23.000]  My line count total was 80,600.
+[00:33:23.000 -> 00:33:25.720]  And now it's 79.
+[00:33:28.240 -> 00:33:34.280]  So most of that was the compiler.
+[00:33:35.240 -> 00:33:44.280]  And after I added aliasing for the opcodes, I count this file in my total.
+[00:33:49.140 -> 00:33:51.200]  So this code is a lot better.
+[00:34:00.280 -> 00:34:04.080]  We can talk about how the compiler works.
+[00:34:09.120 -> 00:34:10.480]  What do you want to talk about?
+[00:34:10.480 -> 00:34:12.660]  Say something, what do you want to talk about?
+[00:34:16.440 -> 00:34:16.880]  God.
+[00:34:21.640 -> 00:34:23.500]  Say something, what do you want to talk about?
+[00:34:27.240 -> 00:34:27.680]  God.
+[00:34:32.480 -> 00:34:34.320]  Say something, what do you want to talk about?
+[00:34:54.080 -> 00:34:56.160]  Yes, God talks.
+[00:34:56.160 -> 00:34:56.780]  God talks.
+[00:34:56.780 -> 00:34:56.780]  
+[00:34:58.120 -> 00:34:59.160]  Simple, direct.
+[00:35:01.160 -> 00:35:01.800]  God says.
+[00:35:10.180 -> 00:35:11.100]  Blonde.
+[00:35:20.900 -> 00:35:24.680]  So let's give God, you want simple words.
+[00:35:24.680 -> 00:35:26.000]  Let's do this.
+[00:35:41.700 -> 00:35:45.920]  Okay, so what optimizations does my compiler do?
+[00:35:47.940 -> 00:35:51.500]  Okay, so let's look at how it codes this.
+[00:35:58.380 -> 00:36:00.380]  So, Bush's base pointer.
+[00:36:00.540 -> 00:36:01.980]  I use base pointer.
+[00:36:02.240 -> 00:36:03.780]  That's kind of old school.
+[00:36:04.900 -> 00:36:09.200]  Technically, you can use a stack pointer without a base pointer.
+[00:36:13.500 -> 00:36:18.080]  But, as a matter of fact, you are required to use base pointer.
+[00:36:28.840 -> 00:36:41.440]  You are required to use the old school stack frame because on the wallpaper it does a stack trace.
+[00:36:44.180 -> 00:36:46.060]  It goes up the stack.
+[00:36:47.220 -> 00:36:49.700]  And in order to do that, it has to use the base pointer.
+[00:36:52.600 -> 00:36:57.880]  So, base pointer, it creates eight bytes for the local variable.
+[00:36:59.280 -> 00:37:05.120]  It's going to use RSI as a local register variable.
+[00:37:05.960 -> 00:37:12.400]  It clears RSI to zero, compares it to 10, jump greater.
+[00:37:12.400 -> 00:37:15.320]  Then it pushes for the print.
+[00:37:16.740 -> 00:37:20.680]  And it clears the stack after the print.
+[00:37:20.900 -> 00:37:23.940]  It increments high.
+[00:37:26.260 -> 00:37:28.680]  So, this is pretty well optimized.
+[00:37:29.460 -> 00:37:33.500]  Why don't you, do you have something in specific you want to know?
+[00:37:34.200 -> 00:37:40.920]  Like, I don't know.
+[00:37:40.920 -> 00:37:44.800]  I bet it's a factor of two different.
+[00:37:45.040 -> 00:37:48.760]  Sometimes it can be much slower, I guess.
+[00:37:48.920 -> 00:37:49.280]  I don't know.
+[00:37:51.180 -> 00:37:52.340]  Anyway, uh...
+[00:37:53.840 -> 00:37:56.440]  So, this is an eight core flight simulator.
+[00:38:02.420 -> 00:38:07.000]  Up here at the top is the CPU load on all the cores.
+[00:38:09.260 -> 00:38:14.040]  This is done by hand with triangles.
+[00:38:25.600 -> 00:38:27.440]  Anyway, uh...
+[00:38:32.000 -> 00:38:34.020]  So, that's kind of the ultimate.
+[00:38:34.020 -> 00:38:35.640]  Hey, I'm going to play this game.
+[00:38:35.880 -> 00:38:36.660]  You want to watch?
+[00:38:37.580 -> 00:38:45.040]  Okay, so, I'm going to launch airplanes at enemy carriers.
+[00:38:45.600 -> 00:38:46.540]  Oh, shit.
+[00:38:46.880 -> 00:38:48.520]  I'm just...
+[00:38:52.140 -> 00:38:53.700]  So, I have two carriers.
+[00:38:53.860 -> 00:38:54.420]  He has three.
+[00:38:54.980 -> 00:38:56.220]  Oh, I'm going to start over.
+[00:38:57.000 -> 00:38:57.520]  Okay.
+[00:38:58.040 -> 00:38:59.440]  I have two carriers.
+[00:38:59.600 -> 00:39:00.680]  He has three carriers.
+[00:39:00.680 -> 00:39:04.580]  And, uh...
+[00:39:04.580 -> 00:39:05.400]  Damn it.
+[00:39:05.660 -> 00:39:08.980]  He, he marked my...
+[00:39:10.280 -> 00:39:11.140]  Shit.
+[00:39:31.240 -> 00:39:35.520]  I killed his carrier down there.
+[00:39:37.940 -> 00:39:38.420]  Um...
+[00:39:38.420 -> 00:39:39.420]  I gotta...
+[00:39:39.420 -> 00:39:40.040]  He has...
+[00:39:40.040 -> 00:39:41.120]  I have to get going.
+[00:39:41.400 -> 00:39:42.920]  Or I'm never going to catch him.
+[00:39:57.520 -> 00:39:59.360]  I have two more carriers.
+[00:40:06.660 -> 00:40:08.140]  Son of a bitch.
+[00:40:08.140 -> 00:40:08.140]  
+[00:40:08.820 -> 00:40:11.520]  Son of a bitch.
+[00:40:11.620 -> 00:40:25.600]  Son of a bitch.
+[00:40:25.600 -> 00:40:25.600]  
+[00:40:57.180 -> 00:40:58.940]  You don't want to hit your own guys.
+[00:40:59.180 -> 00:41:00.700]  You get a big penalty for that.
+[00:41:02.900 -> 00:41:04.760]  I just killed a bunch of my guys.
+[00:41:10.860 -> 00:41:12.060]  No, no, no.
+[00:41:12.280 -> 00:41:12.720]  Oh, shit.
+[00:41:12.960 -> 00:41:14.740]  I really killed them.
+[00:41:27.940 -> 00:41:34.160]  So this is supposed to be a time traveler sent back to the Bible.
+[00:41:34.740 -> 00:41:37.020]  This is the angel of death helping the Jews.
+[00:41:39.740 -> 00:41:43.520]  Wiping out the enemies of the Jews, I guess.
+[00:41:50.380 -> 00:41:54.340]  So I hired an artist about five years ago.
+[00:41:54.340 -> 00:41:56.320]  I paid him $3,000.
+[00:41:58.960 -> 00:42:00.980]  And he made...
+[00:42:00.980 -> 00:42:03.800]  This actually looks like a...
+[00:42:04.620 -> 00:42:06.140]  He made the art.
+[00:42:08.760 -> 00:42:10.900]  He put penises on everything.
+[00:42:11.220 -> 00:42:12.700]  But I like this.
+[00:42:12.820 -> 00:42:13.840]  This is a...
+[00:42:13.840 -> 00:42:15.720]  It looks like a...
+[00:42:17.320 -> 00:42:19.840]  A cloak that you put on.
+[00:42:20.940 -> 00:42:22.340]  That's not too bad.
+[00:42:22.340 -> 00:42:23.540]  I did...
+[00:42:23.540 -> 00:42:24.480]  I did this art.
+[00:42:24.820 -> 00:42:25.840]  I did this art.
+[00:42:26.400 -> 00:42:44.840]  I did this art.
+[00:42:46.480 -> 00:42:48.820]  So that's a bomber golf.
+[00:42:49.240 -> 00:42:50.340]  You have to...
+[00:42:51.320 -> 00:42:53.140]  You have to...
+[00:42:54.080 -> 00:42:55.840]  You get...
+[00:42:55.840 -> 00:42:58.740]  You want minimum keystrokes.
+[00:42:58.920 -> 00:43:01.440]  Kind of like code golf.
+[00:43:04.100 -> 00:43:04.980]  Anyway.
+[00:43:04.980 -> 00:43:06.920]  So this is from...
+[00:43:07.760 -> 00:43:09.980]  I was trying to find the...
+[00:43:11.120 -> 00:43:12.660]  There was a Commodore 64...
+[00:43:12.660 -> 00:43:13.520]  Oh, I can't show it.
+[00:43:14.060 -> 00:43:19.840]  There was a Commodore 64 ski game when I was a kid.
+[00:43:20.780 -> 00:43:22.420]  It was time...
+[00:43:22.420 -> 00:43:24.800]  It was character graphics, not big.
+[00:43:25.220 -> 00:43:26.560]  Anyway, let's see what God says.
+[00:43:32.860 -> 00:43:33.740]  Middle class...
+[00:43:33.740 -> 00:43:33.740]  
+[00:43:33.740 -> 00:43:34.660]  Joyful and Suncaro.
+[00:43:34.800 -> 00:43:35.260]  Mmm, silly.
+[00:43:36.420 -> 00:43:37.960]  If anything can go wrong...
+[00:43:37.960 -> 00:43:38.780]  Fun, you're welcome.
+[00:43:39.300 -> 00:43:40.600]  Africana allows nicely...
+[00:43:40.600 -> 00:43:41.180]  Super compared.
+[00:43:42.500 -> 00:43:44.460]  I just might caution middle class...
+[00:43:44.460 -> 00:43:45.020]  All year and now...
+[00:43:45.020 -> 00:43:45.640]  Ghost Furman.
+[00:43:45.940 -> 00:43:47.100]  See if we're out in population.
+[00:43:47.300 -> 00:43:48.260]  Hopefully, when you're talking about it.
+[00:43:54.720 -> 00:43:56.600]  Let's see...
+[00:44:05.080 -> 00:44:07.880]  Let's see...
+[00:44:07.880 -> 00:44:09.180]  Let's see...
+[00:44:09.180 -> 00:44:09.920]  Let's see...
+[00:44:29.140 -> 00:44:34.100]  If you want to know how God talked in the Bible, it was a flame.
+[00:44:34.920 -> 00:44:36.480]  So you know what that means?
+[00:44:37.820 -> 00:44:40.700]  That means they watched the flame.
+[00:44:45.860 -> 00:44:56.560]  So the flame danced, and the tongues of flame danced, and that's how they communicated.
+[00:45:02.320 -> 00:45:06.000]  The flame danced, and they had a language they worked out.
+[00:45:06.480 -> 00:45:09.940]  Like if it, I don't know, that would be a pretty hard language to make.
+[00:45:14.280 -> 00:45:16.540]  Like a magic eight ball.
+[00:45:25.600 -> 00:45:29.320]  You have to understand adult conversation.
+[00:45:30.580 -> 00:45:33.460]  They give a childish explanation.
+[00:45:35.420 -> 00:45:36.880]  The flame danced.
+[00:45:39.840 -> 00:45:41.440]  Why do you think they call it?
+[00:45:52.740 -> 00:45:53.940]  Tongues of flame.
+[00:45:53.940 -> 00:46:20.800]  Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music
+[00:46:32.240 -> 00:46:42.440]  I have a book I have a book on genetic algorithms I I haven't done any applications this is uh do
+[00:46:42.440 -> 00:46:56.300]  you want to know how this works let me show you how this works so let's make let's make a duplicate of what I have so
+[00:46:59.560 -> 00:47:11.280]  let's read in a list of words okay so
+[00:47:15.860 -> 00:47:18.280]  class I just want to make this simple
+[00:47:31.160 -> 00:47:35.480]  okay so we say q init
+[00:47:42.180 -> 00:47:53.860]  I always call it root I don't like head because it's distracting so we're going to read in a list of
+[00:47:53.860 -> 00:48:08.680]  words from the file so c doc star doc equals doc read now if we hit
+[00:48:15.080 -> 00:48:23.700]  f4 then we go to uh downloads those aren't downloads that's kind of weird it's downloads
+[00:48:23.700 -> 00:48:30.300]  for you anyway so um we're going to look read in the file so uh
+[00:48:32.500 -> 00:48:40.300]  c doc entry star doc e equals doc
+[00:48:41.820 -> 00:48:44.000]  root dot next
+[00:48:47.160 -> 00:48:48.560]  4
+[00:48:48.560 -> 00:48:49.540]  whoops
+[00:48:49.540 -> 00:48:51.920]  well doc
+[00:48:53.760 -> 00:49:03.160]  the document is a circular doubly linked list so let's just say percent test doc
+[00:49:05.460 -> 00:49:07.300]  if doc
+[00:49:07.300 -> 00:49:08.200]  e
+[00:49:08.200 -> 00:49:09.820]  type
+[00:49:15.360 -> 00:49:16.160]  okay
+[00:49:21.860 -> 00:49:22.660]  okay
+[00:49:22.660 -> 00:49:25.060]  we're just uh traversing
+[00:49:28.080 -> 00:49:29.540]  so we want to uh
+[00:49:31.140 -> 00:49:31.180]  uh
+[00:49:33.800 -> 00:49:34.960]  read list
+[00:49:36.160 -> 00:49:37.000]  okay
+[00:49:37.000 -> 00:49:37.440]  okay
+[00:49:37.440 -> 00:49:38.000]  documentary
+[00:49:40.440 -> 00:49:42.460]  so there I just uh
+[00:49:42.460 -> 00:49:47.220]  printed all the words in in the linux that's the linux dictionary
+[00:49:47.220 -> 00:49:48.860]  so uh
+[00:49:48.860 -> 00:49:51.080]  let's say uh
+[00:49:51.080 -> 00:49:52.920]  i64 count
+[00:49:55.500 -> 00:49:57.420]  count equals zero
+[00:50:00.180 -> 00:50:01.840]  count plus plus
+[00:50:13.440 -> 00:50:16.900]  there's a hundred thousand ninety nine thousand words
+[00:50:18.860 -> 00:50:20.760]  so now we're going to uh
+[00:50:24.380 -> 00:50:26.540]  we're going to make a uh
+[00:50:28.780 -> 00:50:28.900]  uh
+[00:50:29.100 -> 00:50:29.440]  uh
+[00:50:32.160 -> 00:50:32.480]  a queue
+[00:50:32.480 -> 00:50:35.400]  we could just use the document
+[00:50:35.400 -> 00:50:37.160]  like that
+[00:50:37.160 -> 00:50:37.940]  but anyway
+[00:50:37.940 -> 00:50:39.300]  so uh
+[00:50:42.620 -> 00:50:43.660]  malic
+[00:50:45.600 -> 00:50:47.160]  size of
+[00:50:50.440 -> 00:50:51.480]  word
+[00:50:54.500 -> 00:50:56.400]  temp w
+[00:50:56.400 -> 00:50:57.120]  equals
+[00:50:57.120 -> 00:50:58.200]  uh
+[00:50:58.200 -> 00:50:59.480]  let's see
+[00:50:59.480 -> 00:51:01.000]  string new
+[00:51:01.000 -> 00:51:03.120]  doc
+[00:51:03.120 -> 00:51:03.740]  e
+[00:51:03.740 -> 00:51:05.220]  tag
+[00:51:08.060 -> 00:51:09.460]  q
+[00:51:09.460 -> 00:51:10.100]  insert
+[00:51:10.100 -> 00:51:12.640]  temp w
+[00:51:12.640 -> 00:51:13.300]  uh
+[00:51:13.300 -> 00:51:14.760]  root
+[00:51:14.760 -> 00:51:16.080]  last
+[00:51:16.080 -> 00:51:18.700]  root
+[00:51:18.700 -> 00:51:19.440]  has to be
+[00:51:20.040 -> 00:51:21.020]  oh
+[00:51:35.460 -> 00:51:36.860]  root
+[00:51:36.860 -> 00:51:37.220]  delete
+[00:51:37.220 -> 00:51:38.220]  doc
+[00:51:38.220 -> 00:51:38.520]  okay
+[00:51:40.300 -> 00:51:41.700]  root
+[00:51:41.700 -> 00:51:43.620]  oops
+[00:51:45.240 -> 00:51:45.960]  !
+[00:51:45.960 -> 00:51:46.060]  delete
+[00:51:46.060 -> 00:51:46.060]  
+[00:51:46.060 -> 00:51:46.060]  
+[00:51:46.060 -> 00:51:46.060]  
+[00:51:46.060 -> 00:51:46.060]  
+[00:51:46.060 -> 00:51:46.060]  
+[00:51:46.060 -> 00:51:46.060]  
+[00:51:46.060 -> 00:51:46.060]  
+[00:51:46.060 -> 00:51:46.060]  
+[00:51:38.520 -> 00:51:38.520]  
+[00:51:38.520 -> 00:51:38.520]  
+[00:51:46.060 -> 00:51:47.060]  uh
+[00:51:47.620 -> 00:51:49.300]  crash
+[00:51:49.300 -> 00:51:49.920]  where we got
+[00:51:51.320 -> 00:51:52.620]  free
+[00:51:52.620 -> 00:51:53.600]  doc entry
+[00:51:53.600 -> 00:51:54.380]  okay
+[00:51:54.380 -> 00:51:55.280]  exit
+[00:51:55.280 -> 00:51:57.000]  you can sometimes recover
+[00:51:57.000 -> 00:51:59.200]  bad free
+[00:51:59.200 -> 00:52:00.400]  okay
+[00:52:00.400 -> 00:52:01.560]  reset
+[00:52:06.580 -> 00:52:07.880]  edit
+[00:52:12.720 -> 00:52:14.460]  what is your
+[00:52:14.460 -> 00:52:15.240]  valve function
+[00:52:19.360 -> 00:52:20.120]  okay
+[00:52:20.120 -> 00:52:20.640]  now
+[00:52:20.640 -> 00:52:21.000]  good
+[00:52:36.280 -> 00:52:37.820]  size of word
+[00:52:37.820 -> 00:52:39.300]  oh
+[00:52:39.300 -> 00:52:39.940]  what do we do
+[00:52:45.280 -> 00:52:46.680]  okay
+[00:52:46.680 -> 00:52:47.580]  so
+[00:52:47.580 -> 00:52:48.820]  now we
+[00:52:48.820 -> 00:52:49.100]  uh
+[00:52:52.060 -> 00:52:53.460]  u0
+[00:52:53.460 -> 00:52:54.260]  print
+[00:52:54.260 -> 00:52:55.000]  word
+[00:52:55.000 -> 00:52:57.080]  i64
+[00:52:57.080 -> 00:52:58.740]  end
+[00:53:02.500 -> 00:53:03.900]  file
+[00:53:03.900 -> 00:53:06.160]  end
+[00:53:09.880 -> 00:53:10.940]  word
+[00:53:22.620 -> 00:53:25.500]  we could make an array
+[00:53:25.500 -> 00:53:27.040]  but we're not interested
+[00:53:27.040 -> 00:53:28.100]  um
+[00:53:29.280 -> 00:53:30.340]  word
+[00:53:37.880 -> 00:53:38.960]  so
+[00:53:38.960 -> 00:53:40.640]  i'm just doing this from scratch
+[00:53:40.640 -> 00:53:41.580]  um
+[00:53:46.860 -> 00:53:47.940]  word
+[00:53:47.940 -> 00:53:48.660]  100
+[00:53:52.720 -> 00:53:55.800]  this is just to calibrate
+[00:54:17.880 -> 00:54:18.920]  oh
+[00:54:18.920 -> 00:54:20.840]  i meant to subtract
+[00:54:30.060 -> 00:54:31.460]  okay
+[00:54:31.460 -> 00:54:32.620]  so
+[00:54:32.620 -> 00:54:32.980]  uh
+[00:54:34.780 -> 00:54:36.180]  word
+[00:54:36.180 -> 00:54:36.520]  minus
+[00:54:36.520 -> 00:54:36.860]  minus
+[00:54:36.860 -> 00:54:38.900]  okay
+[00:54:38.900 -> 00:54:39.960]  uh
+[00:54:39.960 -> 00:54:42.120]  i'm not doing too good
+[00:54:45.320 -> 00:54:46.720]  okay
+[00:54:52.880 -> 00:54:54.600]  what is your malfunction
+[00:55:00.340 -> 00:55:02.240]  do you see what's wrong
+[00:55:04.300 -> 00:55:04.420]  uh
+[00:55:13.180 -> 00:55:13.300]  uh
+[00:55:14.760 -> 00:55:14.880]  uh
+[00:55:14.880 -> 00:55:14.880]  
+[00:55:14.880 -> 00:55:14.880]  
+[00:55:14.880 -> 00:55:14.880]  
+[00:55:14.880 -> 00:55:14.900]  uh
+[00:55:16.560 -> 00:55:16.680]  uh
+[00:55:17.060 -> 00:55:17.180]  uh
+[00:55:24.820 -> 00:55:24.940]  uh
+[00:55:30.140 -> 00:55:30.260]  uh
+[00:55:30.260 -> 00:55:30.280]  uh
+[00:55:30.280 -> 00:55:30.320]  uh
+[00:55:30.320 -> 00:55:30.320]  
+[00:55:30.320 -> 00:55:30.320]  
+[00:55:30.320 -> 00:55:30.340]  uh
+[00:55:30.340 -> 00:55:30.340]  
+[00:55:30.340 -> 00:55:30.340]  
+[00:55:30.340 -> 00:55:30.380]  uh
+[00:55:30.380 -> 00:55:30.420]  uh
+[00:55:30.420 -> 00:55:30.420]  
+[00:55:30.420 -> 00:55:30.420]  
+[00:55:30.420 -> 00:55:30.420]  
+[00:55:30.420 -> 00:55:30.480]  uh
+[00:55:30.620 -> 00:55:30.740]  uh
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.740 -> 00:55:30.740]  
+[00:55:30.760 -> 00:55:30.760]  
+[00:55:21.960 -> 00:55:21.960]  
+[00:55:21.960 -> 00:55:21.960]  
+[00:55:21.960 -> 00:55:21.960]  
+[00:55:21.960 -> 00:55:21.960]  
+[00:55:21.960 -> 00:55:21.960]  
+[00:55:21.960 -> 00:55:21.960]  
+[00:55:21.960 -> 00:55:21.960]  
+[00:55:21.960 -> 00:55:21.960]  
+[00:55:21.960 -> 00:55:21.960]  
+[00:55:21.960 -> 00:55:21.960]  
+[00:55:21.960 -> 00:55:21.960]  
+[00:55:21.960 -> 00:55:21.960]  
+[00:55:21.960 -> 00:55:21.960]  
+[00:55:59.420 -> 00:56:02.220]  So, let's do this.
+[00:56:22.600 -> 00:56:25.020]  So, let's do this.
+[00:56:34.460 -> 00:56:36.940]  Oh, print word. That's the problem.
+[00:56:39.820 -> 00:56:41.220]  Okay.
+[00:56:41.920 -> 00:56:43.060]  U8 pointer.
+[00:56:46.580 -> 00:56:49.380]  Return word.
+[00:57:17.860 -> 00:57:19.360]  How about...
+[00:57:21.360 -> 00:57:29.200]  okay it's zero based and this is one based so it's correct okay so now you
+[00:57:29.200 -> 00:57:37.660]  know what we're gonna do I'll tell you what we're gonna do I 64i and
+[00:57:56.480 -> 00:58:15.720]  while true while i equals zero well not scan char
+[00:58:22.460 -> 00:58:23.220]  I++.
+[00:58:24.740 -> 00:58:26.900]  So we're going to increment.
+[00:58:27.740 -> 00:58:32.300]  Now we're going to say print number column percent D.
+[00:58:34.620 -> 00:58:43.260]  Okay, before we print words, we want to just calibrate.
+[00:58:43.500 -> 00:58:44.680]  Okay, so you see what I'm doing?
+[00:58:44.680 -> 00:58:49.160]  I have a counter and I'm printing a number.
+[00:58:49.780 -> 00:58:51.300]  So when I press a key.
+[00:58:52.800 -> 00:58:53.200]  Oh, shit.
+[00:58:55.960 -> 00:58:57.540]  Oh, I've got to do a yield.
+[00:59:01.920 -> 00:59:03.980]  Because interrupts are...
+[00:59:11.040 -> 00:59:11.760]  Okay.
+[00:59:12.200 -> 00:59:12.200]  
+[00:59:13.720 -> 00:59:14.440]  Shit.
+[00:59:21.820 -> 00:59:23.640]  Oh, I didn't do a yield in there.
+[00:59:28.100 -> 00:59:28.620]  Yikes.
+[00:59:41.680 -> 00:59:42.640]  Okay.
+[00:59:42.680 -> 00:59:42.760]  Okay.
+[00:59:43.420 -> 00:59:48.420]  So in a second, it counts a million.
+[00:59:49.920 -> 00:59:51.000]  One, 1,000.
+[00:59:51.220 -> 00:59:52.020]  Two, 1,000.
+[00:59:52.200 -> 00:59:53.000]  Three, 1,000.
+[00:59:53.180 -> 00:59:53.960]  Four, 1,000.
+[00:59:54.240 -> 00:59:54.940]  Five, 1,000.
+[00:59:56.420 -> 00:59:58.700]  It counts 3 million in a second.
+[00:59:59.660 -> 01:00:00.160]  Okay.
+[01:00:01.740 -> 01:00:02.460]  Okay.
+[01:00:02.460 -> 01:00:04.820]  So it counts 3 million in a second.
+[01:00:06.500 -> 01:00:07.220]  Um...
+[01:00:11.200 -> 01:00:12.600]  Now we...
+[01:00:13.620 -> 01:00:15.040]  Now we want to print.
+[01:00:17.480 -> 01:00:18.200]  Playwork.
+[01:00:18.800 -> 01:00:19.020]  All right.
+[01:00:19.920 -> 01:00:20.480]  Okay.
+[01:00:20.820 -> 01:00:21.180]  Ready?
+[01:00:21.180 -> 01:00:21.280]  Three.
+[01:00:24.160 -> 01:00:24.740]  Shit.
+[01:00:33.460 -> 01:00:34.800]  Oh, oh, oh, oh.
+[01:00:35.000 -> 01:00:35.440]  Crap.
+[01:00:35.680 -> 01:00:36.420]  That was dumb.
+[01:00:37.160 -> 01:00:37.420]  Okay.
+[01:00:40.820 -> 01:00:41.980]  Modulo count.
+[01:00:54.780 -> 01:01:02.940]  Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music
+[01:01:02.940 -> 01:01:08.880]  Greek Wiggler nabbed shoot Lanny evicted Scotch
+[01:01:08.880 -> 01:01:25.160]  okay so you can make you can make your own program there's a script that's a
+[01:01:25.160 -> 01:01:49.420]  Linux script cat to the bin till the okay so this uses the Linux dictionary and it
+[01:01:49.420 -> 01:01:54.940]  gets a you know a uniform random number so if I said GW it's a script
+[01:02:18.360 -> 01:02:22.680]  we'll have to try that in a minute let's see what's going on
+[01:02:31.300 -> 01:02:32.920]  let's see what's going on
+[01:02:37.760 -> 01:02:39.160]  let's see what's going on
+[01:02:41.080 -> 01:02:42.980]  let's see what's going on
+[01:02:50.220 -> 01:02:51.620]  oh
+[01:02:51.620 -> 01:02:54.200]  oh
+[01:02:59.160 -> 01:03:00.560]  oh
+[01:03:00.560 -> 01:03:01.120]  oh
+[01:03:20.760 -> 01:03:31.100]  yeah the website logs probably shouldn't be public maybe I can lock it down because my clients probably would have to be public
+[01:03:31.100 -> 01:03:31.820]  I probably don't.
+[01:03:33.040 -> 01:03:34.020]  That's bad.
+[01:03:34.420 -> 01:03:35.280]  I'm sorry.
+[01:03:36.720 -> 01:03:38.480]  Anyway, what do you think, Mr. God?
+[01:04:01.100 -> 01:04:01.140]  I'm sorry.
+[01:04:01.140 -> 01:04:01.520]  I'm sorry.
+[01:04:01.520 -> 01:04:01.540]  I'm sorry.
+[01:04:01.540 -> 01:04:01.620]  I'm sorry.
+[01:04:01.620 -> 01:04:01.660]  I'm sorry.
+[01:04:01.660 -> 01:04:01.660]  
+[01:04:12.380 -> 01:04:14.380]  I'm sorry.
+[01:04:28.400 -> 01:04:29.880]  I'm sorry.
+[01:04:32.100 -> 01:04:33.600]  I'm sorry.
+[01:04:33.600 -> 01:04:35.600]  I'm sorry.
+[01:04:48.940 -> 01:04:51.740]  I'm sorry.
+[01:04:51.740 -> 01:04:51.780]  I'm sorry.
+[01:04:51.780 -> 01:04:57.580]  Let's say, i equals get timestamp count.
+[01:04:57.580 -> 01:05:01.100]  That's a, anyway.
+[01:05:05.120 -> 01:05:06.600]  Time stamp count.
+[01:05:06.880 -> 01:05:07.860]  What is your problem?
+[01:05:13.320 -> 01:05:14.880]  Oh, I got rid of i.
+[01:05:17.700 -> 01:05:18.180]  Okay.
+[01:05:18.260 -> 01:05:18.260]  
+[01:05:18.500 -> 01:05:18.500]  
+[01:05:18.580 -> 01:05:18.720]  Okay.
+[01:05:20.100 -> 01:05:20.580]  Okay.
+[01:05:20.580 -> 01:05:22.360]  Timestamp count is a big number.
+[01:05:28.520 -> 01:05:30.680]  If we, let's unassemble.
+[01:05:31.280 -> 01:05:32.780]  Unassemble function.
+[01:05:37.620 -> 01:05:38.700]  So.
+[01:05:43.200 -> 01:05:44.280]  Move.
+[01:05:46.080 -> 01:05:47.660]  Oh, there it is.
+[01:05:47.660 -> 01:05:49.980]  Read timestamp count.
+[01:05:50.380 -> 01:05:50.860]  Shift left.
+[01:05:51.220 -> 01:05:52.200]  32 bits.
+[01:05:52.540 -> 01:05:52.780]  Add.
+[01:05:53.360 -> 01:05:54.140]  Move.
+[01:05:55.620 -> 01:05:58.940]  RSI is the i local variable.
+[01:06:13.680 -> 01:06:14.560]  Uh.
+[01:06:18.340 -> 01:06:19.220]  So.
+[01:06:19.420 -> 01:06:23.080]  The neurosurgeon seems to think that, uh.
+[01:06:24.840 -> 01:06:28.600]  The neurons in my brain can do this.
+[01:06:29.240 -> 01:06:30.400]  Do you understand?
+[01:06:30.400 -> 01:06:30.620]  Do you understand?
+[01:06:32.280 -> 01:06:33.960]  What a fucking.
+[01:06:34.500 -> 01:06:36.340]  What a retard nigger.
+[01:06:38.480 -> 01:06:40.540]  There's a hundred thousand words.
+[01:06:42.820 -> 01:06:44.320]  And this is.
+[01:06:45.580 -> 01:06:48.840]  This is changing three gigahertz a second.
+[01:06:49.960 -> 01:06:51.740]  What a retard nigger.
+[01:06:56.820 -> 01:06:57.740]  Some.
+[01:06:58.300 -> 01:06:58.900]  That.
+[01:06:59.520 -> 01:07:01.320]  I deal with retards.
+[01:07:01.620 -> 01:07:01.620]  
+[01:07:18.620 -> 01:07:19.560]  Oh, well.
+[01:07:19.820 -> 01:07:20.600]  Do what you like.
+[01:07:21.160 -> 01:07:24.080]  God can kick your ass.
+[01:07:24.580 -> 01:07:26.440]  They blacklist me and forgive me.
+[01:07:27.780 -> 01:07:28.120]  Thank you.
+[01:07:29.160 -> 01:07:31.060]  I win. I have God.
+[01:07:36.420 -> 01:07:38.140]  God is perfectly just.
+[01:08:02.320 -> 01:08:04.140]  God is perfectly just.
+[01:08:35.700 -> 01:08:35.820]  God is perfectly just.
+[01:09:27.640 -> 01:09:27.760]  God is perfectly just.
+[01:09:28.120 -> 01:09:30.320]  So there's 100,000 words.
+[01:09:34.320 -> 01:09:38.320]  And if you're doing thousands of a second.
+[01:09:38.580 -> 01:09:39.740]  And it's doing three.
+[01:09:44.900 -> 01:09:49.480]  It's stepping through three million numbers.
+[01:09:49.880 -> 01:09:53.040]  Three billion numbers a second.
+[01:09:53.440 -> 01:09:55.120]  Three billion numbers a second.
+[01:09:55.120 -> 01:10:08.420]  and so if there's a thousand one millisecond is three million numbers is a millisecond
+[01:10:08.420 -> 01:10:20.800]  he thinks that I counted all these words and that the jitter is the two clocks he
+[01:10:20.800 -> 01:10:26.820]  kept you can't synchronize two clocks did you know that the CPU is throttling as a
+[01:10:26.820 -> 01:10:32.660]  matter of fact do you know what that means that means that when it gets cold it goes
+[01:10:32.660 -> 01:10:43.600]  faster when it gets hot it goes slower he's an absolute retard as if as if anybody
+[01:10:43.600 -> 01:11:00.940]  with half a brain he's just being ridiculous so if we take this statement put it on the command line
+[01:11:02.080 -> 01:11:04.640]  we get uh professing
+[01:11:10.400 -> 01:11:12.900]  the guy is a serious nigger
+[01:11:12.900 -> 01:11:20.560]  I got my dog
+[01:11:35.980 -> 01:11:41.940]  say hi to the people hey say hi to the people who's this who's this over here who's this
+[01:11:44.220 -> 01:11:45.840]  who's this
+[01:12:11.100 -> 01:12:13.000]  retard nigger
+[01:12:22.040 -> 01:12:22.760]  so
+[01:12:24.040 -> 01:12:24.760]  so
+[01:12:24.760 -> 01:12:24.760]  
+[01:12:24.760 -> 01:12:24.760]  
+[01:12:24.760 -> 01:12:24.760]  
+[01:12:24.760 -> 01:12:24.840]  uh
+[01:12:24.840 -> 01:12:24.840]  
+[01:12:24.840 -> 01:12:24.840]  
+[01:12:24.840 -> 01:12:24.840]  
+[01:12:40.500 -> 01:12:41.220]  uh
+[01:12:41.220 -> 01:12:41.580]  uh
+[01:12:41.580 -> 01:12:41.580]  
+[01:12:41.580 -> 01:12:42.500]  uh
+[01:12:42.500 -> 01:12:42.500]  
+[01:12:42.500 -> 01:12:42.500]  
+[01:12:42.500 -> 01:12:42.500]  
+[01:12:42.500 -> 01:12:42.500]  
+[01:12:42.500 -> 01:12:42.500]  
+[01:12:42.500 -> 01:12:42.500]  
+[01:12:42.500 -> 01:12:42.500]  
+[01:12:42.500 -> 01:12:42.500]  
+[01:12:42.500 -> 01:12:42.500]  
+[01:12:42.500 -> 01:12:42.500]  
+[01:12:42.500 -> 01:12:42.500]  
+[01:12:42.500 -> 01:12:42.500]  
+[01:12:42.500 -> 01:12:42.520]  uh
+[01:12:42.520 -> 01:12:42.520]  
+[01:12:42.520 -> 01:12:42.520]  
+[01:12:42.520 -> 01:12:42.520]  
+[01:12:42.520 -> 01:12:42.520]  
+[01:12:42.520 -> 01:12:42.520]  
+[01:12:42.520 -> 01:12:42.520]  
+[01:12:42.520 -> 01:12:42.520]  
+[01:12:42.520 -> 01:12:42.520]  
+[01:12:42.520 -> 01:12:42.520]  
+[01:12:42.520 -> 01:12:42.520]  
+[01:12:42.520 -> 01:12:42.520]  
+[01:12:42.520 -> 01:12:42.520]  
+[01:12:42.520 -> 01:12:42.520]  
+[01:12:42.520 -> 01:12:42.520]  
+[01:12:42.520 -> 01:12:42.540]  uh
+[01:12:42.540 -> 01:12:42.540]  
+[01:12:42.540 -> 01:12:42.540]  
+[01:12:42.540 -> 01:12:42.540]  
+[01:12:42.540 -> 01:12:42.540]  
+[01:12:42.540 -> 01:12:42.540]  
+[01:12:42.540 -> 01:12:42.540]  
+[01:12:42.540 -> 01:12:42.540]  
+[01:12:42.540 -> 01:12:42.540]  
+[01:12:42.540 -> 01:12:42.540]  
+[01:12:42.540 -> 01:12:42.540]  
+[01:12:42.540 -> 01:12:42.580]  uh
+[01:12:42.580 -> 01:12:42.580]  
+[01:12:42.580 -> 01:12:42.580]  
+[01:12:42.580 -> 01:12:42.580]  
+[01:12:42.580 -> 01:12:42.580]  
+[01:12:42.580 -> 01:12:42.580]  
+[01:12:42.580 -> 01:12:42.580]  
+[01:12:42.580 -> 01:12:42.580]  
+[01:12:42.580 -> 01:12:42.580]  
+[01:12:42.580 -> 01:12:42.580]  
+[01:12:42.580 -> 01:12:42.580]  
+[01:12:42.580 -> 01:12:42.580]  
+[01:12:42.580 -> 01:12:42.580]  
+[01:12:42.580 -> 01:12:42.580]  
+[01:12:42.580 -> 01:12:42.580]  
+[01:12:42.580 -> 01:12:42.580]  
+[01:12:42.580 -> 01:12:42.580]  
+[01:12:42.580 -> 01:12:42.580]  
+[01:12:42.580 -> 01:12:42.580]  
+[01:12:42.580 -> 01:12:42.580]  
+[01:12:42.580 -> 01:12:42.580]  
+[01:12:42.580 -> 01:12:42.580]  
+[01:12:42.580 -> 01:12:42.580]  
+[01:12:52.180 -> 01:12:53.580]  Music
+[01:12:53.580 -> 01:12:53.580]  
+[01:12:53.580 -> 01:12:53.580]  
+[01:12:53.580 -> 01:12:53.580]  
+[01:12:53.580 -> 01:12:53.580]  
+[01:12:53.580 -> 01:12:53.580]  
+[01:12:53.580 -> 01:12:53.580]  
+[01:12:53.580 -> 01:12:53.580]  
+[01:12:53.580 -> 01:12:53.580]  
+[01:12:53.580 -> 01:12:53.780]  Music
+[01:12:53.780 -> 01:12:53.780]  
+[01:12:54.740 -> 01:12:54.900]  Music
+[01:12:54.900 -> 01:12:54.900]  
+[01:12:54.900 -> 01:12:54.900]  
+[01:12:54.900 -> 01:12:54.900]  
+[01:12:54.900 -> 01:12:54.900]  
+[01:12:54.900 -> 01:12:54.900]  
+[01:12:54.900 -> 01:12:54.900]  
+[01:12:54.900 -> 01:12:54.900]  
+[01:12:54.900 -> 01:12:54.900]  
+[01:12:54.900 -> 01:12:54.900]  
+[01:12:54.900 -> 01:12:54.900]  
+[01:12:54.900 -> 01:12:54.900]  
+[01:12:54.900 -> 01:12:54.900]  
+[01:12:54.900 -> 01:12:54.900]  
+[01:12:54.900 -> 01:12:54.900]  
+[01:12:54.900 -> 01:12:54.900]  
+[01:12:54.900 -> 01:12:54.900]  
+[01:12:54.900 -> 01:12:54.900]  
+[01:12:54.900 -> 01:12:54.900]  
+[01:12:54.900 -> 01:12:54.900]  
+[01:12:54.900 -> 01:12:54.900]  
+[01:12:54.900 -> 01:12:54.900]  
+[01:12:54.900 -> 01:12:54.900]  
+[01:12:54.900 -> 01:12:54.940]  Music
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:12:54.940 -> 01:12:54.940]  
+[01:13:09.440 -> 01:13:10.840]  !
+[01:13:10.840 -> 01:13:11.640]  Music
+[01:13:11.640 -> 01:13:11.640]  
+[01:12:54.740 -> 01:12:54.740]  
+[01:12:54.740 -> 01:12:54.740]  
+[01:13:17.120 -> 01:13:20.300]  Make the doctor afraid.
+[01:13:51.760 -> 01:14:10.860]  Gr plot comma g0 g plus plus and modulo.
+[01:14:15.560 -> 01:14:31.240]  Eye on the eye is the height divided by the count.
+[01:14:45.760 -> 01:14:46.760]  Let's make it red.
+[01:14:52.680 -> 01:14:55.840]  What is DC?
+[01:14:57.420 -> 01:14:59.260]  DC, GRDC.
+[01:15:18.920 -> 01:15:20.440]  I don't see any.
+[01:15:20.440 -> 01:15:21.160]  What?
+[01:15:45.300 -> 01:15:48.120]  What is DC?
+[01:15:53.640 -> 01:15:54.680]  What?
+[01:15:55.000 -> 01:15:55.500]  What?
+[01:15:55.500 -> 01:15:55.540]  What?
+[01:15:55.540 -> 01:15:56.880]  What?
+[01:15:56.880 -> 01:15:57.500]  What?
+[01:15:57.500 -> 01:15:57.640]  What?
+[01:16:12.860 -> 01:16:14.260]  What?
+[01:16:26.200 -> 01:16:40.800]  Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music
+[01:16:50.900 -> 01:16:58.040]  GR pin width equals 3.
+[01:17:01.920 -> 01:17:06.100]  GR DC pin width equals 3.
+[01:17:06.740 -> 01:17:09.100]  We have to do plot 3 for that.
+[01:17:12.720 -> 01:17:13.000]  Music
+[01:17:13.000 -> 01:17:13.000]  
+[01:17:13.000 -> 01:17:13.000]  
+[01:17:13.000 -> 01:17:13.060]  Music
+[01:17:13.060 -> 01:17:13.060]  
+[01:17:13.060 -> 01:17:13.060]  
+[01:17:13.060 -> 01:17:13.060]  
+[01:17:13.060 -> 01:17:13.060]  
+[01:17:13.060 -> 01:17:13.520]  Music
+[01:17:24.260 -> 01:17:24.540]  Music
+[01:17:24.540 -> 01:17:24.540]  
+[01:17:24.540 -> 01:17:24.540]  
+[01:17:24.540 -> 01:17:24.740]  Music
+[01:17:24.740 -> 01:17:24.740]  
+[01:17:24.740 -> 01:17:24.740]  
+[01:17:24.740 -> 01:17:24.740]  
+[01:17:24.740 -> 01:17:24.740]  
+[01:17:24.740 -> 01:17:24.740]  
+[01:17:24.740 -> 01:17:24.740]  
+[01:17:24.740 -> 01:17:24.740]  
+[01:17:24.740 -> 01:17:24.960]  Music
+[01:17:24.960 -> 01:17:24.960]  
+[01:17:24.960 -> 01:17:24.960]  
+[01:17:24.960 -> 01:17:24.960]  
+[01:17:24.960 -> 01:17:24.960]  
+[01:17:24.960 -> 01:17:24.960]  
+[01:17:24.960 -> 01:17:24.980]  Music
+[01:17:24.980 -> 01:17:25.000]  Music
+[01:17:25.000 -> 01:17:25.020]  Music
+[01:17:25.020 -> 01:17:25.040]  Music
+[01:17:25.040 -> 01:17:25.060]  Music
+[01:17:25.060 -> 01:17:25.080]  Music
+[01:17:25.080 -> 01:17:25.220]  Music
+[01:17:25.220 -> 01:17:25.220]  
+[01:17:25.220 -> 01:17:25.220]  
+[01:17:25.220 -> 01:17:25.220]  
+[01:17:25.220 -> 01:17:25.220]  
+[01:17:25.220 -> 01:17:25.220]  
+[01:17:25.220 -> 01:17:25.740]  Music
+[01:17:25.740 -> 01:17:25.740]  
+[01:17:25.740 -> 01:17:25.740]  
+[01:17:34.240 -> 01:17:34.520]  Music
+[01:17:34.520 -> 01:17:34.980]  Music
+[01:17:34.980 -> 01:17:34.980]  
+[01:17:34.980 -> 01:17:34.980]  
+[01:17:34.980 -> 01:17:34.980]  
+[01:17:34.980 -> 01:17:34.980]  
+[01:17:34.980 -> 01:17:35.040]  Music
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:35.040 -> 01:17:35.040]  
+[01:17:48.480 -> 01:17:50.320]  You're a retard.
+[01:18:32.700 -> 01:18:33.440]  You're a retard.
+[01:19:03.280 -> 01:19:03.500]  You're a retard.
+[01:19:20.520 -> 01:19:33.340]  You're a retard.
+[01:19:34.560 -> 01:19:36.580]  Let's see how many downloads I have.
+[01:19:48.120 -> 01:19:58.800]  Let's see how many downloads I have.
+[01:19:58.800 -> 01:20:00.400]  You have just 16 colors.
+[01:20:02.760 -> 01:20:06.200]  I made a Kessel Frankenstein.
+[01:20:30.000 -> 01:20:31.400]  Anyway.
+[01:20:31.400 -> 01:20:41.180]  Let's see how many downloads I have.
+[01:20:41.180 -> 01:21:11.160]  Let's see how many downloads I have.
+[01:21:12.180 -> 01:21:13.760]  I think it's bogus.
+[01:21:17.600 -> 01:21:19.560]  I think I'm in a prison or something.
+[01:21:19.560 -> 01:21:25.060]  I think I'm in a prison.
+[01:21:25.060 -> 01:21:26.080]  Mental hospital.
+[01:21:26.360 -> 01:21:27.020]  Outpatient.
+[01:21:27.280 -> 01:21:27.820]  Some shit.
+[01:21:28.460 -> 01:21:29.080]  CIA.
+[01:21:32.180 -> 01:21:34.740]  Fucking retard niggers.
+[01:21:45.880 -> 01:22:04.600]  Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music
+[01:22:29.380 -> 01:22:30.980]  What's going on there?
+[01:22:31.840 -> 01:22:33.060]  Michael Davis.
+[01:22:33.060 -> 01:22:35.100]  I'm Terry Davis.
+[01:22:36.140 -> 01:22:42.100]  I think they're talking about the flame.
+[01:22:43.040 -> 01:22:44.040]  What are they talking about?
+[01:23:12.440 -> 01:23:13.740]  What are they talking about?
+[01:23:13.740 -> 01:23:14.020]  What are they talking about?
+[01:23:14.020 -> 01:23:20.980]  What are they talking about?
+[01:23:20.980 -> 01:23:25.540]  So God's against immigration, right?
+[01:23:26.020 -> 01:23:27.140]  Right, Mr. God.
+[01:23:27.140 -> 01:23:36.220]  What are they talking about?
+[01:24:00.080 -> 01:24:06.200]  What are they talking about?
+[01:24:06.200 -> 01:24:28.280]  What are they talking about?
+[01:24:37.020 -> 01:24:38.800]  What are they talking about?
+[01:24:38.840 -> 01:24:39.360]  What are they talking about?
+[01:24:50.780 -> 01:24:54.920]  What are they talking about?
+[01:25:17.680 -> 01:25:20.860]  What are they talking about?
+[01:25:23.680 -> 01:25:24.580]  What are they talking about?
+[01:25:24.880 -> 01:25:24.900]  What are they talking about?
+[01:25:53.700 -> 01:25:54.740]  What are they talking about?
+[01:25:54.860 -> 01:25:54.880]  What are they talking about?
+[01:25:54.880 -> 01:25:54.880]  
+[01:26:11.800 -> 01:26:23.860]  What are they talking about?
+[01:26:23.860 -> 01:26:32.940]  What are they talking about?
+[01:26:39.160 -> 01:26:52.020]  What are they talking about?
+[01:26:54.140 -> 01:27:09.100]  What are they talking about?
+[01:27:09.100 -> 01:27:25.680]  What are they talking about?
+[01:27:25.680 -> 01:27:27.860]  duck's neck. Fucking retard nigger.
+[01:27:28.800 -> 01:27:29.680]  It's God.
+[01:27:29.860 -> 01:27:31.620]  The same God that talked in the fucking
+[01:27:31.620 -> 01:27:32.100]  Bible.
+[01:27:33.940 -> 01:27:35.640]  The same God that talked
+[01:27:35.640 -> 01:27:37.040]  in the Greek oracle.
+[01:27:38.920 -> 01:27:41.300]  What do you think they were doing?
+[01:27:49.940 -> 01:27:51.400]  God comes from
+[01:27:51.400 -> 01:27:53.500]  the occult. He does not
+[01:27:53.500 -> 01:27:54.360]  come from
+[01:27:55.920 -> 01:27:56.380]  philosophy.
+[01:27:57.460 -> 01:27:59.620]  If you're not doing miracles, it's not
+[01:27:59.620 -> 01:28:00.120]  religion.
+[01:28:09.240 -> 01:28:10.080]  You can just
+[01:28:10.080 -> 01:28:11.240]  randomly watch this.
+[01:28:11.840 -> 01:28:13.340]  You can just randomly open a book.
+[01:28:17.900 -> 01:28:19.260]  Glorify God to the maximum.
+[01:28:19.660 -> 01:28:21.660]  I will give thanks to you, O Lord, among the
+[01:28:21.660 -> 01:28:23.700]  peoples. I will sing praises to you among the
+[01:28:23.700 -> 01:28:25.940]  nations. By making us in his image,
+[01:28:26.120 -> 01:28:27.820]  God gave us capacities not given
+[01:28:27.820 -> 01:28:28.880]  to other forms of life.
+[01:28:29.220 -> 01:28:31.480]  Ideally, he made us to know him, to love him, to
+[01:28:31.480 -> 01:28:33.840]  obey him. He did not put rings in our noses
+[01:28:33.840 -> 01:28:36.000]  that he might pull us around like oxen.
+[01:28:36.660 -> 01:28:37.300]  No, he
+[01:28:37.300 -> 01:28:39.320]  gave us freedom
+[01:28:39.320 -> 01:28:41.460]  to make choices. By his grace,
+[01:28:41.560 -> 01:28:43.460]  we are equipped to understand his plan because
+[01:28:43.460 -> 01:28:45.740]  we have a mind with which we can know him.
+[01:28:45.900 -> 01:28:47.720]  We are also free to love and adore him
+[01:28:47.720 -> 01:28:48.760]  because we have emotions.
+[01:28:48.760 -> 01:28:51.480]  He takes pleasure in our affection and devotion.
+[01:28:51.760 -> 01:28:55.480]  We can obey his instructions, but we are not pawns in a global chessboard.
+[01:28:55.700 -> 01:29:00.260]  It is in the voluntary spontaneity of our response that he finds divine pleasure.
+[01:29:00.460 -> 01:29:06.680]  When his people freely respond in worship, praise, obedience, and adoration, God is glorified to the maximum.
+[01:29:09.400 -> 01:29:13.820]  Just talk to God for five minutes, being witty and charming.
+[01:29:14.260 -> 01:29:20.820]  Maybe tell a joke or something, and then randomly open the Bible or a book.
+[01:29:20.820 -> 01:29:20.900]  Maybe tell a joke.
+[01:29:51.820 -> 01:29:52.140]  Music
+[01:29:52.140 -> 01:29:52.260]  Music
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:52.260 -> 01:29:52.260]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:29:54.980 -> 01:29:54.980]  
+[01:30:29.540 -> 01:30:29.660]  Music
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.660]  
+[01:30:29.660 -> 01:30:29.720]  !
+[01:30:29.720 -> 01:30:29.720]  
+[01:30:29.720 -> 01:30:29.720]  
+[01:30:29.720 -> 01:30:29.720]  
+[01:30:29.720 -> 01:30:29.720]  
+[01:30:29.720 -> 01:30:29.720]  
+[01:30:29.720 -> 01:30:29.720]  
+[01:30:29.720 -> 01:30:29.720]  
+[01:30:29.720 -> 01:30:29.720]  
+[01:30:29.720 -> 01:30:29.720]  
+[01:30:29.720 -> 01:30:29.720]  
+[01:30:29.720 -> 01:30:29.720]  
+[01:30:50.560 -> 01:30:50.680]  !
+[01:30:50.680 -> 01:30:50.700]  Music
+[01:30:50.700 -> 01:30:50.700]  
+[01:30:50.700 -> 01:30:50.700]  
+[01:30:50.700 -> 01:30:50.720]  !
+[01:30:46.980 -> 01:30:46.980]  
+[01:30:46.980 -> 01:30:46.980]  
+[01:30:46.980 -> 01:30:46.980]  
+[01:30:46.980 -> 01:30:46.980]  
+[01:30:46.980 -> 01:30:46.980]  
+[01:30:46.980 -> 01:30:46.980]  
+[01:30:46.980 -> 01:30:46.980]  
+[01:30:46.980 -> 01:30:46.980]  
+[01:30:46.980 -> 01:30:46.980]  
+[01:31:02.940 -> 01:31:06.380]  I'm trying to look for relevant
+[01:31:06.380 -> 01:31:10.560]  and put it on radio.
+[01:31:26.280 -> 01:31:27.660]  Let's see, here's my radio.
+[01:31:33.920 -> 01:31:36.780]  Tap the screen to support what you'll be listening to next.
+[01:31:37.160 -> 01:31:40.320]  Wherever you browse on our site, the audio continues uninterrupted.
+[01:31:40.940 -> 01:31:47.280]  Its Founder Circle sponsor is Barrick Gold, a mining company committed to building strong communities in all of Nevada.
+[01:31:47.600 -> 01:31:55.800]  Barrick Gold proudly sponsors the Public Education Foundation in its work to bring about transformational change to teaching, learning, and education leadership.
+[01:31:55.800 -> 01:32:09.600]  Support also comes from the Orleans Arena, presenting Star Trek The Ultimate Voyage, Monday, April 4th, with a live symphony orchestra performing music from the franchise history while film and TV footage is simultaneously projected on screen.
+[01:32:09.600 -> 01:32:12.920]  Information at orleansarena.com
+[01:32:12.920 -> 01:32:19.660]  I'm Robin Young. If President Obama jams through an election year appointment, it could radically transform our country's laws.
+[01:32:19.860 -> 01:32:26.900]  Republicans are stopping the conversation, blocking any nomination, refusing to even meet with a nominee.
+[01:32:26.900 -> 01:32:29.200]  Now that the president has named a Supreme Court.
+[01:32:49.780 -> 01:32:53.820]  The difference between...
+[01:32:53.820 -> 01:32:55.620]  Okay, so...
+[01:32:55.620 -> 01:33:02.820]  Let's go through all the differences between HolyC and C++.
+[01:33:05.360 -> 01:33:07.200]  Okay, so...
+[01:33:08.700 -> 01:33:12.000]  First of all, you don't have header files.
+[01:33:12.000 -> 01:33:13.000]  Um...
+[01:33:13.520 -> 01:33:14.460]  The reason...
+[01:33:14.460 -> 01:33:15.020]  The reason...
+[01:33:15.020 -> 01:33:16.000]  You don't have header files...
+[01:33:19.060 -> 01:33:19.900]  Um...
+[01:33:19.900 -> 01:33:23.860]  When it boots, it calls start OS.
+[01:33:24.860 -> 01:33:26.060]  And that...
+[01:33:26.060 -> 01:33:28.820]  This is the boot task.
+[01:33:29.160 -> 01:33:31.180]  The first task is called Adam.
+[01:33:31.620 -> 01:33:33.080]  He's a special task.
+[01:33:33.360 -> 01:33:36.960]  He's the executive on Core Zero.
+[01:33:36.960 -> 01:33:39.980]  And he calls these headers.
+[01:33:42.180 -> 01:33:44.240]  And what happens is...
+[01:33:44.240 -> 01:33:46.260]  Each task has a symbol table.
+[01:33:46.980 -> 01:33:49.020]  So, Adam has a symbol table.
+[01:33:49.300 -> 01:33:50.640]  And if we say...
+[01:33:50.640 -> 01:33:52.320]  If we say...
+[01:33:52.320 -> 01:33:52.920]  Who...
+[01:33:54.360 -> 01:33:56.680]  Minus little r...
+[01:33:56.680 -> 01:33:58.860]  These are our local symbols.
+[01:33:59.640 -> 01:34:00.420]  I64i.
+[01:34:00.420 -> 01:34:03.960]  Now we have...
+[01:34:03.960 -> 01:34:05.900]  If I say...
+[01:34:05.900 -> 01:34:07.000]  U0...
+[01:34:07.000 -> 01:34:09.540]  Count...
+[01:34:09.540 -> 01:34:12.280]  I64n...
+[01:34:13.940 -> 01:34:15.340]  I64i...
+[01:34:15.340 -> 01:34:17.260]  For i equal...
+[01:34:17.260 -> 01:34:18.640]  1i...
+[01:34:18.640 -> 01:34:19.580]  Plus or equal...
+[01:34:19.580 -> 01:34:20.420]  Ni...
+[01:34:20.420 -> 01:34:22.240]  Plus plus...
+[01:34:22.240 -> 01:34:24.300]  %d...
+[01:34:24.300 -> 01:34:26.560]  i...
+[01:34:26.560 -> 01:34:28.600]  Okay, if I say...
+[01:34:28.600 -> 01:34:29.020]  Count...
+[01:34:29.020 -> 01:34:30.420]  This is a local symbol.
+[01:34:34.400 -> 01:34:36.220]  Okay, so...
+[01:34:36.220 -> 01:34:37.500]  If I say...
+[01:34:37.500 -> 01:34:38.440]  Who...
+[01:34:38.440 -> 01:34:40.020]  Minus r...
+[01:34:41.280 -> 01:34:43.120]  There's a local symbol there.
+[01:34:43.260 -> 01:34:43.880]  Count...
+[01:34:43.880 -> 01:34:46.280]  Okay, so these are like environment variables.
+[01:34:47.020 -> 01:34:48.020]  And when you...
+[01:34:48.020 -> 01:34:49.020]  Anyway...
+[01:34:49.620 -> 01:34:50.140]  Now...
+[01:34:50.140 -> 01:34:52.420]  Adam is the first task.
+[01:34:54.120 -> 01:34:54.960]  Tasks...
+[01:34:54.960 -> 01:34:56.600]  Tasks have children.
+[01:34:56.920 -> 01:34:58.540]  Adam has these...
+[01:34:58.540 -> 01:34:58.860]  We...
+[01:34:58.860 -> 01:35:00.180]  We are children of Adam.
+[01:35:00.840 -> 01:35:01.400]  Um...
+[01:35:01.400 -> 01:35:03.440]  All applications run on core zero.
+[01:35:03.820 -> 01:35:07.260]  And they do the other cores explicitly when they...
+[01:35:07.260 -> 01:35:09.520]  They give them jobs to do explicitly.
+[01:35:10.080 -> 01:35:12.000]  So everything runs on core zero.
+[01:35:12.460 -> 01:35:14.660]  There's one window per task.
+[01:35:14.680 -> 01:35:15.240]  And...
+[01:35:15.240 -> 01:35:16.100]  One...
+[01:35:16.100 -> 01:35:17.220]  Symbol table.
+[01:35:17.920 -> 01:35:18.620]  And...
+[01:35:18.620 -> 01:35:18.960]  Uh...
+[01:35:18.960 -> 01:35:20.320]  Anyway, so...
+[01:35:20.320 -> 01:35:20.880]  Um...
+[01:35:21.620 -> 01:35:24.100]  You inherit the symbols of your parents.
+[01:35:24.360 -> 01:35:26.140]  So all these inherit...
+[01:35:26.140 -> 01:35:28.320]  Inherit Adam symbols.
+[01:35:28.320 -> 01:35:29.960]  So if I say...
+[01:35:29.960 -> 01:35:30.160]  Who...
+[01:35:31.420 -> 01:35:32.100]  Recursive...
+[01:35:33.080 -> 01:35:33.760]  Um...
+[01:35:33.760 -> 01:35:35.320]  Plus r...
+[01:35:36.820 -> 01:35:39.420]  These are all the symbols in Adam's table.
+[01:35:39.840 -> 01:35:40.720]  This is what he...
+[01:35:40.720 -> 01:35:41.320]  During the boot...
+[01:35:42.000 -> 01:35:43.320]  When it booted...
+[01:35:48.640 -> 01:35:49.320]  Um...
+[01:35:59.040 -> 01:35:59.820]  Uh...
+[01:35:59.820 -> 01:36:01.060]  It included...
+[01:36:01.060 -> 01:36:01.180]  Uh...
+[01:36:01.180 -> 01:36:01.180]  
+[01:36:01.180 -> 01:36:01.720]  Uh...
+[01:36:01.720 -> 01:36:05.420]  It starts in the root directory under start OS.
+[01:36:05.880 -> 01:36:07.140]  And it calls...
+[01:36:07.140 -> 01:36:07.580]  Uh...
+[01:36:07.580 -> 01:36:09.360]  The atom directory make...
+[01:36:09.360 -> 01:36:12.480]  If you look at the directory tree...
+[01:36:12.480 -> 01:36:14.180]  The atom directory...
+[01:36:14.180 -> 01:36:16.360]  All this code is compiled...
+[01:36:16.360 -> 01:36:18.740]  And stored in Adam's tables.
+[01:36:19.620 -> 01:36:20.040]  So...
+[01:36:20.040 -> 01:36:21.060]  Um...
+[01:36:21.060 -> 01:36:22.360]  Basically...
+[01:36:22.360 -> 01:36:25.340]  The kernel has some header files.
+[01:36:26.320 -> 01:36:29.360]  And the compiler has some header files.
+[01:36:32.980 -> 01:36:33.740]  Uh...
+[01:36:33.740 -> 01:36:34.060]  And...
+[01:36:34.060 -> 01:36:34.760]  Uh...
+[01:36:34.760 -> 01:36:37.400]  There's a kernel bin and a compiler bin.
+[01:36:38.080 -> 01:36:38.800]  Those are...
+[01:36:38.800 -> 01:36:40.420]  That's half the operating system.
+[01:36:40.580 -> 01:36:42.880]  The other half of the operating system is in Adam.
+[01:36:43.560 -> 01:36:44.320]  And...
+[01:36:44.320 -> 01:36:45.580]  Um...
+[01:36:45.580 -> 01:36:47.140]  It calls make...
+[01:36:47.140 -> 01:36:48.360]  Make Adam...
+[01:36:49.620 -> 01:36:50.380]  Um...
+[01:36:50.380 -> 01:36:51.540]  When it boots...
+[01:36:51.540 -> 01:36:52.440]  It calls make Adam.
+[01:36:52.760 -> 01:36:54.620]  And this includes...
+[01:36:54.620 -> 01:36:55.320]  All the...
+[01:36:56.320 -> 01:36:56.960]  Um...
+[01:36:56.960 -> 01:36:58.580]  All the stuff in the atom directory.
+[01:36:58.940 -> 01:37:01.060]  So what we can do is we can...
+[01:37:01.060 -> 01:37:01.620]  Uh...
+[01:37:01.620 -> 01:37:02.860]  We can echo...
+[01:37:02.860 -> 01:37:03.980]  During boot.
+[01:37:06.420 -> 01:37:07.060]  And...
+[01:37:07.060 -> 01:37:07.300]  Uh...
+[01:37:07.300 -> 01:37:08.380]  Let's reboot now.
+[01:37:08.780 -> 01:37:11.280]  I'll go ahead and just show you...
+[01:37:11.280 -> 01:37:11.380]  Reboot.
+[01:37:13.400 -> 01:37:15.840]  Now it's gonna echo the code it's compiling.
+[01:37:16.240 -> 01:37:18.600]  So there's 40,000...
+[01:37:18.600 -> 01:37:18.880]  Uh...
+[01:37:18.880 -> 01:37:20.780]  Lines of code in the atom directory.
+[01:37:21.400 -> 01:37:22.160]  And...
+[01:37:22.160 -> 01:37:23.420]  Those header files...
+[01:37:23.420 -> 01:37:25.480]  Got stored in the symbol table.
+[01:37:25.940 -> 01:37:26.600]  And then...
+[01:37:27.620 -> 01:37:28.380]  Um...
+[01:37:28.380 -> 01:37:29.340]  The...
+[01:37:29.340 -> 01:37:30.320]  Uh...
+[01:37:30.320 -> 01:37:31.200]  The headers...
+[01:37:31.200 -> 01:37:32.120]  Or the...
+[01:37:32.120 -> 01:37:32.660]  Those...
+[01:37:32.660 -> 01:37:34.040]  Those functions got stored.
+[01:37:34.720 -> 01:37:35.480]  So...
+[01:37:35.480 -> 01:37:36.620]  Uh...
+[01:37:38.280 -> 01:37:39.900]  So if we...
+[01:37:39.900 -> 01:37:40.020]  Uh...
+[01:37:40.020 -> 01:37:41.600]  If we do a who...
+[01:37:42.520 -> 01:37:43.980]  Plus recursive.
+[01:37:44.100 -> 01:37:44.800]  That's for Adam.
+[01:37:44.800 -> 01:37:46.000]  Um...
+[01:37:47.040 -> 01:37:49.060]  All these files are...
+[01:37:49.060 -> 01:37:49.920]  All these...
+[01:37:49.920 -> 01:37:50.880]  Uh...
+[01:37:50.880 -> 01:37:52.320]  Symbols are in his table.
+[01:37:52.840 -> 01:37:53.320]  So you...
+[01:37:53.320 -> 01:37:54.140]  Now...
+[01:37:54.800 -> 01:37:55.900]  That means you can...
+[01:37:55.900 -> 01:37:57.220]  You can use them all.
+[01:37:58.920 -> 01:37:59.680]  Um...
+[01:37:59.680 -> 01:37:59.800]  So...
+[01:38:00.780 -> 01:38:01.120]  Uh...
+[01:38:01.120 -> 01:38:02.800]  Let's go to the...
+[01:38:06.340 -> 01:38:07.900]  These are the differences.
+[01:38:08.780 -> 01:38:08.900]  So...
+[01:38:09.420 -> 01:38:09.860]  Um...
+[01:38:09.860 -> 01:38:11.320]  You never need header files.
+[01:38:13.120 -> 01:38:13.760]  Uh...
+[01:38:14.680 -> 01:38:15.320]  Uh...
+[01:38:15.320 -> 01:38:16.680]  These are the integers.
+[01:38:17.000 -> 01:38:17.300]  And...
+[01:38:17.300 -> 01:38:17.800]  There's a...
+[01:38:17.800 -> 01:38:19.960]  There's a 64-bit double...
+[01:38:19.960 -> 01:38:21.020]  Float.
+[01:38:21.160 -> 01:38:22.520]  But no 32-bit.
+[01:38:23.260 -> 01:38:24.180]  If you...
+[01:38:24.180 -> 01:38:25.300]  It's like C++.
+[01:38:25.480 -> 01:38:27.380]  You can have default arguments.
+[01:38:27.680 -> 01:38:29.540]  You can even have a...
+[01:38:30.200 -> 01:38:31.980]  Default argument at the beginning.
+[01:38:32.580 -> 01:38:34.840]  C++ only allows them on the end.
+[01:38:34.840 -> 01:38:37.640]  But here you can have a default on the beginning.
+[01:38:41.000 -> 01:38:41.520]  So...
+[01:38:42.320 -> 01:38:42.840]  Uh...
+[01:38:42.840 -> 01:38:43.460]  Print F.
+[01:38:43.600 -> 01:38:44.300]  There's a shortcut.
+[01:38:44.700 -> 01:38:45.240]  If you just...
+[01:38:45.240 -> 01:38:45.580]  If you...
+[01:38:45.580 -> 01:38:47.400]  When it encounters a string...
+[01:38:47.400 -> 01:38:48.540]  That's a print.
+[01:38:48.800 -> 01:38:50.700]  When it encounters an opcode...
+[01:38:50.700 -> 01:38:51.940]  That's an assembly instruction.
+[01:38:52.880 -> 01:38:53.400]  Anyway...
+[01:38:53.400 -> 01:38:54.140]  So...
+[01:38:54.140 -> 01:38:54.340]  Um...
+[01:38:54.340 -> 01:38:55.620]  You have to put an address...
+[01:38:55.620 -> 01:38:56.840]  Before a function...
+[01:38:58.000 -> 01:38:58.520]  Um...
+[01:38:58.520 -> 01:38:59.040]  Function.
+[01:38:59.040 -> 01:38:59.660]  If you want...
+[01:38:59.660 -> 01:39:01.440]  If you want the address of a function...
+[01:39:01.440 -> 01:39:02.080]  Put an address.
+[01:39:02.080 -> 01:39:03.740]  In normal C...
+[01:39:03.740 -> 01:39:04.980]  You don't have to put an address.
+[01:39:06.220 -> 01:39:06.780]  Um...
+[01:39:06.780 -> 01:39:08.200]  Typecasting is postfix.
+[01:39:08.360 -> 01:39:09.520]  You can just read this.
+[01:39:10.020 -> 01:39:10.540]  Um...
+[01:39:10.540 -> 01:39:11.320]  It's on the website.
+[01:39:11.660 -> 01:39:12.140]  Or...
+[01:39:12.140 -> 01:39:13.020]  Anyway...
+[01:39:13.020 -> 01:39:14.380]  There's no main...
+[01:39:15.600 -> 01:39:16.160]  Uh...
+[01:39:19.360 -> 01:39:19.920]  So...
+[01:39:19.920 -> 01:39:21.160]  There's no main...
+[01:39:21.160 -> 01:39:22.840]  Any function that can be main.
+[01:39:27.440 -> 01:39:28.000]  Uh...
+[01:39:30.180 -> 01:39:31.600]  You can have...
+[01:39:31.600 -> 01:39:31.800]  Uh...
+[01:39:31.800 -> 01:39:32.940]  You can access...
+[01:39:33.660 -> 01:39:35.200]  There's no bit fields...
+[01:39:35.200 -> 01:39:37.320]  But you can access bytes off of a...
+[01:39:37.320 -> 01:39:38.320]  Off of an integer.
+[01:39:40.040 -> 01:39:40.600]  Um...
+[01:39:40.600 -> 01:39:41.080]  There's...
+[01:39:41.080 -> 01:39:41.840]  There's variadatic...
+[01:39:42.600 -> 01:39:43.480]  Or whatever you call that.
+[01:39:43.760 -> 01:39:44.240]  Um...
+[01:39:44.240 -> 01:39:45.980]  If you have dot dot dot...
+[01:39:45.980 -> 01:39:46.560]  Then...
+[01:39:46.560 -> 01:39:50.200]  Just like the this variable in C++...
+[01:39:50.200 -> 01:39:52.580]  There's an arg C and an arg V...
+[01:39:52.580 -> 01:39:53.620]  Just like the this.
+[01:39:54.100 -> 01:39:56.560]  And that's for accessing the...
+[01:39:56.560 -> 01:39:56.560]  
+[01:39:56.560 -> 01:39:57.180]  Dot dot dots.
+[01:40:00.500 -> 01:40:01.020]  Um...
+[01:40:01.020 -> 01:40:02.100]  You can do...
+[01:40:02.100 -> 01:40:02.600]  Can...
+[01:40:03.180 -> 01:40:03.700]  If...
+[01:40:03.700 -> 01:40:06.200]  You can have an upper and lower bound on an if...
+[01:40:07.340 -> 01:40:07.860]  Statement.
+[01:40:08.080 -> 01:40:10.600]  If 13 is less than or equal to age less than 20.
+[01:40:10.800 -> 01:40:11.360]  Print teenager.
+[01:40:11.360 -> 01:40:14.480]  There's a fast switch which...
+[01:40:14.480 -> 01:40:15.640]  Um...
+[01:40:15.640 -> 01:40:17.440]  Doesn't do a check out of bounds.
+[01:40:18.360 -> 01:40:20.160]  They always use a...
+[01:40:20.160 -> 01:40:20.940]  Um...
+[01:40:20.940 -> 01:40:21.760]  A jump table.
+[01:40:22.600 -> 01:40:24.760]  You can have dot dot dot...
+[01:40:24.760 -> 01:40:26.580]  For range of...
+[01:40:26.580 -> 01:40:28.360]  There's a sub switch...
+[01:40:29.680 -> 01:40:30.480]  Um...
+[01:40:30.480 -> 01:40:31.300]  Which is...
+[01:40:31.300 -> 01:40:32.560]  Uh...
+[01:40:33.920 -> 01:40:36.620]  You can have common code for...
+[01:40:36.620 -> 01:40:37.120]  Uh...
+[01:40:37.120 -> 01:40:38.380]  Some of the cases.
+[01:40:40.460 -> 01:40:41.260]  Uh...
+[01:40:41.940 -> 01:40:42.760]  You can...
+[01:40:42.760 -> 01:40:44.260]  You can use pad over and over...
+[01:40:44.800 -> 01:40:46.620]  Without a name conflict.
+[01:40:52.400 -> 01:40:54.260]  You can put assembly code...
+[01:40:55.040 -> 01:40:55.680]  Oh, well that...
+[01:40:55.680 -> 01:40:56.260]  You don't even need...
+[01:40:56.800 -> 01:40:57.380]  Uh...
+[01:40:57.380 -> 01:40:58.260]  To bracket it.
+[01:40:58.340 -> 01:41:00.260]  It recognizes the op codes.
+[01:41:00.700 -> 01:41:01.800]  You can have an...
+[01:41:01.800 -> 01:41:03.440]  You can declare an interrupt routine.
+[01:41:06.040 -> 01:41:07.920]  You can put...
+[01:41:07.920 -> 01:41:08.500]  Um...
+[01:41:08.500 -> 01:41:10.160]  In assembly you can put...
+[01:41:10.160 -> 01:41:13.320]  Up to eight characters together into a...
+[01:41:13.320 -> 01:41:14.740]  Or...
+[01:41:16.000 -> 01:41:17.720]  With a single quote.
+[01:41:18.000 -> 01:41:18.620]  It's a...
+[01:41:18.620 -> 01:41:18.760]  Um...
+[01:41:18.760 -> 01:41:19.240]  Integer.
+[01:41:20.120 -> 01:41:20.700]  Um...
+[01:41:20.700 -> 01:41:22.640]  You know how in assembly you like...
+[01:41:22.640 -> 01:41:23.440]  Anyway...
+[01:41:25.960 -> 01:41:26.900]  There's a...
+[01:41:26.900 -> 01:41:27.100]  There's a...
+[01:41:27.100 -> 01:41:28.000]  Power...
+[01:41:28.000 -> 01:41:29.100]  Function...
+[01:41:29.100 -> 01:41:29.680]  Or the...
+[01:41:29.680 -> 01:41:31.620]  Power operator...
+[01:41:31.620 -> 01:41:31.920]  Um...
+[01:41:32.440 -> 01:41:32.560]  Back...
+[01:41:32.560 -> 01:41:34.320]  Forward slash...
+[01:41:34.320 -> 01:41:35.040]  What?
+[01:41:35.240 -> 01:41:35.900]  What is that?
+[01:41:36.000 -> 01:41:36.400]  Back...
+[01:41:36.400 -> 01:41:38.080]  Backward apostrophe...
+[01:41:38.080 -> 01:41:38.900]  Whatever is...
+[01:41:38.900 -> 01:41:39.500]  Is a...
+[01:41:39.500 -> 01:41:40.800]  To the power of...
+[01:41:40.800 -> 01:41:42.620]  So like if you want...
+[01:41:42.620 -> 01:41:43.440]  Uh...
+[01:41:46.020 -> 01:41:48.380]  Three to the power of...
+[01:41:48.380 -> 01:41:48.440]  Four...
+[01:41:50.960 -> 01:41:52.160]  Is 81...
+[01:41:52.780 -> 01:41:55.240]  I changed the precedence of the operator...
+[01:41:55.240 -> 01:41:57.200]  So the bit shift is highest precedence.
+[01:41:57.440 -> 01:41:58.480]  It's a lot better.
+[01:41:58.640 -> 01:42:00.460]  You don't need parentheses as often.
+[01:42:01.400 -> 01:42:04.700]  You can execute code at compile time with...
+[01:42:04.700 -> 01:42:06.440]  Bracketing it with exe.
+[01:42:07.220 -> 01:42:08.900]  There's no defined constants.
+[01:42:09.200 -> 01:42:10.220]  There's no typedef.
+[01:42:10.340 -> 01:42:11.000]  Just use case.
+[01:42:11.460 -> 01:42:12.560]  There's no type checking.
+[01:42:12.560 -> 01:42:13.840]  Um...
+[01:42:13.840 -> 01:42:14.460]  There's no...
+[01:42:14.460 -> 01:42:15.600]  Angle brackets.
+[01:42:15.920 -> 01:42:16.360]  Just...
+[01:42:16.360 -> 01:42:17.460]  Single quotes.
+[01:42:18.040 -> 01:42:19.140]  There's no make utility.
+[01:42:19.500 -> 01:42:20.420]  You just include.
+[01:42:20.920 -> 01:42:22.320]  There's no linker.
+[01:42:22.520 -> 01:42:24.360]  You just press F5 to run it.
+[01:42:24.440 -> 01:42:25.440]  Or you include it.
+[01:42:27.700 -> 01:42:28.540]  Um...
+[01:42:28.540 -> 01:42:30.100]  Union class.
+[01:42:31.280 -> 01:42:32.680]  That's kind of a...
+[01:42:32.680 -> 01:42:34.260]  I don't feel like explaining that.
+[01:42:34.820 -> 01:42:35.240]  The...
+[01:42:35.240 -> 01:42:37.260]  The exceptions are simplified.
+[01:42:38.260 -> 01:42:38.560]  Um...
+[01:42:39.100 -> 01:42:40.560]  Basically you throw a...
+[01:42:41.220 -> 01:42:42.020]  Uh...
+[01:42:42.020 -> 01:42:42.720]  An integer.
+[01:42:46.440 -> 01:42:47.120]  Lock.
+[01:42:47.300 -> 01:42:47.920]  M-size.
+[01:42:48.200 -> 01:42:49.660]  You can get the size of a...
+[01:42:49.660 -> 01:42:51.300]  When you allocate with malloc.
+[01:42:51.300 -> 01:42:52.640]  You can get the size of it.
+[01:42:53.860 -> 01:42:54.540]  Um...
+[01:42:54.540 -> 01:42:55.180]  But...
+[01:42:55.180 -> 01:42:57.740]  You can free null multiple times.
+[01:42:59.120 -> 01:42:59.800]  Um...
+[01:42:59.800 -> 01:43:01.480]  You cannot grow the stack.
+[01:43:02.360 -> 01:43:04.860]  Only one base class is allowed.
+[01:43:06.120 -> 01:43:07.360]  Printf has new codes.
+[01:43:07.700 -> 01:43:09.320]  So there's different...
+[01:43:09.320 -> 01:43:09.480]  Uh...
+[01:43:10.020 -> 01:43:11.720]  Expanded codes for printf.
+[01:43:14.720 -> 01:43:15.580]  Um...
+[01:43:27.140 -> 01:43:29.520]  Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music
+[01:43:43.240 -> 01:43:44.700]  Flash? What are you talking about?
+[01:43:53.220 -> 01:43:54.760]  Flash? What are you talking about?
+[01:43:56.980 -> 01:44:05.980]  Flash? Why? It's a compiler. Do you know what a fucking compiler is, motherfucker? Son of a bitch. What a retard nigger.
+[01:44:10.760 -> 01:44:30.200]  Look, if I say U0 count I64N I64I for I equals 0, for I equals 1, I less or equal to N, I plus plus.
+[01:44:32.280 -> 01:44:39.820]  %d, I. And I say count to 5.
+[01:44:41.180 -> 01:45:00.500]  If I say unassemble function count, it's 64-bit assembly code. It's a motherfucking compiler. A plain, simple motherfucking compiler that sticks it right into memory so you can execute it or puts it in a flat binary so you can execute it.
+[01:45:00.500 -> 01:45:08.700]  What the fuck is your malfunction? It's a goddamn compiler. Do you know what a fucking compiler is? I didn't stutter, I said a fucking compiler.
+[01:45:08.940 -> 01:45:14.180]  It's not an interpreter, it's not Flash, none of that shit. It's a 64-bit goddamn compiler.
+[01:45:14.960 -> 01:45:16.360]  Fucking retard nigger.
+[01:45:16.360 -> 01:45:17.300]  Music
+[01:45:17.300 -> 01:45:18.540]  Music
+[01:45:18.540 -> 01:45:19.180]  Music
+[01:45:19.180 -> 01:45:21.080]  Music
+[01:45:21.080 -> 01:45:23.680]  Music
+[01:45:23.680 -> 01:45:23.720]  Music
+[01:45:23.720 -> 01:45:23.780]  Music
+[01:45:23.780 -> 01:45:24.260]  Music
+[01:45:24.260 -> 01:45:24.260]  
+[01:45:24.260 -> 01:45:26.300]  Music
+[01:45:26.300 -> 01:45:26.300]  
+[01:45:26.300 -> 01:45:26.300]  
+[01:45:26.300 -> 01:45:26.300]  
+[01:45:26.300 -> 01:45:26.300]  
+[01:45:26.300 -> 01:45:26.300]  
+[01:45:26.300 -> 01:45:26.300]  
+[01:45:26.300 -> 01:45:26.300]  
+[01:45:26.300 -> 01:45:26.300]  
+[01:45:26.300 -> 01:45:26.300]  
+[01:45:26.300 -> 01:45:26.300]  
+[01:45:26.300 -> 01:45:26.300]  
+[01:45:26.300 -> 01:45:26.300]  
+[01:45:26.300 -> 01:45:26.300]  
+[01:45:26.300 -> 01:45:26.300]  
+[01:45:26.300 -> 01:45:26.300]  
+[01:45:26.300 -> 01:45:26.320]  Music
+[01:45:26.320 -> 01:45:26.320]  
+[01:45:26.320 -> 01:45:26.320]  
+[01:45:26.320 -> 01:45:26.320]  
+[01:45:26.320 -> 01:45:26.320]  
+[01:45:26.320 -> 01:45:26.320]  
+[01:45:26.320 -> 01:45:26.320]  
+[01:45:26.320 -> 01:45:26.400]  Music
+[01:45:26.400 -> 01:45:26.400]  
+[01:45:26.400 -> 01:45:26.400]  
+[01:45:26.400 -> 01:45:26.400]  
+[01:45:26.400 -> 01:45:26.400]  
+[01:45:26.400 -> 01:45:26.400]  
+[01:45:26.400 -> 01:45:26.400]  
+[01:45:26.400 -> 01:45:26.660]  Music
+[01:45:26.660 -> 01:45:26.660]  
+[01:45:26.660 -> 01:45:26.660]  
+[01:45:26.660 -> 01:45:26.660]  
+[01:45:26.660 -> 01:45:27.120]  Music
+[01:45:27.120 -> 01:45:27.120]  
+[01:45:27.120 -> 01:45:27.120]  
+[01:45:27.120 -> 01:45:27.120]  
+[01:45:27.120 -> 01:45:27.120]  
+[01:45:27.120 -> 01:45:27.120]  
+[01:45:27.120 -> 01:45:27.600]  Music
+[01:45:27.600 -> 01:45:27.600]  
+[01:45:30.800 -> 01:45:32.160]  Music
+[01:45:32.160 -> 01:45:32.160]  
+[01:45:32.160 -> 01:45:32.160]  
+[01:45:32.160 -> 01:45:32.160]  
+[01:45:32.160 -> 01:45:32.160]  
+[01:45:32.160 -> 01:45:32.160]  
+[01:45:32.160 -> 01:45:32.880]  Music
+[01:45:32.880 -> 01:45:32.880]  
+[01:45:32.880 -> 01:45:32.880]  
+[01:45:32.880 -> 01:45:32.880]  
+[01:45:32.880 -> 01:45:32.880]  
+[01:45:32.880 -> 01:45:34.080]  Music
+[01:45:34.080 -> 01:45:34.080]  
+[01:45:34.080 -> 01:45:34.080]  
+[01:45:34.080 -> 01:45:34.080]  
+[01:45:34.080 -> 01:45:34.080]  
+[01:45:34.080 -> 01:45:34.080]  
+[01:45:34.080 -> 01:45:34.100]  Music
+[01:45:34.100 -> 01:45:34.100]  
+[01:45:34.100 -> 01:45:35.900]  Music
+[01:45:35.900 -> 01:45:35.900]  
+[01:45:35.900 -> 01:45:35.900]  
+[01:45:35.900 -> 01:45:36.080]  Music
+[01:45:51.040 -> 01:45:54.260]  This operating system is God's official temple.
+[01:45:54.540 -> 01:45:58.120]  It is divine intellect and God fucking talks.
+[01:45:58.880 -> 01:46:03.120]  It's just a matter of time until it becomes big news.
+[01:46:16.360 -> 01:46:19.360]  The volume is black and you're not fucking hot.
+[01:46:19.700 -> 01:46:22.040]  The volume is black.
+[01:46:29.660 -> 01:46:32.100]  No type checking. I don't like type checking.
+[01:46:36.380 -> 01:46:38.320]  I get this so often.
+[01:46:38.600 -> 01:46:40.120]  The poor kids today.
+[01:46:40.120 -> 01:46:47.620]  We all learned 6502 assembly code when we were with our Commodore 64s.
+[01:46:47.780 -> 01:46:49.760]  The kids today are clueless.
+[01:46:52.500 -> 01:46:58.040]  So if you go to my lectures on the distribution, there's a mini compiler.
+[01:46:58.480 -> 01:47:01.840]  What it does, let me show you.
+[01:47:01.840 -> 01:47:03.380]  This is a...
+[01:47:05.700 -> 01:47:11.240]  You enter an integer expression 3 plus 4 times 5.
+[01:47:11.800 -> 01:47:13.740]  This is a stack machine.
+[01:47:14.000 -> 01:47:14.940]  Push 1.
+[01:47:16.000 -> 01:47:17.420]  Push 3.
+[01:47:18.640 -> 01:47:20.100]  Push 4.
+[01:47:20.600 -> 01:47:22.320]  Pop 3 and 4.
+[01:47:22.560 -> 01:47:23.260]  Add.
+[01:47:23.500 -> 01:47:25.000]  Push 7.
+[01:47:25.940 -> 01:47:27.380]  Push 5.
+[01:47:27.380 -> 01:47:29.660]  Pop 5 and 7.
+[01:47:30.120 -> 01:47:31.040]  Multiply.
+[01:47:31.180 -> 01:47:31.640]  35.
+[01:47:32.620 -> 01:47:33.900]  Push 35.
+[01:47:34.720 -> 01:47:35.920]  Pop 35.
+[01:47:36.420 -> 01:47:37.240]  Pop 1.
+[01:47:38.020 -> 01:47:38.320]  Add.
+[01:47:38.860 -> 01:47:39.780]  36.
+[01:47:40.320 -> 01:47:43.640]  This is machine code over here.
+[01:47:44.240 -> 01:47:46.320]  64-bit machine code.
+[01:47:47.280 -> 01:47:49.300]  If you want, we can go...
+[01:47:49.300 -> 01:47:53.960]  I can explain to you how you code instructions for a 65...
+[01:47:53.960 -> 01:47:54.540]  For a...
+[01:47:55.240 -> 01:47:55.240]  
+[01:47:55.240 -> 01:47:55.960]  X86-64...
+[01:47:56.780 -> 01:47:58.080]  We go to...
+[01:48:03.940 -> 01:48:06.400]  If you go to the...
+[01:48:06.400 -> 01:48:07.960]  Architecture manual...
+[01:48:08.600 -> 01:48:09.960]  From Intel...
+[01:48:16.220 -> 01:48:17.960]  Fucking kids...
+[01:48:18.620 -> 01:48:20.000]  Have no respect.
+[01:48:20.300 -> 01:48:21.400]  And they're clueless.
+[01:48:24.600 -> 01:48:26.420]  Let's look for the...
+[01:48:26.420 -> 01:48:27.400]  Push instruction.
+[01:48:38.260 -> 01:48:39.520]  Push pop.
+[01:48:39.860 -> 01:48:40.240]  Pop.
+[01:48:46.120 -> 01:48:47.100]  Push.
+[01:48:47.700 -> 01:48:49.460]  Okay, so...
+[01:48:49.460 -> 01:48:51.220]  50 plus the register.
+[01:48:51.220 -> 01:48:53.480]  So if we go over here...
+[01:48:54.780 -> 01:48:57.620]  Push 50 plus A...
+[01:48:58.200 -> 01:48:58.220]  Is...
+[01:48:58.880 -> 01:48:59.980]  That's pop.
+[01:49:00.580 -> 01:49:01.980]  Push is 50.
+[01:49:02.200 -> 01:49:03.020]  That's RAX.
+[01:49:03.420 -> 01:49:05.000]  50 is RAX.
+[01:49:05.100 -> 01:49:06.040]  50 is RAX.
+[01:49:06.140 -> 01:49:07.040]  50 is RAX.
+[01:49:07.200 -> 01:49:09.200]  So it's making the code.
+[01:49:09.520 -> 01:49:10.960]  This isn't very hard.
+[01:49:12.640 -> 01:49:14.180]  If we go to pop...
+[01:49:16.520 -> 01:49:18.380]  58 plus the register.
+[01:49:19.940 -> 01:49:20.700]  So...
+[01:49:21.680 -> 01:49:23.380]  D is 3...
+[01:49:25.260 -> 01:49:26.260]  Hold on.
+[01:49:26.420 -> 01:49:27.160]  Yeah, D is 3.
+[01:49:28.220 -> 01:49:29.740]  BX is...
+[01:49:29.740 -> 01:49:30.120]  No.
+[01:49:30.640 -> 01:49:31.980]  B is...
+[01:49:31.980 -> 01:49:33.200]  That's 5...
+[01:49:33.200 -> 01:49:33.820]  8...
+[01:49:33.820 -> 01:49:34.180]  And...
+[01:49:34.180 -> 01:49:34.320]  What?
+[01:49:34.500 -> 01:49:35.400]  That's not 5.
+[01:49:36.180 -> 01:49:36.940]  8...
+[01:49:36.940 -> 01:49:37.780]  And B is 3.
+[01:49:38.060 -> 01:49:39.280]  Okay, BX is 3.
+[01:49:39.800 -> 01:49:40.980]  D is...
+[01:49:40.980 -> 01:49:43.400]  This is an XOR instruction.
+[01:49:43.400 -> 01:49:44.660]  Um...
+[01:49:44.660 -> 01:49:45.620]  You have to do...
+[01:49:45.620 -> 01:49:46.440]  Uh...
+[01:49:46.440 -> 01:49:48.640]  If you want to code XOR...
+[01:49:48.640 -> 01:49:49.520]  Um...
+[01:49:49.520 -> 01:49:51.240]  XOR DX DX...
+[01:49:51.240 -> 01:49:52.840]  What you do is...
+[01:49:52.840 -> 01:49:53.560]  Uh...
+[01:49:54.160 -> 01:49:55.400]  You go to...
+[01:49:58.560 -> 01:50:00.240]  Architecture 2A...
+[01:50:02.920 -> 01:50:04.600]  Instruction Format...
+[01:50:05.460 -> 01:50:08.640]  Okay, so it was a 33 for an XOR.
+[01:50:08.640 -> 01:50:09.640]  Um...
+[01:50:11.200 -> 01:50:12.600]  Um...
+[01:50:12.600 -> 01:50:15.080]  Let's...
+[01:50:15.640 -> 01:50:16.640]  Let's...
+[01:50:17.520 -> 01:50:20.480]  This is machine code.
+[01:50:22.400 -> 01:50:22.960]  Motherfucker.
+[01:50:24.400 -> 01:50:25.700]  Fucking retard.
+[01:50:25.940 -> 01:50:26.760]  MIT niggers.
+[01:50:34.920 -> 01:50:35.640]  So...
+[01:50:35.640 -> 01:50:35.840]  33.
+[01:50:36.420 -> 01:50:37.440]  What is 33?
+[01:50:37.980 -> 01:50:39.140]  We want XOR...
+[01:50:39.140 -> 01:50:40.900]  RAX, RAX...
+[01:50:40.900 -> 01:50:42.300]  No, RDX, RDX.
+[01:50:42.540 -> 01:50:43.500]  Is that what we wanted?
+[01:50:43.860 -> 01:50:47.000]  So we want 64-bit...
+[01:50:48.920 -> 01:50:49.760]  Register memory...
+[01:50:50.360 -> 01:50:51.100]  Register.
+[01:50:51.440 -> 01:50:52.760]  Okay, so...
+[01:51:07.240 -> 01:51:08.780]  There's two versions.
+[01:51:09.460 -> 01:51:10.200]  33.
+[01:51:10.900 -> 01:51:12.960]  There's, um...
+[01:51:12.960 -> 01:51:14.340]  First one first, say.
+[01:51:14.520 -> 01:51:15.300]  First one second.
+[01:51:16.040 -> 01:51:17.440]  Register memory first.
+[01:51:17.580 -> 01:51:18.460]  Register memory second.
+[01:51:18.740 -> 01:51:21.200]  So 33 slash R...
+[01:51:21.200 -> 01:51:23.200]  Is, uh...
+[01:51:25.440 -> 01:51:27.040]  So, uh...
+[01:51:28.880 -> 01:51:30.480]  There's, uh...
+[01:51:30.480 -> 01:51:33.200]  The low register is in, uh...
+[01:51:46.880 -> 01:51:47.680]  Uh...
+[01:51:47.680 -> 01:51:48.480]  I think...
+[01:51:48.480 -> 01:51:49.300]  Why is that R...
+[01:51:49.300 -> 01:51:50.000]  It's RAX.
+[01:51:50.000 -> 01:51:51.000]  It's not...
+[01:51:51.940 -> 01:51:52.580]  33.
+[01:51:57.540 -> 01:51:58.680]  Oh, D2.
+[01:51:58.860 -> 01:51:59.000]  Okay.
+[01:52:00.260 -> 01:52:00.900]  So...
+[01:52:04.040 -> 01:52:04.680]  Okay.
+[01:52:05.080 -> 01:52:07.000]  The modder is, uh...
+[01:52:07.980 -> 01:52:10.500]  So it's 33 is the first byte of the opcode.
+[01:52:10.680 -> 01:52:13.480]  And then the modder is a slash R.
+[01:52:13.480 -> 01:52:14.480]  So you put the register...
+[01:52:15.900 -> 01:52:16.040]  So you put the register...
+[01:52:16.040 -> 01:52:16.480]  For, uh...
+[01:52:17.800 -> 01:52:19.840]  For the DX register...
+[01:52:19.840 -> 01:52:20.480]  It goes...
+[01:52:21.140 -> 01:52:21.480]  RAX...
+[01:52:22.380 -> 01:52:22.480]  R...
+[01:52:23.340 -> 01:52:23.480]  DX...
+[01:52:24.560 -> 01:52:25.580]  R...
+[01:52:25.580 -> 01:52:26.700]  AX...
+[01:52:26.700 -> 01:52:27.240]  CX...
+[01:52:27.240 -> 01:52:27.920]  DX...
+[01:52:27.920 -> 01:52:28.740]  BX.
+[01:52:28.980 -> 01:52:29.860]  So...
+[01:52:29.860 -> 01:52:31.040]  D is number two.
+[01:52:31.720 -> 01:52:32.480]  So, um...
+[01:52:33.120 -> 01:52:35.480]  The modder byte has slash R...
+[01:52:38.700 -> 01:52:39.440]  There's...
+[01:52:39.440 -> 01:52:40.400]  There's two...
+[01:52:40.400 -> 01:52:40.480]  Um...
+[01:52:41.720 -> 01:52:44.280]  There's two three-bit values in the modder.
+[01:52:49.240 -> 01:52:52.480]  There's two three-bit values in the modder.
+[01:52:52.480 -> 01:52:54.480]  So if we go to, uh...
+[01:52:57.620 -> 01:52:58.480]  The modder...
+[01:53:02.920 -> 01:53:04.720]  The modder...
+[01:53:04.720 -> 01:53:04.820]  The modder...
+[01:53:04.820 -> 01:53:06.840]  The two three-bit values...
+[01:53:06.840 -> 01:53:08.160]  Slash R...
+[01:53:08.160 -> 01:53:09.900]  So the register is, uh...
+[01:53:09.900 -> 01:53:10.480]  Number two.
+[01:53:10.860 -> 01:53:12.160]  And then the other register...
+[01:53:13.160 -> 01:53:14.320]  We want RAX as...
+[01:53:14.320 -> 01:53:15.560]  As the other register.
+[01:53:16.040 -> 01:53:17.520]  So we want...
+[01:53:17.520 -> 01:53:17.940]  R...
+[01:53:17.940 -> 01:53:18.740]  R...
+[01:53:18.740 -> 01:53:19.300]  DX...
+[01:53:19.300 -> 01:53:19.920]  RDX.
+[01:53:20.380 -> 01:53:22.160]  So it's C...
+[01:53:25.160 -> 01:53:26.160]  We want, uh...
+[01:53:27.120 -> 01:53:28.000]  DX...
+[01:53:28.000 -> 01:53:29.160]  DX...
+[01:53:30.160 -> 01:53:31.160]  So D2...
+[01:53:32.180 -> 01:53:33.060]  DX...
+[01:53:33.060 -> 01:53:33.200]  DX.
+[01:53:35.760 -> 01:53:36.600]  Um...
+[01:53:36.600 -> 01:53:37.500]  That's where...
+[01:53:37.500 -> 01:53:39.800]  That's how you hand code these instructions.
+[01:53:39.920 -> 01:53:41.940]  This puts them into a buffer.
+[01:53:42.660 -> 01:53:43.840]  And, uh...
+[01:53:43.840 -> 01:53:44.980]  It does, uh...
+[01:53:44.980 -> 01:53:45.400]  Um...
+[01:53:47.200 -> 01:53:48.200]  It has a Lex for...
+[01:53:49.840 -> 01:53:51.680]  Let's say we want...
+[01:53:51.680 -> 01:53:53.540]  3 times 5...
+[01:53:53.540 -> 01:53:55.200]  Plus 6...
+[01:53:55.900 -> 01:53:57.400]  Times 5...
+[01:53:57.400 -> 01:53:58.480]  Plus 3...
+[01:54:00.280 -> 01:54:01.120]  Oops...
+[01:54:04.200 -> 01:54:06.440]  3 times 5...
+[01:54:06.440 -> 01:54:07.580]  Plus 6...
+[01:54:07.580 -> 01:54:08.200]  5...
+[01:54:08.800 -> 01:54:09.200]  5 times 2...
+[01:54:10.080 -> 01:54:10.200]  1...
+[01:54:10.800 -> 01:54:12.660]  Okay...
+[01:54:12.660 -> 01:54:13.920]  So basically...
+[01:54:13.920 -> 01:54:15.520]  This doesn't look too hard...
+[01:54:24.840 -> 01:54:27.680]  Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music from Music
+[01:54:56.240 -> 01:54:56.980]  Let's get started.
+[01:55:08.560 -> 01:55:08.720]  So, let's go.
+[01:55:52.720 -> 01:55:56.100]  So, let's go.
+[01:55:57.680 -> 01:55:58.160]  That's stupid.
+[01:55:58.640 -> 01:56:01.860]  That's why they're not teaching you anything.
+[01:56:02.320 -> 01:56:04.020]  They're teaching you shit.
+[01:56:11.860 -> 01:56:22.960]  The CIA wants to take computers and put them in the cloud so that we have calculators on
+[01:56:22.960 -> 01:56:27.640]  our desks and all the computers in the cloud under lock and key.
+[01:56:36.960 -> 01:56:39.760]  Music Music
+[01:56:39.760 -> 01:56:39.760]  
+[01:56:39.760 -> 01:56:39.760]  
+[01:56:39.760 -> 01:56:39.760]  
+[01:56:39.760 -> 01:56:39.760]  
+[01:56:39.760 -> 01:56:39.760]  
+[01:56:39.760 -> 01:56:39.760]  
+[01:56:39.760 -> 01:56:39.760]  
+[01:56:39.760 -> 01:56:39.760]  
+[01:56:39.760 -> 01:56:39.760]  
+[01:56:39.760 -> 01:56:40.840]  Music
+[01:56:40.840 -> 01:56:40.840]  
+[01:56:40.840 -> 01:56:40.840]  
+[01:56:40.840 -> 01:56:40.840]  
+[01:56:40.840 -> 01:56:40.840]  
+[01:56:40.840 -> 01:56:40.840]  
+[01:56:40.840 -> 01:56:40.840]  
+[01:56:40.840 -> 01:56:40.840]  
+[01:56:40.840 -> 01:56:40.840]  
+[01:56:40.840 -> 01:56:40.860]  Music
+[01:56:40.860 -> 01:56:40.860]  
+[01:56:40.860 -> 01:56:43.280]  Music
+[01:56:43.280 -> 01:56:43.280]  
+[01:56:43.280 -> 01:56:43.280]  
+[01:56:43.280 -> 01:56:43.280]  
+[01:56:43.280 -> 01:56:43.280]  
+[01:56:43.280 -> 01:56:43.280]  
+[01:56:43.280 -> 01:56:43.280]  
+[01:56:43.280 -> 01:56:43.280]  
+[01:56:43.280 -> 01:56:43.280]  
+[01:56:43.280 -> 01:56:43.280]  
+[01:56:43.280 -> 01:56:44.720]  Music
+[01:56:44.720 -> 01:56:44.720]  
+[01:56:44.720 -> 01:56:44.720]  
+[01:56:44.720 -> 01:56:44.720]  
+[01:56:44.720 -> 01:56:44.720]  
+[01:56:44.720 -> 01:56:44.720]  
+[01:56:44.720 -> 01:56:44.720]  
+[01:56:44.720 -> 01:56:44.720]  
+[01:56:44.720 -> 01:56:44.720]  
+[01:56:44.720 -> 01:56:44.720]  
+[01:56:44.720 -> 01:56:44.780]  Music
+[01:56:44.780 -> 01:56:44.780]  
+[01:56:44.780 -> 01:56:44.780]  
+[01:56:44.780 -> 01:56:45.000]  Music
+[01:56:45.000 -> 01:56:45.000]  
+[01:56:45.000 -> 01:56:45.000]  
+[01:56:45.000 -> 01:56:45.000]  
+[01:56:45.000 -> 01:56:45.000]  
+[01:56:45.000 -> 01:56:45.000]  
+[01:56:45.000 -> 01:56:45.000]  
+[01:56:45.000 -> 01:56:45.000]  
+[01:56:45.000 -> 01:56:45.000]  
+[01:56:45.000 -> 01:56:45.000]  
+[01:56:45.000 -> 01:56:45.000]  
+[01:56:45.000 -> 01:56:45.000]  
+[01:56:47.240 -> 01:56:48.640]  Music
+[01:56:48.640 -> 01:56:48.640]  
+[01:56:48.640 -> 01:56:48.640]  
+[01:56:48.640 -> 01:56:48.640]  
+[01:56:48.640 -> 01:56:48.640]  
+[01:56:48.640 -> 01:56:49.000]  Music
+[01:56:49.000 -> 01:56:49.000]  
+[01:56:49.000 -> 01:56:49.000]  
+[01:56:49.000 -> 01:56:49.000]  
+[01:56:49.000 -> 01:56:49.000]  
+[01:56:49.000 -> 01:56:49.000]  
+[01:56:49.000 -> 01:56:49.000]  
+[01:56:49.000 -> 01:56:49.000]  
+[01:56:49.000 -> 01:56:49.000]  
+[01:56:49.000 -> 01:56:49.000]  
+[01:56:49.000 -> 01:56:49.000]  
+[01:56:49.000 -> 01:56:49.020]  Music
+[01:56:49.020 -> 01:56:49.020]  
+[01:56:56.220 -> 01:56:57.620]  Okay.
+[01:57:19.020 -> 01:57:20.620]  Puppy. I have a puppy.
+[01:57:57.960 -> 01:57:59.700]  Okay. I think I'm going to shut down.
+[01:58:09.440 -> 01:58:10.840]  Okay.
+[01:58:30.280 -> 01:58:31.680]  Okay.
+[01:58:38.540 -> 01:58:39.940]  Okay.
+[01:58:39.940 -> 01:58:42.180]  Okay.
+[01:58:53.860 -> 01:58:55.260]  Okay.
+[01:59:23.840 -> 01:59:25.240]  Okay.
+[01:59:34.520 -> 01:59:35.920]  Okay.
+[01:59:43.480 -> 01:59:44.880]  Okay.
+[02:00:03.500 -> 02:00:04.900]  Okay.
+[02:00:04.900 -> 02:00:05.440]  Okay.
+[02:00:05.900 -> 02:00:05.900]  
+[02:00:05.900 -> 02:00:05.900]  
+[02:00:05.900 -> 02:00:05.900]  
+[02:00:05.900 -> 02:00:05.900]  
+[02:00:07.980 -> 02:00:09.640]  What do you think of what faction?
+[02:00:14.660 -> 02:00:15.720]  What faction?
+[02:00:15.720 -> 02:00:15.720]  
+[02:00:16.920 -> 02:00:17.580]  Okay.
+[02:00:17.700 -> 02:00:17.900]  Okay.
+[02:00:18.940 -> 02:00:20.220]  Okay.
+[02:00:20.360 -> 02:00:20.360]  
+[02:00:29.700 -> 02:00:31.100]  Okay.
+[02:00:33.920 -> 02:00:35.320]  Okay.
+[02:00:37.960 -> 02:00:39.360]  Okay.
+[02:00:42.260 -> 02:00:43.660]  Okay.
+[02:00:47.600 -> 02:00:49.000]  Okay.
+[02:00:49.600 -> 02:00:50.200]  Okay.
+[02:00:54.340 -> 02:00:55.740]  Okay.
+[02:01:00.600 -> 02:01:02.000]  Music
+[02:01:02.000 -> 02:01:02.880]  Music
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.880]  
+[02:01:02.880 -> 02:01:02.900]  Music
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:02.900 -> 02:01:02.900]  
+[02:01:15.460 -> 02:01:15.460]  
+[02:01:15.460 -> 02:01:15.460]  
+[02:01:15.460 -> 02:01:15.460]  
+[02:01:15.460 -> 02:01:15.460]  
+[02:01:15.460 -> 02:01:15.460]  
+[02:01:15.460 -> 02:01:15.460]  
+[02:01:15.460 -> 02:01:15.460]  
+[02:01:15.460 -> 02:01:15.460]  
+[02:01:09.640 -> 02:01:09.720]  Music Music
+[02:01:09.720 -> 02:01:09.760]  Music
+[02:01:09.760 -> 02:01:09.760]  
+[02:01:09.760 -> 02:01:09.760]  
+[02:01:09.760 -> 02:01:09.760]  
+[02:01:09.760 -> 02:01:09.760]  
+[02:01:09.760 -> 02:01:09.760]  
+[02:01:09.760 -> 02:01:09.760]  
+[02:01:09.760 -> 02:01:09.760]  
+[02:01:09.760 -> 02:01:09.760]  
+[02:01:09.760 -> 02:01:09.780]  Music
+[02:01:09.780 -> 02:01:09.780]  
+[02:01:09.780 -> 02:01:09.780]  
+[02:01:09.780 -> 02:01:09.780]  
+[02:01:09.780 -> 02:01:09.780]  
+[02:01:09.780 -> 02:01:09.780]  
+[02:01:09.780 -> 02:01:09.780]  
+[02:01:09.780 -> 02:01:09.780]  
+[02:01:09.780 -> 02:01:09.780]  
+[02:01:09.780 -> 02:01:09.800]  Music
+[02:01:09.800 -> 02:01:09.820]  Music
+[02:01:09.820 -> 02:01:09.840]  Music
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:09.840 -> 02:01:09.840]  
+[02:01:23.100 -> 02:01:23.100]  
+[02:01:23.100 -> 02:01:23.100]  
+[02:01:23.100 -> 02:01:23.100]  
+[02:01:23.100 -> 02:01:23.100]  
+[02:01:23.100 -> 02:01:23.100]  
+[02:01:23.100 -> 02:01:23.100]  
+[02:01:23.100 -> 02:01:23.100]  
+[02:01:23.100 -> 02:01:23.100]  
+[02:01:19.000 -> 02:01:19.040]  Music
+[02:01:19.040 -> 02:01:19.060]  Music
+[02:01:19.060 -> 02:01:19.080]  Music
+[02:01:19.080 -> 02:01:19.080]  
+[02:01:19.080 -> 02:01:19.140]  Music
+[02:01:19.140 -> 02:01:19.140]  
+[02:01:19.140 -> 02:01:19.140]  
+[02:01:19.140 -> 02:01:19.140]  
+[02:01:19.140 -> 02:01:19.140]  
+[02:01:19.140 -> 02:01:19.140]  
+[02:01:19.140 -> 02:01:19.140]  
+[02:01:19.140 -> 02:01:19.140]  
+[02:01:19.140 -> 02:01:19.140]  
+[02:01:19.140 -> 02:01:19.140]  
+[02:01:19.140 -> 02:01:19.140]  
+[02:01:19.140 -> 02:01:19.140]  
+[02:01:19.140 -> 02:01:19.140]  
+[02:01:19.140 -> 02:01:19.140]  
+[02:01:19.140 -> 02:01:19.140]  
+[02:01:19.140 -> 02:01:19.140]  
+[02:01:19.140 -> 02:01:19.140]  
+[02:01:19.140 -> 02:01:19.140]  
+[02:01:19.140 -> 02:01:19.140]  
+[02:01:19.140 -> 02:01:19.140]  
+[02:01:19.140 -> 02:01:19.160]  Music
+[02:01:19.160 -> 02:01:19.180]  Music
+[02:01:19.180 -> 02:01:19.180]  
+[02:01:19.180 -> 02:01:19.180]  
+[02:01:19.180 -> 02:01:19.200]  Music
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:19.200 -> 02:01:19.200]  
+[02:01:30.040 -> 02:01:30.040]  
+[02:01:30.040 -> 02:01:30.040]  
+[02:01:30.040 -> 02:01:30.040]  
+[02:01:30.040 -> 02:01:30.040]  
+[02:01:30.040 -> 02:01:30.040]  
+[02:01:30.040 -> 02:01:30.040]  
+[02:01:30.040 -> 02:01:30.040]  
+[02:01:30.040 -> 02:01:30.040]  
+[02:01:28.060 -> 02:01:29.460]  Music
+[02:02:04.160 -> 02:02:07.260]  Okay, we're going to pick a line number from the Bible.
+[02:02:08.340 -> 02:02:15.700]  Okay, we go to randomnumber.org, 39976.
+[02:02:15.700 -> 02:02:25.880]  So now we go to 39976.
+[02:02:26.260 -> 02:02:37.960]  We go to control G, 39976.
+[02:02:40.180 -> 02:02:41.660]  Offering was finished.
+[02:02:41.660 -> 02:02:47.180]  And when they had made an end of offering the king and all that were present, bowed themselves and worshipped.
+[02:02:47.640 -> 02:02:54.580]  Moreover, Hezekiah the king and the princess commanded the Levites to sing praise to the Lord with the words of David and Asaph the seer.
+[02:02:54.980 -> 02:02:58.160]  And they sang praises with gladness, and they bowed their heads and worshipped.
+[02:02:58.440 -> 02:02:59.880]  Then Hezekiah answered and said,
+[02:02:59.880 -> 02:03:02.360]  Now ye have consecrated yourselves unto the Lord.
+[02:03:02.580 -> 02:03:06.840]  Come near and bring sacrifices and thank offerings into the house of the Lord.
+[02:03:07.040 -> 02:03:14.480]  And the congregation brought in sacrifices and thank offerings, and as many as were of a free heart burnt offerings.
+[02:03:14.480 -> 02:03:23.580]  And the number of the burnt offerings which the congregation brought was three score and ten bullocks, 100 rams and 200 lambs.
+[02:03:23.660 -> 02:03:26.200]  And these were for a burnt offering to the Lord.
+[02:03:26.460 -> 02:03:29.060]  And the trick is you have to do an offering.
+[02:03:29.340 -> 02:03:31.880]  You get an equal value to what you offer.
+[02:03:37.300 -> 02:03:45.120]  God's favorite song is Mourning Has Broken.
+[02:03:45.800 -> 02:03:49.120]  But we can do some other songs.
+[02:03:52.980 -> 02:03:54.460]  I did songs.
+[02:04:00.020 -> 02:04:06.120]  So, if you don't kill bulls and offer them, maybe you can write songs.
+[02:04:06.820 -> 02:04:08.760]  Templo S is for writing songs.
+[02:04:11.120 -> 02:04:15.340]  The disc speed is about a fifth with QEMU.
+[02:04:15.660 -> 02:04:20.180]  But QEMU has good sound.
+[02:04:21.600 -> 02:04:27.360]  VMware has five times faster disc, but the sound is distorted on purpose.
+[02:04:29.660 -> 02:04:31.460]  So, QEMU.
+[02:04:33.320 -> 02:04:34.300]  What's this?
+[02:04:59.960 -> 02:05:04.280]  The timing is so bad you can't even listen to it.
+[02:05:06.580 -> 02:05:07.100]  QEMU.
+[02:05:09.720 -> 02:05:11.240]  Let's hear the same thing.
+[02:05:28.480 -> 02:05:29.420]  Okay, anyway.
+[02:05:29.780 -> 02:05:31.360]  So, let's go to...
+[02:05:42.740 -> 02:05:51.000]  Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music Music
+[02:06:00.040 -> 02:06:00.080]  Music Music
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.080]  
+[02:06:00.080 -> 02:06:00.100]  Music
+[02:06:00.100 -> 02:06:00.120]  Music
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:00.120 -> 02:06:00.120]  
+[02:06:10.720 -> 02:06:10.720]  
+[02:06:10.720 -> 02:06:10.720]  
+[02:06:10.720 -> 02:06:10.720]  
+[02:06:10.720 -> 02:06:10.720]  
+[02:06:10.720 -> 02:06:10.720]  
+[02:06:20.920 -> 02:06:23.060]  Okay, I'm going to shut down now.

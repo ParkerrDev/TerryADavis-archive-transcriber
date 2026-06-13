@@ -1,0 +1,223 @@
+========================================================================
+FILE        : videos/2016/2016-04-12T00:00:00+00:00 - Terry A Davis Live Stream (3gx_HqdMt0o).mp4
+SOURCE URL  : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2016/2016-04-12T00:00:00+00:00 - Terry A Davis Live Stream (3gx_HqdMt0o).mp4
+DERIVATIVE  : (none — streamed from video)
+FORMAT      : MPEG4
+SIZE        : 133,861,240 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:16:45.720
+TRANSCRIBED : 2026-05-14T19:19:03.197545+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay so what are we going to talk about we are going to talk about OS dev www.osdev.org okay well this story is about interrupts I mostly don't use interrupts because they're too difficult to do a lot of work to find which one is the right one to use anyway let's see what this story is talking about show us your linker script I wrote my own compiler and it doesn't have a linker it doesn't have a linker and it doesn't have a make but you do have I guess you could call it a script so in the kernel directory there's a project file and if you put something in exe then that that executes at compile time so whenever you compile this file it executes this code and there's there are if you do find directory on exe there are several spots in the kernel where it executes code that's how the configuration is accomplished one if you want to know how you compile let's go to the compiler directory okay there's there's two there's two binary files kernel dot bin and compiler dot bin so if you say find file slash star bin there's kernel dot bin in the root directory and there's compiler dot bin in the compiler directory and these others are nothing to speak of when you're making a cd-rom you make your own kernel dot bin and you put it separate so uh there's an undocumented command called compile I decided my users don't need to do binary files um let's see this work okay so there's a uh there's not a make tool but just to help people get familiar I made a command called make all and it compiles the compiler and it compiles the kernel with the cmp command so um there aren't there are not any object files everything is uh doesn't that sound ridiculous you see in the old days uh a mainframe had a hundred users and they didn't want anybody to use very much memory but now it's not really a problem to do all the code at once at least if you have a small project um anyway um so I don't use a linker um I don't have a linker I wrote the compiler myself and uh maybe you want to see uh where the binary files are created um okay so when it compiles just in time or it compiles ahead of time it probably calls this routine um um so how do you make a binary file uh well you have to uh you have to make a table with all the imports and exports from for my code I make it position independent with um a patch table of uh for absolute addresses if you go if you go to the download directory on if you go if you go on my website and you go into the miscellaneous file miscellaneous files for download then if you go into utils you'll find a file called bin rep bin rep now yesterday we talked about how to move a file in into or out of uh vmware so bin rep um this is for it reports um if I go if I say bin rep now uh did you know that f4 will let you pick a file name so if I press f4 then I go to the kernel kernel.binc the c means it's contiguous that's important for uh the loader the loader has to the loader will only load contiguous files that means the blocks are stored one next to the to the other so this is bin rep applied to kernel dot bin okay we ran out of uh out of buffer so if we say doc max then we if we say bin rep f4 now the kernel is loaded first so you might think it's strange that it has uh imports how can you import anything if and the answer is um the imports are resolved um when other modules are loaded or code is loaded um so these are relative i32 imports these are real relative well there's a 32-bit number that has to be patched all the code is stored in the lowest 2 gig okay now here's there's a list of absolute addresses that have to be patched then there's the exports and imports so what happens is when you you can load a module with load um i don't encourage this anymore basically i decided nobody needs to do binary files except the kernel and compiler so if we go to the compiler this this could crash it or make it unusable okay well it loaded it um so uh i'm gonna go ahead and reboot so the kernel has uh imports and exports now if we'd say uh those imports and exports are put into the symbol table and uh and then when you include a header it it finds the the address in the symbol table and it binds it with the header um does that make sense uh so in the uh in the kernel.bin you have a list of exports maybe for example sys uh sys fixed area and this is uh um this is an address oh this is not a good example sys uh i think sys run level so sys run level is 7c2c does that look if you're familiar with uh operating system development 7c0 0 is uh the location where um it'll load a kernel so if we look at the project file it includes some headers it includes some headers then it includes kernel start and the order is it keeps the same order in the binary in the binary file so k start is the first code that's in the binary file and uh you saw that offset was near 7c0 0 7c0 0 that's because uh run level is uh let's let's take a look here um there's a header on the bin file which has a jump so by the time you get to here it's it's got happens to be 16 bytes then we have um then we have this jump instruction that's about uh three bytes then we have there's another four bytes and then another four bytes so what is that four and four is eight and three is 11 and 16 is uh 27 so let's see if the numbers check out so 2c is uh 32 plus 12 uh i was hoping to exactly oh do i have i have an alignment here this aligns to uh i guess that's is that a paragraph no there's a wait it's not bits it's it's a it's bytes oh maybe the i know um so a binary file starts with the header um looks like i thought it was 16 but it looks like it's bigger um so there's four plus four is eight eight plus eight plus eight is 16 24 32 okay so the header is 32 bit bytes and uh then it starts right here so this is 33 so that's another couple bytes it's aligned to four so um 33 plus 32 plus 4 is 36 this is um makes it up to 40 this makes it up to 44 and so did i do that right okay this is 32 plus 4 36 40 i think it should be 44 what's 44 in hex is that 2c yeah 2c okay so we just confirmed the uh the location so uh what were we talking about um so when it um the kernel loads its own imports and exports um load kernel it does it's very similar to the standard uh load command and so that puts all the all the exports into the symbol table so sys um sys run level is a an entry in the symbol table and then what comes along then there's a uh a binding i'm confused okay okay colonel b okay so when we load the headers um it binds this this symbol this export we call this an export it binds it with a c um what do you want to say c element or something this is a c uh variable a c variable has um a size it might have a different class so this this binds it that's what this underscore extern binds a uh an export symbol anyway so uh uh let's see if we can find something else to talk about we can do some miracles but we already have well let's go see what's we can do some miracles but we already have we need to stay okay so nobody's watching let's go see we need to stay we need to stay we need to stay stay stay stay stay! stay Okay, we can talk to God, I guess. Nobody's watching. Okay, enough.
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:07.880]  okay so what are we going to talk about we are going to talk about OS dev
+[00:00:17.660 -> 00:00:27.920]  www.osdev.org okay well this story is about interrupts I
+[00:00:29.020 -> 00:00:39.740]  mostly don't use interrupts because they're too difficult to do a lot of work to find which one
+[00:00:39.740 -> 00:00:56.580]  is the right one to use anyway let's see what this story is talking about show us your linker script
+[00:00:58.000 -> 00:01:04.440]  I wrote my own compiler and it doesn't have a linker it doesn't have a linker and it doesn't
+[00:01:04.440 -> 00:01:12.880]  have a make but you do have I guess you could call it a script
+[00:01:23.200 -> 00:01:37.400]  so in the kernel directory there's a project file and if you put something in exe then that that
+[00:01:37.400 -> 00:01:53.180]  executes at compile time so whenever you compile this file it executes this code and there's there
+[00:01:53.180 -> 00:02:04.840]  are if you do find directory on exe there are several spots in the kernel where it executes code
+[00:02:06.820 -> 00:02:10.200]  that's how the configuration is accomplished
+[00:02:14.400 -> 00:02:21.100]  one if you want to know how you compile let's go to the compiler directory okay there's there's two
+[00:02:21.100 -> 00:02:30.100]  there's two binary files kernel dot bin and compiler dot bin so if you say find file slash star bin
+[00:02:33.200 -> 00:02:38.420]  there's kernel dot bin in the root directory and there's compiler dot bin in the compiler directory
+[00:02:38.420 -> 00:02:47.620]  and these others are nothing to speak of when you're making a cd-rom you make your own kernel dot bin and you put it separate
+[00:02:49.980 -> 00:03:01.460]  so uh there's an undocumented command called compile I decided my users don't need to do binary files
+[00:03:01.460 -> 00:03:19.260]  um let's see this work okay so there's a uh there's not a make tool but just to help people get familiar
+[00:03:20.200 -> 00:03:28.980]  I made a command called make all and it compiles the compiler and it compiles the kernel with the cmp command
+[00:03:31.580 -> 00:03:35.800]  so um there aren't there are not any object files
+[00:03:37.220 -> 00:03:44.120]  everything is uh doesn't that sound ridiculous you see in the old days uh a mainframe had
+[00:03:44.120 -> 00:03:49.420]  a hundred users and they didn't want anybody to use very much memory
+[00:03:49.420 -> 00:03:58.180]  but now it's not really a problem to do all the code at once at least if you have a small project
+[00:03:58.180 -> 00:04:09.440]  um anyway um so I don't use a linker um I don't have a linker I wrote the compiler myself and uh
+[00:04:11.920 -> 00:04:19.340]  maybe you want to see uh where the binary files are created
+[00:04:21.480 -> 00:04:22.080]  um
+[00:04:25.540 -> 00:04:32.080]  okay so when it compiles just in time or it compiles ahead of time it probably calls this routine
+[00:04:32.820 -> 00:04:33.460]  um
+[00:04:33.460 -> 00:04:34.720]  um
+[00:04:36.540 -> 00:04:39.620]  so how do you make a binary file uh well
+[00:04:42.160 -> 00:04:43.560]  you have to uh
+[00:04:45.780 -> 00:04:48.920]  you have to make a table with all the imports and exports
+[00:04:50.960 -> 00:04:59.380]  from for my code I make it position independent with um a patch table of uh for absolute addresses
+[00:05:00.600 -> 00:05:06.300]  if you go if you go to the download directory on if you go if you go on my website
+[00:05:07.480 -> 00:05:09.540]  and you go into the miscellaneous
+[00:05:10.800 -> 00:05:15.280]  file miscellaneous files for download then if you go into utils
+[00:05:18.060 -> 00:05:20.920]  you'll find a file called bin rep bin rep
+[00:05:21.880 -> 00:05:26.560]  now yesterday we talked about how to move a file in into or out of
+[00:05:26.560 -> 00:05:31.760]  uh vmware so bin rep um
+[00:05:35.180 -> 00:05:39.200]  this is for it reports um
+[00:05:46.000 -> 00:05:48.380]  if I go if I say bin rep
+[00:05:51.280 -> 00:05:58.680]  now uh did you know that f4 will let you pick a file name so if I press f4
+[00:06:00.280 -> 00:06:06.300]  then I go to the kernel kernel.binc the c means it's contiguous
+[00:06:07.820 -> 00:06:10.840]  that's important for uh
+[00:06:12.500 -> 00:06:19.780]  the loader the loader has to the loader will only load contiguous files that means the blocks are stored
+[00:06:19.780 -> 00:06:21.500]  one next to the to the other
+[00:06:23.780 -> 00:06:26.380]  so this is bin rep
+[00:06:27.840 -> 00:06:31.660]  applied to kernel dot bin okay we ran out of uh
+[00:06:33.700 -> 00:06:35.480]  out of buffer
+[00:06:37.980 -> 00:06:39.620]  so if we say doc max
+[00:06:41.700 -> 00:06:43.720]  then we if we say bin rep
+[00:06:46.480 -> 00:06:49.220]  f4 now the kernel is loaded first
+[00:06:49.220 -> 00:06:55.140]  so you might think it's strange that it has uh imports
+[00:06:55.140 -> 00:06:58.040]  how can you import anything if
+[00:06:59.540 -> 00:07:02.260]  and the answer is um
+[00:07:04.600 -> 00:07:08.480]  the imports are resolved um
+[00:07:08.480 -> 00:07:12.280]  when other modules are loaded
+[00:07:14.200 -> 00:07:17.180]  or code is loaded
+[00:07:17.180 -> 00:07:21.220]  um so these are relative i32 imports
+[00:07:22.080 -> 00:07:24.180]  these are real relative well
+[00:07:27.520 -> 00:07:30.460]  there's a 32-bit number that has to be patched
+[00:07:32.460 -> 00:07:35.200]  all the code is stored in the lowest 2 gig
+[00:07:35.920 -> 00:07:37.040]  okay now here's
+[00:07:40.660 -> 00:07:44.240]  there's a list of absolute addresses that have to be patched
+[00:07:46.460 -> 00:07:49.780]  then there's the exports and imports so
+[00:07:52.440 -> 00:07:57.100]  what happens is when you you can load a module with load
+[00:07:57.100 -> 00:08:06.120]  um i don't encourage this anymore basically i decided nobody needs to do binary files
+[00:08:06.780 -> 00:08:08.580]  except the kernel and compiler
+[00:08:13.820 -> 00:08:19.940]  so if we go to the compiler this this could crash it or make it unusable
+[00:08:29.040 -> 00:08:34.440]  okay well it loaded it um so uh
+[00:08:38.620 -> 00:08:40.200]  i'm gonna go ahead and reboot
+[00:08:41.200 -> 00:08:47.340]  so the kernel has uh imports and exports now if we'd say uh
+[00:08:51.020 -> 00:08:56.400]  those imports and exports are put into the symbol table and uh
+[00:08:58.780 -> 00:08:59.380]  and then
+[00:09:02.060 -> 00:09:04.020]  when you include a header
+[00:09:06.060 -> 00:09:13.160]  it it finds the the address in the symbol table and it binds it with the header
+[00:09:13.160 -> 00:09:17.100]  um does that make sense uh
+[00:09:19.520 -> 00:09:20.980]  so in the uh
+[00:09:24.160 -> 00:09:25.580]  in the kernel.bin
+[00:09:28.120 -> 00:09:32.500]  you have a list of exports maybe for example sys uh
+[00:09:34.460 -> 00:09:42.380]  sys fixed area and this is uh um this is an address oh this is not a good example
+[00:09:43.160 -> 00:09:43.840]  sys uh
+[00:09:48.480 -> 00:09:50.140]  i think sys run level
+[00:10:01.060 -> 00:10:10.460]  so sys run level is 7c2c does that look if you're familiar with uh operating system development
+[00:10:10.460 -> 00:10:12.740]  7c0 0 is uh
+[00:10:14.940 -> 00:10:19.740]  the location where um it'll load a kernel so
+[00:10:21.280 -> 00:10:25.320]  if we look at the project file it includes some headers
+[00:10:27.640 -> 00:10:35.140]  it includes some headers then it includes kernel start and the order is it keeps the same order
+[00:10:35.140 -> 00:10:44.140]  in the binary in the binary file so k start is the first code that's in the binary file
+[00:10:44.980 -> 00:10:48.480]  and uh you saw that offset was near 7c0
+[00:10:49.940 -> 00:10:53.220]  0 7c0 0 that's because uh
+[00:10:54.840 -> 00:10:57.860]  run level is uh let's let's take a look here
+[00:11:01.300 -> 00:11:04.360]  um there's a header on the bin file which has a jump
+[00:11:05.700 -> 00:11:08.540]  so by the time you get to here it's it's got
+[00:11:09.880 -> 00:11:13.620]  happens to be 16 bytes then we have um
+[00:11:15.040 -> 00:11:19.120]  then we have this jump instruction that's about uh three bytes
+[00:11:20.860 -> 00:11:22.200]  then we have
+[00:11:24.340 -> 00:11:31.500]  there's another four bytes and then another four bytes so what is that four and four is eight and three is
+[00:11:31.500 -> 00:11:45.740]  11 and 16 is uh 27 so let's see if the numbers check out so 2c is uh 32 plus 12
+[00:11:48.220 -> 00:11:52.620]  uh i was hoping to exactly oh do i have
+[00:11:54.780 -> 00:12:00.540]  i have an alignment here this aligns to uh i guess that's
+[00:12:06.620 -> 00:12:08.760]  is that a paragraph no there's a wait
+[00:12:13.760 -> 00:12:20.040]  it's not bits it's it's a it's bytes oh maybe the i know
+[00:12:21.380 -> 00:12:22.100]  um
+[00:12:27.720 -> 00:12:30.700]  so a binary file starts with the header
+[00:12:32.520 -> 00:12:36.780]  um looks like i thought it was 16 but it looks like it's bigger
+[00:12:37.560 -> 00:12:37.920]  um
+[00:12:41.000 -> 00:12:46.080]  so there's four plus four is eight eight plus
+[00:12:47.660 -> 00:12:51.320]  eight plus eight is 16 24 32
+[00:12:53.200 -> 00:12:56.000]  okay so the header is 32 bit bytes
+[00:12:58.220 -> 00:13:02.160]  and uh then it starts right here so this is 33
+[00:13:03.280 -> 00:13:09.820]  so that's another couple bytes it's aligned to four so um 33 plus
+[00:13:09.820 -> 00:13:20.680]  32 plus 4 is 36 this is um makes it up to 40 this makes it up to 44 and so
+[00:13:25.080 -> 00:13:30.600]  did i do that right okay this is 32 plus 4
+[00:13:32.920 -> 00:13:42.320]  36 40 i think it should be 44 what's 44 in hex is that 2c yeah 2c okay so we just confirmed the uh
+[00:13:44.920 -> 00:13:53.180]  the location so uh what were we talking about um so when it um
+[00:13:54.460 -> 00:14:09.000]  the kernel loads its own imports and exports um load kernel it does it's very similar to the standard uh load command
+[00:14:09.000 -> 00:14:13.440]  and so that puts all the all the exports into the symbol table
+[00:14:13.440 -> 00:14:18.760]  so sys um sys run level is a
+[00:14:19.720 -> 00:14:23.800]  an entry in the symbol table and then what comes along
+[00:14:25.920 -> 00:14:28.060]  then there's a uh a binding
+[00:14:35.700 -> 00:14:36.820]  i'm confused
+[00:14:46.360 -> 00:14:47.220]  okay
+[00:14:47.220 -> 00:14:48.540]  okay colonel b
+[00:14:50.020 -> 00:14:50.700]  okay so
+[00:14:52.820 -> 00:14:56.640]  when we load the headers um it binds
+[00:14:58.660 -> 00:15:02.300]  this this symbol this export we call this an export
+[00:15:02.940 -> 00:15:06.340]  it binds it with a c um
+[00:15:08.420 -> 00:15:16.480]  what do you want to say c element or something this is a c uh variable a c variable has um
+[00:15:17.020 -> 00:15:20.300]  a size it might have a different class
+[00:15:21.480 -> 00:15:27.000]  so this this binds it that's what this underscore extern binds a uh
+[00:15:28.660 -> 00:15:29.520]  an export
+[00:15:32.520 -> 00:15:32.980]  symbol
+[00:15:33.560 -> 00:15:34.840]  anyway so uh
+[00:15:35.640 -> 00:15:38.040]  uh let's see if we can find something else to talk about
+[00:15:40.340 -> 00:15:41.640]  we can do some miracles
+[00:15:42.760 -> 00:15:44.060]  but we already have
+[00:15:46.340 -> 00:15:47.680]  well let's go see what's
+[00:15:51.980 -> 00:15:53.260]  we can do some miracles
+[00:15:55.880 -> 00:15:57.160]  but we already have
+[00:15:58.820 -> 00:15:59.180]  we need to stay
+[00:15:59.180 -> 00:15:59.980]  okay so nobody's watching
+[00:15:59.980 -> 00:16:00.480]  let's go see
+[00:16:00.480 -> 00:16:05.680]  we need to stay
+[00:16:05.680 -> 00:16:19.600]  we need to stay
+[00:16:19.600 -> 00:16:20.180]  we need to stay
+[00:16:20.180 -> 00:16:20.180]  
+[00:16:20.180 -> 00:16:20.180]  
+[00:16:20.180 -> 00:16:20.200]  stay
+[00:16:20.200 -> 00:16:20.440]  stay
+[00:16:20.440 -> 00:16:20.440]  
+[00:16:20.440 -> 00:16:20.440]  
+[00:16:20.440 -> 00:16:20.440]  
+[00:16:20.440 -> 00:16:20.440]  
+[00:16:20.440 -> 00:16:20.440]  
+[00:16:20.440 -> 00:16:20.440]  
+[00:16:20.440 -> 00:16:20.440]  
+[00:16:20.440 -> 00:16:20.440]  
+[00:16:22.600 -> 00:16:22.960]  stay
+[00:16:22.960 -> 00:16:22.960]  
+[00:16:22.960 -> 00:16:23.000]  stay
+[00:16:23.000 -> 00:16:23.000]  
+[00:16:23.000 -> 00:16:23.000]  
+[00:16:23.000 -> 00:16:23.000]  
+[00:16:23.000 -> 00:16:23.000]  
+[00:16:23.000 -> 00:16:23.000]  
+[00:16:23.000 -> 00:16:23.000]  
+[00:16:23.080 -> 00:16:23.220]  !
+[00:16:23.220 -> 00:16:23.760]  stay
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:03.400 -> 00:16:03.400]  
+[00:16:28.200 -> 00:16:30.800]  Okay, we can talk to God, I guess.
+[00:16:33.160 -> 00:16:34.200]  Nobody's watching.
+[00:16:43.840 -> 00:16:45.720]  Okay, enough.

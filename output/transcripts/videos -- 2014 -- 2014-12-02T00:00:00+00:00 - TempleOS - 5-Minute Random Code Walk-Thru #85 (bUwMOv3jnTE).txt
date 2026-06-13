@@ -1,0 +1,247 @@
+========================================================================
+FILE        : videos/2014/2014-12-02T00:00:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #85 (bUwMOv3jnTE).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-12-02T00:00:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #85 (bUwMOv3jnTE).mp4
+FORMAT      : MPEG4
+SIZE        : 50,604,322 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:13:24.860
+TRANSCRIBED: 2026-05-10T23:18:44.940268+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay this is Temple OS five minute random code walkthrough episode 85 and I'm your host Terry Davis and today we are in the Red Sea file system Red Sea Drive Validate okay so Red Sea Drive Validate drive letter okay where do we call this find this is find red see okay it's an extern it's in disk one block device in it okay now I know what this is um so believe it or not you can uh I have a ram disk that's drive letter B and uh you can boot if you uh it's really hard to do but uh even what this is doing is uh you can do a soft boot that's easy to do um so uh here's what I'm talking about um on my menu I have ram ram boot if you look at the code for ram boot um you give it a file name of the kernel then it loads it into memory and jumps to the uh it's uh it's not in um okay my my kernel starts in real mode uh it's not in real mode but if you want to uh reboot and start um um well it can't go back to real mode so it goes to just after real mode anyway long story short you can reboot a uh a kernel dot bin file and uh if you that's no big deal but um if the ram drive is located in the same spot then when it try it when it validates it will not reformat at at boot time so you can um you can store files on the ram disk and reboot if you reboot with ram ram reboot and the the ram drive will stay intact even when you reboot now if in theory you can even um recompile the kernel on a ram drive and then boot a new kernel on a ram drive so for example let's say you uh you had a new computer um um i made a uh a uh well if you had a new computer and the hard drive wasn't working you could uh recompile the kernel in ram and reboot um so you didn't have to re-burn a cd-rom um anyway uh i guess it's so let's go back to see what it does letter to drive okay well that just points us to the right structure i think it might check for if we enter an invalid uh it checks it does a drive check which uh checks the signature so if if the sig if the signature is not correct or if the type is not red c and it reads a block it reads the first block which is the boot the partition boot record it checks for red c signature so the main use of um validate is for uh when you reboot and you want to use your ram drive um uh honestly i've never used it i don't know why i make a big deal of it it's just cool you can put files on the ram disk and reboot and as long as you uh keep the same memory configuration the ram disk is loaded off of uh malic or um when you when you recompile you can uh specify where the ram disk is that gets trickier um i made a uh a rescue disk uh uh that uh what it does is you put you put some files uh onto my ram drive i make a ram drive at uh uh about so uh my kernel goes from 7c this is in the lowest 640 7c to 35 so i can so i i can make a ram disk as a matter of fact i can do that let's see um um so uh three five how about three five four oh oh so uh three five four oh oh so the maximum is about there's some stuff that um you run into um let's just go to nine let's see there's 726 blocks so if i say mount and i can make a ram disk first drive letter a b how about a and we'll call it a ram disk address of ram disk okay we'll say three three five four oh oh now as long as we keep the kernel the same um this ram disk will stay intact there's i happen to know this is a gap that does not get allocated this location does not get it it's uh it doesn't get messed with so uh i just made a ram disk down there and then i could copy files so what i do here is uh i uh i wonder if i do i make the boot fig i make the rescue drive uh where do i okay the boot the rescue drive oh oh well how do i do that um i think i okay well i make the rescue drive i put it down there and then i try and copy as much as possible into the low 640 the low 640 is uh my my operating system is too big for 640 but the main thing you want is a compiler and you know this this file that i'm looking at right here um it's on you can look at my startup code and some of my personal code it's in the demo directory under account example and uh what we're looking at right here is uh in the distro rescue so we're looking at you can look at this code it's on this the standard distribution so this makes a uh rescue disk so once i copy i'm confused there's more to it okay i make a file that stores i take the i take the whole ram drive image and i store it in a file and then you know what i do i okay so i store it in a file what's the name of that file by the way we can't we're having problems here okay okay well that's another bug anyway uh i know what i do in my kernel right after kernel end i put the uh i make a command to load a bin file if okay so i set an option for a boot rescue disk and then i uh this this will inject a bin file that's just raw data into the kernel kernel so the kernel will be bigger and it'll be loaded by the boot loader and as long as i set the uh the rescue disk uh as long as i have the uh as long as i define the the uh rescue disk oh it has to know uh about the compiler doesn't it it has to know where what disk it's on so i do believe uh the kernel when it loads the compiler oh the default disk is the boot disk no the default disk is the uh so the startup disk is the uh if you tell it to make a rescue disk and put it in the low 640 then when it starts up i think it uh look right there boot rescue disk no that's not it anyway it um oh you make it uh boot that disk as the default you you tell it to uh boot the aid as the default anyway okay well before before before before! before
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:05.760]  okay this is Temple OS five minute random code walkthrough episode 85 and
+[00:00:05.760 -> 00:00:13.980]  I'm your host Terry Davis and today we are in the Red Sea file system Red Sea
+[00:00:13.980 -> 00:00:27.600]  Drive Validate okay so Red Sea Drive Validate drive letter okay
+[00:00:30.800 -> 00:00:39.360]  where do we call this find this is find red see
+[00:00:49.120 -> 00:00:56.360]  okay it's an extern it's in disk one block device in it
+[00:00:58.680 -> 00:01:07.640]  okay now I know what this is um so believe it or not you can uh
+[00:01:14.480 -> 00:01:30.420]  I have a ram disk that's drive letter B and uh you can boot if you uh it's really hard to do but uh
+[00:01:33.880 -> 00:01:44.020]  even what this is doing is uh you can do a soft boot that's easy to do um
+[00:01:46.340 -> 00:01:58.360]  so uh here's what I'm talking about um on my menu I have ram ram boot if you look at the code for ram boot
+[00:02:00.780 -> 00:02:01.580]  um
+[00:02:07.640 -> 00:02:15.280]  you give it a file name of the kernel then it loads it into memory and jumps to the
+[00:02:16.960 -> 00:02:25.520]  uh it's uh it's not in um okay my my kernel starts in real mode
+[00:02:25.520 -> 00:02:33.980]  uh it's not in real mode but if you want to uh reboot and start um
+[00:02:33.980 -> 00:02:40.220]  um well it can't go back to real mode so it goes to just after real mode
+[00:02:40.220 -> 00:02:51.840]  anyway long story short you can reboot a uh a kernel dot bin file and uh
+[00:02:54.040 -> 00:03:03.420]  if you that's no big deal but um if the ram drive is located in the same spot
+[00:03:04.280 -> 00:03:16.800]  then when it try it when it validates it will not reformat at at boot time so you can um you can store
+[00:03:16.800 -> 00:03:26.480]  files on the ram disk and reboot if you reboot with ram ram reboot and the the ram drive will stay intact
+[00:03:26.480 -> 00:03:34.540]  even when you reboot now if in theory you can even um recompile the kernel on a ram drive
+[00:03:35.200 -> 00:03:41.140]  and then boot a new kernel on a ram drive so for example let's say you uh
+[00:03:42.140 -> 00:03:45.320]  you had a new computer um
+[00:03:45.320 -> 00:03:55.640]  um i made a uh a uh well if you had a new computer and the hard drive wasn't working
+[00:03:56.360 -> 00:04:04.700]  you could uh recompile the kernel in ram and reboot um so you didn't have to re-burn a cd-rom
+[00:04:05.640 -> 00:04:14.800]  um anyway uh i guess it's so let's go back to see what it does letter to drive okay well that
+[00:04:14.800 -> 00:04:23.020]  just points us to the right structure i think it might check for if we enter an invalid uh it checks
+[00:04:23.760 -> 00:04:28.120]  it does a drive check which uh checks the signature
+[00:04:30.940 -> 00:04:40.000]  so if if the sig if the signature is not correct or if the type is not red c
+[00:04:42.660 -> 00:04:50.520]  and it reads a block it reads the first block which is the boot the partition boot record
+[00:04:51.460 -> 00:04:54.180]  it checks for red c signature
+[00:04:56.140 -> 00:04:56.780]  so
+[00:04:59.340 -> 00:05:01.420]  the main use of um
+[00:05:03.140 -> 00:05:07.940]  validate is for uh when you reboot and you want to use your ram drive
+[00:05:09.540 -> 00:05:10.180]  um
+[00:05:10.180 -> 00:05:12.680]  uh honestly i've never used it
+[00:05:12.680 -> 00:05:24.040]  i don't know why i make a big deal of it it's just cool you can put files on the ram disk and reboot
+[00:05:24.740 -> 00:05:33.320]  and as long as you uh keep the same memory configuration the ram disk is loaded off of uh malic
+[00:05:33.320 -> 00:05:44.980]  or um when you when you recompile you can uh specify where the ram disk is that gets trickier
+[00:05:46.280 -> 00:05:46.820]  um
+[00:05:48.220 -> 00:05:51.260]  i made a uh a rescue disk
+[00:05:51.260 -> 00:05:52.700]  uh
+[00:05:52.700 -> 00:05:53.740]  uh
+[00:05:55.560 -> 00:06:01.540]  that uh what it does is you put you put some files uh
+[00:06:01.540 -> 00:06:01.540]  
+[00:06:05.260 -> 00:06:08.520]  onto my ram
+[00:06:08.520 -> 00:06:09.940]  drive
+[00:06:09.940 -> 00:06:13.740]  i make a ram drive at uh
+[00:06:16.340 -> 00:06:17.740]  uh
+[00:06:17.740 -> 00:06:20.520]  about
+[00:06:23.200 -> 00:06:24.600]  so
+[00:06:27.700 -> 00:06:28.340]  uh
+[00:06:28.340 -> 00:06:34.560]  my kernel goes from 7c this is in the lowest 640 7c to 35
+[00:06:35.860 -> 00:06:43.240]  so i can so i i can make a ram disk as a matter of fact i can do that let's see
+[00:06:44.100 -> 00:06:44.740]  um
+[00:06:44.740 -> 00:06:44.780]  um
+[00:06:46.980 -> 00:06:48.280]  so uh
+[00:06:49.300 -> 00:06:54.660]  three five how about three five four oh oh so uh
+[00:06:56.180 -> 00:06:58.400]  three five four oh oh
+[00:06:59.700 -> 00:07:04.240]  so the maximum is about there's some stuff that um you run into
+[00:07:05.220 -> 00:07:05.520]  um
+[00:07:07.800 -> 00:07:09.440]  let's just go to nine
+[00:07:12.640 -> 00:07:13.480]  let's see
+[00:07:19.540 -> 00:07:21.860]  there's 726 blocks
+[00:07:22.460 -> 00:07:23.940]  so if i say mount
+[00:07:26.340 -> 00:07:31.220]  and i can make a ram disk first drive letter a b how about a
+[00:07:32.760 -> 00:07:34.760]  and we'll call it a ram disk
+[00:07:34.760 -> 00:07:36.960]  address of ram disk
+[00:07:37.640 -> 00:07:39.260]  okay we'll say three
+[00:07:40.440 -> 00:07:42.120]  three five four
+[00:07:42.120 -> 00:07:43.280]  oh oh
+[00:07:43.280 -> 00:07:46.040]  now as long as we keep the kernel the same
+[00:07:46.800 -> 00:07:47.440]  um
+[00:07:48.120 -> 00:07:50.340]  this ram disk will stay intact
+[00:07:51.000 -> 00:07:53.400]  there's i happen to know this is a gap
+[00:07:53.400 -> 00:07:56.160]  that does not get allocated this
+[00:07:56.860 -> 00:07:58.420]  location does not get
+[00:07:59.380 -> 00:08:02.200]  it it's uh it doesn't get messed with
+[00:08:02.200 -> 00:08:03.660]  so uh
+[00:08:05.500 -> 00:08:09.140]  i just made a ram disk down there and then i could copy files
+[00:08:09.800 -> 00:08:10.400]  so
+[00:08:11.640 -> 00:08:14.300]  what i do here is uh
+[00:08:15.900 -> 00:08:16.780]  i uh
+[00:08:19.620 -> 00:08:20.940]  i wonder if i
+[00:08:21.560 -> 00:08:24.360]  do i make the boot fig
+[00:08:25.780 -> 00:08:28.260]  i make the rescue drive
+[00:08:30.000 -> 00:08:30.760]  uh
+[00:08:34.880 -> 00:08:36.140]  where do i
+[00:08:37.160 -> 00:08:39.720]  okay the boot the rescue drive
+[00:08:51.940 -> 00:08:52.580]  oh
+[00:08:52.580 -> 00:08:52.900]  oh
+[00:08:52.900 -> 00:08:53.040]  well
+[00:08:53.040 -> 00:08:54.540]  how do i do that
+[00:08:55.620 -> 00:08:56.260]  um
+[00:08:56.260 -> 00:08:57.280]  i think i
+[00:08:59.340 -> 00:09:01.560]  okay well i make the rescue drive
+[00:09:01.560 -> 00:09:03.200]  i put it down there
+[00:09:03.200 -> 00:09:08.700]  and then i try and copy as much as possible into the low 640
+[00:09:09.840 -> 00:09:14.700]  the low 640 is uh my my operating system is too big
+[00:09:15.440 -> 00:09:16.440]  for 640
+[00:09:17.280 -> 00:09:24.280]  but the main thing you want is a compiler and you know this this file that i'm looking at right here
+[00:09:24.960 -> 00:09:32.060]  um it's on you can look at my startup code and some of my personal code
+[00:09:32.060 -> 00:09:35.640]  it's in the demo directory under account example
+[00:09:36.540 -> 00:09:40.180]  and uh what we're looking at right here is uh
+[00:09:41.480 -> 00:09:42.880]  in the distro
+[00:09:44.840 -> 00:09:45.500]  rescue
+[00:09:46.580 -> 00:09:52.240]  so we're looking at you can look at this code it's on this the standard distribution
+[00:09:52.240 -> 00:09:54.920]  so this makes a uh
+[00:09:56.320 -> 00:09:57.300]  rescue disk
+[00:09:58.800 -> 00:10:00.140]  so once i copy
+[00:10:02.960 -> 00:10:04.100]  i'm confused
+[00:10:11.280 -> 00:10:12.980]  there's more to it
+[00:10:23.260 -> 00:10:25.620]  okay i make a file
+[00:10:27.920 -> 00:10:28.840]  that stores
+[00:10:28.840 -> 00:10:33.760]  i take the i take the whole ram drive image
+[00:10:36.120 -> 00:10:37.980]  and i store it in a file
+[00:10:39.960 -> 00:10:41.560]  and then you know what i do
+[00:10:42.900 -> 00:10:47.200]  i okay so i store it in a file what's the name of that file by the way
+[00:10:48.260 -> 00:10:49.180]  we can't
+[00:10:50.940 -> 00:10:52.620]  we're having problems here
+[00:10:59.620 -> 00:11:00.240]  okay
+[00:11:00.240 -> 00:11:00.440]  okay
+[00:11:02.160 -> 00:11:07.780]  well that's another bug anyway uh i know what i do in my kernel
+[00:11:10.720 -> 00:11:13.640]  right after kernel end
+[00:11:16.660 -> 00:11:18.480]  i put the uh
+[00:11:22.340 -> 00:11:25.760]  i make a command to load a bin file
+[00:11:25.760 -> 00:11:27.380]  if
+[00:11:28.380 -> 00:11:32.160]  okay so i set an option for a boot rescue disk
+[00:11:33.280 -> 00:11:34.700]  and then i uh
+[00:11:35.600 -> 00:11:37.420]  this this will inject
+[00:11:38.560 -> 00:11:39.620]  a bin file
+[00:11:39.620 -> 00:11:41.380]  that's just raw data
+[00:11:42.480 -> 00:11:43.880]  into the kernel
+[00:11:43.880 -> 00:11:44.080]  kernel
+[00:11:45.320 -> 00:11:47.600]  so the kernel will be bigger
+[00:11:48.280 -> 00:11:50.560]  and it'll be loaded by the boot loader
+[00:11:51.500 -> 00:11:53.020]  and as long as i
+[00:11:54.360 -> 00:11:55.680]  set the uh
+[00:11:56.280 -> 00:11:57.600]  the rescue disk
+[00:11:57.600 -> 00:11:59.940]  uh as long as i have the uh
+[00:12:03.480 -> 00:12:07.740]  as long as i define the the uh rescue disk
+[00:12:08.880 -> 00:12:13.060]  oh it has to know uh about the compiler doesn't it
+[00:12:14.000 -> 00:12:17.620]  it has to know where what disk it's on
+[00:12:20.080 -> 00:12:24.060]  so i do believe uh the kernel
+[00:12:27.460 -> 00:12:28.980]  when it loads the compiler
+[00:12:33.220 -> 00:12:36.900]  oh the default disk is the boot disk
+[00:12:38.660 -> 00:12:40.840]  no the default disk is the uh
+[00:12:41.380 -> 00:12:43.600]  so the startup disk is the uh
+[00:12:44.400 -> 00:12:48.960]  if you tell it to make a rescue disk and put it in the low 640
+[00:12:49.600 -> 00:12:50.900]  then when it starts up
+[00:12:52.740 -> 00:12:54.660]  i think it uh
+[00:12:55.200 -> 00:12:56.160]  look right there
+[00:12:57.040 -> 00:12:58.220]  boot rescue disk
+[00:12:59.240 -> 00:13:00.620]  no that's not it
+[00:13:01.200 -> 00:13:02.320]  anyway it um
+[00:13:03.200 -> 00:13:04.780]  oh you make it uh
+[00:13:05.640 -> 00:13:08.020]  boot that disk as the default
+[00:13:09.220 -> 00:13:11.160]  you you tell it to uh
+[00:13:11.900 -> 00:13:14.660]  boot the aid as the default
+[00:13:14.660 -> 00:13:15.660]  anyway okay well
+[00:13:15.660 -> 00:13:15.660]  
+[00:13:15.660 -> 00:13:15.740]  before
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.740]  
+[00:13:15.740 -> 00:13:15.760]  before
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.760]  
+[00:13:15.760 -> 00:13:15.820]  before
+[00:13:15.820 -> 00:13:15.840]  before
+[00:13:15.880 -> 00:13:16.040]  !
+[00:13:17.260 -> 00:13:17.420]  before
+[00:13:17.420 -> 00:13:17.420]  
+[00:13:24.860 -> 00:13:24.860]  
+[00:13:24.860 -> 00:13:24.860]  
+[00:13:24.860 -> 00:13:24.860]  
+[00:13:24.860 -> 00:13:24.860]  

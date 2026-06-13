@@ -1,0 +1,330 @@
+========================================================================
+FILE        : videos/2014/2014-09-29T00:05:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #25 (mcEmBE9JNys).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-09-29T00:05:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #25 (mcEmBE9JNys).mp4
+FORMAT      : MPEG4
+SIZE        : 27,375,002 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:07:58.280
+TRANSCRIBED: 2026-05-10T16:41:31.296219+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+This is Temple OS 5-Minute Random Code Walkthrough, Episode 25, and I'm your host, Terry Davis. So let's see where God takes us. Alt-B. And we are in... Colonel Ed Light. Okay. So, normally you use the full-featured editor, but there's a simple editor that's for emergencies when it's in the kernel. The normal editor is in Daldox. This is the normal editor. It's huge. It does all the trees, like if I say line rip, the normal editor does these trees, and it does links, and it does everything. But in the kernel, there's an Ed Light. And this is for if it crashes during a startup script, you can use Ed Light to edit your startup script. Maybe type fix. There's a... In this file is a... It will go to the last compiler error when you type fix. So if you ever have a compiler error, type fix, and it will go to the last error. Anyway, so Ed Light is a line editor. There's a fundamental structure is a... A queue... I use circular queues. What a circular queue is, is a circular doubly linked queue. So, A circular doubly linked queue has a head. I call it the root and then it has bi-directional links to all the other nodes so this is what a circular queue looks like it has a next and a last and then it comes back to itself to the root so this is a circular doubly linked list otherwise known as a queue and there's a dynamically allocated text U8 is text so we have a queue and then we have text for each line so basically it has to draw it this works in a black and white I can't show you with the video running there's a black and white mode that's for emergencies it's kind of like a kernel panic mode and this editor works in the black and white mode and this updates the screen what we do is what do we do okay so we go through we go through all the rows of text starting at the top and if it I'm just looking at what I do here we go through all the rows of text and the so the current line we use tempel tempel starts tempel starts as the current line and we go through a loop for all the rows of text first of all we back up halfway from the current line the current line is kept centered so this this backs up so we start at the top which is the current line is the center we go through all the lines and where do we draw if it's not we start oh we just output text okay so we output a character at a time we use the standard this uses raw mode output anyway raw mode output is like put char anyway so we go we go through all the we go through the line and we have to handle tabs if it's a tab we have to do the right number of spaces and then when we get to the end of the file we print EOF so this is an emergency editor and when it runs we run in an emergency mode I guess we even turn off interrupts we pull the let's see this is where we create the entries we make new new entry we start with a document we read a document into a buffer then we go through the buffer and we make all the circular doubly linked list nodes and then we go through the you can start at a current line when you have an error you want to go to the line number of the error so this when you call ed link you can specify a file name and then a line number and and then we stay in a loop getting characters and mostly we do the cursor keys these are cursor keys otherwise if it's not a cursor key we even have page up page down delete if we have a carriage return we start a new line we start inserting we have to handle backspace we have to handle control y is delete a line and all the other characters as long as it can be displayed then we this is inserting if you type a character it's inserting that character anyway so this has to make a new I think this reallocates the remember line was an allocated string of text and we allocate one bigger anyway if it's at the end we have to make a new line otherwise if it's not at the end we current column plus one equals zero that's if it's the end end of line so uh that's the emergency editor now now now now now now now now
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:07.800]  This is Temple OS 5-Minute Random Code Walkthrough, Episode 25, and I'm your host, Terry Davis.
+[00:00:08.260 -> 00:00:10.940]  So let's see where God takes us. Alt-B.
+[00:00:12.180 -> 00:00:13.980]  And we are in...
+[00:00:14.820 -> 00:00:16.460]  Colonel Ed Light. Okay.
+[00:00:17.900 -> 00:00:24.200]  So, normally you use the full-featured editor,
+[00:00:24.200 -> 00:00:36.840]  but there's a simple editor that's for emergencies when it's in the kernel.
+[00:00:39.200 -> 00:00:41.700]  The normal editor is in Daldox.
+[00:00:41.980 -> 00:00:43.820]  This is the normal editor. It's huge.
+[00:00:44.320 -> 00:00:48.560]  It does all the trees, like if I say line rip,
+[00:00:48.560 -> 00:00:54.400]  the normal editor does these trees, and it does links, and it does everything.
+[00:00:54.720 -> 00:01:00.320]  But in the kernel, there's an Ed Light.
+[00:01:01.220 -> 00:01:09.620]  And this is for if it crashes during a startup script,
+[00:01:09.900 -> 00:01:13.080]  you can use Ed Light to edit your startup script.
+[00:01:14.120 -> 00:01:15.620]  Maybe type fix.
+[00:01:17.440 -> 00:01:18.560]  There's a...
+[00:01:18.560 -> 00:01:20.780]  In this file is a...
+[00:01:23.160 -> 00:01:28.860]  It will go to the last compiler error when you type fix.
+[00:01:30.320 -> 00:01:34.800]  So if you ever have a compiler error, type fix, and it will go to the last error.
+[00:01:35.760 -> 00:01:39.700]  Anyway, so Ed Light is a line editor.
+[00:01:39.700 -> 00:01:44.480]  There's a fundamental structure is a...
+[00:01:44.480 -> 00:01:46.960]  A queue...
+[00:01:48.160 -> 00:01:50.360]  I use circular queues.
+[00:01:51.080 -> 00:01:53.240]  What a circular queue is,
+[00:01:53.280 -> 00:01:56.880]  is a circular doubly linked queue.
+[00:01:59.300 -> 00:02:00.180]  So,
+[00:02:02.020 -> 00:02:05.420]  A circular doubly linked queue has a head.
+[00:02:06.420 -> 00:02:08.400]  I call it the root
+[00:02:11.640 -> 00:02:13.600]  and then it has
+[00:02:17.460 -> 00:02:19.280]  bi-directional links
+[00:02:19.280 -> 00:02:22.780]  to all the other nodes
+[00:02:23.480 -> 00:02:27.040]  so this is what a circular queue looks like
+[00:02:27.040 -> 00:02:28.720]  it has a next and a last
+[00:02:31.560 -> 00:02:33.640]  and then it comes back to itself
+[00:02:33.640 -> 00:02:35.060]  to the root
+[00:02:35.060 -> 00:02:37.860]  so this is a circular doubly linked list
+[00:02:39.500 -> 00:02:41.060]  otherwise known as a queue
+[00:02:41.060 -> 00:02:47.440]  and there's a dynamically allocated
+[00:02:48.700 -> 00:02:49.340]  text
+[00:02:50.060 -> 00:02:51.840]  U8 is text
+[00:02:57.780 -> 00:02:59.640]  so we have a queue
+[00:02:59.640 -> 00:03:01.460]  and then we have text for each line
+[00:03:03.520 -> 00:03:06.000]  so basically it has to draw it
+[00:03:06.000 -> 00:03:09.060]  this works in a black and white
+[00:03:10.140 -> 00:03:12.660]  I can't show you with the video running
+[00:03:13.320 -> 00:03:16.460]  there's a black and white mode
+[00:03:16.460 -> 00:03:18.360]  that's for emergencies
+[00:03:18.360 -> 00:03:20.460]  it's kind of like a kernel panic mode
+[00:03:20.460 -> 00:03:23.680]  and this editor works in the black and white mode
+[00:03:23.680 -> 00:03:29.140]  and this updates the screen
+[00:03:31.740 -> 00:03:32.900]  what we do is
+[00:03:34.040 -> 00:03:35.240]  what do we do
+[00:03:39.020 -> 00:03:40.340]  okay so we go through
+[00:03:44.840 -> 00:03:46.740]  we go through all the rows of text
+[00:03:46.740 -> 00:03:47.820]  starting at the top
+[00:03:47.820 -> 00:03:48.920]  and
+[00:03:51.260 -> 00:03:51.980]  if it
+[00:03:57.620 -> 00:03:59.640]  I'm just looking at what I do here
+[00:04:02.100 -> 00:04:04.640]  we go through all the rows of text
+[00:04:05.580 -> 00:04:06.540]  and the
+[00:04:10.180 -> 00:04:10.820]  so
+[00:04:11.860 -> 00:04:13.280]  the current line
+[00:04:13.280 -> 00:04:14.440]  we use tempel
+[00:04:14.440 -> 00:04:15.360]  tempel starts
+[00:04:15.360 -> 00:04:17.320]  tempel starts as the current line
+[00:04:17.320 -> 00:04:19.220]  and we go through a loop
+[00:04:19.220 -> 00:04:21.900]  for all the rows of text
+[00:04:22.540 -> 00:04:24.260]  first of all we back up
+[00:04:24.260 -> 00:04:24.900]  halfway
+[00:04:26.500 -> 00:04:28.060]  from the current line
+[00:04:28.060 -> 00:04:30.020]  the current line is kept centered
+[00:04:30.020 -> 00:04:31.180]  so this
+[00:04:31.180 -> 00:04:32.560]  this backs up
+[00:04:33.860 -> 00:04:35.400]  so we start at the top
+[00:04:35.400 -> 00:04:36.140]  which is
+[00:04:37.020 -> 00:04:38.620]  the current line is the center
+[00:04:38.620 -> 00:04:39.260]  we go through
+[00:04:39.260 -> 00:04:40.460]  all the lines
+[00:04:40.460 -> 00:04:41.500]  and
+[00:04:45.700 -> 00:04:46.780]  where do we draw
+[00:04:47.360 -> 00:04:48.380]  if it's not
+[00:04:48.380 -> 00:04:49.460]  we start
+[00:04:52.580 -> 00:04:54.400]  oh we just output text
+[00:04:54.400 -> 00:04:56.620]  okay so we output a character at a time
+[00:04:56.620 -> 00:04:58.600]  we use the standard
+[00:04:59.880 -> 00:05:01.960]  this uses raw mode output
+[00:05:02.480 -> 00:05:04.160]  anyway raw mode output
+[00:05:06.720 -> 00:05:07.940]  is like put char
+[00:05:07.940 -> 00:05:08.920]  anyway
+[00:05:08.920 -> 00:05:10.200]  so we go
+[00:05:10.860 -> 00:05:11.860]  we go through
+[00:05:11.860 -> 00:05:12.740]  all the
+[00:05:12.740 -> 00:05:14.520]  we go through the line
+[00:05:14.520 -> 00:05:16.440]  and we have to handle tabs
+[00:05:17.260 -> 00:05:18.220]  if it's a tab
+[00:05:18.220 -> 00:05:19.900]  we have to do the right number of spaces
+[00:05:19.900 -> 00:05:22.440]  and then when we get to the end of the file
+[00:05:22.440 -> 00:05:23.800]  we print EOF
+[00:05:23.800 -> 00:05:26.760]  so this is an emergency editor
+[00:05:27.520 -> 00:05:29.000]  and when it runs
+[00:05:30.560 -> 00:05:32.820]  we run in an emergency mode
+[00:05:32.820 -> 00:05:35.300]  I guess we even turn off interrupts
+[00:05:37.180 -> 00:05:38.780]  we pull the
+[00:05:40.740 -> 00:05:41.560]  let's see
+[00:05:45.740 -> 00:05:50.240]  this is where we create the entries
+[00:05:50.240 -> 00:05:51.480]  we make new
+[00:05:51.480 -> 00:05:52.640]  new entry
+[00:05:52.640 -> 00:05:54.100]  we start with a document
+[00:05:54.100 -> 00:05:55.200]  we read a document
+[00:05:55.200 -> 00:05:57.360]  into a buffer
+[00:05:57.360 -> 00:05:59.620]  then we go through the buffer
+[00:06:00.880 -> 00:06:02.080]  and we make
+[00:06:02.080 -> 00:06:02.920]  all the
+[00:06:02.920 -> 00:06:05.200]  circular doubly linked list nodes
+[00:06:06.660 -> 00:06:07.800]  and then
+[00:06:12.180 -> 00:06:13.240]  we go through the
+[00:06:13.240 -> 00:06:15.020]  you can start at a current line
+[00:06:15.020 -> 00:06:16.340]  when you have an error
+[00:06:16.340 -> 00:06:18.640]  you want to go to the line number of the error
+[00:06:18.640 -> 00:06:19.820]  so this
+[00:06:21.540 -> 00:06:23.080]  when you call ed link
+[00:06:23.080 -> 00:06:25.440]  you can specify a file name
+[00:06:25.440 -> 00:06:27.160]  and then a line number
+[00:06:27.940 -> 00:06:28.540]  and
+[00:06:31.700 -> 00:06:32.480]  and then
+[00:06:32.480 -> 00:06:34.100]  we stay in a loop
+[00:06:35.540 -> 00:06:36.740]  getting characters
+[00:06:36.740 -> 00:06:38.580]  and mostly we do
+[00:06:38.580 -> 00:06:39.640]  the cursor keys
+[00:06:39.640 -> 00:06:41.120]  these are cursor keys
+[00:06:41.960 -> 00:06:42.560]  otherwise
+[00:06:42.560 -> 00:06:44.060]  if it's not a cursor key
+[00:06:44.060 -> 00:06:45.400]  we even have page up
+[00:06:45.400 -> 00:06:45.940]  page down
+[00:06:45.940 -> 00:06:46.260]  delete
+[00:06:47.680 -> 00:06:49.380]  if we have a carriage return
+[00:06:49.380 -> 00:06:50.480]  we start a new line
+[00:06:50.480 -> 00:06:51.580]  we start inserting
+[00:06:51.580 -> 00:06:53.880]  we have to handle backspace
+[00:06:53.880 -> 00:06:54.880]  we have to handle
+[00:06:54.880 -> 00:06:57.040]  control y is delete a line
+[00:06:57.980 -> 00:06:58.580]  and
+[00:06:58.580 -> 00:07:00.360]  all the other characters
+[00:07:00.360 -> 00:07:02.820]  as long as it can be displayed
+[00:07:02.820 -> 00:07:04.160]  then we
+[00:07:06.860 -> 00:07:08.160]  this is inserting
+[00:07:08.160 -> 00:07:09.880]  if you type a character
+[00:07:09.880 -> 00:07:11.280]  it's inserting
+[00:07:11.280 -> 00:07:12.700]  that character
+[00:07:12.700 -> 00:07:13.820]  anyway
+[00:07:13.820 -> 00:07:15.280]  so this has to make a new
+[00:07:16.680 -> 00:07:18.520]  I think this reallocates
+[00:07:18.520 -> 00:07:18.820]  the
+[00:07:22.120 -> 00:07:23.260]  remember line
+[00:07:23.260 -> 00:07:24.400]  was an allocated
+[00:07:24.400 -> 00:07:25.680]  string of text
+[00:07:25.680 -> 00:07:27.100]  and we allocate
+[00:07:27.100 -> 00:07:27.800]  one bigger
+[00:07:34.440 -> 00:07:34.980]  anyway
+[00:07:34.980 -> 00:07:36.360]  if it's at the end
+[00:07:36.360 -> 00:07:37.900]  we have to make a new line
+[00:07:37.900 -> 00:07:38.960]  otherwise
+[00:07:38.960 -> 00:07:40.260]  if it's not at the end
+[00:07:41.360 -> 00:07:41.900]  we
+[00:07:44.100 -> 00:07:45.020]  current column
+[00:07:45.020 -> 00:07:45.620]  plus one
+[00:07:45.620 -> 00:07:46.220]  equals zero
+[00:07:48.120 -> 00:07:49.600]  that's if it's the end
+[00:07:49.600 -> 00:07:51.260]  end of line
+[00:07:51.260 -> 00:07:52.720]  so uh
+[00:07:52.720 -> 00:07:54.440]  that's the emergency editor
+[00:07:54.440 -> 00:07:55.320]  now
+[00:07:55.320 -> 00:07:56.720]  now
+[00:07:56.720 -> 00:07:57.240]  now
+[00:07:57.240 -> 00:07:58.160]  now
+[00:07:58.160 -> 00:07:58.160]  
+[00:07:58.160 -> 00:07:58.240]  now
+[00:07:58.240 -> 00:07:58.240]  
+[00:07:58.240 -> 00:07:58.240]  
+[00:07:58.240 -> 00:07:58.260]  now
+[00:07:58.260 -> 00:07:58.260]  
+[00:07:58.260 -> 00:07:58.260]  
+[00:07:58.260 -> 00:07:58.260]  
+[00:07:58.260 -> 00:07:58.260]  
+[00:07:58.260 -> 00:07:58.260]  
+[00:07:58.260 -> 00:07:58.260]  
+[00:07:58.260 -> 00:07:58.260]  
+[00:07:58.260 -> 00:07:58.260]  
+[00:07:58.260 -> 00:07:58.260]  
+[00:07:58.260 -> 00:07:58.260]  
+[00:07:58.260 -> 00:07:58.260]  
+[00:07:58.260 -> 00:07:58.260]  
+[00:07:58.260 -> 00:07:58.260]  
+[00:07:58.260 -> 00:07:58.260]  
+[00:07:58.260 -> 00:07:58.260]  
+[00:07:58.260 -> 00:07:58.260]  
+[00:07:58.260 -> 00:07:58.260]  
+[00:07:58.260 -> 00:07:58.260]  
+[00:07:58.260 -> 00:07:58.260]  
+[00:07:58.260 -> 00:07:58.260]  
+[00:07:58.260 -> 00:07:58.260]  
+[00:07:58.260 -> 00:07:58.260]  
+[00:07:58.260 -> 00:07:58.260]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:56.420 -> 00:07:56.420]  
+[00:07:58.260 -> 00:07:58.280]  now
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.280]  
+[00:07:58.280 -> 00:07:58.300]  now
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.300 -> 00:07:58.300]  
+[00:07:58.280 -> 00:07:58.280]  

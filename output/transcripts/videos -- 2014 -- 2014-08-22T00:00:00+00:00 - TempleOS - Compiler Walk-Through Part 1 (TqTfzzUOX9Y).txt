@@ -1,0 +1,777 @@
+========================================================================
+FILE        : videos/2014/2014-08-22T00:00:00+00:00 - TempleOS - Compiler Walk-Through Part 1 (TqTfzzUOX9Y).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-08-22T00:00:00+00:00 - TempleOS - Compiler Walk-Through Part 1 (TqTfzzUOX9Y).mkv
+FORMAT      : Matroska
+SIZE        : 154,852,100 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:33:39.080
+TRANSCRIBED: 2026-05-08T04:32:47.391073+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+Okay I'm gonna cover the compiler. It's both the just-in-time and an ahead-of-time compiler merged in one and there's an assembler, two and an unassembler. It's in the compiler directory. The compiler, the first phase is converting source code to tokens. So like if you have an identifier, the lexical analyzer will put together letters into an identifier. The lexical analyzer will get rid of comments. It will process integers and convert them to a binary internal format. Anyway so the lexical analyzer is the first, it's kind of like a pipeline and the lexical analyzer is the first part of the pipe. The parser parses expressions. It's full of calls to lex, that's lexical analyzer. There it is looking for an identifier. Anyway so when the main trick in parsing an expression is operator precedence. And then the I'm giving you an overview. Then there's parsing statements. A statement is either an expression or it's if, for, while. Those are all statements. If, for, while. If you put braces you can put a statement becomes a block of statements. Anyway so and then after the front end comes the, the, well what we do is we, when we're parsing we put together intermediate codes. Most people use a symbol tree, an abstract AST. I use a stack machine, a stack machine, a stack machine, a intermediate code output. So then after the, after the parsing you convert it to intermediate codes and then the, then you optimize to combine constants together and stuff like that. And merge, merge into complex instructions. And so I have several passes of optimization. And then the final pass is where it converts it to machine code. So you can see here there's a big switch statement. And all those intermediate codes get converted to machine code. So let's go look at an example. I turn on the O trace that's for the optimizer trace. I'm going to hit, okay this, what we're doing is we're adding, adding up the numbers from one to N and returning the result. So let's, let's analyze how it's, how it's converting this. So when it hits the, the optimizer it's been converted by the parser to intermediate codes. So there's an enter to this function. This is a stack machine. So it pushes the base pointer. It pushes an offset of, an offset off the base pointer is where variable goes. Then it, this add pops the last two and adds them and then pushes. Then there's a, it pushes a zero and it assigns a zero to the, the other two to the result of the add. So that's where it's an assigning, that's an assign statement. This is a marker for end of expression. Now for the for loop, let's see what we're doing. We're pushing the, the look, the address of I, which is off the base pointer. Then we're adding those, the base pointer in I. Then we're pushing a one and then we're assigning a one to, to I. So this F8 is I, F0 is result. Anyway, so we go on and then we start getting down to this lesser equal branch if zero. And then we have a label. That's what this internal number, each of these intermediate codes has one number and then it has a data type. So branch of zero to this label. Let's see, there's a label D70. So the label branch of zero. So what we're going to do during the different passes is first it has to figure out the type more thoroughly. You know, like when you multiply a float by a integer and you get a float. Well, it has to, in the first few passes, it has to figure out the types. Then it starts converting on pass three. It's already assigned to vary. It's assigned register variables based on how often the offset is used. You see, it sees all those offsets and it makes a score for each offset to see which one goes and registers. So it, it has decided on these register variables. Now if you take the address of a variable, then it can no longer be a register variable because the address of a register is not supported in x86. Anyway, so now it's pass three. It's starting to convert these to complex instructions. This is risk. You see how these are really simple instructions? This is risk. And the purpose of the optimizing is to convert to cisk. Now as it turns out, it doesn't really speed it up much because the processor converts it back to risk. Isn't that funny? But my optimizing is mandatory because it does some other things than just convert risk to cisk. So I try to document the stack machine. There's a result and there's data types. So anyway, it starts assigning registers to, instead of the stack, it uses registers. RAX is the, that's the top of the stack. It's kind of what links together each of these intermediate codes. Now as we get towards the bottom here, the final phases, it's converting to machine code. And I have some rules. An intermediate, each intermediate code can clobber A, B, C, and D, X, but it can't clobber RSI, RDI. Those are used for register variables. So A, X, D, X, B, X, and C, can be clobbered by each of the intermediate codes. So now let's go take a thorough look at the code now that we know what's going on. So what it has to do is it has to, so what it does is it converts the code to an intermediate format that's risk and it's a stack machine. And then it converts RISC to CISC. It builds up the instructions. It merges together two little instructions into one big instruction. And then in the final phases, it starts converting to machine code. And so it turns out that it splices together each of these chunks of machine code to make the final output code. So if you want to see what the compiler is doing, you can O-trace. We'll analyze the different optimizing passes. C-trace will just give you the final output. So there's the final output. They've been spliced together into some just-in-time code. Now let's see what it's doing. I always use the base pointer for variables on the stack and accessing arguments. So it's subtracting. We create some local storage, but it's going to be using register variables. It saves the variables that you have to save. Now it's starting to XOR. It's starting to initialize the register variables. So it does a two-part. To store a one, it sets it to zero, and then it does a one byte. You can see how I've used five bytes to put a one. If you used the eight byte, it would be nine bytes. Anyway, five bytes is shorter. I don't care about speed. I just care about pretty code. There it's comparing against N. Jump greater. So you're going to have a hard time if you don't know machine code or assembly code. Mine converts straight from the intermediate code to the machine code. There's no stage where it's assembly code. There's incrementing, jumping, and then I use the return that pops a stack. So anyway, let's go ahead and analyze. Now that we know what our goal is, let's look at how it does that. So there's a data file with all the opcodes and all the keywords are stored in this data file. The opcode, different addressing modes for the different opcodes are all in here. I hardcode when I convert from intermediate code to assembly to machine code. I hardcode it. I don't, I don't, so you'll see a lot of places. Sometimes I don't hardcode it. Mostly I hardcode the, I don't make, you can see here it's doing, this is machine code for move. There's a, one of the, one of the library routines is to move. Okay, I'll get into that in a minute. So during the initialization phase, during, when it first boots, it processes the opcode file and loads it into memory. That's in this initialization phase. That's in this comp init. So it makes some tables, like there's a table for convert a token to a operator. So, the lexical analyzer gives you tokens, like token, lesser, equal. And it also gives you identifiers. It'll give you strings. Anyway, so, I'm getting ahead of myself. So the, there's all the intermediate codes. There's a table it processes when it first initializes. And this tells how many arguments on the stack are, how many, you'll see when you're, when you're adding, you, you, you push. There are two arguments on the stack and one result is pushed. So it's got some, this is just to initialize. It tells some information about the, the intermediate codes. Here it's loading in some data. And so during, during boot, it processes this, the opcode file. And it put, I use hash tables for keywords. And when it's actually compiling, it puts stuff in a hash table. A hash table is, if you don't know what a hash table is, take an array of 10,000. And, um, if you want to add a variable, then take its letters and add them up. And then look up in the array at, at the sum of the ASCII. And, um, that, that's a linked list. You can see, anyway, if you don't know what a hash table is, go find out. Um, so the Lexical Analyzer, um, is the front of the pipe. And, in the Lexical Analyzer, um, the, the command prompt, the command prompt, the, is, uh, fed into the Lexical Analyzer. So that's, uh, and then when you start including files, it has, uh, the main, the main, uh, frame, um, structure is called a C, C Lex. Um, this is where, uh, it, when it Lex's, it'll store the identifier or it'll store, uh, the integer if somebody entered an integer or a float. And, uh, it has to keep track of how many include files have been included. So there's a, uh, uh, there's a file stack. There's a, there's a file stack. It pushes a new file when you do an include. So these C, C Lex files are, are the, uh, that's what's keeping track of the file and the position in the file. Um, let's see, where is the, the file? Um, there's tokens. Okay. Uh, so a, a file has, uh, um, it's either processing, uh, the, uh, native documents or it's processing, uh, before the native documents are loaded. It's doing just ASCII. Anyway, uh, so it has to keep track of the current position. When you hit an include, it has to, uh, push and start a new position, a new position. So the, the purpose of the Lex function, the Lex function is the most fundamental function. It converts it, uh, the stream to tokens. I don't do a pre-processor. Okay. So these tokens start at, uh, 100. If it's a, if it's a multiply or something, then it just returns the ASCII for the operator. Um, so, um, most, we could Lex something just to see what it does. Anyway, uh, so I don't have a pre-processor. In my Lexical Analyzer, I check. And if I hit a, uh, a pound, then I process a, uh, a, uh, a pre-compiler. I do that in my Lex. So I'm keeping track of pound define is putting in my table. And I don't do, uh, pound define functions. That's not allowed. I don't like pound define functions, pre-processor functions. So, uh, um, so Lex is the most fundamental, uh, subroutine in a compiler. That's, um, when it's parsing, it'll call Lex. Lex, and then Lex will come, will give you one token. So, like, if we were, if we were Lexing this right here, while would be an identifier. And I would return the location in the symbol table of the while. Um, this parenthesis would be returned as a, uh, whatever this is. I don't know, 38, 40, 30, I don't know what it is. The parenthesis would be a token. True would be at pound define. And Lex would convert it to one. Uh, and, uh, then this, the end parenthesis would be returned. And anyway, so, uh, I happen to allow superscripts and subscripts and identifiers, believe it or not. But anyway, uh, so here it's converting a float. Um, I think that's what it's doing. It converts, if you do 0x, it has to convert to hex. Or, um, if you do, if, when it's doing a string, it has to convert the, the backslash tab, backslash, uh, um, quote, backslash. There's binary, lex. Okay, so the lex, uh, there's one function that's called. Now my expression parser has to keep track of, uh, um, operator precedents. I use a state machine. When I'm, when I'm parsing a term, then, um, I use a state machine. I have to do the, these are the operators that can go in front. You can put a, you can put a minus, a unary minus. So, um, it has to be careful of those. And, um, all through the, um, the parsing, it's creating these, uh, intermediate code entries. Those are those little tiny instructions that, um, we have to optimize and merge. So, uh, um, this has a, uh, a state machine, uh, the, uh, the expression parser is a state machine. And, uh, it, uh, okay, well, I think that's pretty self-explanatory. So, um, when you parse, when you parse an expression, you either, when you get a new operator, you either handle it, if it's higher precedence, or you postpone it to later, if it's lower precedence, than, than the previous operator. So, you push on a stack. Um, you'll notice I have a stack somewhere in here. Um, where's the, um, oops. So, there's a, um, there's a stack, it's PS stack. That's for the, uh, operator. When it either postpones an operator or does it right away. So, I need a stack data structure to, uh, I push the type of the term or operator, or I push the type or class as well as the, uh, anyway. So, uh, statement parser. So, when we parse a statement, we, uh, let's say we, we hit a four. Then we have to go parse the four. So, let's see. So, when you parse a four, um, you're expecting a parenthesis. I have exceptions, so I can just throw an exception if I don't get a parenthesis after a four. Um, I skip the, I skip the parenthesis right there. Then I parse an expression. A four statement has, uh, three expression, three statements. So, I parse a statement that's kind of recursive. Then I set a, uh, a label. I'm going to need a label. Um, oh, this is for looping backward. This is the loop back, backward label. We, we push, uh, intermediate code to mark this label. Then we parse an expression. That's for the, uh, that's the, the continue. The four statement expression is there. Then we, uh, we either branch backward, or we branch over to the end. If, we don't know where the, the done is going to be at this point, but we're, we're going to add a label up, in the future, we're going to add a label to show the end of the statement. We have to parse in a semicolon. If we're missing in a semicolon, we throw an exception. now it turns out, mostly we can do our code, um, in the same order it's coming. But, uh, for a four statement, you have to, uh, you have to rearrange the code because the, uh, I, the statement at the end, uh, what are we doing? And basically what I do is I, uh, I, I, uh, I parse a chunk of code, and then I append it after, at, at one point. So, um, anyway, that's how, it's doing a four statement. Um, then it, now when it, um, when it optimizes, um, one of the things it does is, uh, simplify constant expressions. If I were to say one plus, or let's go back to the, let's say I had, uh, one plus three plus two plus one. Um, you can see it put a ten, uh, no, it put a, um, I'm sorry, it put a seven in the variable. Now how did it know that? Well, when it compiles, everybody thinks this is interpreter. this is not, this is, there's no interpreter. There's no, uh, byte code. This intermediate code is, uh, not really executed. It's sort of executed when you simplify a, a constant, but that's not, actually, that's not a, some people are just dying to say it's not a compiler. It's a compiler. Fuck you. It's, it's not an interpreter. Anyway, uh, so, uh, it, uh, it, it simplifies constants in this phase. And it, um, then in phase three, it figures out which are going to be the register variables. And it starts, basically the whole, the main thing that happens is during these passes, it converts to, from risk to cisk. And then on the final passes, it converts to machine code. So, uh, anyway, uh, you can see the intermediate codes. Now, um, you might see that I have, uh, some built-in functions. Um, if you want to build a function into the compiler, it's pretty tricky. Um, first you need a, uh, in the, uh, in the compiler definition, these are some built-in functions. You're going to need to, uh, you add a, uh, intermediate code. You have to add a table entry for the intermediate code. If you change the order, that's going to make it really tricky. You have to know what you're doing. Um, I can tell you, but it's too complicated. Anyway, uh, so you, you add a, you add a, you add that. This is where you add that. Um, then during the passes, you have to, um, if it's a function, mostly you do nothing during the passes when it's simplifying expressions. And then in the final pass, you have to convert it to machine code. Um, and that's up to you. Um, so the optimizer, and then the back end, and then the back end, the pass seven, eight, nine calls the back end. And the back end has a library. The main, mainly you add, um, you add, uh, machine code either as, uh, one byte, two bytes, three bytes, or four bytes of machine code. And you can use some of these library routines. Um, now, uh, I should, I should tell you, uh, a little bit more about, uh, what's going on. So, um, the, when it's merging these into a complex instruction, now it's dealing with an immediate, it's not just on the stack. It can be an immediate value. It can be a register variable. It can be a, uh, a displacement off, off of, um, if there's a, a non-register variable, then you can have a displacement. So, uh, the, the main, the, each item is a, has a, uh, each argument has a, uh, raw type, and then it has a, uh, you see this TY mask. Let me explain this. All through the back end, you have arguments that are either an immediate, a register, a displacement off a register. This is an indexed, um, uh, relative, um, displacement. This is 64 bit, or it's a stack, system stack. Um, so, the, the, uh, the entities you're dealing with are one of these types. And then it has a, it's either a byte, a word, or a float. So, uh, when you're, when you're doing, when you're doing the back end, um, you're constantly checking if it's an immediate, if, if the, and, uh, um, you start, if you, let's, this is, this isn't, this is how the machine, this is the machine code for and and branch. So it ends, and then, uh, down here it's doing a branch. Um, it, it either does a short branch or a long branch. Um, during the final phase, it only shrinks, the, uh, um, during the final three passes, it generates machine code. And it, it, if, if a branch is short enough, it uses a, a short branch. And the rule is you can only, you can only shrink during the last few passes. If it expanded, that would break the short jumps. So, uh, anyway, so, uh, what was I going to say? Uh, so you have a, uh, all of these routines have a type, a register, and a displacement. That's, that's what makes up a, uh, uh, item is a type, a register, and a displacement. And the type is a combination of a TY mask. One of, it's a combination of one of these types. And it's also a real, uh, it's also a size. So for all these backend routines, you'll see it's, it's checking if the argument is a type immediate. It has a, it has a, um, a number, it has a displacement. And, um, it all, a type plus a, uh, a size is the, uh, is what a, a type, type of an argument is. Anyway, uh, so, uh, that's my compiler. Um, oh, so, um, the final, uh, this is where it, this is the higher level where it's, uh, it's calling each, oops, it's calling each of the passes in this routine. And then, uh, for the final pass, it, it allocates a chunk of code, a chunk of memory for the code. So once the code size has been figured out, then it, um, it allocates off the code heap, a chunk of code. And, uh, there's where it's allocated off the code heap. It has to do some, uh, final adjustments. In the last pass, um, if you have a switch statement, it has to resolve all those jumps. And it has to, uh, it has to, there's a switch statement, uh, array afterward, after the function. So it compiles function by function. And, um, after it's compiled the code, then it inserts all the string constants into, uh, this is, this is the, this is the pass, eight, nine, seven, eight, nine. This is the final pass where it's converting the machine code. After it's finished, it has, uh, um, it, it stores the string constants and, um, the jump table data is stored there. So the, uh, the higher level routine is, uh, right here. It's calling all those passes. Then it's, uh, it's, it's simplifying. What is it doing? Simplifying forward jumps. Forwarded jumps, not forward jumps. Anyway, uh, so, uh, then this will unassemble and it returns the code. So, um, you have to know about the symbol table. Uh, I told you it has a hash table. each, each task has a hash table. And so, uh, when it does a, uh, when it calls a, uh, let's, let's, let's compile, um, um, how about, uh, dir. Um, so, it has to, uh, it, it knows where the directory, uh, code is, is in, but because it looked up in the symbol table. And so all it had to do was, uh, do a relative branch. Um, it's, it's actually a lot easier to make a just-in-time compiler. than to make an ahead of time. Um, mine does both. Uh, if you look in the compiler, um, uh, it will, uh, generate a binary module. If you do a, uh, ahead of time. Otherwise, it, it patches up all the, it has to patch all those relative addresses and stuff. Um, um, um, um, um, um, um,
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:07.180]  Okay I'm gonna cover the compiler. It's both the just-in-time and an ahead-of-time
+[00:00:07.180 -> 00:00:13.380]  compiler merged in one and there's an assembler, two and an unassembler. It's in
+[00:00:13.380 -> 00:00:25.560]  the compiler directory. The compiler, the first phase is converting source code to
+[00:00:25.560 -> 00:00:35.780]  tokens. So like if you have an identifier, the lexical analyzer will put
+[00:00:36.360 -> 00:00:42.880]  together letters into an identifier. The lexical analyzer will get rid of
+[00:00:42.880 -> 00:00:51.600]  comments. It will process integers and convert them to a binary internal format.
+[00:00:52.800 -> 00:00:57.800]  Anyway so the lexical analyzer is the first, it's kind of like a pipeline and
+[00:00:57.800 -> 00:01:10.820]  the lexical analyzer is the first part of the pipe. The parser parses expressions.
+[00:01:13.700 -> 00:01:21.080]  It's full of calls to lex, that's lexical analyzer. There it is looking for an identifier.
+[00:01:21.900 -> 00:01:30.680]  Anyway so when the main trick in parsing an expression is operator precedence. And
+[00:01:30.680 -> 00:01:38.400]  then the I'm giving you an overview. Then there's parsing statements. A statement is
+[00:01:38.400 -> 00:01:51.200]  either an expression or it's if, for, while. Those are all statements. If, for, while. If you put
+[00:01:51.200 -> 00:02:00.340]  braces you can put a statement becomes a block of statements. Anyway so and then
+[00:02:00.340 -> 00:02:09.840]  after the front end comes the, the, well what we do is we, when we're parsing we put
+[00:02:09.840 -> 00:02:20.180]  together intermediate codes. Most people use a symbol tree, an abstract AST. I use a
+[00:02:20.180 -> 00:02:34.060]  stack machine, a stack machine, a stack machine, a intermediate code output. So then after the, after the
+[00:02:34.060 -> 00:02:42.720]  parsing you convert it to intermediate codes and then the, then you optimize to combine constants
+[00:02:42.720 -> 00:02:51.220]  together and stuff like that. And merge, merge into complex instructions. And so I have
+[00:02:51.220 -> 00:02:56.400]  several passes of optimization. And then the final pass is where it converts it to
+[00:02:56.400 -> 00:03:04.440]  machine code. So you can see here there's a big switch statement. And all those
+[00:03:04.440 -> 00:03:11.100]  intermediate codes get converted to machine code. So let's go look at an example.
+[00:03:13.780 -> 00:03:19.900]  I turn on the O trace that's for the optimizer trace. I'm going to hit, okay this, what we're
+[00:03:19.900 -> 00:03:27.940]  doing is we're adding, adding up the numbers from one to N and returning the result. So let's, let's
+[00:03:27.940 -> 00:03:37.920]  analyze how it's, how it's converting this. So when it hits the, the optimizer it's been converted
+[00:03:37.920 -> 00:03:45.120]  by the parser to intermediate codes. So there's an enter to this function.
+[00:03:47.760 -> 00:03:57.860]  This is a stack machine. So it pushes the base pointer. It pushes an offset of, an offset off the base pointer is where
+[00:03:57.860 -> 00:04:13.160]  variable goes. Then it, this add pops the last two and adds them and then pushes. Then there's a, it pushes a zero and it assigns a zero to the,
+[00:04:14.460 -> 00:04:24.480]  the other two to the result of the add. So that's where it's an assigning, that's an assign statement.
+[00:04:27.420 -> 00:04:42.300]  This is a marker for end of expression. Now for the for loop, let's see what we're doing. We're pushing the, the look, the address of I, which is off the base pointer.
+[00:04:42.300 -> 00:04:52.940]  Then we're adding those, the base pointer in I. Then we're pushing a one and then we're assigning a one to, to I.
+[00:04:54.940 -> 00:05:06.220]  So this F8 is I, F0 is result. Anyway, so we go on and then we start getting down to this lesser equal branch if zero.
+[00:05:06.220 -> 00:05:17.180]  And then we have a label. That's what this internal number, each of these intermediate codes has one number and then it has a data type.
+[00:05:18.720 -> 00:05:28.300]  So branch of zero to this label. Let's see, there's a label D70.
+[00:05:28.300 -> 00:05:41.400]  So the label branch of zero. So what we're going to do during the different passes is first it has to figure out the type more thoroughly.
+[00:05:41.860 -> 00:05:45.740]  You know, like when you multiply a float by a integer and you get a float.
+[00:05:45.740 -> 00:05:51.320]  Well, it has to, in the first few passes, it has to figure out the types.
+[00:05:53.200 -> 00:05:58.840]  Then it starts converting on pass three. It's already assigned to vary.
+[00:05:59.120 -> 00:06:07.780]  It's assigned register variables based on how often the offset is used.
+[00:06:07.780 -> 00:06:15.980]  You see, it sees all those offsets and it makes a score for each offset to see which one goes and registers.
+[00:06:20.420 -> 00:06:25.000]  So it, it has decided on these register variables.
+[00:06:25.300 -> 00:06:35.340]  Now if you take the address of a variable, then it can no longer be a register variable because the address of a register is not supported in x86.
+[00:06:35.340 -> 00:06:45.820]  Anyway, so now it's pass three. It's starting to convert these to complex instructions.
+[00:06:46.300 -> 00:06:50.220]  This is risk. You see how these are really simple instructions?
+[00:06:50.360 -> 00:06:57.560]  This is risk. And the purpose of the optimizing is to convert to cisk.
+[00:06:57.940 -> 00:07:04.220]  Now as it turns out, it doesn't really speed it up much because the processor converts it back to risk.
+[00:07:04.220 -> 00:07:05.660]  Isn't that funny?
+[00:07:07.220 -> 00:07:14.800]  But my optimizing is mandatory because it does some other things than just convert risk to cisk.
+[00:07:15.220 -> 00:07:19.400]  So I try to document the stack machine.
+[00:07:19.760 -> 00:07:24.780]  There's a result and there's data types.
+[00:07:26.820 -> 00:07:37.760]  So anyway, it starts assigning registers to, instead of the stack, it uses registers.
+[00:07:38.420 -> 00:07:42.540]  RAX is the, that's the top of the stack.
+[00:07:42.540 -> 00:07:46.180]  It's kind of what links together each of these intermediate codes.
+[00:07:46.180 -> 00:07:57.080]  Now as we get towards the bottom here, the final phases, it's converting to machine code.
+[00:07:57.360 -> 00:07:59.020]  And I have some rules.
+[00:07:59.780 -> 00:08:08.720]  An intermediate, each intermediate code can clobber A, B, C, and D, X, but it can't clobber RSI, RDI.
+[00:08:09.680 -> 00:08:11.720]  Those are used for register variables.
+[00:08:12.160 -> 00:08:20.280]  So A, X, D, X, B, X, and C, can be clobbered by each of the intermediate codes.
+[00:08:22.420 -> 00:08:27.300]  So now let's go take a thorough look at the code now that we know what's going on.
+[00:08:28.600 -> 00:08:44.820]  So what it has to do is it has to, so what it does is it converts the code to an intermediate format that's risk and it's a stack machine.
+[00:08:44.820 -> 00:08:49.300]  And then it converts RISC to CISC.
+[00:08:49.420 -> 00:08:50.780]  It builds up the instructions.
+[00:08:50.780 -> 00:08:54.940]  It merges together two little instructions into one big instruction.
+[00:08:55.900 -> 00:09:00.080]  And then in the final phases, it starts converting to machine code.
+[00:09:00.700 -> 00:09:12.540]  And so it turns out that it splices together each of these chunks of machine code to make the final output code.
+[00:09:12.540 -> 00:09:18.280]  So if you want to see what the compiler is doing, you can O-trace.
+[00:09:18.480 -> 00:09:23.680]  We'll analyze the different optimizing passes.
+[00:09:24.300 -> 00:09:26.680]  C-trace will just give you the final output.
+[00:09:26.980 -> 00:09:28.640]  So there's the final output.
+[00:09:30.120 -> 00:09:34.460]  They've been spliced together into some just-in-time code.
+[00:09:36.260 -> 00:09:38.180]  Now let's see what it's doing.
+[00:09:38.180 -> 00:09:46.280]  I always use the base pointer for variables on the stack and accessing arguments.
+[00:09:47.300 -> 00:09:48.140]  So it's subtracting.
+[00:09:48.320 -> 00:09:51.500]  We create some local storage, but it's going to be using register variables.
+[00:09:51.920 -> 00:09:55.420]  It saves the variables that you have to save.
+[00:09:55.820 -> 00:09:58.540]  Now it's starting to XOR.
+[00:09:58.540 -> 00:10:01.720]  It's starting to initialize the register variables.
+[00:10:02.220 -> 00:10:03.800]  So it does a two-part.
+[00:10:04.380 -> 00:10:08.320]  To store a one, it sets it to zero, and then it does a one byte.
+[00:10:08.580 -> 00:10:13.160]  You can see how I've used five bytes to put a one.
+[00:10:13.960 -> 00:10:20.200]  If you used the eight byte, it would be nine bytes.
+[00:10:20.580 -> 00:10:22.060]  Anyway, five bytes is shorter.
+[00:10:22.060 -> 00:10:23.260]  I don't care about speed.
+[00:10:23.500 -> 00:10:24.980]  I just care about pretty code.
+[00:10:27.440 -> 00:10:29.920]  There it's comparing against N.
+[00:10:30.840 -> 00:10:31.780]  Jump greater.
+[00:10:33.100 -> 00:10:38.560]  So you're going to have a hard time if you don't know machine code or assembly code.
+[00:10:40.100 -> 00:10:44.080]  Mine converts straight from the intermediate code to the machine code.
+[00:10:44.080 -> 00:10:48.340]  There's no stage where it's assembly code.
+[00:10:49.300 -> 00:10:56.380]  There's incrementing, jumping, and then I use the return that pops a stack.
+[00:10:58.580 -> 00:11:04.480]  So anyway, let's go ahead and analyze.
+[00:11:04.900 -> 00:11:10.600]  Now that we know what our goal is, let's look at how it does that.
+[00:11:10.600 -> 00:11:21.060]  So there's a data file with all the opcodes and all the keywords are stored in this data file.
+[00:11:21.260 -> 00:11:26.860]  The opcode, different addressing modes for the different opcodes are all in here.
+[00:11:29.600 -> 00:11:36.820]  I hardcode when I convert from intermediate code to assembly to machine code.
+[00:11:36.820 -> 00:11:38.460]  I hardcode it.
+[00:11:38.460 -> 00:11:42.840]  I don't, I don't, so you'll see a lot of places.
+[00:11:42.980 -> 00:11:44.500]  Sometimes I don't hardcode it.
+[00:11:45.300 -> 00:12:00.940]  Mostly I hardcode the, I don't make, you can see here it's doing, this is machine code for move.
+[00:12:01.560 -> 00:12:06.300]  There's a, one of the, one of the library routines is to move.
+[00:12:07.620 -> 00:12:09.620]  Okay, I'll get into that in a minute.
+[00:12:10.380 -> 00:12:20.140]  So during the initialization phase, during, when it first boots, it processes the opcode file and loads it into memory.
+[00:12:20.140 -> 00:12:22.100]  That's in this initialization phase.
+[00:12:22.100 -> 00:12:23.800]  That's in this comp init.
+[00:12:25.180 -> 00:12:33.620]  So it makes some tables, like there's a table for convert a token to a operator.
+[00:12:38.400 -> 00:12:45.800]  So, the lexical analyzer gives you tokens, like token, lesser, equal.
+[00:12:47.900 -> 00:12:51.220]  And it also gives you identifiers.
+[00:12:51.480 -> 00:12:52.440]  It'll give you strings.
+[00:12:53.180 -> 00:12:55.740]  Anyway, so, I'm getting ahead of myself.
+[00:12:56.260 -> 00:13:00.120]  So the, there's all the intermediate codes.
+[00:13:00.280 -> 00:13:03.160]  There's a table it processes when it first initializes.
+[00:13:04.100 -> 00:13:14.660]  And this tells how many arguments on the stack are, how many, you'll see when you're, when you're adding, you, you, you push.
+[00:13:15.040 -> 00:13:18.420]  There are two arguments on the stack and one result is pushed.
+[00:13:19.960 -> 00:13:23.440]  So it's got some, this is just to initialize.
+[00:13:23.580 -> 00:13:27.780]  It tells some information about the, the intermediate codes.
+[00:13:28.100 -> 00:13:30.020]  Here it's loading in some data.
+[00:13:31.060 -> 00:13:35.560]  And so during, during boot, it processes this, the opcode file.
+[00:13:35.760 -> 00:13:40.900]  And it put, I use hash tables for keywords.
+[00:13:41.620 -> 00:13:45.540]  And when it's actually compiling, it puts stuff in a hash table.
+[00:13:46.860 -> 00:13:54.100]  A hash table is, if you don't know what a hash table is, take an array of 10,000.
+[00:13:54.660 -> 00:14:00.800]  And, um, if you want to add a variable, then take its letters and add them up.
+[00:14:01.060 -> 00:14:06.200]  And then look up in the array at, at the sum of the ASCII.
+[00:14:06.580 -> 00:14:10.000]  And, um, that, that's a linked list.
+[00:14:10.520 -> 00:14:14.740]  You can see, anyway, if you don't know what a hash table is, go find out.
+[00:14:14.740 -> 00:14:20.580]  Um, so the Lexical Analyzer, um, is the front of the pipe.
+[00:14:21.260 -> 00:14:32.060]  And, in the Lexical Analyzer, um, the, the command prompt, the command prompt, the, is, uh, fed into the Lexical Analyzer.
+[00:14:32.060 -> 00:14:47.900]  So that's, uh, and then when you start including files, it has, uh, the main, the main, uh, frame, um, structure is called a C, C Lex.
+[00:14:47.900 -> 00:15:02.160]  Um, this is where, uh, it, when it Lex's, it'll store the identifier or it'll store, uh, the integer if somebody entered an integer or a float.
+[00:15:03.060 -> 00:15:09.040]  And, uh, it has to keep track of how many include files have been included.
+[00:15:09.040 -> 00:15:16.780]  So there's a, uh, uh, there's a file stack.
+[00:15:17.040 -> 00:15:19.020]  There's a, there's a file stack.
+[00:15:20.320 -> 00:15:23.140]  It pushes a new file when you do an include.
+[00:15:23.420 -> 00:15:31.660]  So these C, C Lex files are, are the, uh, that's what's keeping track of the file and the position in the file.
+[00:15:32.140 -> 00:15:37.240]  Um, let's see, where is the, the file?
+[00:15:37.800 -> 00:15:39.320]  Um, there's tokens.
+[00:15:39.400 -> 00:15:39.940]  Okay.
+[00:15:40.660 -> 00:15:54.400]  Uh, so a, a file has, uh, um, it's either processing, uh, the, uh, native documents or it's processing, uh, before the native documents are loaded.
+[00:15:54.400 -> 00:15:55.740]  It's doing just ASCII.
+[00:15:56.160 -> 00:15:59.000]  Anyway, uh, so it has to keep track of the current position.
+[00:15:59.000 -> 00:16:07.000]  When you hit an include, it has to, uh, push and start a new position, a new position.
+[00:16:07.320 -> 00:16:14.300]  So the, the purpose of the Lex function, the Lex function is the most fundamental function.
+[00:16:14.920 -> 00:16:18.380]  It converts it, uh, the stream to tokens.
+[00:16:18.700 -> 00:16:20.560]  I don't do a pre-processor.
+[00:16:20.980 -> 00:16:21.240]  Okay.
+[00:16:21.300 -> 00:16:25.320]  So these tokens start at, uh, 100.
+[00:16:26.020 -> 00:16:31.300]  If it's a, if it's a multiply or something, then it just returns the ASCII for the operator.
+[00:16:32.000 -> 00:16:39.560]  Um, so, um, most, we could Lex something just to see what it does.
+[00:16:39.840 -> 00:16:42.480]  Anyway, uh, so I don't have a pre-processor.
+[00:16:42.920 -> 00:16:45.860]  In my Lexical Analyzer, I check.
+[00:16:46.100 -> 00:16:55.700]  And if I hit a, uh, a pound, then I process a, uh, a, uh, a pre-compiler.
+[00:16:55.700 -> 00:16:57.280]  I do that in my Lex.
+[00:16:57.640 -> 00:17:01.940]  So I'm keeping track of pound define is putting in my table.
+[00:17:02.540 -> 00:17:05.620]  And I don't do, uh, pound define functions.
+[00:17:05.820 -> 00:17:07.080]  That's not allowed.
+[00:17:07.380 -> 00:17:11.600]  I don't like pound define functions, pre-processor functions.
+[00:17:12.140 -> 00:17:20.780]  So, uh, um, so Lex is the most fundamental, uh, subroutine in a compiler.
+[00:17:21.320 -> 00:17:24.560]  That's, um, when it's parsing, it'll call Lex.
+[00:17:24.560 -> 00:17:27.900]  Lex, and then Lex will come, will give you one token.
+[00:17:28.320 -> 00:17:33.620]  So, like, if we were, if we were Lexing this right here, while would be an identifier.
+[00:17:33.900 -> 00:17:38.200]  And I would return the location in the symbol table of the while.
+[00:17:38.860 -> 00:17:45.180]  Um, this parenthesis would be returned as a, uh, whatever this is.
+[00:17:45.320 -> 00:17:48.060]  I don't know, 38, 40, 30, I don't know what it is.
+[00:17:48.260 -> 00:17:49.980]  The parenthesis would be a token.
+[00:17:49.980 -> 00:17:52.760]  True would be at pound define.
+[00:17:53.380 -> 00:17:56.940]  And Lex would convert it to one.
+[00:17:57.960 -> 00:18:03.160]  Uh, and, uh, then this, the end parenthesis would be returned.
+[00:18:03.440 -> 00:18:11.740]  And anyway, so, uh, I happen to allow superscripts and subscripts and identifiers, believe it or not.
+[00:18:11.740 -> 00:18:14.800]  But anyway, uh, so here it's converting a float.
+[00:18:18.200 -> 00:18:20.040]  Um, I think that's what it's doing.
+[00:18:20.300 -> 00:18:24.600]  It converts, if you do 0x, it has to convert to hex.
+[00:18:24.880 -> 00:18:35.980]  Or, um, if you do, if, when it's doing a string, it has to convert the, the backslash tab, backslash, uh, um, quote, backslash.
+[00:18:35.980 -> 00:18:37.360]  There's binary, lex.
+[00:18:37.600 -> 00:18:42.740]  Okay, so the lex, uh, there's one function that's called.
+[00:18:43.140 -> 00:18:49.560]  Now my expression parser has to keep track of, uh, um, operator precedents.
+[00:18:50.720 -> 00:18:52.300]  I use a state machine.
+[00:18:52.760 -> 00:18:58.080]  When I'm, when I'm parsing a term, then, um, I use a state machine.
+[00:18:58.080 -> 00:19:01.820]  I have to do the, these are the operators that can go in front.
+[00:19:01.820 -> 00:19:05.380]  You can put a, you can put a minus, a unary minus.
+[00:19:06.080 -> 00:19:08.820]  So, um, it has to be careful of those.
+[00:19:09.460 -> 00:19:16.620]  And, um, all through the, um, the parsing, it's creating these, uh, intermediate code entries.
+[00:19:17.160 -> 00:19:23.260]  Those are those little tiny instructions that, um, we have to optimize and merge.
+[00:19:23.780 -> 00:19:29.740]  So, uh, um, this has a, uh, a state machine, uh,
+[00:19:29.740 -> 00:19:35.320]  the, uh, the expression parser is a state machine.
+[00:19:36.280 -> 00:19:38.860]  And, uh, it, uh,
+[00:19:42.680 -> 00:19:45.160]  okay, well, I think that's pretty self-explanatory.
+[00:19:45.740 -> 00:19:47.060]  So, um,
+[00:19:48.780 -> 00:19:49.860]  when you parse,
+[00:19:50.100 -> 00:19:52.980]  when you parse an expression, you either,
+[00:19:53.300 -> 00:19:56.320]  when you get a new operator, you either handle it,
+[00:19:56.320 -> 00:19:58.020]  if it's higher precedence,
+[00:19:58.160 -> 00:20:00.200]  or you postpone it to later,
+[00:20:00.200 -> 00:20:01.760]  if it's lower precedence,
+[00:20:01.960 -> 00:20:04.100]  than, than the previous operator.
+[00:20:04.480 -> 00:20:06.040]  So, you push on a stack.
+[00:20:06.700 -> 00:20:09.480]  Um, you'll notice I have a stack somewhere in here.
+[00:20:10.280 -> 00:20:11.720]  Um, where's the, um,
+[00:20:13.700 -> 00:20:13.980]  oops.
+[00:20:17.240 -> 00:20:18.560]  So, there's a, um,
+[00:20:18.700 -> 00:20:19.420]  there's a stack,
+[00:20:19.660 -> 00:20:20.520]  it's PS stack.
+[00:20:20.720 -> 00:20:22.480]  That's for the, uh, operator.
+[00:20:22.480 -> 00:20:26.020]  When it either postpones an operator or does it right away.
+[00:20:26.720 -> 00:20:29.020]  So, I need a stack data structure to, uh,
+[00:20:30.100 -> 00:20:34.740]  I push the type of the term or operator,
+[00:20:35.000 -> 00:20:39.500]  or I push the type or class as well as the, uh,
+[00:20:41.020 -> 00:20:41.380]  anyway.
+[00:20:41.700 -> 00:20:43.360]  So, uh, statement parser.
+[00:20:43.680 -> 00:20:45.380]  So, when we parse a statement,
+[00:20:45.640 -> 00:20:47.300]  we, uh, let's say we,
+[00:20:47.300 -> 00:20:48.320]  we hit a four.
+[00:20:48.840 -> 00:20:50.920]  Then we have to go parse the four.
+[00:20:51.860 -> 00:20:53.160]  So, let's see.
+[00:20:54.500 -> 00:20:56.100]  So, when you parse a four,
+[00:20:56.360 -> 00:20:56.860]  um,
+[00:20:57.420 -> 00:20:59.600]  you're expecting a parenthesis.
+[00:20:59.860 -> 00:21:00.840]  I have exceptions,
+[00:21:00.840 -> 00:21:02.660]  so I can just throw an exception
+[00:21:02.660 -> 00:21:04.760]  if I don't get a parenthesis after a four.
+[00:21:06.020 -> 00:21:07.520]  Um, I skip the,
+[00:21:07.520 -> 00:21:09.560]  I skip the parenthesis right there.
+[00:21:09.880 -> 00:21:11.600]  Then I parse an expression.
+[00:21:11.960 -> 00:21:13.220]  A four statement has, uh,
+[00:21:13.380 -> 00:21:14.080]  three expression,
+[00:21:14.380 -> 00:21:15.300]  three statements.
+[00:21:15.700 -> 00:21:17.160]  So, I parse a statement
+[00:21:17.160 -> 00:21:18.500]  that's kind of recursive.
+[00:21:20.140 -> 00:21:21.840]  Then I set a, uh,
+[00:21:22.100 -> 00:21:22.620]  a label.
+[00:21:22.900 -> 00:21:24.140]  I'm going to need a label.
+[00:21:24.500 -> 00:21:25.100]  Um,
+[00:21:25.520 -> 00:21:26.960]  oh, this is for looping backward.
+[00:21:27.260 -> 00:21:28.440]  This is the loop back,
+[00:21:28.600 -> 00:21:29.600]  backward label.
+[00:21:29.900 -> 00:21:30.420]  We,
+[00:21:30.420 -> 00:21:31.500]  we push, uh,
+[00:21:31.880 -> 00:21:31.880]  
+[00:21:32.880 -> 00:21:33.680]  intermediate code
+[00:21:33.680 -> 00:21:35.000]  to mark this label.
+[00:21:35.480 -> 00:21:37.300]  Then we parse an expression.
+[00:21:38.880 -> 00:21:40.120]  That's for the, uh,
+[00:21:40.540 -> 00:21:41.260]  that's the,
+[00:21:41.300 -> 00:21:42.480]  the continue.
+[00:21:43.080 -> 00:21:45.340]  The four statement expression is there.
+[00:21:46.140 -> 00:21:47.200]  Then we, uh,
+[00:21:47.440 -> 00:21:49.360]  we either branch backward,
+[00:21:49.960 -> 00:21:52.860]  or we branch over to the end.
+[00:21:53.080 -> 00:21:53.180]  If,
+[00:21:53.840 -> 00:21:55.340]  we don't know where the,
+[00:21:55.340 -> 00:21:57.360]  the done is going to be at this point,
+[00:21:57.480 -> 00:21:57.800]  but we're,
+[00:21:57.820 -> 00:21:59.240]  we're going to add a label up,
+[00:21:59.240 -> 00:22:00.220]  in the future,
+[00:22:00.360 -> 00:22:01.240]  we're going to add a label
+[00:22:01.240 -> 00:22:03.220]  to show the end of the statement.
+[00:22:04.660 -> 00:22:06.560]  We have to parse in a semicolon.
+[00:22:06.580 -> 00:22:07.920]  If we're missing in a semicolon,
+[00:22:08.040 -> 00:22:08.780]  we throw an exception.
+[00:22:09.520 -> 00:22:09.520]  
+[00:22:10.000 -> 00:22:10.940]  now it turns out,
+[00:22:11.400 -> 00:22:13.300]  mostly we can do our code,
+[00:22:13.820 -> 00:22:14.260]  um,
+[00:22:14.540 -> 00:22:16.180]  in the same order it's coming.
+[00:22:16.620 -> 00:22:17.360]  But, uh,
+[00:22:18.580 -> 00:22:19.740]  for a four statement,
+[00:22:19.740 -> 00:22:20.640]  you have to, uh,
+[00:22:21.220 -> 00:22:22.760]  you have to rearrange the code
+[00:22:22.760 -> 00:22:23.860]  because the, uh,
+[00:22:25.240 -> 00:22:25.420]  I,
+[00:22:25.500 -> 00:22:26.780]  the statement at the end,
+[00:22:27.040 -> 00:22:27.300]  uh,
+[00:22:28.160 -> 00:22:28.720]  what are we doing?
+[00:22:28.720 -> 00:22:30.660]  And basically what I do is I,
+[00:22:30.660 -> 00:22:30.920]  uh,
+[00:22:31.220 -> 00:22:31.540]  I,
+[00:22:32.180 -> 00:22:32.680]  I,
+[00:22:32.700 -> 00:22:32.860]  uh,
+[00:22:33.020 -> 00:22:34.620]  I parse a chunk of code,
+[00:22:34.640 -> 00:22:36.960]  and then I append it after,
+[00:22:37.240 -> 00:22:37.800]  at,
+[00:22:37.820 -> 00:22:38.600]  at one point.
+[00:22:40.480 -> 00:22:40.980]  So,
+[00:22:41.900 -> 00:22:42.240]  um,
+[00:22:42.880 -> 00:22:43.200]  anyway,
+[00:22:43.320 -> 00:22:43.800]  that's how,
+[00:22:44.100 -> 00:22:44.100]  
+[00:22:44.680 -> 00:22:45.860]  it's doing a four statement.
+[00:22:46.680 -> 00:22:46.800]  Um,
+[00:22:47.800 -> 00:22:48.200]  then it,
+[00:22:48.420 -> 00:22:48.420]  
+[00:22:49.020 -> 00:22:49.680]  now when it,
+[00:22:49.760 -> 00:22:49.960]  um,
+[00:22:51.300 -> 00:22:52.300]  when it optimizes,
+[00:22:52.720 -> 00:22:52.800]  um,
+[00:22:53.080 -> 00:22:54.580]  one of the things it does is,
+[00:22:54.680 -> 00:22:54.820]  uh,
+[00:22:55.800 -> 00:22:57.420]  simplify constant expressions.
+[00:22:57.420 -> 00:22:59.620]  If I were to say one plus,
+[00:22:59.840 -> 00:23:01.260]  or let's go back to the,
+[00:23:01.540 -> 00:23:01.540]  
+[00:23:03.260 -> 00:23:04.240]  let's say I had,
+[00:23:04.380 -> 00:23:04.520]  uh,
+[00:23:05.720 -> 00:23:09.300]  one plus three plus two plus one.
+[00:23:10.220 -> 00:23:10.720]  Um,
+[00:23:11.780 -> 00:23:13.320]  you can see it put a ten,
+[00:23:14.800 -> 00:23:15.300]  uh,
+[00:23:15.460 -> 00:23:15.680]  no,
+[00:23:15.780 -> 00:23:16.180]  it put a,
+[00:23:16.300 -> 00:23:16.480]  um,
+[00:23:16.660 -> 00:23:17.140]  I'm sorry,
+[00:23:18.020 -> 00:23:19.920]  it put a seven in the variable.
+[00:23:20.600 -> 00:23:22.140]  Now how did it know that?
+[00:23:22.400 -> 00:23:22.660]  Well,
+[00:23:22.940 -> 00:23:24.420]  when it compiles,
+[00:23:25.080 -> 00:23:27.100]  everybody thinks this is interpreter.
+[00:23:27.420 -> 00:23:28.380]  this is not,
+[00:23:28.620 -> 00:23:29.160]  this is,
+[00:23:29.280 -> 00:23:30.980]  there's no interpreter.
+[00:23:31.360 -> 00:23:32.280]  There's no,
+[00:23:32.280 -> 00:23:32.700]  uh,
+[00:23:32.920 -> 00:23:33.620]  byte code.
+[00:23:33.940 -> 00:23:35.620]  This intermediate code is,
+[00:23:35.620 -> 00:23:35.800]  uh,
+[00:23:35.900 -> 00:23:37.080]  not really executed.
+[00:23:37.500 -> 00:23:40.400]  It's sort of executed when you simplify a,
+[00:23:40.400 -> 00:23:41.220]  a constant,
+[00:23:41.500 -> 00:23:42.160]  but that's not,
+[00:23:42.260 -> 00:23:42.540]  actually,
+[00:23:42.680 -> 00:23:43.160]  that's not a,
+[00:23:43.980 -> 00:23:48.360]  some people are just dying to say it's not a compiler.
+[00:23:48.360 -> 00:23:49.580]  It's a compiler.
+[00:23:49.800 -> 00:23:50.180]  Fuck you.
+[00:23:50.280 -> 00:23:50.400]  It's,
+[00:23:50.400 -> 00:23:51.360]  it's not an interpreter.
+[00:23:51.940 -> 00:23:52.320]  Anyway,
+[00:23:52.560 -> 00:23:52.700]  uh,
+[00:23:54.480 -> 00:23:54.800]  so,
+[00:23:54.820 -> 00:23:55.140]  uh,
+[00:23:56.060 -> 00:23:56.120]  it,
+[00:23:56.200 -> 00:23:56.320]  uh,
+[00:23:56.780 -> 00:23:57.020]  it,
+[00:23:58.240 -> 00:24:01.020]  it simplifies constants in this phase.
+[00:24:01.020 -> 00:24:02.140]  And it,
+[00:24:02.600 -> 00:24:02.660]  um,
+[00:24:04.500 -> 00:24:05.560]  then in phase three,
+[00:24:05.820 -> 00:24:08.260]  it figures out which are going to be the register variables.
+[00:24:09.500 -> 00:24:10.620]  And it starts,
+[00:24:10.880 -> 00:24:12.000]  basically the whole,
+[00:24:12.160 -> 00:24:15.140]  the main thing that happens is during these passes,
+[00:24:15.140 -> 00:24:16.480]  it converts to,
+[00:24:16.640 -> 00:24:18.480]  from risk to cisk.
+[00:24:19.180 -> 00:24:21.220]  And then on the final passes,
+[00:24:21.220 -> 00:24:22.880]  it converts to machine code.
+[00:24:22.880 -> 00:24:23.800]  So,
+[00:24:24.060 -> 00:24:24.220]  uh,
+[00:24:25.420 -> 00:24:25.820]  anyway,
+[00:24:26.100 -> 00:24:26.240]  uh,
+[00:24:27.040 -> 00:24:29.100]  you can see the intermediate codes.
+[00:24:31.020 -> 00:24:31.620]  Now,
+[00:24:31.920 -> 00:24:32.120]  um,
+[00:24:36.540 -> 00:24:38.580]  you might see that I have,
+[00:24:38.720 -> 00:24:38.840]  uh,
+[00:24:39.580 -> 00:24:40.980]  some built-in functions.
+[00:24:41.540 -> 00:24:42.140]  Um,
+[00:24:42.200 -> 00:24:44.960]  if you want to build a function into the compiler,
+[00:24:45.200 -> 00:24:46.400]  it's pretty tricky.
+[00:24:47.020 -> 00:24:47.080]  Um,
+[00:24:49.660 -> 00:24:50.820]  first you need a,
+[00:24:50.900 -> 00:24:51.100]  uh,
+[00:24:52.580 -> 00:24:53.340]  in the,
+[00:24:53.360 -> 00:24:53.640]  uh,
+[00:24:53.760 -> 00:24:55.140]  in the compiler definition,
+[00:24:55.500 -> 00:24:57.300]  these are some built-in functions.
+[00:24:57.760 -> 00:24:59.080]  You're going to need to,
+[00:24:59.260 -> 00:24:59.400]  uh,
+[00:25:00.160 -> 00:25:01.020]  you add a,
+[00:25:01.040 -> 00:25:01.320]  uh,
+[00:25:03.380 -> 00:25:04.220]  intermediate code.
+[00:25:05.600 -> 00:25:09.080]  You have to add a table entry for the intermediate code.
+[00:25:09.280 -> 00:25:10.740]  If you change the order,
+[00:25:10.800 -> 00:25:12.340]  that's going to make it really tricky.
+[00:25:12.340 -> 00:25:13.520]  You have to know what you're doing.
+[00:25:13.960 -> 00:25:14.200]  Um,
+[00:25:14.500 -> 00:25:15.300]  I can tell you,
+[00:25:15.320 -> 00:25:16.400]  but it's too complicated.
+[00:25:17.180 -> 00:25:17.660]  Anyway,
+[00:25:17.880 -> 00:25:18.000]  uh,
+[00:25:18.720 -> 00:25:19.400]  so you,
+[00:25:19.400 -> 00:25:20.020]  you add a,
+[00:25:20.140 -> 00:25:20.620]  you add a,
+[00:25:20.620 -> 00:25:21.620]  you add that.
+[00:25:22.180 -> 00:25:24.040]  This is where you add that.
+[00:25:24.640 -> 00:25:24.660]  Um,
+[00:25:25.100 -> 00:25:26.240]  then during the passes,
+[00:25:26.520 -> 00:25:26.980]  you have to,
+[00:25:27.240 -> 00:25:27.340]  um,
+[00:25:27.660 -> 00:25:28.460]  if it's a function,
+[00:25:28.640 -> 00:25:32.400]  mostly you do nothing during the passes when it's simplifying expressions.
+[00:25:33.400 -> 00:25:35.340]  And then in the final pass,
+[00:25:35.580 -> 00:25:37.840]  you have to convert it to machine code.
+[00:25:37.840 -> 00:25:38.620]  Um,
+[00:25:38.620 -> 00:25:39.440]  and that's up to you.
+[00:25:39.780 -> 00:25:39.840]  Um,
+[00:25:41.960 -> 00:25:43.240]  so the optimizer,
+[00:25:43.240 -> 00:25:44.860]  and then the back end,
+[00:25:45.960 -> 00:25:46.200]  and then the back end,
+[00:25:46.200 -> 00:25:46.640]  the pass seven,
+[00:25:46.820 -> 00:25:46.840]  eight,
+[00:25:47.000 -> 00:25:48.320]  nine calls the back end.
+[00:25:48.620 -> 00:25:50.720]  And the back end has a library.
+[00:25:51.080 -> 00:25:51.680]  The main,
+[00:25:51.840 -> 00:25:53.120]  mainly you add,
+[00:25:53.260 -> 00:25:53.680]  um,
+[00:25:53.680 -> 00:25:53.680]  
+[00:25:56.540 -> 00:25:57.000]  you add,
+[00:25:57.020 -> 00:25:57.340]  uh,
+[00:25:57.920 -> 00:25:59.640]  machine code either as,
+[00:25:59.780 -> 00:25:59.800]  uh,
+[00:26:00.140 -> 00:26:00.540]  one byte,
+[00:26:00.720 -> 00:26:01.200]  two bytes,
+[00:26:01.400 -> 00:26:01.880]  three bytes,
+[00:26:01.880 -> 00:26:03.440]  or four bytes of machine code.
+[00:26:03.980 -> 00:26:06.840]  And you can use some of these library routines.
+[00:26:07.640 -> 00:26:07.680]  Um,
+[00:26:08.700 -> 00:26:09.020]  now,
+[00:26:09.160 -> 00:26:09.320]  uh,
+[00:26:09.600 -> 00:26:10.000]  I should,
+[00:26:10.040 -> 00:26:10.980]  I should tell you,
+[00:26:11.300 -> 00:26:11.400]  uh,
+[00:26:11.700 -> 00:26:12.640]  a little bit more
+[00:26:14.700 -> 00:26:15.260]  about,
+[00:26:15.540 -> 00:26:15.840]  uh,
+[00:26:16.920 -> 00:26:18.060]  what's going on.
+[00:26:18.840 -> 00:26:19.060]  So,
+[00:26:19.300 -> 00:26:19.420]  um,
+[00:26:22.140 -> 00:26:22.320]  the,
+[00:26:22.720 -> 00:26:22.720]  
+[00:26:25.960 -> 00:26:28.640]  when it's merging these into a complex instruction,
+[00:26:29.020 -> 00:26:30.740]  now it's dealing with an immediate,
+[00:26:30.900 -> 00:26:32.280]  it's not just on the stack.
+[00:26:32.600 -> 00:26:34.420]  It can be an immediate value.
+[00:26:34.420 -> 00:26:36.280]  It can be a register variable.
+[00:26:36.640 -> 00:26:37.960]  It can be a,
+[00:26:37.960 -> 00:26:38.180]  uh,
+[00:26:38.820 -> 00:26:40.020]  a displacement off,
+[00:26:40.160 -> 00:26:41.040]  off of,
+[00:26:41.420 -> 00:26:41.640]  um,
+[00:26:41.640 -> 00:26:43.220]  if there's a,
+[00:26:43.220 -> 00:26:44.800]  a non-register variable,
+[00:26:45.040 -> 00:26:46.280]  then you can have a displacement.
+[00:26:47.440 -> 00:26:47.560]  So,
+[00:26:47.760 -> 00:26:47.860]  uh,
+[00:26:50.380 -> 00:26:50.620]  the,
+[00:26:52.240 -> 00:26:53.200]  the main,
+[00:26:53.540 -> 00:26:53.540]  
+[00:26:56.480 -> 00:26:56.580]  the,
+[00:26:56.720 -> 00:26:57.560]  each item
+[00:26:58.940 -> 00:26:59.860]  is a,
+[00:27:00.160 -> 00:27:00.160]  
+[00:27:01.580 -> 00:27:02.120]  has a,
+[00:27:02.240 -> 00:27:02.300]  uh,
+[00:27:02.560 -> 00:27:03.840]  each argument has a,
+[00:27:03.880 -> 00:27:04.020]  uh,
+[00:27:04.700 -> 00:27:05.560]  raw type,
+[00:27:06.040 -> 00:27:07.440]  and then it has a,
+[00:27:07.760 -> 00:27:07.960]  uh,
+[00:27:08.520 -> 00:27:08.520]  
+[00:27:11.300 -> 00:27:13.440]  you see this TY mask.
+[00:27:14.020 -> 00:27:15.120]  Let me explain this.
+[00:27:15.820 -> 00:27:17.120]  All through the back end,
+[00:27:18.100 -> 00:27:21.340]  you have arguments that are either an immediate,
+[00:27:21.380 -> 00:27:22.260]  a register,
+[00:27:22.880 -> 00:27:24.940]  a displacement off a register.
+[00:27:25.280 -> 00:27:27.060]  This is an indexed,
+[00:27:27.060 -> 00:27:27.520]  um,
+[00:27:29.220 -> 00:27:29.400]  uh,
+[00:27:31.300 -> 00:27:31.380]  relative,
+[00:27:31.380 -> 00:27:31.940]  um,
+[00:27:32.460 -> 00:27:32.740]  displacement.
+[00:27:32.740 -> 00:27:34.080]  This is 64 bit,
+[00:27:34.340 -> 00:27:35.800]  or it's a stack,
+[00:27:36.180 -> 00:27:37.140]  system stack.
+[00:27:38.060 -> 00:27:38.120]  Um,
+[00:27:38.640 -> 00:27:38.860]  so,
+[00:27:39.820 -> 00:27:40.380]  the,
+[00:27:40.460 -> 00:27:41.120]  the,
+[00:27:41.120 -> 00:27:41.400]  uh,
+[00:27:42.540 -> 00:27:45.380]  the entities you're dealing with are one of these types.
+[00:27:46.400 -> 00:27:48.180]  And then it has a,
+[00:27:48.380 -> 00:27:48.380]  
+[00:27:48.660 -> 00:27:49.620]  it's either a byte,
+[00:27:49.740 -> 00:27:50.240]  a word,
+[00:27:50.320 -> 00:27:51.280]  or a float.
+[00:27:53.340 -> 00:27:53.900]  So,
+[00:27:54.060 -> 00:27:54.240]  uh,
+[00:27:54.800 -> 00:27:55.240]  when you're,
+[00:27:55.240 -> 00:27:56.220]  when you're doing,
+[00:27:56.400 -> 00:27:57.840]  when you're doing the back end,
+[00:27:57.840 -> 00:27:58.500]  um,
+[00:27:59.060 -> 00:28:01.320]  you're constantly checking if it's an immediate,
+[00:28:01.660 -> 00:28:01.760]  if,
+[00:28:01.860 -> 00:28:02.420]  if the,
+[00:28:03.040 -> 00:28:03.480]  and,
+[00:28:03.620 -> 00:28:03.800]  uh,
+[00:28:04.280 -> 00:28:04.480]  um,
+[00:28:04.700 -> 00:28:05.180]  you start,
+[00:28:06.040 -> 00:28:06.620]  if you,
+[00:28:06.780 -> 00:28:07.000]  let's,
+[00:28:07.080 -> 00:28:07.420]  this is,
+[00:28:07.480 -> 00:28:08.060]  this isn't,
+[00:28:08.240 -> 00:28:09.740]  this is how the machine,
+[00:28:09.760 -> 00:28:12.300]  this is the machine code for and and branch.
+[00:28:12.660 -> 00:28:13.740]  So it ends,
+[00:28:13.880 -> 00:28:14.180]  and then,
+[00:28:14.360 -> 00:28:14.480]  uh,
+[00:28:16.040 -> 00:28:17.600]  down here it's doing a branch.
+[00:28:18.000 -> 00:28:18.140]  Um,
+[00:28:18.420 -> 00:28:18.500]  it,
+[00:28:18.600 -> 00:28:21.200]  it either does a short branch or a long branch.
+[00:28:22.040 -> 00:28:22.120]  Um,
+[00:28:24.400 -> 00:28:25.800]  during the final phase,
+[00:28:25.800 -> 00:28:28.080]  it only shrinks,
+[00:28:28.580 -> 00:28:28.580]  
+[00:28:29.200 -> 00:28:29.360]  the,
+[00:28:29.520 -> 00:28:29.660]  uh,
+[00:28:33.820 -> 00:28:33.920]  um,
+[00:28:34.160 -> 00:28:36.140]  during the final three passes,
+[00:28:36.500 -> 00:28:38.700]  it generates machine code.
+[00:28:38.940 -> 00:28:40.120]  And it,
+[00:28:40.260 -> 00:28:40.460]  it,
+[00:28:40.660 -> 00:28:41.020]  if,
+[00:28:41.080 -> 00:28:43.060]  if a branch is short enough,
+[00:28:43.080 -> 00:28:43.940]  it uses a,
+[00:28:44.000 -> 00:28:44.920]  a short branch.
+[00:28:45.320 -> 00:28:47.840]  And the rule is you can only,
+[00:28:47.840 -> 00:28:52.720]  you can only shrink during the last few passes.
+[00:28:53.100 -> 00:28:54.400]  If it expanded,
+[00:28:54.400 -> 00:28:56.300]  that would break the short jumps.
+[00:28:58.100 -> 00:28:58.660]  So,
+[00:28:58.840 -> 00:28:59.000]  uh,
+[00:28:59.700 -> 00:29:00.260]  anyway,
+[00:29:00.480 -> 00:29:00.720]  so,
+[00:29:00.880 -> 00:29:01.040]  uh,
+[00:29:11.980 -> 00:29:13.320]  what was I going to say?
+[00:29:13.580 -> 00:29:13.720]  Uh,
+[00:29:14.340 -> 00:29:15.440]  so you have a,
+[00:29:15.560 -> 00:29:15.620]  uh,
+[00:29:16.080 -> 00:29:18.100]  all of these routines have a type,
+[00:29:18.340 -> 00:29:19.320]  a register,
+[00:29:19.320 -> 00:29:20.440]  and a displacement.
+[00:29:20.440 -> 00:29:21.420]  That's,
+[00:29:21.420 -> 00:29:22.860]  that's what makes up a,
+[00:29:22.880 -> 00:29:23.100]  uh,
+[00:29:24.700 -> 00:29:24.780]  uh,
+[00:29:25.020 -> 00:29:25.020]  
+[00:29:25.240 -> 00:29:26.200]  item is a type,
+[00:29:26.520 -> 00:29:27.060]  a register,
+[00:29:27.060 -> 00:29:27.920]  and a displacement.
+[00:29:28.280 -> 00:29:33.380]  And the type is a combination of a TY mask.
+[00:29:33.720 -> 00:29:33.900]  One of,
+[00:29:34.000 -> 00:29:36.200]  it's a combination of one of these types.
+[00:29:36.580 -> 00:29:38.140]  And it's also a real,
+[00:29:38.380 -> 00:29:38.660]  uh,
+[00:29:38.940 -> 00:29:40.340]  it's also a size.
+[00:29:41.240 -> 00:29:43.620]  So for all these backend routines,
+[00:29:45.400 -> 00:29:46.480]  you'll see it's,
+[00:29:46.540 -> 00:29:50.100]  it's checking if the argument is a type immediate.
+[00:29:51.240 -> 00:29:52.160]  It has a,
+[00:29:52.180 -> 00:29:52.840]  it has a,
+[00:29:52.860 -> 00:29:53.080]  um,
+[00:29:53.680 -> 00:29:53.700]  a number,
+[00:29:54.060 -> 00:29:55.340]  it has a displacement.
+[00:29:56.220 -> 00:29:56.740]  And,
+[00:29:56.940 -> 00:29:57.040]  um,
+[00:29:57.340 -> 00:29:57.620]  it all,
+[00:29:58.920 -> 00:30:00.660]  a type plus a,
+[00:30:00.700 -> 00:30:00.860]  uh,
+[00:30:01.040 -> 00:30:03.200]  a size is the,
+[00:30:03.380 -> 00:30:03.480]  uh,
+[00:30:03.760 -> 00:30:04.420]  is what a,
+[00:30:04.420 -> 00:30:05.500]  a type,
+[00:30:06.340 -> 00:30:07.900]  type of an argument is.
+[00:30:08.280 -> 00:30:08.880]  Anyway,
+[00:30:09.320 -> 00:30:09.340]  uh,
+[00:30:09.540 -> 00:30:09.820]  so,
+[00:30:10.060 -> 00:30:10.200]  uh,
+[00:30:10.360 -> 00:30:11.320]  that's my compiler.
+[00:30:12.080 -> 00:30:12.260]  Um,
+[00:30:12.660 -> 00:30:12.920]  oh,
+[00:30:13.220 -> 00:30:13.540]  so,
+[00:30:13.740 -> 00:30:13.900]  um,
+[00:30:14.360 -> 00:30:14.980]  the final,
+[00:30:15.260 -> 00:30:15.380]  uh,
+[00:30:18.500 -> 00:30:19.800]  this is where it,
+[00:30:19.920 -> 00:30:22.420]  this is the higher level where it's,
+[00:30:22.520 -> 00:30:22.620]  uh,
+[00:30:23.300 -> 00:30:24.400]  it's calling each,
+[00:30:24.600 -> 00:30:25.040]  oops,
+[00:30:26.060 -> 00:30:29.880]  it's calling each of the passes in this routine.
+[00:30:30.420 -> 00:30:31.320]  And then,
+[00:30:31.540 -> 00:30:31.660]  uh,
+[00:30:32.380 -> 00:30:33.960]  for the final pass,
+[00:30:33.960 -> 00:30:34.180]  it,
+[00:30:34.180 -> 00:30:36.080]  it allocates a chunk of code,
+[00:30:36.340 -> 00:30:38.160]  a chunk of memory for the code.
+[00:30:38.620 -> 00:30:41.160]  So once the code size has been figured out,
+[00:30:41.380 -> 00:30:42.240]  then it,
+[00:30:42.240 -> 00:30:42.520]  um,
+[00:30:42.740 -> 00:30:44.720]  it allocates off the code heap,
+[00:30:44.940 -> 00:30:46.580]  a chunk of code.
+[00:30:49.220 -> 00:30:49.780]  And,
+[00:30:49.780 -> 00:30:50.080]  uh,
+[00:30:50.220 -> 00:30:52.260]  there's where it's allocated off the code heap.
+[00:30:52.460 -> 00:30:53.780]  It has to do some,
+[00:30:53.780 -> 00:30:53.980]  uh,
+[00:30:54.340 -> 00:30:55.240]  final adjustments.
+[00:30:55.780 -> 00:30:57.240]  In the last pass,
+[00:30:57.820 -> 00:30:58.060]  um,
+[00:30:58.220 -> 00:30:59.880]  if you have a switch statement,
+[00:30:59.880 -> 00:31:02.100]  it has to resolve all those jumps.
+[00:31:02.580 -> 00:31:03.740]  And it has to,
+[00:31:03.740 -> 00:31:03.980]  uh,
+[00:31:04.340 -> 00:31:04.840]  it has to,
+[00:31:05.120 -> 00:31:05.120]  
+[00:31:05.480 -> 00:31:06.640]  there's a switch statement,
+[00:31:06.640 -> 00:31:07.100]  uh,
+[00:31:07.600 -> 00:31:08.700]  array afterward,
+[00:31:09.440 -> 00:31:10.320]  after the function.
+[00:31:10.540 -> 00:31:12.520]  So it compiles function by function.
+[00:31:13.220 -> 00:31:13.740]  And,
+[00:31:13.760 -> 00:31:14.040]  um,
+[00:31:14.620 -> 00:31:16.260]  after it's compiled the code,
+[00:31:16.520 -> 00:31:19.800]  then it inserts all the string constants into,
+[00:31:20.140 -> 00:31:20.200]  uh,
+[00:31:20.740 -> 00:31:21.100]  this is,
+[00:31:21.100 -> 00:31:21.560]  this is the,
+[00:31:21.640 -> 00:31:22.800]  this is the pass,
+[00:31:23.180 -> 00:31:23.440]  eight,
+[00:31:23.560 -> 00:31:23.680]  nine,
+[00:31:23.820 -> 00:31:23.980]  seven,
+[00:31:24.140 -> 00:31:24.180]  eight,
+[00:31:24.320 -> 00:31:24.400]  nine.
+[00:31:24.580 -> 00:31:27.460]  This is the final pass where it's converting the machine code.
+[00:31:27.460 -> 00:31:28.960]  After it's finished,
+[00:31:29.400 -> 00:31:29.760]  it has,
+[00:31:30.120 -> 00:31:30.140]  uh,
+[00:31:30.220 -> 00:31:30.520]  um,
+[00:31:31.580 -> 00:31:31.820]  it,
+[00:31:31.820 -> 00:31:34.560]  it stores the string constants and,
+[00:31:34.560 -> 00:31:34.840]  um,
+[00:31:35.000 -> 00:31:38.920]  the jump table data is stored there.
+[00:31:38.920 -> 00:31:40.420]  So the,
+[00:31:40.420 -> 00:31:40.700]  uh,
+[00:31:40.880 -> 00:31:42.700]  the higher level routine is,
+[00:31:42.860 -> 00:31:42.940]  uh,
+[00:31:43.280 -> 00:31:43.720]  right here.
+[00:31:43.940 -> 00:31:45.260]  It's calling all those passes.
+[00:31:45.600 -> 00:31:46.480]  Then it's,
+[00:31:46.560 -> 00:31:46.640]  uh,
+[00:31:47.100 -> 00:31:47.380]  it's,
+[00:31:48.280 -> 00:31:49.400]  it's simplifying.
+[00:31:49.560 -> 00:31:50.040]  What is it doing?
+[00:31:50.180 -> 00:31:51.600]  Simplifying forward jumps.
+[00:31:53.740 -> 00:31:54.860]  Forwarded jumps,
+[00:31:55.040 -> 00:31:56.120]  not forward jumps.
+[00:31:56.680 -> 00:31:57.100]  Anyway,
+[00:31:57.300 -> 00:31:57.440]  uh,
+[00:31:58.840 -> 00:31:59.140]  so,
+[00:31:59.340 -> 00:31:59.440]  uh,
+[00:32:00.020 -> 00:32:03.300]  then this will unassemble and it returns the code.
+[00:32:03.300 -> 00:32:03.920]  So,
+[00:32:04.120 -> 00:32:04.300]  um,
+[00:32:05.720 -> 00:32:07.640]  you have to know about the symbol table.
+[00:32:08.100 -> 00:32:08.240]  Uh,
+[00:32:09.020 -> 00:32:10.980]  I told you it has a hash table.
+[00:32:11.440 -> 00:32:11.440]  
+[00:32:11.600 -> 00:32:11.860]  each,
+[00:32:11.980 -> 00:32:14.420]  each task has a hash table.
+[00:32:15.040 -> 00:32:15.880]  And so,
+[00:32:16.060 -> 00:32:16.200]  uh,
+[00:32:16.960 -> 00:32:17.820]  when it does a,
+[00:32:17.960 -> 00:32:18.060]  uh,
+[00:32:18.080 -> 00:32:19.100]  when it calls a,
+[00:32:19.240 -> 00:32:19.300]  uh,
+[00:32:21.140 -> 00:32:21.440]  let's,
+[00:32:21.480 -> 00:32:21.780]  let's,
+[00:32:21.800 -> 00:32:22.480]  let's compile,
+[00:32:22.860 -> 00:32:23.040]  um,
+[00:32:25.780 -> 00:32:26.100]  um,
+[00:32:27.620 -> 00:32:28.080]  how about,
+[00:32:28.240 -> 00:32:28.360]  uh,
+[00:32:30.120 -> 00:32:30.380]  dir.
+[00:32:35.280 -> 00:32:35.760]  Um,
+[00:32:37.500 -> 00:32:37.980]  so,
+[00:32:39.780 -> 00:32:40.680]  it has to,
+[00:32:41.020 -> 00:32:41.040]  uh,
+[00:32:44.580 -> 00:32:45.060]  it,
+[00:32:45.080 -> 00:32:47.120]  it knows where the directory,
+[00:32:47.120 -> 00:32:47.780]  uh,
+[00:32:48.740 -> 00:32:49.480]  code is,
+[00:32:49.660 -> 00:32:50.500]  is in,
+[00:32:50.660 -> 00:32:52.700]  but because it looked up in the symbol table.
+[00:32:53.040 -> 00:32:54.820]  And so all it had to do was,
+[00:32:54.980 -> 00:32:55.080]  uh,
+[00:32:55.420 -> 00:32:56.780]  do a relative branch.
+[00:32:59.460 -> 00:32:59.940]  Um,
+[00:33:00.020 -> 00:33:00.200]  it's,
+[00:33:00.200 -> 00:33:03.040]  it's actually a lot easier to make a just-in-time compiler.
+[00:33:03.300 -> 00:33:04.860]  than to make an ahead of time.
+[00:33:05.720 -> 00:33:05.740]  Um,
+[00:33:06.080 -> 00:33:06.940]  mine does both.
+[00:33:07.220 -> 00:33:07.740]  Uh,
+[00:33:08.760 -> 00:33:10.140]  if you look in the compiler,
+[00:33:10.560 -> 00:33:10.740]  um,
+[00:33:14.900 -> 00:33:15.160]  uh,
+[00:33:17.660 -> 00:33:18.560]  it will,
+[00:33:18.680 -> 00:33:18.880]  uh,
+[00:33:19.700 -> 00:33:21.260]  generate a binary module.
+[00:33:21.780 -> 00:33:22.980]  If you do a,
+[00:33:23.040 -> 00:33:23.180]  uh,
+[00:33:23.440 -> 00:33:24.120]  ahead of time.
+[00:33:24.580 -> 00:33:25.100]  Otherwise,
+[00:33:25.360 -> 00:33:25.480]  it,
+[00:33:25.480 -> 00:33:27.240]  it patches up all the,
+[00:33:27.260 -> 00:33:30.200]  it has to patch all those relative addresses and stuff.
+[00:33:31.140 -> 00:33:31.240]  Um,
+[00:33:31.240 -> 00:33:31.240]  
+[00:33:31.380 -> 00:33:31.380]  
+[00:33:32.320 -> 00:33:32.520]  um,
+[00:33:32.900 -> 00:33:32.900]  
+[00:33:33.040 -> 00:33:33.040]  
+[00:33:33.400 -> 00:33:33.400]  
+[00:33:34.580 -> 00:33:34.580]  
+[00:33:34.640 -> 00:33:34.760]  um,
+[00:33:34.820 -> 00:33:34.820]  
+[00:33:34.820 -> 00:33:34.820]  
+[00:33:35.120 -> 00:33:35.120]  
+[00:33:35.120 -> 00:33:35.120]  
+[00:33:35.120 -> 00:33:35.140]  um,
+[00:33:37.540 -> 00:33:38.140]  um,
+[00:33:38.140 -> 00:33:38.680]  um,
+[00:33:38.680 -> 00:33:39.100]  um,
+[00:33:39.100 -> 00:33:39.100]  
+[00:33:39.100 -> 00:33:39.100]  
+[00:33:39.100 -> 00:33:39.100]  
+[00:33:39.100 -> 00:33:39.100]  
+[00:33:39.100 -> 00:33:39.100]  
+[00:33:39.100 -> 00:33:39.100]  
+[00:33:39.100 -> 00:33:39.100]  
+[00:33:39.100 -> 00:33:39.100]  
+[00:33:39.100 -> 00:33:39.100]  
+[00:33:39.100 -> 00:33:39.100]  
+[00:33:39.100 -> 00:33:39.100]  
+[00:33:39.100 -> 00:33:39.100]  
+[00:33:39.100 -> 00:33:39.100]  
+[00:33:39.100 -> 00:33:39.100]  
+[00:33:39.100 -> 00:33:39.100]  
+[00:33:39.100 -> 00:33:39.100]  
+[00:33:39.100 -> 00:33:39.100]  
+[00:33:39.100 -> 00:33:39.100]  
+[00:33:39.100 -> 00:33:39.100]  
+[00:33:39.100 -> 00:33:39.100]  
+[00:33:57.620 -> 00:33:57.620]  
+[00:33:39.080 -> 00:33:39.080]  

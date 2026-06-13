@@ -1,0 +1,151 @@
+========================================================================
+FILE        : videos/2014/2014-09-17T00:03:00+00:00 - TempleOS - Memory (ueLNAhFY7nk).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-09-17T00:03:00+00:00 - TempleOS - Memory (ueLNAhFY7nk).mkv
+FORMAT      : Matroska
+SIZE        : 52,355,496 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:13:05.460
+TRANSCRIBED: 2026-05-08T13:54:14.363691+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+Okay, I'm going to talk about memory. Now if we go to the document directory documentation and we go to memory. So I marked the load. Okay. Okay. It's identity mapped. So what that means is physical is identical to virtual. Virtual is identical to physical. So this is the BIOS memory report. When it boots it gets information about your computer from the BIOS. So let's take a look at this. 32-bit device memory. Okay, well ignore that. This is a preliminary report. Here's the report that matters right here. Okay, so there is this first byte is the code. So from 0 to 9F is RAM. And then this one right here is more RAM. From 1 to BF is more RAM. Then down here is more RAM. BFF to FF. And then here is more RAM. I have 64-bit address space. But I'm running in VMware and I only have, I don't know, what is this? 4, 4, 5, 6, maybe 6, 6 meg, 6, 6 gig, something like that. Anyway, so the address space is fragmented. If it's identity mapped, there's no way to unfragment. I wanted identity mapped. We just live with the fragmentation. So when it's allocating blocks, they have to be contiguous. It will get fragmented and you will need to reboot. But it never happens. That's never going to happen to you. To be quite honest, on today's computers, if you're doing an old-fashioned game, you almost don't need to free memory. That's a joke. You almost don't have to free memory. Anyway, so here's how it looks. I mark the low pages not present so that, so each task is running with code at a different address. The applications are not starting at zero. It just, when you run an application, it calls malloc to get some memory. And then it, wherever malloc is, that's where the code goes. Okay, the first 2 gig is what I call the code heap. That's this low area, code heap. All the code goes in the low 2 gig. That's because there's an instruction that, the best instruction for call only handles 2 gig. So I could use a different instruction that was bulky and ugly, but I don't want to. I want to use the 2 gig instruction. So all my code goes in the lowest 2 gig. So, okay, so I want a null dereference crash, so I mark it not present. The low 640 is, when Adam boots, it loads the kernel into this memory in the low 640. You could load the compiler down in here. You can do a rescue disk kind of thing. And if you want a RAM disk in the low 640, you can't fit the whole operating system. Otherwise, you could boot from USB memory stick, but you can't do that. Anyway, long story short, the kernel goes here and we just waste the rest of the memory. There's a, the boot loader moves itself out of the way. Okay, when it starts at multi-core, it has to have some memory. So we're still in the low 640. Here's the extended BIOS data area. Here's VGA graphics. This is in the low 640. This is where you, this is, this is where you write to the screen memory. This has to be marked uncached or right through. Same thing, pretty much. Anyway, so in 64-bit mode, you have two types of page tables. 4K, which is, 4K is 0x000. That's 4K. So there's 4K page tables. And then there's 2Meg. So if you, if you, if you know that, that it's all the same, you can use a 2Meg. So long story short, the, I use 2Meg page tables so that I, 2Meg entries so that I, it's, it's only, uh, I map. I'm not explaining this very well. I identity map. So the lowest, uh, the lowest 2Meg is identity mapped with 4K pages. And then I switch over to the big pages that are 2Meg for the rest. And I always map 128 gig. Even, and then I, I think I mark it not present if it's not present. So, uh, that's 64-bit addresses. Anyway, so, uh, here's the code heap memory. The code heap memory is, there's a fixed area which has some, uh, standard things you need. Like, uh, the Atom task, um, record. The, uh, I think the GDT, the, no, the GDT's not in here. Um, it has some, uh, standard things in this fixed area. And then after that comes the, uh, the fixed area has all those levels of page tables. So there, yeah, four levels of page tables. And, uh, so remember the lowest 2Meg has to be, um, 4K. So in order that you can, um, mark the, uh, VGA as right through. Everything else is 2Meg. Um, so, so I think we have, we have 180,000 hex, um, for, uh, page tables. We have one set of page tables for all tasks on all cores all the time. Remember, it's identity mapped. Identity mapping is just as though you did not use page tables. Um, I think the, uh, 2Meg mapping is faster because it has one less layer to look up. I'm tempted to try and use the, uh, there's even a big, you can use one gig size, but that's not very standard. Anyway, uh, so there's some 32-bit device memory. That's not, that does, that's broken. We don't use any device memory except the VGA. And then there's the data heap. The other, after the 2G is, uh, after the, everything beyond the 2G is the data heap. All the RAM. So this is just repeating what we just saw. Now there's, uh, there's such a, there's a block pool, which is, uh, how the memory starts. And then you make a heap control. A heap control, um, so a block pool is in charge of a chunk of memory. And it can have multiple chunks. And then, uh, heap controls, um, make requests from the block pool. So, uh, there's a code block pool and a data block pool. And those are whole, whole blocks. I, I, I use 512 byte blocks. I'm not, um, I don't use the 4K because I, it doesn't matter to me because I'm not using identity. I'm, I'm using identity mapping. So I don't, I don't use the page tables after I set them up. Um, which is kind of funny. So I don't know why, but I just decided to use 512 byte, um, memory blocks. Anyway, so, uh, uh, so that's the story. Um, so, uh, in the kernel directory, there's, uh, 1B is where, 1A is where, it identity maps. It just basically sets up those, uh, page tables. And then there's stuff here for allocating block pool blocks. And then there's malloc. Malloc has basically an array of link lists based on size. So if you return something that's 32 bytes, it sticks it in the, the, uh, bin for 32 bytes. And then if you reallocate it, it comes, it gets it back out of the 32 byte bin, a linked list. Then it, it's compound. So if it, for bigger size chunks you use, uh, it's not individual bytes. It's, and then for really big, it's powers of two. Anyway, uh, so there's a lot of, uh, there's a calloc, which clears and allocates. Wait, whoa, that's kind of weird. Why am I? Here it is. Calloc aligned. Oh, it'll allocate an aligned value, but it's awful. What it does is it, um, if you want it one or two, four bytes aligned, then it allocates an extra one or two, four bytes and, uh, slices off whatever it, it, it doesn't know. Alignment. Don't ask for aligned memory unless you want it to waste. Anyway, you never need, everything is always, uh, position independent because, uh, it patches it. So when you do a, uh, if I turn the C trace on and I say directory, what it did is the compiler called the, the, the malloc to get some, this is in the low two gig, to get some code memory. And then notice this was able to use a 32-bit call. That's because the directory is in the code memory, is in the low two gig. All code is in the low two gig, so we always use call. It's really simple and elegant. Now, uh, each task has, has a heap. Adam never dies, so his heap is like kernel memory. So, uh, all the, uh, all the symbols are in Adam's tables and all the code, all the code is allocated when Adam starts compiling it. Hit, Adam, Adam just does this. Um, you can imagine the Adam task, uh, creating, uh, my function. The Adam task just includes text. And it goes in his heap. Now we say my function. So, when Adam starts up, it just compiles and shoves it in his code heap. Um, uh, basically, uh, a task's code heap is just, uh, the blocks that are, that are set aside, that are marked for that task. So, if you kill a task, it kills, it returns the blocks in the code heap back to the code block pool. So, um, if, uh, when you, when you want wallpaper, you have to think about this. But, uh, you should put your wallpaper into the Adam task. So, um, if you kill a task, that would be bad. Because suddenly the, uh, the code for that heap would be, uh, freed and reused and it would crash. So, uh, when you want wallpaper, you Adam include it. You see up here include or Adam include. now it's on Adam's task, Adam's code heap. So there you go, there's Adam's code heap. So if Adam died it would be free, but Adam never dies. So that's how that works.
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:17.560]  Okay, I'm going to talk about memory. Now if we go to the document directory documentation and we go to memory. So I marked the load. Okay.
+[00:00:17.560 -> 00:00:43.820]  Okay. It's identity mapped. So what that means is physical is identical to virtual. Virtual is identical to physical. So this is the BIOS memory report. When it boots it gets information about your computer from the BIOS.
+[00:00:45.080 -> 00:00:55.820]  So let's take a look at this. 32-bit device memory. Okay, well ignore that. This is a preliminary report. Here's the report that matters right here.
+[00:00:55.820 -> 00:01:13.080]  Okay, so there is this first byte is the code. So from 0 to 9F is RAM. And then this one right here is more RAM. From 1 to BF is more RAM.
+[00:01:13.080 -> 00:01:31.260]  Then down here is more RAM. BFF to FF. And then here is more RAM. I have 64-bit address space. But I'm running in VMware and I only have, I don't know, what is this?
+[00:01:31.260 -> 00:01:47.920]  4, 4, 5, 6, maybe 6, 6 meg, 6, 6 gig, something like that. Anyway, so the address space is fragmented. If it's identity mapped, there's no way to unfragment.
+[00:01:47.920 -> 00:02:00.520]  I wanted identity mapped. We just live with the fragmentation. So when it's allocating blocks, they have to be contiguous. It will get fragmented and you will need to reboot.
+[00:02:00.700 -> 00:02:04.560]  But it never happens. That's never going to happen to you.
+[00:02:05.880 -> 00:02:15.100]  To be quite honest, on today's computers, if you're doing an old-fashioned game, you almost don't need to free memory.
+[00:02:15.620 -> 00:02:18.800]  That's a joke. You almost don't have to free memory.
+[00:02:19.460 -> 00:02:26.760]  Anyway, so here's how it looks.
+[00:02:26.760 -> 00:02:34.980]  I mark the low pages not present so that, so each task is running with code at a different address.
+[00:02:35.520 -> 00:02:37.920]  The applications are not starting at zero.
+[00:02:38.700 -> 00:02:45.760]  It just, when you run an application, it calls malloc to get some memory.
+[00:02:46.100 -> 00:02:50.180]  And then it, wherever malloc is, that's where the code goes.
+[00:02:50.180 -> 00:03:03.920]  Okay, the first 2 gig is what I call the code heap.
+[00:03:05.200 -> 00:03:07.260]  That's this low area, code heap.
+[00:03:08.580 -> 00:03:10.860]  All the code goes in the low 2 gig.
+[00:03:11.080 -> 00:03:18.320]  That's because there's an instruction that, the best instruction for call only handles 2 gig.
+[00:03:18.320 -> 00:03:25.480]  So I could use a different instruction that was bulky and ugly, but I don't want to.
+[00:03:25.580 -> 00:03:27.980]  I want to use the 2 gig instruction.
+[00:03:28.300 -> 00:03:30.660]  So all my code goes in the lowest 2 gig.
+[00:03:31.980 -> 00:03:38.000]  So, okay, so I want a null dereference crash, so I mark it not present.
+[00:03:40.380 -> 00:03:48.960]  The low 640 is, when Adam boots, it loads the kernel into this memory in the low 640.
+[00:03:49.640 -> 00:03:52.020]  You could load the compiler down in here.
+[00:03:52.200 -> 00:03:54.640]  You can do a rescue disk kind of thing.
+[00:03:54.640 -> 00:04:04.060]  And if you want a RAM disk in the low 640, you can't fit the whole operating system.
+[00:04:04.060 -> 00:04:08.540]  Otherwise, you could boot from USB memory stick, but you can't do that.
+[00:04:09.060 -> 00:04:14.120]  Anyway, long story short, the kernel goes here and we just waste the rest of the memory.
+[00:04:15.160 -> 00:04:18.520]  There's a, the boot loader moves itself out of the way.
+[00:04:18.520 -> 00:04:22.240]  Okay, when it starts at multi-core, it has to have some memory.
+[00:04:23.340 -> 00:04:25.620]  So we're still in the low 640.
+[00:04:25.820 -> 00:04:28.660]  Here's the extended BIOS data area.
+[00:04:28.800 -> 00:04:30.060]  Here's VGA graphics.
+[00:04:30.660 -> 00:04:32.220]  This is in the low 640.
+[00:04:32.380 -> 00:04:35.500]  This is where you, this is, this is where you write to the screen memory.
+[00:04:37.260 -> 00:04:40.760]  This has to be marked uncached or right through.
+[00:04:41.060 -> 00:04:42.180]  Same thing, pretty much.
+[00:04:42.180 -> 00:04:50.080]  Anyway, so in 64-bit mode, you have two types of page tables.
+[00:04:52.600 -> 00:04:57.560]  4K, which is, 4K is 0x000.
+[00:04:58.020 -> 00:04:59.200]  That's 4K.
+[00:05:00.720 -> 00:05:02.980]  So there's 4K page tables.
+[00:05:03.000 -> 00:05:04.740]  And then there's 2Meg.
+[00:05:04.900 -> 00:05:10.740]  So if you, if you, if you know that, that it's all the same, you can use a 2Meg.
+[00:05:10.740 -> 00:05:21.860]  So long story short, the, I use 2Meg page tables so that I, 2Meg entries so that I, it's, it's only, uh, I map.
+[00:05:24.460 -> 00:05:26.360]  I'm not explaining this very well.
+[00:05:26.800 -> 00:05:27.800]  I identity map.
+[00:05:28.120 -> 00:05:34.880]  So the lowest, uh, the lowest 2Meg is identity mapped with 4K pages.
+[00:05:35.620 -> 00:05:40.960]  And then I switch over to the big pages that are 2Meg for the rest.
+[00:05:41.420 -> 00:05:43.880]  And I always map 128 gig.
+[00:05:44.700 -> 00:05:48.780]  Even, and then I, I think I mark it not present if it's not present.
+[00:05:49.180 -> 00:05:53.020]  So, uh, that's 64-bit addresses.
+[00:05:53.740 -> 00:05:56.380]  Anyway, so, uh, here's the code heap memory.
+[00:05:56.380 -> 00:06:03.340]  The code heap memory is, there's a fixed area which has some, uh, standard things you need.
+[00:06:03.620 -> 00:06:08.120]  Like, uh, the Atom task, um, record.
+[00:06:09.740 -> 00:06:14.580]  The, uh, I think the GDT, the, no, the GDT's not in here.
+[00:06:14.960 -> 00:06:18.140]  Um, it has some, uh, standard things in this fixed area.
+[00:06:18.140 -> 00:06:24.440]  And then after that comes the, uh, the fixed area has all those levels of page tables.
+[00:06:24.740 -> 00:06:27.320]  So there, yeah, four levels of page tables.
+[00:06:28.200 -> 00:06:36.120]  And, uh, so remember the lowest 2Meg has to be, um, 4K.
+[00:06:36.520 -> 00:06:42.820]  So in order that you can, um, mark the, uh, VGA as right through.
+[00:06:43.180 -> 00:06:44.720]  Everything else is 2Meg.
+[00:06:44.720 -> 00:06:52.600]  Um, so, so I think we have, we have 180,000 hex, um, for, uh, page tables.
+[00:06:52.880 -> 00:06:57.880]  We have one set of page tables for all tasks on all cores all the time.
+[00:06:58.440 -> 00:06:59.820]  Remember, it's identity mapped.
+[00:07:00.000 -> 00:07:03.420]  Identity mapping is just as though you did not use page tables.
+[00:07:04.000 -> 00:07:10.060]  Um, I think the, uh, 2Meg mapping is faster because it has one less layer to look up.
+[00:07:10.480 -> 00:07:13.860]  I'm tempted to try and use the, uh, there's even a big,
+[00:07:13.860 -> 00:07:18.160]  you can use one gig size, but that's not very standard.
+[00:07:19.000 -> 00:07:23.860]  Anyway, uh, so there's some 32-bit device memory.
+[00:07:23.980 -> 00:07:25.860]  That's not, that does, that's broken.
+[00:07:26.180 -> 00:07:29.000]  We don't use any device memory except the VGA.
+[00:07:29.880 -> 00:07:31.980]  And then there's the data heap.
+[00:07:32.740 -> 00:07:41.380]  The other, after the 2G is, uh, after the, everything beyond the 2G is the data heap.
+[00:07:41.380 -> 00:07:42.180]  All the RAM.
+[00:07:42.880 -> 00:07:45.440]  So this is just repeating what we just saw.
+[00:07:46.100 -> 00:07:54.880]  Now there's, uh, there's such a, there's a block pool, which is, uh, how the memory starts.
+[00:07:55.180 -> 00:07:57.420]  And then you make a heap control.
+[00:07:57.740 -> 00:08:03.240]  A heap control, um, so a block pool is in charge of a chunk of memory.
+[00:08:03.240 -> 00:08:05.320]  And it can have multiple chunks.
+[00:08:05.820 -> 00:08:10.640]  And then, uh, heap controls, um, make requests from the block pool.
+[00:08:11.260 -> 00:08:16.820]  So, uh, there's a code block pool and a data block pool.
+[00:08:17.020 -> 00:08:19.420]  And those are whole, whole blocks.
+[00:08:19.680 -> 00:08:23.380]  I, I, I use 512 byte blocks.
+[00:08:23.800 -> 00:08:30.320]  I'm not, um, I don't use the 4K because I, it doesn't matter to me because I'm not using identity.
+[00:08:30.320 -> 00:08:32.120]  I'm, I'm using identity mapping.
+[00:08:32.320 -> 00:08:35.340]  So I don't, I don't use the page tables after I set them up.
+[00:08:35.840 -> 00:08:37.460]  Um, which is kind of funny.
+[00:08:37.640 -> 00:08:44.100]  So I don't know why, but I just decided to use 512 byte, um, memory blocks.
+[00:08:44.620 -> 00:08:49.560]  Anyway, so, uh, uh, so that's the story.
+[00:08:50.080 -> 00:09:00.300]  Um, so, uh, in the kernel directory, there's, uh, 1B is where, 1A is where,
+[00:09:00.320 -> 00:09:01.420]  it identity maps.
+[00:09:01.740 -> 00:09:05.040]  It just basically sets up those, uh, page tables.
+[00:09:05.280 -> 00:09:09.900]  And then there's stuff here for allocating block pool blocks.
+[00:09:10.460 -> 00:09:11.980]  And then there's malloc.
+[00:09:12.380 -> 00:09:17.380]  Malloc has basically an array of link lists based on size.
+[00:09:17.520 -> 00:09:25.180]  So if you return something that's 32 bytes, it sticks it in the, the, uh, bin for 32 bytes.
+[00:09:25.180 -> 00:09:32.020]  And then if you reallocate it, it comes, it gets it back out of the 32 byte bin, a linked list.
+[00:09:33.720 -> 00:09:35.180]  Then it, it's compound.
+[00:09:35.480 -> 00:09:40.360]  So if it, for bigger size chunks you use, uh, it's not individual bytes.
+[00:09:40.360 -> 00:09:42.880]  It's, and then for really big, it's powers of two.
+[00:09:43.780 -> 00:09:51.960]  Anyway, uh, so there's a lot of, uh, there's a calloc, which clears and allocates.
+[00:09:52.920 -> 00:09:54.820]  Wait, whoa, that's kind of weird.
+[00:09:54.940 -> 00:09:55.560]  Why am I?
+[00:09:56.500 -> 00:09:57.260]  Here it is.
+[00:09:58.080 -> 00:09:59.040]  Calloc aligned.
+[00:09:59.040 -> 00:10:02.880]  Oh, it'll allocate an aligned value, but it's awful.
+[00:10:03.420 -> 00:10:17.240]  What it does is it, um, if you want it one or two, four bytes aligned, then it allocates an extra one or two, four bytes and, uh, slices off whatever it, it, it doesn't know.
+[00:10:17.640 -> 00:10:18.080]  Alignment.
+[00:10:18.300 -> 00:10:22.060]  Don't ask for aligned memory unless you want it to waste.
+[00:10:22.780 -> 00:10:29.840]  Anyway, you never need, everything is always, uh, position independent because, uh, it patches it.
+[00:10:30.060 -> 00:10:48.380]  So when you do a, uh, if I turn the C trace on and I say directory, what it did is the compiler called the, the, the malloc to get some, this is in the low two gig, to get some code memory.
+[00:10:48.380 -> 00:10:52.260]  And then notice this was able to use a 32-bit call.
+[00:10:52.440 -> 00:10:57.120]  That's because the directory is in the code memory, is in the low two gig.
+[00:10:57.900 -> 00:11:01.320]  All code is in the low two gig, so we always use call.
+[00:11:01.600 -> 00:11:03.440]  It's really simple and elegant.
+[00:11:04.140 -> 00:11:07.940]  Now, uh, each task has, has a heap.
+[00:11:09.480 -> 00:11:12.620]  Adam never dies, so his heap is like kernel memory.
+[00:11:12.620 -> 00:11:24.460]  So, uh, all the, uh, all the symbols are in Adam's tables and all the code, all the code is allocated when Adam starts compiling it.
+[00:11:25.260 -> 00:11:28.220]  Hit, Adam, Adam just does this.
+[00:11:29.000 -> 00:11:37.700]  Um, you can imagine the Adam task, uh, creating, uh, my function.
+[00:11:37.700 -> 00:11:41.060]  The Adam task just includes text.
+[00:11:44.160 -> 00:11:46.180]  And it goes in his heap.
+[00:11:46.760 -> 00:11:48.560]  Now we say my function.
+[00:11:49.180 -> 00:11:55.840]  So, when Adam starts up, it just compiles and shoves it in his code heap.
+[00:11:56.720 -> 00:12:06.600]  Um, uh, basically, uh, a task's code heap is just, uh, the blocks that are, that are set aside, that are marked for that task.
+[00:12:06.600 -> 00:12:13.180]  So, if you kill a task, it kills, it returns the blocks in the code heap back to the code block pool.
+[00:12:15.020 -> 00:12:21.880]  So, um, if, uh, when you, when you want wallpaper, you have to think about this.
+[00:12:22.320 -> 00:12:27.040]  But, uh, you should put your wallpaper into the Adam task.
+[00:12:27.180 -> 00:12:32.460]  So, um, if you kill a task, that would be bad.
+[00:12:32.780 -> 00:12:41.640]  Because suddenly the, uh, the code for that heap would be, uh, freed and reused and it would crash.
+[00:12:42.320 -> 00:12:48.080]  So, uh, when you want wallpaper, you Adam include it.
+[00:12:48.160 -> 00:12:50.320]  You see up here include or Adam include.
+[00:12:51.120 -> 00:12:57.220]  now it's on Adam's task, Adam's code heap. So there you go, there's Adam's code
+[00:12:57.220 -> 00:13:04.860]  heap. So if Adam died it would be free, but Adam never dies. So that's
+[00:13:04.860 -> 00:13:05.460]  how that works.

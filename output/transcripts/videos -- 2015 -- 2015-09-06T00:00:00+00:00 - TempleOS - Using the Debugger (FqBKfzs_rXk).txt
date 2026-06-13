@@ -1,0 +1,327 @@
+========================================================================
+FILE        : videos/2015/2015-09-06T00:00:00+00:00 - TempleOS - Using the Debugger (FqBKfzs_rXk).mkv
+SOURCE URL  : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2015/2015-09-06T00:00:00+00:00 - TempleOS - Using the Debugger (FqBKfzs_rXk).mkv
+FORMAT      : Matroska
+SIZE        : 131,114,779 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:36:32.340
+TRANSCRIBED : 2026-05-11T00:28:16.454853+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+so I'm just gonna mess around with a few things just cheap thrills so this is the wallpaper and these have all the tasks and here's the core swap count so I'm going to well true yield so right now I have core zero doing four four and a half million swaps a second that's not I have to explain where the swap is it's a context saved in a context restore so if you go to the scheduler scheduler a context save is it it redirects it's not using the normal stack it's just using that is a pre decrement and store anyway it stores the registers in in the task record the task record has a space for all the registers somewhere in here where'd it go where did all the rich there they are there's all the registers so the task record is pointed to by FS is the task record and if you look on your window up here where it says 7f9 that's the task record address so FS is the task record so if I say I just changed this okay so whenever you see FS it's the FS segment register basically it's used like a general purpose register but it's a segment register it's really hard to use and the only thing it's good for is it it's an extra register that makes it convenient anyway so I'm gonna talk about let's see so we got four four and a half million swaps a second let's put it on multi-core so let's just show I'm gonna make this not recoverable oh what the heck what no no my job and these typically have a so I'm gonna make a yield this uh saves the context and the scheduler loads the next one so I 64i for I equal I guess we do zero I less than and multi-processor count that's eight if you look in the note no top it's got eight cpu loads and we're going to we're not going to spawn we're not going to spawn a task oh we're going to clobber the why don't we spawn let's spawn that's better it would work either way hopefully it doesn't matter that's the name that appears on the wallpaper in other places and now we want the processor so we want so in temple OS you put the task right on the core and the scheduler does not move it between cores so all the tasks all the all the applications run on core zero and if they need extra processing power they fire up some slaves on the other cores so uh let's watch the fireworks when we run it here we go pow pow okay shucks okay so we got a bunch of tasks okay so um I didn't think we could get four and a half million on all cores they um they have to use the same memory buses for well they have to use the same memory buses for well they have cash what now what is it doing right now it's loading in and saving those uh those uh registers into the task record um uh so anyway that's quite a lot of uh swaps per second that's i don't have a uh a uh i don't mess with memory maps i don't mess with page tables so um uh i mine is really fast all i have to do is store about well you saw let's just say there's about 40 instructions and if it's three gigahertz this is what you got i have a couple locks locks are slow anyway so uh it's really hard to get out of what we just did i should i could have put a flag to self-destruct i just rebooted okay so by the way to reboot ram reboot and then you tell colonel ben c and this bypasses the uh bios diagnostics what this does is it loads the i call this a soft boot basically it uh it uh uh we have an operating system that can get fragmented and uh we like the ability to do a reboot to reset everything it's not what you typically think of a reboot i guess it is anyway this one um bypasses the hardware reset and it just what it does is it puts the kernel in place and uh and resets and starts executing so that it's reset anyway pow so um there is a debugger you can hit ctrl alt d if you feel like it or you can say debug let's go ahead and uh somebody wants to know how to use breakpoints am i right a lot of you have a hard on for breakpoints so if you really want to use them they are available god help you okay so how do we use them here is the problem we have a task that is in the editor you have to keep track of where tasks are created and destroyed we are in the editor as a matter of fact do you see this uh this edit and terminal along the side of the window that means the task started as a terminal and then it entered the editor now we exit so as a matter of fact now it's the terminal and what happened when behind the scenes it did an edit and then if we hit f1 it's deeper there's another edit and then if you go back it okay okay so to execute this program um we uh we include okay so it printed a million now it's uh so the question is uh what is the situation of tasks uh this is this is all the tasks mostly it's just the uh executive seth task on each core and then there's about four on uh core zero core zero is the only core that can have windows task rep so uh here's the situation we have a uh executive seth task seth is the son of adam the core core seth is the one of the core seth is the one of the core seth is the one of the core zero we have we have these two windows there's one there's one window per task maximum there's one heat per task no that's not that's not true is no there's data in a code heap anyway uh so only core zero can have applications they can create slave tasks on the other cores anyway so uh on core zero we have the window manager and 30 times a second it redraws everything on the screen we're only using a few percent cpu there's the auto complete which is uh it's not killed but it's the windows turned off uh the windows turned off uh oh there's the auto complete or i could have turned it off before i did the command i don't know and then there's two uh terminals there's this terminal and this terminal those are user terminals oh i forgot and then there's the adam task adam is an executive on core zero i call it seth on the other ones but it's oh well adam is the father of all tasks that's why these are indented to show their children of adam anyway so uh so in order to debug you have to understand how tasks work and uh each task has a task record off the fs segment register and um so if i uh if i include this program it's going to store the code in memory and then it's going to execute it and it's the same task now if i enter the debugger um the question is what registers are you using when you are in the debugger that's a good question isn't it so if i say debug i wanted the same command line but it's just not windows there's not it's not windowed so you still everything's the same it has a compiler when you make a debugger you want to scale back on uh on uh you don't want interference from interrupts so you don't you don't want it interrupt driven um that's if it's a low level debugger you guys are probably used to uh um we're at a lower level on the system than you're used to we don't have such uh glamorous things as uh what you're used to anyway so at this point we this is the same task i think we can get out cheap there's a help uh i i really don't use this i don't recommend using this but some people are stubborn and they want to do it the old fat the way they're used to anyway so um the here's the problem the first problem is what registers where are the register when we take a task and enter the debugger i can say fs rip and this is the rip that was last uh stored the last time we swapped out now if we happen to do a yield then it overwrites all the registers if you happen to call a command that yields the cpu and lets a swap take place then all your debugging just got hosed so uh now there is a there is little aliases i think it's underscore rip um i made uh underscore r-a-x uh all these are is uh defines for that's all they are fs r-a-x so uh you can edit there's there's a handy thing edit there's a light editor add light um there's you can edit a simple a source address as long as you'll see edit r-a-x this jumps to the source code and we are in debug okay i didn't know where we were so when we entered debug that was the uh that's what got stored into the task record remember fs is the current task record so the main difficulty with the debugger is keeping track of the set of registers if you don't uh fs if you dump enough you'll see the registers uh class rep fs so the registers will appear somewhere there they are there's the registers so they're they're stored on the record so uh these these numbers are 16 digits most of them are eight digits but in theory you have to enter 16 digit numbers that is no fun and the worst part is you don't have screen real estate in order to do anything i made a uh a little ide that had a watch window and uh it had a uh pulled up source code alongside the uh what i tried to do is have two windows one for the uh the program being executed another for the source code and uh it was a nightmare so i i have on my website the the uh the remains of a uh ide it it it would need some work anyway um integrated development environment so apparently we have some uh recurs recursive uh it's printing out the neighbors of the task the children or something class rep prints um so many layers deep uh so the task has a uh a uh successor and when we did the class rep where we are now seeing what the successor was i think we're going to abort this how do i do that okay there's no way there's no interrupts i just have to reset it okay so if you want to set break points i just want to show that it is possible so first of all we don't want to execute the program yet okay let's include this let's debug let's unassemble function main let's set a breakpoint for address main plus 0x uh let's do the print right on the print 1c okay you can see how this works now we say uh now you have to keep track of you have to keep in your head where what registers are what there's a set of registers that that are doing the command line and then there's a set of registers that are in the uh the current task record we haven't every time we swap in and out they get updated um when we change tasks anyway uh if i say main so uh i don't know i guess we're at the right there's the unassembled instruction now you can single step step but you have to step over the breakpoint first i think yeah so you have to disable the breakpoint i could do this again go let's say go i don't know if that's going to skip i think we have to single step over the breakpoint otherwise it'll go okay it gives us warning single step so you have to single step over the breakpoint and then you say go and then we get back to the breakpoint it's in a loop so it's kind of ghetto let's look at the warning again so uh so we can single step all day a single step let's see let's unassemble unassemble watch what i do unassemble r i underscore rip so uh we're getting some dollar sign commands push push pp okay so we stepped into the print that's where we are and we can single step it should let us single step we're single stepping our way through the function now uh let's let it rip go and we're back at the breakpoint we can get rid of the breakpoint uh let's just hit go to hit g2 this removes the breakpoints and goes oh no you know what oh it's nothing okay so the uh the normal window manager uh only updates 30 times a second this is updating every single line so as a matter of fact we cheat normally because we we uh we don't we don't show all the intermediate line numbers okay i don't feel like this is taking too long so uh i just proved that you can do breakpoints if you really want to uh i'm really uh lost when it comes to uh when we're in this situation i don't know all the places where there are yields at the come so when you're doing directory i think there's a yield if you do a directory i'm guessing so i don't know for a fact if there were a a if you happen to do a directory in the middle of debugging it would overwrite your task record registers and now what anyway so um if you have suggestions for how we can improve debugging first of all we don't have real estate we don't have screen real estate it's it's always gonna suck so the best thing is uh i have some i have some really nice if you say raw raw print then you say let's say 2000 hello that's not what i wanted to do i forgot how it works raw print milliseconds format oh that's correct something's broken is it oh there it is it's up at the uh it was up at the tip top of the screen this is for a uh black and white to use the slang okay so it's printing hello across the top of the screen uh you'll notice watch the top of the screen okay so there is a uh that is outside the normal window framework and uh so uh what you can do normally tasks don't are i guess you'd call them uh headless or headerless or something a lot of tasks don't have a window and if you want to output from a task that doesn't have a window you can use raw print that you give it milliseconds to stay there this just locks the system and uh displays a message so when you're doing multitasking uh here's another reason uh debugging is uh doesn't work real well with temple os when we do our games um let's go to our games directory uh uh all the games uh work with a uh fs a dry a draw it callback uh so uh what that means is there's one task that's doing this uh it's getting key that's getting keys and responding to keys and there's another task which is drawing the screen the window manager uh calls this code now one of the first problems is uh when you're debugging you need to set your uh your hash table for symbols if you want symbolic debugging uh let me give you an example uh uh let's say we want to debug uh let's do that let's do that okay let's say we want to debug the the draw the for some perverse reason we want a single step this draw it okay so uh here's what we do let's do that it's a dry um i'm gonna comment this out hit f5 okay so this is the task right now the code is in memory and uh we're waiting to do wins this loss now the deep the uh the window manager we want to set a breakpoint in the window manager task as a matter of fact uh breakpoints are owned by the task they're removed and inserted so we cannot set a breakpoint for the window manager what if we just okay temple os you can do anything so you know what we're going to do the op code for a breakpoint is cc so uh what we are going to do is we're going to say uh unassemble function oh i just ruined the surprise okay let's no i didn't run it so here's it's a long function and it prints sprites and damn that's a huge function i think it's the data okay the data for the meshes is uh actually um after the function let's let's just unassemble okay okay so here we are let's go to the pin width okay so we are going pin width equals one let's put a let's put a breakpoint there so here's what we do so the symbol table is each task has a symbol table and all tasks inherit symbols of parents um you know what we're going to do uh let's uh let's uh let's say uh okay we'll be a wimp u8 star b equals address draw it plus zero x we want the uh pin width 4d star b equals 0 x cc okay we just put a breakpoint instruction by hand now when we run this it's going to crash when the window manager calls it now let's plan ahead and uh what we're going to do we're going to tell adam to compile some code adam is the father of all tasks all we inherit everything adam has so uh i'm going to say uh uh let's just call it an i64 i64 uh saved uh oh this is tricky okay say let's just call it saved um equals fs hash table okay this is the symbol table for the current task this has the the uh the name of dry it if we want to see what's in the symbol table for the current task we say who oh god i hope this is correct i better do little r okay so those are all the symbols when we compiled that code there's dry it anyway so we we want to display the hash table let's go ahead and store that into we're going to create a variable inside the atom task we're i'm just planning ahead so we stored the hash table address and now now the problem is the window manager when it hits that break point if we unassemble it's not going to have the draw it in its symbol table and the unassemble will not show the symbolic name it doesn't scan all tasks i i thought about that anyway each this is a single address map however you only have symbols for your current task and parents um i could scan all tasks went for symbolic debugging anyway so we go debug no no no we we say uh when sys loss and then it's going to hit that break point i was getting worried okay now it says interrupt three and we don't have symbolic debugging now we now uh what we do is uh we say fs hash table this totally hoses it well no i don't know about totally saved and now if we see oh look at that you see it says now it says dry it 4d so now it knows what uh unassemble function oh we're not we remember it's a really long function dry it long story short now we have symbolic debugging the reason we had to do that is because it's a different task so i don't know what to tell you if you want to use break points and you want to use the debugger you're nuts but what i recommend to be quite honest is um i do a lot of uh i do i make a lot of use of uh see these progress one two three four um what i do when i'm in the middle of something i'll just say progress progress one equals uh king milliseconds and then i hit f5 and then uh what will happen is it'll write to the progress variable and then i can see it then i can see it or i'll i'll use it if progress one it's just a global variable if progress one is greater than 100 progress one plus plus beep i use sometimes i use beep i use beep there's a beep that uh that blocks this one does interrupts but if you say uh 500 comma true then that doesn't use interrupts that turns off interrupts anyway uh and uh you might put a uh you can put a raw print i don't use this it's a little too much typing but this is a printf so you can say percent x you can say percent p and if that hash table off your task is that's what it uses the hash table off your task and if you want to see what's in your hash table who i don't i never use this because i you know i always know this tells who's in your hash table and i'm going to see if i when a surgeon checks for sponges i do a merge check all the time i just i have my my d drive is an exact copy of my c drive and throughout the throughout the day i'll update it and uh and then i like to do a difference a merge check you can check my files on the distribution in the demo account directory you can find my personal menu you know on my personal menu is my merge that uh you can play with it in a virtual machine with nothing too important anyway so how about that you you you
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:12.060 -> 00:00:20.380]  so I'm just gonna mess around with a few things just cheap thrills so this is the wallpaper and
+[00:00:20.380 -> 00:00:38.380]  these have all the tasks and here's the core swap count so I'm going to well true yield so right now I
+[00:00:38.380 -> 00:00:50.300]  have core zero doing four four and a half million swaps a second that's not I have to explain
+[00:00:50.300 -> 00:01:03.240]  where the swap is it's a context saved in a context restore so if you go to the scheduler
+[00:01:08.300 -> 00:01:20.280]  scheduler a context save is it it redirects it's not using the normal stack it's just using
+[00:01:20.280 -> 00:01:33.500]  that is a pre decrement and store anyway it stores the registers in in the task record
+[00:01:37.120 -> 00:01:47.820]  the task record has a space for all the registers somewhere in here where'd it go
+[00:01:51.960 -> 00:02:00.720]  where did all the rich there they are there's all the registers so the task record is pointed to by
+[00:02:02.040 -> 00:02:13.920]  FS is the task record and if you look on your window up here where it says 7f9 that's the task record
+[00:02:13.920 -> 00:02:35.240]  address so FS is the task record so if I say I just changed this okay so whenever you see FS it's the FS
+[00:02:35.240 -> 00:02:43.560]  segment register basically it's used like a general purpose register but it's a segment register it's
+[00:02:43.560 -> 00:02:57.600]  really hard to use and the only thing it's good for is it it's an extra register that makes it convenient
+[00:02:57.600 -> 00:03:08.120]  anyway so I'm gonna talk about let's see so we got four four and a half million swaps a second
+[00:03:09.980 -> 00:03:13.180]  let's put it on multi-core so let's just show
+[00:03:15.900 -> 00:03:30.080]  I'm gonna make this not recoverable oh what the heck what no no my job and these typically have a so I'm gonna make a
+[00:03:41.920 -> 00:03:59.720]  yield this uh saves the context and the scheduler loads the next one so I 64i for I equal I guess we do zero I less than
+[00:03:59.720 -> 00:04:10.000]  and multi-processor count that's eight if you look in the note no top it's got eight cpu loads
+[00:04:12.360 -> 00:04:26.220]  and we're going to we're not going to spawn we're not going to spawn a task oh we're going to clobber the
+[00:04:26.220 -> 00:04:55.840]  why don't we spawn let's spawn that's better it would work either way hopefully it doesn't matter that's the name that appears on the wallpaper in other places and now we want the processor so we want so in temple OS you put the task right on the core and the scheduler does not move it between cores
+[00:04:55.840 -> 00:05:06.740]  so all the tasks all the all the applications run on core zero and if they need extra processing power they fire up some slaves on the other cores
+[00:05:08.200 -> 00:05:17.080]  so uh let's watch the fireworks when we run it here we go pow pow okay shucks
+[00:05:17.760 -> 00:05:36.680]  okay so we got a bunch of tasks okay so um I didn't think we could get four and a half million on all cores they um they have to use the same memory buses for
+[00:05:38.880 -> 00:05:40.340]  well they have to use the same memory buses for
+[00:05:40.340 -> 00:05:46.240]  well they have cash what now what is it doing right now it's loading in and saving those uh
+[00:05:48.060 -> 00:05:52.940]  those uh registers into the task record um
+[00:05:57.060 -> 00:06:01.320]  uh so anyway that's quite a lot of uh swaps per second that's
+[00:06:02.360 -> 00:06:08.220]  i don't have a uh a uh i don't mess with memory maps i don't mess with page tables
+[00:06:08.220 -> 00:06:13.520]  so um uh i mine is really fast all i have to do is store about
+[00:06:14.860 -> 00:06:21.440]  well you saw let's just say there's about 40 instructions and if it's three gigahertz
+[00:06:21.440 -> 00:06:28.660]  this is what you got i have a couple locks locks are slow anyway
+[00:06:30.880 -> 00:06:40.920]  so uh it's really hard to get out of what we just did i should i could have put a flag to self-destruct
+[00:06:43.520 -> 00:06:53.200]  i just rebooted okay so by the way to reboot ram reboot and then you tell colonel ben c
+[00:06:54.140 -> 00:07:00.680]  and this bypasses the uh bios diagnostics what this does is it loads the
+[00:07:00.680 -> 00:07:07.140]  i call this a soft boot basically it uh it uh
+[00:07:07.140 -> 00:07:14.180]  uh we have an operating system that can get fragmented and uh
+[00:07:16.560 -> 00:07:24.960]  we like the ability to do a reboot to reset everything it's not what you typically think of a
+[00:07:24.960 -> 00:07:33.780]  reboot i guess it is anyway this one um bypasses the hardware reset and it just what it does is it
+[00:07:33.780 -> 00:07:42.700]  puts the kernel in place and uh and resets and starts executing so that it's reset anyway pow
+[00:07:44.140 -> 00:07:46.000]  so um there is a debugger
+[00:07:48.500 -> 00:07:56.020]  you can hit ctrl alt d if you feel like it or you can say debug let's go ahead and
+[00:07:56.020 -> 00:08:01.520]  uh somebody wants to know
+[00:08:06.100 -> 00:08:11.500]  how to use breakpoints am i right a lot of you
+[00:08:13.620 -> 00:08:15.700]  have a hard on for breakpoints
+[00:08:22.720 -> 00:08:32.320]  so if you really want to use them they are available god help you okay so how do we use them
+[00:08:34.220 -> 00:08:43.620]  here is the problem we have a task that is in the editor you have to keep track of where tasks are
+[00:08:43.620 -> 00:08:51.800]  created and destroyed we are in the editor as a matter of fact do you see this uh this edit and
+[00:08:51.800 -> 00:08:59.860]  terminal along the side of the window that means the task started as a terminal and then it entered the
+[00:08:59.860 -> 00:09:08.500]  editor now we exit so as a matter of fact now it's the terminal and what happened when behind the scenes it did an edit
+[00:09:14.960 -> 00:09:24.980]  and then if we hit f1 it's deeper there's another edit and then if you go back it okay
+[00:09:24.980 -> 00:09:38.920]  okay so to execute this program um we uh we include
+[00:09:48.560 -> 00:09:51.840]  okay so it printed a million
+[00:09:55.640 -> 00:09:59.840]  now it's uh so the question is uh
+[00:10:02.040 -> 00:10:05.360]  what is the situation of tasks
+[00:10:06.240 -> 00:10:06.820]  uh
+[00:10:06.820 -> 00:10:13.840]  this is this is all the tasks mostly it's just the uh executive seth task on each core and then there's
+[00:10:13.840 -> 00:10:21.540]  about four on uh core zero core zero is the only core that can have windows
+[00:10:24.680 -> 00:10:33.520]  task rep so uh here's the situation we have a uh executive seth task seth is the son of adam
+[00:10:36.260 -> 00:10:37.800]  the core core seth is the one of the core seth is the one of the core seth is the one of the core
+[00:10:37.800 -> 00:10:43.400]  zero we have we have these two windows there's one there's one window per task
+[00:10:44.780 -> 00:10:45.460]  maximum
+[00:10:48.380 -> 00:10:52.320]  there's one heat per task no that's not that's not true
+[00:10:53.200 -> 00:11:01.580]  is no there's data in a code heap anyway uh so only core zero can have applications they can
+[00:11:01.580 -> 00:11:08.640]  create slave tasks on the other cores anyway so uh on core zero we have the window manager
+[00:11:09.260 -> 00:11:12.540]  and 30 times a second it redraws everything on the screen
+[00:11:13.880 -> 00:11:23.140]  we're only using a few percent cpu there's the auto complete which is uh it's not killed but it's
+[00:11:23.140 -> 00:11:29.940]  the windows turned off uh the windows turned off uh oh there's the auto complete
+[00:11:30.780 -> 00:11:36.180]  or i could have turned it off before i did the command i don't know and then there's two uh
+[00:11:36.740 -> 00:11:45.880]  terminals there's this terminal and this terminal those are user terminals oh i forgot and then there's the
+[00:11:45.880 -> 00:11:53.800]  adam task adam is an executive on core zero i call it seth on the other ones but it's
+[00:11:56.260 -> 00:12:02.580]  oh well adam is the father of all tasks that's why these are indented to show their children of adam
+[00:12:03.160 -> 00:12:12.580]  anyway so uh so in order to debug you have to understand how tasks work and uh
+[00:12:14.100 -> 00:12:25.380]  each task has a task record off the fs segment register and um so if i uh if i include this program
+[00:12:26.180 -> 00:12:32.640]  it's going to store the code in memory and then it's going to execute it and it's the same task
+[00:12:33.960 -> 00:12:43.760]  now if i enter the debugger um the question is what registers are you using when you are in the debugger
+[00:12:44.520 -> 00:12:48.280]  that's a good question isn't it so if i say debug
+[00:12:50.340 -> 00:12:58.240]  i wanted the same command line but it's just not windows there's not it's not windowed so you still
+[00:12:58.240 -> 00:13:05.980]  everything's the same it has a compiler when you make a debugger you want to scale back on uh
+[00:13:07.640 -> 00:13:16.080]  on uh you don't want interference from interrupts so you don't you don't want it interrupt driven um
+[00:13:18.540 -> 00:13:23.980]  that's if it's a low level debugger you guys are probably used to uh
+[00:13:26.800 -> 00:13:33.740]  um we're at a lower level on the system than you're used to we don't have such
+[00:13:34.540 -> 00:13:44.380]  uh glamorous things as uh what you're used to anyway so at this point we this is the same task
+[00:13:44.380 -> 00:13:48.620]  i think we can get out cheap there's a help
+[00:13:51.080 -> 00:13:58.100]  uh i i really don't use this i don't recommend using this but some people are stubborn and they
+[00:13:58.100 -> 00:14:07.960]  want to do it the old fat the way they're used to anyway so um the here's the problem the first problem
+[00:14:07.960 -> 00:14:16.800]  is what registers where are the register when we take a task and enter the debugger
+[00:14:19.340 -> 00:14:31.860]  i can say fs rip and this is the rip that was last uh stored the last time we swapped out
+[00:14:32.540 -> 00:14:38.900]  now if we happen to do a yield then it overwrites all the registers
+[00:14:40.400 -> 00:14:49.600]  if you happen to call a command that yields the cpu and lets a swap take place then all your debugging just
+[00:14:49.600 -> 00:15:02.580]  got hosed so uh now there is a there is little aliases i think it's underscore rip um i made uh underscore r-a-x
+[00:15:02.580 -> 00:15:17.520]  uh all these are is uh defines for that's all they are fs r-a-x so uh you can edit there's there's a handy
+[00:15:17.520 -> 00:15:30.880]  thing edit there's a light editor add light um there's you can edit a simple a source address
+[00:15:30.880 -> 00:15:41.700]  as long as you'll see edit r-a-x this jumps to the source code and we are in debug okay i didn't know
+[00:15:41.700 -> 00:15:51.520]  where we were so when we entered debug that was the uh that's what got stored into the task record
+[00:15:51.520 -> 00:15:54.800]  remember fs is the current task record
+[00:15:57.280 -> 00:16:04.140]  so the main difficulty with the debugger is keeping track of the set of registers
+[00:16:05.720 -> 00:16:21.140]  if you don't uh fs if you dump enough you'll see the registers uh class rep fs
+[00:16:24.100 -> 00:16:28.480]  so the registers will appear somewhere there they are there's the registers
+[00:16:28.480 -> 00:16:38.560]  so they're they're stored on the record so uh these these numbers are 16 digits
+[00:16:40.360 -> 00:16:49.160]  most of them are eight digits but in theory you have to enter 16 digit numbers that is no fun
+[00:16:49.920 -> 00:16:57.620]  and the worst part is you don't have screen real estate in order to do anything i made a
+[00:16:57.620 -> 00:17:07.600]  uh a little ide that had a watch window and uh it had a uh pulled up source code alongside the uh
+[00:17:08.580 -> 00:17:13.340]  what i tried to do is have two windows one for the uh
+[00:17:14.940 -> 00:17:25.380]  the program being executed another for the source code and uh it was a nightmare so i i have on my website
+[00:17:25.380 -> 00:17:39.460]  the the uh the remains of a uh ide it it it would need some work anyway um integrated development environment
+[00:17:40.420 -> 00:17:49.520]  so apparently we have some uh recurs recursive uh it's printing out the neighbors of the task
+[00:17:49.520 -> 00:17:59.440]  the children or something class rep prints um so many layers deep uh
+[00:18:01.680 -> 00:18:13.440]  so the task has a uh a uh successor and when we did the class rep where we are now seeing what the
+[00:18:13.440 -> 00:18:25.120]  successor was i think we're going to abort this how do i do that okay there's no way there's no interrupts
+[00:18:26.800 -> 00:18:28.380]  i just have to reset it
+[00:18:31.220 -> 00:18:33.960]  okay so if you want to set break points
+[00:18:35.080 -> 00:18:37.560]  i just want to show that it is possible
+[00:18:37.560 -> 00:18:43.680]  so first of all we don't want to execute the program yet
+[00:18:46.440 -> 00:18:49.900]  okay let's include this let's debug
+[00:18:51.960 -> 00:18:55.600]  let's unassemble function main
+[00:18:58.280 -> 00:19:01.580]  let's set a breakpoint for address main
+[00:19:03.840 -> 00:19:13.480]  plus 0x uh let's do the print right on the print 1c okay you can see how this works now we say uh
+[00:19:15.240 -> 00:19:21.280]  now you have to keep track of you have to keep in your head where what registers are what there's a set
+[00:19:21.280 -> 00:19:27.620]  of registers that that are doing the command line and then there's a set of registers that are in the uh
+[00:19:27.620 -> 00:19:36.960]  the current task record we haven't every time we swap in and out they get updated um when we change tasks
+[00:19:36.960 -> 00:19:39.960]  anyway uh if i say main
+[00:19:42.880 -> 00:19:51.080]  so uh i don't know i guess we're at the right there's the unassembled instruction now you can single step
+[00:19:51.080 -> 00:19:57.860]  step but you have to step over the breakpoint first i think yeah so you have to disable the breakpoint
+[00:19:57.860 -> 00:20:04.040]  i could do this again go let's say go i don't know if that's going to skip i think we have to single
+[00:20:04.040 -> 00:20:14.260]  step over the breakpoint otherwise it'll go okay it gives us warning single step so you have to single
+[00:20:14.260 -> 00:20:24.040]  step over the breakpoint and then you say go and then we get back to the breakpoint it's in a loop
+[00:20:25.680 -> 00:20:31.240]  so it's kind of ghetto let's look at the warning again so uh
+[00:20:33.680 -> 00:20:41.120]  so we can single step all day a single step let's see let's unassemble unassemble watch what i do
+[00:20:41.120 -> 00:20:56.540]  unassemble r i underscore rip so uh we're getting some dollar sign commands push push pp okay so we
+[00:20:56.540 -> 00:21:06.000]  stepped into the print that's where we are and we can single step it should let us single step we're
+[00:21:06.000 -> 00:21:18.620]  single stepping our way through the function now uh let's let it rip go and we're back at the breakpoint
+[00:21:18.620 -> 00:21:26.760]  we can get rid of the breakpoint uh let's just hit go to hit g2 this removes the breakpoints and goes
+[00:21:28.200 -> 00:21:44.420]  oh no you know what oh it's nothing okay so the uh the normal window manager uh only updates 30 times a
+[00:21:44.420 -> 00:21:48.180]  second this is updating every single line
+[00:21:50.380 -> 00:21:58.340]  so as a matter of fact we cheat normally because we we uh we don't we don't show all the intermediate
+[00:21:58.980 -> 00:22:00.000]  line numbers
+[00:22:02.960 -> 00:22:09.820]  okay i don't feel like this is taking too long so uh i just proved that you can do breakpoints if you
+[00:22:09.820 -> 00:22:18.480]  really want to uh i'm really uh lost when it comes to uh
+[00:22:22.860 -> 00:22:32.480]  when we're in this situation i don't know all the places where there are yields at the come
+[00:22:33.360 -> 00:22:40.600]  so when you're doing directory i think there's a yield if you do a directory i'm guessing
+[00:22:41.920 -> 00:22:50.720]  so i don't know for a fact if there were a a if you happen to do a directory in the middle of debugging
+[00:22:51.440 -> 00:22:55.100]  it would overwrite your task record registers
+[00:22:57.120 -> 00:23:06.280]  and now what anyway so um if you have suggestions for how we can improve debugging
+[00:23:07.180 -> 00:23:14.560]  first of all we don't have real estate we don't have screen real estate it's it's always gonna suck
+[00:23:15.180 -> 00:23:24.300]  so the best thing is uh i have some i have some really nice if you say raw raw print
+[00:23:25.440 -> 00:23:29.260]  then you say let's say 2000 hello
+[00:23:31.880 -> 00:23:33.460]  that's not what i wanted to do
+[00:23:37.600 -> 00:23:43.600]  i forgot how it works raw print milliseconds format oh that's correct
+[00:23:46.720 -> 00:23:53.540]  something's broken is it oh there it is it's up at the uh it was up at the tip top of the screen
+[00:23:53.540 -> 00:24:02.460]  this is for a uh black and white to use the slang okay so it's printing hello across the top of the screen
+[00:24:05.320 -> 00:24:14.700]  uh you'll notice watch the top of the screen okay so there is a uh that is outside the normal window
+[00:24:16.660 -> 00:24:17.300]  framework
+[00:24:17.900 -> 00:24:30.260]  and uh so uh what you can do normally tasks don't are i guess you'd call them uh headless or headerless or
+[00:24:30.260 -> 00:24:38.800]  something a lot of tasks don't have a window and if you want to output from a task that doesn't have a
+[00:24:38.800 -> 00:24:46.060]  window you can use raw print that you give it milliseconds to stay there this just locks the system
+[00:24:46.960 -> 00:24:51.660]  and uh displays a message so when you're doing multitasking
+[00:24:53.120 -> 00:24:56.520]  uh here's another reason uh debugging is uh
+[00:24:58.300 -> 00:25:06.220]  doesn't work real well with temple os when we do our games um let's go to our games directory
+[00:25:06.220 -> 00:25:21.400]  uh uh all the games uh work with a uh fs a dry a draw it callback
+[00:25:21.400 -> 00:25:36.700]  uh so uh what that means is there's one task that's doing this uh it's getting key that's getting
+[00:25:36.700 -> 00:25:43.800]  keys and responding to keys and there's another task which is drawing the screen the window manager
+[00:25:43.800 -> 00:25:55.860]  uh calls this code now one of the first problems is uh when you're debugging you need to set your uh
+[00:25:56.520 -> 00:26:04.240]  your hash table for symbols if you want symbolic debugging uh let me give you an example uh
+[00:26:04.240 -> 00:26:20.480]  uh let's say we want to debug uh let's do that let's do that okay let's say we want to debug the the draw
+[00:26:21.360 -> 00:26:32.800]  the for some perverse reason we want a single step this draw it okay so uh here's what we do let's do that
+[00:26:32.800 -> 00:26:49.480]  it's a dry um i'm gonna comment this out hit f5 okay so this is the task right now the code is in memory
+[00:26:50.320 -> 00:26:56.420]  and uh we're waiting to do wins this loss now the deep the uh
+[00:26:58.460 -> 00:27:07.260]  the window manager we want to set a breakpoint in the window manager task as a matter of fact uh breakpoints
+[00:27:07.260 -> 00:27:16.400]  are owned by the task they're removed and inserted so we cannot set a breakpoint for the window manager
+[00:27:16.920 -> 00:27:18.060]  what if we just
+[00:27:21.160 -> 00:27:23.780]  okay temple os you can do anything
+[00:27:31.660 -> 00:27:33.280]  so you know what we're going to do
+[00:27:35.880 -> 00:27:41.200]  the op code for a breakpoint is cc so uh
+[00:27:42.760 -> 00:27:46.400]  what we are going to do is we're going to say
+[00:27:47.280 -> 00:27:47.660]  uh
+[00:27:51.040 -> 00:27:56.960]  unassemble function oh i just ruined the surprise okay let's no i didn't run it
+[00:28:03.300 -> 00:28:12.020]  so here's it's a long function and it prints sprites and damn that's a huge function i think it's the data
+[00:28:13.200 -> 00:28:22.540]  okay the data for the meshes is uh actually um after the function let's let's just unassemble
+[00:28:27.720 -> 00:28:28.480]  okay
+[00:28:28.480 -> 00:28:30.700]  okay so here we are
+[00:28:32.380 -> 00:28:35.600]  let's go to the pin width okay so
+[00:28:40.060 -> 00:28:40.900]  we are going
+[00:28:44.900 -> 00:28:50.540]  pin width equals one let's put a let's put a breakpoint there so here's what we do
+[00:28:51.760 -> 00:28:53.940]  so the symbol table is
+[00:28:57.920 -> 00:29:04.760]  each task has a symbol table and all tasks inherit symbols of parents um you know what we're going to do
+[00:29:04.760 -> 00:29:08.300]  uh let's uh let's uh let's say uh
+[00:29:11.720 -> 00:29:20.080]  okay we'll be a wimp u8 star b equals address draw it
+[00:29:21.420 -> 00:29:26.060]  plus zero x we want the uh pin width 4d
+[00:29:28.700 -> 00:29:35.540]  star b equals 0 x cc okay we just put a breakpoint instruction
+[00:29:38.860 -> 00:29:44.260]  by hand now when we run this it's going to crash when the window manager calls it
+[00:29:44.260 -> 00:29:55.540]  now let's plan ahead and uh what we're going to do we're going to tell adam to compile some code
+[00:29:55.540 -> 00:30:03.440]  adam is the father of all tasks all we inherit everything adam has so uh i'm going to say uh
+[00:30:03.440 -> 00:30:19.320]  uh let's just call it an i64 i64 uh saved uh oh this is tricky okay say let's just call it saved um equals
+[00:30:23.280 -> 00:30:25.380]  fs hash table
+[00:30:26.860 -> 00:30:35.300]  okay this is the symbol table for the current task this has the the uh the name of dry it
+[00:30:36.260 -> 00:30:41.100]  if we want to see what's in the symbol table for the current task we say who
+[00:30:43.140 -> 00:30:45.760]  oh god i hope this is correct i better do
+[00:30:46.660 -> 00:30:47.560]  little r
+[00:30:49.020 -> 00:30:54.640]  okay so those are all the symbols when we compiled that code there's dry it
+[00:30:55.380 -> 00:31:02.120]  anyway so we we want to display the hash table let's go ahead and store that
+[00:31:03.560 -> 00:31:04.300]  into
+[00:31:06.640 -> 00:31:11.840]  we're going to create a variable inside the atom task
+[00:31:12.680 -> 00:31:23.060]  we're i'm just planning ahead so we stored the hash table address and now now the problem is the
+[00:31:23.060 -> 00:31:28.200]  window manager when it hits that break point if we unassemble it's not going to have
+[00:31:28.740 -> 00:31:36.280]  the draw it in its symbol table and the unassemble will not show the symbolic name
+[00:31:38.020 -> 00:31:46.640]  it doesn't scan all tasks i i thought about that anyway each this is a single address map however
+[00:31:47.740 -> 00:31:55.320]  you only have symbols for your current task and parents um i could scan all tasks
+[00:31:56.320 -> 00:32:02.860]  went for symbolic debugging anyway so we go debug no no no we we say uh when sys loss
+[00:32:03.720 -> 00:32:05.960]  and then it's going to hit that break point
+[00:32:09.560 -> 00:32:19.400]  i was getting worried okay now it says interrupt three and we don't have symbolic debugging now we
+[00:32:19.400 -> 00:32:23.220]  now uh what we do is uh
+[00:32:26.040 -> 00:32:29.260]  we say fs hash table
+[00:32:31.480 -> 00:32:38.260]  this totally hoses it well no i don't know about totally saved
+[00:32:40.820 -> 00:32:48.980]  and now if we see oh look at that you see it says now it says dry it 4d so now it knows what uh
+[00:32:51.500 -> 00:32:57.740]  unassemble function oh we're not we remember it's a really long function
+[00:32:59.120 -> 00:33:04.440]  dry it long story short now we have symbolic debugging
+[00:33:04.980 -> 00:33:08.740]  the reason we had to do that is because it's a different task
+[00:33:12.100 -> 00:33:17.720]  so i don't know what to tell you if you want to use break points and you want to use the debugger
+[00:33:19.220 -> 00:33:26.260]  you're nuts but what i recommend to be quite honest is
+[00:33:37.040 -> 00:33:37.560]  um
+[00:33:40.160 -> 00:33:41.980]  i do a lot of uh
+[00:33:46.660 -> 00:33:49.520]  i do i make a lot of use of uh
+[00:33:49.520 -> 00:33:59.100]  see these progress one two three four um what i do when i'm in the middle of something i'll just say
+[00:33:59.100 -> 00:34:09.040]  progress progress one equals uh king milliseconds and then i hit f5
+[00:34:11.460 -> 00:34:20.480]  and then uh what will happen is it'll write to the progress variable and then i can see it then i can see it
+[00:34:21.200 -> 00:34:29.080]  or i'll i'll use it if progress one it's just a global variable if progress one is greater than 100
+[00:34:29.080 -> 00:34:40.640]  progress one plus plus beep i use sometimes i use beep i use beep there's a beep that uh that blocks
+[00:34:40.640 -> 00:34:48.220]  this one does interrupts but if you say uh 500 comma true then that doesn't use interrupts
+[00:34:49.460 -> 00:35:00.200]  that turns off interrupts anyway uh and uh you might put a uh you can put a raw print i don't use this
+[00:35:00.200 -> 00:35:07.340]  it's a little too much typing but this is a printf so you can say percent x you can say percent p
+[00:35:08.220 -> 00:35:15.080]  and if that hash table off your task is that's what it uses the hash table off your task
+[00:35:15.080 -> 00:35:23.300]  and if you want to see what's in your hash table who i don't i never use this because i you know i always
+[00:35:23.300 -> 00:35:34.760]  know this tells who's in your hash table and i'm going to see if i when a surgeon checks for sponges
+[00:35:37.040 -> 00:35:40.760]  i do a merge check all the time
+[00:35:42.600 -> 00:35:51.440]  i just i have my my d drive is an exact copy of my c drive and throughout the throughout the day i'll
+[00:35:51.440 -> 00:36:01.100]  update it and uh and then i like to do a difference a merge check you can check my files
+[00:36:02.900 -> 00:36:08.740]  on the distribution in the demo account directory you can find my
+[00:36:11.480 -> 00:36:19.460]  personal menu you know on my personal menu is my merge that uh
+[00:36:22.480 -> 00:36:32.240]  you can play with it in a virtual machine with nothing too important anyway so how about that
+[00:36:32.240 -> 00:36:32.240]  
+[00:36:32.240 -> 00:36:32.240]  
+[00:36:32.240 -> 00:36:32.240]  
+[00:36:32.240 -> 00:36:32.260]  you
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.260]  
+[00:36:32.260 -> 00:36:32.320]  you
+[00:36:32.320 -> 00:36:32.320]  
+[00:36:32.320 -> 00:36:32.320]  
+[00:36:32.320 -> 00:36:32.340]  you
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  
+[00:36:32.340 -> 00:36:32.340]  

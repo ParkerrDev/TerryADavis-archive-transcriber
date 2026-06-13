@@ -1,0 +1,832 @@
+========================================================================
+FILE        : videos/2016/2016-04-11T00:08:00+00:00 - Terry A Davis Live Stream (2X9Rl3lcXFE).mp4
+SOURCE URL  : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2016/2016-04-11T00:08:00+00:00 - Terry A Davis Live Stream (2X9Rl3lcXFE).mp4
+DERIVATIVE  : (none — streamed from video)
+FORMAT      : MPEG4
+SIZE        : 263,688,233 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:35:55.640
+TRANSCRIBED : 2026-05-14T19:08:53.815824+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+Libunwind is uh how do I look hold on a second I gotta fix the camera hey where did I go oh this is uh okay whatever okay okay a little smaller okay so okay so this is talking about the elf file format adjusted time compiler and I don't know what their objective is I think they want to debug with some symbolic information so they probably expect me to none of this stuff is relevant um they they throw these standards at me and I say that has nothing to do with my operating system it's kind of a shock you'd be surprised how many people tell me this is how it's done and then I say no that's not how it's done uh uh uh like um my calling convention um they say the x86-64 uses registers for the calling convention I say mine doesn't mine doesn't anyway um sometimes it's like a weird jedi mine trick it's like these are not the droids you're looking for yeah they are the x86 has register calling convention mine doesn't okay so uh we want to talk about uh okay basically um when you uh when you boot you have a task you say who that's all the symbols and you inherit your your parent task symbols so if you say task rep the indentation means it's a child so Adam is the parent of all tasks and um all these symbols you see are in Adam's table and uh that happens during boot he compiles and put stuff in his symbol table it's you can kind of think of these like environment variables except they're they're functions and variables and defines um but the scope is like an environment variable anyway so Adam has all those symbols each task has a symbol table so uh basically that's where we look to get the uh debug information um so for example if we make a uh let's make a function in oh i screwed up oh well i should have said in i should have said in but oh well okay so let's go through all the okay count count count to ten oops okay so if we say who minus r for no recursion that means don't do Adam uh i don't know why it's i don't even know if that's called recursion it's inheritance i guess maybe i should oh well it seemed like recursion to me at the time so we have a function in the symbol table we have a function count and we have a function do it once uh my bird i'm waiting for my bird to show you shut up my other bird is dying okay so I have a hash table and what I did is this hash table is it's an array of linked linked lists this hash table is an array of linked lists some people do the silly the silly hash table where you where you move it into a slot below if it has a collision anyway so this is an array this is an array of linked lists and I have multiple I have multiple god that bird just hold on a couple more seconds he'll shut up okay so so so so so so I put I put multiple types of entries into my hash table and and you know I could just have a single number to tell what type but instead I do a bit mask and what that enables me to do is when I'm compiling in the compiler maybe maybe there's a situation where you're looking for a a type of a variable like a class maybe it can be a class or an internal type and maybe you want either of those and so what you do is when you search for a hash entry if you hit F1 under the hash the hash table documentation is pretty good okay so this is showing uh you have an array of linked lists and you can have collisions so so we find a string in a hash table now this has a type mask um find hash entries hash table mask this is the type mask so you can search for multiple types now the the way this works is newer entries overshadow older entries so for example if I make uh let's say u0 count i64 n i64 i for i for i equals 0 i less than for i equals 1 semi-colon i less or equal n i plus plus and let's say uh i should you know you never want to lose an opportunity when you're doing demos don't do something stupid but i can't think of anything so um we say count to 10 so uh so so this overshadows the old one we say who minus r the old one is still in the table it's a linked list and it's stacked if you're familiar with how stacks work a linked list stack it's a very natural easy thing to do no i don't even think it is stacked i think it's a queue is it a queue i think it's a queue it used to be a stack i think i turned everything into a queue a double a linked list sorry i can't believe i don't remember anyway so uh so where were we so we have a bunch of different types the ones the ones for debugging are function function is the main one we are interested in so we want to look at the hash entry for a function um so it has function this has a return class um i am able i am able to uh to specify a type with a single pointer um almost uh if it's a class there's a class structure if it's an internal type that's a class structure uh if well anyway um okay i guess i have to explain this that's the whole point okay so let's talk about how the compiler deals with types that's before we can talk about the function we need to talk about how the compiler deals with types uh i don't think i put it here yeah i did okay good so when you declare a class it creates it calls class new and what this does it creates we have max pointer stars this is a fixed this is a fixed value the most pointer stars you can have is four maybe you don't think it's good to have a limit um screw yourself i don't care i don't even i don't it's possible you might not even it might crash badly i think i check anyway uh i don't have patience for ridiculous anyway so what do we do here we allocate this is class new so we clear alloc and look at what we have here we have hash class times pointer stars so what we're doing here is we're making a uh we're making a structure that's repeated about four times anyway uh and uh i'm just i'm trying to outline what it looks like so uh the interesting thing is there's a pointer star count so here's the deal um when you have a one star um if you have zero stars okay so we have so we have a structure okay and if you have one star you point here if you have two stars you point here if you have three stars you point here and if you ever want to go to your base without stars then you subtract the the star count and that gets you back to the base so with with a single hash class pointer the hash class pointer points to one of these entries entries and it's it it encodes it encodes it encodes the uh number of pointer stars so that's how we do types so um for uh for for for a function we have a hash class pointer to a return type now this can't be an array uh no that's not too surprising that's okay because we're not doing C++ um so this is a now this is either an internal or a regular one let's look at what a class a class has a member list and uh I still don't remember if these are stacks or if they're single or doubly linked I can't remember uh that's weird but I I changed them from single to double sometimes no they're single they're single it's a stack it's a that it's a it's a it's a linked list stack anyway uh so for uh um um this is a class pointer it has a list of members so what does this mean let's review what we're dealing with here so what this means is um if I create a uh class uh student u8 name 32 i64 age now if I say who minus r star there's a student class in this in the uh so what we can do is we can say c hash class star temp b temp temp c i don't know i like to use standard uh names anyway so we say hash find what are the parameters needle haystack mask instance needle is uh student haystack is fs hash table mask is htt class instance we'll leave it as number the first one you encounter we if we had an over shadowed one we could get an older one but I never do that so let's see if we got a value now I'm going to be you might call it recursive that's a bad joke so I have a command line command that dumps a pointer what it does is it looks up the class so it's pretty funny because I'm looking up the class of a class anyway it's it's kind of funny so when we looked at the definition you saw it inherited it inherits the next and all all all hash entries have a next this one is a zero so this is the end of the line it has a string of a string pointer that's and it's holding student that's the hash string if you want to know how I hash I shift and add and anyway I don't know it seems to work type remember we talked about a type mask so this should be HTTP class use count every time it gets looked up it increments that so when we're making a when we're compiling a function if a variable does not get used it's easy to generate a warning source link okay so this links back to the source code and in our case it was the command line so it gives us a temporary file this is something that will uh it's it's bogus it's bogus but it's it's not going to crash anyway I just changed my I just abbreviated index anyway inside joke so index what is that anyway this is uh oh this is what we're wanting this is what we want to talk about so for uh for functions okay this this is the help index when you press f1 it automatically compiles a help so if we look up graphics this is scanning the symbol table and automatically compiling this help report and like in this case there's a class so uh the index is the help index apparently we had it set to nothing debug information this tells the uh the line number of different addresses uh I have to think about it a second we'll get to that import name uh I don't remember why is this part of every class okay so this is a source all all if it comes from the source code it's a source symbol I don't know if that makes any sense it's just a common inheritance base class I'm not real good with uh c++ terminology I just make shit up it's kind of funny a lot of people will tell me my code is wrong I go I made the fucking compiler it's not wrong so um uh there's a I I should if I should sure if there's I shouldn't be obnoxious for no reason so if I have incorrect terminology I should probably change it and if I have incorrect syntax a lot of times it's really easy to fix it I wasn't real careful I just said fuck it I said what do I need the compiler to do and then I did it and then I I didn't go investigate what the standard was so anyway raw type okay so in the hash table each func each task has a symbol table and you yourself can use hash find and you pass it the hash table now if you want atoms table I think the this will recur this will recurse so in other words if it doesn't find it it's going to search Adam the reason I know that is because there's one that will not recurse I do believe hash single table find this will not read I don't know if it curses the right word damn it I probably fucked it up I gotta go fix everything it searches the parents is that a recursion maybe traverse about that when you're going down a tree that seems like recursion when you're going up a tree it doesn't seem like it's recursion oh well I didn't I learned assembly language I didn't learn the other shit so uh so you can find the the the symbols in the hash table and and then you can go through the member list so we found student now here's the member list member list route I do believe this is going to report the first member when you call this class rep are you paying attention class rep will display a pointer and you can tell it how deep how deep to follow I think we can say three don't do that okay oh well fuck it so uh so if you want to see how to uh how to interpret the uh the data structure from the compiler look at the class rep uh this traverses a the data structure for a class if you want to look at a function uh I guess you can look at fun rep it it finds it in the hash table and uh the interesting thing here is it has uh it unassembles um somewhere it reports the registers and it unassembles where does it unassemble update reg var image okay this is for uh at one time I'd made a IDE and I had a watch window with the local variables I think this code is left over from when I had that I copied the registers into this there's a spot on the stack for each variable when you have a register variable it it it still has a spot on the stack and when you uh when it was doing the watching this would copy from the register to where's the unassembled damn it what the truck class rep what that does do that fun if I say fun rep print oh it doesn't unassemble it only reports the uh now a function is a lot like a class it has uh if you think about it when you make a class when you make a class you have uh uh you do stuff like this when you make a function okay the return is different but look here um you have you have arguments here and then you have more you have more symbols here and so uh what my compiler does is uh the the class and a function have member lists member lists this this has uh the arguments are the first couple couple in the list and then it local variable local variables are member members uh so uh the only other let's see oh let's do unassemble function let's go ahead unassemble function this uh so you see what this does it uh it finds a hash then it calls unassemble shut up god damn that bird so so so so so so so so! so there's a there's a there's a there's a debug information min max and then a variable size array there's a variable size array this is a this is for the address that I don't remember if it's this is line number addresses the addresses of different line numbers and I think it's zero if there's no bytes on that line so for example let's say in the editor we are looking at line 255 so for this function it would be you would have an array of like 15 and then it would have the address of each line and if there's no symbol I think it has a zero so that's what the debug is and when we call this unassemble function it it's it does a fun rep it reports it reports the the arguments and local variables and then it doesn't unassemble and it it is or it is it has the exact dimensions of the code that it got the it looked at the first and last the min and the max till so if we had a function it would be from 255 to 269 and so this this this calculates the size and it when it calls unassemble number this is number of bytes and it goes ahead and prints the code size now it actually is searching for either a function or an export symbol basically assembly code or that's not true if you have a function that's that doesn't have a header it has a symbol but if you don't have a header you just have a symbol if you don't have a header you just have a symbol so if it's just a symbol then it just does a just doesn't get it just does an unassemble so in the kernel so in the kernel we have headers for I made a header for almost everything everything for that for that reason pretty much even the stuff that you have a bunch of stuff even the stuff that you have no business messing with I made private headers and stuff public means that it's listed on the help report public means it's listed on the help report I did some private ones I don't remember I don't I don't I don't think I did everything which is kind of inconsistent oh well anyway uh so uh it has some private so uh let's go look at the web page and see what the comments are saying uh let's go look at the web page and see what the comments are saying uh let's go look at the web page and see what the comments are saying uh uh uh uh uh uh
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:02.240 -> 00:00:09.660]  Libunwind is uh how do I look hold on a second I gotta fix the camera hey where did I go
+[00:00:16.780 -> 00:00:18.600]  oh this is uh
+[00:00:24.260 -> 00:00:25.460]  okay whatever
+[00:00:43.520 -> 00:00:44.520]  okay
+[00:00:44.520 -> 00:00:44.580]  okay
+[00:00:44.580 -> 00:00:47.000]  a little smaller
+[00:00:49.920 -> 00:00:51.360]  okay so
+[00:00:51.360 -> 00:01:21.360]  
+[00:01:21.360 -> 00:01:22.820]  okay
+[00:01:30.640 -> 00:01:32.040]  so
+[00:01:40.180 -> 00:02:01.960]  this is talking about the elf file format adjusted time compiler and I don't know what their objective is I think they want to debug with some
+[00:02:01.960 -> 00:02:03.000]  symbolic information
+[00:02:06.960 -> 00:02:07.620]  so
+[00:02:08.960 -> 00:02:11.340]  they probably expect me to
+[00:02:15.620 -> 00:02:17.780]  none of this stuff is relevant
+[00:02:20.000 -> 00:02:20.340]  um
+[00:02:23.560 -> 00:02:24.440]  they
+[00:02:24.440 -> 00:02:26.180]  they throw
+[00:02:26.180 -> 00:02:27.640]  these
+[00:02:28.340 -> 00:02:30.760]  standards at me and I say
+[00:02:31.360 -> 00:02:34.160]  that has nothing to do with my operating system
+[00:02:36.180 -> 00:02:38.300]  it's kind of a shock
+[00:02:38.300 -> 00:02:40.580]  you'd be surprised how many people
+[00:02:41.280 -> 00:02:42.200]  tell me
+[00:02:42.980 -> 00:02:44.360]  this is how it's done
+[00:02:44.360 -> 00:02:46.700]  and then I say no that's not how it's done
+[00:02:46.700 -> 00:02:47.700]  uh
+[00:02:48.620 -> 00:02:48.700]  uh
+[00:02:51.980 -> 00:02:53.380]  uh
+[00:02:53.380 -> 00:02:53.460]  like
+[00:02:53.460 -> 00:02:54.160]  um
+[00:02:54.160 -> 00:02:55.880]  my calling convention
+[00:02:55.880 -> 00:02:56.960]  um
+[00:02:56.960 -> 00:02:58.720]  they say
+[00:02:58.720 -> 00:03:00.540]  the
+[00:03:00.540 -> 00:03:02.200]  x86-64
+[00:03:02.200 -> 00:03:03.780]  uses registers
+[00:03:03.780 -> 00:03:06.080]  for the calling convention
+[00:03:06.080 -> 00:03:07.520]  I say
+[00:03:07.520 -> 00:03:09.020]  mine doesn't
+[00:03:09.020 -> 00:03:09.760]  mine doesn't
+[00:03:11.340 -> 00:03:12.180]  anyway
+[00:03:12.180 -> 00:03:13.080]  um
+[00:03:14.380 -> 00:03:17.680]  sometimes it's like a weird jedi mine trick
+[00:03:17.680 -> 00:03:18.700]  it's like
+[00:03:18.700 -> 00:03:21.400]  these are not the droids you're looking for
+[00:03:22.240 -> 00:03:23.580]  yeah they are
+[00:03:26.280 -> 00:03:29.640]  the x86 has register calling convention
+[00:03:29.640 -> 00:03:31.420]  mine doesn't
+[00:03:34.300 -> 00:03:35.560]  okay so
+[00:03:35.560 -> 00:03:36.020]  uh
+[00:03:36.020 -> 00:03:37.420]  we want to talk about
+[00:03:38.520 -> 00:03:38.580]  uh
+[00:03:39.680 -> 00:03:41.060]  okay basically
+[00:03:41.060 -> 00:03:42.020]  um
+[00:03:46.400 -> 00:03:47.880]  when you uh
+[00:03:47.880 -> 00:03:48.980]  when you boot
+[00:03:50.520 -> 00:03:52.020]  you have a task
+[00:03:52.020 -> 00:03:52.920]  you say who
+[00:03:54.660 -> 00:03:56.360]  that's all the symbols
+[00:03:56.360 -> 00:03:57.100]  and
+[00:03:58.100 -> 00:03:59.400]  you inherit your
+[00:03:59.400 -> 00:04:01.160]  your parent task symbols
+[00:04:01.160 -> 00:04:03.140]  so if you say task rep
+[00:04:05.180 -> 00:04:07.680]  the indentation means it's a child
+[00:04:07.680 -> 00:04:08.860]  so Adam
+[00:04:08.860 -> 00:04:10.840]  is the parent of all
+[00:04:10.840 -> 00:04:10.920]  tasks
+[00:04:15.780 -> 00:04:16.540]  and
+[00:04:16.540 -> 00:04:17.000]  um
+[00:04:17.000 -> 00:04:19.860]  all these symbols you see are in Adam's table
+[00:04:19.860 -> 00:04:19.920]  and
+[00:04:21.120 -> 00:04:21.460]  uh
+[00:04:21.460 -> 00:04:21.460]  
+[00:04:22.160 -> 00:04:24.100]  that happens during boot
+[00:04:24.100 -> 00:04:25.740]  he compiles
+[00:04:25.740 -> 00:04:27.420]  and put stuff in his symbol table
+[00:04:27.420 -> 00:04:27.460]  it's
+[00:04:28.060 -> 00:04:30.880]  you can kind of think of these like environment variables
+[00:04:30.880 -> 00:04:31.940]  except they're
+[00:04:31.940 -> 00:04:34.180]  they're functions and
+[00:04:34.180 -> 00:04:34.460]  variables
+[00:04:35.280 -> 00:04:35.720]  and
+[00:04:35.720 -> 00:04:36.440]  defines
+[00:04:36.440 -> 00:04:37.560]  um
+[00:04:37.560 -> 00:04:40.360]  but the scope is like an environment variable
+[00:04:40.360 -> 00:04:41.700]  anyway so Adam
+[00:04:41.700 -> 00:04:43.080]  has all those symbols
+[00:04:43.080 -> 00:04:44.780]  each task has a symbol table
+[00:04:47.240 -> 00:04:47.900]  so
+[00:04:47.900 -> 00:04:48.800]  uh
+[00:04:49.520 -> 00:04:50.180]  basically
+[00:04:50.180 -> 00:04:52.020]  that's where we look
+[00:04:52.020 -> 00:04:53.680]  to get the
+[00:04:53.680 -> 00:04:53.900]  uh
+[00:04:53.900 -> 00:04:54.780]  debug information
+[00:04:56.120 -> 00:04:56.780]  um
+[00:04:56.780 -> 00:04:59.760]  so for example if we make a
+[00:04:59.760 -> 00:04:59.980]  uh
+[00:04:59.980 -> 00:05:00.960]  let's make a function
+[00:05:07.880 -> 00:05:08.320]  in
+[00:05:08.320 -> 00:05:08.520]  oh
+[00:05:08.520 -> 00:05:09.140]  i screwed up
+[00:05:09.140 -> 00:05:09.900]  oh
+[00:05:09.900 -> 00:05:10.120]  well
+[00:05:17.860 -> 00:05:19.260]  i should have said in
+[00:05:19.780 -> 00:05:21.080]  i should have said in
+[00:05:21.080 -> 00:05:21.580]  but
+[00:05:21.580 -> 00:05:22.000]  oh
+[00:05:22.000 -> 00:05:22.180]  well
+[00:05:24.440 -> 00:05:26.640]  okay so let's go through
+[00:05:28.040 -> 00:05:29.400]  all the
+[00:05:32.840 -> 00:05:33.680]  okay
+[00:05:33.680 -> 00:05:34.180]  count
+[00:05:34.180 -> 00:05:35.520]  count
+[00:05:35.520 -> 00:05:35.940]  count to ten
+[00:05:35.940 -> 00:05:36.380]  oops
+[00:05:37.940 -> 00:05:38.780]  okay
+[00:05:41.880 -> 00:05:43.680]  so if we say who
+[00:05:44.740 -> 00:05:46.040]  minus r
+[00:05:46.040 -> 00:05:47.040]  for no recursion
+[00:05:47.880 -> 00:05:49.760]  that means don't do Adam
+[00:05:50.900 -> 00:05:51.440]  uh
+[00:05:52.220 -> 00:05:53.220]  i don't know why
+[00:05:53.220 -> 00:05:53.480]  it's
+[00:05:53.480 -> 00:05:55.540]  i don't even know if that's called recursion
+[00:05:55.540 -> 00:05:57.280]  it's inheritance i guess
+[00:05:57.280 -> 00:05:58.120]  maybe i should
+[00:05:58.120 -> 00:05:58.680]  oh well
+[00:06:00.920 -> 00:06:03.480]  it seemed like recursion to me at the time
+[00:06:03.480 -> 00:06:05.420]  so we have a function
+[00:06:05.420 -> 00:06:07.060]  in the symbol table
+[00:06:07.060 -> 00:06:08.600]  we have a function count
+[00:06:10.200 -> 00:06:11.580]  and we have a function
+[00:06:12.960 -> 00:06:14.120]  do it once
+[00:06:15.600 -> 00:06:16.240]  uh
+[00:06:21.180 -> 00:06:22.100]  my bird
+[00:06:50.460 -> 00:06:52.080]  i'm waiting for my bird to show you
+[00:06:52.080 -> 00:06:52.540]  shut up
+[00:07:12.180 -> 00:07:13.720]  my other bird is dying
+[00:07:31.540 -> 00:07:33.820]  okay so I have a hash table
+[00:07:36.320 -> 00:07:38.560]  and what I did
+[00:07:38.560 -> 00:07:42.420]  is this hash table
+[00:07:42.420 -> 00:07:43.020]  is
+[00:07:46.040 -> 00:07:49.600]  it's an array of linked
+[00:07:49.600 -> 00:07:50.960]  linked lists
+[00:07:51.600 -> 00:07:53.080]  this hash table
+[00:07:53.600 -> 00:07:56.180]  is an array of linked lists
+[00:07:58.740 -> 00:08:00.360]  some people do the
+[00:08:03.260 -> 00:08:03.980]  silly
+[00:08:03.980 -> 00:08:05.900]  the silly hash table where you
+[00:08:07.060 -> 00:08:09.700]  where you move it into a slot
+[00:08:11.480 -> 00:08:13.440]  below if it has a collision
+[00:08:13.440 -> 00:08:14.600]  anyway
+[00:08:15.600 -> 00:08:16.680]  so this is an array
+[00:08:16.680 -> 00:08:20.020]  this is an array of linked lists
+[00:08:20.680 -> 00:08:21.260]  and
+[00:08:23.620 -> 00:08:24.880]  I have
+[00:08:24.880 -> 00:08:25.660]  multiple
+[00:08:27.040 -> 00:08:28.600]  I have multiple
+[00:08:28.600 -> 00:08:29.520]  god that bird
+[00:08:35.220 -> 00:08:36.600]  just hold on
+[00:08:36.600 -> 00:08:38.580]  a couple more seconds
+[00:08:38.580 -> 00:08:39.420]  he'll shut up
+[00:08:39.420 -> 00:08:40.600]  okay
+[00:08:41.420 -> 00:08:41.720]  so
+[00:08:43.940 -> 00:08:44.900]  so
+[00:08:44.900 -> 00:08:45.420]  so
+[00:08:53.160 -> 00:08:54.120]  so
+[00:08:54.120 -> 00:08:54.480]  so
+[00:08:54.480 -> 00:08:55.240]  so I put
+[00:08:55.240 -> 00:08:56.380]  I put multiple
+[00:08:57.420 -> 00:08:59.080]  types of entries
+[00:08:59.080 -> 00:09:00.440]  into my hash table
+[00:09:02.980 -> 00:09:03.700]  and
+[00:09:03.700 -> 00:09:03.840]  and
+[00:09:05.000 -> 00:09:05.800]  you know
+[00:09:05.800 -> 00:09:07.820]  I could just have a single number
+[00:09:07.820 -> 00:09:09.760]  to tell what type
+[00:09:09.760 -> 00:09:12.300]  but instead I do a bit mask
+[00:09:13.480 -> 00:09:14.200]  and
+[00:09:14.200 -> 00:09:17.380]  what that enables me to do
+[00:09:17.380 -> 00:09:17.440]  is
+[00:09:19.760 -> 00:09:21.560]  when I'm compiling
+[00:09:21.560 -> 00:09:23.520]  in the compiler
+[00:09:23.520 -> 00:09:24.520]  maybe
+[00:09:25.080 -> 00:09:25.600]  maybe
+[00:09:25.600 -> 00:09:27.060]  there's a situation where
+[00:09:27.060 -> 00:09:29.300]  you're looking for
+[00:09:29.300 -> 00:09:29.520]  a
+[00:09:30.160 -> 00:09:31.040]  a
+[00:09:31.040 -> 00:09:32.560]  type
+[00:09:32.560 -> 00:09:34.040]  of a variable
+[00:09:34.040 -> 00:09:35.440]  like a class
+[00:09:35.440 -> 00:09:37.660]  maybe it can be a class
+[00:09:37.660 -> 00:09:39.220]  or an internal type
+[00:09:39.220 -> 00:09:40.260]  and
+[00:09:40.260 -> 00:09:41.480]  maybe you want
+[00:09:41.480 -> 00:09:42.680]  either of those
+[00:09:42.680 -> 00:09:44.520]  and so what you do is
+[00:09:44.520 -> 00:09:46.840]  when you search for a hash entry
+[00:09:46.840 -> 00:09:48.600]  if you hit F1
+[00:09:50.680 -> 00:09:51.740]  under the hash
+[00:09:51.740 -> 00:09:53.260]  the hash table documentation
+[00:09:53.260 -> 00:09:53.940]  is pretty good
+[00:09:53.940 -> 00:09:55.620]  okay so this is showing
+[00:09:55.620 -> 00:09:56.080]  uh
+[00:09:57.740 -> 00:10:00.200]  you have an array of linked lists
+[00:10:00.200 -> 00:10:02.180]  and you can have collisions
+[00:10:05.380 -> 00:10:05.960]  so
+[00:10:05.960 -> 00:10:06.060]  so
+[00:10:06.060 -> 00:10:06.900]  we
+[00:10:06.900 -> 00:10:08.080]  find a string
+[00:10:08.080 -> 00:10:09.160]  in a hash table
+[00:10:09.960 -> 00:10:10.800]  now this has a
+[00:10:10.800 -> 00:10:11.440]  type
+[00:10:11.960 -> 00:10:12.400]  mask
+[00:10:12.960 -> 00:10:13.720]  um
+[00:10:13.720 -> 00:10:16.060]  find hash entries
+[00:10:16.060 -> 00:10:17.000]  hash table
+[00:10:17.920 -> 00:10:18.840]  mask
+[00:10:18.840 -> 00:10:20.020]  this is the
+[00:10:20.020 -> 00:10:20.900]  type mask
+[00:10:20.900 -> 00:10:22.460]  so you can search for
+[00:10:22.460 -> 00:10:24.280]  multiple types
+[00:10:24.280 -> 00:10:25.940]  now
+[00:10:25.940 -> 00:10:26.240]  the
+[00:10:26.240 -> 00:10:27.840]  the way this works is
+[00:10:27.840 -> 00:10:30.060]  newer entries
+[00:10:30.060 -> 00:10:31.120]  overshadow
+[00:10:31.120 -> 00:10:32.340]  older entries
+[00:10:32.960 -> 00:10:33.440]  so
+[00:10:33.440 -> 00:10:34.620]  for example
+[00:10:34.620 -> 00:10:36.800]  if I make
+[00:10:36.800 -> 00:10:37.340]  uh
+[00:10:39.080 -> 00:10:40.320]  let's say
+[00:10:40.320 -> 00:10:40.620]  u0
+[00:10:41.280 -> 00:10:42.060]  count
+[00:10:43.580 -> 00:10:44.560]  i64
+[00:10:44.560 -> 00:10:45.140]  n
+[00:10:49.100 -> 00:10:50.080]  i64
+[00:10:50.080 -> 00:10:50.720]  i
+[00:10:51.760 -> 00:10:53.280]  for i
+[00:10:53.280 -> 00:10:53.900]  for i
+[00:10:53.900 -> 00:10:53.900]  
+[00:10:53.900 -> 00:10:54.120]  equals 0
+[00:10:54.120 -> 00:10:55.280]  i less than
+[00:10:55.280 -> 00:10:57.180]  for i equals 1
+[00:10:57.180 -> 00:10:58.600]  semi-colon
+[00:10:58.600 -> 00:10:59.780]  i less or equal
+[00:10:59.780 -> 00:11:00.200]  n
+[00:11:00.200 -> 00:11:01.480]  i plus plus
+[00:11:01.480 -> 00:11:03.380]  and let's say
+[00:11:03.380 -> 00:11:03.700]  uh
+[00:11:07.460 -> 00:11:08.580]  i should
+[00:11:08.580 -> 00:11:09.960]  you know
+[00:11:09.960 -> 00:11:10.940]  you never want to
+[00:11:10.940 -> 00:11:12.200]  lose an opportunity
+[00:11:13.120 -> 00:11:14.800]  when you're doing demos
+[00:11:16.560 -> 00:11:18.160]  don't do something stupid
+[00:11:18.160 -> 00:11:19.200]  but
+[00:11:19.200 -> 00:11:20.820]  i can't think of anything
+[00:11:23.460 -> 00:11:24.100]  so
+[00:11:24.100 -> 00:11:24.520]  um
+[00:11:24.520 -> 00:11:25.740]  we say count to 10
+[00:11:27.380 -> 00:11:28.100]  so
+[00:11:29.180 -> 00:11:29.900]  uh
+[00:11:30.700 -> 00:11:30.740]  so
+[00:11:31.420 -> 00:11:31.820]  so this
+[00:11:31.820 -> 00:11:32.760]  overshadows
+[00:11:32.760 -> 00:11:33.660]  the old one
+[00:11:33.660 -> 00:11:34.900]  we say who
+[00:11:35.860 -> 00:11:36.960]  minus r
+[00:11:38.040 -> 00:11:40.520]  the old one is still in the table
+[00:11:40.520 -> 00:11:41.940]  it's a linked list
+[00:11:41.940 -> 00:11:43.280]  and it's stacked
+[00:11:44.060 -> 00:11:47.480]  if you're familiar with how stacks work
+[00:11:47.480 -> 00:11:51.760]  a linked list stack it's a very natural easy thing to do
+[00:11:52.740 -> 00:12:04.560]  no i don't even think it is stacked i think it's a queue is it a queue i think it's a queue it used to be a stack i think i turned everything into a queue a double a linked list
+[00:12:04.560 -> 00:12:05.120]  sorry
+[00:12:07.880 -> 00:12:10.220]  i can't believe i don't remember
+[00:12:10.220 -> 00:12:11.720]  anyway so
+[00:12:11.720 -> 00:12:12.760]  uh
+[00:12:14.780 -> 00:12:15.520]  so
+[00:12:15.520 -> 00:12:17.100]  where were we
+[00:12:18.780 -> 00:12:20.900]  so we have a bunch of different types
+[00:12:24.360 -> 00:12:25.460]  the ones
+[00:12:25.460 -> 00:12:25.980]  the ones
+[00:12:25.980 -> 00:12:26.660]  for debugging
+[00:12:26.660 -> 00:12:27.480]  are
+[00:12:27.480 -> 00:12:28.240]  function
+[00:12:28.900 -> 00:12:31.280]  function is the main one we are interested in
+[00:12:31.900 -> 00:12:34.340]  so we want to look at the hash entry for a function
+[00:12:34.900 -> 00:12:35.560]  um
+[00:12:35.560 -> 00:12:37.000]  so it has
+[00:12:37.000 -> 00:12:37.720]  function
+[00:12:39.500 -> 00:12:41.640]  this has a return class
+[00:12:41.640 -> 00:12:42.800]  um
+[00:12:43.540 -> 00:12:44.860]  i am able
+[00:12:44.860 -> 00:12:46.780]  i am able to
+[00:12:46.780 -> 00:12:47.140]  uh
+[00:12:47.900 -> 00:12:49.940]  to specify a type
+[00:12:49.940 -> 00:12:51.440]  with a
+[00:12:51.440 -> 00:12:52.760]  single pointer
+[00:12:52.760 -> 00:12:54.300]  um
+[00:12:55.260 -> 00:12:56.140]  almost
+[00:12:56.140 -> 00:12:56.900]  uh
+[00:12:59.460 -> 00:13:01.000]  if it's a class
+[00:13:01.000 -> 00:13:03.100]  there's a class structure
+[00:13:03.100 -> 00:13:05.500]  if it's an internal type
+[00:13:05.500 -> 00:13:07.320]  that's a class structure
+[00:13:07.320 -> 00:13:08.440]  uh
+[00:13:08.440 -> 00:13:08.940]  if
+[00:13:09.540 -> 00:13:10.660]  well anyway
+[00:13:10.660 -> 00:13:10.940]  um
+[00:13:12.820 -> 00:13:15.620]  okay i guess i have to explain this
+[00:13:15.620 -> 00:13:17.700]  that's the whole point
+[00:13:17.700 -> 00:13:18.640]  okay so
+[00:13:20.780 -> 00:13:23.180]  let's talk about how the compiler
+[00:13:23.700 -> 00:13:25.260]  deals with types
+[00:13:26.140 -> 00:13:26.840]  that's
+[00:13:26.840 -> 00:13:28.700]  before we can talk about the function
+[00:13:29.220 -> 00:13:30.600]  we need to talk about
+[00:13:30.600 -> 00:13:33.380]  how the compiler deals with types
+[00:13:36.340 -> 00:13:37.140]  uh
+[00:13:37.140 -> 00:13:39.320]  i don't think i put it here
+[00:13:39.320 -> 00:13:41.660]  yeah i did okay good
+[00:13:43.320 -> 00:13:43.380]  so
+[00:13:44.920 -> 00:13:46.220]  when you
+[00:13:46.220 -> 00:13:46.380]  declare
+[00:13:47.720 -> 00:13:49.060]  a class
+[00:13:49.900 -> 00:13:51.340]  it creates
+[00:13:51.340 -> 00:13:53.040]  it calls class new
+[00:13:53.900 -> 00:13:55.400]  and what this does
+[00:13:55.400 -> 00:13:56.740]  it creates
+[00:13:58.840 -> 00:14:00.900]  we have max pointer stars
+[00:14:00.900 -> 00:14:02.680]  this is a fixed
+[00:14:02.680 -> 00:14:04.200]  this is a fixed value
+[00:14:04.200 -> 00:14:06.100]  the most pointer stars
+[00:14:06.100 -> 00:14:07.320]  you can have is four
+[00:14:09.760 -> 00:14:12.860]  maybe you don't think it's good to have a limit
+[00:14:12.860 -> 00:14:13.040]  um
+[00:14:15.440 -> 00:14:16.580]  screw yourself
+[00:14:16.580 -> 00:14:17.400]  i don't care
+[00:14:17.400 -> 00:14:18.420]  i don't even
+[00:14:18.420 -> 00:14:18.780]  i don't
+[00:14:19.420 -> 00:14:20.820]  it's possible you might not even
+[00:14:21.420 -> 00:14:22.400]  it might crash
+[00:14:22.400 -> 00:14:23.180]  badly
+[00:14:23.180 -> 00:14:24.880]  i think i check
+[00:14:26.020 -> 00:14:26.720]  anyway
+[00:14:26.720 -> 00:14:27.480]  uh
+[00:14:28.460 -> 00:14:30.520]  i don't have patience for
+[00:14:33.740 -> 00:14:34.440]  ridiculous
+[00:14:35.600 -> 00:14:36.300]  anyway
+[00:14:36.300 -> 00:14:37.960]  so what do we do here
+[00:14:37.960 -> 00:14:39.180]  we allocate
+[00:14:39.180 -> 00:14:40.780]  this is class new
+[00:14:40.780 -> 00:14:43.000]  so we clear alloc
+[00:14:44.000 -> 00:14:45.880]  and look at what we have here
+[00:14:45.880 -> 00:14:46.960]  we have
+[00:14:46.960 -> 00:14:49.920]  hash class times pointer stars
+[00:14:49.920 -> 00:14:53.360]  so what we're doing here is we're making a
+[00:14:53.360 -> 00:14:53.520]  uh
+[00:14:57.880 -> 00:15:01.140]  we're making a structure that's repeated
+[00:15:01.140 -> 00:15:03.460]  about four times
+[00:15:05.080 -> 00:15:05.960]  anyway
+[00:15:05.960 -> 00:15:06.440]  uh
+[00:15:07.840 -> 00:15:08.720]  and
+[00:15:08.720 -> 00:15:09.160]  uh
+[00:15:09.880 -> 00:15:10.380]  i'm just
+[00:15:11.400 -> 00:15:14.320]  i'm trying to outline what it looks like
+[00:15:14.320 -> 00:15:15.300]  so
+[00:15:15.300 -> 00:15:16.280]  uh
+[00:15:16.280 -> 00:15:20.620]  the interesting thing is there's a pointer star count
+[00:15:21.240 -> 00:15:21.320]  so
+[00:15:22.440 -> 00:15:23.480]  here's the deal
+[00:15:23.480 -> 00:15:24.380]  um
+[00:15:24.380 -> 00:15:26.800]  when you have a one star
+[00:15:26.800 -> 00:15:27.320]  um
+[00:15:29.160 -> 00:15:31.000]  if you have zero stars
+[00:15:31.000 -> 00:15:31.360]  okay
+[00:15:31.360 -> 00:15:31.860]  so we have
+[00:15:31.860 -> 00:15:32.980]  so we have a structure
+[00:15:32.980 -> 00:15:33.500]  okay
+[00:15:34.580 -> 00:15:35.180]  and
+[00:15:35.180 -> 00:15:38.060]  if you have one star you point here
+[00:15:38.060 -> 00:15:39.780]  if you have two stars you point here
+[00:15:39.780 -> 00:15:41.640]  if you have three stars you point here
+[00:15:41.640 -> 00:15:42.980]  and
+[00:15:42.980 -> 00:15:45.420]  if you ever want to go to your base
+[00:15:45.420 -> 00:15:47.120]  without stars
+[00:15:47.120 -> 00:15:48.420]  then you
+[00:15:48.420 -> 00:15:49.120]  subtract
+[00:15:49.120 -> 00:15:49.640]  the
+[00:15:50.460 -> 00:15:51.820]  the star count
+[00:15:51.820 -> 00:15:54.120]  and that gets you back to the base
+[00:15:55.820 -> 00:15:56.580]  so
+[00:15:56.580 -> 00:15:56.880]  with
+[00:15:56.880 -> 00:15:58.680]  with a single
+[00:15:58.680 -> 00:16:00.520]  hash class pointer
+[00:16:00.520 -> 00:16:04.640]  the hash class pointer points to one of these entries
+[00:16:04.740 -> 00:16:05.340]  entries
+[00:16:05.340 -> 00:16:06.340]  and it's
+[00:16:06.340 -> 00:16:06.780]  it
+[00:16:06.780 -> 00:16:08.060]  it encodes
+[00:16:08.060 -> 00:16:09.920]  it encodes
+[00:16:09.920 -> 00:16:10.280]  it encodes
+[00:16:10.280 -> 00:16:10.600]  the uh
+[00:16:10.600 -> 00:16:11.980]  number of pointer stars
+[00:16:11.980 -> 00:16:13.020]  so
+[00:16:13.020 -> 00:16:14.700]  that's how we do types
+[00:16:14.700 -> 00:16:15.640]  so
+[00:16:17.180 -> 00:16:18.060]  um
+[00:16:18.060 -> 00:16:18.920]  for
+[00:16:18.920 -> 00:16:19.300]  uh
+[00:16:21.780 -> 00:16:22.660]  for
+[00:16:22.660 -> 00:16:22.740]  for
+[00:16:23.960 -> 00:16:24.600]  for a function
+[00:16:24.600 -> 00:16:28.180]  we have a hash class pointer to a return type
+[00:16:28.180 -> 00:16:30.760]  now this can't be an array
+[00:16:30.760 -> 00:16:31.480]  uh
+[00:16:32.820 -> 00:16:35.100]  no that's not too surprising
+[00:16:35.100 -> 00:16:36.400]  that's okay because
+[00:16:37.420 -> 00:16:39.320]  we're not doing C++
+[00:16:40.620 -> 00:16:41.420]  um
+[00:16:41.420 -> 00:16:42.200]  so
+[00:16:42.200 -> 00:16:42.920]  this is a
+[00:16:44.320 -> 00:16:46.260]  now this is either
+[00:16:46.260 -> 00:16:47.440]  an internal
+[00:16:47.440 -> 00:16:48.440]  or
+[00:16:48.440 -> 00:16:49.220]  a
+[00:16:50.360 -> 00:16:51.480]  regular one
+[00:16:51.480 -> 00:16:53.280]  let's look at what a class
+[00:16:55.180 -> 00:16:56.380]  a class
+[00:16:56.380 -> 00:16:57.980]  has a member list
+[00:16:59.220 -> 00:16:59.280]  and
+[00:17:00.020 -> 00:17:00.480]  uh
+[00:17:04.620 -> 00:17:07.460]  I still don't remember if these are stacks
+[00:17:07.460 -> 00:17:09.900]  or if they're single or doubly linked
+[00:17:09.900 -> 00:17:11.440]  I can't remember
+[00:17:11.440 -> 00:17:12.000]  uh
+[00:17:13.460 -> 00:17:14.620]  that's weird
+[00:17:15.280 -> 00:17:16.000]  but
+[00:17:19.060 -> 00:17:19.860]  I
+[00:17:19.860 -> 00:17:22.640]  I changed them from single to double
+[00:17:23.900 -> 00:17:24.660]  sometimes
+[00:17:24.660 -> 00:17:25.780]  no they're single
+[00:17:25.780 -> 00:17:26.940]  they're single
+[00:17:26.940 -> 00:17:27.820]  it's a stack
+[00:17:27.820 -> 00:17:28.800]  it's a
+[00:17:28.800 -> 00:17:29.460]  that
+[00:17:29.460 -> 00:17:30.020]  it's a
+[00:17:30.020 -> 00:17:30.760]  it's a
+[00:17:30.760 -> 00:17:31.900]  it's a linked list stack
+[00:17:31.900 -> 00:17:32.820]  anyway
+[00:17:32.820 -> 00:17:33.260]  uh
+[00:17:33.260 -> 00:17:34.340]  so for
+[00:17:34.340 -> 00:17:34.660]  uh
+[00:17:37.360 -> 00:17:38.120]  um
+[00:17:38.120 -> 00:17:39.080]  um
+[00:17:39.080 -> 00:17:40.400]  this is a
+[00:17:40.400 -> 00:17:41.700]  class pointer
+[00:17:41.700 -> 00:17:43.600]  it has a list of members
+[00:17:43.600 -> 00:17:45.600]  so what does this mean
+[00:17:45.600 -> 00:17:47.340]  let's review what
+[00:17:47.340 -> 00:17:48.680]  we're dealing with here
+[00:17:48.680 -> 00:17:50.740]  so what this means is
+[00:17:50.740 -> 00:17:51.540]  um
+[00:17:51.540 -> 00:17:53.200]  if I create a
+[00:17:53.200 -> 00:17:53.440]  uh
+[00:17:53.440 -> 00:17:54.500]  class
+[00:17:54.500 -> 00:17:55.280]  uh
+[00:17:55.280 -> 00:17:56.000]  student
+[00:17:58.660 -> 00:17:59.860]  u8
+[00:17:59.860 -> 00:18:00.520]  name
+[00:18:00.520 -> 00:18:01.780]  32
+[00:18:04.300 -> 00:18:04.540]  i64
+[00:18:05.500 -> 00:18:05.540]  age
+[00:18:07.680 -> 00:18:09.700]  now if I say who
+[00:18:09.700 -> 00:18:11.300]  minus r
+[00:18:13.360 -> 00:18:14.120]  star
+[00:18:14.120 -> 00:18:14.880]  there's a student
+[00:18:14.880 -> 00:18:15.580]  class
+[00:18:15.580 -> 00:18:16.440]  in this
+[00:18:16.440 -> 00:18:17.220]  in the
+[00:18:17.220 -> 00:18:17.600]  uh
+[00:18:18.400 -> 00:18:21.480]  so what we can do is we can say c
+[00:18:21.480 -> 00:18:22.540]  hash class
+[00:18:25.340 -> 00:18:26.100]  star
+[00:18:26.100 -> 00:18:27.100]  temp b
+[00:18:27.100 -> 00:18:27.720]  temp
+[00:18:27.720 -> 00:18:29.140]  temp c
+[00:18:29.140 -> 00:18:31.440]  i don't know i like to use standard uh
+[00:18:31.440 -> 00:18:32.700]  names
+[00:18:32.700 -> 00:18:33.500]  anyway
+[00:18:33.500 -> 00:18:35.740]  so we say hash find
+[00:18:35.740 -> 00:18:41.520]  what are the parameters needle haystack mask instance
+[00:18:41.520 -> 00:18:44.520]  needle is uh
+[00:18:44.520 -> 00:18:46.740]  student
+[00:18:52.480 -> 00:18:56.300]  haystack is fs hash table
+[00:18:59.580 -> 00:19:01.260]  mask is htt
+[00:19:02.300 -> 00:19:02.980]  class
+[00:19:04.740 -> 00:19:15.540]  instance we'll leave it as number the first one you encounter we if we had an over shadowed one we could get an older one but I never do that
+[00:19:16.480 -> 00:19:19.240]  so let's see if we got a value
+[00:19:21.960 -> 00:19:23.960]  now I'm going to be
+[00:19:24.780 -> 00:19:26.840]  you might call it recursive
+[00:19:30.260 -> 00:19:31.360]  that's a bad
+[00:19:33.380 -> 00:19:34.000]  joke
+[00:19:44.320 -> 00:19:48.940]  so I have a command line command that
+[00:19:48.940 -> 00:19:55.300]  dumps a pointer what it does is it looks
+[00:19:55.300 -> 00:19:58.100]  up the class so it's pretty funny
+[00:19:58.100 -> 00:20:00.800]  because I'm looking up the class of a
+[00:20:00.800 -> 00:20:06.840]  class anyway it's it's kind of funny so
+[00:20:06.840 -> 00:20:09.960]  when we looked at the definition you saw
+[00:20:09.960 -> 00:20:14.040]  it inherited it inherits the next and
+[00:20:14.040 -> 00:20:18.160]  all all all hash entries have a next
+[00:20:18.160 -> 00:20:21.620]  this one is a zero so this is the end of
+[00:20:21.620 -> 00:20:25.940]  the line it has a string of a string
+[00:20:25.940 -> 00:20:29.460]  pointer that's and it's holding student
+[00:20:29.460 -> 00:20:34.560]  that's the hash string if you want to
+[00:20:34.560 -> 00:20:38.520]  know how I hash I shift and add and
+[00:20:39.180 -> 00:20:41.020]  anyway I don't know it seems to work
+[00:20:42.180 -> 00:20:46.100]  type remember we talked about a type mask
+[00:20:46.100 -> 00:20:50.940]  so this should be HTTP class use count
+[00:20:50.940 -> 00:20:54.060]  every time it gets looked up it
+[00:20:54.060 -> 00:20:58.340]  increments that so when we're making a
+[00:20:58.340 -> 00:21:01.460]  when we're compiling a function if a
+[00:21:01.460 -> 00:21:05.280]  variable does not get used it's easy to
+[00:21:05.280 -> 00:21:06.420]  generate a warning
+[00:21:09.300 -> 00:21:12.660]  source link okay so this links back to
+[00:21:12.660 -> 00:21:16.000]  the source code and in our case it was
+[00:21:16.000 -> 00:21:21.300]  the command line so it gives us a temporary
+[00:21:21.300 -> 00:21:27.040]  file this is something that will uh it's
+[00:21:27.040 -> 00:21:30.700]  it's bogus it's bogus but it's it's not
+[00:21:30.700 -> 00:21:31.340]  going to crash
+[00:21:34.940 -> 00:21:39.200]  anyway I just changed my I just abbreviated
+[00:21:39.200 -> 00:21:39.800]  index
+[00:21:41.140 -> 00:21:45.200]  anyway inside joke so index what is that
+[00:21:45.200 -> 00:21:48.060]  anyway this is uh oh this is what we're
+[00:21:48.060 -> 00:21:49.520]  wanting this is what we want to talk about
+[00:21:49.520 -> 00:21:57.660]  so for uh for functions okay this this is the
+[00:21:57.660 -> 00:22:01.300]  help index when you press f1 it
+[00:22:01.300 -> 00:22:05.780]  automatically compiles a help so if we
+[00:22:05.780 -> 00:22:07.000]  look up graphics
+[00:22:10.380 -> 00:22:16.040]  this is scanning the symbol table and
+[00:22:16.040 -> 00:22:19.780]  automatically compiling this help report
+[00:22:19.780 -> 00:22:23.740]  and like in this case there's a class so
+[00:22:23.740 -> 00:22:28.580]  uh the index is the help index apparently
+[00:22:28.580 -> 00:22:30.060]  we had it set to nothing
+[00:22:32.080 -> 00:22:36.980]  debug information this tells the uh the
+[00:22:36.980 -> 00:22:41.400]  line number of different addresses uh I
+[00:22:41.400 -> 00:22:43.240]  have to think about it a second we'll get
+[00:22:43.240 -> 00:22:49.660]  to that import name uh I don't remember
+[00:22:49.660 -> 00:22:52.380]  why is this part of every class
+[00:22:59.000 -> 00:23:05.440]  okay so this is a source all all if it
+[00:23:05.440 -> 00:23:07.540]  comes from the source code it's a source
+[00:23:07.540 -> 00:23:13.220]  symbol I don't know if that makes any
+[00:23:13.220 -> 00:23:13.640]  sense
+[00:23:16.320 -> 00:23:21.160]  it's just a common inheritance base class
+[00:23:21.160 -> 00:23:24.160]  I'm not real good with uh c++
+[00:23:24.160 -> 00:23:26.640]  terminology I just make shit up
+[00:23:31.760 -> 00:23:34.840]  it's kind of funny a lot of people will tell
+[00:23:34.840 -> 00:23:37.680]  me my code is wrong I go I made the
+[00:23:37.680 -> 00:23:44.940]  fucking compiler it's not wrong so um uh
+[00:23:44.940 -> 00:23:49.340]  there's a I I should if I should sure if
+[00:23:49.340 -> 00:23:52.700]  there's I shouldn't be obnoxious for no
+[00:23:52.700 -> 00:23:57.480]  reason so if I have incorrect terminology I
+[00:23:57.480 -> 00:24:00.420]  should probably change it and if I have
+[00:24:00.420 -> 00:24:05.860]  incorrect syntax a lot of times it's
+[00:24:05.860 -> 00:24:11.120]  really easy to fix it I wasn't real
+[00:24:11.120 -> 00:24:14.880]  careful I just said fuck it I said what
+[00:24:14.880 -> 00:24:17.580]  do I need the compiler to do and then I did
+[00:24:17.580 -> 00:24:23.360]  it and then I I didn't go investigate
+[00:24:23.360 -> 00:24:30.920]  what the standard was so anyway raw type
+[00:24:30.920 -> 00:24:38.260]  okay so in the hash table each func each
+[00:24:38.260 -> 00:24:43.560]  task has a symbol table and you yourself
+[00:24:43.560 -> 00:24:47.780]  can use hash find and you pass it the
+[00:24:47.780 -> 00:24:51.480]  hash table now if you want atoms table I
+[00:24:51.480 -> 00:24:55.020]  think the this will recur this will
+[00:24:56.240 -> 00:24:58.480]  recurse so in other words if it doesn't
+[00:24:58.480 -> 00:25:01.320]  find it it's going to search Adam the
+[00:25:01.320 -> 00:25:03.740]  reason I know that is because there's one
+[00:25:03.740 -> 00:25:09.080]  that will not recurse I do believe hash
+[00:25:09.080 -> 00:25:12.740]  single table find this will not read I
+[00:25:13.320 -> 00:25:14.880]  don't know if it curses the right word
+[00:25:16.480 -> 00:25:20.000]  damn it I probably fucked it up I gotta go
+[00:25:20.000 -> 00:25:24.800]  fix everything it searches the parents is
+[00:25:24.800 -> 00:25:27.960]  that a recursion maybe traverse about that
+[00:25:32.140 -> 00:25:37.540]  when you're going down a tree that seems
+[00:25:37.540 -> 00:25:40.660]  like recursion when you're going up a tree
+[00:25:40.660 -> 00:25:43.800]  it doesn't seem like it's recursion oh
+[00:25:44.720 -> 00:25:51.880]  well I didn't I learned assembly language I
+[00:25:51.880 -> 00:26:02.980]  didn't learn the other shit so uh so you
+[00:26:02.980 -> 00:26:08.240]  can find the the the symbols in the hash
+[00:26:08.240 -> 00:26:13.580]  table and and then you can go through
+[00:26:13.580 -> 00:26:18.000]  the member list so we found student now
+[00:26:18.000 -> 00:26:22.300]  here's the member list member list route
+[00:26:22.300 -> 00:26:24.920]  I do believe this is going to report the
+[00:26:24.920 -> 00:26:28.940]  first member when you call this class rep
+[00:26:28.940 -> 00:26:32.340]  are you paying attention class rep will
+[00:26:32.340 -> 00:26:35.740]  display a pointer and you can tell it how
+[00:26:35.740 -> 00:26:40.040]  deep how deep to follow I think we can say
+[00:26:40.040 -> 00:26:49.520]  three don't do that okay oh well fuck it so
+[00:26:49.520 -> 00:27:04.440]  uh so if you want to see how to uh how to
+[00:27:05.860 -> 00:27:11.120]  interpret the uh the data structure from
+[00:27:11.120 -> 00:27:17.660]  the compiler look at the class rep uh this
+[00:27:17.660 -> 00:27:21.240]  traverses a the data structure for a
+[00:27:21.240 -> 00:27:26.140]  class if you want to look at a function
+[00:27:26.140 -> 00:27:33.760]  uh I guess you can look at fun rep it
+[00:27:33.760 -> 00:27:39.760]  it finds it in the hash table and uh the
+[00:27:39.760 -> 00:27:44.600]  interesting thing here is it has uh it
+[00:27:44.600 -> 00:27:47.580]  unassembles um somewhere
+[00:27:50.820 -> 00:27:55.180]  it reports the registers and it unassembles
+[00:27:55.180 -> 00:28:00.460]  where does it unassemble update reg var image
+[00:28:00.460 -> 00:28:05.820]  okay this is for uh at one time I'd made a
+[00:28:05.820 -> 00:28:10.760]  IDE and I had a watch window with the local
+[00:28:10.760 -> 00:28:14.140]  variables I think this code is left over
+[00:28:14.140 -> 00:28:18.780]  from when I had that I copied the registers
+[00:28:18.780 -> 00:28:23.020]  into this there's a spot on the stack for
+[00:28:23.020 -> 00:28:26.740]  each variable when you have a register
+[00:28:26.740 -> 00:28:30.460]  variable it it it still has a spot on the
+[00:28:30.460 -> 00:28:34.540]  stack and when you uh when it was doing the
+[00:28:34.540 -> 00:28:37.080]  watching this would copy
+[00:28:40.840 -> 00:28:43.840]  from the register to where's the unassembled
+[00:28:47.000 -> 00:28:47.820]  damn it
+[00:28:51.540 -> 00:28:52.660]  what the truck
+[00:28:54.240 -> 00:28:55.220]  class rep
+[00:29:02.160 -> 00:29:05.020]  what that does do that fun if I say fun rep
+[00:29:05.580 -> 00:29:06.140]  print
+[00:29:08.580 -> 00:29:20.800]  oh it doesn't unassemble it only reports the uh now a function is a lot like a class it has uh
+[00:29:22.500 -> 00:29:25.120]  if you think about it when you make a class
+[00:29:30.340 -> 00:29:32.800]  when you make a class you have uh
+[00:29:33.800 -> 00:29:34.480]  uh
+[00:29:35.720 -> 00:29:39.540]  you do stuff like this when you make a function
+[00:29:41.760 -> 00:29:47.320]  okay the return is different but look here um you have
+[00:29:48.840 -> 00:29:58.940]  you have arguments here and then you have more you have more symbols here
+[00:30:01.960 -> 00:30:07.300]  and so uh what my compiler does is uh
+[00:30:07.300 -> 00:30:07.300]  
+[00:30:11.400 -> 00:30:19.720]  the the class and a function have member lists member lists this this has uh
+[00:30:21.160 -> 00:30:25.460]  the arguments are the first couple couple in the list and then it
+[00:30:25.460 -> 00:30:29.920]  local variable local variables are member members
+[00:30:32.760 -> 00:30:33.440]  uh
+[00:30:33.440 -> 00:30:39.300]  so uh the only other let's see oh let's do unassemble function let's go ahead
+[00:30:40.400 -> 00:30:43.940]  unassemble function this uh
+[00:30:49.740 -> 00:30:54.460]  so you see what this does it uh it finds a hash
+[00:30:56.280 -> 00:30:58.080]  then it calls unassemble
+[00:31:00.360 -> 00:31:02.400]  shut up god damn that bird
+[00:31:06.960 -> 00:31:07.560]  so
+[00:31:13.680 -> 00:31:14.100]  so
+[00:31:21.560 -> 00:31:21.980]  so
+[00:31:21.980 -> 00:31:21.980]  
+[00:31:21.980 -> 00:31:22.280]  so
+[00:31:22.280 -> 00:31:22.620]  so
+[00:31:22.620 -> 00:31:23.180]  so
+[00:31:23.180 -> 00:31:23.200]  so
+[00:31:23.200 -> 00:31:23.740]  so
+[00:31:36.760 -> 00:31:37.180]  !
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:12.040 -> 00:31:12.040]  
+[00:31:46.520 -> 00:32:03.360]  so there's a there's a there's a there's a debug information min max and then a
+[00:32:03.360 -> 00:32:11.560]  variable size array there's a variable size array this is a this is for the address that I
+[00:32:11.560 -> 00:32:18.380]  don't remember if it's this is line number addresses the addresses of different line
+[00:32:18.380 -> 00:32:27.080]  numbers and I think it's zero if there's no bytes on that line so for example let's say in the editor
+[00:32:27.080 -> 00:32:36.500]  we are looking at line 255 so for this function it would be you would have an array of like 15 and
+[00:32:37.400 -> 00:32:45.260]  then it would have the address of each line and if there's no symbol I think it has a zero so that's
+[00:32:45.260 -> 00:32:55.480]  what the debug is and when we call this unassemble function it it's it does a fun rep it reports it
+[00:32:55.480 -> 00:33:04.540]  reports the the arguments and local variables and then it doesn't unassemble and it it is or it is
+[00:33:04.540 -> 00:33:16.460]  it has the exact dimensions of the code that it got the it looked at the first and last the min and the
+[00:33:16.460 -> 00:33:32.080]  max till so if we had a function it would be from 255 to 269 and so this this this calculates the size
+[00:33:32.080 -> 00:33:42.940]  and it when it calls unassemble number this is number of bytes and it goes ahead and prints the code size
+[00:33:45.380 -> 00:33:51.040]  now it actually is searching for either a function or an export symbol
+[00:33:52.200 -> 00:34:20.940]  basically assembly code or that's not true if you have a function that's that doesn't have a header it has a symbol but if you don't have a header you just have a symbol if you don't have a header you just have a symbol so if it's just a symbol then it just does a just doesn't get it just does an
+[00:34:20.940 -> 00:34:44.000]  unassemble so in the kernel so in the kernel we have headers for I made a header for almost everything everything for that for that reason pretty much
+[00:34:44.900 -> 00:34:51.820]  even the stuff that you have a bunch of stuff even the stuff that you have no business messing with I made private headers and stuff
+[00:34:52.660 -> 00:35:01.680]  public means that it's listed on the help report public means it's listed on the help report I did some private ones
+[00:35:06.040 -> 00:35:28.940]  I don't remember I don't I don't I don't think I did everything which is kind of inconsistent oh well anyway uh so uh it has some private so uh let's go look at the web page and see what the comments are saying
+[00:35:31.500 -> 00:35:40.060]  uh let's go look at the web page and see what the comments are saying
+[00:35:42.620 -> 00:35:51.160]  uh let's go look at the web page and see what the comments are saying
+[00:35:51.160 -> 00:35:51.240]  uh
+[00:35:51.240 -> 00:35:51.360]  uh
+[00:35:51.360 -> 00:35:51.540]  uh
+[00:35:51.540 -> 00:35:51.800]  uh
+[00:35:51.800 -> 00:35:51.840]  uh
+[00:35:51.840 -> 00:35:51.880]  uh
+[00:35:51.880 -> 00:35:51.880]  
+[00:35:51.880 -> 00:35:51.880]  
+[00:35:51.880 -> 00:35:51.880]  
+[00:35:51.880 -> 00:35:51.880]  
+[00:35:52.120 -> 00:35:52.120]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  
+[00:35:55.640 -> 00:35:55.640]  

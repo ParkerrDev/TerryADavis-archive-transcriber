@@ -1,0 +1,131 @@
+========================================================================
+FILE        : videos/2014/2014-07-16T00:11:00+00:00 - TempleOS Booting for Larry Page 1 (lhrlmHYb91o).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-07-16T00:11:00+00:00 - TempleOS Booting for Larry Page 1 (lhrlmHYb91o).mp4
+FORMAT      : MPEG4
+SIZE        : 64,544,606 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:15:51.860
+TRANSCRIBED: 2026-05-08T01:37:38.441100+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay I'm gonna cover booting at least I'm not gonna go through all the so the CD-ROM boot sector goes on about block 16 hex anyway my my boot sectors they reload okay the the BIOS loads the boot sector at 7C00 mine copies itself mine identifies where it is it calculates where it currently is and it copies itself up to a location mine copies itself out of the way boot high location mine boot high location is uh up in the nine 90 thousands okay so my boot loader copies itself out of the way and uh uses the BIOS interrupt 42 I'm not messing with anything earlier than a 64 bit all 64 bit computers have uh 1342 or 1342 there 42 is the BIOS uh code interrupt 1342 so I um you're asking how do I use absolute addresses well let's look at my hard disk that's the one I want to look at so the hard disk makes it there's a dap this is a this is a this is a structure and a structure in memory that has a block address 64 bit block address and a count of blocks and uh mine uh mine uh when I install when when you write the files to the hard disk that's when you set the the absolute address of the kernel so it's every time you update the kernel dot bin you have to update the the boot sector every time you make a new kernel you have to update the boot sector okay that's how it works the cd-rom uh the it's a little it's kind of easier more predictable but anyway um so I have a uh file find this will load this will get the cluster number of a file if you want the cluster number of a file so that you can write then you okay I'm trying for minimum line count why would I why okay so my so my kernel navigates the fat 32 file system right my kernel has to navigate the fat 32 why on earth would I put navigating the fat into the hard disk that's stupid the heart the bootloader why would I put navigating the fat into the bootloader when I install I just use my existing navigate the fat and then I just write an absolute address and I store it contiguous I store my kernel contiguous so um this is the minimum line count if I duplicated all these lines of code my line count would go up wouldn't it that's just dumb so in my install routine when you make the operating system when you make make all make os partition boot install that that that makes the there's only two files it's kind of a joke there's compiler and kernel make so it it compiles the compiler and kernel and then it writes into the installs it it installs into the boot sector it sets dap block address it calls a file find like I told you and it gets the cluster converts the cluster to a block and then uh writes the boot sector so uh uh I was gonna say something uh okay so the first so the kernel dot bin the kernel when you compile the kernel this this is the the make file it's a joke it's just including code we don't have a make file it's that fast it can it can compile everything in half a second so you don't even need a make um so uh you don't need object files um I'm limiting it to 100 000 it's it's it's always going to be small because I'm limiting it anyway so um the kernel make file it puts it goes in the order of this file so um k start is the first I forgot to tell what the bootloaders do um so the bootloader cop the bootloader identifies where it's located and it copies itself up to the 90 thousands and then it uses the that the already absolute address of the kernel um absolute address of the kernel dot bin it loads it um one block at a time and then it jumps to boot ram base this jumps back down to 7c so it loads back into 7c after it's moved itself up to 90 thousands and um then it jumps it jumps to the start of the kernel and the kernel bin starts with the header and then it's the the kernel start so this is now what okay class we're in real mode did you realize that I'm not doing ufi ufi they're gonna support me I'm not supporting them they just they use elf and they use graphics file formats it's totally fucked up for me so I'm I'm just gonna command everybody that from now on you can only reduce god's temple not line count so this is the this this is called in real mode by the boot loader it skips its it has some data structures here the gdt you guys love that don't you oh do you know what a gdt is oh I did that in 93 folks anyway uh so uh you guys are not using 16 bit a 16 bit has twice as wide of entries and guess what uh I I um have to pass through I I start in six real mode and I change to protected and then to long so I start in real mode then I change to protected and then I change to long but I do a trick I uh um the the I skip every other entry so that um it works for both real for both protected mode and long mode so in other words I I uh I use the same gdt for protected and long mode because they're they're bigger everything's bigger in long mode except the tss that's kind of all different anyway the tss no longer holds the registers you don't have a push all um anyway um so uh so when my kernel boots this is real mode it calls interrupt 10 to change to vga to change to 640 it calls memory e820 to get the memory map this is still in real mode my kernel has been loaded and it's still running in real mode um I made my assembler be able to do 64 bit 32 bit and 16 but my compiler only does 64 bit did you know it's easier to do a 64 bit compiler because you have more registers it's much harder to do a 16 bit compiler because you have fewer registers and um you have segmentation my my assembler does not do segmentation it only does limited 16 bit so now we're we enable 8 to e820 I don't I don't Brendan at OS dev gets really carried away mine is six mine only works in 64 bit computers so I don't have to worry about all the the weird ones um anyway um so here's where I set up my uh my gdt this is what a person was asking about there's the the limit of the um data segment limit of the code segment in long mode um the limit doesn't matter the base the base is zero for ds and cs the only one that matt the only segments that are functional in long mode are uh fs and gs and those you have to change with the model specific register um actually I'm not too sure I think you might have to set these up I don't remember but you can't change them they're set they're locked on zero um anyway uh then you make a pointer to your gdt and then you load your gdt then you change your cr0 and this my friends is this okay and we jump to uh 32 bit now when when I do a fast reboot I buy I don't go all the way back to real mode I have a fast reboot that just refreshes my structures um so this is a 32 bit so we're doing some stuff I have a my compiler has a table of absolute addresses in the code that have to be patched so my code has to be patched it's all it's uh all the addresses have to have 7c added to them so while we're still in assembly before we're doing the the c code we go through the table and we patch all those addresses um and um I have all the symbols you were wondering how I add my symbols anyway um now we're uh we set up the heap we have to have that set up oh we have to initialize a memory to identity map um I can't do that in c because um I only have a 64 bit compiler so I have to do this in assembly so um I initialize it to identity map guess what I map it with 2 meg blocks instead of 4k you can use either 2 meg or 4k and I use 2 meg except for the first block because I have vga there's initializes the floating point unit saves a copy so that we can have a standard um then it uh initialize my cpu structure um and oh where did we call we here we switched to 64 bit mode I went ahead and made that a subroutine um this is this is where you switch to 64 bit mode you uh set up I don't know what that is um I don't remember what it is um my assembler has funky uh I didn't make uh I do limited support for those instructions to save to save save me effort you don't need to anyway um so I load the page table into cr3 this is where you change right model specific this sets it to 64 bit enable paging I have to enable paging for 64 bit I don't know if that technically I think it happens when I think it happens when you do this when you do the jump to a 64 bit code segment um when you restart the kernel I can do a fast reboot anyway um so uh uh we uh the last thing we do after we uh we we set up we change the 64 bit I made a run level flag that um you might want to investigate to see all my different every time I make an accomplishment I set a bit in a run level for lk4 and 16 bit we set a bit 32 bit if it's been patched if the absolute addresses have been patched if we've changed to 64 bit if we initialize the boot heap if we initialize the full heap if we initialize raw um vga graphics if we got interrupts up and running my idt if we got multi-processing going if we got the disk going if we got the compiler going if we got the document window document manager going with the window manager if we've logged in um if we did the registry and then if we um if we finished adam2 directory and then if it's parked in adam goes into it the adam task is what is uh calling all this stuff and at the end it goes into adam and the the very last thing before these subroutines is it jumps to um kernel main so it sets up fs jumps to kernel main kernel main is in ck end so this is just uh now we're in 64 bit c code so we uh we initialize the rest of the heap we set up the timers the interrupts um set calibrate the time set up the keyboard mouse uh initialize block devices that's the then we uh uh load the compiler and then we uh we start compiling adam1 this is like autoexec.bat so we compile my header files that declare all my uh headers for the kernel and um so these these are where the header files are and then uh when it's done it goes into the atom2 directory remember i told you it's uh the atom gets just in time compiled so adam2 includes a bunch of files these this is 40 000 lines that get compiled um every boot so it uh it sets up the disk sets up the window manager wordstat bunch of stuff then when it's done it goes into your account adam3 is uh in your account directory um and that's where uh the rest of the files and then when it's done adam goes into a uh the adam task go in goes into a server state where you can tell him commands like print high now adam just printed high he's he's serving um you can tell him to include code and that's like kernel memory that'll be system wide everyone gets it and it never dies so if you make a wallpaper you want that kernel memory so you add them include your wallpaper so anyway
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:01.300 -> 00:00:13.300]  okay I'm gonna cover booting at least I'm not gonna go through all the so the CD-ROM boot
+[00:00:13.300 -> 00:00:27.040]  sector goes on about block 16 hex anyway my my boot sectors they reload okay the the BIOS
+[00:00:27.040 -> 00:00:39.340]  loads the boot sector at 7C00 mine copies itself mine identifies where it is it calculates where it
+[00:00:39.340 -> 00:00:47.320]  currently is and it copies itself up to a location mine copies itself out of the way
+[00:00:49.640 -> 00:00:59.520]  boot high location mine boot high location is uh up in the nine 90 thousands
+[00:01:01.280 -> 00:01:10.300]  okay so my boot loader copies itself out of the way and uh uses the BIOS interrupt 42
+[00:01:11.800 -> 00:01:23.140]  I'm not messing with anything earlier than a 64 bit all 64 bit computers have uh 1342 or 1342
+[00:01:23.140 -> 00:01:27.200]  there 42 is the BIOS uh
+[00:01:29.260 -> 00:01:38.820]  code interrupt 1342 so I um you're asking how do I use absolute addresses well let's look at my hard
+[00:01:38.820 -> 00:01:45.880]  disk that's the one I want to look at so the hard disk makes it there's a dap this is a this is a
+[00:01:45.880 -> 00:01:53.400]  this is a structure and a structure in memory that has a block address 64 bit block address and a count
+[00:01:53.400 -> 00:02:04.120]  of blocks and uh mine uh mine uh when I install when when you write the files to the hard disk that's when
+[00:02:04.120 -> 00:02:11.560]  you set the the absolute address of the kernel so it's every time you update the kernel dot bin
+[00:02:12.280 -> 00:02:18.460]  you have to update the the boot sector every time you make a new kernel you have to update the boot sector
+[00:02:20.240 -> 00:02:27.620]  okay that's how it works the cd-rom uh the it's a little it's kind of easier more predictable but anyway
+[00:02:27.620 -> 00:02:40.160]  um so I have a uh file find this will load this will get the cluster number of a file if you want the
+[00:02:40.160 -> 00:02:47.340]  cluster number of a file so that you can write then you okay I'm trying for minimum line count why would
+[00:02:47.340 -> 00:02:57.540]  I why okay so my so my kernel navigates the fat 32 file system right my kernel has to navigate the fat 32
+[00:02:58.420 -> 00:03:07.100]  why on earth would I put navigating the fat into the hard disk that's stupid the heart the bootloader
+[00:03:07.100 -> 00:03:15.840]  why would I put navigating the fat into the bootloader when I install I just use my existing navigate the fat
+[00:03:16.500 -> 00:03:23.760]  and then I just write an absolute address and I store it contiguous I store my kernel contiguous
+[00:03:24.640 -> 00:03:33.040]  so um this is the minimum line count if I duplicated all these lines of code my line count would go up wouldn't it that's just dumb
+[00:03:33.600 -> 00:03:39.000]  so in my install routine when you make the operating system when you make make all
+[00:03:39.000 -> 00:03:47.280]  make os partition boot install that that that makes the there's only two files it's kind of a joke there's
+[00:03:47.280 -> 00:03:55.340]  compiler and kernel make so it it compiles the compiler and kernel and then it writes into the installs it
+[00:03:55.340 -> 00:04:04.880]  it installs into the boot sector it sets dap block address it calls a file find like I told you and it gets the cluster
+[00:04:06.680 -> 00:04:14.180]  converts the cluster to a block and then uh writes the boot sector so uh
+[00:04:14.180 -> 00:04:20.960]  uh I was gonna say something uh okay so the first
+[00:04:22.660 -> 00:04:31.180]  so the kernel dot bin the kernel when you compile the kernel this this is the the make file it's a joke
+[00:04:31.180 -> 00:04:37.860]  it's just including code we don't have a make file it's that fast it can it can compile everything in half a
+[00:04:37.860 -> 00:04:47.640]  second so you don't even need a make um so uh you don't need object files um I'm limiting it to 100 000
+[00:04:47.640 -> 00:04:55.680]  it's it's it's always going to be small because I'm limiting it anyway so um the kernel make file
+[00:04:56.640 -> 00:05:03.380]  it puts it goes in the order of this file so um k start is the first
+[00:05:05.520 -> 00:05:13.900]  I forgot to tell what the bootloaders do um so the bootloader cop the bootloader identifies where it's
+[00:05:13.900 -> 00:05:23.640]  located and it copies itself up to the 90 thousands and then it uses the that the already absolute address of the
+[00:05:24.440 -> 00:05:33.860]  kernel um absolute address of the kernel dot bin it loads it um one block at a time and then it jumps to
+[00:05:33.860 -> 00:05:43.000]  boot ram base this jumps back down to 7c so it loads back into 7c after it's moved itself up to 90 thousands
+[00:05:43.720 -> 00:05:53.180]  and um then it jumps it jumps to the start of the kernel and the kernel bin starts with the header
+[00:05:53.180 -> 00:06:01.380]  and then it's the the kernel start so this is now what okay class we're in real mode did you realize
+[00:06:01.380 -> 00:06:08.720]  that I'm not doing ufi ufi they're gonna support me I'm not supporting them they just they use elf
+[00:06:08.720 -> 00:06:15.120]  and they use graphics file formats it's totally fucked up for me so I'm I'm just gonna command everybody
+[00:06:15.120 -> 00:06:20.880]  that from now on you can only reduce god's temple not line count
+[00:06:22.300 -> 00:06:27.020]  so this is the this this is called in real mode by the boot loader
+[00:06:28.100 -> 00:06:31.480]  it skips its it has some data structures here
+[00:06:32.120 -> 00:06:35.560]  the gdt you guys love that don't you
+[00:06:35.560 -> 00:06:43.820]  oh do you know what a gdt is oh I did that in 93 folks anyway uh so uh
+[00:06:45.200 -> 00:06:54.140]  you guys are not using 16 bit a 16 bit has twice as wide of entries and guess what uh I
+[00:06:54.840 -> 00:07:02.880]  I um have to pass through I I start in six real mode and I change to protected and then to long
+[00:07:02.880 -> 00:07:09.040]  so I start in real mode then I change to protected and then I change to long but I do a trick I uh
+[00:07:09.040 -> 00:07:20.040]  um the the I skip every other entry so that um it works for both real for both protected mode and long mode
+[00:07:20.040 -> 00:07:27.940]  so in other words I I uh I use the same gdt for protected and long mode because they're they're bigger
+[00:07:27.940 -> 00:07:34.320]  everything's bigger in long mode except the tss that's kind of all different anyway
+[00:07:36.100 -> 00:07:43.580]  the tss no longer holds the registers you don't have a push all um anyway um so uh
+[00:07:45.940 -> 00:07:56.100]  so when my kernel boots this is real mode it calls interrupt 10 to change to vga to change to 640
+[00:07:56.100 -> 00:08:03.240]  it calls memory e820 to get the memory map this is still in real mode my kernel has been loaded
+[00:08:03.240 -> 00:08:12.200]  and it's still running in real mode um I made my assembler be able to do 64 bit 32 bit and 16 but my
+[00:08:12.200 -> 00:08:20.240]  compiler only does 64 bit did you know it's easier to do a 64 bit compiler because you have more registers
+[00:08:20.240 -> 00:08:28.180]  it's much harder to do a 16 bit compiler because you have fewer registers and um you have segmentation
+[00:08:28.180 -> 00:08:30.800]  my my assembler does not do segmentation
+[00:08:32.500 -> 00:08:42.980]  it only does limited 16 bit so now we're we enable 8 to e820 I don't I don't Brendan at OS dev gets really
+[00:08:42.980 -> 00:08:50.220]  carried away mine is six mine only works in 64 bit computers so I don't have to worry about all the
+[00:08:50.220 -> 00:08:59.200]  the weird ones um anyway um so here's where I set up my uh my gdt this is what a person was asking
+[00:08:59.200 -> 00:09:10.140]  about there's the the limit of the um data segment limit of the code segment in long mode um the limit
+[00:09:10.140 -> 00:09:17.160]  doesn't matter the base the base is zero for ds and cs the only one that matt the only segments that
+[00:09:17.160 -> 00:09:24.680]  are functional in long mode are uh fs and gs and those you have to change with the model specific
+[00:09:24.680 -> 00:09:31.080]  register um actually I'm not too sure I think you might have to set these up I don't remember
+[00:09:31.080 -> 00:09:39.080]  but you can't change them they're set they're locked on zero um anyway uh
+[00:09:40.520 -> 00:09:47.820]  then you make a pointer to your gdt and then you load your gdt then you change your cr0
+[00:09:48.680 -> 00:09:57.560]  and this my friends is this okay and we jump to uh 32 bit now when when I do a fast reboot I buy I
+[00:09:58.200 -> 00:10:05.200]  don't go all the way back to real mode I have a fast reboot that just refreshes my structures
+[00:10:05.200 -> 00:10:13.800]  um so this is a 32 bit so we're doing some stuff I have a my compiler has a table of absolute addresses
+[00:10:13.800 -> 00:10:21.220]  in the code that have to be patched so my code has to be patched it's all it's uh all the addresses have
+[00:10:21.220 -> 00:10:30.540]  to have 7c added to them so while we're still in assembly before we're doing the the c code we go
+[00:10:30.540 -> 00:10:37.320]  through the table and we patch all those addresses um and um I have all the symbols you were wondering
+[00:10:37.320 -> 00:10:44.780]  how I add my symbols anyway um now we're uh we set up the heap we have to have that set up
+[00:10:44.780 -> 00:10:54.220]  oh we have to initialize a memory to identity map um I can't do that in c because um I only have a 64 bit
+[00:10:54.220 -> 00:11:02.680]  compiler so I have to do this in assembly so um I initialize it to identity map guess what I map it
+[00:11:02.680 -> 00:11:11.460]  with 2 meg blocks instead of 4k you can use either 2 meg or 4k and I use 2 meg except for the first block
+[00:11:11.460 -> 00:11:20.140]  because I have vga there's initializes the floating point unit saves a copy so that we can have a standard
+[00:11:20.140 -> 00:11:31.520]  um then it uh initialize my cpu structure um and oh where did we call we here we switched to 64 bit
+[00:11:31.520 -> 00:11:38.500]  mode I went ahead and made that a subroutine um this is this is where you switch to 64 bit mode you uh
+[00:11:39.600 -> 00:11:47.980]  set up I don't know what that is um I don't remember what it is um my assembler has funky uh
+[00:11:47.980 -> 00:11:58.880]  I didn't make uh I do limited support for those instructions to save to save save me effort you don't need to anyway
+[00:12:01.680 -> 00:12:11.400]  um so I load the page table into cr3 this is where you change right model specific this sets it to 64 bit
+[00:12:12.980 -> 00:12:19.200]  enable paging I have to enable paging for 64 bit I don't know if that technically I think it happens
+[00:12:19.200 -> 00:12:23.720]  when I think it happens when you do this when you do the jump to a 64 bit code segment
+[00:12:25.100 -> 00:12:31.020]  um when you restart the kernel I can do a fast reboot anyway um so uh
+[00:12:31.020 -> 00:12:44.880]  uh we uh the last thing we do after we uh we we set up we change the 64 bit I made a run level
+[00:12:45.560 -> 00:12:51.980]  flag that um you might want to investigate to see all my different every time I make an accomplishment
+[00:12:51.980 -> 00:13:00.820]  I set a bit in a run level for lk4 and 16 bit we set a bit 32 bit if it's been patched if the absolute
+[00:13:00.820 -> 00:13:06.720]  addresses have been patched if we've changed to 64 bit if we initialize the boot heap if we initialize the
+[00:13:06.720 -> 00:13:15.360]  full heap if we initialize raw um vga graphics if we got interrupts up and running my idt if we got
+[00:13:15.360 -> 00:13:20.740]  multi-processing going if we got the disk going if we got the compiler going if we got the document
+[00:13:20.740 -> 00:13:27.800]  window document manager going with the window manager if we've logged in um if we did the registry
+[00:13:29.560 -> 00:13:37.940]  and then if we um if we finished adam2 directory and then if it's parked in adam goes into it the adam task
+[00:13:38.740 -> 00:13:45.880]  is what is uh calling all this stuff and at the end it goes into adam and the the very last thing
+[00:13:47.280 -> 00:13:52.300]  before these subroutines is it jumps to um kernel main
+[00:13:53.900 -> 00:13:56.680]  so it sets up fs jumps to kernel main
+[00:13:56.680 -> 00:14:04.680]  kernel main is in ck end so this is just uh now we're in 64 bit c code
+[00:14:06.660 -> 00:14:09.160]  so we uh we initialize
+[00:14:09.160 -> 00:14:16.920]  the rest of the heap we set up the timers the interrupts um set calibrate the time
+[00:14:18.180 -> 00:14:19.920]  set up the keyboard mouse
+[00:14:21.540 -> 00:14:25.920]  uh initialize block devices that's the then we uh
+[00:14:26.780 -> 00:14:27.500]  uh
+[00:14:28.460 -> 00:14:35.060]  load the compiler and then we uh we start compiling adam1 this is like autoexec.bat
+[00:14:35.060 -> 00:14:43.540]  so we compile my header files that declare all my uh headers for the kernel and um so these these are
+[00:14:43.540 -> 00:14:50.660]  where the header files are and then uh when it's done it goes into the atom2 directory remember i told you it's uh
+[00:14:51.340 -> 00:14:58.780]  the atom gets just in time compiled so adam2 includes a bunch of files these this is 40 000
+[00:14:58.780 -> 00:15:05.500]  lines that get compiled um every boot so it uh it sets up the disk sets up the window manager
+[00:15:06.820 -> 00:15:10.940]  wordstat bunch of stuff then when it's done it goes into your account
+[00:15:12.140 -> 00:15:20.620]  adam3 is uh in your account directory um and that's where uh the rest of the files and then
+[00:15:20.620 -> 00:15:28.400]  when it's done adam goes into a uh the adam task go in goes into a server state where you can tell him
+[00:15:28.400 -> 00:15:30.640]  commands like print high
+[00:15:34.360 -> 00:15:40.580]  now adam just printed high he's he's serving um you can tell him to include code and that's like
+[00:15:40.580 -> 00:15:46.960]  kernel memory that'll be system wide everyone gets it and it never dies so if you make a wallpaper you
+[00:15:46.960 -> 00:15:51.860]  want that kernel memory so you add them include your wallpaper so anyway

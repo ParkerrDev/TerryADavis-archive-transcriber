@@ -1,0 +1,395 @@
+========================================================================
+FILE       : videos/2012/2012-12-05T08:00:00+00:00 - TempleOS Programming Guide Part 1 (X6uKeJt7yhU).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2012/2012-12-05T08:00:00+00:00 - TempleOS Programming Guide Part 1 (X6uKeJt7yhU).mp4
+FORMAT     : MPEG4
+SIZE       : 76,626,450 bytes
+LANGUAGE   : en
+MODEL      : mlx-community/whisper-large-v3-turbo
+DURATION   : 00:14:56.300
+TRANSCRIBED: 2026-05-07T23:07:21.952450+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+and now we're going to go over some things a programmer might need to know so here's a file if I hit F5 does this let's convert it so that it can instead of running just in time let's convert it so that it can be compiled into a binary so we say include then F4 then go to OS main and go to static atom and then change that to a colon okay so what this does is it imports all the symbols in atom so save that then let's static compile oh okay well let's just get rid of that static compile unused variable okay it's just a warning so now we have a binary file we can load it and it automatically runs because we had the because this had that that call down at the bottom so it automatically ran now if we do bin rep test dot bin dot z this tells the module it's a lie it's a line to one it's got no alignment it's got seven absolute addresses that needed patching it exports dry song task in rows mean is a this is you can have multiple main routines and it imports the following symbols so you can you can have deferred imports it doesn't have to exist at the time anyway so that's that let's go look at some assembly in the demo assembly direct directory buzzfizz you want to to use enter and leave for your functions because the base pointer is used by the wallpaper and stuff or I don't know yeah for the wallpaper it's used to figure out the the it to trace the stack there's there's a function called caller on the which will return whoever called a task and it can go up the stack so use the enter and leave and and so you can either import or you can use these ampersand and so this is buzzfizz instead of defined bite you use du8 because it's unsigned 8-bit and you have to put a semicolon on the end of these and I put these defines outside just out of habit they can go inside too so this is buzzfizz anyway anyway that's an assembly I'd hit f5 you can only include these once most most most code you can if it's c you can include it multiple times and it just overshadows but with assembly you get errors because it does forward references assembly can jump ahead jump ahead and so therefore redefining screws it up now we're going to go look at we're going to do some profiling this is how you figure out how to optimize so we go to game starters and eagle dive this is the flight simulator first of all we say dock dock max that sets the command line buffer to unlimited that's so that it won't run off this you want the buffer not to overflow then we say prof all and that'll profile all you can you can do multiple levels deep um then we say prof uh we don't have to put these all on one line um these are all main and then we say prof rep now if we want this to go to uh anyway so f5 so uh right now we're a thousand times a second we're recording where it is um so i hit shift escape and then we get a profile report um so uh uh the this is the update uh the screen that's where it's right into vga memory um converting h line is where it's uh drawing the triangle drawing the triangles um um let's see what else we have uh uh well that's interesting i think i don't know why that's uh our time is uh using a lot now it uh it can't uh uh it has to uh wait for uh it does a lot of waiting on other cores so it it's got a certain amount of idling that uh that takes a lot of time for the cores uh uh anyway uh uh now let's uh let's go look at um uh document forms um um okay so um when you declare a class you can uh declare metadata um format string these can be uh any new class you can uh name format string is uh one that's recognized um and then uh these are dollar sign uh data you want to use control l to do these um control l will uh help you with dollar sign commands um anyway or insert widget so you say insert widget and this is a uh uh data entry a data um anyway so you want to do those um then uh when this runs it calls document form form do that's do form uh so um um we don't have to uh uh well anyway uh so and then it uh then we called class rep like we talked about earlier um to show anyway uh so now uh um sparrow os has a uh um in uh if we go control d and then do os main um in the main uh when it the compiler has internal types this is a u16 internal is a a u16 is a is a uh when the structure is taken together it's a u16 internal let me explain this uh an i64 is a union of eight bytes unsigned eight bytes signed four byte four four words or two uh d words anyway um so it's a union and uh but it's also one um value um so uh um when we uh when we set a q q equal to that then we can access the sub words and sub bytes um anyway uh and uh you can even do sub sub anyway uh so this uh it's actually not very efficient because it forces it out it won't use register variables if you do that um anyway uh um let's let's look at uh the help for um debugging i just want to go over some things uh so dump document dump uh is dynamic um so you can edit and uh change uh if you if you just do uh dump uh let's say uh let's let's let's let's dump the uh well no better not um this is the task record um if you say document dump! uh let's say uh let's let's let's dump the uh oh no better not um this is the task record um mostly i do printf debugging because uh it's uh well you'll find out um now you can do raw output um to the uh um dbg this is raw output if you have a task that doesn't have a window you can do raw output um you can uh you can uh you can turn on you can do ctrace to trace the output of the compiler um if you're curious about the assembly um there's uh unassemble function there's unassemble and then you you give the uh function an offset or unassemble function and it'll tell you the registers as well anyway uh uh uh uh so there's uh uh you can get a stack report uh anyway um so go into the help and look at debugging um now uh i want to go over a couple things uh in my uh disk code uh when it's uh waiting for um activity it's waiting for a port to change from busy and then it does a yield um what this is uh um i can this can uh it takes half a microsecond to swap tasks so uh this uh um it actually takes longer to read the port than it does to do the to swap a task now this is not for servers it's for uh um home computers with people uh doing recreational programming so you might have uh i don't know ten tasks how many anyway so it goes through the tasks and uh um gets back to this tap it goes in the circle and then gets back to this task uh so uh that's how i do io now if you're curious why uh um why uh you can't um if you're curious why uh why uh you can't access you can't do some things when when it's busy um if if there's a big disk request it it doesn't break it into pieces that's just the way this uh works it's simpler i i don't it doesn't do sharing um it doesn't do locks so don't uh don't do anything stupid um that's just the um the that's the the the the way this works anyway i want to go over one more thing um uh let's go over exceptions um exceptions uh are done with a throat uh and it's a um varietatic or whatever i don't know i can't say that word um and uh when when you catch uh you you have a um off the the fs segment register off the task record you have argv and argc and that's how you access the uh the uh values that were thrown um and then if you want to catch it you say fs catch exception and uh anyway so uh that's how exceptions work um um you
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:07.000]  and now we're going to go over some things a programmer might need to know so
+[00:00:10.000 -> 00:00:20.160]  here's a file if I hit F5 does this let's convert it so that it can instead of running just in time
+[00:00:20.160 -> 00:00:38.360]  let's convert it so that it can be compiled into a binary so we say include then F4 then go to OS
+[00:00:38.360 -> 00:00:58.180]  main and go to static atom and then change that to a colon okay so what this does is it imports all
+[00:00:58.180 -> 00:01:14.360]  the symbols in atom so save that then let's static compile
+[00:01:24.140 -> 00:01:37.660]  oh okay well let's just get rid of that static compile
+[00:01:39.900 -> 00:01:52.820]  unused variable okay it's just a warning so now we have a binary file we can load it and it
+[00:01:52.820 -> 00:02:03.480]  automatically runs because we had the because this had that that call down at the bottom so
+[00:02:03.480 -> 00:02:21.660]  it automatically ran now if we do bin rep test dot bin dot z this tells the module it's a lie it's a
+[00:02:21.660 -> 00:02:31.800]  line to one it's got no alignment it's got seven absolute addresses that needed patching it exports
+[00:02:31.800 -> 00:02:47.900]  dry song task in rows mean is a this is you can have multiple main routines and it imports the following
+[00:02:50.100 -> 00:03:00.220]  symbols so you can you can have deferred imports it doesn't have to exist at the time anyway
+[00:03:02.400 -> 00:03:14.860]  so that's that let's go look at some assembly in the demo assembly direct directory buzzfizz you want to
+[00:03:14.860 -> 00:03:26.320]  to use enter and leave for your functions because the base pointer is used by the wallpaper and stuff or I
+[00:03:26.320 -> 00:03:50.720]  don't know yeah for the wallpaper it's used to figure out the the it to trace the stack there's there's a function called caller on the which will return whoever called a task and it can go up the stack so use the enter and leave and
+[00:03:53.140 -> 00:04:05.340]  and so you can either import or you can use these ampersand and so this is buzzfizz
+[00:04:07.700 -> 00:04:29.660]  instead of defined bite you use du8 because it's unsigned 8-bit and you have to put a semicolon on the end of these and I put these defines outside just out of habit they can go inside too so this is buzzfizz
+[00:04:32.440 -> 00:04:33.140]  anyway
+[00:04:33.140 -> 00:04:33.460]  anyway
+[00:04:35.700 -> 00:04:54.680]  that's an assembly I'd hit f5 you can only include these once most most most code you can if it's c you can include it multiple times and it just overshadows but with assembly you get errors because it does forward references
+[00:04:54.680 -> 00:05:02.600]  assembly can jump ahead jump ahead and so therefore redefining screws it up
+[00:05:05.020 -> 00:05:23.400]  now we're going to go look at we're going to do some profiling this is how you figure out how to optimize so we go to game starters and eagle dive this is the flight simulator
+[00:05:24.660 -> 00:05:44.160]  first of all we say dock dock max that sets the command line buffer to unlimited that's so that it won't run off this you want the buffer not to overflow then we say prof all
+[00:05:45.940 -> 00:05:50.640]  and that'll profile all you can you can do multiple levels deep
+[00:05:51.160 -> 00:05:51.480]  um
+[00:05:52.640 -> 00:06:02.540]  then we say prof uh we don't have to put these all on one line um these are all main and then we say prof rep
+[00:06:02.540 -> 00:06:02.540]  
+[00:06:04.920 -> 00:06:09.400]  now if we want this to go to uh anyway so f5
+[00:06:10.860 -> 00:06:16.180]  so uh right now we're a thousand times a second we're recording where it is
+[00:06:16.180 -> 00:06:18.800]  um so i hit shift escape
+[00:06:19.540 -> 00:06:21.620]  and then we get a profile report
+[00:06:21.620 -> 00:06:23.520]  um so uh
+[00:06:23.520 -> 00:06:29.080]  uh the this is the update uh the screen that's where it's right into vga memory
+[00:06:29.080 -> 00:06:29.980]  um
+[00:06:33.640 -> 00:06:37.700]  converting h line is where it's uh drawing the triangle
+[00:06:38.380 -> 00:06:40.200]  drawing the triangles
+[00:06:40.200 -> 00:06:40.520]  um
+[00:06:42.680 -> 00:06:43.360]  um
+[00:06:47.420 -> 00:06:48.920]  let's see what else we have
+[00:06:49.740 -> 00:06:49.920]  uh
+[00:06:50.500 -> 00:06:50.940]  uh
+[00:06:52.160 -> 00:07:00.940]  well that's interesting i think i don't know why that's uh our time is uh using a lot
+[00:07:00.940 -> 00:07:18.900]  now it uh it can't uh uh it has to uh wait for uh it does a lot of waiting on other cores so it it's got a certain amount of idling that uh that takes a lot of time for the cores
+[00:07:18.900 -> 00:07:19.700]  uh
+[00:07:20.560 -> 00:07:21.260]  uh
+[00:07:21.260 -> 00:07:21.840]  anyway uh
+[00:07:21.840 -> 00:07:22.560]  uh
+[00:07:22.560 -> 00:07:23.140]  now let's uh
+[00:07:23.860 -> 00:07:25.600]  let's go look at um
+[00:07:26.760 -> 00:07:28.720]  uh document forms
+[00:07:28.720 -> 00:07:28.900]  um
+[00:07:31.440 -> 00:07:32.140]  um
+[00:07:39.240 -> 00:07:45.300]  okay so um when you declare a class you can uh declare metadata um
+[00:07:45.300 -> 00:07:48.060]  format string these can be uh
+[00:07:48.060 -> 00:07:48.880]  any new class you can uh
+[00:07:48.880 -> 00:07:48.880]  
+[00:07:48.880 -> 00:07:48.880]  
+[00:07:48.880 -> 00:07:48.880]  
+[00:07:48.880 -> 00:07:48.880]  
+[00:07:48.880 -> 00:07:48.880]  
+[00:07:48.880 -> 00:07:48.880]  
+[00:07:48.880 -> 00:07:48.880]  
+[00:07:48.880 -> 00:07:48.880]  
+[00:07:48.880 -> 00:07:48.880]  
+[00:07:48.880 -> 00:07:48.880]  
+[00:07:48.880 -> 00:07:49.240]  name
+[00:07:49.880 -> 00:07:52.780]  format string is uh one that's recognized
+[00:07:52.780 -> 00:07:53.860]  um
+[00:07:53.860 -> 00:07:55.120]  and then uh
+[00:07:55.120 -> 00:07:57.720]  these are dollar sign uh data
+[00:07:57.720 -> 00:08:00.600]  you want to use control l to do these
+[00:08:00.600 -> 00:08:01.500]  um
+[00:08:01.500 -> 00:08:03.860]  control l will uh
+[00:08:03.860 -> 00:08:06.640]  help you with dollar sign commands
+[00:08:06.640 -> 00:08:07.640]  um
+[00:08:07.640 -> 00:08:08.240]  anyway
+[00:08:08.240 -> 00:08:08.700]  or
+[00:08:08.700 -> 00:08:09.840]  insert widget
+[00:08:09.840 -> 00:08:11.980]  so you say insert widget
+[00:08:11.980 -> 00:08:13.680]  and this is a uh
+[00:08:13.680 -> 00:08:14.860]  uh
+[00:08:14.860 -> 00:08:15.820]  data entry
+[00:08:15.820 -> 00:08:16.520]  a data
+[00:08:16.520 -> 00:08:17.700]  um
+[00:08:17.700 -> 00:08:19.440]  anyway
+[00:08:19.440 -> 00:08:21.500]  so you want to do those
+[00:08:21.500 -> 00:08:22.340]  um
+[00:08:22.340 -> 00:08:23.200]  then uh
+[00:08:24.140 -> 00:08:25.660]  when this runs
+[00:08:25.660 -> 00:08:28.700]  it calls document form form do
+[00:08:29.600 -> 00:08:31.140]  that's do form
+[00:08:31.140 -> 00:08:31.660]  uh
+[00:08:31.660 -> 00:08:31.660]  
+[00:08:33.260 -> 00:08:34.560]  so um
+[00:08:35.580 -> 00:08:36.420]  um
+[00:08:36.420 -> 00:08:38.500]  we don't have to uh
+[00:08:39.460 -> 00:08:39.660]  uh
+[00:08:40.300 -> 00:08:41.280]  well anyway
+[00:08:41.280 -> 00:08:42.100]  uh
+[00:08:42.100 -> 00:08:42.700]  so
+[00:08:42.700 -> 00:08:44.900]  and then it uh
+[00:08:44.900 -> 00:08:46.660]  then we called class rep
+[00:08:46.660 -> 00:08:48.540]  like we talked about earlier
+[00:08:48.540 -> 00:08:49.400]  um
+[00:08:49.400 -> 00:08:50.000]  to show
+[00:08:50.660 -> 00:08:51.300]  anyway
+[00:08:51.300 -> 00:08:51.700]  uh
+[00:08:52.580 -> 00:08:53.420]  so
+[00:08:55.000 -> 00:08:55.840]  now
+[00:08:55.840 -> 00:08:56.360]  uh
+[00:08:56.360 -> 00:08:57.880]  um
+[00:08:57.880 -> 00:08:59.960]  sparrow os has a
+[00:09:03.660 -> 00:09:04.500]  uh
+[00:09:08.280 -> 00:09:09.120]  um
+[00:09:09.120 -> 00:09:10.440]  in uh
+[00:09:10.440 -> 00:09:12.380]  if we go control d
+[00:09:12.380 -> 00:09:14.880]  and then do os main
+[00:09:14.880 -> 00:09:14.960]  um
+[00:09:16.140 -> 00:09:17.160]  in the main
+[00:09:18.520 -> 00:09:19.360]  uh
+[00:09:19.360 -> 00:09:20.440]  when it
+[00:09:21.980 -> 00:09:24.880]  the compiler has internal types
+[00:09:24.880 -> 00:09:27.220]  this is a u16 internal
+[00:09:27.220 -> 00:09:28.900]  is a
+[00:09:30.140 -> 00:09:31.020]  a
+[00:09:31.020 -> 00:09:31.760]  u16
+[00:09:31.760 -> 00:09:33.040]  is a
+[00:09:33.040 -> 00:09:33.680]  is a
+[00:09:33.680 -> 00:09:34.000]  uh
+[00:09:34.900 -> 00:09:36.500]  when the structure is taken together
+[00:09:36.500 -> 00:09:38.080]  it's a u16 internal
+[00:09:38.080 -> 00:09:40.160]  let me explain this
+[00:09:41.440 -> 00:09:42.320]  uh
+[00:09:42.320 -> 00:09:43.360]  an i64
+[00:09:43.360 -> 00:09:46.240]  is a union of
+[00:09:46.240 -> 00:09:47.960]  eight bytes
+[00:09:47.960 -> 00:09:49.400]  unsigned
+[00:09:49.400 -> 00:09:50.920]  eight bytes signed
+[00:09:50.920 -> 00:09:52.060]  four byte
+[00:09:52.060 -> 00:09:52.420]  four
+[00:09:52.420 -> 00:09:52.900]  four words
+[00:09:53.460 -> 00:09:54.220]  or
+[00:09:54.220 -> 00:09:55.080]  two uh
+[00:09:55.080 -> 00:09:55.920]  d words
+[00:09:55.920 -> 00:09:56.760]  anyway
+[00:09:56.760 -> 00:09:57.200]  um
+[00:09:57.760 -> 00:09:57.980]  so
+[00:09:57.980 -> 00:09:58.960]  it's a union
+[00:09:58.960 -> 00:09:59.880]  and uh
+[00:09:59.880 -> 00:10:00.820]  but it's also
+[00:10:00.820 -> 00:10:01.660]  one
+[00:10:01.660 -> 00:10:01.960]  um
+[00:10:01.960 -> 00:10:02.580]  value
+[00:10:02.580 -> 00:10:03.480]  um
+[00:10:03.480 -> 00:10:03.960]  so
+[00:10:03.960 -> 00:10:04.500]  uh
+[00:10:05.540 -> 00:10:06.340]  um
+[00:10:06.340 -> 00:10:07.380]  when we uh
+[00:10:07.380 -> 00:10:08.280]  when we set
+[00:10:08.280 -> 00:10:09.820]  a q
+[00:10:09.820 -> 00:10:11.060]  q equal to that
+[00:10:11.060 -> 00:10:12.760]  then we can access
+[00:10:12.760 -> 00:10:13.120]  the
+[00:10:13.760 -> 00:10:14.260]  sub words
+[00:10:14.260 -> 00:10:15.100]  and sub bytes
+[00:10:15.760 -> 00:10:16.040]  um
+[00:10:17.080 -> 00:10:17.880]  anyway
+[00:10:17.880 -> 00:10:18.280]  uh
+[00:10:19.320 -> 00:10:20.400]  and uh
+[00:10:20.400 -> 00:10:21.920]  you can even do sub sub
+[00:10:21.920 -> 00:10:23.060]  anyway
+[00:10:23.060 -> 00:10:23.400]  uh
+[00:10:24.060 -> 00:10:24.400]  so this
+[00:10:24.400 -> 00:10:24.700]  uh
+[00:10:26.060 -> 00:10:27.260]  it's actually not very efficient
+[00:10:27.260 -> 00:10:28.720]  because it forces it out
+[00:10:28.720 -> 00:10:31.600]  it won't use register variables if you do that
+[00:10:31.600 -> 00:10:32.420]  um
+[00:10:32.420 -> 00:10:33.060]  anyway
+[00:10:33.060 -> 00:10:33.400]  uh
+[00:10:34.980 -> 00:10:35.660]  um
+[00:10:35.660 -> 00:10:36.060]  let's
+[00:10:36.580 -> 00:10:38.560]  let's look at uh the help for
+[00:10:38.560 -> 00:10:39.420]  um
+[00:10:39.420 -> 00:10:40.080]  debugging
+[00:10:40.080 -> 00:10:41.660]  i just want to go over some things
+[00:10:41.660 -> 00:10:42.400]  uh
+[00:10:42.400 -> 00:10:42.800]  so
+[00:10:42.800 -> 00:10:43.840]  dump
+[00:10:45.080 -> 00:10:46.080]  document dump
+[00:10:46.080 -> 00:10:46.500]  uh
+[00:10:46.500 -> 00:10:47.380]  is dynamic
+[00:10:47.380 -> 00:10:48.240]  um
+[00:10:48.240 -> 00:10:49.180]  so you can edit
+[00:10:49.180 -> 00:10:49.860]  and uh
+[00:10:50.380 -> 00:10:50.420]  change
+[00:10:50.420 -> 00:10:51.020]  uh
+[00:10:51.020 -> 00:10:53.300]  if you if you just do
+[00:10:53.300 -> 00:10:53.780]  uh
+[00:10:54.380 -> 00:10:55.100]  dump
+[00:10:55.100 -> 00:10:55.720]  uh
+[00:10:56.380 -> 00:10:57.340]  let's say uh
+[00:10:57.340 -> 00:11:00.140]  let's let's let's let's dump the uh
+[00:11:00.140 -> 00:11:01.480]  well no better not
+[00:11:01.480 -> 00:11:02.320]  um
+[00:11:03.140 -> 00:11:04.820]  this is the task record
+[00:11:04.820 -> 00:11:05.860]  um
+[00:11:05.860 -> 00:11:07.780]  if you say document dump
+[00:11:08.180 -> 00:11:08.860]  !
+[00:11:11.400 -> 00:11:12.080]  uh
+[00:11:12.080 -> 00:11:12.240]  let's say uh
+[00:11:12.240 -> 00:11:13.120]  let's let's let's dump the uh
+[00:11:13.120 -> 00:11:15.180]  oh no better not
+[00:11:15.180 -> 00:11:15.680]  um
+[00:11:15.680 -> 00:11:15.780]  this is the task record
+[00:11:14.380 -> 00:11:15.380]  um
+[00:11:19.360 -> 00:11:22.260]  mostly i do printf debugging because uh
+[00:11:23.220 -> 00:11:24.420]  it's uh
+[00:11:24.420 -> 00:11:25.100]  well
+[00:11:25.100 -> 00:11:26.740]  you'll find out
+[00:11:26.740 -> 00:11:27.600]  um
+[00:11:27.600 -> 00:11:29.780]  now you can do raw output
+[00:11:29.780 -> 00:11:30.500]  um
+[00:11:30.500 -> 00:11:31.780]  to the uh
+[00:11:32.580 -> 00:11:33.100]  um
+[00:11:34.680 -> 00:11:34.780]  dbg
+[00:11:36.400 -> 00:11:38.100]  this is raw output
+[00:11:38.100 -> 00:11:40.320]  if you have a task that doesn't have a window
+[00:11:40.320 -> 00:11:42.140]  you can do raw output
+[00:11:42.780 -> 00:11:43.100]  um
+[00:11:43.100 -> 00:11:43.100]  
+[00:11:44.160 -> 00:11:45.300]  you can uh
+[00:11:46.480 -> 00:11:47.300]  you can uh
+[00:11:47.300 -> 00:11:47.560]  you can turn on
+[00:11:47.560 -> 00:11:50.620]  you can do ctrace to trace the output of the compiler
+[00:11:50.620 -> 00:11:51.100]  um
+[00:11:52.860 -> 00:11:54.880]  if you're curious about the assembly
+[00:11:54.880 -> 00:11:55.100]  um
+[00:11:57.880 -> 00:11:58.740]  there's uh
+[00:11:58.740 -> 00:12:00.400]  unassemble function
+[00:12:00.400 -> 00:12:01.840]  there's unassemble
+[00:12:01.840 -> 00:12:05.140]  and then you you give the uh function an offset
+[00:12:05.780 -> 00:12:09.380]  or unassemble function and it'll tell you the registers as well
+[00:12:09.380 -> 00:12:10.720]  anyway uh
+[00:12:11.720 -> 00:12:12.240]  uh
+[00:12:12.900 -> 00:12:13.420]  uh
+[00:12:13.420 -> 00:12:13.500]  uh
+[00:12:13.500 -> 00:12:14.080]  so there's uh
+[00:12:16.140 -> 00:12:16.660]  uh
+[00:12:16.660 -> 00:12:17.860]  you can get a stack report
+[00:12:17.860 -> 00:12:18.540]  uh
+[00:12:18.540 -> 00:12:19.280]  anyway
+[00:12:19.280 -> 00:12:20.220]  um
+[00:12:21.080 -> 00:12:21.600]  so
+[00:12:21.600 -> 00:12:23.840]  go into the help and look at debugging
+[00:12:23.840 -> 00:12:24.140]  um
+[00:12:25.600 -> 00:12:26.480]  now uh
+[00:12:26.480 -> 00:12:28.320]  i want to go over a couple things
+[00:12:28.320 -> 00:12:29.040]  uh
+[00:12:29.860 -> 00:12:31.140]  in my uh
+[00:12:31.140 -> 00:12:32.400]  disk code
+[00:12:32.400 -> 00:12:33.520]  uh
+[00:12:33.520 -> 00:12:35.980]  when it's uh waiting for
+[00:12:35.980 -> 00:12:36.740]  um
+[00:12:36.740 -> 00:12:37.680]  activity
+[00:12:37.680 -> 00:12:40.400]  it's waiting for a port to change
+[00:12:40.400 -> 00:12:41.480]  from busy
+[00:12:41.480 -> 00:12:43.400]  and then it does a yield
+[00:12:43.400 -> 00:12:44.280]  um
+[00:12:44.280 -> 00:12:45.320]  what this is
+[00:12:45.320 -> 00:12:45.660]  uh
+[00:12:46.440 -> 00:12:47.180]  um
+[00:12:47.180 -> 00:12:47.540]  i can
+[00:12:47.540 -> 00:12:48.660]  this can
+[00:12:48.660 -> 00:12:49.020]  uh
+[00:12:49.020 -> 00:12:49.020]  
+[00:12:49.020 -> 00:12:52.500]  it takes half a microsecond to swap tasks
+[00:12:52.500 -> 00:12:53.300]  so
+[00:12:53.300 -> 00:12:53.660]  uh
+[00:12:53.660 -> 00:12:54.500]  this
+[00:12:54.500 -> 00:12:54.860]  uh
+[00:12:56.320 -> 00:12:56.960]  um
+[00:12:56.960 -> 00:12:59.300]  it actually takes longer to read the port
+[00:12:59.300 -> 00:13:00.400]  than it does to do the
+[00:13:00.400 -> 00:13:01.560]  to swap a task
+[00:13:01.560 -> 00:13:03.780]  now this is not for servers
+[00:13:03.780 -> 00:13:04.760]  it's for uh
+[00:13:04.760 -> 00:13:05.500]  um
+[00:13:05.500 -> 00:13:07.260]  home computers with people
+[00:13:07.260 -> 00:13:07.720]  uh
+[00:13:07.720 -> 00:13:09.820]  doing recreational programming
+[00:13:09.820 -> 00:13:11.620]  so you might have uh
+[00:13:11.620 -> 00:13:12.380]  i don't know
+[00:13:12.380 -> 00:13:13.260]  ten tasks
+[00:13:13.260 -> 00:13:14.000]  how many
+[00:13:14.000 -> 00:13:16.380]  anyway so it goes through the tasks
+[00:13:16.380 -> 00:13:17.200]  and uh
+[00:13:17.200 -> 00:13:18.260]  um
+[00:13:18.260 -> 00:13:19.740]  gets back to this
+[00:13:19.740 -> 00:13:20.040]  tap
+[00:13:20.040 -> 00:13:21.320]  it goes in the circle
+[00:13:21.320 -> 00:13:23.580]  and then gets back to this task
+[00:13:23.580 -> 00:13:24.000]  uh
+[00:13:24.000 -> 00:13:25.520]  so uh
+[00:13:25.520 -> 00:13:26.920]  that's how i do io
+[00:13:26.920 -> 00:13:29.540]  now if you're curious why uh
+[00:13:29.540 -> 00:13:30.020]  um
+[00:13:30.020 -> 00:13:30.980]  why uh
+[00:13:30.980 -> 00:13:32.080]  you can't
+[00:13:32.080 -> 00:13:32.620]  um
+[00:13:36.020 -> 00:13:38.220]  if you're curious why uh
+[00:13:41.040 -> 00:13:42.160]  why uh
+[00:13:42.160 -> 00:13:43.700]  you can't access
+[00:13:44.380 -> 00:13:46.140]  you can't do some things when
+[00:13:46.140 -> 00:13:47.000]  when it's busy
+[00:13:47.000 -> 00:13:47.720]  um
+[00:13:47.720 -> 00:13:48.220]  if
+[00:13:48.220 -> 00:13:49.960]  if there's a big disk request
+[00:13:49.960 -> 00:13:50.240]  it
+[00:13:50.240 -> 00:13:51.880]  it doesn't break it into pieces
+[00:13:51.880 -> 00:13:52.960]  that's just
+[00:13:52.960 -> 00:13:54.260]  the way this uh
+[00:13:54.260 -> 00:13:54.800]  works
+[00:13:54.800 -> 00:13:55.960]  it's simpler
+[00:13:57.140 -> 00:13:57.740]  i
+[00:13:57.740 -> 00:13:58.200]  i don't
+[00:13:58.200 -> 00:13:59.180]  it doesn't do sharing
+[00:13:59.180 -> 00:14:00.060]  um
+[00:14:00.060 -> 00:14:01.160]  it doesn't do locks
+[00:14:01.160 -> 00:14:02.220]  so don't uh
+[00:14:02.220 -> 00:14:04.220]  don't do anything stupid
+[00:14:04.220 -> 00:14:04.940]  um
+[00:14:04.940 -> 00:14:05.800]  that's just the
+[00:14:05.800 -> 00:14:06.160]  um
+[00:14:06.160 -> 00:14:06.640]  the
+[00:14:07.460 -> 00:14:08.380]  that's the
+[00:14:09.000 -> 00:14:09.600]  the
+[00:14:09.600 -> 00:14:10.240]  the
+[00:14:10.240 -> 00:14:10.920]  the way this works
+[00:14:10.920 -> 00:14:13.160]  anyway i want to go over one more thing
+[00:14:13.160 -> 00:14:13.960]  um
+[00:14:13.960 -> 00:14:15.360]  uh
+[00:14:15.360 -> 00:14:17.640]  let's go over exceptions
+[00:14:17.640 -> 00:14:17.960]  um
+[00:14:19.100 -> 00:14:19.820]  exceptions
+[00:14:19.820 -> 00:14:20.400]  uh
+[00:14:20.400 -> 00:14:22.440]  are done with a throat
+[00:14:22.440 -> 00:14:23.200]  uh
+[00:14:23.200 -> 00:14:24.460]  and it's a
+[00:14:24.460 -> 00:14:24.760]  um
+[00:14:24.760 -> 00:14:24.960]  varietatic
+[00:14:25.660 -> 00:14:26.260]  or whatever
+[00:14:26.260 -> 00:14:27.900]  i don't know i can't say that word
+[00:14:27.900 -> 00:14:27.960]  um
+[00:14:29.180 -> 00:14:30.180]  and uh
+[00:14:30.180 -> 00:14:31.220]  when
+[00:14:31.220 -> 00:14:32.080]  when you catch
+[00:14:32.080 -> 00:14:32.680]  uh
+[00:14:32.680 -> 00:14:32.960]  you
+[00:14:33.500 -> 00:14:34.320]  you have a
+[00:14:34.320 -> 00:14:34.740]  um
+[00:14:34.740 -> 00:14:35.440]  off the
+[00:14:35.440 -> 00:14:37.040]  the fs segment register
+[00:14:37.040 -> 00:14:38.920]  off the task record
+[00:14:38.920 -> 00:14:39.360]  you have
+[00:14:39.360 -> 00:14:40.740]  argv and argc
+[00:14:40.740 -> 00:14:43.100]  and that's how you access the uh
+[00:14:43.100 -> 00:14:44.220]  the uh
+[00:14:44.220 -> 00:14:45.200]  values
+[00:14:45.200 -> 00:14:46.220]  that were thrown
+[00:14:46.220 -> 00:14:47.180]  um
+[00:14:47.180 -> 00:14:48.740]  and then if you want to catch it
+[00:14:48.740 -> 00:14:49.680]  you say fs
+[00:14:49.680 -> 00:14:50.480]  catch exception
+[00:14:50.480 -> 00:14:51.760]  and uh
+[00:14:51.760 -> 00:14:52.860]  anyway so uh
+[00:14:52.860 -> 00:14:54.480]  that's how exceptions work
+[00:14:54.480 -> 00:14:55.260]  um
+[00:14:55.260 -> 00:14:55.400]  um
+[00:14:56.260 -> 00:14:56.300]  you

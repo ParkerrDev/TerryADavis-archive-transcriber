@@ -1,0 +1,101 @@
+========================================================================
+FILE        : videos/2014/2014-07-16T00:12:00+00:00 - TempleOS - Booting for Larry Page 2 (b1cwd-0iNis).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-07-16T00:12:00+00:00 - TempleOS - Booting for Larry Page 2 (b1cwd-0iNis).mp4
+FORMAT      : MPEG4
+SIZE        : 50,589,182 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:12:21.080
+TRANSCRIBED: 2026-05-08T01:43:46.525015+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay so I misspoke a couple times in the last video I hate that first of all I kept saying 16-bit when I was here what I meant to say was it it's first what I was trying to say 64-bit anyway maybe I was saying 16 byte no I was saying 16 bit basically there's a 64-bit table is twice as big with the entries twice as big and what I did is I used the same table for 32 and 64 by just leaving blank entries every other entry in the 32 so the 32 has zero entries every other entries and but when it's switched to 64 those are not those are part of the entry anyway you know what I mean so yeah I hate that demons sometimes uh that made me screw this up right when I was here I said fixed that's the opposite word I should have said basically there's a DS and a CS for pointing to the the address this module is loaded 7c DS and CS are set to 7c 0 0 maybe 1 anyway that's so that the offsets of the global variables are correct in this module and then they get patched but anyway uh you know it's nice when you're possessed by a spirit and it makes you more intelligent it sucks when a demon makes you makes a mockery of you that happens it's part of this realm this realm you'll it's happened horribly I you feel violated you know you fucking made me you humiliated me anyway that happens God said it was a demon it wasn't him I'm not sure I guess so anyway I guess you have to take the good with the bad if you get super smart and sometimes you have to get sometimes God just does it I'm telling you I'm just forewarning you just forewarning you it happens he will uh and you'll feel like he cut your heart out or so I don't know just feel numb anyway so uh um the boot sector what I was trying to get at is uh um in 64 bit mode these are zero and I don't even I don't think the limits don't matter either um so I was trying to say that but these I was right on the spot where it was the um okay enough talking this would this is not zero it's the boot sector cs and ds okay enough of that I want to talk about my assembler um so my assembler uh is uh I try for minimum lines of code there's only a little bit of 16 bit code that that it has to handle it has to handle the um the boot sectors these are 16 bit and it has to handle the startup when it's changing the 64 bit so um it's only if there is absolutely no need for any other 16 bit code no need for any other 16 bit code so you know what I did I cut corners I did not do segmentation you have to hand code a segment jump I also cut corners because there's a modder um um SIB table and I only used the 32 bit not the 64 bit in 16 bit mode I use 32 bit addressing so I use the the uh 67 prefix so my 16 my 16 bit code is using 32 bit addressing modes um it doesn't matter you only need a couple it's not it's not worth uh making the assembler big um what are you doing Dave what are you doing 16 bit code you're making another operating system aren't you anyway so uh I wanted to talk about how my assembler works um first of all uh it initializes first let's talk about lexing uh um the lexical analyzer is a function it says uh let's say we're starting right here um where my cursor is it says okay there's a keyword if there's a that's what it returns then it says there's a parenthesis there's a identifier lx there's an operator um dereference minus minus greater there's a arrow I don't know what you call it there's a um there's a identifier token there's an identity there's an operator equal equal so that's what the lex does is it um it starts doing some of that work and the lex also strips out comments and it puts together strings and it figures out uh constants and integers anyway so um to do the assembler I already had the lex and the expression evaluator from my compiler and so to do my assembler um I mashed everything together and get fusion my compile my assembler is uh is uh based on the the c compiler that I that I wrote so it uses c expressions and uh anyway uh so when it when it initializes um it loads this uh opcode table it loads I had to hand type all these and I I skipped I I uh didn't do some I did shortcuts to because you don't need certain instructions and uh I wanted my assembler simple and stuff it wasn't worth it so there's an interesting note thing to note here take the move instruction you have special cases for ax then you have uh there's sometimes you get three or four instructions that are valid um what you have to do is find the shortest so in my assembler um I have uh I have a mask for uh argument type um so there's uh these are addressing modes relative 30 relative 8 relative 16 relative 32 immediate unsigned signed register register memory memory memory with offset I don't do those offsets I told you it's not worth it there's only a little bit of 16 bit code to have to worry about there's no other way you can there there's not users are not supposed to be running 16 bit code there's just no reason for it anyway uh so these are bit masks I have remember it's 64 bit so it's really nice having 64 bits when when it's just perfect anyway so uh it uses process of elimination um first it it says okay is it a is it a is it a is it a 64 bit instruction okay set set the mask is it a um 32 bit set the mask is it a 16 bit set the mask then it starts eliminating is the current segment 64 bit then eliminate some did did they specify two registers eliminate some is there an immediate or an offset present um is there an immediate or offset present eliminate some so it whittles away then you end up with um one or two left over and then it it uses the smallest it it computes each one and uses the smallest instruction and that's how it works um now there's a tricky part okay a couple tricky parts um for absolute addresses um if you have an expression and it's an absolute address then that's an absolute address if you have two absolute addresses the user is subtracting them you don't add absolute addresses you only subtract them if you have three that's an absolute address it's a it's a difference plus an absolute address if you have four that's two subtracted um you never you never add absolute addresses so this is something i get away with because i'm special somebody might call this defective um but we don't um um we are building a uh product where um cutting corners is why it has value because it's simple and uh um we're making the commodore 64 not a nasa computer um anyway so um i call it melodramatic coding some people get melodramatic and uh do you realize how much extra code it would take to get around this it's stupid it's melodramatic anyway uh so uh when i do an when i when i have an expression let's say uh so the hard one of the hardest parts of the assembler is an expression evaluator um in assembly you can get forward references and uh okay let's say we have this expression um so it has i i borrow my compiler my c compiler and i compile the c expression let's say one of these is uh these are all constants but let's say one of them is not a constant let's say this is let's say this is a forward reference right here it's fixed it's not but let's say it is um then you would say um what i do is i i make a i make an entry in my symbol table and i say okay it's a it's a i make it i make a hash entry and then i then i make a spot for what its value is going to be then in my expression i say let's say this is at a thousand and this is at a thousand eight then what i say is uh take star thousand eight plus constant plus constant times times times eight so um i i make a little i convert it i actually compile it to an expression i say move move r a x what i'm just saying 1008 move r a x r a x add r a x one two three okay so i make some code and i set it aside for when we have this resolved so um at the end i check and i say okay have all the expressions been resolved and the answer is yes and so then i call this code and it executes that and it resolves that value and that's how we get the value that we propagate back to where it was used if it's an import let's say it's not resolved we probably want to import it so that's how it works
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:01.920 -> 00:00:10.080]  okay so I misspoke a couple times in the last video I hate that first of all I
+[00:00:10.080 -> 00:00:16.960]  kept saying 16-bit when I was here what I meant to say was it it's first what I
+[00:00:16.960 -> 00:00:26.420]  was trying to say 64-bit anyway maybe I was saying 16 byte no I was saying 16
+[00:00:26.420 -> 00:00:36.880]  bit basically there's a 64-bit table is twice as big with the entries twice as
+[00:00:36.880 -> 00:00:42.640]  big and what I did is I used the same table for 32 and 64 by just leaving
+[00:00:42.640 -> 00:00:50.640]  blank entries every other entry in the 32 so the 32 has zero entries every other
+[00:00:50.640 -> 00:00:58.460]  entries and but when it's switched to 64 those are not those are part of the
+[00:00:58.460 -> 00:01:05.520]  entry anyway you know what I mean so yeah I hate that demons sometimes uh that made
+[00:01:05.520 -> 00:01:09.600]  me screw this up right when I was here I said fixed that's the opposite word I
+[00:01:09.600 -> 00:01:19.160]  should have said basically there's a DS and a CS for pointing to the the address
+[00:01:19.160 -> 00:01:32.920]  this module is loaded 7c DS and CS are set to 7c 0 0 maybe 1 anyway that's so that
+[00:01:32.920 -> 00:01:39.420]  the offsets of the global variables are correct in this module and then they get
+[00:01:39.420 -> 00:01:46.860]  patched but anyway uh you know it's nice when you're possessed by a spirit and it
+[00:01:46.860 -> 00:01:52.060]  makes you more intelligent it sucks when a demon makes you makes a mockery of you
+[00:01:52.060 -> 00:01:59.000]  that happens it's part of this realm this realm you'll it's happened horribly I you
+[00:01:59.000 -> 00:02:09.660]  feel violated you know you fucking made me you humiliated me anyway that happens God said
+[00:02:09.660 -> 00:02:16.660]  it was a demon it wasn't him I'm not sure I guess so anyway I guess you have to take the good with the bad
+[00:02:16.660 -> 00:02:22.680]  if you get super smart and sometimes you have to get sometimes God just does it I'm telling you I'm just
+[00:02:22.680 -> 00:02:32.460]  forewarning you just forewarning you it happens he will uh and you'll feel like he cut your heart out or
+[00:02:32.460 -> 00:02:44.660]  so I don't know just feel numb anyway so uh um the boot sector what I was trying to get at is uh um in 64 bit mode
+[00:02:44.660 -> 00:02:52.660]  these are zero and I don't even I don't think the limits don't matter either um so I was trying to say
+[00:02:52.660 -> 00:03:00.440]  that but these I was right on the spot where it was the um okay enough talking this would this is not
+[00:03:00.440 -> 00:03:08.340]  zero it's the boot sector cs and ds okay enough of that I want to talk about my assembler um so my
+[00:03:08.340 -> 00:03:18.980]  assembler uh is uh I try for minimum lines of code there's only a little bit of 16 bit code that
+[00:03:19.840 -> 00:03:28.740]  that it has to handle it has to handle the um the boot sectors these are 16 bit and it has to handle the
+[00:03:28.740 -> 00:03:39.600]  startup when it's changing the 64 bit so um it's only if there is absolutely no need for any other 16 bit
+[00:03:39.600 -> 00:03:47.060]  code no need for any other 16 bit code so you know what I did I cut corners I did not do segmentation
+[00:03:47.060 -> 00:03:55.140]  you have to hand code a segment jump I also cut corners because there's a modder um
+[00:03:55.140 -> 00:04:05.200]  um SIB table and I only used the 32 bit not the 64 bit in 16 bit mode I use 32 bit addressing
+[00:04:05.200 -> 00:04:16.860]  so I use the the uh 67 prefix so my 16 my 16 bit code is using 32 bit addressing modes um
+[00:04:18.220 -> 00:04:26.760]  it doesn't matter you only need a couple it's not it's not worth uh making the assembler big um what
+[00:04:26.760 -> 00:04:31.020]  are you doing Dave what are you doing 16 bit code you're making another operating system aren't you
+[00:04:31.760 -> 00:04:40.100]  anyway so uh I wanted to talk about how my assembler works um first of all uh it initializes
+[00:04:40.100 -> 00:04:53.320]  first let's talk about lexing uh um the lexical analyzer is a function it says uh let's say we're starting
+[00:04:53.320 -> 00:05:01.800]  right here um where my cursor is it says okay there's a keyword if there's a that's what it returns
+[00:05:01.800 -> 00:05:09.020]  then it says there's a parenthesis there's a identifier lx there's an operator um
+[00:05:11.700 -> 00:05:19.380]  dereference minus minus greater there's a arrow I don't know what you call it there's a um there's
+[00:05:19.380 -> 00:05:26.340]  a identifier token there's an identity there's an operator equal equal so that's what the lex does is
+[00:05:26.340 -> 00:05:32.800]  it um it starts doing some of that work and the lex also strips out comments and it puts together
+[00:05:32.800 -> 00:05:41.920]  strings and it figures out uh constants and integers anyway so um to do the assembler I already had
+[00:05:41.920 -> 00:05:50.760]  the lex and the expression evaluator from my compiler and so to do my assembler um I mashed
+[00:05:50.760 -> 00:06:01.500]  everything together and get fusion my compile my assembler is uh is uh based on the the c compiler that I
+[00:06:01.500 -> 00:06:13.740]  that I wrote so it uses c expressions and uh anyway uh so when it when it initializes um it loads this uh
+[00:06:13.740 -> 00:06:23.520]  opcode table it loads I had to hand type all these and I I skipped I I uh didn't do some I did shortcuts
+[00:06:23.520 -> 00:06:29.820]  to because you don't need certain instructions and uh I wanted my assembler simple and stuff it wasn't
+[00:06:29.820 -> 00:06:36.600]  worth it so there's an interesting note thing to note here take the move instruction you have special cases
+[00:06:36.600 -> 00:06:47.820]  for ax then you have uh there's sometimes you get three or four instructions that are valid um what you have to do is find the shortest
+[00:06:48.460 -> 00:06:52.580]  so in my assembler um I have uh
+[00:06:55.080 -> 00:06:58.040]  I have a mask for uh
+[00:07:00.460 -> 00:07:11.280]  argument type um so there's uh these are addressing modes relative 30 relative 8 relative 16 relative 32
+[00:07:11.280 -> 00:07:20.200]  immediate unsigned signed register register memory memory memory with offset I don't do those offsets I told
+[00:07:20.200 -> 00:07:25.560]  you it's not worth it there's only a little bit of 16 bit code to have to worry about there's no other way you can
+[00:07:26.140 -> 00:07:33.320]  there there's not users are not supposed to be running 16 bit code there's just no reason for it
+[00:07:33.880 -> 00:07:42.500]  anyway uh so these are bit masks I have remember it's 64 bit so it's really nice having 64 bits when
+[00:07:43.080 -> 00:07:50.180]  when it's just perfect anyway so uh it uses process of elimination um first it it says okay
+[00:07:50.180 -> 00:08:01.940]  is it a is it a is it a is it a 64 bit instruction okay set set the mask is it a um 32 bit set the mask
+[00:08:01.940 -> 00:08:10.620]  is it a 16 bit set the mask then it starts eliminating is the current segment 64 bit then eliminate some
+[00:08:11.540 -> 00:08:18.320]  did did they specify two registers eliminate some is there an immediate or an offset present
+[00:08:18.320 -> 00:08:28.140]  um is there an immediate or offset present eliminate some so it whittles away then you end up with um one or two
+[00:08:29.120 -> 00:08:35.980]  left over and then it it uses the smallest it it computes each one and uses the smallest
+[00:08:37.200 -> 00:08:43.640]  instruction and that's how it works um now there's a tricky part okay a couple tricky parts
+[00:08:43.640 -> 00:08:53.360]  um for absolute addresses um if you have an expression and it's an absolute address then that's an absolute
+[00:08:53.360 -> 00:09:00.400]  address if you have two absolute addresses the user is subtracting them you don't add absolute addresses
+[00:09:00.400 -> 00:09:06.860]  you only subtract them if you have three that's an absolute address it's a it's a difference plus an
+[00:09:06.860 -> 00:09:13.980]  absolute address if you have four that's two subtracted um you never you never add absolute addresses so this
+[00:09:13.980 -> 00:09:24.480]  is something i get away with because i'm special somebody might call this defective um but we don't um
+[00:09:24.480 -> 00:09:35.140]  um we are building a uh product where um cutting corners is why it has value because it's simple and uh
+[00:09:36.420 -> 00:09:48.100]  um we're making the commodore 64 not a nasa computer um anyway so um i call it melodramatic coding
+[00:09:48.100 -> 00:09:55.460]  some people get melodramatic and uh do you realize how much extra code it would take to get around this
+[00:09:55.460 -> 00:10:05.980]  it's stupid it's melodramatic anyway uh so uh when i do an when i when i have an expression let's say uh
+[00:10:06.580 -> 00:10:10.680]  so the hard one of the hardest parts of the assembler is an expression evaluator
+[00:10:10.680 -> 00:10:20.240]  um in assembly you can get forward references and uh okay let's say we have this expression um so it
+[00:10:20.240 -> 00:10:28.380]  has i i borrow my compiler my c compiler and i compile the c expression let's say one of these is uh these
+[00:10:28.380 -> 00:10:33.520]  are all constants but let's say one of them is not a constant let's say this is
+[00:10:36.760 -> 00:10:43.800]  let's say this is a forward reference right here it's fixed it's not but let's say it is um then you
+[00:10:43.800 -> 00:10:53.940]  would say um what i do is i i make a i make an entry in my symbol table and i say okay it's a it's a
+[00:10:55.320 -> 00:10:58.280]  i make it i make a hash entry
+[00:11:00.660 -> 00:11:08.760]  and then i then i make a spot for what its value is going to be then in my expression i say let's say
+[00:11:08.760 -> 00:11:17.960]  this is at a thousand and this is at a thousand eight then what i say is uh take star thousand eight
+[00:11:17.960 -> 00:11:29.560]  plus constant plus constant times times times eight so um i i make a little i convert it i actually
+[00:11:29.560 -> 00:11:42.560]  compile it to an expression i say move move r a x what i'm just saying 1008 move r a x r a x
+[00:11:44.300 -> 00:11:54.660]  add r a x one two three okay so i make some code and i set it aside for when we have this resolved
+[00:11:55.360 -> 00:12:02.980]  so um at the end i check and i say okay have all the expressions been resolved and the answer is yes
+[00:12:02.980 -> 00:12:11.100]  and so then i call this code and it executes that and it resolves that value and that's how we get the
+[00:12:11.100 -> 00:12:17.940]  value that we propagate back to where it was used if it's an import let's say it's not resolved we
+[00:12:17.940 -> 00:12:21.080]  probably want to import it so that's how it works

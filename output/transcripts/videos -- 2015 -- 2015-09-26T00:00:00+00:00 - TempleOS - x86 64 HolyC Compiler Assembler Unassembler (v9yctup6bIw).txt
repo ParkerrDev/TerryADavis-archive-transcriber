@@ -1,0 +1,628 @@
+========================================================================
+FILE        : videos/2015/2015-09-26T00:00:00+00:00 - TempleOS - x86 64 HolyC Compiler Assembler Unassembler (v9yctup6bIw).mkv
+SOURCE URL  : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2015/2015-09-26T00:00:00+00:00 - TempleOS - x86 64 HolyC Compiler Assembler Unassembler (v9yctup6bIw).mkv
+DERIVATIVE  : (none — streamed from video)
+FORMAT      : Matroska
+SIZE        : 276,862,771 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 01:23:04.080
+TRANSCRIBED : 2026-05-11T01:43:40.547968+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay I'm going to tell you about the temple OS compiler so it's a 20,000 lines of code 20,000 lines of code it has an assembler for x86 64 and an unassembler it's a strictly 64 bit for holy see the assembler can do 16 bit sort of or it doesn't have full segmentation support I'm trying in temple OS to keep the number of lines of code to a minimum it's one of my highest goals anyway so so a normal diagram has a string a stream coming from the pre processor into the left into the parser into the optimizer into the back end this is the normal conceptual model of a compiler so in temple OS okay first of all this does not generate intermediate files I think my I think my assemble my compiler is unusually fast as a matter of fact well I have a benchmark but anyway so I don't I don't do a pre processor into a separate file I don't do a stream either lex is a function called by the parser and lex has the pre processor built in so so get this in your head you have the pre processor the lex what the lexical analyzer does is it it makes tokens a token is the smallest unit of interest in the in the stream of compiled code so if I have a compiled code I 64 I 4i equals 0 I less or equal to 10 I plus plus if I have something like this I see alpha numeric are combined together into a token of a identifier this is called an identifier here here here are all the tokens you have okay I have a superscript and subscript that's anyway so um if you take a compiler course you learn some you learn about the lexical analyzer and the front end I don't think very many places teach back end compilers I I just had a a front end anyway so an identifier is a is a is a bunch of alphanumeric that make up a keyword or a label or something that's what an identifier is and the lexical analyzer puts together tokens all right it divides into tokens I should say so the lexical analyzer would say okay we have an identifier I 64 it skips the white space the lexical analyzer gets what a what rid of white space and uh and uh comments comments and it the lexical the pre-processor handles pound include um I have my my lexical analyzer is merged with my pre-processor anyway so uh so I is an identifier then you have a semicolon and guess what um I don't have a token for semicolon all the uh all the uh all the uh symbols or what do you want to call them uh all the punctuation marks are treated by their ASCII value so um when the lexical analyzer is a function you call as you're parsing and it says okay we have a token identifier we have a token identifier I we have a semicolon and it returns the ASCII of the semicolon then it says we have a token for which is also a keyword and then we have a then it returns a the ASCII of a parenthesis then it says we have an identifier I we then it returns the ASCII of the equal um so if we were going to diagram this we'd say we have token identifier and um I have a uh a structure for uh compiling control structure or something like that compiler control structure and um just the the electrical analyzer is a function that gets one token and uh it also um you also it also stores the token if you want it to fetch it for later it returns the token as the return value of the lex and uh in in this structure it puts the current oh by the way numbers are converted to to um from ASCII to binary I don't that's what they call it binary it's it's kind of weird calling it binary but anyway so I have a a spot for if it's an integer if it's a float if it's a string this is from an identifier now um you can merge together multiple identifier uh some never mind um so some of the other tokens are uh are string and uh oops where did the tokens go so it identifier this is a this is a string that comes in double quotes an integer a character constant is single quotes my compiler is unusual because I uh I let you put multiple um character constant characters uh let me just show you what I mean if you say i64i equals quote a b c d and in normal c you you can only have one character but in here we have uh it makes an integer by just shift shifting in multiple characters anyway so so we can have a character constant a float now for uh for the single symbol for the single punctuation symbols we return the ASCII for the uh for the multi multiple um operators um we we have some tokens for that are so so we take care of merging together two character uh operators shift left shift right etc etc and uh you will not get the uh if depths you will not see them but internally it sees those and uh we have dot dot dot binary okay so so uh temple os allows sprites in uh in source code so if we look at uh if we look at our demo game so in this source code is sprites so the uh so the uh the lexical analyzer has to return a pointer to a binary sprite um okay so i just wanted to get you familiar with the so the lexical analyzer returns tokens the parser uh starts putting together expressions parsing an expression with operator precedent is the the hardest part of a compiler conceptually they they do some um when they explain it if you take a compiler course they'll talk about left recursive lr parsing and stuff um don't don't do that uh uh don't do nestle there's one thing that's ridiculous which is uh if you have um there's a trick there's a there's a technique they teach in school for uh parsing expressions and what you do is uh each you make a uh recursive uh function for each level of operator and oh i changed the operator precedence by the way i made bit shift exponential so it's the highest precedence it's a lot better um anyway so don't do that lr parsing instead um make a uh make a uh a precedence uh integer that and compare the precedence don't do that lr parsing well if you're making just a uh sometimes it's not important if it's good a good compiler fast anyway um so parsing uh that's where you you put together statements and expressions and then optimizing um one of the one of the main things that uh okay my parser generates a stack stack uh machine code uh so if i so if you give an expression like this what it says is push push one push two push three uh pop pop pop r a x pop r d x i don't know i'm kind of um multiply r a x times r d x push r a x i'm just talking conceptually and then push four and then we do uh oh i skipped a step um so you push r a x then you say pop r a x pop r d x add r a x plus r d x push r a x push four and then we do the pop and add um reverse polish basically so that's that's the idea i want to make an intermediate code that's uh my own representation of um the code so what i do is uh i uh i make a stack machine intermediate code and then i and then in my optimization stage i i substitute registers for um common offsets so uh the uh um local variable i i only do uh stack function arguments i don't do register arguments the x86 64 uh some people like to say it uh it has a standard for register arguments well only if you want to follow it i i get people did i mind tricking me oh you have x86 64 that means you use register arguments no i don't i don't use register arguments and i i assure you it is uh x86 64. anyway uh so um one of the things you have to know about uh you have to you have to know assembly in order to uh to a compiler and uh the the arguments are uh by the time you get to a uh let's see the stack you have to know the stack frame i use the uh the old school stack frame all the time uh i use the rbp stack frame and that gives me that makes it possible to climb the stack really easily anyway so uh one i don't know what i'm drawing here anyway so the arguments are uh positive off the stack off the base pointer i should i type stuff when i'm talking and i don't pay attention it just comes out anyway so the uh the return address of the fun of the function it's at eight the uh base pointer is at zero that's because you push it move you say push when you call a function push rbp move rbp comma rsp uh and you have your function and then you have your uh i push my uh any local variables that i'm preserving and then i uh and i have my code and you pop r i don't preserve all registers i have some registers that i always track trash anyway uh pop rbp return there's a uh there's an x86 uh instruction called leave and one more thing is uh where do i put i don't think it matters you just you create your uh look local variable area on the stack and this leave uh uh i'm not sure if i put this here or here i forgot anyway uh uh the leave uh cleans cleans all of that up so uh there's an enter that is slow anyway uh so now we're we're ready to look at the code and uh so the the parser we make intermediate code and optimizer um see there's these local variables that are uh offsets off of rbp um and what i do when i convert to registers is i just look i say okay how often is this aid off of rbp used and in the function it's used 10 times this one's used five times so from allocating my register variables i say okay we want the most common offset to be um rsi and that's how i do my allocation uh i i look at anyway so i start i start with the super simple stack machine and then i take risk and put them into cisc i merge them together and i convert the uh offsets into register variables you know it's funny a lot of people say it's not 64. i crack up laughing because my compiler is it's easier with 16 64-bit registers those people that did uh segmented 16-bit compilers they were gods because that's really hard to do segmentation and uh just having a couple registers i guess that is anyway so it's uh it's uh it's 60 it doesn't do it doesn't do 32 bits anyway so optimizing uh what it does is it uh it converts these to to a stack machine and uh it simplifies constant it simplifies constants in the optimization it simplifies constants in the optimization and then the back end the back end is where we convert it to machine code um we don't uh we don't uh um uh we don't make uh uh assembly source we don't make an assembly assembler code um um so in my back end uh uh uh god damn bird so in my back end uh we make uh machine we make machine code right in the back end not assembly code this is telling it this is telling it to do intermediate intermediate code u24 u8 is 8 8 bit u24 that's that's three bytes u8 is one byte u24 is three bytes u32 is four bytes anyway so let's let's start over so in the so we get to we start we start in the electrical analyzer the electrical analyzer has to be able to handle straight ascii and it also has to handle my dollar sign documents with the sprites so um the it uh before when it's getting started it has straight ascii and then later on it can handle the documents with the dollar signs for superscripts and subscripts as a matter of fact you can say uh the the whole the whole reason there's that nonsense in there is uh you can say i 64 h let's see is it all p oh oh p no that's not what we want control p uh okay h okay i did the wrong thing control p h i did superscript instead of subscript just pretend that's a subscript i don't oh it's all shift p yes okay i'll do it i'll get okay h oh ctrl shift p to control shift p oh okay so so you can actually have uh labels that have superscripts and subscripts this is a bunch of horse manure h2 what i mean is uh if it makes you happy you can do it but it's kind of silly in my opinion anyway so it can compile that so the lexical analyzer uh combines together uh identifiers like uh i64 and what it does is it looks up in the hash table inside the lexical analyzer every time it has an identifier it uh it looks for the hash hash table entry the symbol table entry so you're already uh so the next stage doesn't have to to uh doesn't have to search for the uh the symbol it's already it the lexical analyzer um looks in the hash table and sets uh uh uh where is that uh sets the hash entry they're off the compiler control there's a hash entry and uh there's that string and what it does is uh um every time you want to assign a new string you have to free the old string so you free the old string and then you allocate a new string and um i think i have a limit of 140 uh characters for uh identifiers but for strings they can be unlimited and they can include carriage returns so as a matter of fact you can do crazy stuff like this uh let's say u8 star name equals then you can say quote this is is crazy so you can uh and you can say print we don't say print but i want to just to show you normally we just use anyway so uh so this will work uh see it printed that so you can even have uh so i i really went deluxe so it converts integers you can say 0x for a hex binary i used to have octal but i got rid of it because i want minimum lines of code and octal's just stupid there was a time when it was relevant but not anymore so uh when you're doing uh floats i have not verified that my floats are accurate i don't care so i have powers of 10 i just did it the most straightforward way this stuff is really nasty if you want to when you're talking about powers of 10 and powers of two uh nasa and other people do it professionally i just get it i get the job done and it's efficient and it's not that much code because that's how we roll so strings string constants uh that's one of the things the lexical analyzer so the lexical analyzer will return a string constant and the string constant oh this is a character constant the character constant uh the string constants are parsed up above character constants are parsed here you can have backslash characters and stuff and backslash x oh i do not do octal backslash octal i do not do backslash octal except backslash zero but i do support backslash x and then characters so i told you the preprocessor is part of the the lexical analyzer um so include define define makes a symbol entry i do not like macro functions so uh you there are no macro functions now i started making type defs but as it turns out uh i don't have any need for type defs uh one of my principles in this operating system is minimal abstraction i decided that was one of my goals and so uh i do have a type called bool um but all it is is an i8 and uh if i were true to my principles to the extreme i would say i8 instead of bool but that's ridiculous we want bool but i i i i almost don't use bool just to show the the i'm trying to explain the concept of minimal abstraction abstraction so i don't want function i don't want anything you have to go look up that's an abstraction so i don't want abstractions i don't want you to have to look up what a macro is i don't want you to have or macro function i don't want uh i would prefer to use i6 if it's an integer don't call it something else just call it an integer i don't mess around with that size t stuff and all that so i want uh i want minimal abstraction so i don't have type defs i was i was able to get rid of them after i found that i didn't really use them that's just the nature of how this project worked out um oh by the way the lex calls a get chart which uh and it has a uh an un get you can un get one symbol one character so uh that makes it kind of tricky there is a uh a lexical push and pop there is a lexical push and pop and you do have to use those when you're doing uh like a four statement is a four statement is actually out of order but um almost everything else is uh straight one to one in order compilation but a four statement is out of order because it kicks that um a four statement has that uh third term or second third term down it's out of order anyway so there's a uh you can use the electrical analyzer um for your own applications um i use it for uh um i have a reformat that re that redoes the spacing of the indentation and it does it does complete parsing i do my songs with electrical analyzer my songs are actually code so i use electrical analyzer a lot um just because it's handy and it's powerful and so you can push and pop uh get char anyway so uh the get char is uh that's the most time critical function in the entire compiler this get chart um it turns out that the the volume of data gets smaller and smaller as you work through the stages so the raw ascii is like the biggest um size in when it's characters that's that's when it's bulky and so that it's not it's not that big a difference but that that that phase of the compiler is the uh is the slowest or the most time so the get char is really nasty um because it has to do those documents and uh the documents are uh they can have sprites they can have other stuff and i use go to it's it's but it's critical so i justify it that way it's my project i i'm the boss i can use go to if i feel it's necessary and um i can tell you not to use it anyway um so uh get char and uh it has to do the uh the conditional compilation if def if not def uh include l if else or just else um if so that's a little bit tricky but it's merged in with there's not a separate pre-processors and then by the same token there's not a separate assembler stage at the end it goes straight into machine code so now we're ready to look at the parser the parser has a uh a stack it has the output uh code structure and then it has a stack that it uses for uh when you're doing parsing you you either handle the operator now or you check the precedence and you handle it later so if you handle it later you have to store it away temporarily and then that the next operator you say okay is it time now and then you pop so there's a um a state a state machine for my uh expression parsers um i didn't do lr parsing i i've done that before but this is better um we we have a uh precedence level precedence that we compare uh so we can go over uh parsing and expression first you handle unary plus minus uh tilde these these are kind of the states they transition um we parse a unary term this is kind of how an lr parser is uh labeled parse a unary term and that's basically a uh a unary term then modifiers uh if you have uh structures uh my modifiers are uh you can say auto increment auto decrement uh you can say uh you can say uh oh star is another unary uh prefix anyway i should call it prefix shouldn't i anyway uh uh so uh structure dereferencing is a modifier is what i call it i it's not good to make up your own terminology but that's i i probably should research to see what the standard everyone else uses i call it a monitor modifier maybe modifier okay uh this is for uh i do my typecasting post fix now this is is that crazy so uh my it was a lot easier some people say you make the compiler no matter how complicated you make it handle what's best but what we do is uh you can say you and then you say so um normally uh typecasting is prefix normally you say prefix but it's it's it's like exactly the same except it's post fix and uh the way you conceptualize i don't even know what the standard c c typecast typecasting they got all crazy with c plus plus static cast and all that crap god they made a mess anyway uh constant i hate constant anyway so uh so i made my uh my typecasting post fix uh do you reference uh i want to brag about something uh is this the best time uh binary operator uh so after it um after it finishes it has to pop everything off of its stack this ps is the parse stack that's this push and pop so it pushes that i i have a con i have a uh the way i handle class okay so so i don't have a structure i have i don't have structure there is no structure keyword there is no i even forgot that's pretty i haven't used c in so long structure there is no structure there's just class and uh um internally um i have a uh uh uh first class when you make a new class oh i did a for loop so uh um um you need to have a list of uh members in the class this all of these are hash table entries all of them go into a big cash table anyway so this has a list of members which in each class has a list of members now uh the way i handle pointers so if you if you have a pointer to a to a uh the way the compiler handles classes damn it the way the compiler handles classes is uh uh there's a there's a structure with five uh five copies of the class structure so um um what it does is it allocates an array of five of these structures identical so they're they're like just tacked together and if you have one star it points to one if you have two star it points to two if you have three star points to three and so by doing that um that's how i handle uh uh classes so uh you can see how many stars you have at the moment so you can go backward convert either way anyway uh so when you're parsing an expression you have um you have the operator that you're saving and then you also have the class of that uh that expression so let's see if we can do a uh uh uh pass trace okay so pass zero has uh these are my intermediate codes um so when we're i'm saying i equals six plus six let's look at this so uh the raw parsing it's off the base pointer i is a negative eight off the base pointer um we want to add so we pop we add this immediate to the base pointer then we uh we push so we push the base pointer conceptually we push the bank base pointer on the stack we push this this minus eight we we pop to and add and push then we push six and the size of this because a pointer arithmetic we have to save a spot in order what if we're doing pointer arithmetic and then we have to multiply so it really made a mess i my original compiler did not do all pointer arithmetic with size one i really i kind of liked it that way oh well i oh well anyway uh it was kind of nice doing pointer arithmetic size one all the time but oh well so uh now we add six and add and then we have an assign which pops the top is what's assigned and then pop another one and that's where it's assigned and this is the end of an expression so notice here the raw starts out like that then when it passed one uh simplifies that constant to a 12. so it started out as six and six and by the time we uh got to pass two it was simplified to 12. over here during pass uh so uh so we have passed zero one and two we have passed three four five these are optimizing they're they're not not optional seven eight nine ten uh this is when it's generating the code the machine code when it's generating the machine code it loops um shortening uh long jumps to short jumps and it does that it uh collapses it as much as possible anyway uh so so we uh so we start with the stack machine at about rsi is um going to be used for the i variable which is the offset 8 so it took a look and it says okay what what should we use register variables for and uh this f8 offset was the most common so that's going to be a register variable and so now we're going to load effective address i don't know why we're doing it we're going to store the the 12 and uh that's about all anyway so then at the lat it passed nine nine ten eleven um it uh it generates the machine code directly um it doesn't generate an assembly file um so uh uh it tries to compress it so it starts out with each of these uh each of these intermediate codes translates to multiple instructions and it pastes them all together and if you're running just in time then all it has to do is call malloc when it figures out how much and then just paste all those together for the function just in time is easier than ahead of time if you're doing ahead of time it has to make a binary file if you're doing just in time it just looks in the symbol table for calls anyway so uh uh uh so the parser uh parse statement now this is where some of my magic starts happening um when you're parsing a statement um if it finds an op code for assembly all the all the op codes are uppercase so uh in the compiler directory is a uh op code file so this has the addressing modes and op codes for x86 64 i don't do sse or mmx so uh uh op codes uppercase so my op codes are uppercase and the way i do my uh my coding standard nothing else is supposed to be uppercase and so if it sees the uppercase op code then it kicks it into assembly and uh so you can just you can just put assembly right in the middle of your c code and it knows it's what it is um and then the other tricky thing is when you have a string or a character constant um in temple os uh if you if it encounters a string by itself so like hello world how about hello i'm gonna hit f5 so it printed hello so if it finds a string by itself at the start of an expression of a statement so you know where the statement is right so four is a statement if is a statement uh an expression is a statement with a semicolon statements are separated by semicolon or commas you can actually say comma anyway so what it does is uh it calls print for standard out if it finds a uh you can print character constants uh anyway so that's the way my compiler works for the statements parts expression that's what we looked at with the state machine a little while ago so uh so this is where we have the statement which we can look for a for a try a while um let's look at the while because it's pretty easy um so how do we parse a while well the first trick is the lex is always sitting one token ahead of where you are um so uh currently it's on the while keyword and so when we say lex it goes past the while and then now it's sitting on the uh whatever the the parenthesis for a while you follow now it makes a label um we're um my uh my intermediate code has labels i can show you that let's look at it okay let's say uh i64i equals 10 while i minus minus percent d okay so uh let's do a pass trace so uh what it had to do in order to parse that is it had it had to make a label uh in order to do a loop uh and uh branch if zero so this this label is identified so each of my intermediate codes uh these are stored in a circular doubly linked list my intermediate codes and they have a buffer for when it makes the machine code at the end anyway they have a um they we can look at the intermediate code uh okay boy this is a long video oh well anyway hold on a second so so we we want to make a label and uh we make the label ahead of time and then we insert the label down here and so the go to the go to gets um ends up jumping to the bottom and this is a branch back to the top for the branch if not zero label done and uh in here is a um these are sometimes recursive parse expression so that's the while expression and then it does the statement uh parse statement that's the while statement so you can have brackets and it's a statement so uh and we have a jump at the bottom to jump back to the top uh so we do we if it's we test the uh we compile the expression we test the expression see if it's zero and if it's zero we jump to the done otherwise and this is this is where we make the done label so uh this is how the parsing works now with the four we actually have to uh store the code and insert it later because the uh the four statement is out of order um the code is so uh where were we uh let's look at um intermediate so this is an intermediate code we have uh we have some flags we have each one can have one data item that's kind of like uh uh that's the label or if it's an immediate it's the immediate value or if it's uh anyway it has a class now this does that trick with the uh the more stars the more um often the more offset in the array for the type anyway we record the line number because uh when when we make a map file it stores the uh we want to do symbolic debugging so we need to record the line number that it lexed when so that's automatically handled behind the scenes when we're building these intermediate codes um so we're uh we're doing intermediate code add so this adds an intermediate code and it what it does is it looks at the the compiler control and it gets the line number and then it stores it so the intermediate codes are uh added as part the intermediate codes are linked circular linked list off of the uh compiler control and they they have the line number i had to do something kind of crazy i don't make an uh a uh uh what do you call a st uh symbolic tree i don't i don't make a tree um because i just make my uh my uh stack machine output but it turns out i have to make a tree backward uh in order to resolve the types i was not in the early days i just had 64-bit type but it got more complicated and i had to add backward links in my stack machine it's kind of ugly and uh there's this there's a buffer for when it makes the machine code at the end and then it goes through and it splices all the all the uh machine code together so uh so the parser um um well this is i'm gonna just i want to brag about a feature um you can have negative displacements off of your structures um if you'll notice uh uh there's a uh there's a single byte displacement and then there's a four byte displacement uh off of uh there's addressing modes and as it turns out uh a normal compiler cannot use uh uh the full range of bytes because they're signed but what i did is i said uh set the uh pointer for the structure to minus 128 and now you get you can have negative um structure values so you can actually uh um i learned this trick at ticketmaster um so um in the first case we're using uh we're using byte offsets and then 32-bit offsets in the second case we're using byte offsets all the way um so because it's signed um yeah it gets nasty because when you're making your pointers you have to point them at a strange location um so i it was too weird otherwise i would have used it i did not actually even i didn't it's so weird that i didn't use it in because i don't want it to confuse people but if you want high performance uh i don't think it makes it any faster um anyway uh so my uh by the way i value the way so we're getting to the optimizing so optimizing past 0 1 2 this figures out the type and it simplifies uh constant expressions so um a lot of people take a look at this code and say oh you have an interpreter no it's not an interpreter it has to simplify constant expressions what did you think a compiler does they see this uh they call it byte code they see my stack machine intermediate code and they call it byte code no that's just where it simplifies constants constants so what does this do this uh this simplifies constants and uh it uh it figures out the type this is some of the so uh each of my intermediate codes uh you kind of saw how the stack machine worked well it turns out there's a conversion bit and there's a pre so so each each intermediate code can have two inputs and one output and uh like add is two inputs and then an output so uh there's a table if i have i have a lot of built-in functions they're not uh they're not in line i don't have inline functions but i do have some built-in functions anyway so there's this table for uh how many inputs and how many inputs they only have one one output but you can have multiple inputs you can have variable number of inputs too and uh so there's a flag that says convert the input to uh input one to real or to uh convert input two to integer convert the output to uh float so there's this conversion um bit uh you should be aware of icf intermediate code flag so um let's go over the flags the the result convert to f64 the result convert to integer argument one convert to f64 argument two convert to integer uh sometimes you always want to use floats if it's uh in pass one it figures out um whether it's integer or float because you know how when you divide by a float it becomes a float okay so uh it has to work all that out in pass one it uses a um anyway it builds a tree backward um that's the best way i can explain it so uh this is interesting a1 first so um when you start converting uh uh offsets to registers um the stack machine is uh it still uses the system stack um and when you're using the system stack order is important you can't change the order if you're using the stack and uh uh it turns out the rax is the top of stack and uh let me explain this if i can i don't know if i can explain this so uh uh so you have uh push one move rax two and then so that the add instruction always does uh add rax comma um pop rdx add rax comma rdx so i'm not explaining this very well but as it turns out uh sometimes uh the rax the top of stack is uh is uh here and sometimes it's here and um it it's convenient to change it for uh i think in ifs and stuff to change the uh and then when you start doing that then you have to do the the order gets different so this makes the uh back end complicated all of them have to either handle they all have to be able to switch the order of the two arguments so if you go look at all the uh back end code all the back end code has to uh all of it has that uh a1 first so almost all of them have a big if statement so if a1's first you do that if a if a2's first you do that anyway so all the code has that kind of nasty thing now it turns out uh register variables um so i started with a stack machine and one of my rules is anything that gets put into a register has to be converted to 64-bit so if you load from memory and it's 8-bit you convert it to 64-bit and then all the operations are done 64-bit so this makes for some uh a normal compiler you would call this a bug but we don't call it a bug because that's our language is not standard so if i say i this looks this looks like a bug but it's not a bug if it gets put in a register it's converted to 64-bits so uh that's how we operate that's the language definition anyway so uh so rax rbx rcx and rdx those can be trashed by every intermediate code and then rsi rdi um rbp is you is already used rsi rdi r8 r9 these are uh r10 r11 r12 r13 r14 r15 so these are uh these available these are available for uh these are stacked temporaries it's kind of like i said the rax is the top of stack these two are deeper and uh and then the rest of these are for uh you can trash the stack temporaries as well as rax rbx rcx rdx um and they're not even saved um for uh function calls anyway so uh the rest of these are used for local variables and uh um so uh uh i think this pass figures out this pass analyzes the offsets and it says the most common offset is minus eight off of rbp therefore we'll give that a register there's so many registers they almost all get put in registers don't they anyway um you have to save them and push them and pop them so uh the rest of these uh basically the overall idea is you want to convert from uh let's let's go look at an example you want to convert from cisk to risk uh or from from risk to cisk um so it starts out bulky with a little a bunch of little tiny instructions and the optimizer merges them together into cisk instructions and that's that's how that that's that's the purpose of the optimizer um turns out it doesn't really make it any faster because the intel chips are just as fast with risk risk it converts them back into risk as a matter of fact so we could simplify the compiler and save ourselves some trouble now i i uh now some people obviously optimizing can be done uh a little bit or a lot and if you get really carried away with optimizing it's really complicated and slow anyway so uh i uh i optimized like i like a normal assembler programmer an average person who programs in assembly doesn't know about the pipelining internals so like an old school assembler a person a programmer who knows old school assembly that's kind of how i made my compiler and uh i did not unroll loops i i kind of tried for a minimum code size uh that's kind of like i know that's silly but my goal is i want to be i want it to be pretty when the kids look at the assembly of a function i want them to be able to understand it so no extreme measures try to be just straightforward so i was able to uh if you look at the assembly i think it's pretty good um i don't i haven't benchmarked but i don't do stuff like unrolling loops and stuff like that anyway so uh where were we so the the most interesting thing is uh so there's a big uh when it steps through the intermediate code uh it's always a big uh switch statement and uh i have a no bound switch as a matter of fact i have a uh i'm the only person who has no bound switch so normally uh no bound switch this is this is my own so normally a uh a switch statement if it's outside the range will will just uh skip over it but mine will crash um i do not check for a bound so it's a little faster so um one of the things it has to do is handle uh uh uh okay it has it merges together uh forward it merges together jumps so if you jump to a jump then it it does it does that it gets rid of dead code and uh when it compiles uh i don't have uh segments the way everybody else does everybody else has data and code segments um i don't really have that i i i put my code function by function and uh i put my code compiled function by function and uh let's let's go ahead and trace this i put my code function by function oops what okay so i put my code and then after the function i put um any data like this is the uh this is the string 25 is a star or percent i guess percent s so there's the string and so uh and so uh in the compiler uh the main uh i guess is it main let's see no it's not it uh optimizer uh uh where did i put that ip ip ip ip ip ip ip ip ip ip ip ip ip ip ip ip ip ip ip ip ip ip ip ip ip ip ip there it is parcel parceling I would not have guessed so um it calls the different passes one per file there's a there's a file for each of the passes and then the last pass loops over and over as long as it's able to shrink it more and more so you can actually see that logic here so while the code size is less than the last code size we want to compile that or do that last pass and uh so in the last pass um we store that extra data like the jump table has is an array for the jump table as an array this gets stored after the function the string constants are stored after the function sprites are stored after the constant sprites are treated just like string constants and float constants are stored after the function and we have to record the line number of each so um you might not know this but there's a map file there's a map file which has a hidden uh it has the line numbers and when you uh this is for uh like i told you just in time is easier than ahead of time there's only two ahead of time the kernel and the compiler are ahead of time both of those have map files and uh during boot uh we load the map files uh uh where do we load the map files start os i think we do it at the end in the home make home plug in or uh packages yeah we load the map files in the packages so that's so that's so that's so that we have source debugging um now for the just in time it's already sitting in memory there's no problem with just in time so the uh so the last pass it has to uh the last pass that figures out the size the final size and that's when it makes the final it's a mallet uh technically we have a code in a data heap uh but it i don't want to confuse you um it's not like a linker uh segment in other uh compilers so yeah i'm really pissed off that um the uefi boot requires elf files and that is just not in our that is not in our dictionary that we do we do not do elf and we are going to command the industry to take that out of there we are not doing elf so um we can look at the back end so that the seven eight and nine pass has a big switch statement and then it calls the uh the back end for each of the uh let's take an example of uh uh one of these back let's just jump in here so yeah you have unaries and and we do short circuit logic all the time comparison so this is uh generating machine code um some of the more common uh the slash operators uh so there's a library of uh so you store store one u8 store a rex uh storage u u20 u24 um add to the stack pointer modder this is a common addressing mode so anyway uh now i have an assembler i can tell you how the assembler works um first let's talk about the unassembler basically here's what you have to do you have variable length instructions and you have to come up with a way of ordering the instructions and once you have an order then you can do a binary search to figure out what opcode so i have all the opcodes in a file that i load at boot opcodes and addressing modes and uh once you can order them then you can do a binary search it's kind of nasty but uh so first of all i sort the uh i make up a table with with the sorted uh opcodes and then i do a binary search when i'm unassembling so my unassembler i have an unassembler unassemble let's just do this unassemble i'm just going to grab an address at 10 000. so there's my unassembler and it has symbolic so it searches the hash tables for symbols and uh so it has to uh maybe you have 48 uh 8b so what you have to do is you have to do a binary search to see what opcode it is move and then once you have the opcode it's pretty easy um so each opcode has multiple addressing modes like for example the move has anyway that each opcode has multiple addressing modes and now for assembling the way that i assemble is uh first i load that file with all the opcodes then i uh i uh i figure out uh which addressing mode once you have an opcode i uh i i may i have non-standard ops i have non-standard opcodes um you have to tell it you have a two operand mole or a one operand mole so i may i disambiguated um some people might not like that but anyway um normal assembly and also uh anyway um character turn doesn't matter in my assembly code so you can that's kind of silly i won't even distract you um so uh what you have to do is uh you start with the opcode then you have to figure out which addressing mode it is and uh you have to parse expressions um um you have to store where is okay here it is so i i make a uh this is the heart of my assembler so i have uh these rt these are the opcodes addressing modes i'm sorry these are the addressing modes so um i have i have bits for the addressing modes so if it's relative 8 relative 16 relative 32 immediate 8 immediate 16 immediate unsigned immediate register register modder memory i don't support the segmentation my 16-bit support is almost non-existent all i have to do is get get through the bootloader and so i don't even support segmentation none of that anyway so uh so i have all these addressing modes and then by uh process of elimination i say um i i eliminate uh bits until does it have an offset yes or no and then i eliminate um bits in the uh this is a bit mask for those addressing modes and uh so based on size we can eliminate a bunch and then once we sometimes you can have multiple addressing modes that are valid and then it picks the one with shortest byte output anyway so uh i hope you understood so for uh so the size is the most critical um um so for anyway uh i think that's all i want to show you on the compiler uh let's see if i'm forgetting anything so there's templates um when i first started i i made a template for each opcode i spliced them together and then i patched um so if you inline each opcode like when i when i first started i had uh i had something like push one uh pop r a x pop r d x add r a x r d x push r a x so when i first started i had all my operators uh done in assembly and then what i did is i just uh inlined them together oh that reminds me so um um i should go over how you add a inline function so i c t no i c c no intermediate code uh shist okay so let me show you how you add a inline function because it doesn't do inline functions normally okay so these are my intermediate codes ic underscore so uh let's look at square root or square let's look at square um i see uh is there square root i have a square i64 okay so find sqr i64 so this is all the so when you want to add your own in inline function then um first you need a uh oh when it boots it you have to you have to give it a um you have to bind a a c function header to the uh intermediate code this is an internal internal function you give it the intermediate code and then you give the c header so that's what you need you need the uh you need to add your own here you also need to add your own in init that's not listed but in here you have to add your own uh square root you have to add your own and tell how many arguments and then the rest of it is just uh each pass has to handle that um in the switch statement so a lot of them are simple um all the functions are about the same so this when it finally gets to the last pass it calls ic square in order to uh convert it to binary and what is this doing it's uh so the move um i should tell you what the back end how the back end works the back end has a type uh mode uh let's so this is not this is you can have an immediate mode you can have a register you can have a displacement you can have an index register sib you can have a rip relative or you can have stack this is the original stack um which started as the system stack so you'll normally you do it in registers and you no longer actually use the system stack like that so in all of these uh back end routines you'll find uh the parameters are uh type register displacement um though that's the or each each argument is uh indicated by a type register displacement so you see how there's type this is uh argument argument one type argument one register argument one displacement argument two type argument read to register argument two displacement so uh and the type is actually both the uh the addressing mode and the uh the size um it's it's a number i i kind of smooshed together um the addressing mode and the uh here's the raw types so if it's a u8 and u16 u32 f32 f64 we don't have f32 f64 so uh in all of these back end routines you'll see the type which is uh the addressing mode plus the uh the size the register if it has one the displacement if it has one and uh so that's how we have to pass it to all these routines anyway so it does uh there are some library routines uh you'll see those in back in library these are the floating point um back end um so uh so the final the final thing it has to do is make the binary files and uh what we do is uh you can go to my web page and you can get bin rep this this has the binary file format so if it's just in time it's really easy if it's ahead of time uh i'm going to dump the binary file bin rep compiler so this has a relative export table with sim so relative import table so it has to import all these symbols and patch all these addresses and it has to doc max i want i don't want a limit on my command line buffer so at the top is uh uh oh we want we have exports and imports oh here's the uh all my code is app is uh position independent there's a uh a table for every single absolute address my binary files are kind of bloated you could say not not really anyway there's this table for all the absolute addresses that need to be patched and that that that enables all my code to be quote unquote position independent but that's because it's patched at load time and uh here's the exports relative 32 export and uh here's the imports um so uh uh that's all there is to it um you
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:12.080 -> 00:00:23.100]  okay I'm going to tell you about the temple OS compiler so it's a 20,000 lines of code
+[00:00:26.420 -> 00:00:43.560]  20,000 lines of code it has an assembler for x86 64 and an unassembler it's a strictly 64 bit for holy
+[00:00:43.560 -> 00:00:53.180]  see the assembler can do 16 bit sort of or it doesn't have full segmentation support I'm trying
+[00:00:53.180 -> 00:01:03.660]  in temple OS to keep the number of lines of code to a minimum it's one of my highest goals anyway so
+[00:01:06.300 -> 00:01:21.000]  so a normal diagram has a string a stream coming from the pre processor into the left into the parser
+[00:01:23.100 -> 00:01:36.740]  into the optimizer into the back end this is the normal conceptual model of a compiler
+[00:01:43.560 -> 00:01:55.420]  so in temple OS okay first of all this does not generate intermediate files I think my I think
+[00:01:55.420 -> 00:02:03.440]  my assemble my compiler is unusually fast as a matter of fact well I have a benchmark but anyway so I
+[00:02:03.440 -> 00:02:13.820]  don't I don't do a pre processor into a separate file I don't do a stream either lex is a function
+[00:02:13.820 -> 00:02:23.960]  called by the parser and lex has the pre processor built in so so get this in your head you have the
+[00:02:23.960 -> 00:02:32.280]  pre processor the lex what the lexical analyzer does is it it makes tokens a token is the smallest
+[00:02:32.280 -> 00:02:45.700]  unit of interest in the in the stream of compiled code so if I have a compiled code I 64 I
+[00:02:51.580 -> 00:02:59.160]  4i equals 0 I less or equal to 10 I plus plus if I have something like this
+[00:03:04.080 -> 00:03:14.440]  I see alpha numeric are combined together into a token of a identifier this is called an identifier
+[00:03:17.000 -> 00:03:43.840]  here here here are all the tokens you have okay I have a superscript and subscript that's anyway so um if you take a compiler course you learn some you learn about the lexical analyzer and the front end I don't think very many places teach back end compilers I I just had a
+[00:03:43.840 -> 00:04:05.140]  a front end anyway so an identifier is a is a is a bunch of alphanumeric that make up a keyword or a label or something that's what an identifier is and the lexical analyzer puts together tokens
+[00:04:07.300 -> 00:04:24.140]  all right it divides into tokens I should say so the lexical analyzer would say okay we have an identifier I 64 it skips the white space the lexical analyzer gets what a what rid of white space and uh and uh comments
+[00:04:24.140 -> 00:04:35.100]  comments and it the lexical the pre-processor handles pound include um I have my my lexical analyzer is merged with my pre-processor
+[00:04:35.100 -> 00:04:44.860]  anyway so uh so I is an identifier then you have a semicolon and guess what um I don't have a token for semicolon
+[00:04:44.860 -> 00:04:58.220]  all the uh all the uh all the uh symbols or what do you want to call them uh all the punctuation marks are treated by their ASCII value
+[00:04:58.220 -> 00:05:07.620]  so um when the lexical analyzer is a function you call as you're parsing and it says okay we have a token identifier
+[00:05:07.620 -> 00:05:17.440]  we have a token identifier I we have a semicolon and it returns the ASCII of the semicolon then it says we have a token for which is also a keyword
+[00:05:18.180 -> 00:05:25.560]  and then we have a then it returns a the ASCII of a parenthesis then it says we have an identifier I
+[00:05:25.560 -> 00:05:33.560]  we then it returns the ASCII of the equal um so if we were going to diagram this we'd say we have token
+[00:05:33.560 -> 00:05:43.600]  identifier and um I have a uh a structure for uh compiling control structure or something like that
+[00:05:45.420 -> 00:05:52.740]  compiler control structure and um just the the electrical analyzer is a function that gets one token
+[00:05:53.420 -> 00:06:00.320]  and uh it also um you also it also stores the token if you want it to fetch it for later
+[00:06:00.320 -> 00:06:09.060]  it returns the token as the return value of the lex and uh in in this structure it puts the current
+[00:06:09.700 -> 00:06:17.160]  oh by the way numbers are converted to to um from ASCII to binary I don't that's what they call it binary
+[00:06:17.160 -> 00:06:26.100]  it's it's kind of weird calling it binary but anyway so I have a a spot for if it's an integer if it's a float
+[00:06:26.100 -> 00:06:34.940]  if it's a string this is from an identifier now um you can merge together multiple identifier uh
+[00:06:35.940 -> 00:06:43.680]  some never mind um so some of the other tokens are uh are string
+[00:06:45.560 -> 00:06:56.760]  and uh oops where did the tokens go so it identifier this is a this is a string that comes in double
+[00:06:56.760 -> 00:07:05.120]  quotes an integer a character constant is single quotes my compiler is unusual because I uh I let
+[00:07:05.120 -> 00:07:15.340]  you put multiple um character constant characters uh let me just show you what I mean if you say i64i
+[00:07:15.840 -> 00:07:27.980]  equals quote a b c d and in normal c you you can only have one character but in here we have uh it makes
+[00:07:27.980 -> 00:07:35.040]  an integer by just shift shifting in multiple characters anyway so so we can have a character
+[00:07:35.040 -> 00:07:44.640]  constant a float now for uh for the single symbol for the single punctuation symbols we return the ASCII
+[00:07:45.260 -> 00:07:54.840]  for the uh for the multi multiple um operators um we we have some tokens for that are
+[00:07:56.000 -> 00:08:08.020]  so so we take care of merging together two character uh operators shift left shift right etc etc and uh
+[00:08:10.280 -> 00:08:18.040]  you will not get the uh if depths you will not see them but internally it sees those
+[00:08:18.040 -> 00:08:32.440]  and uh we have dot dot dot binary okay so so uh temple os allows sprites in uh in source code so if we look at uh
+[00:08:33.160 -> 00:08:36.160]  if we look at our demo game
+[00:08:38.000 -> 00:08:47.960]  so in this source code is sprites so the uh so the uh the lexical analyzer has to return a pointer
+[00:08:48.040 -> 00:08:50.480]  to a binary sprite um
+[00:08:52.520 -> 00:08:57.420]  okay so i just wanted to get you familiar with the so
+[00:08:59.880 -> 00:09:01.940]  the lexical analyzer returns tokens
+[00:09:03.960 -> 00:09:10.040]  the parser uh starts putting together expressions parsing an expression with operator precedent
+[00:09:10.040 -> 00:09:20.920]  is the the hardest part of a compiler conceptually they they do some um when they explain it if you take a
+[00:09:20.920 -> 00:09:30.200]  compiler course they'll talk about left recursive lr parsing and stuff um don't don't do that uh
+[00:09:30.200 -> 00:09:38.060]  uh don't do nestle there's one thing that's ridiculous which is uh if you have um
+[00:09:41.300 -> 00:09:45.440]  there's a trick there's a there's a technique they teach in school
+[00:09:47.080 -> 00:09:57.800]  for uh parsing expressions and what you do is uh each you make a uh recursive uh function
+[00:09:57.800 -> 00:10:05.800]  for each level of operator and oh i changed the operator precedence by the way i made bit shift
+[00:10:05.800 -> 00:10:15.660]  exponential so it's the highest precedence it's a lot better um anyway so don't do that lr parsing
+[00:10:15.660 -> 00:10:27.320]  instead um make a uh make a uh a precedence uh integer that and compare the precedence don't do that
+[00:10:27.320 -> 00:10:34.740]  lr parsing well if you're making just a uh sometimes it's not important if it's good a good compiler
+[00:10:37.320 -> 00:10:46.820]  fast anyway um so parsing uh that's where you you put together statements and expressions and then
+[00:10:46.820 -> 00:10:55.620]  optimizing um one of the one of the main things that uh okay my parser generates a stack stack
+[00:10:55.620 -> 00:11:04.880]  uh machine code uh so if i so if you give an expression like this what it says is push push one
+[00:11:06.500 -> 00:11:11.660]  push two push three uh pop
+[00:11:13.800 -> 00:11:31.540]  pop pop r a x pop r d x i don't know i'm kind of um multiply r a x times r d x push r a x i'm just
+[00:11:31.540 -> 00:11:35.520]  talking conceptually and then push four
+[00:11:40.200 -> 00:11:46.140]  and then we do uh oh i skipped a step um so you push r a x
+[00:11:47.660 -> 00:12:07.900]  then you say pop r a x pop r d x add r a x plus r d x push r a x push four and then we do the pop and add
+[00:12:07.900 -> 00:12:16.660]  um reverse polish basically so that's that's the idea i want to make an intermediate code that's uh
+[00:12:17.260 -> 00:12:28.660]  my own representation of um the code so what i do is uh i uh i make a stack machine intermediate code
+[00:12:28.660 -> 00:12:37.580]  and then i and then in my optimization stage i i substitute registers for um common offsets so uh
+[00:12:39.960 -> 00:12:42.280]  the uh um
+[00:12:44.180 -> 00:12:53.440]  local variable i i only do uh stack function arguments i don't do register arguments the x86 64
+[00:12:53.440 -> 00:13:01.420]  uh some people like to say it uh it has a standard for register arguments well only if you want to
+[00:13:01.420 -> 00:13:09.340]  follow it i i get people did i mind tricking me oh you have x86 64 that means you use register arguments
+[00:13:09.340 -> 00:13:16.340]  no i don't i don't use register arguments and i i assure you it is uh x86 64.
+[00:13:18.220 -> 00:13:26.660]  anyway uh so um one of the things you have to know about uh you have to you have to know assembly in order to uh
+[00:13:26.660 -> 00:13:32.020]  to a compiler and uh the the arguments are uh
+[00:13:35.180 -> 00:13:37.520]  by the time you get to a uh
+[00:13:41.120 -> 00:13:44.940]  let's see the stack you have to know the stack frame
+[00:13:46.560 -> 00:13:51.000]  i use the uh the old school stack frame all the time
+[00:13:53.620 -> 00:13:54.300]  uh
+[00:13:57.740 -> 00:14:04.800]  i use the rbp stack frame and that gives me that makes it possible to climb the stack
+[00:14:04.800 -> 00:14:08.860]  really easily anyway so uh
+[00:14:11.260 -> 00:14:11.900]  one
+[00:14:14.200 -> 00:14:20.800]  i don't know what i'm drawing here anyway so the arguments are uh positive off the stack off the
+[00:14:20.800 -> 00:14:22.320]  base pointer i should
+[00:14:26.220 -> 00:14:29.380]  i type stuff when i'm talking and i don't pay attention
+[00:14:30.680 -> 00:14:36.420]  it just comes out anyway so the uh the return address of the fun of the function
+[00:14:37.080 -> 00:14:42.920]  it's at eight the uh base pointer is at zero that's because you push it
+[00:14:45.260 -> 00:14:54.700]  move you say push when you call a function push rbp move rbp comma rsp
+[00:14:56.760 -> 00:15:04.420]  uh and you have your function and then you have your uh i push my uh any local variables that i'm
+[00:15:04.420 -> 00:15:14.920]  preserving and then i uh and i have my code and you pop r i don't preserve all registers i have some
+[00:15:14.920 -> 00:15:20.920]  registers that i always track trash anyway uh pop rbp
+[00:15:22.900 -> 00:15:34.520]  return there's a uh there's an x86 uh instruction called leave and one more thing is uh
+[00:15:37.020 -> 00:15:39.140]  where do i put i don't think it matters
+[00:15:44.020 -> 00:15:50.040]  you just you create your uh look local variable area on the stack
+[00:15:52.420 -> 00:16:00.340]  and this leave uh uh i'm not sure if i put this here or here i forgot anyway uh
+[00:16:00.340 -> 00:16:05.220]  uh the leave uh cleans cleans all of that up
+[00:16:07.300 -> 00:16:15.380]  so uh there's an enter that is slow anyway uh so now we're we're ready to look at the code
+[00:16:16.020 -> 00:16:23.760]  and uh so the the parser we make intermediate code and optimizer um see there's these local variables
+[00:16:23.760 -> 00:16:33.140]  that are uh offsets off of rbp um and what i do when i convert to registers is i just look i say okay
+[00:16:33.140 -> 00:16:42.420]  how often is this aid off of rbp used and in the function it's used 10 times this one's used five times
+[00:16:42.420 -> 00:16:51.940]  so from allocating my register variables i say okay we want the most common offset to be um rsi
+[00:16:54.740 -> 00:17:02.300]  and that's how i do my allocation uh i i look at anyway so i start i start with the super simple
+[00:17:02.300 -> 00:17:11.400]  stack machine and then i take risk and put them into cisc i merge them together and i convert the uh
+[00:17:11.400 -> 00:17:19.120]  offsets into register variables you know it's funny a lot of people say it's not 64. i crack up laughing
+[00:17:19.120 -> 00:17:29.180]  because my compiler is it's easier with 16 64-bit registers those people that did uh segmented 16-bit
+[00:17:29.180 -> 00:17:36.980]  compilers they were gods because that's really hard to do segmentation and uh just having a couple
+[00:17:37.860 -> 00:17:44.460]  registers i guess that is anyway so it's uh it's uh it's 60
+[00:17:48.940 -> 00:17:56.420]  it doesn't do it doesn't do 32 bits anyway so optimizing
+[00:17:59.780 -> 00:18:09.920]  uh what it does is it uh it converts these to to a stack machine and uh it simplifies constant it
+[00:18:09.920 -> 00:18:15.000]  simplifies constants in the optimization it simplifies constants in the optimization
+[00:18:17.900 -> 00:18:24.600]  and then the back end the back end is where we convert it to machine code um we don't uh
+[00:18:25.960 -> 00:18:27.400]  we don't uh um
+[00:18:27.430 -> 00:18:37.830]  uh we don't make uh uh assembly source we don't make an assembly assembler code um
+[00:18:40.950 -> 00:18:42.350]  um
+[00:18:45.270 -> 00:18:47.630]  so in my back end uh
+[00:18:47.630 -> 00:18:48.390]  uh
+[00:18:48.390 -> 00:18:49.430]  uh
+[00:18:56.330 -> 00:19:06.070]  god damn bird so in my back end uh we make uh machine we make machine code right in the back end
+[00:19:06.070 -> 00:19:17.590]  not assembly code this is telling it this is telling it to do intermediate intermediate code u24
+[00:19:21.770 -> 00:19:30.150]  u8 is 8 8 bit u24 that's that's three bytes u8 is one byte u24 is three bytes
+[00:19:30.870 -> 00:19:38.670]  u32 is four bytes anyway so let's let's start over so in the so we get to
+[00:19:39.850 -> 00:19:43.230]  we start we start in the electrical analyzer
+[00:19:45.890 -> 00:19:52.250]  the electrical analyzer has to be able to handle straight ascii and it also has to handle my dollar
+[00:19:52.250 -> 00:19:59.990]  sign documents with the sprites so um the it uh before when it's getting started
+[00:20:00.150 -> 00:20:06.030]  it has straight ascii and then later on it can handle the documents with the dollar signs for
+[00:20:06.030 -> 00:20:12.510]  superscripts and subscripts as a matter of fact you can say uh the the whole the whole reason there's
+[00:20:12.510 -> 00:20:19.510]  that nonsense in there is uh you can say i 64 h let's see is it all p
+[00:20:22.670 -> 00:20:23.270]  oh
+[00:20:24.370 -> 00:20:25.290]  oh p
+[00:20:27.010 -> 00:20:35.730]  no that's not what we want control p uh okay h okay i did the wrong thing control p
+[00:20:37.030 -> 00:20:44.270]  h i did superscript instead of subscript just pretend that's a subscript i don't oh it's all shift p
+[00:20:44.270 -> 00:20:50.570]  yes okay i'll do it i'll get okay h oh ctrl shift p
+[00:20:51.390 -> 00:21:02.010]  to control shift p oh okay so so you can actually have uh labels that have superscripts and subscripts
+[00:21:03.390 -> 00:21:10.790]  this is a bunch of horse manure h2 what i mean is uh
+[00:21:18.870 -> 00:21:27.230]  if it makes you happy you can do it but it's kind of silly in my opinion anyway so it can compile that
+[00:21:27.230 -> 00:21:44.030]  so the lexical analyzer uh combines together uh identifiers like uh i64 and what it does is it looks
+[00:21:44.030 -> 00:21:50.530]  up in the hash table inside the lexical analyzer every time it has an identifier it uh it looks for
+[00:21:50.530 -> 00:21:58.150]  the hash hash table entry the symbol table entry so you're already uh so the next stage doesn't have
+[00:21:58.150 -> 00:22:05.770]  to to uh doesn't have to search for the uh the symbol it's already it the lexical analyzer um
+[00:22:07.010 -> 00:22:09.590]  looks in the hash table and sets uh
+[00:22:15.510 -> 00:22:16.230]  uh
+[00:22:16.230 -> 00:22:17.150]  uh
+[00:22:17.150 -> 00:22:19.890]  where is that
+[00:22:19.890 -> 00:22:20.390]  uh
+[00:22:21.910 -> 00:22:26.350]  sets the hash entry they're off the compiler control there's a hash entry
+[00:22:27.110 -> 00:22:29.450]  and uh there's that string
+[00:22:30.490 -> 00:22:32.350]  and what it does is uh
+[00:22:33.110 -> 00:22:39.030]  um every time you want to assign a new string you have to free the old string
+[00:22:39.030 -> 00:22:46.410]  so you free the old string and then you allocate a new string and um i think i have a limit of 140
+[00:22:46.410 -> 00:22:55.350]  uh characters for uh identifiers but for strings they can be unlimited and they can include carriage
+[00:22:55.350 -> 00:23:03.710]  returns so as a matter of fact you can do crazy stuff like this uh let's say u8 star name
+[00:23:05.850 -> 00:23:10.070]  equals then you can say quote this is
+[00:23:10.070 -> 00:23:10.370]  is
+[00:23:13.490 -> 00:23:15.410]  crazy so you can uh
+[00:23:19.270 -> 00:23:25.690]  and you can say print we don't say print but i want to just to show you
+[00:23:27.830 -> 00:23:29.370]  normally we just use
+[00:23:31.050 -> 00:23:35.110]  anyway so uh so this will work uh
+[00:23:37.830 -> 00:23:44.630]  see it printed that so you can even have uh so i i really went deluxe
+[00:23:46.330 -> 00:23:54.010]  so it converts integers you can say 0x for a hex binary i used to have octal but i got rid of it because
+[00:23:54.790 -> 00:23:59.150]  i want minimum lines of code and octal's just stupid
+[00:24:01.630 -> 00:24:05.790]  there was a time when it was relevant but not anymore
+[00:24:05.790 -> 00:24:14.070]  so uh when you're doing uh floats i have not verified that my floats are accurate
+[00:24:16.210 -> 00:24:17.250]  i don't care
+[00:24:17.930 -> 00:24:23.350]  so i have powers of 10 i just did it the most straightforward way this stuff is really nasty
+[00:24:23.350 -> 00:24:27.450]  if you want to when you're talking about powers of 10 and powers of two
+[00:24:29.650 -> 00:24:36.790]  uh nasa and other people do it professionally i just get it i get the job done and it's efficient
+[00:24:36.790 -> 00:24:45.390]  and it's not that much code because that's how we roll so strings string constants uh that's one of
+[00:24:45.390 -> 00:24:49.650]  the things the lexical analyzer so the lexical analyzer will return a string constant
+[00:24:50.610 -> 00:24:57.350]  and the string constant oh this is a character constant the character constant uh the string
+[00:24:57.350 -> 00:25:04.110]  constants are parsed up above character constants are parsed here you can have backslash characters
+[00:25:04.110 -> 00:25:13.630]  and stuff and backslash x oh i do not do octal backslash octal i do not do backslash octal except
+[00:25:13.630 -> 00:25:23.850]  backslash zero but i do support backslash x and then characters so i told you the preprocessor is part of the
+[00:25:23.850 -> 00:25:35.490]  the lexical analyzer um so include define define makes a symbol entry i do not like macro functions
+[00:25:37.370 -> 00:25:46.570]  so uh you there are no macro functions now i started making type defs but as it turns out uh i don't have
+[00:25:46.570 -> 00:25:56.950]  any need for type defs uh one of my principles in this operating system is minimal abstraction i decided
+[00:25:56.950 -> 00:26:08.810]  that was one of my goals and so uh i do have a type called bool um but all it is is an i8
+[00:26:09.950 -> 00:26:19.310]  and uh if i were true to my principles to the extreme i would say i8 instead of bool but that's ridiculous
+[00:26:20.090 -> 00:26:30.330]  we want bool but i i i i almost don't use bool just to show the the i'm trying to explain the concept of minimal abstraction
+[00:26:30.330 -> 00:26:35.970]  abstraction so i don't want function i don't want anything you have to go look up that's an abstraction
+[00:26:35.970 -> 00:26:41.930]  so i don't want abstractions i don't want you to have to look up what a macro is i don't want you to
+[00:26:41.930 -> 00:26:49.170]  have or macro function i don't want uh i would prefer to use i6 if it's an integer don't call it something
+[00:26:49.170 -> 00:26:54.110]  else just call it an integer i don't mess around with that size t stuff and all that
+[00:26:55.750 -> 00:27:03.490]  so i want uh i want minimal abstraction so i don't have type defs i was i was able to get rid of them
+[00:27:03.490 -> 00:27:11.750]  after i found that i didn't really use them that's just the nature of how this project worked out um
+[00:27:11.750 -> 00:27:15.970]  oh by the way the lex calls a get chart which uh
+[00:27:18.550 -> 00:27:29.930]  and it has a uh an un get you can un get one symbol one character so uh that makes it kind of tricky
+[00:27:30.450 -> 00:27:38.190]  there is a uh a lexical push and pop there is a lexical push and pop and you do have to use those
+[00:27:38.190 -> 00:27:46.190]  when you're doing uh like a four statement is a four statement is actually out of order but um almost
+[00:27:46.190 -> 00:27:53.710]  everything else is uh straight one to one in order compilation but a four statement is out of order
+[00:27:53.710 -> 00:28:05.850]  because it kicks that um a four statement has that uh third term or second third term down it's out of
+[00:28:05.850 -> 00:28:15.010]  order anyway so there's a uh you can use the electrical analyzer um for your own applications um
+[00:28:16.190 -> 00:28:25.010]  i use it for uh um i have a reformat that re that redoes the spacing of the indentation
+[00:28:25.770 -> 00:28:32.770]  and it does it does complete parsing i do my songs with electrical analyzer my songs are actually code
+[00:28:32.770 -> 00:28:41.330]  so i use electrical analyzer a lot um just because it's handy and it's powerful and so you can push and
+[00:28:41.330 -> 00:28:55.170]  pop uh get char anyway so uh the get char is uh that's the most time critical function in the entire
+[00:28:55.170 -> 00:29:02.610]  compiler this get chart um it turns out that the the volume of data gets smaller and smaller
+[00:29:02.770 -> 00:29:11.170]  as you work through the stages so the raw ascii is like the biggest um size in when it's characters
+[00:29:11.170 -> 00:29:18.110]  that's that's when it's bulky and so that it's not it's not that big a difference but that that that
+[00:29:18.110 -> 00:29:27.950]  phase of the compiler is the uh is the slowest or the most time so the get char is really nasty
+[00:29:27.950 -> 00:29:36.390]  um because it has to do those documents and uh the documents are uh they can have sprites they can have
+[00:29:37.150 -> 00:29:46.090]  other stuff and i use go to it's it's but it's critical so i justify it that way it's my project i
+[00:29:46.090 -> 00:29:52.870]  i'm the boss i can use go to if i feel it's necessary and um i can tell you not to use it
+[00:29:55.930 -> 00:30:08.610]  anyway um so uh get char and uh it has to do the uh the conditional compilation if def if not def uh
+[00:30:08.610 -> 00:30:20.430]  include l if else or just else um if so that's a little bit tricky but it's merged in with there's not
+[00:30:20.430 -> 00:30:26.890]  a separate pre-processors and then by the same token there's not a separate assembler stage at the end
+[00:30:26.890 -> 00:30:35.550]  it goes straight into machine code so now we're ready to look at the parser the parser has a uh a stack
+[00:30:38.170 -> 00:30:47.810]  it has the output uh code structure and then it has a stack that it uses for uh when you're doing
+[00:30:47.810 -> 00:30:54.070]  parsing you you either handle the operator now or you check the precedence and you handle it later
+[00:30:54.690 -> 00:31:01.010]  so if you handle it later you have to store it away temporarily and then that the next operator you
+[00:31:01.010 -> 00:31:12.050]  say okay is it time now and then you pop so there's a um a state a state machine for my uh expression parsers
+[00:31:12.050 -> 00:31:21.350]  um i didn't do lr parsing i i've done that before but this is better um we we have a uh precedence level
+[00:31:21.350 -> 00:31:27.790]  precedence that we compare uh so we can go over uh
+[00:31:30.430 -> 00:31:36.890]  parsing and expression first you handle unary plus minus uh tilde
+[00:31:39.510 -> 00:31:47.610]  these these are kind of the states they transition um we parse a unary term this is kind of how an lr
+[00:31:47.610 -> 00:32:01.650]  parser is uh labeled parse a unary term and that's basically a uh a unary term then modifiers uh
+[00:32:01.650 -> 00:32:11.970]  if you have uh structures uh my modifiers are uh you can say auto increment auto decrement uh you can say uh
+[00:32:17.490 -> 00:32:27.470]  you can say uh oh star is another unary uh prefix anyway i should call it prefix shouldn't i anyway uh
+[00:32:29.010 -> 00:32:36.770]  uh so uh structure dereferencing is a modifier is what i call it i it's not good to make up your own
+[00:32:36.770 -> 00:32:45.250]  terminology but that's i i probably should research to see what the standard everyone else uses i call it a
+[00:32:45.250 -> 00:32:55.710]  monitor modifier maybe modifier okay uh this is for uh i do my typecasting post fix now this is is that crazy
+[00:32:56.370 -> 00:33:00.990]  so uh my it was a lot easier some people say
+[00:33:04.050 -> 00:33:13.570]  you make the compiler no matter how complicated you make it handle what's best but what we do is uh
+[00:33:16.390 -> 00:33:18.950]  you can say you and then you say
+[00:33:24.370 -> 00:33:34.710]  so um normally uh typecasting is prefix normally you say prefix but it's it's it's like exactly the same
+[00:33:34.710 -> 00:33:43.450]  except it's post fix and uh the way you conceptualize i don't even know what the standard c c typecast
+[00:33:43.450 -> 00:33:51.130]  typecasting they got all crazy with c plus plus static cast and all that crap god they made a mess
+[00:33:51.130 -> 00:34:00.470]  anyway uh constant i hate constant anyway so uh so i made my uh my typecasting post fix uh
+[00:34:01.630 -> 00:34:08.170]  do you reference uh i want to brag about something uh is this the best time
+[00:34:08.870 -> 00:34:16.050]  uh binary operator uh so after it um after it finishes it has to pop everything off of its stack
+[00:34:16.650 -> 00:34:25.030]  this ps is the parse stack that's this push and pop so it pushes that i i have a con i have a uh
+[00:34:27.230 -> 00:34:35.370]  the way i handle class okay so so i don't have a structure i have i don't have structure there is no
+[00:34:35.370 -> 00:34:53.370]  structure keyword there is no i even forgot that's pretty i haven't used c in so long structure there is no structure there's just class and uh um internally um i have a uh
+[00:34:58.790 -> 00:34:59.390]  uh
+[00:35:09.930 -> 00:35:10.570]  uh
+[00:35:10.570 -> 00:35:14.530]  first class when you make a new class oh i did a for loop
+[00:35:17.070 -> 00:35:18.150]  so uh
+[00:35:20.110 -> 00:35:20.750]  um
+[00:35:20.750 -> 00:35:26.630]  um you need to have a list of uh members in the class
+[00:35:29.550 -> 00:35:32.730]  this all of these are hash table entries
+[00:35:36.170 -> 00:35:44.650]  all of them go into a big cash table anyway so this has a list of members which in each class has a list of
+[00:35:44.650 -> 00:35:45.050]  members
+[00:35:45.930 -> 00:35:53.030]  now uh the way i handle pointers so if you if you have a pointer to a to a uh
+[00:35:54.550 -> 00:36:02.450]  the way the compiler handles classes damn it the way the compiler handles classes is uh
+[00:36:06.110 -> 00:36:16.670]  uh there's a there's a structure with five uh five copies of the class structure so um
+[00:36:18.990 -> 00:36:18.990]  
+[00:36:21.810 -> 00:36:22.610]  um
+[00:36:22.610 -> 00:36:29.210]  what it does is it allocates an array of five of these structures identical so they're they're like just
+[00:36:29.210 -> 00:36:37.310]  tacked together and if you have one star it points to one if you have two star it points to two if you
+[00:36:37.310 -> 00:36:48.170]  have three star points to three and so by doing that um that's how i handle uh uh classes so uh you
+[00:36:48.170 -> 00:36:54.330]  can see how many stars you have at the moment so you can go backward convert either way anyway uh
+[00:36:54.330 -> 00:37:01.530]  so when you're parsing an expression you have um you have the operator that you're saving and then you
+[00:37:01.530 -> 00:37:15.230]  also have the class of that uh that expression so let's see if we can do a uh uh uh pass trace
+[00:37:19.850 -> 00:37:20.590]  okay
+[00:37:22.470 -> 00:37:31.530]  so pass zero has uh these are my intermediate codes um so when we're
+[00:37:37.230 -> 00:37:40.650]  i'm saying i equals six plus six let's look at this
+[00:37:41.670 -> 00:37:52.530]  so uh the raw parsing it's off the base pointer i is a negative eight off the base pointer um we want
+[00:37:52.530 -> 00:38:02.450]  to add so we pop we add this immediate to the base pointer then we uh we push so we push the base
+[00:38:02.450 -> 00:38:10.430]  pointer conceptually we push the bank base pointer on the stack we push this this minus eight we we
+[00:38:10.430 -> 00:38:21.530]  pop to and add and push then we push six and the size of this because a pointer arithmetic we have to save a spot
+[00:38:22.270 -> 00:38:26.670]  in order what if we're doing pointer arithmetic and then we have to multiply
+[00:38:28.470 -> 00:38:32.710]  so it really made a mess i my original compiler did not do
+[00:38:33.630 -> 00:38:35.730]  all pointer arithmetic with size one
+[00:38:35.730 -> 00:38:40.770]  i really i kind of liked it that way oh well i
+[00:38:42.910 -> 00:38:48.070]  oh well anyway uh it was kind of nice doing pointer arithmetic size one all the time
+[00:38:48.690 -> 00:38:58.830]  but oh well so uh now we add six and add and then we have an assign which pops the top is what's assigned
+[00:38:58.830 -> 00:39:05.490]  and then pop another one and that's where it's assigned and this is the end of an expression so notice
+[00:39:05.490 -> 00:39:13.310]  here the raw starts out like that then when it passed one uh simplifies that constant to a 12. so it started
+[00:39:13.310 -> 00:39:14.650]  out as six and six
+[00:39:16.570 -> 00:39:27.950]  and by the time we uh got to pass two it was simplified to 12. over here during pass uh so uh
+[00:39:30.650 -> 00:39:38.230]  so we have passed zero one and two we have passed three four five these are optimizing they're they're not
+[00:39:38.230 -> 00:39:46.930]  not optional seven eight nine ten uh this is when it's generating the code the machine code when it's
+[00:39:46.930 -> 00:39:55.870]  generating the machine code it loops um shortening uh long jumps to short jumps and it does that it uh
+[00:39:55.870 -> 00:39:59.950]  collapses it as much as possible anyway uh so
+[00:40:01.690 -> 00:40:09.790]  so we uh so we start with the stack machine at about rsi is um going to be used for the i variable
+[00:40:09.790 -> 00:40:16.670]  which is the offset 8 so it took a look and it says okay what what should we use register variables for
+[00:40:16.670 -> 00:40:27.730]  and uh this f8 offset was the most common so that's going to be a register variable and so now we're going
+[00:40:27.730 -> 00:40:34.870]  to load effective address i don't know why we're doing it we're going to store the the 12
+[00:40:36.890 -> 00:40:46.790]  and uh that's about all anyway so then at the lat it passed nine nine ten eleven um it uh it generates
+[00:40:46.790 -> 00:40:56.290]  the machine code directly um it doesn't generate an assembly file um so uh
+[00:40:56.290 -> 00:41:04.750]  uh it tries to compress it so it starts out with each of these uh each of these intermediate codes
+[00:41:05.410 -> 00:41:12.650]  translates to multiple instructions and it pastes them all together and if you're running just in
+[00:41:12.650 -> 00:41:19.530]  time then all it has to do is call malloc when it figures out how much and then just paste all those
+[00:41:19.530 -> 00:41:26.790]  together for the function just in time is easier than ahead of time if you're doing ahead of time it
+[00:41:26.790 -> 00:41:32.730]  has to make a binary file if you're doing just in time it just looks in the symbol table for calls
+[00:41:34.110 -> 00:41:46.090]  anyway so uh uh uh so the parser uh parse statement now this is where some of my magic starts happening
+[00:41:46.090 -> 00:41:57.950]  um when you're parsing a statement um if it finds an op code for assembly all the all the op codes are uppercase
+[00:41:58.650 -> 00:42:07.450]  so uh in the compiler directory is a uh op code file so this has the addressing modes and op codes
+[00:42:08.270 -> 00:42:24.250]  for x86 64 i don't do sse or mmx so uh uh op codes uppercase so my op codes are uppercase and the way i do my uh
+[00:42:24.250 -> 00:42:31.390]  my coding standard nothing else is supposed to be uppercase and so if it sees the uppercase op code
+[00:42:31.390 -> 00:42:39.990]  then it kicks it into assembly and uh so you can just you can just put assembly right in the middle of
+[00:42:39.990 -> 00:42:48.210]  your c code and it knows it's what it is um and then the other tricky thing is when you have a string or a
+[00:42:48.210 -> 00:42:58.570]  character constant um in temple os uh if you if it encounters a string by itself
+[00:42:59.630 -> 00:43:10.310]  so like hello world how about hello i'm gonna hit f5 so it printed hello so if it finds a string by itself
+[00:43:10.310 -> 00:43:16.510]  at the start of an expression of a statement so you know where the statement is right so four is a
+[00:43:16.510 -> 00:43:24.730]  statement if is a statement uh an expression is a statement with a semicolon statements are separated by
+[00:43:24.730 -> 00:43:35.390]  semicolon or commas you can actually say comma anyway so what it does is uh it calls print for standard out
+[00:43:35.390 -> 00:43:39.730]  if it finds a uh you can print character constants uh
+[00:43:46.970 -> 00:43:53.430]  anyway so that's the way my compiler works for the statements parts expression that's what we looked at
+[00:43:53.430 -> 00:44:03.050]  with the state machine a little while ago so uh so this is where we have the statement which we can look
+[00:44:03.050 -> 00:44:13.210]  for a for a try a while um let's look at the while because it's pretty easy um so how do we parse a while
+[00:44:14.070 -> 00:44:20.790]  well the first trick is the lex is always sitting one token ahead of where you are
+[00:44:20.790 -> 00:44:34.170]  um so uh currently it's on the while keyword and so when we say lex it goes past the while
+[00:44:34.790 -> 00:44:39.630]  and then now it's sitting on the uh whatever the the parenthesis for a while
+[00:44:40.930 -> 00:44:43.990]  you follow now it makes a label
+[00:44:44.850 -> 00:44:53.310]  um we're um my uh my intermediate code has labels i can show you that let's look at it okay let's say uh
+[00:44:56.470 -> 00:45:01.870]  i64i equals 10 while i minus minus
+[00:45:04.610 -> 00:45:05.870]  percent d
+[00:45:09.110 -> 00:45:12.690]  okay so uh let's do a pass trace
+[00:45:16.070 -> 00:45:26.850]  so uh what it had to do in order to parse that is it had it had to make a label uh in order to do a loop
+[00:45:28.750 -> 00:45:29.590]  uh
+[00:45:29.590 -> 00:45:39.390]  and uh branch if zero so this this label is identified so each of my intermediate codes uh
+[00:45:40.530 -> 00:45:47.850]  these are stored in a circular doubly linked list my intermediate codes and they have a buffer for
+[00:45:47.850 -> 00:45:50.110]  when it makes the machine code at the end
+[00:45:51.590 -> 00:45:57.150]  anyway they have a um they we can look at the intermediate code uh
+[00:46:01.110 -> 00:46:07.490]  okay boy this is a long video oh well anyway hold on a second so so we we want to make a label
+[00:46:08.090 -> 00:46:12.810]  and uh we make the label ahead of time and then we insert the label down here
+[00:46:12.810 -> 00:46:23.830]  and so the go to the go to gets um ends up jumping to the bottom and this is a branch back to the top
+[00:46:23.830 -> 00:46:32.810]  for the branch if not zero label done and uh in here is a um these are sometimes recursive parse expression
+[00:46:33.450 -> 00:46:37.670]  so that's the while expression and then it does the statement uh
+[00:46:37.670 -> 00:46:37.670]  
+[00:46:40.150 -> 00:46:47.750]  parse statement that's the while statement so you can have brackets and it's a statement so uh
+[00:46:48.450 -> 00:46:56.250]  and we have a jump at the bottom to jump back to the top uh so we do we if it's we test the uh
+[00:46:57.130 -> 00:47:04.410]  we compile the expression we test the expression see if it's zero and if it's zero we jump to the done
+[00:47:05.190 -> 00:47:12.130]  otherwise and this is this is where we make the done label so uh this is how the parsing works now with
+[00:47:12.130 -> 00:47:20.450]  the four we actually have to uh store the code and insert it later because the uh the four statement is
+[00:47:20.450 -> 00:47:36.970]  out of order um the code is so uh where were we uh let's look at um intermediate so this is an intermediate
+[00:47:36.970 -> 00:47:44.390]  code we have uh we have some flags we have each one can have one data item that's kind of like uh
+[00:47:44.390 -> 00:47:52.710]  uh that's the label or if it's an immediate it's the immediate value or if it's uh anyway it has a
+[00:47:52.710 -> 00:48:01.050]  class now this does that trick with the uh the more stars the more um often the more offset in the array
+[00:48:01.970 -> 00:48:11.730]  for the type anyway we record the line number because uh when when we make a map file it stores the uh
+[00:48:11.730 -> 00:48:20.030]  we want to do symbolic debugging so we need to record the line number that it lexed when so that's
+[00:48:20.030 -> 00:48:25.170]  automatically handled behind the scenes when we're building these intermediate codes um
+[00:48:27.610 -> 00:48:35.230]  so we're uh we're doing intermediate code add so this adds an intermediate code and it what it does is it
+[00:48:35.230 -> 00:48:43.270]  looks at the the compiler control and it gets the line number and then it stores it so the intermediate
+[00:48:43.270 -> 00:48:52.530]  codes are uh added as part the intermediate codes are linked circular linked list off of the uh compiler
+[00:48:52.530 -> 00:49:02.250]  control and they they have the line number i had to do something kind of crazy i don't make an uh a uh uh
+[00:49:02.250 -> 00:49:13.770]  what do you call a st uh symbolic tree i don't i don't make a tree um because i just make my uh my uh
+[00:49:13.770 -> 00:49:21.730]  stack machine output but it turns out i have to make a tree backward uh in order to resolve the types
+[00:49:22.250 -> 00:49:31.790]  i was not in the early days i just had 64-bit type but it got more complicated and i had to add backward links
+[00:49:32.250 -> 00:49:42.190]  in my stack machine it's kind of ugly and uh there's this there's a buffer for when it makes the machine
+[00:49:42.190 -> 00:49:49.830]  code at the end and then it goes through and it splices all the all the uh machine code together so uh
+[00:49:51.450 -> 00:49:53.850]  so the parser um
+[00:49:53.850 -> 00:50:03.570]  um well this is i'm gonna just i want to brag about a feature um you can have negative displacements off of
+[00:50:03.570 -> 00:50:09.210]  your structures um if you'll notice uh
+[00:50:09.210 -> 00:50:24.410]  uh there's a uh there's a single byte displacement and then there's a four byte displacement
+[00:50:25.230 -> 00:50:35.930]  uh off of uh there's addressing modes and as it turns out uh a normal compiler cannot use uh
+[00:50:35.930 -> 00:50:38.770]  uh the full range of bytes because they're signed
+[00:50:40.250 -> 00:50:52.670]  but what i did is i said uh set the uh pointer for the structure to minus 128 and now you get you can
+[00:50:52.670 -> 00:51:01.790]  have negative um structure values so you can actually uh um i learned this trick at ticketmaster
+[00:51:03.190 -> 00:51:10.490]  um so um in the first case we're using uh we're using byte offsets and then 32-bit offsets
+[00:51:11.310 -> 00:51:13.990]  in the second case we're using byte offsets all the way
+[00:51:13.990 -> 00:51:24.210]  um so because it's signed um yeah it gets nasty because when you're making your pointers you have to point them
+[00:51:24.930 -> 00:51:32.930]  at a strange location um so i it was too weird otherwise i would have used it i did not actually
+[00:51:32.930 -> 00:51:38.350]  even i didn't it's so weird that i didn't use it in because i don't want it to confuse people
+[00:51:40.250 -> 00:51:49.250]  but if you want high performance uh i don't think it makes it any faster um anyway uh so my uh by the
+[00:51:49.250 -> 00:51:57.670]  way i value the way so we're getting to the optimizing so optimizing past 0 1 2 this figures out the type
+[00:51:58.510 -> 00:52:07.390]  and it simplifies uh constant expressions so um a lot of people take a look at this code and say oh
+[00:52:07.390 -> 00:52:15.950]  you have an interpreter no it's not an interpreter it has to simplify constant expressions what did you
+[00:52:15.950 -> 00:52:22.510]  think a compiler does they see this uh they call it byte code they see my stack machine intermediate code
+[00:52:22.510 -> 00:52:27.230]  and they call it byte code no that's just where it simplifies constants
+[00:52:29.230 -> 00:52:38.450]  constants so what does this do this uh this simplifies constants and uh it uh it figures out the type
+[00:52:39.610 -> 00:52:45.810]  this is some of the so uh each of my intermediate codes uh you kind of saw how the stack machine worked
+[00:52:45.810 -> 00:52:56.610]  well it turns out there's a conversion bit and there's a pre so so each each intermediate code can have two
+[00:52:58.270 -> 00:53:06.990]  inputs and one output and uh like add is two inputs and then an output so uh
+[00:53:09.810 -> 00:53:18.270]  there's a table if i have i have a lot of built-in functions they're not uh they're not in line i don't
+[00:53:18.270 -> 00:53:25.170]  have inline functions but i do have some built-in functions anyway so there's this table for uh how many
+[00:53:25.170 -> 00:53:32.590]  inputs and how many inputs they only have one one output but you can have multiple inputs you can have
+[00:53:32.590 -> 00:53:42.970]  variable number of inputs too and uh so there's a flag that says convert the input to uh input one to real
+[00:53:42.970 -> 00:53:58.070]  or to uh convert input two to integer convert the output to uh float so there's this conversion um bit uh
+[00:53:59.210 -> 00:54:10.370]  you should be aware of icf intermediate code flag so um let's go over the flags the the result
+[00:54:10.370 -> 00:54:19.010]  convert to f64 the result convert to integer argument one convert to f64 argument two convert to integer
+[00:54:19.970 -> 00:54:26.390]  uh sometimes you always want to use floats if it's uh in pass one it figures out um
+[00:54:27.310 -> 00:54:32.770]  whether it's integer or float because you know how when you divide by a float it becomes a float
+[00:54:34.570 -> 00:54:44.130]  okay so uh it has to work all that out in pass one it uses a um anyway it builds a tree backward um
+[00:54:44.130 -> 00:54:55.230]  that's the best way i can explain it so uh this is interesting a1 first so um when you start converting uh
+[00:54:55.230 -> 00:55:06.470]  uh offsets to registers um the stack machine is uh it still uses the system stack um and when you're
+[00:55:06.470 -> 00:55:13.670]  using the system stack order is important you can't change the order if you're using the stack and uh
+[00:55:13.670 -> 00:55:27.630]  uh it turns out the rax is the top of stack and uh let me explain this if i can i don't know if i can explain this so uh
+[00:55:28.470 -> 00:55:37.270]  uh so you have uh push one move rax two
+[00:55:39.110 -> 00:55:51.850]  and then so that the add instruction always does uh add rax comma um pop rdx add
+[00:55:53.310 -> 00:56:04.230]  rax comma rdx so i'm not explaining this very well but as it turns out uh sometimes uh the rax the top of
+[00:56:04.230 -> 00:56:16.270]  stack is uh is uh here and sometimes it's here and um it it's convenient to change it for uh i think in
+[00:56:16.270 -> 00:56:24.510]  ifs and stuff to change the uh and then when you start doing that then you have to do the the order gets
+[00:56:24.510 -> 00:56:32.190]  different so this makes the uh back end complicated all of them have to either handle
+[00:56:32.950 -> 00:56:39.970]  they all have to be able to switch the order of the two arguments so if you go look at all the uh
+[00:56:40.710 -> 00:56:46.110]  back end code all the back end code has to uh
+[00:56:49.050 -> 00:56:50.610]  all of it has that uh
+[00:56:57.250 -> 00:57:05.350]  a1 first so almost all of them have a big if statement so if a1's first you do that if a if a2's
+[00:57:05.350 -> 00:57:15.590]  first you do that anyway so all the code has that kind of nasty thing now it turns out uh register variables
+[00:57:15.590 -> 00:57:24.310]  um so i started with a stack machine and one of my rules is anything that gets put into a register has
+[00:57:24.310 -> 00:57:33.370]  to be converted to 64-bit so if you load from memory and it's 8-bit you convert it to 64-bit and then all
+[00:57:33.370 -> 00:57:41.850]  the operations are done 64-bit so this makes for some uh a normal compiler you would call this a bug
+[00:57:41.850 -> 00:57:51.090]  but we don't call it a bug because that's our language is not standard so if i say i
+[00:57:58.510 -> 00:58:06.410]  this looks this looks like a bug but it's not a bug if it gets put in a register it's converted to 64-bits
+[00:58:06.410 -> 00:58:23.390]  so uh that's how we operate that's the language definition anyway so uh so rax rbx rcx and rdx those can be
+[00:58:23.390 -> 00:58:36.330]  trashed by every intermediate code and then rsi rdi um rbp is you is already used
+[00:58:37.250 -> 00:58:54.170]  rsi rdi r8 r9 these are uh r10 r11 r12 r13 r14 r15 so these are uh these available these are available for uh
+[00:58:54.810 -> 00:58:59.550]  these are stacked temporaries it's kind of like i said the rax is the top of stack
+[00:59:00.190 -> 00:59:04.790]  these two are deeper and uh and then the rest of these are for uh
+[00:59:08.230 -> 00:59:13.710]  you can trash the stack temporaries as well as rax rbx rcx rdx
+[00:59:13.710 -> 00:59:23.790]  um and they're not even saved um for uh function calls anyway so uh the rest of these are used for
+[00:59:23.790 -> 00:59:28.430]  local variables and uh um so uh
+[00:59:28.620 -> 00:59:40.100]  uh i think this pass figures out this pass analyzes the offsets and it says the most common offset is
+[00:59:40.100 -> 00:59:48.280]  minus eight off of rbp therefore we'll give that a register there's so many registers they almost all
+[00:59:48.280 -> 00:59:55.920]  get put in registers don't they anyway um you have to save them and push them and pop them so uh the
+[00:59:55.920 -> 01:00:04.900]  rest of these uh basically the overall idea is you want to convert from uh let's let's go look at an
+[01:00:04.900 -> 01:00:15.680]  example you want to convert from cisk to risk uh or from from risk to cisk um
+[01:00:21.860 -> 01:00:25.940]  so it starts out bulky with a little a bunch of little tiny instructions
+[01:00:25.940 -> 01:00:34.920]  and the optimizer merges them together into cisk instructions and that's that's how that that's
+[01:00:34.920 -> 01:00:42.420]  that's the purpose of the optimizer um turns out it doesn't really make it any faster because the intel
+[01:00:42.420 -> 01:00:48.840]  chips are just as fast with risk risk it converts them back into risk as a matter of fact
+[01:00:49.800 -> 01:00:58.760]  so we could simplify the compiler and save ourselves some trouble now i i uh now some people obviously
+[01:00:58.760 -> 01:01:06.260]  optimizing can be done uh a little bit or a lot and if you get really carried away with optimizing it's
+[01:01:06.260 -> 01:01:18.740]  really complicated and slow anyway so uh i uh i optimized like i like a normal assembler programmer
+[01:01:19.400 -> 01:01:26.600]  an average person who programs in assembly doesn't know about the pipelining internals
+[01:01:27.320 -> 01:01:35.780]  so like an old school assembler a person a programmer who knows old school assembly that's kind of how
+[01:01:35.780 -> 01:01:44.620]  i made my compiler and uh i did not unroll loops i i kind of tried for a minimum code size uh that's kind of
+[01:01:44.620 -> 01:01:56.120]  like i know that's silly but my goal is i want to be i want it to be pretty when the kids look at the assembly of a function i want them to be able to understand it
+[01:01:57.420 -> 01:02:06.380]  so no extreme measures try to be just straightforward so i was able to uh if you look at the assembly i think it's pretty good
+[01:02:07.000 -> 01:02:12.760]  um i don't i haven't benchmarked but i don't do stuff like unrolling loops and stuff like that
+[01:02:12.760 -> 01:02:24.360]  anyway so uh where were we so the the most interesting thing is uh so there's a big uh when it steps through
+[01:02:24.360 -> 01:02:31.340]  the intermediate code uh it's always a big uh switch statement and uh
+[01:02:33.440 -> 01:02:41.740]  i have a no bound switch as a matter of fact i have a uh i'm the only person who has no bound switch
+[01:02:43.420 -> 01:02:52.940]  so normally uh no bound switch this is this is my own so normally a uh a switch statement if it's outside
+[01:02:52.940 -> 01:03:02.360]  the range will will just uh skip over it but mine will crash um i do not check for a bound so it's a
+[01:03:02.360 -> 01:03:14.240]  little faster so um one of the things it has to do is handle uh uh uh okay it has it merges together uh
+[01:03:14.240 -> 01:03:22.780]  forward it merges together jumps so if you jump to a jump then it it does it does that it gets rid of dead
+[01:03:22.780 -> 01:03:32.140]  code and uh when it compiles uh i don't have uh segments the way everybody else does everybody
+[01:03:32.140 -> 01:03:40.800]  else has data and code segments um i don't really have that i i i put my code function by function
+[01:03:41.500 -> 01:03:51.180]  and uh i put my code compiled function by function and uh let's let's go ahead and trace this
+[01:03:54.940 -> 01:03:58.300]  i put my code function by function oops
+[01:04:15.760 -> 01:04:25.740]  what okay so i put my code and then after the function i put um any data like this is the uh this is the
+[01:04:25.740 -> 01:04:39.600]  string 25 is a star or percent i guess percent s so there's the string and so uh and so uh in the compiler
+[01:04:39.600 -> 01:04:41.260]  uh the main uh
+[01:04:44.060 -> 01:04:47.400]  i guess is it main let's see no it's not it
+[01:04:47.400 -> 01:04:59.240]  uh optimizer uh uh where did i put that
+[01:05:07.480 -> 01:05:08.120]  ip ip
+[01:05:13.160 -> 01:05:13.480]  ip
+[01:05:13.480 -> 01:05:14.080]  ip
+[01:05:14.080 -> 01:05:14.200]  ip
+[01:05:15.440 -> 01:05:15.760]  ip
+[01:05:16.760 -> 01:05:17.080]  ip
+[01:05:17.080 -> 01:05:17.140]  ip
+[01:05:19.680 -> 01:05:20.000]  ip
+[01:05:20.000 -> 01:05:20.160]  ip
+[01:05:20.160 -> 01:05:20.160]  
+[01:05:20.160 -> 01:05:20.160]  
+[01:05:20.160 -> 01:05:20.160]  
+[01:05:20.160 -> 01:05:20.240]  ip
+[01:05:20.240 -> 01:05:20.240]  
+[01:05:20.240 -> 01:05:20.240]  
+[01:05:20.240 -> 01:05:20.240]  
+[01:05:20.240 -> 01:05:20.240]  
+[01:05:20.240 -> 01:05:20.240]  
+[01:05:20.240 -> 01:05:20.240]  
+[01:05:20.240 -> 01:05:20.240]  
+[01:05:20.240 -> 01:05:20.240]  
+[01:05:20.240 -> 01:05:20.240]  
+[01:05:20.240 -> 01:05:20.240]  
+[01:05:20.240 -> 01:05:20.240]  
+[01:05:20.240 -> 01:05:20.240]  
+[01:05:20.240 -> 01:05:20.240]  
+[01:05:20.240 -> 01:05:20.260]  ip
+[01:05:20.260 -> 01:05:20.260]  
+[01:05:20.260 -> 01:05:20.260]  
+[01:05:20.260 -> 01:05:20.260]  
+[01:05:20.260 -> 01:05:20.280]  ip
+[01:05:20.280 -> 01:05:20.280]  
+[01:05:20.280 -> 01:05:20.280]  
+[01:05:20.280 -> 01:05:20.280]  
+[01:05:20.280 -> 01:05:20.280]  
+[01:05:20.280 -> 01:05:20.280]  
+[01:05:20.280 -> 01:05:20.280]  
+[01:05:20.280 -> 01:05:20.440]  ip
+[01:05:20.440 -> 01:05:20.440]  
+[01:05:20.440 -> 01:05:20.460]  ip ip
+[01:05:20.460 -> 01:05:20.460]  
+[01:05:20.460 -> 01:05:20.540]  ip ip
+[01:05:20.540 -> 01:05:20.540]  
+[01:05:20.540 -> 01:05:20.540]  
+[01:05:20.540 -> 01:05:21.120]  ip ip
+[01:05:21.120 -> 01:05:21.180]  ip ip
+[01:05:21.180 -> 01:05:21.220]  ip ip
+[01:05:21.220 -> 01:05:21.220]  
+[01:05:21.220 -> 01:05:21.860]  ip ip ip
+[01:05:25.920 -> 01:05:40.560]  there it is parcel parceling I would not have guessed so um it calls the different passes one
+[01:05:40.560 -> 01:05:47.100]  per file there's a there's a file for each of the passes and then the last pass loops over and over
+[01:05:48.140 -> 01:05:56.880]  as long as it's able to shrink it more and more so you can actually see that logic here so while the
+[01:05:56.880 -> 01:06:03.160]  code size is less than the last code size we want to compile that or do that last pass
+[01:06:05.520 -> 01:06:16.300]  and uh so in the last pass um we store that extra data like the jump table has is an array
+[01:06:16.300 -> 01:06:26.120]  for the jump table as an array this gets stored after the function the string constants are stored
+[01:06:26.120 -> 01:06:31.580]  after the function sprites are stored after the constant sprites are treated just like string
+[01:06:31.580 -> 01:06:41.640]  constants and float constants are stored after the function and we have to record the line number of
+[01:06:41.640 -> 01:06:58.200]  each so um you might not know this but there's a map file there's a map file which has a hidden uh
+[01:07:00.820 -> 01:07:09.740]  it has the line numbers and when you uh this is for uh like i told you just in time is easier than ahead
+[01:07:09.740 -> 01:07:17.720]  of time there's only two ahead of time the kernel and the compiler are ahead of time both of those have map files
+[01:07:18.300 -> 01:07:23.920]  and uh during boot uh we load the map files uh
+[01:07:23.920 -> 01:07:38.920]  uh where do we load the map files start os i think we do it at the end in the home make home
+[01:07:42.500 -> 01:07:47.600]  plug in or uh packages yeah we load the map files in the packages
+[01:07:48.900 -> 01:07:56.420]  so that's so that's so that's so that we have source debugging um now for the just in time
+[01:07:57.240 -> 01:08:04.960]  it's already sitting in memory there's no problem with just in time so the uh so the last pass it has
+[01:08:04.960 -> 01:08:12.280]  to uh the last pass that figures out the size the final size and that's when it makes the final it's a
+[01:08:12.280 -> 01:08:19.720]  mallet uh technically we have a code in a data heap uh but it i don't want to confuse you
+[01:08:21.460 -> 01:08:32.540]  um it's not like a linker uh segment in other uh compilers so yeah i'm really pissed off that um
+[01:08:32.540 -> 01:08:42.280]  the uefi boot requires elf files and that is just not in our that is not in our dictionary that we do
+[01:08:42.280 -> 01:08:52.800]  we do not do elf and we are going to command the industry to take that out of there we are not doing elf
+[01:08:54.160 -> 01:09:05.780]  so um we can look at the back end so that the seven eight and nine pass has a big switch statement
+[01:09:05.780 -> 01:09:12.160]  and then it calls the uh the back end for each of the uh let's take an example of uh
+[01:09:15.080 -> 01:09:22.220]  uh one of these back let's just jump in here so yeah you have unaries and and we do short
+[01:09:22.220 -> 01:09:34.600]  circuit logic all the time comparison so this is uh generating machine code um some of the more common uh
+[01:09:35.340 -> 01:09:45.660]  the slash operators uh so there's a library of uh so you store store one u8 store a rex
+[01:09:46.980 -> 01:09:57.800]  uh storage u u20 u24 um add to the stack pointer modder this is a common addressing mode
+[01:09:59.020 -> 01:10:04.400]  so anyway uh now i have an assembler i can tell you how the assembler works um
+[01:10:06.240 -> 01:10:13.340]  first let's talk about the unassembler basically here's what you have to do you have variable length
+[01:10:13.340 -> 01:10:21.000]  instructions and you have to come up with a way of ordering the instructions and once you have an
+[01:10:21.000 -> 01:10:30.500]  order then you can do a binary search to figure out what opcode so i have all the opcodes in a file that
+[01:10:30.500 -> 01:10:34.040]  i load at boot opcodes and addressing modes
+[01:10:36.260 -> 01:10:48.200]  and uh once you can order them then you can do a binary search it's kind of nasty but uh so first of all i sort the uh
+[01:10:49.000 -> 01:10:58.440]  i make up a table with with the sorted uh opcodes and then i do a binary search when i'm unassembling
+[01:10:58.440 -> 01:11:02.060]  so my unassembler i have an unassembler unassemble
+[01:11:04.500 -> 01:11:12.180]  let's just do this unassemble i'm just going to grab an address at 10 000. so there's my unassembler and
+[01:11:12.180 -> 01:11:15.220]  it has symbolic so it searches the hash tables for symbols
+[01:11:17.520 -> 01:11:26.320]  and uh so it has to uh maybe you have 48 uh 8b so what you have to do is you have to do a binary search
+[01:11:26.320 -> 01:11:31.400]  to see what opcode it is move and then once you have the opcode it's pretty easy
+[01:11:32.400 -> 01:11:41.560]  um so each opcode has multiple addressing modes like for example the move has anyway that each opcode
+[01:11:41.560 -> 01:11:50.140]  has multiple addressing modes and now for assembling the way that i assemble is uh
+[01:11:53.600 -> 01:12:05.660]  first i load that file with all the opcodes then i uh i uh i figure out uh which addressing mode
+[01:12:06.220 -> 01:12:12.940]  once you have an opcode i uh i i may i have non-standard ops i have non-standard opcodes
+[01:12:12.940 -> 01:12:24.040]  um you have to tell it you have a two operand mole or a one operand mole so i may i disambiguated
+[01:12:26.900 -> 01:12:34.400]  um some people might not like that but anyway um normal assembly and also uh
+[01:12:36.520 -> 01:12:44.120]  anyway um character turn doesn't matter in my assembly code so you can that's kind of silly i won't even
+[01:12:44.120 -> 01:12:53.440]  distract you um so uh what you have to do is uh you start with the opcode then you have to figure out
+[01:12:53.440 -> 01:12:59.860]  which addressing mode it is and uh you have to parse expressions um
+[01:12:59.860 -> 01:13:16.400]  um you have to store where is okay here it is so i i make a uh this is the heart of my assembler so i have uh
+[01:13:25.160 -> 01:13:34.280]  these rt these are the opcodes addressing modes i'm sorry these are the addressing modes so um
+[01:13:34.800 -> 01:13:42.840]  i have i have bits for the addressing modes so if it's relative 8 relative 16 relative 32 immediate 8
+[01:13:42.840 -> 01:13:54.180]  immediate 16 immediate unsigned immediate register register modder memory i don't support the segmentation
+[01:13:54.840 -> 01:14:01.540]  my 16-bit support is almost non-existent all i have to do is get get through the bootloader
+[01:14:02.280 -> 01:14:10.480]  and so i don't even support segmentation none of that anyway so uh so i have all these addressing modes
+[01:14:10.480 -> 01:14:22.220]  and then by uh process of elimination i say um i i eliminate uh bits until does it have an offset yes
+[01:14:22.220 -> 01:14:31.260]  or no and then i eliminate um bits in the uh this is a bit mask for those addressing modes and uh so based
+[01:14:31.260 -> 01:14:39.240]  on size we can eliminate a bunch and then once we sometimes you can have multiple addressing modes that are
+[01:14:39.240 -> 01:14:47.360]  valid and then it picks the one with shortest byte output anyway so
+[01:14:50.340 -> 01:14:54.240]  uh i hope you understood so for uh
+[01:14:54.240 -> 01:14:54.240]  
+[01:14:58.060 -> 01:15:01.980]  so the size is the most critical um
+[01:15:01.980 -> 01:15:03.400]  um
+[01:15:05.380 -> 01:15:06.500]  so for
+[01:15:09.040 -> 01:15:15.940]  anyway uh i think that's all i want to show you on the compiler uh let's see if i'm forgetting anything so
+[01:15:21.340 -> 01:15:29.200]  there's templates um when i first started i i made a template for each opcode i spliced them together and
+[01:15:29.200 -> 01:15:38.460]  then i patched um so if you inline each opcode like when i when i first started i had uh i had something like
+[01:15:38.460 -> 01:15:55.820]  push one uh pop r a x pop r d x add r a x r d x push r a x so when i first started i had all my operators uh
+[01:15:55.820 -> 01:16:04.800]  done in assembly and then what i did is i just uh inlined them together oh that reminds me so um
+[01:16:04.800 -> 01:16:16.400]  um i should go over how you add a inline function so i c t no i c c no
+[01:16:19.280 -> 01:16:21.100]  intermediate code uh
+[01:16:22.720 -> 01:16:23.280]  shist
+[01:16:31.280 -> 01:16:32.080]  okay
+[01:16:33.480 -> 01:16:40.940]  so let me show you how you add a inline function because it doesn't do inline functions normally
+[01:16:43.740 -> 01:16:51.180]  okay so these are my intermediate codes ic underscore so uh let's look at square root
+[01:16:53.280 -> 01:17:04.260]  or square let's look at square um i see uh is there square root i have a square i64 okay so find
+[01:17:06.020 -> 01:17:15.240]  sqr i64 so this is all the so when you want to add your own in inline function then um
+[01:17:16.860 -> 01:17:26.160]  first you need a uh oh when it boots it you have to you have to give it a um you have to bind a a c
+[01:17:26.160 -> 01:17:36.540]  function header to the uh intermediate code this is an internal internal function you give it the
+[01:17:36.540 -> 01:17:43.920]  intermediate code and then you give the c header so that's what you need you need the uh you need to
+[01:17:43.920 -> 01:17:52.260]  add your own here you also need to add your own in init that's not listed but in here you have to add
+[01:17:52.260 -> 01:17:56.780]  your own uh square root you have to add your own and tell how many arguments
+[01:17:59.060 -> 01:18:08.300]  and then the rest of it is just uh each pass has to handle that um in the switch statement so a lot of them are
+[01:18:10.260 -> 01:18:11.460]  simple um
+[01:18:12.680 -> 01:18:18.100]  all the functions are about the same so this when it finally gets to the last pass
+[01:18:18.100 -> 01:18:26.460]  it calls ic square in order to uh convert it to binary and what is this doing it's uh
+[01:18:27.640 -> 01:18:35.580]  so the move um i should tell you what the back end how the back end works the back end has a type
+[01:18:35.580 -> 01:18:51.340]  uh mode uh let's so this is not this is you can have an immediate mode you can have a register you can
+[01:18:51.340 -> 01:18:57.540]  have a displacement you can have an index register sib you can have a rip relative
+[01:18:58.380 -> 01:19:07.920]  or you can have stack this is the original stack um which started as the system stack so you'll normally
+[01:19:07.920 -> 01:19:14.260]  you do it in registers and you no longer actually use the system stack like that
+[01:19:15.820 -> 01:19:30.100]  so in all of these uh back end routines you'll find uh the parameters are uh type register displacement um
+[01:19:31.220 -> 01:19:40.740]  though that's the or each each argument is uh indicated by a type register displacement so you
+[01:19:40.740 -> 01:19:48.680]  see how there's type this is uh argument argument one type argument one register argument one displacement
+[01:19:48.680 -> 01:19:54.580]  argument two type argument read to register argument two displacement so uh
+[01:19:57.380 -> 01:20:03.100]  and the type is actually both the uh the addressing mode
+[01:20:04.200 -> 01:20:16.960]  and the uh the size um it's it's a number i i kind of smooshed together um the addressing mode and the uh
+[01:20:18.120 -> 01:20:28.800]  here's the raw types so if it's a u8 and u16 u32 f32 f64 we don't have f32 f64
+[01:20:28.800 -> 01:20:39.480]  so uh in all of these back end routines you'll see the type which is uh the addressing mode plus the uh the size
+[01:20:40.360 -> 01:20:48.580]  the register if it has one the displacement if it has one and uh so that's how we have to pass it to all
+[01:20:48.580 -> 01:20:58.580]  these routines anyway so it does uh there are some library routines uh you'll see those in back
+[01:20:58.580 -> 01:21:04.900]  in library these are the floating point um back end um so uh
+[01:21:07.400 -> 01:21:14.940]  so the final the final thing it has to do is make the binary files and uh what we do is uh
+[01:21:16.200 -> 01:21:22.800]  you can go to my web page and you can get bin rep this this has the binary file format
+[01:21:23.440 -> 01:21:31.820]  so if it's just in time it's really easy if it's ahead of time uh i'm going to dump the binary file
+[01:21:31.820 -> 01:21:34.480]  bin rep compiler
+[01:21:37.680 -> 01:21:42.760]  so this has a relative export table with sim so
+[01:21:44.480 -> 01:21:53.740]  relative import table so it has to import all these symbols and patch all these addresses and it has to
+[01:21:57.380 -> 01:22:03.920]  doc max i want i don't want a limit on my command line buffer
+[01:22:10.180 -> 01:22:14.420]  so at the top is uh uh oh
+[01:22:16.400 -> 01:22:18.880]  we want we have exports and imports
+[01:22:20.340 -> 01:22:28.820]  oh here's the uh all my code is app is uh position independent there's a uh a table for every single
+[01:22:28.820 -> 01:22:36.000]  absolute address my binary files are kind of bloated you could say not not really anyway there's this
+[01:22:36.000 -> 01:22:42.560]  table for all the absolute addresses that need to be patched and that that that enables all my code to be
+[01:22:42.560 -> 01:22:50.480]  quote unquote position independent but that's because it's patched at load time and uh here's the exports
+[01:22:50.480 -> 01:23:01.920]  relative 32 export and uh here's the imports um so uh uh that's all there is to it
+[01:23:01.920 -> 01:23:02.540]  um
+[01:23:02.540 -> 01:23:04.080]  you
+[01:23:04.080 -> 01:23:04.080]  
+[01:23:04.080 -> 01:23:04.080]  
+[01:23:04.080 -> 01:23:04.080]  
+[01:23:04.080 -> 01:23:04.080]  
+[01:23:04.080 -> 01:23:04.080]  
+[01:23:04.080 -> 01:23:04.080]  
+[01:23:04.080 -> 01:23:04.080]  
+[01:23:04.080 -> 01:23:04.080]  
+[01:23:04.080 -> 01:23:04.080]  
+[01:23:04.080 -> 01:23:04.080]  

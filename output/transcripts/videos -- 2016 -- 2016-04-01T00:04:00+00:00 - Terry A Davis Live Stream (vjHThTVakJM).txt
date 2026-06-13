@@ -1,0 +1,409 @@
+========================================================================
+FILE        : videos/2016/2016-04-01T00:04:00+00:00 - Terry A Davis Live Stream (vjHThTVakJM).mp4
+SOURCE URL  : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2016/2016-04-01T00:04:00+00:00 - Terry A Davis Live Stream (vjHThTVakJM).mp4
+DERIVATIVE  : (none — streamed from video)
+FORMAT      : MPEG4
+SIZE        : 239,276,595 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:46:08.000
+TRANSCRIBED : 2026-05-11T23:49:21.983346+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+so over at OS Dev as usual they are pissing me off by misunderstanding my code they have said it won't boot it can't boot there's no way it boots it's been booting since I started 93 anyway so this is basically they they're trying to start my kernel I'm assuming they're talking to me and they're trying to start my kernel without doing it the correct way okay let's just go through this because it's pretty easy you go to my website you download the ISO file okay once you have the ISO file you make a new virtual machine typical you select the ISO image you go to downloads you say there's the ice it's in my downloads directory there's the ISO file it's an other 64-bit I call this production there's my in-house and there's production eight gigabytes for the hard drive is enough you you do have to customize the hardware you need 512 meg or more I put it at five just to show that it's bigger than 32 bit and I give it eight cores you have they have to be real cores and then we're finished I should have removed networking because it doesn't use the network okay so for some reason those sons of bitches cannot do there are everybody else you hit yes yes yes if you're in a virtual machine hit yes yes yes and that's all there is to it for some reason they want to boot it in box or whatever that debugger thing is they can't follow simple instructions box is some kind of clusterfucked thing full of bugs that none of them I mine has been 64 bits since 2007 though they expect me to debug box for them I'm not going to debug your stupid your thing doesn't matter anyway so we reboot there you go now you have an installed version of my operating system so and it has all the it has all the source code all the source code is present hit control D this is the file manager there's the the kernel is here the compiler is here if you want to rebuild then you say make OS install boot it has to my boot loader is super simple it requires a contiguous kernel dot bin and it requires it to be in a certain spot it it when you install then it writes to the kernel dot it writes the address of the kernel dot bit let's look at the code this is my I have an install script you saw it run that's how a professional operating system works is it has an install script you seem to you you seem to want to do it custom you want to mess with my kernel dot bin that's not how you do it so this calls make all which compiles the two modules this is my own compiler and then after it compiles if it's a if it's a CD-ROM it does one thing if it's a hard disk it does another what it does is it writes to the it uses interrupt 1342 in the boot sector and there's a dap that's that's an address of a block and what it does is it writes to the the dap in the it writes to the the first block of the sector which is the boot sector it reads it and reads it modifies and writes it there there reads it modifies and writes it so what is it what is it right it writes the the address of the kernel the kernel the kernel dot bin find file kernel dot bin and what that does is it gets the directory entry with the cluster number and then it writes it into the kernel dot bin so when we when we recompile this will build the kernel this will build the kernel in the compiler okay what is the current drive this s this is going to be the c drive and what we have to mount drives at boot time so we're going to mount the c and d drives at boot we want to probe now and it's a hard disk now it we didn't say number one you could enter port numbers if it's sata good enough enter we want the default cache size is fine hit enter if you want you can change some options we're going to leave those alone enter there now we just recompiled the kernel and the compiler and we wrote to the boot sector the uh the new kernel dot bin address now we reboot this is my this is my master bootloader i don't use grub i don't use grub i have my own bootloader i'm all professional hit one there we are we booted um the c drive so let's go into detail on what we're doing so i'm going to go ahead and um so i'm going to go ahead and um i have my temple os and production i'm going to delete that off my disk now let's go to this and uh what was i doing uh what was i doing customize okay okay now we just screwed up our size a little bit okay so uh we get we're going full screen um there's a bug in vmware you have to do auto fit and then stretch every time you do it you have to do that um but the disk is five times faster than q emu so um let's let's go into detail on what we just did so we we have a boot a bootloader um that it writes to the boot sector so uh this is the hard this is this is the master bootloader that's like grub and then this is the uh i think they call it the volume bootloader i don't know what you call it it goes on the first block of the partition what does it do it has the uh dap dap is what um if we if we go to the uh internet and look up interrupt 13 interrupt 13 42 that's the one you use for big hard disks if you have a hard disk that you bought in the last 10 years you want 42 at osdev they're retarded they're evil they make them they make the poor kids uh do um sector head cylinder arithmetic they're they're fucking evil they're they're sabotaging them none of that shit yet there hasn't been a hard disk that small in 10 years and it's even harder it's easier to use adapt you should tell them god they are wicked fuckers the osdev cia evil fuckers making the poor kids use cylinder head sector you want to use interrupt 42 and if fox doesn't do it then get the hell out of box that's that's the evil they they say they sabotage wicked fuckers anyway they're making all the poor kids oh well making them all reinvent linux and stuff so i'm kind of wicked i relocate my uh bootloader for no particular reason so what i do is i uh um if you look at a memory map of the 640 um there's 7c00 zero and then way up here is uh is uh well 640 means 10 times 64 so that's how you get 640 1040 um just underneath that is the uh i had discovered the hard way there's the uh there's there's a data area called the extended data area underneath there so um just to be safe i i put my stack at 880 000 is this is that i put my stack at 80 000 um that's normal i don't know why i like to view it as one big chunk and as a matter of fact um just count because i'm kind of evil i relocate my boot sector up to up to just under 80 000 and then i load my kernel in at seven there's no real reason to do that i could leave my boot sector at seven and put my kernel afterward but i it just it just made more sense to me when i did it yeah actually i started with dos uh it was loaded by dos and so that's it it made a little more sense anyway um so i can tell if anybody has used my bootloader because they do the the relocation so i'm kind of happy with it i'm not really you know i'm not in a business to help you make an operating system that's not my business i'm in the business to have you use temple os i don't want you using it i don't really care that much i'm not gonna but so i don't care i cannot this is kind of evil obfuscation that i relocate you can tell where it came from if they if they copy me um which is kind of wicked so anyway so uh i load one block at a time there's only one thing that matters in operating systems and that's getting it to boot to to run efficiency doesn't is the least of your worries so i load one block at a time um if you want to try and load 64k it's gonna up on one out of ten bios and you were stupid because it's that's not gonna what's gonna matter is if it doesn't work and so i don't use interrupts for my hard disk because that's one more thing that's not going to work one out of ten is not going to use the right interrupt number did you know that um even these motherfuckers uh watch this let me demonstrate something to you okay um this is the cia shit and i'm talking about watch this uh let's let's turn this off well let's just let's make two virtual machines okay so new virtual machine i'm going to do this real fast um okay so we're just going to hit enter enter uh like let's call this production i'll do it twice in a row see what happens okay so we kick it up to into the five and eight okay finish okay let's just leave it like this for a second i'm going to power off okay power off go in here edit machine settings okay go to the hard disk and uh advanced ide one one why did you put it on there's ide zero there's ide zero zero one one i'm not kidding these motherfuckers play musical chairs with the fucking discs they put the hard disc on okay let's see that one zero one one they did this just to fuck with uh operating systems they don't want the cia doesn't want anybody from china or india making an operating system okay now let's do another one okay let's get rid of this one did you see that one which was which uh there's no reason for musical chairs on the fucking they probably say viruses god damn you motherfuckers um this is the shit this is the this is only the beginning this this you can actually solve the other shit you can't solve um okay so we got uh one one zero the hard disk is one one okay let's let's close this these these motherfuckers so we delete this do you know how you have to figure it out you have to you have to test the hardware and say okay is my cd-rom boot sector here no then it's not the right drive um you have to it's you know a hardware or uh an engineer knows correct protocol and doing something like comparing the block is not what it should be but that's the only way to do it um so uh in other words you have to compare the block on the disk to what got loaded in memory okay i'm going to do another one so we're going to do so we do this i'm doing the same thing same thing i guess it's a different uh memory a little bit trying to make it as similar as possible now watch what they do i'm pretty sure i haven't tested this but i could swear that they uh they play musical chairs they do i know they do okay i could be wrong but let's see let's see what they did i'm good um um so we go to the hard disk advanced okay they did not play musical chairs um sometimes they do let's see if uh why why is it why didn't you put one on i can handle the drives in any position uh so um what about this one this is my other drive maybe it's if you have uh multiple ones installed let's see what we have here okay they're the same it's it's it's a weird thing to be starting with the secondary why is it starting with the secondary trust me i have seen different settings for that for no reason why it should be the the hard disk should be the master on the primary and the cd-rom should be on the other controller it doesn't really matter for a fake hard drive but they have good performance by the way but it should be separate controllers because now you have anyway so uh we can i guess we can change it can't we well anyway i don't yeah they'll say oh well you can change it yeah but think about my poor customers little motherfuckers can't even figure out how to how to do what i just did um you can't any little question you have to ask your customers that's like 50 drop in sales i mean they are simply not going to get through that question um if you had to tell people to set that that would be terrible as a matter of fact if you boot a uh a uh um on on native hardware um there's something called i wish i could show you this uh you're supposed what you're supposed to do so in the original um ibm pc there was uh ide primary id secondary there it was there were there were two sets of ports and that that was the end of the story but then they they introduced uh then they started doing sata if you do uh if you go to the command prompt in linux and you say ls uh pci minus l okay if you say lspci minus i think i don't know lspci ls pci this tells sata ports sata controller um in windows it's in your um your somewhere in here um it'll give port addresses um i don't know maybe you have to say minus minus v for minus v i okay ls ls pci minus v okay so somewhere in here is sata ports that's your hard disk or your cd-rom and then here's the sets of ports so i have a computer sitting on the other side of my room i can show you and it boots natively and i have to enter i have to enter f010 because that's the port so they're not using primary and um primary and master and secondary ide they're using sata ports with uh so how are you supposed to find that out well um there's a device called there's a chip called a oh i i know i'm not i don't really bother to okay there's your cpu and then there's support chips and sometimes they merge these together i guess i don't really know um i it's not important to me but there's a there's a chip no i don't feel like that so there's an there's a there's a chip that does your uh your io i'll go ahead and i'll go to my own so you can look for ich 10 so you get the one that's for your computer every couple years they make a new one and yes they are different think about that that's that's fucked they're it's okay they have to do it but it's that's why there's only one thing that matters in operating systems and that's getting it to work um and uh the people who haven't figured that out uh let's see i see i have a course core i7 so i don't use interrupts because it makes it work years so there's a there's ich 6 7 8 9 every couple years they make a new one and they're all slightly different just think of the nightmare here so here's sata okay this is as a matter of fact uh primary command block address these are the io ports for their uh so uh how do we figure out okay so pci devices are uh arranged into uh families devices and functions or something i don't support pci devices i i uh that's where i figured out you know what we just crossed a bridge bridge too far anyway so uh pci device these i i have a little bit of there's normally the the bios is 16 bit but there's a pci bios which if you go to the internet if you go to the internet nobody knows this and they all call me a liar and they start saying my operating system is 16 bit son of a bitch i you know the only good thing i learned a couple good things from os dev i learned about the pci bios from os dev pci bios specification what this is is a 32-bit library that will get you information that will read the pci config space what the on the first computer i had you could i found the config space in memory then they started putting it so it was off-limits so you couldn't access it at first i thought it was just memory locations but anyway so the way you're supposed to access the pci config space that's this uh you see these uh these registers this is pci config space it's um they probably when when you call the bios it probably um makes it normally it's it's invisible it's not part of add memory space i think this maps it or this flips a a uh flip-flop and turns it into a memory space so what so if we want to do this right let's say we want to get the sata ports it turns out that say uh the port interface is kind of uh old-fashioned they're not going to do that anymore um but as soon as we kick the out of them with divine commandments they are going to do like that but anyway uh so for for for uh for the first for the first decade of the ibm pc the the hard disk was at ide primary or ide secondary and then starting at about 2000 they started doing sata at other other it's the same arrangement of ports but they're just not at the the standard locations and then they stopped doing ports altogether and you have to you have to do the interface with pci anyway so uh um i tried to do it the correct way so what is the correct way well you use the uh the pci bios to enter to go to these registers so first of all there are this many devices so what do you have to do you have to scan for um no that's not what you do you you tell the uh you call the pci bios to find the device category the device class okay well this shouldn't be too hard we go to uh sata let's see um subclass code class code okay so it's listed in this documentation and uh if we go to the pci bios but guess what guess what these are clusterfucked uh in practice nobody follows so there's this website that tells um pci device classes so we want we want the we want to tell the pci bios to give us a mass storage device sata so we want 0106 so we want to tell the pci pci bios 0106 but it goes deeper there's one more level i do believe um and that's where that's where it's clusterfucked you have to just you have to scan all 256 you have to individually scan 256 it's the it's not standard not only that but sometimes it's not called sometimes it's called ada sometimes it's called sata and sometimes it's called ide so for we have to scan all of those and uh so all right now uh how do we uh so this is for uh um so the pci spec was the pci gives you the first you use a class code you scan 256 256 256 256 different codes you're looking for um sata devices you have to you have to test them all and uh it's it would they couldn't have designed it any worse anyway so um long story short i made a uh you know i won't say i tried as hard as possible if i were going to try as hard as possible i would go through all the i ch6 7 8 9 10. i only did i see i only paid attention to i ch 10 but if you go to my kernel in the block device directory under ata id here's where i try to uh determine the uh the port numbers okay first time i have to identify which one is the cd-rom and which one is the hard drive so a tappy is hard drive and i have to compare against the disk block of a known of what i booted to because they don't tell you which one it is so you have to compare against a boot and so i i do the i do the standard addresses and although otherwise i try to use my pci okay so i uh i try to identify i think i say control 8086 okay no i didn't do that okay so uh pci class fine so i'm i'm i'm asking the pci bios for a certain class i'm going through 256 subclasses and uh apparently i read the uh the two ports and the other two ports and i test them all with the this is really you'd call this african ingenuity you don't really want to be doing this um that there's there's got to be a right way to do this um but actually there's not a right way it really is that bad um that's the first you know people with would turn their nose up at this techniques like this probing come on you don't want to be probing like this there probably is a right way but it's probably 10 pages i don't know where it is um anyway so it's now think about this what we really need is the well here's what you need a king you need a king to kick the out of the evil cia here's the new world order the the mass the the primary hard disk goes on the ide master uh ide primary master the the primary cd-rom goes on the ide secondary master and that's the end of the story do not relocate them put them in the fucking consistent place like it used to be except even more standard so um so i had i was really happy with myself i had the pci bios working when i went to a um on on native hardware when i went to a certain class code then then i tried another machine and it's a different it one was ide and and then there's vmware this tells a totally different pci rep so what is this saying this is saying uh my pci rep is saying uh i think ahci or so what are we looking for uh sata i did this report with a file i went to the website and got a list of all the different um all the code words you have to read excuse me you have to register a pci device with the um a central authority and i got the list of registered um you can see that file it's huge um companies have to uh register their pci devices and uh so one of these things is uh i didn't even know scuzzy that sounds like uh that's a that's a cd-rom it's not scuzzy it's definitely not scuzzy or that's a hard disk so the pci has bridges and it has uh it has buses this is bus number two bus family device and then register um bus not rich anyway uh oh these are these are the categories these are the codes i print out in this you see that six that's like an ata number 80 that's what these numbers are are the codes something like that three svga anyway so uh so when i am king i'm gonna kick the out of the industry and we're gonna standardize this and we are gonna here's the new world the new world order we make the hardware so that temple os is glorious and minimal we make the hardware to make temple os glorious that's what we do that's the new world order anyway so um so it used to be that the pci was in i had i had a machine where you didn't even have to use the pci bios you just went to some addresses in memory and it gave you the uh but no no they weren't happy with that they couldn't have it so simple so they had to make this pci bios thing so i have to i have to downshift out of 64 bit into 32 bit do a uh i have to turn off interrupts and stuff i have to do 32 bit bios which is kind of slow i think uh and then i have to scan 256 uh different class codes all because they couldn't put it in a standard spot you know what uh you know what you need you need a king you need a king people some people have two spaces for tabs some people have four spaces for tabs guess what a tab is eight spaces a tab is eight spaces that took eight columns i'll bet you didn't know that well that's what it is you need a king that's what you need the industry needs a king to kick the out of all this flexibility you know what syntax highlighting you know what syntax highlighting looks like i'll tell you what syntax highlighting looks like this is what syntax highlighting looks like is there flexibility no there's not flexibility you actually you if you really did want to change the syntax highlighting i don't you have to recompile the kernel um let's look for uh but you know when i first started i made all the colors changeable that makes me giggle um so if you want to change the syntax highlighting you change it here but uh don't do that you need a king that's that's what apple teaches i i've never used an apple but um they have a lot of common sense you get rid of some of this flexibility because it's actually evil you know somebody wants a different color scheme no you're not no no we're not going to allow that anyway so uh you know one of my one on my first on my ticketmaster job um i had a uh i had a uh i was making a line regulator which uh is a device that um if the wall voltage is lower than it should be it up transforms it by selecting a tap on a transformer and uh when i made it i said oh well we'll put a potentiometer to set the voltage and my boss is like uh no get rid of the potentiometer i'm like what uh and that's where i learned uh um it's uh you could call it cowardly you could call it anything you like but if you the more uh adjustments the worst design um that's kind of uh that's you might think power users power users might like adjustments like colors and stuff but uh i think um you know when i when i made this uh this if you look at at the internet i don't even know if i can boot any of the cia made um i don't know i think they did um if you go to the internet internet archive the internet archive is no longer cataloging me because i put source code the internet archive and uh all the snapshots they got over the years uh most are not bootable um when i first made my operating system i said tell me the primary ide tell me the cd-rom port and the and the hard disk port and uh it took a lot of work to uh it's really easy if you just ask what's the hard disk port what's the cd-rom port um but it took a lot of work a lot of work to to make it figure that out automatically and it doesn't doesn't look like much but if you can get rid of one prompt during installation that is a huge achievement if you can get rid of one prompt during installation that's a big achievement you know all the computers if they can figure out the uh the time zone i don't know that's an example anyway uh um so uh yeah when when i first on my first versions all i did is i had a i just simply ask what's the cd-rom port what's the uh the hard disk port there's some wisdom people were thinking it was a um a uh a registration uh like a uh a product key and when i when i realized what they were thinking it was oh wow there are so many things you can't see through other people's eyes if they see a prompt for port numbers they're thinking it's a it's a paid product key um um and uh i have a you know what um i need to upgrade i need to get a new computer i i have an excuse it's actually important for my job although it's going to be hopeless on um i don't do uh i i decided i'm not doing usb devices i'm or pci devices i'm not going to do usb either um so um all these devices fuck all that i'm not doing that i'm sticking to um io port devices and so uh uh if i get a new computer and it has a ssd hard drive there's it wouldn't it would there's there's no driver for us usb and uh but there but vmware will make it look like uh um an ide or ata whatever you want to call it um someone told me that um i'm pretty confident that's true so um but you know that running it in a vm makes the glory of an operating system look like a dumb dumb retarded application anyway uh so uh i want to get a new computer and uh i heard linux uh if it has um if it doesn't have a cd-rom there's like a 12-step process let me just tell you um you know how some things cause birth control well um this uh uh how do we say this uh uh ubuntu uh flash or ubuntu they used to be called flash they've been confusing everybody on purpose um ssd stick boot uh install so i i was tempted to get a new i just took for granted oh well i'll just install linux but suddenly it's looking like an ordeal even for me if it's if it's intimidating to install linux because it doesn't have a cd-rom look at this this stuff oh where is it installing ubuntu onto a solid state drive i i think what am i looking for i'm looking for a from us yeah uh uh uh uh uh uh uh uh uh uh uh uh uh uh uh uh uh! uh that has no walls and the CIA knows all about that and what what that means is if you can make it you know maybe it's three steps normally and if you can make it 12 steps you just eliminated 75% of the customers maybe everything in Linux is always screwed up I'm not that used to it keep portable Ubuntu okay I think this is a live CD idea oh they love that the CIA wants everybody to have a wristwatch computer instead of a desktop but when I get through with them we're gonna have fucking supercomputers everybody because if only one person has a supercomputer and he writes software nobody can use it so everybody has to have a fucking supercomputer and that's what we're gonna do to the industry with the help of God so somewhere in here it tells how to put a to install okay so if I get a new computer and I want to put Linux on it I have to copy to a USB stick from from this computer and then and then install from a USB stick and I went looking for it how can I transfer Ubuntu from a stick to a new okay I swear it was like a 12 step process and if it's 12 steps I really don't think very many people are doing it it's like birth control if you make car seats and if you make children a big enough hassle that causes birth control and if you make a big enough hassle to install Linux you can kill Linux by just making it 12 steps and so I'm gonna command the industry to quit don't even think about tiny desktops the the virtue of a portable is smallness the virtue of a desktop is powerful you want powerful you're it's like you're complete you're confusing what your strength and weakness is the CIA is making the desktop think it wants to be small no you're it's like a man who thinks he wants to be tiny no men should be big and the desktop should be big it's powerful and you got them all confused gender confused you got tiny desktops what why are you making nobody gives a shit about a calculator size desktop no that doesn't really do anything I got a fucking floor space I got I want to I want a monster computer and they got rid of the CD-ROM they don't like that they want everything in the cloud where it's under lock and key the little motherfuckers we're gonna kick the shit out of them God and I are gonna kick the shit out of the CIA we're gonna fuck them up we are gonna fuck them up so anyway they got everybody wanting wristwatch desktops why the fuck would you want a wristwatch desktop the virtue of a desktop is power big big screen full keyboard big mouse power horsepower you don't make a pussy desktop what the you evil motherfuckers you got these poor confused little stupid kids wanting a tiny desktop the hell are you doing and here's the problem if you make a tiny if you make a cellaron then suddenly little timmy's game that worked on his i7 doesn't run on his neighbor's cellaron so you got to have everybody with powerful desktops all desktops must have eight cores we're going to standardize this shit that's what we're going to do you you you
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.960 -> 00:00:09.060]  so over at OS Dev as usual they are pissing me off by
+[00:00:11.640 -> 00:00:18.360]  misunderstanding my code they have said it won't boot it can't boot there's no way it boots
+[00:00:18.360 -> 00:00:29.720]  it's been booting since I started 93 anyway so this is basically they they're trying to start
+[00:00:29.720 -> 00:00:35.160]  my kernel I'm assuming they're talking to me and they're trying to start my kernel
+[00:00:35.160 -> 00:00:42.580]  without doing it the correct way okay let's just go through this because it's
+[00:00:42.580 -> 00:00:48.820]  pretty easy you go to my website you download the ISO file
+[00:01:01.240 -> 00:01:12.740]  okay once you have the ISO file you make a new virtual machine typical you select the ISO image
+[00:01:12.740 -> 00:01:22.620]  you go to downloads you say there's the ice it's in my downloads directory there's the ISO file
+[00:01:24.100 -> 00:01:34.020]  it's an other 64-bit I call this production there's my in-house and there's production
+[00:01:34.020 -> 00:01:42.040]  eight gigabytes for the hard drive is enough you you do have to customize the hardware you need 512 meg
+[00:01:42.040 -> 00:01:50.120]  or more I put it at five just to show that it's bigger than 32 bit and I give it eight cores you
+[00:01:50.120 -> 00:01:55.680]  have they have to be real cores and then we're finished I should have removed networking because
+[00:01:55.680 -> 00:02:05.080]  it doesn't use the network okay so for some reason those sons of bitches cannot do there are
+[00:02:06.180 -> 00:02:12.780]  everybody else you hit yes yes yes if you're in a virtual machine hit yes yes yes and that's all
+[00:02:12.780 -> 00:02:19.820]  there is to it for some reason they want to boot it in box or whatever that debugger thing is
+[00:02:20.460 -> 00:02:26.440]  they can't follow simple instructions box is some kind of clusterfucked thing full of bugs that
+[00:02:26.440 -> 00:02:36.340]  none of them I mine has been 64 bits since 2007 though they expect me to debug box for them I'm not
+[00:02:36.340 -> 00:02:45.440]  going to debug your stupid your thing doesn't matter anyway so we reboot there you go now you have an
+[00:02:45.440 -> 00:02:56.220]  installed version of my operating system so and it has all the it has all the source code all the source
+[00:02:56.220 -> 00:03:05.580]  code is present hit control D this is the file manager there's the the kernel is here the compiler is here
+[00:03:05.580 -> 00:03:18.300]  if you want to rebuild then you say make OS install boot it has to my boot loader is super simple it requires a contiguous
+[00:03:18.300 -> 00:03:35.280]  kernel dot bin and it requires it to be in a certain spot it it when you install then it writes to the kernel dot it writes the address of the kernel dot bit let's look at the code this is my I have an install script you saw it run
+[00:03:35.280 -> 00:03:47.120]  that's how a professional operating system works is it has an install script you seem to you you seem to want to do it custom you want to mess with my kernel dot bin that's not how you do it
+[00:03:47.980 -> 00:03:53.640]  so this calls make all which compiles the two modules this is my own compiler
+[00:03:55.280 -> 00:04:02.300]  and then after it compiles if it's a if it's a CD-ROM it does one thing if it's a hard disk it does another
+[00:04:03.620 -> 00:04:16.820]  what it does is it writes to the it uses interrupt 1342 in the boot sector and there's a dap that's that's an address of a block
+[00:04:16.820 -> 00:04:36.180]  and what it does is it writes to the the dap in the it writes to the the first block of the sector which is the boot sector it reads it and reads it modifies and writes it there there reads it modifies and writes it so what is it what is it right it writes the the address of the kernel
+[00:04:36.180 -> 00:04:51.180]  the kernel the kernel dot bin find file kernel dot bin and what that does is it gets the directory entry with the cluster number and then it writes it into the kernel dot bin so when we when we recompile
+[00:04:53.040 -> 00:05:05.100]  this will build the kernel this will build the kernel in the compiler okay what is the current drive this s this is going to be the c drive and what we have to mount drives
+[00:05:06.140 -> 00:05:13.800]  at boot time so we're going to mount the c and d drives at boot we want to probe now
+[00:05:16.280 -> 00:05:23.660]  and it's a hard disk now it we didn't say number one you could enter port numbers if it's sata
+[00:05:26.040 -> 00:05:34.620]  good enough enter we want the default cache size is fine hit enter if you want you can change some options
+[00:05:34.620 -> 00:05:42.340]  we're going to leave those alone enter there now we just recompiled the kernel and the compiler and we wrote
+[00:05:42.340 -> 00:05:53.060]  to the boot sector the uh the new kernel dot bin address now we reboot this is my this is my master bootloader i don't use grub
+[00:05:53.060 -> 00:06:01.300]  i don't use grub i have my own bootloader i'm all professional hit one there we are we booted um the c drive
+[00:06:05.740 -> 00:06:11.460]  so let's go into detail on what we're doing so i'm going to go ahead and um
+[00:06:12.340 -> 00:06:21.360]  so i'm going to go ahead and um
+[00:06:21.360 -> 00:06:26.220]  i have my temple os and production i'm going to delete that off my disk
+[00:06:27.760 -> 00:06:30.960]  now let's go to this and
+[00:06:34.640 -> 00:06:43.560]  uh what was i doing uh what was i doing customize okay okay now we just screwed up our size a little bit
+[00:06:46.200 -> 00:06:54.380]  okay so uh we get we're going full screen um there's a bug in vmware you have to do auto fit
+[00:06:54.380 -> 00:07:03.520]  and then stretch every time you do it you have to do that um but the disk is five times faster than q emu
+[00:07:05.320 -> 00:07:13.340]  so um let's let's go into detail on what we just did so we we have a boot a bootloader um that it
+[00:07:13.340 -> 00:07:22.480]  writes to the boot sector so uh this is the hard this is this is the master bootloader that's like grub
+[00:07:22.480 -> 00:07:27.140]  and then this is the uh i think they call it the volume bootloader i don't know what you call it
+[00:07:27.140 -> 00:07:38.660]  it goes on the first block of the partition what does it do it has the uh dap dap is what um if we
+[00:07:38.660 -> 00:07:48.180]  if we go to the uh internet and look up interrupt 13 interrupt 13 42 that's the one you use for big hard
+[00:07:48.180 -> 00:07:55.220]  disks if you have a hard disk that you bought in the last 10 years you want 42 at osdev they're
+[00:07:55.220 -> 00:08:02.200]  retarded they're evil they make them they make the poor kids uh do um sector head cylinder arithmetic
+[00:08:02.200 -> 00:08:08.800]  they're they're fucking evil they're they're sabotaging them none of that shit yet there hasn't been a hard
+[00:08:08.800 -> 00:08:15.000]  disk that small in 10 years and it's even harder it's easier to use adapt you should tell them god
+[00:08:15.000 -> 00:08:22.220]  they are wicked fuckers the osdev cia evil fuckers making the poor kids use cylinder head sector
+[00:08:23.540 -> 00:08:30.500]  you want to use interrupt 42 and if fox doesn't do it then get the hell out of box that's that's the
+[00:08:30.500 -> 00:08:36.540]  evil they they say they sabotage wicked fuckers anyway they're making all the poor kids
+[00:08:38.480 -> 00:08:46.820]  oh well making them all reinvent linux and stuff so i'm kind of wicked i relocate my uh bootloader for
+[00:08:46.820 -> 00:08:57.420]  no particular reason so what i do is i uh um if you look at a memory map of the 640 um there's 7c00
+[00:08:57.420 -> 00:09:09.320]  zero and then way up here is uh is uh well 640 means 10 times 64 so that's how you get 640 1040
+[00:09:10.060 -> 00:09:17.440]  um just underneath that is the uh i had discovered the hard way there's the uh there's there's a data
+[00:09:17.440 -> 00:09:27.400]  area called the extended data area underneath there so um just to be safe i i put my stack at 880
+[00:09:27.400 -> 00:09:42.360]  000 is this is that i put my stack at 80 000 um that's normal i don't know why i like to view it as one
+[00:09:42.360 -> 00:09:49.920]  big chunk and as a matter of fact um just count because i'm kind of evil i relocate my boot sector
+[00:09:50.940 -> 00:10:00.400]  up to up to just under 80 000 and then i load my kernel in at seven there's no real reason to do that
+[00:10:00.400 -> 00:10:09.200]  i could leave my boot sector at seven and put my kernel afterward but i it just it just made more sense to
+[00:10:09.200 -> 00:10:19.200]  me when i did it yeah actually i started with dos uh it was loaded by dos and so that's it it made a little
+[00:10:19.200 -> 00:10:27.200]  more sense anyway um so i can tell if anybody has used my bootloader because they do the the relocation
+[00:10:27.840 -> 00:10:32.100]  so i'm kind of happy with it i'm not really you know i'm not in a business to help you make an
+[00:10:32.100 -> 00:10:38.100]  operating system that's not my business i'm in the business to have you use temple os i don't want you
+[00:10:38.100 -> 00:10:44.660]  using it i don't really care that much i'm not gonna but so i don't care i cannot this is kind of
+[00:10:44.660 -> 00:10:54.400]  evil obfuscation that i relocate you can tell where it came from if they if they copy me um which is
+[00:10:54.400 -> 00:11:02.620]  kind of wicked so anyway so uh i load one block at a time there's only one thing that matters in
+[00:11:02.620 -> 00:11:10.700]  operating systems and that's getting it to boot to to run efficiency doesn't is the least of your
+[00:11:10.700 -> 00:11:19.280]  worries so i load one block at a time um if you want to try and load 64k it's gonna up on one out
+[00:11:19.280 -> 00:11:26.620]  of ten bios and you were stupid because it's that's not gonna what's gonna matter is if it doesn't work
+[00:11:26.620 -> 00:11:32.260]  and so i don't use interrupts for my hard disk because that's one more thing that's not going to
+[00:11:32.260 -> 00:11:37.720]  work one out of ten is not going to use the right interrupt number did you know that um even these
+[00:11:37.720 -> 00:11:44.660]  motherfuckers uh watch this let me demonstrate something to you okay um
+[00:11:48.440 -> 00:11:57.000]  this is the cia shit and i'm talking about watch this uh let's let's turn this off
+[00:11:59.440 -> 00:12:02.920]  well let's just let's make two virtual machines
+[00:12:02.920 -> 00:12:08.560]  okay so new virtual machine i'm going to do this real fast um
+[00:12:14.760 -> 00:12:24.300]  okay so we're just going to hit enter enter uh like let's call this production i'll do it twice in a
+[00:12:24.300 -> 00:12:36.100]  row see what happens okay so we kick it up to into the five and eight okay finish
+[00:12:39.160 -> 00:12:41.500]  okay let's just leave it like this for a second
+[00:12:45.540 -> 00:12:55.280]  i'm going to power off okay power off go in here edit machine settings okay go to the hard disk
+[00:12:56.520 -> 00:13:08.640]  and uh advanced ide one one why did you put it on there's ide zero there's ide zero zero one one
+[00:13:09.360 -> 00:13:16.200]  i'm not kidding these motherfuckers play musical chairs with the fucking discs they put the hard
+[00:13:16.200 -> 00:13:22.720]  disc on okay let's see that one zero one one they did this just to fuck with uh operating systems
+[00:13:23.680 -> 00:13:30.660]  they don't want the cia doesn't want anybody from china or india making an operating system okay now
+[00:13:30.660 -> 00:13:36.340]  let's do another one okay let's get rid of this one did you see that one which was which uh
+[00:13:37.460 -> 00:13:44.940]  there's no reason for musical chairs on the fucking they probably say viruses god damn you motherfuckers
+[00:13:45.700 -> 00:13:52.620]  um this is the shit this is the this is only the beginning this this you can actually solve the other
+[00:13:52.620 -> 00:14:01.200]  shit you can't solve um okay so we got uh one one zero the hard disk is one one okay let's let's close
+[00:14:01.200 -> 00:14:10.860]  this these these motherfuckers so we delete this do you know how you have to figure it out you have to
+[00:14:11.440 -> 00:14:18.660]  you have to test the hardware and say okay is my cd-rom boot sector here no then it's not the right drive
+[00:14:18.660 -> 00:14:29.460]  um you have to it's you know a hardware or uh an engineer knows correct
+[00:14:31.680 -> 00:14:40.380]  protocol and doing something like comparing the block is not what it should be but that's the only way to
+[00:14:40.380 -> 00:14:49.060]  do it um so uh in other words you have to compare the block on the disk to what got loaded in memory
+[00:14:50.880 -> 00:14:53.280]  okay i'm going to do another one so we're going to do
+[00:14:58.740 -> 00:15:04.560]  so we do this i'm doing the same thing same thing i guess it's a different uh memory a little bit
+[00:15:07.040 -> 00:15:14.060]  trying to make it as similar as possible now watch what they do i'm pretty sure i haven't tested this
+[00:15:14.060 -> 00:15:21.740]  but i could swear that they uh they play musical chairs they do i know they do okay i could be wrong
+[00:15:21.740 -> 00:15:24.760]  but let's see let's see what they did i'm good um
+[00:15:24.760 -> 00:15:31.240]  um so we go to the hard disk advanced
+[00:15:34.940 -> 00:15:39.520]  okay they did not play musical chairs um sometimes they do
+[00:15:41.360 -> 00:15:45.420]  let's see if uh why why is it why didn't you put one on
+[00:15:47.020 -> 00:15:50.840]  i can handle the drives in any position
+[00:15:52.500 -> 00:15:58.800]  uh so um what about this one this is my other drive maybe it's if you have uh multiple ones
+[00:15:58.800 -> 00:16:03.440]  installed let's see what we have here okay they're the same
+[00:16:05.880 -> 00:16:11.540]  it's it's it's a weird thing to be starting with the secondary why is it starting with the secondary
+[00:16:13.420 -> 00:16:20.100]  trust me i have seen different settings for that for no reason why it should be the the hard disk
+[00:16:20.100 -> 00:16:26.860]  should be the master on the primary and the cd-rom should be on the other controller it doesn't
+[00:16:26.860 -> 00:16:37.420]  really matter for a fake hard drive but they have good performance by the way but it should be separate
+[00:16:37.420 -> 00:16:44.540]  controllers because now you have anyway so uh we can i guess we can change it can't we well anyway i don't
+[00:16:44.540 -> 00:16:49.580]  yeah they'll say oh well you can change it yeah but think about my poor customers little
+[00:16:49.580 -> 00:16:57.360]  motherfuckers can't even figure out how to how to do what i just did um you can't any little question
+[00:16:57.360 -> 00:17:06.220]  you have to ask your customers that's like 50 drop in sales i mean they are simply not going to get
+[00:17:06.220 -> 00:17:15.060]  through that question um if you had to tell people to set that that would be terrible as a matter of fact if
+[00:17:15.060 -> 00:17:25.160]  you boot a uh a uh um on on native hardware um there's something called i wish i could show you this
+[00:17:25.700 -> 00:17:35.440]  uh you're supposed what you're supposed to do so in the original um ibm pc there was uh ide primary
+[00:17:35.440 -> 00:17:42.920]  id secondary there it was there were there were two sets of ports and that that was the end of the story
+[00:17:42.920 -> 00:17:50.740]  but then they they introduced uh then they started doing sata if you do uh if you go to the command
+[00:17:50.740 -> 00:18:05.000]  prompt in linux and you say ls uh pci minus l okay if you say lspci minus i think i don't know lspci
+[00:18:05.000 -> 00:18:19.140]  ls pci this tells sata ports sata controller um in windows it's in your um your somewhere in here um
+[00:18:22.840 -> 00:18:27.680]  it'll give port addresses um i don't know maybe you have to say minus
+[00:18:29.840 -> 00:18:42.760]  minus v for minus v i okay ls ls pci minus v okay so somewhere in here is sata ports that's your hard
+[00:18:42.760 -> 00:18:50.180]  disk or your cd-rom and then here's the sets of ports so i have a computer sitting on the other side
+[00:18:50.180 -> 00:18:59.800]  of my room i can show you and it boots natively and i have to enter i have to enter f010 because that's
+[00:18:59.800 -> 00:19:09.320]  the port so they're not using primary and um primary and master and secondary ide they're using sata ports
+[00:19:09.320 -> 00:19:17.380]  with uh so how are you supposed to find that out well um there's a device called there's a chip called a
+[00:19:20.660 -> 00:19:24.860]  oh i i know i'm not i don't really bother to
+[00:19:28.180 -> 00:19:33.860]  okay there's your cpu and then there's support chips and sometimes they merge these together
+[00:19:33.860 -> 00:19:39.860]  i guess i don't really know um i it's not important to me but there's a there's a chip
+[00:19:44.220 -> 00:19:51.220]  no i don't feel like that so there's an there's a there's a chip that does your uh your io i'll go
+[00:19:51.220 -> 00:19:57.480]  ahead and i'll go to my own so you can look for ich 10 so you get the one that's for your computer
+[00:19:57.480 -> 00:20:03.480]  every couple years they make a new one and yes they are different think about that that's that's
+[00:20:03.480 -> 00:20:10.680]  fucked they're it's okay they have to do it but it's that's why there's only one thing that matters
+[00:20:10.680 -> 00:20:19.400]  in operating systems and that's getting it to work um and uh the people who haven't figured that out
+[00:20:22.720 -> 00:20:26.260]  uh let's see i see i have a course core i7
+[00:20:28.480 -> 00:20:38.980]  so i don't use interrupts because it makes it work years so there's a there's ich 6 7 8 9 every couple
+[00:20:38.980 -> 00:20:44.280]  years they make a new one and they're all slightly different just think of the nightmare
+[00:20:44.280 -> 00:20:54.260]  here so here's sata okay this is as a matter of fact uh primary command block address these are the io ports
+[00:20:55.000 -> 00:21:07.640]  for their uh so uh how do we figure out okay so pci devices are
+[00:21:09.540 -> 00:21:21.140]  uh arranged into uh families devices and functions or something i don't support pci devices i i uh
+[00:21:22.040 -> 00:21:31.560]  that's where i figured out you know what we just crossed a bridge bridge too far anyway so uh pci device
+[00:21:31.560 -> 00:21:39.940]  these i i have a little bit of there's normally the the bios is 16 bit but there's a pci bios which if you
+[00:21:39.940 -> 00:21:46.220]  go to the internet if you go to the internet nobody knows this and they all call me a liar and they start
+[00:21:46.220 -> 00:21:52.540]  saying my operating system is 16 bit son of a bitch i you know the only good thing i learned a couple good
+[00:21:52.540 -> 00:22:05.100]  things from os dev i learned about the pci bios from os dev pci bios specification what this is is a 32-bit
+[00:22:05.100 -> 00:22:14.260]  library that will get you information that will read the pci config space what the on the first computer
+[00:22:14.260 -> 00:22:22.220]  i had you could i found the config space in memory then they started putting it so it was off-limits so
+[00:22:22.220 -> 00:22:27.820]  you couldn't access it at first i thought it was just memory locations but anyway so the way you're
+[00:22:27.820 -> 00:22:36.620]  supposed to access the pci config space that's this uh you see these uh these registers this is pci config
+[00:22:36.620 -> 00:22:49.500]  space it's um they probably when when you call the bios it probably um makes it normally it's it's invisible
+[00:22:49.500 -> 00:22:57.660]  it's not part of add memory space i think this maps it or this flips a a uh flip-flop and turns it into a
+[00:22:59.140 -> 00:23:08.180]  memory space so what so if we want to do this right let's say we want to get the sata ports
+[00:23:08.940 -> 00:23:15.520]  it turns out that say uh the port interface is kind of uh old-fashioned they're not going to do that anymore
+[00:23:16.540 -> 00:23:23.500]  um but as soon as we kick the out of them with divine commandments they are going to do
+[00:23:23.500 -> 00:23:33.840]  like that but anyway uh so for for for uh for the first for the first decade of the ibm pc the the hard
+[00:23:33.840 -> 00:23:41.760]  disk was at ide primary or ide secondary and then starting at about 2000 they started doing sata at
+[00:23:41.760 -> 00:23:48.300]  other other it's the same arrangement of ports but they're just not at the the standard locations
+[00:23:48.300 -> 00:23:54.280]  and then they stopped doing ports altogether and you have to you have to do the interface with pci
+[00:23:54.960 -> 00:24:06.660]  anyway so uh um i tried to do it the correct way so what is the correct way well you use the uh the pci bios
+[00:24:06.660 -> 00:24:14.840]  to enter to go to these registers so first of all there are this many devices so what do you have to
+[00:24:14.840 -> 00:24:24.880]  do you have to scan for um no that's not what you do you you tell the uh you call the pci bios to find
+[00:24:24.880 -> 00:24:33.160]  the device category the device class okay well this shouldn't be too hard we go to uh sata let's see
+[00:24:33.160 -> 00:24:43.420]  um subclass code class code okay so it's listed in this documentation and uh if we go to the pci bios but
+[00:24:43.420 -> 00:24:52.040]  guess what guess what these are clusterfucked uh in practice nobody follows
+[00:24:55.260 -> 00:25:07.400]  so there's this website that tells um pci device classes so we want we want the we want to tell the pci
+[00:25:07.400 -> 00:25:20.440]  bios to give us a mass storage device sata so we want 0106 so we want to tell the pci pci bios 0106
+[00:25:20.440 -> 00:25:27.320]  but it goes deeper there's one more level i do believe um and that's where that's where it's
+[00:25:27.320 -> 00:25:35.620]  clusterfucked you have to just you have to scan all 256 you have to individually scan 256 it's the it's not
+[00:25:35.620 -> 00:25:43.460]  standard not only that but sometimes it's not called sometimes it's called ada sometimes it's called sata
+[00:25:43.460 -> 00:25:54.440]  and sometimes it's called ide so for we have to scan all of those and uh so all right now uh
+[00:25:55.300 -> 00:25:56.660]  how do we uh
+[00:26:00.100 -> 00:26:05.240]  so this is for uh um so the pci spec was
+[00:26:20.500 -> 00:26:31.540]  the pci gives you the first you use a class code you scan 256 256 256 256 different codes you're looking for um
+[00:26:31.540 -> 00:26:41.640]  sata devices you have to you have to test them all and uh it's it would they couldn't have designed it any worse
+[00:26:42.180 -> 00:26:47.240]  anyway so um long story short i made a uh
+[00:26:49.240 -> 00:26:54.400]  you know i won't say i tried as hard as possible if i were going to try as hard as possible i would go through all the
+[00:26:54.400 -> 00:27:02.320]  i ch6 7 8 9 10. i only did i see i only paid attention to i ch 10
+[00:27:04.180 -> 00:27:11.100]  but if you go to my kernel in the block device directory under ata id here's where i try
+[00:27:12.460 -> 00:27:21.380]  to uh determine the uh the port numbers okay first time i have to identify which one is the cd-rom and
+[00:27:21.380 -> 00:27:28.920]  which one is the hard drive so a tappy is hard drive and i have to compare against the disk block of a known
+[00:27:28.920 -> 00:27:35.140]  of what i booted to because they don't tell you which one it is so you have to compare against a boot
+[00:27:35.960 -> 00:27:43.160]  and so i i do the i do the standard addresses and although otherwise i try to use my pci
+[00:27:46.500 -> 00:27:53.420]  okay so i uh i try to identify i think i say control 8086
+[00:27:55.700 -> 00:27:58.720]  okay no i didn't do that okay so
+[00:28:00.260 -> 00:28:10.180]  uh pci class fine so i'm i'm i'm asking the pci bios for a certain class i'm going through 256 subclasses
+[00:28:10.960 -> 00:28:18.520]  and uh apparently i read the uh the two ports and the other two ports and i test them all
+[00:28:18.520 -> 00:28:25.060]  with the this is really you'd call this african ingenuity you don't really want to be doing this
+[00:28:25.060 -> 00:28:34.780]  um that there's there's got to be a right way to do this um but actually there's not a right way it
+[00:28:34.780 -> 00:28:42.080]  really is that bad um that's the first you know people with would turn their nose up at this techniques
+[00:28:42.080 -> 00:28:50.840]  like this probing come on you don't want to be probing like this there probably is a right way but
+[00:28:50.840 -> 00:28:59.800]  it's probably 10 pages i don't know where it is um anyway so it's now think about this what we really
+[00:28:59.800 -> 00:29:08.400]  need is the well here's what you need a king you need a king to kick the out of the evil cia here's the
+[00:29:08.400 -> 00:29:16.520]  new world order the the mass the the primary hard disk goes on the ide master
+[00:29:18.000 -> 00:29:29.320]  uh ide primary master the the primary cd-rom goes on the ide secondary master and that's the end of the
+[00:29:29.320 -> 00:29:40.360]  story do not relocate them put them in the fucking consistent place like it used to be except even more
+[00:29:40.360 -> 00:29:50.980]  standard so um so i had i was really happy with myself i had the pci bios working when i went to a
+[00:29:50.980 -> 00:29:58.640]  um on on native hardware when i went to a certain class code then then i tried another machine and it's
+[00:29:58.640 -> 00:30:05.240]  a different it one was ide and and then there's vmware this tells a totally different pci rep
+[00:30:05.240 -> 00:30:10.380]  so what is this saying this is saying uh my pci rep is saying uh
+[00:30:15.220 -> 00:30:19.160]  i think ahci or so what are we looking for uh sata
+[00:30:22.140 -> 00:30:25.300]  i did this report with a file
+[00:30:27.580 -> 00:30:34.000]  i went to the website and got a list of all the different um all the code words you have to read
+[00:30:35.260 -> 00:30:43.160]  excuse me you have to register a pci device with the um a central authority and i got the list of
+[00:30:43.160 -> 00:30:52.460]  registered um you can see that file it's huge um companies have to uh register their pci devices
+[00:30:53.880 -> 00:31:05.260]  and uh so one of these things is uh i didn't even know scuzzy that sounds like uh that's a that's a cd-rom
+[00:31:05.260 -> 00:31:10.520]  it's not scuzzy it's definitely not scuzzy or that's a hard disk
+[00:31:13.340 -> 00:31:20.540]  so the pci has bridges and it has uh it has buses this is bus number two
+[00:31:21.480 -> 00:31:29.480]  bus family device and then register um bus not rich anyway uh oh these are these are the
+[00:31:29.480 -> 00:31:35.280]  categories these are the codes i print out in this you see that six that's like an ata number 80
+[00:31:35.820 -> 00:31:44.740]  that's what these numbers are are the codes something like that three svga anyway so uh
+[00:31:44.740 -> 00:31:52.040]  so when i am king i'm gonna kick the out of the industry and we're gonna standardize this
+[00:31:52.040 -> 00:32:00.020]  and we are gonna here's the new world the new world order we make the hardware so that temple os is
+[00:32:00.020 -> 00:32:06.240]  glorious and minimal we make the hardware to make temple os glorious that's what we do that's the new
+[00:32:06.240 -> 00:32:27.160]  world order anyway so um so it used to be that the pci was in i had i had a machine where you didn't even
+[00:32:27.160 -> 00:32:36.160]  have to use the pci bios you just went to some addresses in memory and it gave you the uh but no no they
+[00:32:36.160 -> 00:32:42.740]  weren't happy with that they couldn't have it so simple so they had to make this pci bios thing
+[00:32:43.520 -> 00:32:52.340]  so i have to i have to downshift out of 64 bit into 32 bit do a uh i have to turn off interrupts and
+[00:32:52.340 -> 00:33:02.360]  stuff i have to do 32 bit bios which is kind of slow i think uh and then i have to scan 256 uh different
+[00:33:02.360 -> 00:33:13.400]  class codes all because they couldn't put it in a standard spot you know what uh you know what you
+[00:33:13.400 -> 00:33:20.880]  need you need a king you need a king people some people have two spaces for tabs some people have four
+[00:33:20.880 -> 00:33:31.740]  spaces for tabs guess what a tab is eight spaces a tab is eight spaces that took eight columns i'll bet you
+[00:33:31.740 -> 00:33:37.700]  didn't know that well that's what it is you need a king that's what you need the industry needs a king
+[00:33:37.700 -> 00:33:46.440]  to kick the out of all this flexibility you know what syntax highlighting you know what syntax highlighting
+[00:33:46.440 -> 00:33:52.880]  looks like i'll tell you what syntax highlighting looks like this is what syntax highlighting looks like
+[00:33:53.660 -> 00:34:00.400]  is there flexibility no there's not flexibility you actually you if you really did want to change the
+[00:34:00.400 -> 00:34:08.220]  syntax highlighting i don't you have to recompile the kernel um let's look for uh
+[00:34:11.020 -> 00:34:15.200]  but you know when i first started i made all the colors changeable
+[00:34:18.080 -> 00:34:23.940]  that makes me giggle um so if you want to change the syntax highlighting you change it here
+[00:34:24.580 -> 00:34:31.960]  but uh don't do that you need a king that's that's what apple teaches i i've never used an apple but um
+[00:34:32.500 -> 00:34:39.180]  they have a lot of common sense you get rid of some of this flexibility because it's actually evil you know
+[00:34:41.440 -> 00:34:44.520]  somebody wants a different color scheme no you're not no
+[00:34:46.980 -> 00:34:49.240]  no we're not going to allow that
+[00:35:01.020 -> 00:35:03.260]  anyway so uh
+[00:35:04.880 -> 00:35:08.760]  you know one of my one on my first on my ticketmaster job
+[00:35:08.760 -> 00:35:18.800]  um i had a uh i had a uh i was making a line regulator which uh is a device that um if the wall
+[00:35:18.800 -> 00:35:28.340]  voltage is lower than it should be it up transforms it by selecting a tap on a transformer and uh
+[00:35:29.540 -> 00:35:34.280]  when i made it i said oh well we'll put a potentiometer to set the voltage
+[00:35:34.840 -> 00:35:39.060]  and my boss is like uh no get rid of the potentiometer i'm like what
+[00:35:41.780 -> 00:35:44.600]  uh and that's where i learned uh
+[00:35:46.900 -> 00:35:52.560]  um it's uh you could call it cowardly you could call it anything you like but if you
+[00:35:53.160 -> 00:36:02.420]  the more uh adjustments the worst design um that's kind of uh that's you might think power users
+[00:36:02.420 -> 00:36:07.500]  power users might like adjustments like colors and stuff but uh i think
+[00:36:08.740 -> 00:36:13.880]  um you know when i when i made this uh this if you look at at the internet
+[00:36:15.760 -> 00:36:22.640]  i don't even know if i can boot any of the cia made um i don't know i think they did
+[00:36:22.640 -> 00:36:29.140]  um if you go to the internet internet archive the internet archive is no longer cataloging me because
+[00:36:29.140 -> 00:36:36.480]  i put source code the internet archive and uh all the snapshots they got over the years uh
+[00:36:37.600 -> 00:36:45.360]  most are not bootable um when i first made my operating system i said tell me the primary ide
+[00:36:45.360 -> 00:36:55.600]  tell me the cd-rom port and the and the hard disk port and uh it took a lot of work to uh it's really
+[00:36:55.600 -> 00:37:02.260]  easy if you just ask what's the hard disk port what's the cd-rom port um but it took a lot of work
+[00:37:02.260 -> 00:37:07.840]  a lot of work to to make it figure that out automatically and it doesn't doesn't look like
+[00:37:07.840 -> 00:37:15.720]  much but if you can get rid of one prompt during installation that is a huge achievement if you can
+[00:37:15.720 -> 00:37:22.120]  get rid of one prompt during installation that's a big achievement you know all the computers if they
+[00:37:22.120 -> 00:37:28.540]  can figure out the uh the time zone i don't know that's an example anyway uh
+[00:37:34.540 -> 00:37:44.660]  um so uh yeah when when i first on my first versions all i did is i had a i just simply ask what's the cd-rom
+[00:37:44.660 -> 00:37:51.720]  port what's the uh the hard disk port there's some wisdom people were thinking it was a um
+[00:37:52.120 -> 00:38:01.460]  a uh a registration uh like a uh a product key and when i when i realized what they were thinking it
+[00:38:01.460 -> 00:38:06.760]  was oh wow there are so many things you can't see through other people's eyes
+[00:38:08.120 -> 00:38:15.180]  if they see a prompt for port numbers they're thinking it's a it's a paid product key um
+[00:38:16.160 -> 00:38:24.720]  um and uh i have a you know what um i need to upgrade i need to get a new computer i i have an
+[00:38:24.720 -> 00:38:32.060]  excuse it's actually important for my job although it's going to be hopeless on um i don't do uh
+[00:38:32.800 -> 00:38:40.300]  i i decided i'm not doing usb devices i'm or pci devices i'm not going to do usb either um
+[00:38:41.200 -> 00:38:49.720]  so um all these devices fuck all that i'm not doing that i'm sticking to um io port devices and so uh
+[00:38:49.720 -> 00:38:58.920]  uh if i get a new computer and it has a ssd hard drive there's it wouldn't it would there's there's
+[00:38:58.920 -> 00:39:09.740]  no driver for us usb and uh but there but vmware will make it look like uh um an ide or ata whatever
+[00:39:09.740 -> 00:39:19.000]  you want to call it um someone told me that um i'm pretty confident that's true so um but you know
+[00:39:19.000 -> 00:39:27.520]  that running it in a vm makes the glory of an operating system look like a dumb dumb retarded application
+[00:39:29.360 -> 00:39:39.600]  anyway uh so uh i want to get a new computer and uh i heard linux uh if it has um
+[00:39:40.380 -> 00:39:47.840]  if it doesn't have a cd-rom there's like a 12-step process let me just tell you
+[00:39:49.140 -> 00:39:59.700]  um you know how some things cause birth control well um this uh uh how do we say this uh
+[00:39:59.700 -> 00:40:04.460]  uh ubuntu uh
+[00:40:07.440 -> 00:40:13.600]  flash or ubuntu they used to be called flash they've been confusing everybody on purpose
+[00:40:13.600 -> 00:40:26.060]  um ssd stick boot uh install so i i was tempted to get a new i just took for granted oh well i'll
+[00:40:26.060 -> 00:40:33.360]  just install linux but suddenly it's looking like an ordeal even for me if it's if it's intimidating
+[00:40:33.360 -> 00:40:40.760]  to install linux because it doesn't have a cd-rom look at this this stuff oh where is it
+[00:40:40.760 -> 00:40:51.700]  installing ubuntu onto a solid state drive i i think what am i looking for i'm looking for a from us yeah
+[00:40:56.220 -> 00:40:57.100]  uh
+[00:40:58.480 -> 00:40:59.360]  uh
+[00:41:02.640 -> 00:41:03.520]  uh
+[00:41:03.520 -> 00:41:04.020]  uh
+[00:41:04.020 -> 00:41:04.020]  
+[00:41:04.020 -> 00:41:04.020]  
+[00:41:04.020 -> 00:41:04.020]  
+[00:41:04.020 -> 00:41:04.020]  
+[00:41:04.020 -> 00:41:04.020]  
+[00:41:04.020 -> 00:41:04.020]  
+[00:41:04.020 -> 00:41:04.020]  
+[00:41:04.020 -> 00:41:04.020]  
+[00:41:04.020 -> 00:41:04.020]  
+[00:41:04.020 -> 00:41:05.440]  uh
+[00:41:09.220 -> 00:41:10.100]  uh
+[00:41:10.100 -> 00:41:10.100]  
+[00:41:13.420 -> 00:41:14.300]  uh
+[00:41:14.300 -> 00:41:14.300]  
+[00:41:14.300 -> 00:41:14.300]  
+[00:41:14.300 -> 00:41:14.300]  
+[00:41:14.300 -> 00:41:14.300]  
+[00:41:14.300 -> 00:41:14.600]  uh
+[00:41:14.600 -> 00:41:14.600]  
+[00:41:14.600 -> 00:41:15.080]  uh
+[00:41:15.080 -> 00:41:16.420]  uh
+[00:41:16.420 -> 00:41:16.540]  uh
+[00:41:16.540 -> 00:41:16.540]  
+[00:41:16.540 -> 00:41:16.540]  
+[00:41:16.540 -> 00:41:16.540]  
+[00:41:16.540 -> 00:41:16.540]  
+[00:41:16.540 -> 00:41:16.540]  
+[00:41:16.540 -> 00:41:16.720]  uh
+[00:41:16.720 -> 00:41:16.720]  
+[00:41:16.720 -> 00:41:16.720]  
+[00:41:16.720 -> 00:41:16.760]  uh
+[00:41:16.760 -> 00:41:16.760]  
+[00:41:16.760 -> 00:41:16.760]  
+[00:41:16.760 -> 00:41:16.760]  
+[00:41:16.760 -> 00:41:16.780]  uh
+[00:41:16.780 -> 00:41:16.780]  
+[00:41:16.780 -> 00:41:16.800]  uh
+[00:41:16.800 -> 00:41:16.800]  
+[00:41:16.800 -> 00:41:16.840]  uh
+[00:41:16.840 -> 00:41:16.840]  
+[00:41:16.840 -> 00:41:16.840]  
+[00:41:16.840 -> 00:41:16.920]  uh
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:16.920]  
+[00:41:16.920 -> 00:41:17.320]  ! uh
+[00:41:17.320 -> 00:41:26.240]  that has no walls and the CIA knows all about that and what what that means is
+[00:41:26.240 -> 00:41:33.160]  if you can make it you know maybe it's three steps normally and if you can make
+[00:41:33.160 -> 00:41:54.420]  it 12 steps you just eliminated 75% of the customers maybe everything in Linux is
+[00:41:54.420 -> 00:42:04.520]  always screwed up I'm not that used to it keep portable Ubuntu okay I think this is a
+[00:42:04.520 -> 00:42:16.080]  live CD idea oh they love that the CIA wants everybody to have a wristwatch
+[00:42:16.080 -> 00:42:20.860]  computer instead of a desktop but when I get through with them we're gonna have
+[00:42:20.860 -> 00:42:26.540]  fucking supercomputers everybody because if only one person has a supercomputer and
+[00:42:26.540 -> 00:42:30.400]  he writes software nobody can use it so everybody has to have a fucking
+[00:42:30.400 -> 00:42:34.840]  supercomputer and that's what we're gonna do to the industry with the help of
+[00:42:34.840 -> 00:42:44.520]  God so somewhere in here it tells how to put a to install okay so if I get a new
+[00:42:44.520 -> 00:42:50.060]  computer and I want to put Linux on it I have to copy to a USB stick from from
+[00:42:50.060 -> 00:43:06.260]  this computer and then and then install from a USB stick and I went looking for
+[00:43:06.260 -> 00:43:14.140]  it how can I transfer Ubuntu from a stick to a new okay I swear it was like a 12
+[00:43:14.140 -> 00:43:20.040]  step process and if it's 12 steps I really don't think very many people are
+[00:43:20.040 -> 00:43:28.560]  doing it it's like birth control if you make car seats and if you make children a
+[00:43:29.440 -> 00:43:36.280]  big enough hassle that causes birth control and if you make a big enough hassle to
+[00:43:36.280 -> 00:43:46.460]  install Linux you can kill Linux by just making it 12 steps and so I'm gonna command
+[00:43:46.460 -> 00:43:54.000]  the industry to quit don't even think about tiny desktops the the virtue of a
+[00:43:54.000 -> 00:43:59.980]  portable is smallness the virtue of a desktop is powerful you want powerful
+[00:43:59.980 -> 00:44:04.260]  you're it's like you're complete you're confusing what your strength and weakness
+[00:44:04.260 -> 00:44:12.040]  is the CIA is making the desktop think it wants to be small no you're it's like a man who thinks he wants to be
+[00:44:12.040 -> 00:44:21.040]  tiny no men should be big and the desktop should be big it's powerful and you got them all confused
+[00:44:21.040 -> 00:44:28.120]  gender confused you got tiny desktops what why are you making nobody gives a shit about a calculator size
+[00:44:28.120 -> 00:44:36.120]  desktop no that doesn't really do anything I got a fucking floor space I got I want to I want a monster computer
+[00:44:36.120 -> 00:44:41.520]  and they got rid of the CD-ROM they don't like that they want everything in the cloud where it's under
+[00:44:41.520 -> 00:44:45.380]  lock and key the little motherfuckers we're gonna kick the shit out of them
+[00:44:46.160 -> 00:44:49.800]  God and I are gonna kick the shit out of the CIA we're gonna fuck them up
+[00:44:55.700 -> 00:44:58.040]  we are gonna fuck them up
+[00:45:04.700 -> 00:45:06.080]  so anyway
+[00:45:13.540 -> 00:45:15.660]  they got everybody wanting
+[00:45:16.980 -> 00:45:17.900]  wristwatch
+[00:45:18.760 -> 00:45:27.640]  desktops why the fuck would you want a wristwatch desktop the virtue of a desktop is power big
+[00:45:27.640 -> 00:45:38.580]  big screen full keyboard big mouse power horsepower you don't make a pussy desktop what the you evil
+[00:45:38.580 -> 00:45:44.520]  motherfuckers you got these poor confused little stupid kids wanting a tiny desktop the hell are you
+[00:45:44.520 -> 00:45:52.140]  doing and here's the problem if you make a tiny if you make a cellaron then suddenly little timmy's game
+[00:45:52.140 -> 00:45:59.760]  that worked on his i7 doesn't run on his neighbor's cellaron so you got to have everybody with powerful
+[00:45:59.760 -> 00:46:06.620]  desktops all desktops must have eight cores we're going to standardize this shit that's what we're going to do
+[00:46:06.620 -> 00:46:06.620]  
+[00:46:06.620 -> 00:46:06.880]  you
+[00:46:07.480 -> 00:46:08.000]  you
+[00:46:08.000 -> 00:46:08.020]  you
+[00:46:08.000 -> 00:46:08.000]  
+[00:46:08.000 -> 00:46:08.000]  

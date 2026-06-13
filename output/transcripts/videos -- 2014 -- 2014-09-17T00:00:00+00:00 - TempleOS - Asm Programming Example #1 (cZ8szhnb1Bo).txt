@@ -1,0 +1,207 @@
+========================================================================
+FILE        : videos/2014/2014-09-17T00:00:00+00:00 - TempleOS - Asm Programming Example #1 (cZ8szhnb1Bo).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-09-17T00:00:00+00:00 - TempleOS - Asm Programming Example #1 (cZ8szhnb1Bo).mkv
+FORMAT      : Matroska
+SIZE        : 28,179,796 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:12:05.080
+TRANSCRIBED: 2026-05-08T13:37:12.888389+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+Okay, I'm going to teach some something about the assembler, some stuff. Okay, so we're going to make a subroutine to print a string in a loop, and it's going to be C callable, so we put an underscore. Technically, you don't have to. Anyway, push RBP. We use the standard move RBP comma RSP. We do the standard stack frame. This is important because the wallpaper traverses the wallpaper. The wallpaper does a stack crawl, or whatever you call it, stack trace. Anyway, so since wallpaper uses RBP, we have to use it properly, use the standard. So we use the, in this, with this C compiler, the call E pops the stack, not the caller. The caller doesn't pop the stack, the call E pops the stack. We're going to do two. This is where we're binding the symbol. An ASM symbol is, well, let's do it. No, never mind. An ASM symbol is just a number, just an address. And what this does is it binds it to a header. So we're going to, I64, let's see, U8. So we're going to loop printing a message. Okay, so let's just test it. Sometimes I like to go slowly. We haven't done it. I'm just going to test F5, see if it works. Okay, so it's not crashing. If mine crashes during this video, that's a big problem. But if yours crashes, you can just reboot. So I would rather not crash mine. I can actually recover, but anyway. So we're going to move into RSI is the, hold on a sec. Okay. So put string is a, is a assembly callable. Notice it doesn't have an underscore. Assembly is always an upper, uppercase. And all this does is it pushes RSI and calls put S. Okay. So this preserves registers. So let's see what's going to happen. So we have to, okay, so it printed hello world. Now I have to preserve RSI. If you want to see which registers to preserve, type in reg and then hit, then go on autocomplete. So control shift F1. So reg. Okay. Down here is the always clobbered. You can clobber these. Don't clobber RBP, RSP. You can clobber AX, CX, DX, and BX in a subroutine. You can clobber R8 and R9 in a subroutine. But you have to preserve RBP and RSP and you have to preserve RSI, RDI. You have to preserve all these. Okay. So A, B, C, D can be clobbered and 8 and 9 can be clobbered. They don't, and as a matter of fact, they can get clobbered. So just so you can find that quickly, just type in reg capital control shift F1. Then it brings you right to here. Okay. So we have to preserve RSI and now we're going to loop. Add at 05. The reason I number start by fives, this is a local symbol, is because there's a control shift control shift L. Then you can renumber ASM local labels. Watch what happens. If I change this to 1, then if I control shift L, renumber, changed it to 5. So I can, actually that's not where we want it. Yeah, no, it's not where. Now we do loop. This is actually a slow instruction. I'm going to say add at 1. I like that renumber, just a second. So now I renumber, control shift L, renumber, changed it to 5. Okay. So it's smart enough to see that it, a program section is indicated by a colon colon. So if I say main colon colon, this is another section. So what are we doing? Okay. So we're... So move. I'm going to use the traditional loop counter register. R2 off RBP. Okay. So we're going to loop. You know, technically it's preserved. So we can say add at 05. Okay. So this should work. Let's see. I hope it doesn't crash. Okay. It worked. So now let's demonstrate how to call from assembly. So if we're calling in C routine, first we have to do a message. Message. We don't have to export it. But colon colon makes a program section and it also makes an exported symbol. It makes a new program section. So message. On a normal assembler, it's defined byte. On this assembler, it's defined U8. And we put in quotes. What's up? Okay. So we can say 13, 0, but nobody knows what carriage return is anymore. Anyway. I think I do line feed 10. I think I got rid of 13. Anyway, so this has a terminating 0. When you do a DU8, then the string does not have a terminating 0 until you make one. And we have to do semicolon. The reason we have to do semicolon is, watch this. We can, it's using the lexical analyzer from C. And it doesn't, carriage return doesn't matter. And so therefore, since carriage return doesn't matter, I have to put a semicolon on the end. See, this can go on and on in multiple lines. And the semicolon is what stops it. Okay. So we're going to push. Okay. So the, let's say 10. We're going to push, push MSG call. So you can call, see callable from assembly if you want to. Okay. So let's take a look at it. Oh, let's just do it. So what we say, we can either make, we can either bind, bind a function header for main, or we can call this, this calls whatever's inside as a number. This is a function call. So main is a number, an address. And this doesn't have any parameters. There is a version that will do parameters. But if you have parameters, go ahead and bind it with the underscore extern. Okay. So what's up? Okay. So just for fun, let's unassemble underscore main F5. So push zero. Now I just had to fix a bug recently. This was, anyway, I want to make a couple of thing observations. In 64-bit mode, it always pushes 64 bits. So this 10, this push, is actually pushing 64 bits. This is actually pushing 64 bits. If you want to understand ARG 2 and ARG 1, 64, 8 bytes at a time. So on the stack is RBP. That's what we just pushed. RIP is what came from the call. Then the arguments on the stack. Okay. So now if you want to return a value, you move, let's just say RAX, comma, 6789ABCD. Okay. How about, so we return a value in AX. We can say value, colon, percent D. Let's get rid of that. So let's do it. Ready? Okay. Okay. Okay. So, oh, it's decimal. I didn't mean percent D. Percent X. Okay. So there's the value. So see how that works? So the first one is the lowest on the stack. And the return value is in RAX. Okay. How about that? Okay. Okay. Okay. Okay.
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:06.900]  Okay, I'm going to teach some something about the assembler, some stuff.
+[00:00:08.100 -> 00:00:19.740]  Okay, so we're going to make a subroutine to print a string in a loop,
+[00:00:20.680 -> 00:00:27.340]  and it's going to be C callable, so we put an underscore.
+[00:00:27.340 -> 00:00:29.520]  Technically, you don't have to.
+[00:00:30.320 -> 00:00:34.320]  Anyway, push RBP.
+[00:00:34.600 -> 00:00:38.960]  We use the standard move RBP comma RSP.
+[00:00:39.200 -> 00:00:42.260]  We do the standard stack frame.
+[00:00:42.260 -> 00:00:53.720]  This is important because the wallpaper traverses the wallpaper.
+[00:00:56.780 -> 00:01:06.080]  The wallpaper does a stack crawl, or whatever you call it, stack trace.
+[00:01:06.760 -> 00:01:16.600]  Anyway, so since wallpaper uses RBP, we have to use it properly, use the standard.
+[00:01:16.600 -> 00:01:28.280]  So we use the, in this, with this C compiler, the call E pops the stack, not the caller.
+[00:01:28.800 -> 00:01:31.880]  The caller doesn't pop the stack, the call E pops the stack.
+[00:01:32.280 -> 00:01:33.340]  We're going to do two.
+[00:01:35.060 -> 00:01:41.240]  This is where we're binding the symbol.
+[00:01:42.940 -> 00:01:46.780]  An ASM symbol is, well, let's do it.
+[00:01:47.020 -> 00:01:47.760]  No, never mind.
+[00:01:48.240 -> 00:01:54.240]  An ASM symbol is just a number, just an address.
+[00:01:54.240 -> 00:01:59.160]  And what this does is it binds it to a header.
+[00:02:00.660 -> 00:02:05.360]  So we're going to, I64, let's see, U8.
+[00:02:06.680 -> 00:02:09.260]  So we're going to loop printing a message.
+[00:02:12.180 -> 00:02:14.920]  Okay, so let's just test it.
+[00:02:14.920 -> 00:02:23.520]  Sometimes I like to go slowly.
+[00:02:28.080 -> 00:02:29.320]  We haven't done it.
+[00:02:29.460 -> 00:02:31.660]  I'm just going to test F5, see if it works.
+[00:02:31.840 -> 00:02:34.000]  Okay, so it's not crashing.
+[00:02:34.420 -> 00:02:37.820]  If mine crashes during this video, that's a big problem.
+[00:02:37.960 -> 00:02:41.380]  But if yours crashes, you can just reboot.
+[00:02:42.120 -> 00:02:45.120]  So I would rather not crash mine.
+[00:02:45.440 -> 00:02:48.220]  I can actually recover, but anyway.
+[00:02:54.260 -> 00:03:06.460]  So we're going to move into RSI is the, hold on a sec.
+[00:03:21.700 -> 00:03:22.540]  Okay.
+[00:03:27.500 -> 00:03:35.040]  So put string is a, is a assembly callable.
+[00:03:35.400 -> 00:03:36.680]  Notice it doesn't have an underscore.
+[00:03:38.300 -> 00:03:41.320]  Assembly is always an upper, uppercase.
+[00:03:42.520 -> 00:03:47.480]  And all this does is it pushes RSI and calls put S.
+[00:03:48.220 -> 00:03:48.340]  Okay.
+[00:03:48.620 -> 00:03:51.100]  So this preserves registers.
+[00:03:51.540 -> 00:03:53.720]  So let's see what's going to happen.
+[00:03:54.720 -> 00:03:58.060]  So we have to, okay, so it printed hello world.
+[00:03:58.400 -> 00:04:01.040]  Now I have to preserve RSI.
+[00:04:01.040 -> 00:04:11.080]  If you want to see which registers to preserve, type in reg and then hit, then go on autocomplete.
+[00:04:11.960 -> 00:04:13.520]  So control shift F1.
+[00:04:14.480 -> 00:04:15.040]  So reg.
+[00:04:15.960 -> 00:04:16.200]  Okay.
+[00:04:16.360 -> 00:04:19.520]  Down here is the always clobbered.
+[00:04:19.620 -> 00:04:20.980]  You can clobber these.
+[00:04:22.960 -> 00:04:25.920]  Don't clobber RBP, RSP.
+[00:04:26.380 -> 00:04:31.240]  You can clobber AX, CX, DX, and BX in a subroutine.
+[00:04:31.500 -> 00:04:34.780]  You can clobber R8 and R9 in a subroutine.
+[00:04:34.960 -> 00:04:40.660]  But you have to preserve RBP and RSP and you have to preserve RSI, RDI.
+[00:04:40.860 -> 00:04:41.860]  You have to preserve all these.
+[00:04:42.580 -> 00:04:42.800]  Okay.
+[00:04:43.040 -> 00:04:48.240]  So A, B, C, D can be clobbered and 8 and 9 can be clobbered.
+[00:04:49.060 -> 00:04:52.520]  They don't, and as a matter of fact, they can get clobbered.
+[00:04:56.200 -> 00:05:02.760]  So just so you can find that quickly, just type in reg capital control shift F1.
+[00:05:02.980 -> 00:05:04.660]  Then it brings you right to here.
+[00:05:04.660 -> 00:05:05.620]  Okay.
+[00:05:06.040 -> 00:05:11.880]  So we have to preserve RSI and now we're going to loop.
+[00:05:13.680 -> 00:05:16.380]  Add at 05.
+[00:05:16.780 -> 00:05:25.900]  The reason I number start by fives, this is a local symbol, is because there's a control shift
+[00:05:25.900 -> 00:05:29.060]  control shift L.
+[00:05:29.640 -> 00:05:32.980]  Then you can renumber ASM local labels.
+[00:05:32.980 -> 00:05:34.520]  Watch what happens.
+[00:05:34.700 -> 00:05:42.040]  If I change this to 1, then if I control shift L, renumber, changed it to 5.
+[00:05:42.540 -> 00:05:47.420]  So I can, actually that's not where we want it.
+[00:05:48.060 -> 00:05:49.100]  Yeah, no, it's not where.
+[00:05:52.060 -> 00:05:53.460]  Now we do loop.
+[00:05:53.880 -> 00:05:56.140]  This is actually a slow instruction.
+[00:05:56.520 -> 00:05:59.180]  I'm going to say add at 1.
+[00:05:59.900 -> 00:06:02.320]  I like that renumber, just a second.
+[00:06:03.420 -> 00:06:08.460]  So now I renumber, control shift L, renumber, changed it to 5.
+[00:06:09.080 -> 00:06:09.340]  Okay.
+[00:06:09.740 -> 00:06:21.180]  So it's smart enough to see that it, a program section is indicated by a colon colon.
+[00:06:21.180 -> 00:06:28.080]  So if I say main colon colon, this is another section.
+[00:06:30.040 -> 00:06:32.240]  So what are we doing?
+[00:06:32.460 -> 00:06:32.660]  Okay.
+[00:06:32.860 -> 00:06:33.660]  So we're...
+[00:06:39.260 -> 00:06:40.820]  So move.
+[00:06:41.180 -> 00:06:46.460]  I'm going to use the traditional loop counter register.
+[00:06:48.200 -> 00:06:50.180]  R2 off RBP.
+[00:06:50.180 -> 00:06:51.300]  Okay.
+[00:06:51.500 -> 00:06:52.400]  So we're going to loop.
+[00:06:58.200 -> 00:07:00.420]  You know, technically it's preserved.
+[00:07:00.640 -> 00:07:03.500]  So we can say add at 05.
+[00:07:06.780 -> 00:07:07.420]  Okay.
+[00:07:09.820 -> 00:07:11.560]  So this should work.
+[00:07:12.700 -> 00:07:13.360]  Let's see.
+[00:07:13.460 -> 00:07:14.180]  I hope it doesn't crash.
+[00:07:15.020 -> 00:07:15.580]  Okay.
+[00:07:15.700 -> 00:07:16.020]  It worked.
+[00:07:16.580 -> 00:07:22.760]  So now let's demonstrate how to call from assembly.
+[00:07:23.180 -> 00:07:29.220]  So if we're calling in C routine, first we have to do a message.
+[00:07:30.040 -> 00:07:30.600]  Message.
+[00:07:30.860 -> 00:07:32.200]  We don't have to export it.
+[00:07:32.200 -> 00:07:38.120]  But colon colon makes a program section and it also makes an exported symbol.
+[00:07:38.120 -> 00:07:39.920]  It makes a new program section.
+[00:07:40.560 -> 00:07:41.640]  So message.
+[00:07:42.300 -> 00:07:45.060]  On a normal assembler, it's defined byte.
+[00:07:45.420 -> 00:07:48.140]  On this assembler, it's defined U8.
+[00:07:48.660 -> 00:07:50.940]  And we put in quotes.
+[00:07:54.620 -> 00:07:55.580]  What's up?
+[00:07:55.880 -> 00:07:56.300]  Okay.
+[00:07:57.020 -> 00:08:03.720]  So we can say 13, 0, but nobody knows what carriage return is anymore.
+[00:08:04.260 -> 00:08:04.820]  Anyway.
+[00:08:06.600 -> 00:08:08.660]  I think I do line feed 10.
+[00:08:08.940 -> 00:08:10.480]  I think I got rid of 13.
+[00:08:11.140 -> 00:08:16.260]  Anyway, so this has a terminating 0.
+[00:08:17.000 -> 00:08:23.460]  When you do a DU8, then the string does not have a terminating 0 until you make one.
+[00:08:23.620 -> 00:08:25.180]  And we have to do semicolon.
+[00:08:25.180 -> 00:08:31.000]  The reason we have to do semicolon is, watch this.
+[00:08:31.180 -> 00:08:37.600]  We can, it's using the lexical analyzer from C.
+[00:08:37.980 -> 00:08:41.140]  And it doesn't, carriage return doesn't matter.
+[00:08:41.540 -> 00:08:48.280]  And so therefore, since carriage return doesn't matter, I have to put a semicolon on the end.
+[00:08:48.640 -> 00:08:51.140]  See, this can go on and on in multiple lines.
+[00:08:51.460 -> 00:08:53.700]  And the semicolon is what stops it.
+[00:08:55.660 -> 00:08:56.460]  Okay.
+[00:08:56.540 -> 00:08:56.540]  
+[00:08:56.760 -> 00:08:59.740]  So we're going to push.
+[00:09:00.360 -> 00:09:01.160]  Okay.
+[00:09:01.360 -> 00:09:07.260]  So the, let's say 10.
+[00:09:09.340 -> 00:09:13.900]  We're going to push, push MSG call.
+[00:09:16.200 -> 00:09:21.300]  So you can call, see callable from assembly if you want to.
+[00:09:22.520 -> 00:09:22.620]  Okay.
+[00:09:22.900 -> 00:09:25.760]  So let's take a look at it.
+[00:09:26.760 -> 00:09:28.360]  Oh, let's just do it.
+[00:09:28.920 -> 00:09:34.680]  So what we say, we can either make, we can either bind, bind a function header for main,
+[00:09:34.860 -> 00:09:44.220]  or we can call this, this calls whatever's inside as a number.
+[00:09:44.220 -> 00:09:45.800]  This is a function call.
+[00:09:46.360 -> 00:09:48.860]  So main is a number, an address.
+[00:09:50.720 -> 00:09:53.300]  And this doesn't have any parameters.
+[00:09:53.320 -> 00:09:55.180]  There is a version that will do parameters.
+[00:09:55.760 -> 00:10:01.360]  But if you have parameters, go ahead and bind it with the underscore extern.
+[00:10:02.100 -> 00:10:02.320]  Okay.
+[00:10:02.580 -> 00:10:04.060]  So what's up?
+[00:10:04.220 -> 00:10:04.360]  Okay.
+[00:10:04.360 -> 00:10:13.920]  So just for fun, let's unassemble underscore main F5.
+[00:10:14.460 -> 00:10:18.260]  So push zero.
+[00:10:18.640 -> 00:10:22.020]  Now I just had to fix a bug recently.
+[00:10:23.320 -> 00:10:29.340]  This was, anyway, I want to make a couple of thing observations.
+[00:10:29.340 -> 00:10:34.300]  In 64-bit mode, it always pushes 64 bits.
+[00:10:35.080 -> 00:10:41.060]  So this 10, this push, is actually pushing 64 bits.
+[00:10:41.360 -> 00:10:44.160]  This is actually pushing 64 bits.
+[00:10:45.740 -> 00:10:54.700]  If you want to understand ARG 2 and ARG 1, 64, 8 bytes at a time.
+[00:10:55.560 -> 00:10:57.560]  So on the stack is RBP.
+[00:10:57.780 -> 00:10:59.100]  That's what we just pushed.
+[00:10:59.100 -> 00:11:01.320]  RIP is what came from the call.
+[00:11:01.500 -> 00:11:03.360]  Then the arguments on the stack.
+[00:11:04.260 -> 00:11:04.520]  Okay.
+[00:11:04.820 -> 00:11:18.980]  So now if you want to return a value, you move, let's just say RAX, comma, 6789ABCD.
+[00:11:19.420 -> 00:11:20.040]  Okay.
+[00:11:20.620 -> 00:11:24.520]  How about, so we return a value in AX.
+[00:11:26.600 -> 00:11:31.420]  We can say value, colon, percent D.
+[00:11:33.920 -> 00:11:35.560]  Let's get rid of that.
+[00:11:36.380 -> 00:11:38.180]  So let's do it.
+[00:11:38.720 -> 00:11:39.240]  Ready?
+[00:11:40.240 -> 00:11:40.840]  Okay.
+[00:11:41.260 -> 00:11:41.340]  Okay.
+[00:11:41.340 -> 00:11:41.460]  Okay.
+[00:11:41.460 -> 00:11:42.360]  So, oh, it's decimal.
+[00:11:42.580 -> 00:11:43.600]  I didn't mean percent D.
+[00:11:43.900 -> 00:11:44.600]  Percent X.
+[00:11:45.360 -> 00:11:45.960]  Okay.
+[00:11:45.960 -> 00:11:47.080]  So there's the value.
+[00:11:48.340 -> 00:11:49.740]  So see how that works?
+[00:11:49.980 -> 00:11:54.760]  So the first one is the lowest on the stack.
+[00:11:54.760 -> 00:11:59.580]  And the return value is in RAX.
+[00:12:00.180 -> 00:12:00.780]  Okay.
+[00:12:01.000 -> 00:12:01.960]  How about that?
+[00:12:01.960 -> 00:12:02.100]  Okay.
+[00:12:02.360 -> 00:12:02.700]  Okay.
+[00:12:02.700 -> 00:12:02.840]  Okay.
+[00:12:04.760 -> 00:12:05.100]  Okay.
+[00:12:05.100 -> 00:12:05.100]  
+[00:12:05.100 -> 00:12:05.100]  
+[00:12:05.100 -> 00:12:05.100]  
+[00:12:05.100 -> 00:12:05.100]  
+[00:12:05.100 -> 00:12:05.100]  
+[00:12:05.100 -> 00:12:05.100]  
+[00:12:05.100 -> 00:12:05.100]  
+[00:12:05.100 -> 00:12:05.100]  
+[00:12:05.100 -> 00:12:05.100]  
+[00:12:05.100 -> 00:12:05.100]  
+[00:12:05.100 -> 00:12:05.100]  
+[00:12:05.100 -> 00:12:05.100]  
+[00:12:05.100 -> 00:12:05.100]  
+[00:12:05.100 -> 00:12:05.100]  
+[00:12:05.100 -> 00:12:05.100]  
+[00:12:05.100 -> 00:12:05.100]  
+[00:12:05.100 -> 00:12:05.100]  
+[00:12:05.100 -> 00:12:05.100]  
+[00:12:05.100 -> 00:12:05.100]  
+[00:12:05.080 -> 00:12:05.080]  

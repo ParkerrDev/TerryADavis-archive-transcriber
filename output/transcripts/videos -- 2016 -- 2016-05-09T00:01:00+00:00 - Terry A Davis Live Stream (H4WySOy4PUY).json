@@ -1,0 +1,4496 @@
+{
+  "source": {
+    "archive_identifier": "TerryADavis_TempleOS_Archive",
+    "filename": "videos/2016/2016-05-09T00:01:00+00:00 - Terry A Davis Live Stream (H4WySOy4PUY).mkv",
+    "source_url": "https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2016/2016-05-09T00%3A01%3A00%2B00%3A00%20-%20Terry%20A%20Davis%20Live%20Stream%20%28H4WySOy4PUY%29.mkv",
+    "derivative_url": null,
+    "file_format": "Matroska",
+    "file_size_bytes": 267524710
+  },
+  "transcription": {
+    "model": "large-v3",
+    "backend": "faster_whisper",
+    "language_detected": "en",
+    "transcribed_at_utc": "2026-06-04T18:15:56.098655+00:00",
+    "duration_seconds": 2192.04,
+    "platform": "Linux",
+    "machine": "x86_64"
+  },
+  "full_text": "That's weird. What the fuck? Okay. So we discovered a bug. We discovered a compiler bug. So the problem is RDI is I. RSI is J. And it does not. What it needs to do is. Okay. So we can get rid of this result not used. Let's just see what happens if we do that. Okay. What do you think I'm talking about? Okay, so the kernel is, I'm going to record the size of the kernel, and it should not increase. Well, if it does, we'll see how bad it is. Okay, now we record the size of the kernel. What happened is we had an optimization that was too ambitious. Good, look at that. We did not increase the size. Oh, we did not increase the size of the kernel. So, let's see if it fixed the bug. No, it did not fix the bug. What? I hate when I have no result. Or equal. No result. Or equal. I thought I was making it more strict. I was actually making it less strict. Okay. Yeah, I thought I was making it more strict. So when it gets to the or equal, there's an assignment after the or equal. I think the result not used. Where's the assignment? So it's already been gobbled at this point. The assignment has already been destroyed, assigned. Or equal and then assigned. Maybe we did fix it. So there's an or and then an assigned. By the time we get down here, the assign has been destroyed. So pass four got rid of the assign. Pass four got rid of the assign. It hurts my head. We changed I into a no op. Is that what we did? What if the previous, no. Well, what, this is, oh, tempi. This is the, let's see. This is the previous one in LEA. So it's pass four that is destroying the assigned. Pass four has an assigned. The previous one is an or equal. Damn it, damn it, damn it. What the fuck? You know what we're going to do? You have to not be lazy. That's the number one rule. Okay. So we're making progress. The previous one is an LEA. Both the assigned. Oh, it is an LEA. Okay. Not be lazy. I is seven for the assign, no, for the or equal. I is six for the assign. So when it's doing, so if we have an assignment and the previous one was an LEA, displacement mode or SIB, okay, so that's a displacement off of RBP. This is the register variable if it's greater than zero. Okay. Oh, relax. What are you doing? I don't know what I'm... After pass four, we still have the assigned. This is after pass four. So it's pass five that does it. I'm in the wrong place. Okay. So pass four still has it, but pass five does not still have it. Okay. So you don't suppose... I think I know what's happening. Here's what it's... Pass 5 still has or equal a sign. After pass 5, we just have or equal. After pass 6, I don't remember if this is before or after. After pass 6, we have. Okay, result not used. What if it's a... I think I know what's happening. Here's what I think is happening. How do I explain this? So it gets converted to... intermediate codes and it gets converted to immediate intermediate codes and uh the output from or the output from or equal let's see the output from or equal is uh placed onto the stack and then the stack the stack is assigned to rsi however uh There's an optimization that RSI is J. So the I is not being assigned. Is that correct? RDI is I. Let's be sure we know what's going on. That's the assignment that's getting nuked. So what we need to tell it is we need to tell it that the assignment to a variable important we should not have converted it to stack okay so it thought it thought it was an unimportant intermediate value but it's actually an assignment it thought it was unimportant well fuck it some other day we're gonna fix that it should not have converted it to a stack temporary What a lousy video. Sorry people, oh well.",
+  "segments": [
+    {
+      "id": 1,
+      "start": 1.04,
+      "end": 220.83,
+      "text": "That's weird. What the fuck? Okay. So we discovered a bug. We discovered a compiler bug. So the problem is RDI is I. RSI is J. And it does not. What it needs to do is. Okay. So we can get rid of this result not used. Let's just see what happens if we do that. Okay.",
+      "words": [
+        {
+          "word": "That's",
+          "start": 1.04,
+          "end": 1.46,
+          "probability": 0.9346
+        },
+        {
+          "word": "weird.",
+          "start": 1.46,
+          "end": 1.74,
+          "probability": 0.9951
+        },
+        {
+          "word": "What",
+          "start": 1.82,
+          "end": 1.96,
+          "probability": 0.8667
+        },
+        {
+          "word": "the",
+          "start": 1.96,
+          "end": 2.12,
+          "probability": 0.9976
+        },
+        {
+          "word": "fuck?",
+          "start": 2.12,
+          "end": 2.32,
+          "probability": 0.9019
+        },
+        {
+          "word": "Okay.",
+          "start": 14.34,
+          "end": 14.82,
+          "probability": 0.8921
+        },
+        {
+          "word": "So",
+          "start": 30.24,
+          "end": 30.72,
+          "probability": 0.9756
+        },
+        {
+          "word": "we",
+          "start": 30.72,
+          "end": 31.48,
+          "probability": 0.4749
+        },
+        {
+          "word": "discovered",
+          "start": 31.48,
+          "end": 31.88,
+          "probability": 0.9976
+        },
+        {
+          "word": "a",
+          "start": 31.88,
+          "end": 32.1,
+          "probability": 0.9995
+        },
+        {
+          "word": "bug.",
+          "start": 32.1,
+          "end": 32.28,
+          "probability": 0.9946
+        },
+        {
+          "word": "We",
+          "start": 32.5,
+          "end": 32.98,
+          "probability": 0.9961
+        },
+        {
+          "word": "discovered",
+          "start": 41.08,
+          "end": 41.44,
+          "probability": 0.999
+        },
+        {
+          "word": "a",
+          "start": 41.44,
+          "end": 41.68,
+          "probability": 0.9995
+        },
+        {
+          "word": "compiler",
+          "start": 41.68,
+          "end": 41.94,
+          "probability": 0.9961
+        },
+        {
+          "word": "bug.",
+          "start": 41.94,
+          "end": 42.38,
+          "probability": 1.0
+        },
+        {
+          "word": "So",
+          "start": 63.1,
+          "end": 63.58,
+          "probability": 0.938
+        },
+        {
+          "word": "the",
+          "start": 63.58,
+          "end": 63.78,
+          "probability": 0.999
+        },
+        {
+          "word": "problem",
+          "start": 63.78,
+          "end": 64.14,
+          "probability": 1.0
+        },
+        {
+          "word": "is",
+          "start": 64.14,
+          "end": 64.48,
+          "probability": 1.0
+        },
+        {
+          "word": "RDI",
+          "start": 64.48,
+          "end": 66.18,
+          "probability": 0.7864
+        },
+        {
+          "word": "is",
+          "start": 67.78,
+          "end": 68.54,
+          "probability": 0.9995
+        },
+        {
+          "word": "I.",
+          "start": 68.54,
+          "end": 68.86,
+          "probability": 0.9868
+        },
+        {
+          "word": "RSI",
+          "start": 69.92,
+          "end": 70.4,
+          "probability": 0.9678
+        },
+        {
+          "word": "is",
+          "start": 70.4,
+          "end": 70.68,
+          "probability": 1.0
+        },
+        {
+          "word": "J.",
+          "start": 70.68,
+          "end": 70.92,
+          "probability": 0.9956
+        },
+        {
+          "word": "And",
+          "start": 71.62,
+          "end": 72.1,
+          "probability": 0.9575
+        },
+        {
+          "word": "it",
+          "start": 72.1,
+          "end": 73.06,
+          "probability": 0.937
+        },
+        {
+          "word": "does",
+          "start": 89.83,
+          "end": 90.25,
+          "probability": 0.9995
+        },
+        {
+          "word": "not.",
+          "start": 90.25,
+          "end": 90.49,
+          "probability": 0.9995
+        },
+        {
+          "word": "What",
+          "start": 90.59,
+          "end": 90.83,
+          "probability": 0.9951
+        },
+        {
+          "word": "it",
+          "start": 90.83,
+          "end": 90.97,
+          "probability": 1.0
+        },
+        {
+          "word": "needs",
+          "start": 90.97,
+          "end": 91.17,
+          "probability": 1.0
+        },
+        {
+          "word": "to",
+          "start": 91.17,
+          "end": 91.37,
+          "probability": 1.0
+        },
+        {
+          "word": "do",
+          "start": 91.37,
+          "end": 91.57,
+          "probability": 1.0
+        },
+        {
+          "word": "is.",
+          "start": 91.57,
+          "end": 91.95,
+          "probability": 1.0
+        },
+        {
+          "word": "Okay.",
+          "start": 92.89,
+          "end": 93.37,
+          "probability": 0.9849
+        },
+        {
+          "word": "So",
+          "start": 98.4,
+          "end": 98.88,
+          "probability": 0.9961
+        },
+        {
+          "word": "we",
+          "start": 98.88,
+          "end": 99.76,
+          "probability": 0.9795
+        },
+        {
+          "word": "can",
+          "start": 157.97,
+          "end": 158.15,
+          "probability": 1.0
+        },
+        {
+          "word": "get",
+          "start": 158.15,
+          "end": 158.35,
+          "probability": 1.0
+        },
+        {
+          "word": "rid",
+          "start": 158.35,
+          "end": 158.47,
+          "probability": 1.0
+        },
+        {
+          "word": "of",
+          "start": 158.47,
+          "end": 158.59,
+          "probability": 1.0
+        },
+        {
+          "word": "this",
+          "start": 158.59,
+          "end": 158.73,
+          "probability": 1.0
+        },
+        {
+          "word": "result",
+          "start": 158.73,
+          "end": 159.11,
+          "probability": 0.9775
+        },
+        {
+          "word": "not",
+          "start": 159.11,
+          "end": 159.33,
+          "probability": 0.9751
+        },
+        {
+          "word": "used.",
+          "start": 159.33,
+          "end": 159.71,
+          "probability": 0.9995
+        },
+        {
+          "word": "Let's",
+          "start": 162.82,
+          "end": 163.3,
+          "probability": 0.9998
+        },
+        {
+          "word": "just",
+          "start": 163.3,
+          "end": 163.46,
+          "probability": 1.0
+        },
+        {
+          "word": "see",
+          "start": 163.46,
+          "end": 163.66,
+          "probability": 1.0
+        },
+        {
+          "word": "what",
+          "start": 163.66,
+          "end": 163.84,
+          "probability": 1.0
+        },
+        {
+          "word": "happens",
+          "start": 163.84,
+          "end": 164.18,
+          "probability": 1.0
+        },
+        {
+          "word": "if",
+          "start": 164.18,
+          "end": 164.38,
+          "probability": 0.9985
+        },
+        {
+          "word": "we",
+          "start": 164.38,
+          "end": 164.48,
+          "probability": 1.0
+        },
+        {
+          "word": "do",
+          "start": 164.48,
+          "end": 164.64,
+          "probability": 1.0
+        },
+        {
+          "word": "that.",
+          "start": 164.64,
+          "end": 164.84,
+          "probability": 1.0
+        },
+        {
+          "word": "Okay.",
+          "start": 220.35,
+          "end": 220.83,
+          "probability": 0.9922
+        }
+      ],
+      "avg_logprob": -0.0694,
+      "no_speech_prob": 0.0516
+    },
+    {
+      "id": 2,
+      "start": 223.05,
+      "end": 262.57,
+      "text": "What do you think I'm talking about? Okay, so the kernel is, I'm going to record the size of the kernel, and it should not increase. Well, if it does, we'll see how bad it is. Okay, now we record the size of the kernel. What happened is we had an optimization that was too ambitious. Good, look at that.",
+      "words": [
+        {
+          "word": "What",
+          "start": 223.05,
+          "end": 223.43,
+          "probability": 0.7886
+        },
+        {
+          "word": "do",
+          "start": 223.43,
+          "end": 223.53,
+          "probability": 0.9863
+        },
+        {
+          "word": "you",
+          "start": 223.53,
+          "end": 223.67,
+          "probability": 0.9976
+        },
+        {
+          "word": "think",
+          "start": 223.67,
+          "end": 224.25,
+          "probability": 0.9966
+        },
+        {
+          "word": "I'm",
+          "start": 224.25,
+          "end": 224.57,
+          "probability": 0.9512
+        },
+        {
+          "word": "talking",
+          "start": 224.57,
+          "end": 224.81,
+          "probability": 0.999
+        },
+        {
+          "word": "about?",
+          "start": 224.81,
+          "end": 225.19,
+          "probability": 0.999
+        },
+        {
+          "word": "Okay,",
+          "start": 225.67,
+          "end": 226.23,
+          "probability": 0.731
+        },
+        {
+          "word": "so",
+          "start": 226.33,
+          "end": 226.55,
+          "probability": 0.9971
+        },
+        {
+          "word": "the",
+          "start": 226.55,
+          "end": 227.71,
+          "probability": 0.9121
+        },
+        {
+          "word": "kernel",
+          "start": 227.71,
+          "end": 228.09,
+          "probability": 0.9858
+        },
+        {
+          "word": "is,",
+          "start": 228.09,
+          "end": 229.03,
+          "probability": 0.9946
+        },
+        {
+          "word": "I'm",
+          "start": 229.43,
+          "end": 230.35,
+          "probability": 0.9988
+        },
+        {
+          "word": "going",
+          "start": 235.28,
+          "end": 235.32,
+          "probability": 0.8418
+        },
+        {
+          "word": "to",
+          "start": 235.32,
+          "end": 235.46,
+          "probability": 1.0
+        },
+        {
+          "word": "record",
+          "start": 235.46,
+          "end": 235.84,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 235.84,
+          "end": 236.74,
+          "probability": 0.998
+        },
+        {
+          "word": "size",
+          "start": 236.74,
+          "end": 237.08,
+          "probability": 1.0
+        },
+        {
+          "word": "of",
+          "start": 237.08,
+          "end": 237.24,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 237.24,
+          "end": 237.32,
+          "probability": 0.9995
+        },
+        {
+          "word": "kernel,",
+          "start": 237.32,
+          "end": 237.66,
+          "probability": 1.0
+        },
+        {
+          "word": "and",
+          "start": 237.78,
+          "end": 238.74,
+          "probability": 0.9995
+        },
+        {
+          "word": "it",
+          "start": 239.44,
+          "end": 239.76,
+          "probability": 0.9995
+        },
+        {
+          "word": "should",
+          "start": 239.76,
+          "end": 240.76,
+          "probability": 0.9966
+        },
+        {
+          "word": "not",
+          "start": 240.76,
+          "end": 241.04,
+          "probability": 1.0
+        },
+        {
+          "word": "increase.",
+          "start": 241.04,
+          "end": 241.46,
+          "probability": 1.0
+        },
+        {
+          "word": "Well,",
+          "start": 242.28,
+          "end": 242.84,
+          "probability": 0.999
+        },
+        {
+          "word": "if",
+          "start": 243.02,
+          "end": 243.5,
+          "probability": 0.9995
+        },
+        {
+          "word": "it",
+          "start": 243.5,
+          "end": 243.68,
+          "probability": 1.0
+        },
+        {
+          "word": "does,",
+          "start": 243.68,
+          "end": 243.96,
+          "probability": 0.9263
+        },
+        {
+          "word": "we'll",
+          "start": 243.96,
+          "end": 244.54,
+          "probability": 0.7864
+        },
+        {
+          "word": "see",
+          "start": 244.54,
+          "end": 244.66,
+          "probability": 1.0
+        },
+        {
+          "word": "how",
+          "start": 244.66,
+          "end": 244.78,
+          "probability": 1.0
+        },
+        {
+          "word": "bad",
+          "start": 244.78,
+          "end": 245.0,
+          "probability": 1.0
+        },
+        {
+          "word": "it",
+          "start": 245.0,
+          "end": 245.2,
+          "probability": 1.0
+        },
+        {
+          "word": "is.",
+          "start": 245.2,
+          "end": 245.4,
+          "probability": 1.0
+        },
+        {
+          "word": "Okay,",
+          "start": 246.41,
+          "end": 246.97,
+          "probability": 0.9995
+        },
+        {
+          "word": "now",
+          "start": 247.07,
+          "end": 247.25,
+          "probability": 0.999
+        },
+        {
+          "word": "we",
+          "start": 247.25,
+          "end": 247.43,
+          "probability": 0.9995
+        },
+        {
+          "word": "record",
+          "start": 247.43,
+          "end": 248.17,
+          "probability": 0.9395
+        },
+        {
+          "word": "the",
+          "start": 248.17,
+          "end": 248.47,
+          "probability": 1.0
+        },
+        {
+          "word": "size",
+          "start": 248.47,
+          "end": 248.67,
+          "probability": 1.0
+        },
+        {
+          "word": "of",
+          "start": 248.67,
+          "end": 248.87,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 248.87,
+          "end": 248.97,
+          "probability": 1.0
+        },
+        {
+          "word": "kernel.",
+          "start": 248.97,
+          "end": 249.25,
+          "probability": 1.0
+        },
+        {
+          "word": "What",
+          "start": 251.85,
+          "end": 252.41,
+          "probability": 0.9922
+        },
+        {
+          "word": "happened",
+          "start": 252.41,
+          "end": 252.81,
+          "probability": 1.0
+        },
+        {
+          "word": "is",
+          "start": 252.81,
+          "end": 253.03,
+          "probability": 1.0
+        },
+        {
+          "word": "we",
+          "start": 253.03,
+          "end": 253.97,
+          "probability": 0.9355
+        },
+        {
+          "word": "had",
+          "start": 255.73,
+          "end": 256.01,
+          "probability": 1.0
+        },
+        {
+          "word": "an",
+          "start": 256.01,
+          "end": 256.41,
+          "probability": 1.0
+        },
+        {
+          "word": "optimization",
+          "start": 256.41,
+          "end": 256.99,
+          "probability": 1.0
+        },
+        {
+          "word": "that",
+          "start": 256.99,
+          "end": 258.15,
+          "probability": 1.0
+        },
+        {
+          "word": "was",
+          "start": 258.15,
+          "end": 258.35,
+          "probability": 1.0
+        },
+        {
+          "word": "too",
+          "start": 258.35,
+          "end": 259.31,
+          "probability": 1.0
+        },
+        {
+          "word": "ambitious.",
+          "start": 259.31,
+          "end": 259.71,
+          "probability": 1.0
+        },
+        {
+          "word": "Good,",
+          "start": 261.27,
+          "end": 261.83,
+          "probability": 0.9995
+        },
+        {
+          "word": "look",
+          "start": 262.01,
+          "end": 262.29,
+          "probability": 1.0
+        },
+        {
+          "word": "at",
+          "start": 262.29,
+          "end": 262.43,
+          "probability": 1.0
+        },
+        {
+          "word": "that.",
+          "start": 262.43,
+          "end": 262.57,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.0605,
+      "no_speech_prob": 0.0297
+    },
+    {
+      "id": 3,
+      "start": 263.47,
+      "end": 442.07,
+      "text": "We did not increase the size. Oh, we did not increase the size of the kernel. So, let's see if it fixed the bug. No, it did not fix the bug. What? I hate when I have no result. Or equal. No result. Or equal. I thought I was making it more strict. I was actually making it less strict. Okay. Yeah, I thought I was making it more strict.",
+      "words": [
+        {
+          "word": "We",
+          "start": 263.47,
+          "end": 263.85,
+          "probability": 0.7886
+        },
+        {
+          "word": "did",
+          "start": 263.85,
+          "end": 263.99,
+          "probability": 0.9956
+        },
+        {
+          "word": "not",
+          "start": 263.99,
+          "end": 264.25,
+          "probability": 0.9966
+        },
+        {
+          "word": "increase",
+          "start": 264.25,
+          "end": 264.87,
+          "probability": 0.9844
+        },
+        {
+          "word": "the",
+          "start": 264.87,
+          "end": 265.29,
+          "probability": 0.9971
+        },
+        {
+          "word": "size.",
+          "start": 265.29,
+          "end": 265.55,
+          "probability": 0.999
+        },
+        {
+          "word": "Oh,",
+          "start": 265.65,
+          "end": 265.93,
+          "probability": 0.9834
+        },
+        {
+          "word": "we",
+          "start": 266.03,
+          "end": 267.03,
+          "probability": 0.9961
+        },
+        {
+          "word": "did",
+          "start": 270.84,
+          "end": 270.98,
+          "probability": 0.9883
+        },
+        {
+          "word": "not",
+          "start": 270.98,
+          "end": 271.24,
+          "probability": 0.9995
+        },
+        {
+          "word": "increase",
+          "start": 271.24,
+          "end": 271.54,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 271.54,
+          "end": 271.92,
+          "probability": 0.9995
+        },
+        {
+          "word": "size",
+          "start": 271.92,
+          "end": 272.24,
+          "probability": 1.0
+        },
+        {
+          "word": "of",
+          "start": 272.24,
+          "end": 272.8,
+          "probability": 0.9966
+        },
+        {
+          "word": "the",
+          "start": 272.8,
+          "end": 272.94,
+          "probability": 0.9995
+        },
+        {
+          "word": "kernel.",
+          "start": 272.94,
+          "end": 273.22,
+          "probability": 0.9897
+        },
+        {
+          "word": "So,",
+          "start": 275.21,
+          "end": 275.69,
+          "probability": 0.9888
+        },
+        {
+          "word": "let's",
+          "start": 275.83,
+          "end": 276.85,
+          "probability": 0.9988
+        },
+        {
+          "word": "see",
+          "start": 279.83,
+          "end": 279.95,
+          "probability": 1.0
+        },
+        {
+          "word": "if",
+          "start": 279.95,
+          "end": 280.07,
+          "probability": 0.9995
+        },
+        {
+          "word": "it",
+          "start": 280.07,
+          "end": 280.19,
+          "probability": 0.9995
+        },
+        {
+          "word": "fixed",
+          "start": 280.19,
+          "end": 280.43,
+          "probability": 0.9985
+        },
+        {
+          "word": "the",
+          "start": 280.43,
+          "end": 280.57,
+          "probability": 0.998
+        },
+        {
+          "word": "bug.",
+          "start": 280.57,
+          "end": 280.75,
+          "probability": 1.0
+        },
+        {
+          "word": "No,",
+          "start": 281.11,
+          "end": 281.59,
+          "probability": 0.999
+        },
+        {
+          "word": "it",
+          "start": 287.21,
+          "end": 287.29,
+          "probability": 0.9995
+        },
+        {
+          "word": "did",
+          "start": 287.29,
+          "end": 287.41,
+          "probability": 1.0
+        },
+        {
+          "word": "not",
+          "start": 287.41,
+          "end": 287.61,
+          "probability": 1.0
+        },
+        {
+          "word": "fix",
+          "start": 287.61,
+          "end": 287.85,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 287.85,
+          "end": 288.03,
+          "probability": 1.0
+        },
+        {
+          "word": "bug.",
+          "start": 288.03,
+          "end": 288.21,
+          "probability": 1.0
+        },
+        {
+          "word": "What?",
+          "start": 290.23,
+          "end": 290.71,
+          "probability": 0.9985
+        },
+        {
+          "word": "I",
+          "start": 291.07,
+          "end": 291.55,
+          "probability": 0.9961
+        },
+        {
+          "word": "hate",
+          "start": 312.22,
+          "end": 312.46,
+          "probability": 0.9995
+        },
+        {
+          "word": "when",
+          "start": 312.46,
+          "end": 312.6,
+          "probability": 0.8389
+        },
+        {
+          "word": "I",
+          "start": 312.6,
+          "end": 312.76,
+          "probability": 0.6826
+        },
+        {
+          "word": "have",
+          "start": 312.76,
+          "end": 312.8,
+          "probability": 0.8823
+        },
+        {
+          "word": "no",
+          "start": 321.22,
+          "end": 321.48,
+          "probability": 0.9976
+        },
+        {
+          "word": "result.",
+          "start": 321.48,
+          "end": 321.9,
+          "probability": 0.9995
+        },
+        {
+          "word": "Or",
+          "start": 322.26,
+          "end": 322.74,
+          "probability": 0.9819
+        },
+        {
+          "word": "equal.",
+          "start": 331.7,
+          "end": 332.08,
+          "probability": 0.9966
+        },
+        {
+          "word": "No",
+          "start": 333.74,
+          "end": 334.22,
+          "probability": 0.9927
+        },
+        {
+          "word": "result.",
+          "start": 334.22,
+          "end": 334.64,
+          "probability": 0.9995
+        },
+        {
+          "word": "Or",
+          "start": 335.06,
+          "end": 335.54,
+          "probability": 0.938
+        },
+        {
+          "word": "equal.",
+          "start": 340.31,
+          "end": 340.91,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 341.23,
+          "end": 341.67,
+          "probability": 0.8096
+        },
+        {
+          "word": "thought",
+          "start": 341.67,
+          "end": 341.87,
+          "probability": 0.9956
+        },
+        {
+          "word": "I",
+          "start": 393.42,
+          "end": 393.56,
+          "probability": 0.9995
+        },
+        {
+          "word": "was",
+          "start": 393.56,
+          "end": 393.72,
+          "probability": 1.0
+        },
+        {
+          "word": "making",
+          "start": 393.72,
+          "end": 394.02,
+          "probability": 1.0
+        },
+        {
+          "word": "it",
+          "start": 394.02,
+          "end": 394.38,
+          "probability": 1.0
+        },
+        {
+          "word": "more",
+          "start": 394.38,
+          "end": 394.68,
+          "probability": 0.9995
+        },
+        {
+          "word": "strict.",
+          "start": 394.68,
+          "end": 395.82,
+          "probability": 0.999
+        },
+        {
+          "word": "I",
+          "start": 396.47,
+          "end": 396.95,
+          "probability": 0.9995
+        },
+        {
+          "word": "was",
+          "start": 396.95,
+          "end": 397.09,
+          "probability": 0.999
+        },
+        {
+          "word": "actually",
+          "start": 397.09,
+          "end": 397.39,
+          "probability": 1.0
+        },
+        {
+          "word": "making",
+          "start": 397.39,
+          "end": 397.67,
+          "probability": 1.0
+        },
+        {
+          "word": "it",
+          "start": 397.67,
+          "end": 397.95,
+          "probability": 1.0
+        },
+        {
+          "word": "less",
+          "start": 397.95,
+          "end": 398.15,
+          "probability": 1.0
+        },
+        {
+          "word": "strict.",
+          "start": 398.15,
+          "end": 398.83,
+          "probability": 1.0
+        },
+        {
+          "word": "Okay.",
+          "start": 420.34,
+          "end": 420.82,
+          "probability": 0.9639
+        },
+        {
+          "word": "Yeah,",
+          "start": 421.18,
+          "end": 421.66,
+          "probability": 0.9976
+        },
+        {
+          "word": "I",
+          "start": 440.59,
+          "end": 440.67,
+          "probability": 1.0
+        },
+        {
+          "word": "thought",
+          "start": 440.67,
+          "end": 440.87,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 440.87,
+          "end": 440.99,
+          "probability": 1.0
+        },
+        {
+          "word": "was",
+          "start": 440.99,
+          "end": 441.13,
+          "probability": 1.0
+        },
+        {
+          "word": "making",
+          "start": 441.13,
+          "end": 441.37,
+          "probability": 1.0
+        },
+        {
+          "word": "it",
+          "start": 441.37,
+          "end": 441.59,
+          "probability": 1.0
+        },
+        {
+          "word": "more",
+          "start": 441.59,
+          "end": 441.73,
+          "probability": 1.0
+        },
+        {
+          "word": "strict.",
+          "start": 441.73,
+          "end": 442.07,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.0532,
+      "no_speech_prob": 0.0999
+    },
+    {
+      "id": 4,
+      "start": 509.37,
+      "end": 619.74,
+      "text": "So when it gets to the or equal, there's an assignment after the or equal. I think the result not used. Where's the assignment? So it's already been gobbled at this point. The assignment has already been destroyed, assigned. Or equal and then assigned. Maybe we did fix it. So there's an or and then an assigned.",
+      "words": [
+        {
+          "word": "So",
+          "start": 509.37,
+          "end": 509.99,
+          "probability": 0.9277
+        },
+        {
+          "word": "when",
+          "start": 509.99,
+          "end": 510.61,
+          "probability": 0.7002
+        },
+        {
+          "word": "it",
+          "start": 547.13,
+          "end": 547.33,
+          "probability": 0.999
+        },
+        {
+          "word": "gets",
+          "start": 547.33,
+          "end": 547.59,
+          "probability": 0.9995
+        },
+        {
+          "word": "to",
+          "start": 547.59,
+          "end": 547.79,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 547.79,
+          "end": 548.01,
+          "probability": 0.9971
+        },
+        {
+          "word": "or",
+          "start": 548.01,
+          "end": 549.27,
+          "probability": 0.6904
+        },
+        {
+          "word": "equal,",
+          "start": 550.83,
+          "end": 551.13,
+          "probability": 0.8696
+        },
+        {
+          "word": "there's",
+          "start": 551.29,
+          "end": 552.37,
+          "probability": 0.9971
+        },
+        {
+          "word": "an",
+          "start": 559.09,
+          "end": 559.19,
+          "probability": 1.0
+        },
+        {
+          "word": "assignment",
+          "start": 559.19,
+          "end": 559.61,
+          "probability": 0.999
+        },
+        {
+          "word": "after",
+          "start": 559.61,
+          "end": 560.13,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 560.13,
+          "end": 560.45,
+          "probability": 1.0
+        },
+        {
+          "word": "or",
+          "start": 560.45,
+          "end": 560.65,
+          "probability": 0.999
+        },
+        {
+          "word": "equal.",
+          "start": 560.65,
+          "end": 560.97,
+          "probability": 0.9985
+        },
+        {
+          "word": "I",
+          "start": 562.55,
+          "end": 563.17,
+          "probability": 0.9937
+        },
+        {
+          "word": "think",
+          "start": 563.17,
+          "end": 564.09,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 573.47,
+          "end": 573.63,
+          "probability": 1.0
+        },
+        {
+          "word": "result",
+          "start": 573.63,
+          "end": 573.93,
+          "probability": 0.9995
+        },
+        {
+          "word": "not",
+          "start": 573.93,
+          "end": 574.15,
+          "probability": 0.9771
+        },
+        {
+          "word": "used.",
+          "start": 574.15,
+          "end": 574.53,
+          "probability": 1.0
+        },
+        {
+          "word": "Where's",
+          "start": 574.85,
+          "end": 575.47,
+          "probability": 0.9854
+        },
+        {
+          "word": "the",
+          "start": 591.85,
+          "end": 591.95,
+          "probability": 1.0
+        },
+        {
+          "word": "assignment?",
+          "start": 591.95,
+          "end": 592.37,
+          "probability": 1.0
+        },
+        {
+          "word": "So",
+          "start": 593.36,
+          "end": 593.98,
+          "probability": 0.9976
+        },
+        {
+          "word": "it's",
+          "start": 593.98,
+          "end": 594.24,
+          "probability": 0.9993
+        },
+        {
+          "word": "already",
+          "start": 594.24,
+          "end": 594.48,
+          "probability": 1.0
+        },
+        {
+          "word": "been",
+          "start": 594.48,
+          "end": 594.88,
+          "probability": 1.0
+        },
+        {
+          "word": "gobbled",
+          "start": 594.88,
+          "end": 595.82,
+          "probability": 0.9987
+        },
+        {
+          "word": "at",
+          "start": 595.82,
+          "end": 596.78,
+          "probability": 0.9985
+        },
+        {
+          "word": "this",
+          "start": 596.88,
+          "end": 597.12,
+          "probability": 1.0
+        },
+        {
+          "word": "point.",
+          "start": 597.12,
+          "end": 597.42,
+          "probability": 1.0
+        },
+        {
+          "word": "The",
+          "start": 599.04,
+          "end": 599.66,
+          "probability": 0.9995
+        },
+        {
+          "word": "assignment",
+          "start": 599.66,
+          "end": 600.18,
+          "probability": 1.0
+        },
+        {
+          "word": "has",
+          "start": 600.18,
+          "end": 601.22,
+          "probability": 0.9995
+        },
+        {
+          "word": "already",
+          "start": 601.32,
+          "end": 601.74,
+          "probability": 1.0
+        },
+        {
+          "word": "been",
+          "start": 601.74,
+          "end": 602.08,
+          "probability": 1.0
+        },
+        {
+          "word": "destroyed,",
+          "start": 602.08,
+          "end": 602.98,
+          "probability": 1.0
+        },
+        {
+          "word": "assigned.",
+          "start": 603.3,
+          "end": 604.06,
+          "probability": 0.999
+        },
+        {
+          "word": "Or",
+          "start": 607.18,
+          "end": 607.8,
+          "probability": 0.8975
+        },
+        {
+          "word": "equal",
+          "start": 607.8,
+          "end": 608.14,
+          "probability": 0.9995
+        },
+        {
+          "word": "and",
+          "start": 608.14,
+          "end": 608.54,
+          "probability": 0.8569
+        },
+        {
+          "word": "then",
+          "start": 608.54,
+          "end": 608.74,
+          "probability": 1.0
+        },
+        {
+          "word": "assigned.",
+          "start": 608.74,
+          "end": 609.04,
+          "probability": 0.9956
+        },
+        {
+          "word": "Maybe",
+          "start": 612.23,
+          "end": 612.85,
+          "probability": 0.9995
+        },
+        {
+          "word": "we",
+          "start": 612.85,
+          "end": 613.09,
+          "probability": 1.0
+        },
+        {
+          "word": "did",
+          "start": 613.09,
+          "end": 613.27,
+          "probability": 1.0
+        },
+        {
+          "word": "fix",
+          "start": 613.27,
+          "end": 613.65,
+          "probability": 1.0
+        },
+        {
+          "word": "it.",
+          "start": 613.65,
+          "end": 613.79,
+          "probability": 1.0
+        },
+        {
+          "word": "So",
+          "start": 617.3,
+          "end": 617.92,
+          "probability": 0.9995
+        },
+        {
+          "word": "there's",
+          "start": 617.92,
+          "end": 618.16,
+          "probability": 0.9998
+        },
+        {
+          "word": "an",
+          "start": 618.16,
+          "end": 618.26,
+          "probability": 1.0
+        },
+        {
+          "word": "or",
+          "start": 618.26,
+          "end": 618.52,
+          "probability": 0.9995
+        },
+        {
+          "word": "and",
+          "start": 618.52,
+          "end": 618.88,
+          "probability": 0.9995
+        },
+        {
+          "word": "then",
+          "start": 618.88,
+          "end": 619.08,
+          "probability": 0.9966
+        },
+        {
+          "word": "an",
+          "start": 619.08,
+          "end": 619.36,
+          "probability": 0.9966
+        },
+        {
+          "word": "assigned.",
+          "start": 619.36,
+          "end": 619.74,
+          "probability": 0.6255
+        }
+      ],
+      "avg_logprob": -0.0346,
+      "no_speech_prob": 0.042
+    },
+    {
+      "id": 5,
+      "start": 620.69,
+      "end": 775.05,
+      "text": "By the time we get down here, the assign has been destroyed. So pass four got rid of the assign. Pass four got rid of the assign. It hurts my head. We changed I into a no op. Is that what we did? What if the previous, no. Well, what, this is, oh, tempi. This is the, let's see. This is the previous one in LEA.",
+      "words": [
+        {
+          "word": "By",
+          "start": 620.69,
+          "end": 621.05,
+          "probability": 0.7344
+        },
+        {
+          "word": "the",
+          "start": 621.05,
+          "end": 621.13,
+          "probability": 0.998
+        },
+        {
+          "word": "time",
+          "start": 621.13,
+          "end": 621.37,
+          "probability": 0.9995
+        },
+        {
+          "word": "we",
+          "start": 621.37,
+          "end": 621.51,
+          "probability": 0.9902
+        },
+        {
+          "word": "get",
+          "start": 621.51,
+          "end": 621.65,
+          "probability": 0.9951
+        },
+        {
+          "word": "down",
+          "start": 621.65,
+          "end": 621.85,
+          "probability": 0.9941
+        },
+        {
+          "word": "here,",
+          "start": 621.85,
+          "end": 622.17,
+          "probability": 0.9956
+        },
+        {
+          "word": "the",
+          "start": 622.47,
+          "end": 623.19,
+          "probability": 0.9829
+        },
+        {
+          "word": "assign",
+          "start": 623.19,
+          "end": 623.45,
+          "probability": 0.8687
+        },
+        {
+          "word": "has",
+          "start": 623.45,
+          "end": 623.75,
+          "probability": 0.9897
+        },
+        {
+          "word": "been",
+          "start": 623.75,
+          "end": 623.93,
+          "probability": 0.9995
+        },
+        {
+          "word": "destroyed.",
+          "start": 623.93,
+          "end": 624.39,
+          "probability": 0.998
+        },
+        {
+          "word": "So",
+          "start": 639.69,
+          "end": 640.21,
+          "probability": 0.9736
+        },
+        {
+          "word": "pass",
+          "start": 640.21,
+          "end": 640.89,
+          "probability": 0.625
+        },
+        {
+          "word": "four",
+          "start": 640.89,
+          "end": 641.51,
+          "probability": 0.3188
+        },
+        {
+          "word": "got",
+          "start": 641.51,
+          "end": 642.71,
+          "probability": 0.9229
+        },
+        {
+          "word": "rid",
+          "start": 643.7,
+          "end": 643.98,
+          "probability": 0.9995
+        },
+        {
+          "word": "of",
+          "start": 643.98,
+          "end": 644.2,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 644.2,
+          "end": 644.32,
+          "probability": 0.9995
+        },
+        {
+          "word": "assign.",
+          "start": 644.32,
+          "end": 644.72,
+          "probability": 0.9868
+        },
+        {
+          "word": "Pass",
+          "start": 645.14,
+          "end": 645.66,
+          "probability": 0.9897
+        },
+        {
+          "word": "four",
+          "start": 661.7,
+          "end": 662.08,
+          "probability": 0.9893
+        },
+        {
+          "word": "got",
+          "start": 662.08,
+          "end": 662.3,
+          "probability": 0.9814
+        },
+        {
+          "word": "rid",
+          "start": 662.3,
+          "end": 662.56,
+          "probability": 1.0
+        },
+        {
+          "word": "of",
+          "start": 662.56,
+          "end": 662.74,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 662.74,
+          "end": 662.82,
+          "probability": 0.9995
+        },
+        {
+          "word": "assign.",
+          "start": 662.82,
+          "end": 663.12,
+          "probability": 0.998
+        },
+        {
+          "word": "It",
+          "start": 663.68,
+          "end": 664.2,
+          "probability": 0.7441
+        },
+        {
+          "word": "hurts",
+          "start": 664.2,
+          "end": 664.46,
+          "probability": 0.9976
+        },
+        {
+          "word": "my",
+          "start": 707.85,
+          "end": 708.07,
+          "probability": 0.999
+        },
+        {
+          "word": "head.",
+          "start": 708.07,
+          "end": 708.31,
+          "probability": 0.999
+        },
+        {
+          "word": "We",
+          "start": 708.71,
+          "end": 709.23,
+          "probability": 0.9976
+        },
+        {
+          "word": "changed",
+          "start": 726.48,
+          "end": 726.84,
+          "probability": 0.9985
+        },
+        {
+          "word": "I",
+          "start": 726.84,
+          "end": 727.16,
+          "probability": 0.6562
+        },
+        {
+          "word": "into",
+          "start": 727.16,
+          "end": 727.58,
+          "probability": 0.9995
+        },
+        {
+          "word": "a",
+          "start": 727.58,
+          "end": 727.82,
+          "probability": 0.9956
+        },
+        {
+          "word": "no",
+          "start": 727.82,
+          "end": 728.0,
+          "probability": 0.8218
+        },
+        {
+          "word": "op.",
+          "start": 728.0,
+          "end": 728.26,
+          "probability": 0.4121
+        },
+        {
+          "word": "Is",
+          "start": 731.78,
+          "end": 732.3,
+          "probability": 0.9985
+        },
+        {
+          "word": "that",
+          "start": 732.3,
+          "end": 732.4,
+          "probability": 1.0
+        },
+        {
+          "word": "what",
+          "start": 732.4,
+          "end": 732.56,
+          "probability": 1.0
+        },
+        {
+          "word": "we",
+          "start": 732.56,
+          "end": 732.74,
+          "probability": 1.0
+        },
+        {
+          "word": "did?",
+          "start": 732.74,
+          "end": 732.9,
+          "probability": 1.0
+        },
+        {
+          "word": "What",
+          "start": 733.14,
+          "end": 733.66,
+          "probability": 0.9893
+        },
+        {
+          "word": "if",
+          "start": 750.58,
+          "end": 750.72,
+          "probability": 0.9937
+        },
+        {
+          "word": "the",
+          "start": 750.72,
+          "end": 750.86,
+          "probability": 0.9995
+        },
+        {
+          "word": "previous,",
+          "start": 750.86,
+          "end": 751.24,
+          "probability": 0.9995
+        },
+        {
+          "word": "no.",
+          "start": 751.42,
+          "end": 751.88,
+          "probability": 0.9966
+        },
+        {
+          "word": "Well,",
+          "start": 755.64,
+          "end": 756.16,
+          "probability": 0.6133
+        },
+        {
+          "word": "what,",
+          "start": 756.16,
+          "end": 756.34,
+          "probability": 0.9224
+        },
+        {
+          "word": "this",
+          "start": 756.34,
+          "end": 757.44,
+          "probability": 0.7056
+        },
+        {
+          "word": "is,",
+          "start": 761.12,
+          "end": 762.6,
+          "probability": 1.0
+        },
+        {
+          "word": "oh,",
+          "start": 768.28,
+          "end": 768.5,
+          "probability": 0.9834
+        },
+        {
+          "word": "tempi.",
+          "start": 768.6,
+          "end": 768.96,
+          "probability": 0.5275
+        },
+        {
+          "word": "This",
+          "start": 769.46,
+          "end": 769.98,
+          "probability": 0.9966
+        },
+        {
+          "word": "is",
+          "start": 769.98,
+          "end": 770.24,
+          "probability": 1.0
+        },
+        {
+          "word": "the,",
+          "start": 770.24,
+          "end": 770.48,
+          "probability": 1.0
+        },
+        {
+          "word": "let's",
+          "start": 770.58,
+          "end": 771.74,
+          "probability": 0.9983
+        },
+        {
+          "word": "see.",
+          "start": 772.61,
+          "end": 772.71,
+          "probability": 1.0
+        },
+        {
+          "word": "This",
+          "start": 773.03,
+          "end": 773.55,
+          "probability": 0.9976
+        },
+        {
+          "word": "is",
+          "start": 773.55,
+          "end": 773.65,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 773.65,
+          "end": 773.73,
+          "probability": 0.9585
+        },
+        {
+          "word": "previous",
+          "start": 773.73,
+          "end": 774.05,
+          "probability": 1.0
+        },
+        {
+          "word": "one",
+          "start": 774.05,
+          "end": 774.31,
+          "probability": 1.0
+        },
+        {
+          "word": "in",
+          "start": 774.31,
+          "end": 774.51,
+          "probability": 0.9917
+        },
+        {
+          "word": "LEA.",
+          "start": 774.51,
+          "end": 775.05,
+          "probability": 0.9812
+        }
+      ],
+      "avg_logprob": -0.0982,
+      "no_speech_prob": 0.0866
+    },
+    {
+      "id": 6,
+      "start": 778.7,
+      "end": 952.25,
+      "text": "So it's pass four that is destroying the assigned. Pass four has an assigned. The previous one is an or equal. Damn it, damn it, damn it. What the fuck? You know what we're going to do? You have to not be lazy. That's the number one rule. Okay. So we're making progress. The previous one is an LEA. Both the assigned. Oh, it is an LEA. Okay. Not be lazy.",
+      "words": [
+        {
+          "word": "So",
+          "start": 778.7,
+          "end": 779.1,
+          "probability": 0.9009
+        },
+        {
+          "word": "it's",
+          "start": 779.1,
+          "end": 779.32,
+          "probability": 0.9021
+        },
+        {
+          "word": "pass",
+          "start": 779.32,
+          "end": 779.56,
+          "probability": 0.8452
+        },
+        {
+          "word": "four",
+          "start": 779.56,
+          "end": 780.0,
+          "probability": 0.3381
+        },
+        {
+          "word": "that",
+          "start": 780.0,
+          "end": 781.0,
+          "probability": 0.938
+        },
+        {
+          "word": "is",
+          "start": 781.0,
+          "end": 781.58,
+          "probability": 0.9277
+        },
+        {
+          "word": "destroying",
+          "start": 781.58,
+          "end": 782.46,
+          "probability": 0.9976
+        },
+        {
+          "word": "the",
+          "start": 782.46,
+          "end": 783.34,
+          "probability": 0.9971
+        },
+        {
+          "word": "assigned.",
+          "start": 783.34,
+          "end": 783.72,
+          "probability": 0.8213
+        },
+        {
+          "word": "Pass",
+          "start": 784.28,
+          "end": 784.76,
+          "probability": 0.9985
+        },
+        {
+          "word": "four",
+          "start": 799.29,
+          "end": 799.67,
+          "probability": 0.9951
+        },
+        {
+          "word": "has",
+          "start": 799.67,
+          "end": 800.09,
+          "probability": 0.9941
+        },
+        {
+          "word": "an",
+          "start": 800.09,
+          "end": 800.27,
+          "probability": 0.999
+        },
+        {
+          "word": "assigned.",
+          "start": 800.27,
+          "end": 800.57,
+          "probability": 0.728
+        },
+        {
+          "word": "The",
+          "start": 801.15,
+          "end": 801.63,
+          "probability": 0.9995
+        },
+        {
+          "word": "previous",
+          "start": 801.63,
+          "end": 802.01,
+          "probability": 1.0
+        },
+        {
+          "word": "one",
+          "start": 802.01,
+          "end": 802.29,
+          "probability": 1.0
+        },
+        {
+          "word": "is",
+          "start": 802.29,
+          "end": 802.51,
+          "probability": 0.9961
+        },
+        {
+          "word": "an",
+          "start": 802.51,
+          "end": 802.59,
+          "probability": 0.9956
+        },
+        {
+          "word": "or",
+          "start": 802.59,
+          "end": 802.83,
+          "probability": 0.9531
+        },
+        {
+          "word": "equal.",
+          "start": 802.83,
+          "end": 803.15,
+          "probability": 0.9839
+        },
+        {
+          "word": "Damn",
+          "start": 830.74,
+          "end": 831.22,
+          "probability": 0.855
+        },
+        {
+          "word": "it,",
+          "start": 831.22,
+          "end": 831.4,
+          "probability": 1.0
+        },
+        {
+          "word": "damn",
+          "start": 831.42,
+          "end": 831.58,
+          "probability": 0.9966
+        },
+        {
+          "word": "it,",
+          "start": 831.58,
+          "end": 831.78,
+          "probability": 1.0
+        },
+        {
+          "word": "damn",
+          "start": 831.78,
+          "end": 831.96,
+          "probability": 0.9995
+        },
+        {
+          "word": "it.",
+          "start": 831.96,
+          "end": 832.1,
+          "probability": 1.0
+        },
+        {
+          "word": "What",
+          "start": 832.12,
+          "end": 832.2,
+          "probability": 0.9985
+        },
+        {
+          "word": "the",
+          "start": 832.2,
+          "end": 832.32,
+          "probability": 1.0
+        },
+        {
+          "word": "fuck?",
+          "start": 832.32,
+          "end": 832.72,
+          "probability": 0.999
+        },
+        {
+          "word": "You",
+          "start": 834.3,
+          "end": 834.78,
+          "probability": 0.9521
+        },
+        {
+          "word": "know",
+          "start": 834.78,
+          "end": 834.88,
+          "probability": 1.0
+        },
+        {
+          "word": "what",
+          "start": 834.88,
+          "end": 834.92,
+          "probability": 1.0
+        },
+        {
+          "word": "we're",
+          "start": 834.92,
+          "end": 835.06,
+          "probability": 0.9988
+        },
+        {
+          "word": "going",
+          "start": 835.06,
+          "end": 835.1,
+          "probability": 0.8574
+        },
+        {
+          "word": "to",
+          "start": 835.1,
+          "end": 835.22,
+          "probability": 1.0
+        },
+        {
+          "word": "do?",
+          "start": 835.22,
+          "end": 835.4,
+          "probability": 1.0
+        },
+        {
+          "word": "You",
+          "start": 860.71,
+          "end": 861.19,
+          "probability": 0.9995
+        },
+        {
+          "word": "have",
+          "start": 861.19,
+          "end": 861.37,
+          "probability": 1.0
+        },
+        {
+          "word": "to",
+          "start": 861.37,
+          "end": 861.49,
+          "probability": 1.0
+        },
+        {
+          "word": "not",
+          "start": 861.49,
+          "end": 861.69,
+          "probability": 0.9995
+        },
+        {
+          "word": "be",
+          "start": 861.69,
+          "end": 862.01,
+          "probability": 1.0
+        },
+        {
+          "word": "lazy.",
+          "start": 862.01,
+          "end": 862.51,
+          "probability": 1.0
+        },
+        {
+          "word": "That's",
+          "start": 863.52,
+          "end": 864.0,
+          "probability": 0.9993
+        },
+        {
+          "word": "the",
+          "start": 864.0,
+          "end": 864.14,
+          "probability": 1.0
+        },
+        {
+          "word": "number",
+          "start": 864.14,
+          "end": 864.34,
+          "probability": 1.0
+        },
+        {
+          "word": "one",
+          "start": 864.34,
+          "end": 864.56,
+          "probability": 1.0
+        },
+        {
+          "word": "rule.",
+          "start": 864.56,
+          "end": 864.82,
+          "probability": 1.0
+        },
+        {
+          "word": "Okay.",
+          "start": 930.14,
+          "end": 930.62,
+          "probability": 0.8813
+        },
+        {
+          "word": "So",
+          "start": 930.94,
+          "end": 931.42,
+          "probability": 0.998
+        },
+        {
+          "word": "we're",
+          "start": 931.42,
+          "end": 931.66,
+          "probability": 0.999
+        },
+        {
+          "word": "making",
+          "start": 931.66,
+          "end": 931.88,
+          "probability": 1.0
+        },
+        {
+          "word": "progress.",
+          "start": 931.88,
+          "end": 932.14,
+          "probability": 1.0
+        },
+        {
+          "word": "The",
+          "start": 932.9,
+          "end": 933.38,
+          "probability": 0.999
+        },
+        {
+          "word": "previous",
+          "start": 934.31,
+          "end": 934.67,
+          "probability": 1.0
+        },
+        {
+          "word": "one",
+          "start": 934.67,
+          "end": 934.95,
+          "probability": 1.0
+        },
+        {
+          "word": "is",
+          "start": 934.95,
+          "end": 935.11,
+          "probability": 1.0
+        },
+        {
+          "word": "an",
+          "start": 935.11,
+          "end": 935.23,
+          "probability": 0.9995
+        },
+        {
+          "word": "LEA.",
+          "start": 935.23,
+          "end": 935.71,
+          "probability": 0.9849
+        },
+        {
+          "word": "Both",
+          "start": 937.88,
+          "end": 938.36,
+          "probability": 0.9399
+        },
+        {
+          "word": "the",
+          "start": 938.36,
+          "end": 938.48,
+          "probability": 0.9863
+        },
+        {
+          "word": "assigned.",
+          "start": 938.48,
+          "end": 938.74,
+          "probability": 0.981
+        },
+        {
+          "word": "Oh,",
+          "start": 938.98,
+          "end": 939.18,
+          "probability": 0.9995
+        },
+        {
+          "word": "it",
+          "start": 939.18,
+          "end": 939.26,
+          "probability": 1.0
+        },
+        {
+          "word": "is",
+          "start": 939.26,
+          "end": 939.34,
+          "probability": 1.0
+        },
+        {
+          "word": "an",
+          "start": 939.34,
+          "end": 939.48,
+          "probability": 1.0
+        },
+        {
+          "word": "LEA.",
+          "start": 939.48,
+          "end": 939.88,
+          "probability": 0.9998
+        },
+        {
+          "word": "Okay.",
+          "start": 939.98,
+          "end": 940.38,
+          "probability": 0.9961
+        },
+        {
+          "word": "Not",
+          "start": 940.64,
+          "end": 941.12,
+          "probability": 0.9717
+        },
+        {
+          "word": "be",
+          "start": 951.61,
+          "end": 951.87,
+          "probability": 0.9878
+        },
+        {
+          "word": "lazy.",
+          "start": 951.87,
+          "end": 952.25,
+          "probability": 1.0
+        }
+      ],
+      "avg_logprob": -0.0503,
+      "no_speech_prob": 0.0492
+    },
+    {
+      "id": 7,
+      "start": 1069.71,
+      "end": 1199.37,
+      "text": "I is seven for the assign, no, for the or equal. I is six for the assign. So when it's doing, so if we have an assignment and the previous one was an LEA, displacement mode or SIB, okay, so that's a displacement off of RBP. This is the register variable if it's greater than zero.",
+      "words": [
+        {
+          "word": "I",
+          "start": 1069.71,
+          "end": 1069.79,
+          "probability": 0.3989
+        },
+        {
+          "word": "is",
+          "start": 1069.79,
+          "end": 1070.03,
+          "probability": 0.9673
+        },
+        {
+          "word": "seven",
+          "start": 1070.03,
+          "end": 1070.37,
+          "probability": 0.6411
+        },
+        {
+          "word": "for",
+          "start": 1070.37,
+          "end": 1071.39,
+          "probability": 0.8306
+        },
+        {
+          "word": "the",
+          "start": 1072.45,
+          "end": 1072.63,
+          "probability": 0.9971
+        },
+        {
+          "word": "assign,",
+          "start": 1072.63,
+          "end": 1073.05,
+          "probability": 0.8745
+        },
+        {
+          "word": "no,",
+          "start": 1073.27,
+          "end": 1073.63,
+          "probability": 0.9751
+        },
+        {
+          "word": "for",
+          "start": 1073.71,
+          "end": 1073.87,
+          "probability": 0.9585
+        },
+        {
+          "word": "the",
+          "start": 1073.87,
+          "end": 1074.07,
+          "probability": 0.9956
+        },
+        {
+          "word": "or",
+          "start": 1074.07,
+          "end": 1074.75,
+          "probability": 0.6699
+        },
+        {
+          "word": "equal.",
+          "start": 1074.75,
+          "end": 1075.05,
+          "probability": 0.9595
+        },
+        {
+          "word": "I",
+          "start": 1082.25,
+          "end": 1082.79,
+          "probability": 0.9971
+        },
+        {
+          "word": "is",
+          "start": 1082.79,
+          "end": 1082.97,
+          "probability": 0.9966
+        },
+        {
+          "word": "six",
+          "start": 1082.97,
+          "end": 1083.25,
+          "probability": 0.9956
+        },
+        {
+          "word": "for",
+          "start": 1083.25,
+          "end": 1083.53,
+          "probability": 0.998
+        },
+        {
+          "word": "the",
+          "start": 1083.53,
+          "end": 1083.73,
+          "probability": 0.999
+        },
+        {
+          "word": "assign.",
+          "start": 1083.73,
+          "end": 1084.05,
+          "probability": 0.9951
+        },
+        {
+          "word": "So",
+          "start": 1101.81,
+          "end": 1102.39,
+          "probability": 0.9731
+        },
+        {
+          "word": "when",
+          "start": 1102.39,
+          "end": 1103.53,
+          "probability": 0.6714
+        },
+        {
+          "word": "it's",
+          "start": 1104.23,
+          "end": 1104.47,
+          "probability": 0.9963
+        },
+        {
+          "word": "doing,",
+          "start": 1104.47,
+          "end": 1105.35,
+          "probability": 0.9443
+        },
+        {
+          "word": "so",
+          "start": 1105.59,
+          "end": 1106.15,
+          "probability": 0.9893
+        },
+        {
+          "word": "if",
+          "start": 1171.02,
+          "end": 1171.26,
+          "probability": 0.9976
+        },
+        {
+          "word": "we",
+          "start": 1171.26,
+          "end": 1171.44,
+          "probability": 0.999
+        },
+        {
+          "word": "have",
+          "start": 1171.44,
+          "end": 1171.64,
+          "probability": 0.9976
+        },
+        {
+          "word": "an",
+          "start": 1171.64,
+          "end": 1171.78,
+          "probability": 0.9985
+        },
+        {
+          "word": "assignment",
+          "start": 1171.78,
+          "end": 1172.26,
+          "probability": 0.9976
+        },
+        {
+          "word": "and",
+          "start": 1172.26,
+          "end": 1173.36,
+          "probability": 0.5229
+        },
+        {
+          "word": "the",
+          "start": 1173.45,
+          "end": 1173.61,
+          "probability": 0.9937
+        },
+        {
+          "word": "previous",
+          "start": 1173.61,
+          "end": 1174.07,
+          "probability": 0.999
+        },
+        {
+          "word": "one",
+          "start": 1174.07,
+          "end": 1174.39,
+          "probability": 0.9985
+        },
+        {
+          "word": "was",
+          "start": 1174.39,
+          "end": 1174.63,
+          "probability": 0.9229
+        },
+        {
+          "word": "an",
+          "start": 1174.63,
+          "end": 1174.83,
+          "probability": 0.9688
+        },
+        {
+          "word": "LEA,",
+          "start": 1174.83,
+          "end": 1175.37,
+          "probability": 0.9851
+        },
+        {
+          "word": "displacement",
+          "start": 1175.47,
+          "end": 1176.61,
+          "probability": 0.9546
+        },
+        {
+          "word": "mode",
+          "start": 1178.63,
+          "end": 1178.99,
+          "probability": 0.9209
+        },
+        {
+          "word": "or",
+          "start": 1178.99,
+          "end": 1179.97,
+          "probability": 0.5454
+        },
+        {
+          "word": "SIB,",
+          "start": 1181.19,
+          "end": 1181.83,
+          "probability": 0.8481
+        },
+        {
+          "word": "okay,",
+          "start": 1181.95,
+          "end": 1183.05,
+          "probability": 0.9785
+        },
+        {
+          "word": "so",
+          "start": 1185.35,
+          "end": 1185.55,
+          "probability": 0.9941
+        },
+        {
+          "word": "that's",
+          "start": 1185.55,
+          "end": 1187.07,
+          "probability": 0.9756
+        },
+        {
+          "word": "a",
+          "start": 1187.74,
+          "end": 1187.82,
+          "probability": 0.9663
+        },
+        {
+          "word": "displacement",
+          "start": 1187.82,
+          "end": 1188.26,
+          "probability": 0.9995
+        },
+        {
+          "word": "off",
+          "start": 1188.26,
+          "end": 1188.68,
+          "probability": 0.9961
+        },
+        {
+          "word": "of",
+          "start": 1188.68,
+          "end": 1188.96,
+          "probability": 1.0
+        },
+        {
+          "word": "RBP.",
+          "start": 1189.09,
+          "end": 1190.57,
+          "probability": 0.9675
+        },
+        {
+          "word": "This",
+          "start": 1192.4,
+          "end": 1192.98,
+          "probability": 0.9995
+        },
+        {
+          "word": "is",
+          "start": 1192.98,
+          "end": 1193.16,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 1193.16,
+          "end": 1193.34,
+          "probability": 0.9985
+        },
+        {
+          "word": "register",
+          "start": 1193.34,
+          "end": 1193.7,
+          "probability": 0.9912
+        },
+        {
+          "word": "variable",
+          "start": 1193.7,
+          "end": 1194.28,
+          "probability": 0.9995
+        },
+        {
+          "word": "if",
+          "start": 1194.28,
+          "end": 1195.4,
+          "probability": 0.6416
+        },
+        {
+          "word": "it's",
+          "start": 1198.31,
+          "end": 1198.53,
+          "probability": 0.9998
+        },
+        {
+          "word": "greater",
+          "start": 1198.53,
+          "end": 1198.73,
+          "probability": 0.9995
+        },
+        {
+          "word": "than",
+          "start": 1198.73,
+          "end": 1199.03,
+          "probability": 0.9995
+        },
+        {
+          "word": "zero.",
+          "start": 1199.03,
+          "end": 1199.37,
+          "probability": 0.9985
+        }
+      ],
+      "avg_logprob": -0.1024,
+      "no_speech_prob": 0.0335
+    },
+    {
+      "id": 8,
+      "start": 1210.07,
+      "end": 1543.36,
+      "text": "Okay. Oh, relax. What are you doing? I don't know what I'm... After pass four, we still have the assigned. This is after pass four. So it's pass five that does it. I'm in the wrong place. Okay. So pass four still has it, but pass five does not still have it. Okay. So you don't suppose... I think I know what's happening. Here's what it's...",
+      "words": [
+        {
+          "word": "Okay.",
+          "start": 1210.07,
+          "end": 1210.63,
+          "probability": 0.7388
+        },
+        {
+          "word": "Oh,",
+          "start": 1210.63,
+          "end": 1211.19,
+          "probability": 0.9731
+        },
+        {
+          "word": "relax.",
+          "start": 1211.39,
+          "end": 1212.67,
+          "probability": 0.9941
+        },
+        {
+          "word": "What",
+          "start": 1213.09,
+          "end": 1213.65,
+          "probability": 0.9966
+        },
+        {
+          "word": "are",
+          "start": 1382.8,
+          "end": 1382.96,
+          "probability": 0.999
+        },
+        {
+          "word": "you",
+          "start": 1382.96,
+          "end": 1382.98,
+          "probability": 1.0
+        },
+        {
+          "word": "doing?",
+          "start": 1382.98,
+          "end": 1383.28,
+          "probability": 0.9995
+        },
+        {
+          "word": "I",
+          "start": 1383.4,
+          "end": 1383.48,
+          "probability": 0.9507
+        },
+        {
+          "word": "don't",
+          "start": 1383.48,
+          "end": 1383.66,
+          "probability": 0.9998
+        },
+        {
+          "word": "know",
+          "start": 1383.66,
+          "end": 1383.72,
+          "probability": 0.9917
+        },
+        {
+          "word": "what",
+          "start": 1383.72,
+          "end": 1383.8,
+          "probability": 0.832
+        },
+        {
+          "word": "I'm...",
+          "start": 1383.8,
+          "end": 1383.94,
+          "probability": 0.754
+        },
+        {
+          "word": "After",
+          "start": 1400.36,
+          "end": 1400.78,
+          "probability": 0.9819
+        },
+        {
+          "word": "pass",
+          "start": 1400.78,
+          "end": 1401.18,
+          "probability": 0.894
+        },
+        {
+          "word": "four,",
+          "start": 1401.18,
+          "end": 1401.54,
+          "probability": 0.5708
+        },
+        {
+          "word": "we",
+          "start": 1401.92,
+          "end": 1402.64,
+          "probability": 0.9995
+        },
+        {
+          "word": "still",
+          "start": 1405.36,
+          "end": 1405.6,
+          "probability": 1.0
+        },
+        {
+          "word": "have",
+          "start": 1405.6,
+          "end": 1405.86,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 1405.86,
+          "end": 1406.06,
+          "probability": 0.9995
+        },
+        {
+          "word": "assigned.",
+          "start": 1406.06,
+          "end": 1406.4,
+          "probability": 0.9014
+        },
+        {
+          "word": "This",
+          "start": 1413.14,
+          "end": 1413.7,
+          "probability": 0.9995
+        },
+        {
+          "word": "is",
+          "start": 1413.7,
+          "end": 1413.84,
+          "probability": 1.0
+        },
+        {
+          "word": "after",
+          "start": 1413.84,
+          "end": 1414.16,
+          "probability": 1.0
+        },
+        {
+          "word": "pass",
+          "start": 1414.16,
+          "end": 1414.5,
+          "probability": 1.0
+        },
+        {
+          "word": "four.",
+          "start": 1414.5,
+          "end": 1414.84,
+          "probability": 1.0
+        },
+        {
+          "word": "So",
+          "start": 1415.36,
+          "end": 1415.92,
+          "probability": 0.9741
+        },
+        {
+          "word": "it's",
+          "start": 1415.92,
+          "end": 1416.42,
+          "probability": 0.811
+        },
+        {
+          "word": "pass",
+          "start": 1416.42,
+          "end": 1416.66,
+          "probability": 0.998
+        },
+        {
+          "word": "five",
+          "start": 1416.66,
+          "end": 1417.06,
+          "probability": 1.0
+        },
+        {
+          "word": "that",
+          "start": 1417.06,
+          "end": 1417.5,
+          "probability": 1.0
+        },
+        {
+          "word": "does",
+          "start": 1417.5,
+          "end": 1417.76,
+          "probability": 1.0
+        },
+        {
+          "word": "it.",
+          "start": 1417.76,
+          "end": 1417.98,
+          "probability": 1.0
+        },
+        {
+          "word": "I'm",
+          "start": 1418.12,
+          "end": 1418.68,
+          "probability": 0.9998
+        },
+        {
+          "word": "in",
+          "start": 1418.68,
+          "end": 1418.72,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 1418.72,
+          "end": 1418.82,
+          "probability": 1.0
+        },
+        {
+          "word": "wrong",
+          "start": 1418.82,
+          "end": 1419.04,
+          "probability": 1.0
+        },
+        {
+          "word": "place.",
+          "start": 1419.04,
+          "end": 1419.38,
+          "probability": 1.0
+        },
+        {
+          "word": "Okay.",
+          "start": 1422.91,
+          "end": 1423.47,
+          "probability": 0.9961
+        },
+        {
+          "word": "So",
+          "start": 1423.67,
+          "end": 1424.23,
+          "probability": 0.9927
+        },
+        {
+          "word": "pass",
+          "start": 1427.15,
+          "end": 1427.45,
+          "probability": 0.9966
+        },
+        {
+          "word": "four",
+          "start": 1427.45,
+          "end": 1427.77,
+          "probability": 1.0
+        },
+        {
+          "word": "still",
+          "start": 1427.77,
+          "end": 1428.05,
+          "probability": 1.0
+        },
+        {
+          "word": "has",
+          "start": 1428.05,
+          "end": 1428.41,
+          "probability": 1.0
+        },
+        {
+          "word": "it,",
+          "start": 1428.41,
+          "end": 1428.79,
+          "probability": 1.0
+        },
+        {
+          "word": "but",
+          "start": 1428.81,
+          "end": 1429.57,
+          "probability": 1.0
+        },
+        {
+          "word": "pass",
+          "start": 1429.57,
+          "end": 1429.85,
+          "probability": 0.9995
+        },
+        {
+          "word": "five",
+          "start": 1429.85,
+          "end": 1430.19,
+          "probability": 1.0
+        },
+        {
+          "word": "does",
+          "start": 1430.19,
+          "end": 1430.55,
+          "probability": 1.0
+        },
+        {
+          "word": "not",
+          "start": 1430.55,
+          "end": 1430.79,
+          "probability": 1.0
+        },
+        {
+          "word": "still",
+          "start": 1430.79,
+          "end": 1431.07,
+          "probability": 1.0
+        },
+        {
+          "word": "have",
+          "start": 1431.07,
+          "end": 1431.33,
+          "probability": 1.0
+        },
+        {
+          "word": "it.",
+          "start": 1431.33,
+          "end": 1431.55,
+          "probability": 1.0
+        },
+        {
+          "word": "Okay.",
+          "start": 1432.76,
+          "end": 1433.32,
+          "probability": 0.9995
+        },
+        {
+          "word": "So",
+          "start": 1433.54,
+          "end": 1434.1,
+          "probability": 0.9873
+        },
+        {
+          "word": "you",
+          "start": 1434.1,
+          "end": 1435.12,
+          "probability": 0.9336
+        },
+        {
+          "word": "don't",
+          "start": 1510.96,
+          "end": 1511.2,
+          "probability": 1.0
+        },
+        {
+          "word": "suppose...",
+          "start": 1511.2,
+          "end": 1511.86,
+          "probability": 0.9829
+        },
+        {
+          "word": "I",
+          "start": 1511.86,
+          "end": 1512.54,
+          "probability": 0.9995
+        },
+        {
+          "word": "think",
+          "start": 1537.37,
+          "end": 1537.65,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 1537.65,
+          "end": 1537.79,
+          "probability": 1.0
+        },
+        {
+          "word": "know",
+          "start": 1537.79,
+          "end": 1537.97,
+          "probability": 1.0
+        },
+        {
+          "word": "what's",
+          "start": 1537.97,
+          "end": 1538.21,
+          "probability": 1.0
+        },
+        {
+          "word": "happening.",
+          "start": 1538.21,
+          "end": 1538.51,
+          "probability": 1.0
+        },
+        {
+          "word": "Here's",
+          "start": 1542.38,
+          "end": 1542.94,
+          "probability": 0.9998
+        },
+        {
+          "word": "what",
+          "start": 1542.94,
+          "end": 1543.1,
+          "probability": 1.0
+        },
+        {
+          "word": "it's...",
+          "start": 1543.1,
+          "end": 1543.36,
+          "probability": 0.9876
+        }
+      ],
+      "avg_logprob": -0.0588,
+      "no_speech_prob": 0.0486
+    },
+    {
+      "id": 9,
+      "start": 1690.92,
+      "end": 1886.44,
+      "text": "Pass 5 still has or equal a sign. After pass 5, we just have or equal. After pass 6, I don't remember if this is before or after. After pass 6, we have. Okay, result not used. What if it's a... I think I know what's happening. Here's what I think is happening. How do I explain this? So it gets converted to...",
+      "words": [
+        {
+          "word": "Pass",
+          "start": 1690.92,
+          "end": 1691.08,
+          "probability": 0.1898
+        },
+        {
+          "word": "5",
+          "start": 1691.08,
+          "end": 1691.3,
+          "probability": 0.5991
+        },
+        {
+          "word": "still",
+          "start": 1691.3,
+          "end": 1691.64,
+          "probability": 0.9937
+        },
+        {
+          "word": "has",
+          "start": 1691.64,
+          "end": 1691.9,
+          "probability": 0.999
+        },
+        {
+          "word": "or",
+          "start": 1691.9,
+          "end": 1692.18,
+          "probability": 0.7402
+        },
+        {
+          "word": "equal",
+          "start": 1692.18,
+          "end": 1692.44,
+          "probability": 0.9717
+        },
+        {
+          "word": "a",
+          "start": 1692.44,
+          "end": 1692.72,
+          "probability": 0.3916
+        },
+        {
+          "word": "sign.",
+          "start": 1692.72,
+          "end": 1692.9,
+          "probability": 0.9707
+        },
+        {
+          "word": "After",
+          "start": 1693.18,
+          "end": 1693.72,
+          "probability": 0.998
+        },
+        {
+          "word": "pass",
+          "start": 1696.25,
+          "end": 1696.57,
+          "probability": 0.8154
+        },
+        {
+          "word": "5,",
+          "start": 1696.57,
+          "end": 1697.69,
+          "probability": 0.7476
+        },
+        {
+          "word": "we",
+          "start": 1698.05,
+          "end": 1699.03,
+          "probability": 0.9995
+        },
+        {
+          "word": "just",
+          "start": 1699.26,
+          "end": 1699.42,
+          "probability": 0.9995
+        },
+        {
+          "word": "have",
+          "start": 1699.42,
+          "end": 1699.6,
+          "probability": 0.9995
+        },
+        {
+          "word": "or",
+          "start": 1699.6,
+          "end": 1699.8,
+          "probability": 0.9766
+        },
+        {
+          "word": "equal.",
+          "start": 1699.8,
+          "end": 1700.08,
+          "probability": 0.998
+        },
+        {
+          "word": "After",
+          "start": 1704.74,
+          "end": 1705.3,
+          "probability": 0.9995
+        },
+        {
+          "word": "pass",
+          "start": 1705.3,
+          "end": 1705.56,
+          "probability": 0.999
+        },
+        {
+          "word": "6,",
+          "start": 1705.56,
+          "end": 1705.96,
+          "probability": 0.9995
+        },
+        {
+          "word": "I",
+          "start": 1706.14,
+          "end": 1706.32,
+          "probability": 0.9971
+        },
+        {
+          "word": "don't",
+          "start": 1706.32,
+          "end": 1706.52,
+          "probability": 1.0
+        },
+        {
+          "word": "remember",
+          "start": 1706.52,
+          "end": 1706.7,
+          "probability": 0.9995
+        },
+        {
+          "word": "if",
+          "start": 1706.7,
+          "end": 1706.84,
+          "probability": 0.7266
+        },
+        {
+          "word": "this",
+          "start": 1706.84,
+          "end": 1706.94,
+          "probability": 0.9756
+        },
+        {
+          "word": "is",
+          "start": 1706.94,
+          "end": 1707.02,
+          "probability": 0.9531
+        },
+        {
+          "word": "before",
+          "start": 1707.02,
+          "end": 1707.24,
+          "probability": 1.0
+        },
+        {
+          "word": "or",
+          "start": 1707.24,
+          "end": 1707.42,
+          "probability": 1.0
+        },
+        {
+          "word": "after.",
+          "start": 1707.42,
+          "end": 1707.72,
+          "probability": 1.0
+        },
+        {
+          "word": "After",
+          "start": 1708.26,
+          "end": 1708.82,
+          "probability": 0.999
+        },
+        {
+          "word": "pass",
+          "start": 1708.82,
+          "end": 1709.12,
+          "probability": 1.0
+        },
+        {
+          "word": "6,",
+          "start": 1709.12,
+          "end": 1709.56,
+          "probability": 1.0
+        },
+        {
+          "word": "we",
+          "start": 1709.68,
+          "end": 1709.84,
+          "probability": 0.998
+        },
+        {
+          "word": "have.",
+          "start": 1709.84,
+          "end": 1710.04,
+          "probability": 0.9976
+        },
+        {
+          "word": "Okay,",
+          "start": 1710.68,
+          "end": 1711.24,
+          "probability": 0.8896
+        },
+        {
+          "word": "result",
+          "start": 1711.36,
+          "end": 1712.22,
+          "probability": 0.9961
+        },
+        {
+          "word": "not",
+          "start": 1733.05,
+          "end": 1733.33,
+          "probability": 0.9995
+        },
+        {
+          "word": "used.",
+          "start": 1733.33,
+          "end": 1733.73,
+          "probability": 1.0
+        },
+        {
+          "word": "What",
+          "start": 1734.05,
+          "end": 1734.57,
+          "probability": 0.9937
+        },
+        {
+          "word": "if",
+          "start": 1737.22,
+          "end": 1737.42,
+          "probability": 0.9995
+        },
+        {
+          "word": "it's",
+          "start": 1737.42,
+          "end": 1737.78,
+          "probability": 0.9978
+        },
+        {
+          "word": "a...",
+          "start": 1737.78,
+          "end": 1737.92,
+          "probability": 0.6475
+        },
+        {
+          "word": "I",
+          "start": 1737.92,
+          "end": 1738.48,
+          "probability": 0.9946
+        },
+        {
+          "word": "think",
+          "start": 1738.48,
+          "end": 1738.72,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 1776.26,
+          "end": 1776.4,
+          "probability": 1.0
+        },
+        {
+          "word": "know",
+          "start": 1776.4,
+          "end": 1776.56,
+          "probability": 1.0
+        },
+        {
+          "word": "what's",
+          "start": 1776.56,
+          "end": 1776.82,
+          "probability": 1.0
+        },
+        {
+          "word": "happening.",
+          "start": 1776.82,
+          "end": 1777.16,
+          "probability": 1.0
+        },
+        {
+          "word": "Here's",
+          "start": 1777.4,
+          "end": 1777.78,
+          "probability": 0.946
+        },
+        {
+          "word": "what",
+          "start": 1862.26,
+          "end": 1862.36,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 1862.36,
+          "end": 1862.52,
+          "probability": 1.0
+        },
+        {
+          "word": "think",
+          "start": 1862.52,
+          "end": 1862.82,
+          "probability": 1.0
+        },
+        {
+          "word": "is",
+          "start": 1862.82,
+          "end": 1863.02,
+          "probability": 1.0
+        },
+        {
+          "word": "happening.",
+          "start": 1863.02,
+          "end": 1863.34,
+          "probability": 1.0
+        },
+        {
+          "word": "How",
+          "start": 1864.8,
+          "end": 1865.36,
+          "probability": 0.9824
+        },
+        {
+          "word": "do",
+          "start": 1871.95,
+          "end": 1872.11,
+          "probability": 1.0
+        },
+        {
+          "word": "I",
+          "start": 1872.11,
+          "end": 1872.19,
+          "probability": 1.0
+        },
+        {
+          "word": "explain",
+          "start": 1872.19,
+          "end": 1872.53,
+          "probability": 1.0
+        },
+        {
+          "word": "this?",
+          "start": 1872.53,
+          "end": 1872.79,
+          "probability": 1.0
+        },
+        {
+          "word": "So",
+          "start": 1882.52,
+          "end": 1883.08,
+          "probability": 0.9307
+        },
+        {
+          "word": "it",
+          "start": 1883.08,
+          "end": 1883.38,
+          "probability": 0.6943
+        },
+        {
+          "word": "gets",
+          "start": 1883.38,
+          "end": 1884.2,
+          "probability": 1.0
+        },
+        {
+          "word": "converted",
+          "start": 1884.2,
+          "end": 1885.44,
+          "probability": 1.0
+        },
+        {
+          "word": "to...",
+          "start": 1885.82,
+          "end": 1886.44,
+          "probability": 0.9792
+        }
+      ],
+      "avg_logprob": -0.0967,
+      "no_speech_prob": 0.0873
+    },
+    {
+      "id": 10,
+      "start": 1886.93,
+      "end": 1957.25,
+      "text": "intermediate codes and it gets converted to immediate intermediate codes and uh the output from or the output from or equal let's see the output from or equal is uh placed onto the stack and then the stack the stack is assigned to rsi however uh",
+      "words": [
+        {
+          "word": "intermediate",
+          "start": 1886.93,
+          "end": 1887.31,
+          "probability": 0.9697
+        },
+        {
+          "word": "codes",
+          "start": 1887.31,
+          "end": 1887.87,
+          "probability": 0.9946
+        },
+        {
+          "word": "and",
+          "start": 1887.87,
+          "end": 1889.03,
+          "probability": 0.8315
+        },
+        {
+          "word": "it",
+          "start": 1890.92,
+          "end": 1891.76,
+          "probability": 0.9722
+        },
+        {
+          "word": "gets",
+          "start": 1911.47,
+          "end": 1911.97,
+          "probability": 0.998
+        },
+        {
+          "word": "converted",
+          "start": 1911.97,
+          "end": 1912.27,
+          "probability": 0.9683
+        },
+        {
+          "word": "to",
+          "start": 1912.27,
+          "end": 1912.67,
+          "probability": 0.9888
+        },
+        {
+          "word": "immediate",
+          "start": 1912.67,
+          "end": 1912.93,
+          "probability": 0.8062
+        },
+        {
+          "word": "intermediate",
+          "start": 1912.93,
+          "end": 1913.37,
+          "probability": 0.9746
+        },
+        {
+          "word": "codes",
+          "start": 1913.37,
+          "end": 1913.91,
+          "probability": 0.998
+        },
+        {
+          "word": "and",
+          "start": 1913.91,
+          "end": 1915.23,
+          "probability": 0.9375
+        },
+        {
+          "word": "uh",
+          "start": 1915.49,
+          "end": 1915.83,
+          "probability": 0.4856
+        },
+        {
+          "word": "the",
+          "start": 1915.83,
+          "end": 1916.73,
+          "probability": 0.9858
+        },
+        {
+          "word": "output",
+          "start": 1924.28,
+          "end": 1924.8,
+          "probability": 0.9995
+        },
+        {
+          "word": "from",
+          "start": 1924.8,
+          "end": 1925.38,
+          "probability": 0.9956
+        },
+        {
+          "word": "or",
+          "start": 1925.38,
+          "end": 1925.82,
+          "probability": 0.8638
+        },
+        {
+          "word": "the",
+          "start": 1925.82,
+          "end": 1926.22,
+          "probability": 0.5957
+        },
+        {
+          "word": "output",
+          "start": 1926.22,
+          "end": 1926.84,
+          "probability": 0.9995
+        },
+        {
+          "word": "from",
+          "start": 1926.84,
+          "end": 1927.22,
+          "probability": 0.9985
+        },
+        {
+          "word": "or",
+          "start": 1927.22,
+          "end": 1927.42,
+          "probability": 0.9634
+        },
+        {
+          "word": "equal",
+          "start": 1927.42,
+          "end": 1927.86,
+          "probability": 0.9907
+        },
+        {
+          "word": "let's",
+          "start": 1927.86,
+          "end": 1929.12,
+          "probability": 0.9949
+        },
+        {
+          "word": "see",
+          "start": 1929.51,
+          "end": 1929.61,
+          "probability": 0.9995
+        },
+        {
+          "word": "the",
+          "start": 1929.61,
+          "end": 1930.55,
+          "probability": 0.9976
+        },
+        {
+          "word": "output",
+          "start": 1935.76,
+          "end": 1936.1,
+          "probability": 1.0
+        },
+        {
+          "word": "from",
+          "start": 1936.1,
+          "end": 1936.48,
+          "probability": 0.9995
+        },
+        {
+          "word": "or",
+          "start": 1936.48,
+          "end": 1936.7,
+          "probability": 0.9795
+        },
+        {
+          "word": "equal",
+          "start": 1936.7,
+          "end": 1937.2,
+          "probability": 0.9961
+        },
+        {
+          "word": "is",
+          "start": 1937.2,
+          "end": 1938.02,
+          "probability": 0.9995
+        },
+        {
+          "word": "uh",
+          "start": 1938.02,
+          "end": 1938.28,
+          "probability": 0.915
+        },
+        {
+          "word": "placed",
+          "start": 1938.28,
+          "end": 1939.28,
+          "probability": 0.9995
+        },
+        {
+          "word": "onto",
+          "start": 1943.57,
+          "end": 1944.09,
+          "probability": 0.9937
+        },
+        {
+          "word": "the",
+          "start": 1944.09,
+          "end": 1944.33,
+          "probability": 1.0
+        },
+        {
+          "word": "stack",
+          "start": 1944.33,
+          "end": 1944.69,
+          "probability": 0.999
+        },
+        {
+          "word": "and",
+          "start": 1944.69,
+          "end": 1945.61,
+          "probability": 0.9995
+        },
+        {
+          "word": "then",
+          "start": 1946.19,
+          "end": 1946.49,
+          "probability": 1.0
+        },
+        {
+          "word": "the",
+          "start": 1946.49,
+          "end": 1947.27,
+          "probability": 0.9995
+        },
+        {
+          "word": "stack",
+          "start": 1948.96,
+          "end": 1949.44,
+          "probability": 0.9985
+        },
+        {
+          "word": "the",
+          "start": 1949.44,
+          "end": 1950.12,
+          "probability": 0.9868
+        },
+        {
+          "word": "stack",
+          "start": 1950.12,
+          "end": 1950.5,
+          "probability": 0.9995
+        },
+        {
+          "word": "is",
+          "start": 1950.5,
+          "end": 1951.66,
+          "probability": 0.9995
+        },
+        {
+          "word": "assigned",
+          "start": 1952.01,
+          "end": 1952.35,
+          "probability": 0.9995
+        },
+        {
+          "word": "to",
+          "start": 1952.35,
+          "end": 1953.31,
+          "probability": 1.0
+        },
+        {
+          "word": "rsi",
+          "start": 1953.31,
+          "end": 1953.83,
+          "probability": 0.9666
+        },
+        {
+          "word": "however",
+          "start": 1953.83,
+          "end": 1955.17,
+          "probability": 0.9873
+        },
+        {
+          "word": "uh",
+          "start": 1956.39,
+          "end": 1957.25,
+          "probability": 0.9951
+        }
+      ],
+      "avg_logprob": -0.0549,
+      "no_speech_prob": 0.0673
+    },
+    {
+      "id": 11,
+      "start": 1959.05,
+      "end": 2073.69,
+      "text": "There's an optimization that RSI is J. So the I is not being assigned. Is that correct? RDI is I. Let's be sure we know what's going on. That's the assignment that's getting nuked. So what we need to tell it is we need to tell it that the assignment to a variable",
+      "words": [
+        {
+          "word": "There's",
+          "start": 1959.05,
+          "end": 1959.57,
+          "probability": 0.8252
+        },
+        {
+          "word": "an",
+          "start": 1959.57,
+          "end": 1959.65,
+          "probability": 0.998
+        },
+        {
+          "word": "optimization",
+          "start": 1959.65,
+          "end": 1960.31,
+          "probability": 0.9922
+        },
+        {
+          "word": "that",
+          "start": 1960.31,
+          "end": 1960.95,
+          "probability": 0.9326
+        },
+        {
+          "word": "RSI",
+          "start": 1960.95,
+          "end": 1962.77,
+          "probability": 0.8586
+        },
+        {
+          "word": "is",
+          "start": 1975.13,
+          "end": 1976.93,
+          "probability": 0.707
+        },
+        {
+          "word": "J.",
+          "start": 1976.93,
+          "end": 1977.85,
+          "probability": 0.7461
+        },
+        {
+          "word": "So",
+          "start": 1985.09,
+          "end": 1985.65,
+          "probability": 0.9976
+        },
+        {
+          "word": "the",
+          "start": 1985.65,
+          "end": 1985.83,
+          "probability": 0.9238
+        },
+        {
+          "word": "I",
+          "start": 1985.83,
+          "end": 1986.11,
+          "probability": 0.9673
+        },
+        {
+          "word": "is",
+          "start": 1986.11,
+          "end": 1986.37,
+          "probability": 1.0
+        },
+        {
+          "word": "not",
+          "start": 1986.37,
+          "end": 1986.51,
+          "probability": 0.9995
+        },
+        {
+          "word": "being",
+          "start": 1986.51,
+          "end": 1986.81,
+          "probability": 1.0
+        },
+        {
+          "word": "assigned.",
+          "start": 1986.81,
+          "end": 1987.23,
+          "probability": 1.0
+        },
+        {
+          "word": "Is",
+          "start": 1987.39,
+          "end": 1987.65,
+          "probability": 1.0
+        },
+        {
+          "word": "that",
+          "start": 1987.65,
+          "end": 1987.77,
+          "probability": 1.0
+        },
+        {
+          "word": "correct?",
+          "start": 1987.77,
+          "end": 1988.13,
+          "probability": 1.0
+        },
+        {
+          "word": "RDI",
+          "start": 1993.94,
+          "end": 1994.5,
+          "probability": 0.9707
+        },
+        {
+          "word": "is",
+          "start": 1994.5,
+          "end": 1994.78,
+          "probability": 0.9995
+        },
+        {
+          "word": "I.",
+          "start": 1994.78,
+          "end": 1994.9,
+          "probability": 0.9995
+        },
+        {
+          "word": "Let's",
+          "start": 1996.65,
+          "end": 1997.21,
+          "probability": 0.73
+        },
+        {
+          "word": "be",
+          "start": 1997.63,
+          "end": 1997.73,
+          "probability": 1.0
+        },
+        {
+          "word": "sure",
+          "start": 1997.73,
+          "end": 1998.01,
+          "probability": 1.0
+        },
+        {
+          "word": "we",
+          "start": 1998.01,
+          "end": 1998.21,
+          "probability": 0.9995
+        },
+        {
+          "word": "know",
+          "start": 1998.21,
+          "end": 1998.37,
+          "probability": 1.0
+        },
+        {
+          "word": "what's",
+          "start": 1998.37,
+          "end": 1998.59,
+          "probability": 0.9998
+        },
+        {
+          "word": "going",
+          "start": 1998.59,
+          "end": 1998.75,
+          "probability": 1.0
+        },
+        {
+          "word": "on.",
+          "start": 1998.75,
+          "end": 1999.07,
+          "probability": 1.0
+        },
+        {
+          "word": "That's",
+          "start": 1999.21,
+          "end": 1999.77,
+          "probability": 0.7299
+        },
+        {
+          "word": "the",
+          "start": 2011.19,
+          "end": 2013.09,
+          "probability": 0.9995
+        },
+        {
+          "word": "assignment",
+          "start": 2039.27,
+          "end": 2039.73,
+          "probability": 0.9995
+        },
+        {
+          "word": "that's",
+          "start": 2039.73,
+          "end": 2040.19,
+          "probability": 0.9939
+        },
+        {
+          "word": "getting",
+          "start": 2040.19,
+          "end": 2040.81,
+          "probability": 1.0
+        },
+        {
+          "word": "nuked.",
+          "start": 2040.81,
+          "end": 2041.13,
+          "probability": 0.9113
+        },
+        {
+          "word": "So",
+          "start": 2044.25,
+          "end": 2044.81,
+          "probability": 0.793
+        },
+        {
+          "word": "what",
+          "start": 2060.77,
+          "end": 2061.07,
+          "probability": 0.9971
+        },
+        {
+          "word": "we",
+          "start": 2061.07,
+          "end": 2061.21,
+          "probability": 1.0
+        },
+        {
+          "word": "need",
+          "start": 2061.21,
+          "end": 2061.47,
+          "probability": 1.0
+        },
+        {
+          "word": "to",
+          "start": 2061.47,
+          "end": 2061.67,
+          "probability": 1.0
+        },
+        {
+          "word": "tell",
+          "start": 2061.67,
+          "end": 2061.97,
+          "probability": 1.0
+        },
+        {
+          "word": "it",
+          "start": 2061.97,
+          "end": 2062.21,
+          "probability": 1.0
+        },
+        {
+          "word": "is",
+          "start": 2062.21,
+          "end": 2062.69,
+          "probability": 0.9956
+        },
+        {
+          "word": "we",
+          "start": 2062.69,
+          "end": 2063.45,
+          "probability": 0.4187
+        },
+        {
+          "word": "need",
+          "start": 2069.12,
+          "end": 2069.84,
+          "probability": 1.0
+        },
+        {
+          "word": "to",
+          "start": 2069.84,
+          "end": 2070.0,
+          "probability": 1.0
+        },
+        {
+          "word": "tell",
+          "start": 2070.0,
+          "end": 2070.22,
+          "probability": 1.0
+        },
+        {
+          "word": "it",
+          "start": 2070.22,
+          "end": 2070.38,
+          "probability": 1.0
+        },
+        {
+          "word": "that",
+          "start": 2070.38,
+          "end": 2070.56,
+          "probability": 0.999
+        },
+        {
+          "word": "the",
+          "start": 2070.56,
+          "end": 2070.88,
+          "probability": 0.999
+        },
+        {
+          "word": "assignment",
+          "start": 2070.88,
+          "end": 2072.4,
+          "probability": 0.999
+        },
+        {
+          "word": "to",
+          "start": 2072.85,
+          "end": 2073.11,
+          "probability": 0.999
+        },
+        {
+          "word": "a",
+          "start": 2073.11,
+          "end": 2073.23,
+          "probability": 0.9995
+        },
+        {
+          "word": "variable",
+          "start": 2073.23,
+          "end": 2073.69,
+          "probability": 0.9995
+        }
+      ],
+      "avg_logprob": -0.0789,
+      "no_speech_prob": 0.0164
+    },
+    {
+      "id": 12,
+      "start": 2075.9,
+      "end": 2176.99,
+      "text": "important we should not have converted it to stack okay so it thought it thought it was an unimportant intermediate value but it's actually an assignment it thought it was unimportant well fuck it some other day we're gonna fix that it should not have converted it to a stack temporary",
+      "words": [
+        {
+          "word": "important",
+          "start": 2075.9,
+          "end": 2076.7,
+          "probability": 0.1764
+        },
+        {
+          "word": "we",
+          "start": 2076.7,
+          "end": 2077.5,
+          "probability": 0.519
+        },
+        {
+          "word": "should",
+          "start": 2077.66,
+          "end": 2078.08,
+          "probability": 0.9976
+        },
+        {
+          "word": "not",
+          "start": 2078.08,
+          "end": 2078.34,
+          "probability": 0.9961
+        },
+        {
+          "word": "have",
+          "start": 2078.34,
+          "end": 2078.62,
+          "probability": 0.9995
+        },
+        {
+          "word": "converted",
+          "start": 2078.62,
+          "end": 2079.9,
+          "probability": 0.8882
+        },
+        {
+          "word": "it",
+          "start": 2079.93,
+          "end": 2080.21,
+          "probability": 0.9956
+        },
+        {
+          "word": "to",
+          "start": 2080.21,
+          "end": 2080.35,
+          "probability": 0.9922
+        },
+        {
+          "word": "stack",
+          "start": 2080.35,
+          "end": 2080.77,
+          "probability": 0.9683
+        },
+        {
+          "word": "okay",
+          "start": 2080.77,
+          "end": 2081.89,
+          "probability": 0.6235
+        },
+        {
+          "word": "so",
+          "start": 2127.43,
+          "end": 2127.79,
+          "probability": 0.9722
+        },
+        {
+          "word": "it",
+          "start": 2127.79,
+          "end": 2128.59,
+          "probability": 0.9849
+        },
+        {
+          "word": "thought",
+          "start": 2128.59,
+          "end": 2129.07,
+          "probability": 0.9946
+        },
+        {
+          "word": "it",
+          "start": 2129.07,
+          "end": 2129.93,
+          "probability": 0.9697
+        },
+        {
+          "word": "thought",
+          "start": 2130.31,
+          "end": 2130.67,
+          "probability": 0.9502
+        },
+        {
+          "word": "it",
+          "start": 2130.67,
+          "end": 2130.89,
+          "probability": 0.998
+        },
+        {
+          "word": "was",
+          "start": 2130.89,
+          "end": 2131.07,
+          "probability": 0.9966
+        },
+        {
+          "word": "an",
+          "start": 2131.07,
+          "end": 2131.23,
+          "probability": 0.9771
+        },
+        {
+          "word": "unimportant",
+          "start": 2131.23,
+          "end": 2132.21,
+          "probability": 0.9673
+        },
+        {
+          "word": "intermediate",
+          "start": 2132.21,
+          "end": 2133.33,
+          "probability": 0.9819
+        },
+        {
+          "word": "value",
+          "start": 2133.33,
+          "end": 2133.99,
+          "probability": 0.9653
+        },
+        {
+          "word": "but",
+          "start": 2133.99,
+          "end": 2134.65,
+          "probability": 0.9912
+        },
+        {
+          "word": "it's",
+          "start": 2134.65,
+          "end": 2134.85,
+          "probability": 0.9993
+        },
+        {
+          "word": "actually",
+          "start": 2134.85,
+          "end": 2135.15,
+          "probability": 0.9995
+        },
+        {
+          "word": "an",
+          "start": 2135.15,
+          "end": 2135.35,
+          "probability": 0.9902
+        },
+        {
+          "word": "assignment",
+          "start": 2135.35,
+          "end": 2135.81,
+          "probability": 0.998
+        },
+        {
+          "word": "it",
+          "start": 2135.94,
+          "end": 2137.5,
+          "probability": 0.7334
+        },
+        {
+          "word": "thought",
+          "start": 2141.56,
+          "end": 2142.46,
+          "probability": 0.9976
+        },
+        {
+          "word": "it",
+          "start": 2142.46,
+          "end": 2142.62,
+          "probability": 0.999
+        },
+        {
+          "word": "was",
+          "start": 2142.62,
+          "end": 2142.78,
+          "probability": 0.9966
+        },
+        {
+          "word": "unimportant",
+          "start": 2142.78,
+          "end": 2143.36,
+          "probability": 0.9629
+        },
+        {
+          "word": "well",
+          "start": 2143.36,
+          "end": 2144.06,
+          "probability": 0.9517
+        },
+        {
+          "word": "fuck",
+          "start": 2152.83,
+          "end": 2153.17,
+          "probability": 0.6172
+        },
+        {
+          "word": "it",
+          "start": 2153.17,
+          "end": 2153.35,
+          "probability": 0.9521
+        },
+        {
+          "word": "some",
+          "start": 2153.35,
+          "end": 2154.01,
+          "probability": 0.9146
+        },
+        {
+          "word": "other",
+          "start": 2158.84,
+          "end": 2159.26,
+          "probability": 0.998
+        },
+        {
+          "word": "day",
+          "start": 2159.26,
+          "end": 2159.66,
+          "probability": 0.9985
+        },
+        {
+          "word": "we're",
+          "start": 2159.66,
+          "end": 2160.32,
+          "probability": 0.7104
+        },
+        {
+          "word": "gonna",
+          "start": 2160.39,
+          "end": 2160.51,
+          "probability": 0.8672
+        },
+        {
+          "word": "fix",
+          "start": 2160.51,
+          "end": 2160.81,
+          "probability": 0.998
+        },
+        {
+          "word": "that",
+          "start": 2160.81,
+          "end": 2161.01,
+          "probability": 0.9458
+        },
+        {
+          "word": "it",
+          "start": 2161.01,
+          "end": 2161.75,
+          "probability": 0.9736
+        },
+        {
+          "word": "should",
+          "start": 2172.08,
+          "end": 2172.28,
+          "probability": 0.9995
+        },
+        {
+          "word": "not",
+          "start": 2172.28,
+          "end": 2172.54,
+          "probability": 0.9995
+        },
+        {
+          "word": "have",
+          "start": 2172.54,
+          "end": 2172.84,
+          "probability": 1.0
+        },
+        {
+          "word": "converted",
+          "start": 2172.84,
+          "end": 2174.0,
+          "probability": 0.999
+        },
+        {
+          "word": "it",
+          "start": 2174.07,
+          "end": 2174.41,
+          "probability": 0.999
+        },
+        {
+          "word": "to",
+          "start": 2174.41,
+          "end": 2174.71,
+          "probability": 0.9985
+        },
+        {
+          "word": "a",
+          "start": 2174.71,
+          "end": 2175.51,
+          "probability": 0.9517
+        },
+        {
+          "word": "stack",
+          "start": 2175.51,
+          "end": 2175.87,
+          "probability": 0.9922
+        },
+        {
+          "word": "temporary",
+          "start": 2175.87,
+          "end": 2176.99,
+          "probability": 0.9761
+        }
+      ],
+      "avg_logprob": -0.101,
+      "no_speech_prob": 0.2441
+    },
+    {
+      "id": 13,
+      "start": 2188.4,
+      "end": 2192.04,
+      "text": "What a lousy video. Sorry people, oh well.",
+      "words": [
+        {
+          "word": "What",
+          "start": 2188.4,
+          "end": 2188.5,
+          "probability": 0.7583
+        },
+        {
+          "word": "a",
+          "start": 2188.5,
+          "end": 2188.54,
+          "probability": 0.9956
+        },
+        {
+          "word": "lousy",
+          "start": 2188.54,
+          "end": 2189.04,
+          "probability": 0.9961
+        },
+        {
+          "word": "video.",
+          "start": 2189.04,
+          "end": 2189.84,
+          "probability": 0.9189
+        },
+        {
+          "word": "Sorry",
+          "start": 2190.46,
+          "end": 2191.02,
+          "probability": 0.9951
+        },
+        {
+          "word": "people,",
+          "start": 2191.02,
+          "end": 2191.46,
+          "probability": 0.4238
+        },
+        {
+          "word": "oh",
+          "start": 2191.62,
+          "end": 2191.76,
+          "probability": 0.9399
+        },
+        {
+          "word": "well.",
+          "start": 2191.76,
+          "end": 2192.04,
+          "probability": 0.9785
+        }
+      ],
+      "avg_logprob": -0.179,
+      "no_speech_prob": 0.0566
+    }
+  ]
+}

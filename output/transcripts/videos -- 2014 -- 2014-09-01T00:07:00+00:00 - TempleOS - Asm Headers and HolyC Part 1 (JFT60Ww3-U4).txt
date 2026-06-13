@@ -1,0 +1,58 @@
+========================================================================
+FILE        : videos/2014/2014-09-01T00:07:00+00:00 - TempleOS - Asm Headers and HolyC Part 1 (JFT60Ww3-U4).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-09-01T00:07:00+00:00 - TempleOS - Asm Headers and HolyC Part 1 (JFT60Ww3-U4).mp4
+FORMAT      : MPEG4
+SIZE        : 18,101,357 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:06:55.600
+TRANSCRIBED: 2026-05-08T04:45:37.634235+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+Okay, so you should, if you want to do assembly, you need to know which registers are preserved. Rig. So these are always clobbered, A, C, D, B, RBP, RSP. Stack temporaries. Okay, these get clobbered. Register variables. These you have to preserve. And non-pointer mask. These you have to preserve. You can use them. You just have to preserve them. These you don't have to preserve. These you don't have to preserve. Okay, so that's kind of hard to remember. So, you have to bind a, okay, let's see. What can we do? How about let's make a simple, loops. That's kind of a bad name. Okay, how about my loops? Okay, so, I assume that you use the base pointer frame because on the wallpaper I do a stack trace. Control B on the wallpaper there's a stack trace. And what it does is it goes up the stack and I do a lot of work by looking at the base pointer. So push RBP, move RBP, kind of RSP. This is faster than the, this is faster than the enter. I used to use enter, which is an instruction that does that. I think I still use leave. Okay, so, let's print, move. This is faster than the other. I just added this in the past few months or I don't know. Put chars with an S. I don't remember if we need an ampersand or not. Anyway, so, let's, I like to go in small steps a lot of times. So, we're going to do, okay, if it is C callable, I like to use an underscore, but you don't have to. My convention, it's entirely optional, is to use an underscore. That's my convention. And there's a keyword, underscore, extern. And what this does is it binds a C header to a, I'm confused. It binds a C header to a, a, a, assembly function. So, is that correct? I think so. So, so, um, we can just say my loops, F5. Okay, loop, it worked. So, normally you, uh, you make a main, I guess. Normally, you might want to call it something different. How about, uh, ASM loop demo. So, this is what you would normally do. Okay, now we can F5. Okay, now, um, let's, uh, move. I'm kind of old-fashioned. Uh, SF, ARG, 1, off RBP. Um, the, the kids, one school of thought is to use, uh, just numbers. But I kind of like the old school, uh, dedicated registers. I, not that I, not that it makes any difference. Well, it does make a difference here. So, I, I don't, guess what, all, there's, I usually think I'm talking to old school programmers. I have to tell them all the rules are different. This loop, for example, is slow because it's microcode, I guess. But I kind of like it. Sometimes I do stuff because I like it. Um, you know what, uh, CX is not preserved in this call. Yeah, it is. It, um, it happens to be, um, okay. So, I'm going to get an argument off I-64 account. Okay. And, uh, let's do 10. Crash. Are you still there? I crashed. Okay, uh, I better hurry up. Oh, I have to return 1. Uh, I return. I pop 8 off the stack. Okay. So, I crashed. I think I got out of sync. I'm going to quit.
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:09.520]  Okay, so you should, if you want to do assembly, you need to know which registers are preserved.
+[00:00:14.100 -> 00:00:34.540]  Rig. So these are always clobbered, A, C, D, B, RBP, RSP. Stack temporaries. Okay, these get clobbered.
+[00:00:44.100 -> 00:00:51.940]  Register variables. These you have to preserve. And non-pointer mask. These you have to preserve.
+[00:00:55.120 -> 00:01:01.420]  You can use them. You just have to preserve them. These you don't have to preserve. These you don't have to preserve.
+[00:01:02.300 -> 00:01:08.960]  Okay, so that's kind of hard to remember.
+[00:01:13.600 -> 00:01:21.260]  So, you have to bind a, okay, let's see. What can we do? How about let's make a simple,
+[00:01:25.160 -> 00:01:32.320]  loops. That's kind of a bad name. Okay, how about my loops?
+[00:01:32.320 -> 00:01:48.960]  Okay, so, I assume that you use the base pointer frame because on the wallpaper I do a stack trace.
+[00:01:52.880 -> 00:02:03.440]  Control B on the wallpaper there's a stack trace. And what it does is it goes up the stack
+[00:02:04.780 -> 00:02:16.020]  and I do a lot of work by looking at the base pointer. So push RBP, move RBP, kind of RSP.
+[00:02:16.020 -> 00:02:24.300]  This is faster than the, this is faster than the enter. I used to use enter, which is an instruction
+[00:02:24.300 -> 00:02:29.000]  that does that. I think I still use leave.
+[00:02:34.780 -> 00:02:41.160]  Okay, so, let's print, move.
+[00:02:47.840 -> 00:02:56.380]  This is faster than the other. I just added this in the past few months or I don't know.
+[00:03:01.860 -> 00:03:19.660]  Put chars with an S. I don't remember if we need an ampersand or not. Anyway, so, let's, I like to go in small steps a lot of times.
+[00:03:22.080 -> 00:03:32.700]  So, we're going to do, okay, if it is C callable, I like to use an underscore, but you don't have to.
+[00:03:33.680 -> 00:03:40.500]  My convention, it's entirely optional, is to use an underscore. That's my convention.
+[00:03:40.500 -> 00:04:00.400]  And there's a keyword, underscore, extern. And what this does is it binds a C header to a, I'm confused.
+[00:04:04.520 -> 00:04:20.460]  It binds a C header to a, a, a, assembly function. So, is that correct? I think so.
+[00:04:20.460 -> 00:04:38.920]  So, so, um, we can just say my loops, F5. Okay, loop, it worked. So, normally you, uh, you make a main, I guess.
+[00:04:39.640 -> 00:04:46.520]  Normally, you might want to call it something different. How about, uh, ASM loop demo.
+[00:04:46.520 -> 00:05:05.560]  So, this is what you would normally do. Okay, now we can F5. Okay, now, um, let's, uh, move.
+[00:05:05.560 -> 00:05:28.040]  I'm kind of old-fashioned. Uh, SF, ARG, 1, off RBP. Um, the, the kids, one school of thought is to use, uh, just numbers.
+[00:05:28.040 -> 00:05:33.960]  But I kind of like the old school, uh, dedicated registers.
+[00:05:34.500 -> 00:05:39.760]  I, not that I, not that it makes any difference. Well, it does make a difference here.
+[00:05:40.880 -> 00:05:48.920]  So, I, I don't, guess what, all, there's, I usually think I'm talking to old school programmers.
+[00:05:49.920 -> 00:05:53.040]  I have to tell them all the rules are different.
+[00:05:53.560 -> 00:06:00.320]  This loop, for example, is slow because it's microcode, I guess.
+[00:06:00.540 -> 00:06:04.940]  But I kind of like it. Sometimes I do stuff because I like it.
+[00:06:07.200 -> 00:06:12.280]  Um, you know what, uh, CX is not preserved in this call. Yeah, it is.
+[00:06:12.840 -> 00:06:17.460]  It, um, it happens to be, um, okay.
+[00:06:18.300 -> 00:06:24.380]  So, I'm going to get an argument off I-64 account.
+[00:06:25.840 -> 00:06:28.320]  Okay. And, uh, let's do 10.
+[00:06:29.460 -> 00:06:30.220]  Crash.
+[00:06:32.180 -> 00:06:35.160]  Are you still there? I crashed.
+[00:06:36.440 -> 00:06:40.320]  Okay, uh, I better hurry up.
+[00:06:40.920 -> 00:06:42.900]  Oh, I have to return 1.
+[00:06:44.000 -> 00:06:46.340]  Uh, I return.
+[00:06:46.860 -> 00:06:49.120]  I pop 8 off the stack.
+[00:06:50.880 -> 00:06:53.060]  Okay. So, I crashed.
+[00:06:53.060 -> 00:06:54.340]  I think I got out of sync.
+[00:06:54.620 -> 00:06:55.320]  I'm going to quit.
+[00:06:55.600 -> 00:06:55.600]  

@@ -1,0 +1,101 @@
+========================================================================
+FILE        : videos/2014/2014-09-01T00:10:00+00:00 - TempleOS - Demo Index (ooVNLR5Tk1M).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-09-01T00:10:00+00:00 - TempleOS - Demo Index (ooVNLR5Tk1M).mkv
+FORMAT      : Matroska
+SIZE        : 44,324,084 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:12:43.100
+TRANSCRIBED: 2026-05-08T04:49:15.882239+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+okay I'm gonna go through some of the demos just because some people might never actually boot it so I go into F1 to get to the help index and then I go into the demo index right here demo index so these are beginner these are beginner programs dot of nets okay so what this is doing is it sets the device context to it makes an alias of the persistent there's two device context a persistent and a refresh device context this is a persistent we make an alias this is just a structure that has a pen it has a pen and a color and some a pointer to the device context anyway so we set the color obviously we need our own structure for to have our own color if this other task was accessing the same device context it we would want different independent colors so anyway so it has to have a color then it draws a line then it deletes the device context press a key this is kind of well it's it's filling it it's using another name for the device context the default we're using a lot of default function parameters the default is the persistent layer anyway so we hit F1 we get a nice dot of nets we we we we went at a step of three that means every three dots we did a dot every three pixels now let's look at input pointer okay so this is a while input pointer left well not input pointer left button that means loop as long as the left button is not pushed so when the left button is pushed it stops and it's going to plot and then we're this is a global variable input pointer position X input pointer position Y and it's using the device context of the persistent layer and then when it's done it fills it with transparent that's what this the default arguments are transparent so what's this going to do it's uh now it's jumping around that's because the mouse takes more than one step most of the time more than one anyway so now we hit the left button then it's done okay so that was that now this is getting into let's look at it can you see that um it's the Sun and the Moon anyway we're using dithering so basically we're starting to use some of the graphics uh routines flood fill circle we do an arc we do an arc for uh the moon the moon is an arc we have uh two shaded regions now what I'm doing is uh every time it refreshes it randomly um generates uh a probability of one color or another color so in this case the two colors are light gray and black and it sets the probability on a scale from 0 to 65535 so um it's it's kind of ugly but it's better than nothing we only have 16 colors um god said that was a covenant um like circumcision that we have 640 by 480 16 color anyway so uh let's analyze what else we got here so we're fs is the current task um task record and this task has a text attribute that's setting the background to black and white i have a bug what the hell is that hold on a second four how was that even compiling well anyways it doesn't matter but it's a bug okay i was missing a uh these are the background is the upper four bits the foreground is the lower four bits um autocomplete is uh alt shift alt a this is autocomplete this turns off autocomplete win border document clear that clears the text win max that sets it to the um to the um maximum size screen size okay elephant walk okay i jump in right away and let you see how to do a game so here we're getting keys and these are scan codes the the low the low the low byte in the scan code lets you get the cursor keys u8 is a byte and this is byte number zero so this is the low byte um the upper the upper bits are other stuff like shift flag and uh current control and stuff and if not shit anyway okay so what are we doing we're uh we're using the cursor keys to move x and y and uh we are printing on the persistent layer a sprite that's uh z that's rotated about the z axis that's the one that comes out of the screen so we're rotating about the z axis an angle of sine of t so what that means is it's going to um it's going to it's going to um shift back and forth with with the sign of the um of the time every second it's every six seconds it's going to complete a cycle what does it look like okay so you see the elephant now it's not synchronized to the refresh so we're getting some chopping i think we can fix that if we uh i'm not positive um basically when you're dealing with the persistent layer it's kind of um childish you're i think we can say win manager sync and it will uh uh no it looks just as bad okay that's about all you can do with the um i don't know anyway uh what do we have here uh so this is low pass filter this is just some plotted lines nothing exciting it's a little bit of math uh i don't know why i made a low pass filter function it's pretty stupid anyway just kind of nerdy this is audio math so there's a sine wave now i made something called that's a sawtooth function i made a function that's a sawtooth it's pretty simple i made a there's a full sawtooth plus or minus one cosine this is just like cosine caught tooth now i did triangle this is handy so those are just handy functions i have i'm proud of them now let's do some lines do some lines anyway uh so um we're moving the x and y randomly um based on uh we have we're getting a random 16 bit signed random then we're taking it plus plus one minus one zero um that's what the sine function does if you remember old basic it used to it's if it's positive it's one if it's zero it's zero if it's negative it's minus one so it's just a handy function some of these it's kind of like string hand handling what are we doing here tic-tac-toe okay it beeps we can't hear it actually i guess i can on the video control alt c i kind of um control c is the old-fashioned break we do control alt c all the special keys all the system keys are control alt so what are we doing here we're drawing a chess board or tic-tac-toe beep okay now let's see sprite plot okay we have some graphics in the source code control t toggles you'll see this this is a command sprite this is the tag one binary um that's the um in theory we could have other things besides sprites binary object number one okay so we can go on top of it edit it control t control r now we're editing um it has an editor there's a text that says welcome to temple os and there's a bitmap okay well anyway let's see what this does this is uh printing and clearing and sleeping okay so that's what that does now this is going to write some sprites to the command line we printed them to the command line with the sprite now this is control t gets us to the um ascii underneath binary object one binary object two that's basically sprites there's the tags if you have the tag as a number in brackets it automatically gets set um to the binary number now the reason uh if you put it on a clipboard you'll see there's more numbers so you don't choose the number the binary number is chosen by the editor but if you make um if you go in and manually edit these and put them to one you can uh let's now we have uh multiple anyway a repeat what do we have here here's what is this now we're using uh a file we're going to go into another file and get the graphic sprite that's in there this is binary binary pointer i think that's what that stands for there's the file and um we want number two so there we got the map again okay um we're printing uh this is a um printf repeat 12 times a character h12 is repeat 12 carriage return so that prints 12 carriage returns okay so that's what that does now uh ascii organ uh we're just hitting the ascii key um it print it prints an icon to the command line that's active actually we can click on it to get a better organ so this is sound frequency now we're printing that sprite to the command line this gets tricky because we have to print a tag and we're printing the text that's um anyway uh let's call it a day uh alt shift v
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:05.300]  okay I'm gonna go through some of the demos just because some people might
+[00:00:05.300 -> 00:00:12.040]  never actually boot it so I go into F1 to get to the help index and then I go
+[00:00:12.040 -> 00:00:18.160]  into the demo index right here demo index so these are beginner these are
+[00:00:18.160 -> 00:00:24.620]  beginner programs dot of nets okay so what this is doing is it sets the device
+[00:00:24.620 -> 00:00:31.920]  context to it makes an alias of the persistent there's two device context a
+[00:00:31.920 -> 00:00:40.760]  persistent and a refresh device context this is a persistent we make an alias
+[00:00:40.760 -> 00:00:49.680]  this is just a structure that has a pen it has a pen and a color and some a
+[00:00:49.680 -> 00:00:56.580]  pointer to the device context anyway so we set the color obviously we need our
+[00:00:56.580 -> 00:01:04.300]  own structure for to have our own color if this other task was accessing the same
+[00:01:04.300 -> 00:01:10.240]  device context it we would want different independent colors so anyway so it has to
+[00:01:10.240 -> 00:01:17.760]  have a color then it draws a line then it deletes the device context press a key
+[00:01:17.760 -> 00:01:25.260]  this is kind of well it's it's filling it it's using another name for the device
+[00:01:25.260 -> 00:01:31.820]  context the default we're using a lot of default function parameters the default
+[00:01:31.820 -> 00:01:41.500]  is the persistent layer anyway so we hit F1 we get a nice dot of nets we we we we
+[00:01:41.500 -> 00:01:47.680]  went at a step of three that means every three dots we did a dot every three
+[00:01:47.680 -> 00:01:55.500]  pixels now let's look at input pointer okay so this is a while input pointer left
+[00:01:55.500 -> 00:02:01.500]  well not input pointer left button that means loop as long as the left button is
+[00:02:01.500 -> 00:02:09.520]  not pushed so when the left button is pushed it stops and it's going to plot and
+[00:02:09.520 -> 00:02:13.440]  then we're this is a global variable input pointer position X input pointer
+[00:02:13.440 -> 00:02:22.040]  position Y and it's using the device context of the persistent layer and then
+[00:02:22.040 -> 00:02:29.100]  when it's done it fills it with transparent that's what this the default arguments are
+[00:02:29.100 -> 00:02:36.400]  transparent so what's this going to do it's uh now it's jumping around that's
+[00:02:36.400 -> 00:02:43.180]  because the mouse takes more than one step most of the time more than one anyway so
+[00:02:43.180 -> 00:02:49.820]  now we hit the left button then it's done okay so that was that now this is getting
+[00:02:49.820 -> 00:02:58.140]  into let's look at it can you see that um it's the Sun and the Moon anyway we're using
+[00:02:58.140 -> 00:03:09.480]  dithering so basically we're starting to use some of the graphics uh routines flood fill circle we do an arc
+[00:03:09.480 -> 00:03:20.200]  we do an arc for uh the moon the moon is an arc we have uh two shaded regions now what I'm doing is
+[00:03:20.200 -> 00:03:29.500]  uh every time it refreshes it randomly um generates uh a probability of one color or another color
+[00:03:29.500 -> 00:03:40.100]  so in this case the two colors are light gray and black and it sets the probability on a scale from 0 to 65535
+[00:03:41.020 -> 00:03:49.800]  so um it's it's kind of ugly but it's better than nothing we only have 16 colors um god said that was a
+[00:03:49.800 -> 00:03:59.340]  covenant um like circumcision that we have 640 by 480 16 color anyway so uh let's analyze what else we got
+[00:03:59.340 -> 00:04:09.280]  here so we're fs is the current task um task record and this task has a text attribute that's setting the
+[00:04:09.280 -> 00:04:10.920]  background to black and white
+[00:04:15.560 -> 00:04:21.120]  i have a bug what the hell is that
+[00:04:24.800 -> 00:04:35.580]  hold on a second four how was that even compiling well anyways it doesn't matter but it's a bug
+[00:04:35.580 -> 00:04:47.260]  okay i was missing a uh these are the background is the upper four bits the foreground is the lower four bits
+[00:04:48.140 -> 00:04:57.260]  um autocomplete is uh alt shift alt a this is autocomplete this turns off autocomplete win border
+[00:04:57.260 -> 00:05:07.600]  document clear that clears the text win max that sets it to the um to the um maximum size screen size
+[00:05:09.520 -> 00:05:18.000]  okay elephant walk okay i jump in right away and let you see how to do a game so here we're getting keys
+[00:05:18.000 -> 00:05:26.520]  and these are scan codes the the low the low the low byte in the scan code lets you get the cursor keys
+[00:05:28.680 -> 00:05:38.320]  u8 is a byte and this is byte number zero so this is the low byte um the upper the upper bits are other stuff
+[00:05:38.320 -> 00:05:48.600]  like shift flag and uh current control and stuff and if not shit anyway okay so what are we doing we're uh
+[00:05:48.600 -> 00:06:00.420]  we're using the cursor keys to move x and y and uh we are printing on the persistent layer a sprite that's uh z
+[00:06:00.420 -> 00:06:08.220]  that's rotated about the z axis that's the one that comes out of the screen so we're rotating about the z axis
+[00:06:08.220 -> 00:06:18.460]  an angle of sine of t so what that means is it's going to um it's going to it's going to um shift back and
+[00:06:18.460 -> 00:06:27.940]  forth with with the sign of the um of the time every second it's every six seconds it's going to complete a cycle
+[00:06:30.420 -> 00:06:38.180]  what does it look like okay so you see the elephant now it's not synchronized to the refresh so we're
+[00:06:38.180 -> 00:06:47.920]  getting some chopping i think we can fix that if we uh i'm not positive um basically when you're dealing
+[00:06:47.920 -> 00:06:58.160]  with the persistent layer it's kind of um childish you're i think we can say win manager sync and it will uh
+[00:06:58.160 -> 00:07:09.520]  uh no it looks just as bad okay that's about all you can do with the um i don't know anyway uh what do
+[00:07:09.520 -> 00:07:18.640]  we have here uh so this is low pass filter this is just some plotted lines nothing exciting it's a little
+[00:07:18.640 -> 00:07:27.020]  bit of math uh i don't know why i made a low pass filter function it's pretty stupid anyway just kind of nerdy
+[00:07:28.160 -> 00:07:35.420]  this is audio math so there's a sine wave now i made something called that's a sawtooth function
+[00:07:36.000 -> 00:07:44.320]  i made a function that's a sawtooth it's pretty simple i made a there's a full sawtooth plus or minus one
+[00:07:45.600 -> 00:07:55.660]  cosine this is just like cosine caught tooth now i did triangle this is handy so those are just handy
+[00:07:55.660 -> 00:08:06.820]  functions i have i'm proud of them now let's do some lines do some lines anyway uh so um
+[00:08:09.520 -> 00:08:22.080]  we're moving the x and y randomly um based on uh we have we're getting a random 16 bit signed random
+[00:08:22.080 -> 00:08:30.680]  then we're taking it plus plus one minus one zero um that's what the sine function does if you remember
+[00:08:30.680 -> 00:08:38.580]  old basic it used to it's if it's positive it's one if it's zero it's zero if it's negative it's minus one
+[00:08:38.580 -> 00:08:47.140]  so it's just a handy function some of these it's kind of like string hand handling what are we doing here tic-tac-toe
+[00:08:49.600 -> 00:08:50.160]  okay
+[00:08:58.340 -> 00:09:04.480]  it beeps we can't hear it actually i guess i can on the video control alt c i kind of
+[00:09:05.440 -> 00:09:13.420]  um control c is the old-fashioned break we do control alt c all the special keys all the system
+[00:09:13.420 -> 00:09:21.440]  keys are control alt so what are we doing here we're drawing a chess board or tic-tac-toe beep
+[00:09:24.580 -> 00:09:30.360]  okay now let's see sprite plot okay we have some graphics in the source code control t
+[00:09:31.080 -> 00:09:41.760]  toggles you'll see this this is a command sprite this is the tag one binary um that's the um in theory we
+[00:09:41.760 -> 00:09:52.620]  could have other things besides sprites binary object number one okay so we can go on top of it
+[00:09:52.620 -> 00:10:03.900]  edit it control t control r now we're editing um it has an editor there's a text that says welcome to temple
+[00:10:03.900 -> 00:10:13.360]  os and there's a bitmap okay well anyway let's see what this does this is uh printing and clearing and
+[00:10:13.360 -> 00:10:22.960]  sleeping okay so that's what that does now this is going to write some sprites to the command line
+[00:10:24.000 -> 00:10:33.940]  we printed them to the command line with the sprite now this is control t gets us to the um ascii
+[00:10:33.940 -> 00:10:43.700]  underneath binary object one binary object two that's basically sprites there's the tags if you have the tag
+[00:10:44.500 -> 00:10:53.020]  as a number in brackets it automatically gets set um to the binary number now the reason uh
+[00:10:54.180 -> 00:11:00.480]  if you put it on a clipboard you'll see there's more numbers so you don't choose the number the
+[00:11:00.480 -> 00:11:07.260]  binary number is chosen by the editor but if you make um if you go in and manually edit these and put
+[00:11:07.260 -> 00:11:16.940]  them to one you can uh let's now we have uh multiple anyway a repeat
+[00:11:19.580 -> 00:11:24.760]  what do we have here here's what is this now we're using uh
+[00:11:25.620 -> 00:11:33.760]  a file we're going to go into another file and get the graphic sprite that's in there this is binary
+[00:11:33.760 -> 00:11:40.500]  binary pointer i think that's what that stands for there's the file and um we want number two
+[00:11:41.400 -> 00:11:52.400]  so there we got the map again okay um we're printing uh this is a um printf repeat 12 times
+[00:11:52.400 -> 00:12:04.140]  a character h12 is repeat 12 carriage return so that prints 12 carriage returns okay so that's what that does
+[00:12:05.280 -> 00:12:16.180]  now uh ascii organ uh we're just hitting the ascii key um it print it prints an icon to the command line
+[00:12:16.180 -> 00:12:22.440]  that's active actually we can click on it to get a better organ so this is sound frequency
+[00:12:25.940 -> 00:12:32.100]  now we're printing that sprite to the command line this gets tricky because we have to print a tag
+[00:12:32.900 -> 00:12:35.540]  and we're printing the text that's um
+[00:12:38.040 -> 00:12:43.100]  anyway uh let's call it a day uh alt shift v

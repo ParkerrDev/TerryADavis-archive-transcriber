@@ -1,0 +1,294 @@
+========================================================================
+FILE        : videos/2015/2015-09-05T00:00:00+00:00 - TempleOS - Not Really StdIn StdOut. (ORR0MwtgwyA).mkv
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2015/2015-09-05T00:00:00+00:00 - TempleOS - Not Really StdIn StdOut. (ORR0MwtgwyA).mkv
+FORMAT      : Matroska
+SIZE        : 86,022,755 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:25:45.830
+TRANSCRIBED: 2026-05-11T00:15:39.787669+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+so the usual place where you start teaching Unix is standard in standard out and standard error we don't have those concepts and before you get judgmental this is supposed to be a souped-up modern Commodore 64 so what could possibly be good about a Commodore 64 let's see do this we're at the command line okay so standard in standard out standard error big whoop okay we're not into that we those are for scientific academic terminal programs our goal is to be something fun to hack like for example a typical thing you did with a Commodore was fonts they did character graphics here's this is the font you can play with the binary numbers I made a font editor you can play with that some of you kids have never seen a font editor so you pick a character I'm not let's not do one that gets important how about Z anyway so uh you so when we're done I think I hit escape and it stored it anyway um let's go to my home directory okay so it stored it so um what can we do with this let's turn it into a program you wait uh star oops I hit I got gone okay this is supposed to be a u64 uh f 256 equals so this is an array of named f text okay so let's include that and now let's say uh text dot font let's let's put a Z on the screen first okay there's a Z um I don't know if you can see it we're going to uh we're going to say uh uh text okay just to show you how I'm finding this in the text layer okay it's not here in the uh my birds are in the graphics routines um there I want to look for a global variable gr globals okay so gr gr and then it's font is what it's called this is this is a global variable class and uh oh I don't see font I think it's called text to be quite honest I think I was right before anyway um you should get from it you don't use the man page you use f1 and then it goes to an index and uh it's a really nice index and there's a there's help on standard in and standard out anyway uh we don't we don't have those technically um oh i know what it is i'm in the wrong spot it's a char there's text is a global variable and this is the type font okay so we included let's do a who this tells us the symbols that are defined in this these are like environment variables okay uh who minus okay so f so we say uh text font let's put a z on the screen that's the character we changed now we say uh text font what's that okay now did our z get modified we have to zoom in um there's a any any time at any place you can control you can hit ctrl alt z and um we zoom in and look at that there's a different character ctrl shift c so what so what have we what have we accomplished here so we have here a file that um we can uh we can change the uh symbols um we could use the editor or uh i'm gonna i'm gonna corrupt the uh the zero let's let's do an overwrite okay so there's gonna be a bunch of so i'm gonna include that again and then i'm gonna say text dot font equals f and now all the zeros are uh corrupted so how do we fix this reboot bam we're back okay so um uh this is the thing this is what you did with the commodore 64. so is there a standard in standard out well sort of as a matter of fact um there's some very nice uh mainframe uh let's say you have i equals get let's let's look let's use the let's do this f1 standard in and we have get get i64 get f64 get date get char okay so if we if we want in equals get get i64 now i do believe this is a very fancy um routine okay so uh message default min max okay so uh message default min max okay so uh message default 0 min max okay we don't we don't even want those now we say for uh let's say for uh i equals one i less or equal to less or equal to n i plus plus percent d i okay so watch what happens we hit f5 to run it so this is standard in enter n now this should be this is a fancy like ultra deluxe mainframe one plus two times six so the when you ask for an integer it allows the user to enter a uh a holy c expression so uh these are uh uh so that's very nice very easy very nice um let's do a magic let's do a black rectangle that's the classic hardest problem so we want to look f1 graphics routines uh i do believe the triangle is technically kind of uh ghetto it does i don't think it has clipping the turns count of pixels changed if it has a zero that's kind of like version zero i don't know what what you want to call it zero has no clipping and it's raw um three is three dimensional and it has there's kind of uh three categories of uh graphics routines uh there's uh if it has a zero that means there's there's no guard rail and if you go off the map you're gonna possibly corrupt something if it has no number then it's it's probably a two-dimensional uh no clip no pin width and then there's the ultra ultra deluxe which is three dimensions and it has a pin width in a transform so basically uh those are your three choices so we want to uh what i recommend is uh use you use the autocomplete to jump to the source code that's did i say there's not a man page anyway uh and i like to uh just copy onto the clipboard and then copy it and then use it as a uh uh sometimes you can examine it when you're doing working on something anyway so we want uh so to use this triangle to make to draw a black triangle we have to define p1 p2 and p3 let's set uh p1 x equals 100 p1 dot y equals 100 p1 dot z equals zero p2 dot x equals 200 p2 dot y equals 100 p2 dot z equals zero p3 dot x equals uh let's say 150 p3 dot y equals uh let's say 200 this is before we find this is before we find this is before we find this is before we find this is is people okay so that's how easy it is to put a black rectangle you want to know you're gonna you're going to worry about standard in standard out this is a souped-up Commodore 64 you say why would you want a Commodore 64 now you know anyway so you say DC Phil it's it's it's actually it's actually so there's all kinds of deluxe I have the just-in-time compiler so easy to use that I use it everywhere every little thing is the just-in-time compiler as a matter of fact if we want to make this a red and let's make the first letter E red so red for foreground that sets it back to the default foreground we set it to red and then we set it to the default so when we run this we get a red E and so we say one two and we got three okay now this will blow your mind so red is a red is a color okay now the the escape document let's do purple is 13 okay let's do foreground comma six plus seven so the document the document commands can have expressions I'm kind of I lost you didn't I oh well just take my word for it they can have expressions what's a better example all this anyway there's a document the documents can have sprites for example let's make a sprite control R make sprite and escape we keep we do want to tag and let's do poly poly point let's do with five dither color the dither color works that's not the dither color I was expecting let's delete that and do their color I thought it listed that purple exit okay so what can we do standard in and standard out okay no we don't really have standard in standard out sorry as a matter of fact these are not serialized what does that mean that means when it hits this command it says well let's run it first five okay so we printed five sprites I'm gonna I'm gonna separate them out by coming in here and okay so there's all these sprites anyway so these are like I could serialize them but that wasn't an option now I have the ability to convert them to text so the poly line thing is a series of directional movements by one anyway poly point to make a long story short these are convert these are stored as a raw binary I guess you call it bike bike code it's vector we can convert it to bitmap convert to bitmap transparent background convert to bitmap transparent background use these extents okay now it is it has been converted to a bitmap so now we have a we have a file it ends in dot z so it's compressed if we say don't test I do believe it will search for the dot z so you can see a bitmap here in this text file that's because our our files are are pretty much ascii but the files are ascii followed by binary graphics so I explain to people it's a little bit like a PDF just imagine your compiler your c compiler worked on PDF so anyway so let me go over one of the neat features that's I want to convert you so that you appreciate what we gain by losing standard in and standard in and standard in out so we go to ok I this is a if you're doing a form there's a metadata for for for it's basically a nasty format you have to learn and once you do that then you can enter forms but the nice thing is you don't have a separate resource file that was my goal and menu menu sprite ok look at this program we have a sprite we have a while loop so I think we're going to stay doing this we print our sprite and this is a I do believe this sprite has a payload of a we make the sprite so you can click on it and the left expression is 50 remember I said we can have it invokes a compiler really quickly on and off so each of these little things is compiled now the crazy the crazy thing is you can put expressions like I 64 X and then you can put X into these expressions X plus 50 it's the crazy stuff like that that's because the task has a symbol table and once it stores that symbol then the compiler on all those environment variables are in scope so I should explain how you normally make use of this I'll go ahead and get a little bit sidetracked we're going to go to the sprite editing code and and I made some defines and then I made a menu and I put those defines as the left expression when you click it that's the left expression so that's what I was that's what I was trying to explain you can make that the the line between resource and program and compile time and run time it's I'm the only one that understands anyway so let's run this so that little program made a a a a a that made a menu menu with a a sprite so it has an icon we call those icons if you if it's a sprite that you can click on it's an icon and what did we do we got the value in Hertz and if it was greater than zero we set the sound sound is that easy to make you saw how easy it was to do a circle this you want to know how easy it is to do a sound sound it's a frequency uh vmware finally gave us sound again they took it away what they gave us is kind of laughably distorted like the original PC speaker um q emu has no distortion and it sounds bad vmware for some reason they went crazy and uh it sounds good when you um when you do a sounds good for sound effects but it's too much distortion for everything else anyway so uh let's do menu buttons ok so um basically our resource file is uh there's not a separate resource file you um we don't have uh windows we have text widgets so if we hit F5 so we have a menu we can turn the sound on sound off set frequency 200 sound on sound on ok so this it's that easy to make a uh menu my goal was to have minimum uh changing files I don't like little files that you have to jump between so I made the resources right in the code and uh I like it uh I don't like to have a lot of options so I made it beautifully simple but it's let's anyway so uh that's what I wanted to show before
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:12.480 -> 00:00:20.360]  so the usual place where you start teaching Unix is standard in standard out and standard error
+[00:00:21.920 -> 00:00:30.800]  we don't have those concepts and before you get judgmental this is supposed to be a
+[00:00:30.800 -> 00:00:37.940]  souped-up modern Commodore 64 so what could possibly be good about a Commodore 64
+[00:00:43.420 -> 00:00:58.920]  let's see do this we're at the command line okay so standard in standard out standard error big whoop okay we're not into that we
+[00:01:00.380 -> 00:01:20.620]  those are for scientific academic terminal programs our goal is to be something fun to hack like for example
+[00:01:20.620 -> 00:01:33.680]  a typical thing you did with a Commodore was fonts they did character graphics here's this is the font you
+[00:01:33.680 -> 00:01:40.860]  can play with the binary numbers I made a font editor you can play with that some of you kids have never
+[00:01:40.860 -> 00:02:00.120]  seen a font editor so you pick a character I'm not let's not do one that gets important how about Z anyway so
+[00:02:02.840 -> 00:02:03.480]  uh
+[00:02:04.860 -> 00:02:14.680]  you so when we're done I think I hit escape and it stored it anyway um let's go to my home directory
+[00:02:17.140 -> 00:02:28.220]  okay so it stored it so um what can we do with this let's turn it into a program you wait uh star oops
+[00:02:28.220 -> 00:02:48.680]  I hit I got gone okay this is supposed to be a u64 uh f 256 equals so this is an array of named f
+[00:02:50.380 -> 00:03:08.780]  text okay so let's include that and now let's say uh text dot font let's let's put a Z on the screen first
+[00:03:09.720 -> 00:03:15.960]  okay there's a Z um I don't know if you can see it we're going to uh we're going to say uh
+[00:03:15.960 -> 00:03:30.380]  uh text okay just to show you how I'm finding this in the text layer okay it's not here in the uh my birds are
+[00:03:33.940 -> 00:03:38.040]  in the graphics routines um
+[00:03:42.800 -> 00:03:45.680]  there I want to look for a global variable
+[00:03:52.180 -> 00:04:01.580]  gr globals okay so gr gr and then it's font is what it's called this is this is a global variable
+[00:04:01.580 -> 00:04:07.660]  class and uh oh I don't see font
+[00:04:09.980 -> 00:04:16.240]  I think it's called text to be quite honest I think I was right before
+[00:04:18.440 -> 00:04:26.680]  anyway um you should get from it you don't use the man page you use f1 and then it goes to an index
+[00:04:27.660 -> 00:04:30.560]  and uh it's a really nice index
+[00:04:31.220 -> 00:04:36.680]  and there's a there's help on standard in and standard out anyway uh
+[00:04:38.500 -> 00:04:52.380]  we don't we don't have those technically um oh i know what it is i'm in the wrong spot it's a char
+[00:04:53.920 -> 00:05:03.860]  there's text is a global variable and this is the type font okay so we included let's do a who
+[00:05:04.460 -> 00:05:10.420]  this tells us the symbols that are defined in this these are like environment variables okay
+[00:05:13.140 -> 00:05:16.480]  uh who minus
+[00:05:20.160 -> 00:05:23.840]  okay so f
+[00:05:25.940 -> 00:05:26.920]  so we say uh
+[00:05:29.700 -> 00:05:38.740]  text font let's put a z on the screen that's the character we changed now we say uh text font
+[00:05:42.480 -> 00:05:52.320]  what's that okay now did our z get modified we have to zoom in um there's a any any time at any
+[00:05:52.320 -> 00:05:59.920]  place you can control you can hit ctrl alt z and um we zoom in and look at that there's a different
+[00:05:59.920 -> 00:06:09.080]  character ctrl shift c so what so what have we what have we accomplished here so we have here a file
+[00:06:10.420 -> 00:06:21.100]  that um we can uh we can change the uh symbols um we could use the editor or uh i'm gonna i'm gonna
+[00:06:21.100 -> 00:06:32.440]  corrupt the uh the zero let's let's do an overwrite okay so there's gonna be a bunch of so i'm gonna include
+[00:06:32.440 -> 00:06:43.420]  that again and then i'm gonna say text dot font equals f and now all the zeros are uh corrupted
+[00:06:44.500 -> 00:06:50.520]  so how do we fix this reboot bam we're back okay so um
+[00:06:54.060 -> 00:06:58.120]  uh this is the thing this is what you did with the commodore 64.
+[00:06:58.120 -> 00:07:02.080]  so is there a standard in standard out well sort of
+[00:07:04.320 -> 00:07:09.480]  as a matter of fact um there's some very nice uh
+[00:07:12.920 -> 00:07:13.520]  mainframe
+[00:07:13.520 -> 00:07:30.280]  uh let's say you have i equals get let's let's look let's use the let's do this f1 standard in
+[00:07:30.280 -> 00:07:37.080]  and we have get get i64 get f64 get date get char
+[00:07:40.660 -> 00:07:44.440]  okay so if we if we want
+[00:07:48.440 -> 00:07:58.860]  in equals get get i64 now i do believe this is a very fancy um routine
+[00:08:02.360 -> 00:08:15.620]  okay so uh message default min max okay so uh message default min max okay so uh message default 0
+[00:08:16.380 -> 00:08:24.040]  min max okay we don't we don't even want those now we say for uh let's say for uh i equals one
+[00:08:24.040 -> 00:08:28.580]  i less or equal to less or equal to n i plus plus
+[00:08:30.500 -> 00:08:34.420]  percent d i okay so
+[00:08:37.080 -> 00:08:46.600]  watch what happens we hit f5 to run it so this is standard in enter n now this should be this is a
+[00:08:46.600 -> 00:08:59.160]  fancy like ultra deluxe mainframe one plus two times six so the when you ask for an integer it allows the user to enter
+[00:09:00.440 -> 00:09:08.680]  a uh a holy c expression so uh these are uh
+[00:09:08.680 -> 00:09:22.040]  uh so that's very nice very easy very nice um let's do a magic let's do a black rectangle
+[00:09:22.920 -> 00:09:33.080]  that's the classic hardest problem so we want to look f1 graphics routines
+[00:09:38.240 -> 00:09:48.400]  uh i do believe the triangle is technically kind of uh ghetto it does i don't think it has clipping
+[00:09:49.760 -> 00:09:56.980]  the turns count of pixels changed if it has a zero that's kind of like version zero i don't know what
+[00:09:56.980 -> 00:10:06.140]  what you want to call it zero has no clipping and it's raw um three is three dimensional and it has
+[00:10:06.900 -> 00:10:21.780]  there's kind of uh three categories of uh graphics routines uh there's uh if it has a zero that means
+[00:10:21.780 -> 00:10:29.960]  there's there's no guard rail and if you go off the map you're gonna possibly corrupt something
+[00:10:31.380 -> 00:10:38.880]  if it has no number then it's it's probably a two-dimensional uh no clip no pin width
+[00:10:39.700 -> 00:10:45.220]  and then there's the ultra ultra deluxe which is three dimensions and it has a pin width
+[00:10:46.980 -> 00:10:56.580]  in a transform so basically uh those are your three choices so we want to uh what i recommend is uh
+[00:10:57.700 -> 00:11:06.740]  use you use the autocomplete to jump to the source code that's did i say there's not a man page anyway
+[00:11:06.740 -> 00:11:15.120]  uh and i like to uh just copy onto the clipboard and then copy it and then use it as a uh
+[00:11:15.220 -> 00:11:21.000]  uh sometimes you can examine it when you're doing working on something anyway so we want uh
+[00:11:22.680 -> 00:11:33.120]  so to use this triangle to make to draw a black triangle we have to define p1 p2 and p3 let's set uh
+[00:11:34.000 -> 00:11:53.680]  p1 x equals 100 p1 dot y equals 100 p1 dot z equals zero p2 dot x equals 200 p2 dot y equals 100 p2 dot z equals zero
+[00:11:55.280 -> 00:12:06.760]  p3 dot x equals uh let's say 150 p3 dot y equals uh let's say 200
+[00:12:11.280 -> 00:12:36.400]  this is before we find this is before we find this is before we find this is before we find this is
+[00:12:40.340 -> 00:12:53.920]  is people okay so that's how easy it is to put a black rectangle you want to know you're gonna
+[00:12:53.920 -> 00:13:05.820]  you're going to worry about standard in standard out this is a souped-up Commodore 64
+[00:13:07.200 -> 00:13:24.400]  you say why would you want a Commodore 64 now you know anyway so you say DC Phil it's it's it's actually
+[00:13:29.360 -> 00:13:38.680]  it's actually so there's all kinds of deluxe I have the just-in-time compiler so easy to use that I use
+[00:13:38.680 -> 00:13:44.520]  it everywhere every little thing is the just-in-time compiler as a matter of fact if we want to make this
+[00:13:44.520 -> 00:13:59.040]  a red and let's make the first letter E red so red for foreground that sets it back to the default
+[00:13:59.040 -> 00:14:05.700]  foreground we set it to red and then we set it to the default so when we run this we get a red E and
+[00:14:07.290 -> 00:14:22.370]  so we say one two and we got three okay now this will blow your mind so red is a red is a color
+[00:14:22.370 -> 00:14:40.210]  okay now the the escape document let's do purple is 13 okay let's do foreground comma six plus seven so
+[00:14:40.210 -> 00:14:54.950]  the document the document commands can have expressions I'm kind of I lost you didn't I oh well just take my
+[00:14:54.950 -> 00:15:07.990]  word for it they can have expressions what's a better example all this anyway there's a document the documents
+[00:15:07.990 -> 00:15:25.670]  can have sprites for example let's make a sprite control R make sprite and escape we keep we do want to tag and
+[00:15:29.870 -> 00:15:43.970]  let's do poly poly point let's do with five dither color the dither color works
+[00:15:49.410 -> 00:16:02.470]  that's not the dither color I was expecting let's delete that and do their color I thought it listed that purple
+[00:16:02.470 -> 00:16:12.350]  exit okay so what can we do standard in and standard out okay
+[00:16:13.790 -> 00:16:26.170]  no we don't really have standard in standard out sorry as a matter of fact these are not serialized
+[00:16:27.710 -> 00:16:38.810]  what does that mean that means when it hits this command it says
+[00:16:42.590 -> 00:16:57.450]  well let's run it first five okay so we printed five sprites I'm gonna I'm gonna separate them out by coming
+[00:16:57.450 -> 00:17:06.910]  in here and okay so there's all these sprites anyway so these are
+[00:17:08.730 -> 00:17:35.590]  like I could serialize them but that wasn't an option now I have the ability to convert them to text so the poly line thing is a series of directional movements by one anyway
+[00:17:35.590 -> 00:17:58.610]  poly point to make a long story short these are convert these are stored as a raw binary I guess you call it bike bike code it's vector we can convert it to bitmap
+[00:18:05.790 -> 00:18:09.590]  convert to bitmap transparent background
+[00:18:09.590 -> 00:18:09.750]  convert to bitmap transparent background
+[00:18:12.170 -> 00:18:13.630]  use these extents
+[00:18:13.630 -> 00:18:18.030]  okay now it is it has been converted to a bitmap
+[00:18:20.870 -> 00:18:46.350]  so now we have a we have a file it ends in dot z so it's compressed if we say don't test I do believe it will search for the dot z so you can see a bitmap here in this text file
+[00:18:47.910 -> 00:19:04.250]  that's because our our files are are pretty much ascii but the files are ascii followed by binary graphics
+[00:19:11.610 -> 00:19:22.470]  so I explain to people it's a little bit like a PDF just imagine your compiler your c compiler worked on PDF
+[00:19:27.250 -> 00:19:52.450]  so anyway so let me go over one of the neat features that's I want to convert you so that you appreciate what we gain by losing standard in and standard in and standard in
+[00:19:52.450 -> 00:19:52.810]  out
+[00:19:55.630 -> 00:19:56.970]  so we go to
+[00:19:59.810 -> 00:20:00.770]  ok I
+[00:20:00.770 -> 00:20:02.390]  this is a
+[00:20:02.390 -> 00:20:04.750]  if you're doing a form
+[00:20:06.870 -> 00:20:08.450]  there's a metadata for
+[00:20:10.330 -> 00:20:10.450]  for
+[00:20:11.030 -> 00:20:11.330]  for
+[00:20:13.790 -> 00:20:15.310]  it's basically a
+[00:20:15.310 -> 00:20:17.670]  nasty format you have to learn
+[00:20:17.670 -> 00:20:18.610]  and
+[00:20:18.610 -> 00:20:20.870]  once you do that then you can enter forms
+[00:20:20.870 -> 00:20:25.030]  but the nice thing is you don't have a separate resource file that was my goal
+[00:20:26.350 -> 00:20:26.850]  and
+[00:20:26.850 -> 00:20:27.710]  menu
+[00:20:27.710 -> 00:20:28.670]  menu sprite
+[00:20:30.330 -> 00:20:30.830]  ok
+[00:20:30.830 -> 00:20:33.030]  look at this program we have a sprite
+[00:20:33.710 -> 00:20:37.050]  we have a while loop so I think we're going to stay doing this
+[00:20:37.050 -> 00:20:39.110]  we print our sprite
+[00:20:39.110 -> 00:20:40.450]  and this is a
+[00:20:40.450 -> 00:20:42.010]  I do believe
+[00:20:45.610 -> 00:20:49.050]  this sprite has a payload of a
+[00:20:51.490 -> 00:20:56.110]  we make the sprite so you can click on it and the left expression is 50
+[00:20:56.750 -> 00:21:02.410]  remember I said we can have it invokes a compiler really quickly on and off so
+[00:21:03.330 -> 00:21:05.010]  each of these little things is compiled
+[00:21:05.270 -> 00:21:19.830]  now the crazy the crazy thing is you can put expressions like I 64 X and then you can put X into these expressions X plus 50
+[00:21:19.830 -> 00:21:21.950]  it's the crazy stuff like that
+[00:21:21.950 -> 00:21:35.110]  that's because the task has a symbol table and once it stores that symbol then the compiler on all those environment variables are in scope
+[00:21:36.950 -> 00:21:54.550]  so I should explain how you normally make use of this I'll go ahead and get a little bit sidetracked we're going to go to the sprite editing code and
+[00:22:01.390 -> 00:22:01.950]  and
+[00:22:01.950 -> 00:22:01.970]  I
+[00:22:01.970 -> 00:22:06.230]  made some defines and then I made a menu
+[00:22:07.890 -> 00:22:12.830]  and I put those defines as the left expression when you click it
+[00:22:12.830 -> 00:22:17.970]  that's the left expression so that's what I was that's what I was trying to explain
+[00:22:17.970 -> 00:22:20.150]  you can make
+[00:22:22.410 -> 00:22:25.730]  that the the line between
+[00:22:27.930 -> 00:22:31.410]  resource and program and
+[00:22:33.430 -> 00:22:36.330]  compile time and run time it's
+[00:22:38.470 -> 00:22:40.970]  I'm the only one that understands anyway
+[00:22:41.870 -> 00:22:44.790]  so let's run this so that little program
+[00:22:45.370 -> 00:22:46.210]  made a
+[00:22:46.210 -> 00:22:46.410]  a
+[00:22:47.730 -> 00:22:48.250]  a
+[00:22:50.130 -> 00:22:50.650]  a
+[00:22:50.650 -> 00:22:51.230]  a
+[00:22:53.850 -> 00:22:55.290]  that made a menu
+[00:22:56.370 -> 00:22:57.770]  menu with a
+[00:22:57.770 -> 00:23:00.250]  a sprite so it has an icon
+[00:23:00.250 -> 00:23:04.650]  we call those icons if you if it's a sprite that you can click on it's an icon
+[00:23:06.510 -> 00:23:06.950]  and
+[00:23:06.950 -> 00:23:07.770]  what did we do
+[00:23:07.770 -> 00:23:10.050]  we got the value in Hertz
+[00:23:10.550 -> 00:23:12.870]  and if it was greater than zero we
+[00:23:12.870 -> 00:23:16.310]  set the sound sound is that easy to make
+[00:23:16.310 -> 00:23:18.670]  you saw how easy it was to do a circle
+[00:23:19.330 -> 00:23:19.770]  this
+[00:23:19.770 -> 00:23:21.890]  you want to know how easy it is to do a sound
+[00:23:24.310 -> 00:23:25.190]  sound
+[00:23:31.450 -> 00:23:32.890]  it's a frequency
+[00:23:32.890 -> 00:23:33.470]  uh
+[00:23:33.470 -> 00:23:35.870]  vmware finally
+[00:23:36.790 -> 00:23:38.010]  gave us
+[00:23:38.010 -> 00:23:39.510]  sound again
+[00:23:39.510 -> 00:23:40.930]  they took it away
+[00:23:41.890 -> 00:23:44.250]  what they gave us is kind of
+[00:23:44.890 -> 00:23:47.890]  laughably distorted like the original PC speaker
+[00:23:48.310 -> 00:23:49.290]  um
+[00:23:49.290 -> 00:23:52.850]  q emu has no distortion and it sounds bad
+[00:23:53.590 -> 00:23:56.250]  vmware for some reason they went crazy
+[00:23:56.250 -> 00:23:57.870]  and uh
+[00:23:58.890 -> 00:24:01.210]  it sounds good when you um
+[00:24:01.210 -> 00:24:02.630]  when you do a
+[00:24:08.910 -> 00:24:13.150]  sounds good for sound effects but it's too much distortion for everything else
+[00:24:13.150 -> 00:24:14.630]  anyway so uh
+[00:24:16.830 -> 00:24:18.750]  let's do menu buttons
+[00:24:18.750 -> 00:24:20.130]  ok so
+[00:24:20.130 -> 00:24:20.870]  um
+[00:24:20.870 -> 00:24:23.990]  basically our resource file is uh
+[00:24:23.990 -> 00:24:27.210]  there's not a separate resource file
+[00:24:27.210 -> 00:24:28.970]  you um
+[00:24:28.970 -> 00:24:31.150]  we don't have uh
+[00:24:31.150 -> 00:24:32.730]  windows
+[00:24:32.730 -> 00:24:35.010]  we have text widgets
+[00:24:35.010 -> 00:24:36.630]  so if we hit F5
+[00:24:37.610 -> 00:24:39.330]  so we have a menu
+[00:24:39.330 -> 00:24:41.830]  we can turn the sound on
+[00:24:42.770 -> 00:24:44.090]  sound off
+[00:24:44.090 -> 00:24:45.290]  set frequency
+[00:24:45.290 -> 00:24:46.250]  200
+[00:24:46.250 -> 00:24:47.370]  sound on
+[00:24:47.370 -> 00:24:47.610]  sound on
+[00:24:52.010 -> 00:24:53.390]  ok so
+[00:24:53.390 -> 00:24:54.370]  this
+[00:24:54.370 -> 00:24:57.950]  it's that easy to make a uh
+[00:24:57.950 -> 00:24:59.090]  menu
+[00:25:02.590 -> 00:25:05.890]  my goal was to have minimum uh
+[00:25:07.030 -> 00:25:08.610]  changing files
+[00:25:08.610 -> 00:25:11.930]  I don't like little files that you have to jump between
+[00:25:13.310 -> 00:25:17.190]  so I made the resources right in the code
+[00:25:19.750 -> 00:25:20.710]  and uh
+[00:25:20.710 -> 00:25:22.410]  I like it
+[00:25:22.410 -> 00:25:22.870]  uh
+[00:25:23.870 -> 00:25:26.010]  I don't like to have a lot of options
+[00:25:26.010 -> 00:25:29.190]  so I made it beautifully simple but it's
+[00:25:34.390 -> 00:25:34.790]  let's
+[00:25:34.790 -> 00:25:36.630]  anyway so uh that's what I wanted to show
+[00:25:36.630 -> 00:25:36.630]  
+[00:25:36.630 -> 00:25:36.630]  
+[00:25:36.630 -> 00:25:36.670]  before
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:36.670 -> 00:25:36.670]  
+[00:25:45.830 -> 00:25:45.830]  
+[00:25:45.830 -> 00:25:45.830]  
+[00:25:45.830 -> 00:25:45.830]  
+[00:25:45.830 -> 00:25:45.830]  
+[00:25:45.830 -> 00:25:45.830]  
+[00:25:45.830 -> 00:25:45.830]  
+[00:25:45.830 -> 00:25:45.830]  
+[00:25:45.830 -> 00:25:45.830]  
+[00:25:45.830 -> 00:25:45.830]  
+[00:25:45.830 -> 00:25:45.830]  
+[00:25:45.830 -> 00:25:45.830]  
+[00:25:45.830 -> 00:25:45.830]  
+[00:25:45.830 -> 00:25:45.830]  
+[00:25:45.830 -> 00:25:45.830]  
+[00:25:45.830 -> 00:25:45.830]  
+[00:25:45.830 -> 00:25:45.830]  
+[00:25:45.830 -> 00:25:45.830]  
+[00:25:45.830 -> 00:25:45.830]  
+[00:25:45.830 -> 00:25:45.830]  
+[00:25:45.830 -> 00:25:45.830]  
+[00:25:45.830 -> 00:25:45.830]  
+[00:25:45.830 -> 00:25:45.830]  

@@ -1,0 +1,199 @@
+========================================================================
+FILE        : videos/2014/2014-09-11T00:00:00+00:00 - TempleOS - Spin Locks (34wuq4DJQSk).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-09-11T00:00:00+00:00 - TempleOS - Spin Locks (34wuq4DJQSk).mp4
+FORMAT      : MPEG4
+SIZE        : 86,690,533 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:20:50.240
+TRANSCRIBED: 2026-05-08T13:28:30.608393+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+Okay, I'm going to cover spin locks used in Temple OS. This is what I'm using this program to do is measure how fast it can change from one task to another. Yield, if we look up yield, what yield does is save the current context and then enter the scheduler to find the next task and then restore the context. So this saves a context and restores a context. Now my operating system does not mess with page tables. I identity map, so I never need to mess with page tables. When I do a task save and a task restore, what I'm doing is putting the registers into a structure and I save the floating point and I remove break points. And that's all that a save context involves. When I restore a context, somewhere in here I think I might have a lock. No, I guess not. Anyway, I got rid of those locks. So restoring is just the opposite. So if you think about it, if I have a 3 GHz machine, this is, I don't know, 100 instructions. I don't know what it is. Anyway, it's not a lot. 3 GHz, to make a long story short, I save the current task and schedule the next task as fast as possible with this loop right here. What it does is it sets a flag for this application being not done. Then it, actually we can put this properly. This should go down here. So what we do is we spawn a task on each. This is the core. So there are 6 cores, MP count. This is the core. If we look at the spawn, it's the address of the task, a data item, name, and then the core. The core that you want to spawn the task on. So what we're doing is putting one task on each core. And what that task does is wait for this flag to be done and then yield. It yields over and over and over as fast as possible. And then once we get ready to end the task, this sets, if we have 6 cores, this is 63. 64 minus 1 is 63. And then all the cores turn off their bit. And then when all the bits are off, we're done. So let's go ahead and execute that. Control B. So you saw an example. This is actually an example of. Anyway, so if you look at this, we're doing 4 million task swaps per core. So if you think about this, on other operating systems where you have to save the address map and restore a new address map and flush caches and stuff like that. Flush, translate, look, side buffer. I don't know. Anyway, on other processors, on other operating systems, it takes much longer than, this is a quarter of a microsecond. 4 million a second. I can do 4 million a second. So what that means is I have a new programming style that only I can do. Other people, they can do 4,000, not 4 million. So it's wasteful. Anyway, mine is for home usage like playing video games. So if you look at the number of tasks, actually the scheduler goes around on each core. We should only look at how many tasks on core zero. So right now we have the window manager, this task rep, the auto complete is a task. That's this window. And then the atom task. So what happens is, let's suppose we yield when we wait for disk IO. Okay. What I'm going to show you is my disk IO. Oops. So we're going to go to, what we do is we read a port and then we yield. Then we read a port and we yield. So we're waiting for a disk IO to complete. So when we yield, it goes from one task to the next task to the next task. Now, usually these other tasks are not ready. So it doesn't even swap them in. So what happens is, it goes in the circle and then it comes back to the top of the circle. And it swaps us back in and we check it. Or this one. This one is the current task. This one. So what happens is, it goes in a circle and it can do that four million times a second, go in a circle. If there's only one task running. So that's a new, you know, the funny part, you know what's hilarious. I find this really funny. An in instruction takes longer than changing tasks. Do you want to see that? Let's go ahead and just for fun do import in U8 0x21 is a safe port to read. That's the interrupt mask. So this is going to lock it up. Let's do a yield. And so if we do this. So here we go. Let's see how much this slows it down. We can only do. So the in instruction is. We're doing one in instruction and one task swap. So what is that? Half or two microseconds compared to. Okay. Okay. So the ISA. ISA is the. Old fashioned. In the early days. These were. I guess. Two microsecond. 500. 500. 500 hertz. 500,000 hertz. What I mean is 500 kilohertz. Anyway. So the funny part is. Reading a port takes longer than changing tasks. I think that's hilarious. Anyway. so let's analyze the spin locks we're doing here so we're yielding okay so now what's what's the performance somebody might think if we didn't yield it would use up the whole CPU this uses up the whole CPU but it has no effect on performance in other words if we have two tasks and let's let's analyze this um okay I've never done this before use zero count I 64 and I 64i for I equals one I less than less than or equal and I plus I'm just okay so I say count to a million okay so that took 1.9 seconds 1.9 seconds count to a million okay I've never done this before so I could embarrass myself I don't think so 1.9 seconds 1.8 seconds okay so let's see what happens when we run this task at the same time okay so we kick this on and if we look over here if we look over here we're doing four million and then if we come over here this is 1.8 let's see what happens I'm excited count 100 oh what do you think it's going to be from 1.9 to 2 okay so uh um that's pretty impressive isn't it we're using up an awful lot of that's with all cores pegged um using memory bus cycles and stuff so uh now what happens if we run that same task multiple well anyway okay so uh so let's let's analyze our spin locks uh so in the disk group in the disk code um when I lock a device um if I'm the owner I don't have to relock it uh otherwise we do a lock okay we're using two different terms lock and lock this is a uh this lock bit test and set is an assembly instruction that lock that uses a bus lock you you use bus locks if you're doing multi-core otherwise you can just use the atomic bit test and set anyway um so we're yielding so this is doing that thing that takes a quarter of a quarter of a microsecond so uh let's analyze this uh uh this lock forwarding um I used to allow a partition within a partition um I think what this is is uh anyway uh I'll have to check to see if that's still being still being used um anyway uh uh so uh uh if you uh uh if you do a uh cli and then oh well not okay let's go back to sorry for not so there's a pause instruction um when doing uh cli what that does is that locks out that means uh one task on this core that means we're the only task on this core that it that is accessing this code we are the only task on this core that is accessing this code we will um that this this makes um us the only task this this uh uh is for multi-core um we lock it uh with a pause um the reason we don't do yield is uh this is a that locking excluding other tasks is completely free if we do push cli we we start spending a little bit if we have a other cores accessing um the normal situation is uh i never have locks being fought over i have like five tasks and none of them really i never find an application where i'm fighting over a lock now if if multiple cores were trying to fight over this then this would um this might be a problem um kind of wasteful but since the normal is for it for it to immediately have access here's an example uh the atom task has a heap it's kind of like kernel memory um and all tasks might find a situation where they want some atom memory and so uh what i would do is i would do a cli and that would lock out uh other other uh in the heap code as a matter of fact all the heaps have the partitions have locks the heaps have locks locks and uh pretty much everything you can imagine has locks so on malloc what we do is a uh each heap has a lock each block pool has a lock here we are the cli immediately gives us most most everything is on core zero to be quite honest so we we the cli is this cli is completely free nobody's going to maloc until we come back maloc maloc is ours for the taking no one's going to mess with maloc or free free is also cli locked so maloc is ours we we own it and what this does is it locks it if there's other cores so this is an expensive spin but we never have other cores fighting for atom's heap if multiple cores were fighting for atom's heap um this approach would be uh bad you wouldn't want to do a server with this but if you're just doing video video games um you're not going to have a problem my vision is a commodore 64 not a mainframe so uh um where in a video game are you gonna maybe maybe you use multiple cores anyway so that's the story uh pause is a um i don't know what it is exactly but in a spin loop you use pause um anyway uh it's it's that voodoo stuff of cpu timing uh anyway uh so you lock the bus for uh or you lock i don't know what this this does a lock you have to do for multi-core stuff and it has to be one per cache line but i don't really check for that but it's not i don't it would never i get it would never happen to in a cache line anyway uh so what other what other locks are there so some of them have ownership uh like i showed you the partition and block device block device is a lower level than a partition lock um a block device is a disk a partition might be might be multiple partitions on a disk anyway so i have partition locks and block device locks i have a heap heap locks and then each heap draws from a block pool there's a pool of memory that um that each each heap draws from so when the heap bites off a chunk and then the heap uh bites off another chunk from the block pool and those black pools have locks and heaps have locks multi-core safe locks documents have locks uh if you go to the doll docs um when it updates the screen it locks the um the screen document um it turns out that uh the uh when it's updating the screen when it comes to your window if the window manager can't the window manager tries 10 times and if it's not able to get the lock it gives up and you have a flicker so um on this um waiting for the bird so uh so the jiffy frequency is one one kilohertz so we take a thousand divided by uh so i don't know where i came i just invented that number um so it it checks if it times out and it tries to get a lock and if it times out uh if it doesn't get the lock then it uh it just has a a flicker cycle for that window so documents have locks um when um the document is a big deal that you're you will find yourself using the document um structure anyway so how about that All right.
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:05.200]  Okay, I'm going to cover spin locks used in Temple OS.
+[00:00:05.660 -> 00:00:18.160]  This is what I'm using this program to do is measure how fast it can change from one task to another.
+[00:00:18.160 -> 00:00:44.720]  Yield, if we look up yield, what yield does is save the current context and then enter the scheduler to find the next task and then restore the context.
+[00:00:44.720 -> 00:00:48.920]  So this saves a context and restores a context.
+[00:00:49.460 -> 00:00:53.500]  Now my operating system does not mess with page tables.
+[00:00:53.860 -> 00:00:57.620]  I identity map, so I never need to mess with page tables.
+[00:00:57.620 -> 00:01:21.040]  When I do a task save and a task restore, what I'm doing is putting the registers into a structure and I save the floating point and I remove break points.
+[00:01:22.240 -> 00:01:28.900]  And that's all that a save context involves.
+[00:01:29.260 -> 00:01:33.940]  When I restore a context, somewhere in here I think I might have a lock.
+[00:01:36.080 -> 00:01:37.320]  No, I guess not.
+[00:01:37.780 -> 00:01:39.320]  Anyway, I got rid of those locks.
+[00:01:39.980 -> 00:01:42.420]  So restoring is just the opposite.
+[00:01:44.920 -> 00:01:54.760]  So if you think about it, if I have a 3 GHz machine, this is, I don't know, 100 instructions.
+[00:01:55.140 -> 00:01:56.320]  I don't know what it is.
+[00:01:56.700 -> 00:01:59.040]  Anyway, it's not a lot.
+[00:01:59.040 -> 00:02:16.120]  3 GHz, to make a long story short, I save the current task and schedule the next task as fast as possible with this loop right here.
+[00:02:16.120 -> 00:02:21.940]  What it does is it sets a flag for this application being not done.
+[00:02:22.560 -> 00:02:28.000]  Then it, actually we can put this properly.
+[00:02:31.460 -> 00:02:32.900]  This should go down here.
+[00:02:33.800 -> 00:02:38.340]  So what we do is we spawn a task on each.
+[00:02:38.520 -> 00:02:39.820]  This is the core.
+[00:02:40.180 -> 00:02:43.460]  So there are 6 cores, MP count.
+[00:02:43.720 -> 00:02:44.980]  This is the core.
+[00:02:45.580 -> 00:02:58.140]  If we look at the spawn, it's the address of the task, a data item, name, and then the core.
+[00:02:58.600 -> 00:03:01.140]  The core that you want to spawn the task on.
+[00:03:01.580 -> 00:03:04.900]  So what we're doing is putting one task on each core.
+[00:03:04.900 -> 00:03:10.780]  And what that task does is wait for this flag to be done and then yield.
+[00:03:14.440 -> 00:03:17.620]  It yields over and over and over as fast as possible.
+[00:03:17.620 -> 00:03:30.000]  And then once we get ready to end the task, this sets, if we have 6 cores, this is 63.
+[00:03:31.500 -> 00:03:33.400]  64 minus 1 is 63.
+[00:03:33.780 -> 00:03:36.920]  And then all the cores turn off their bit.
+[00:03:37.180 -> 00:03:39.740]  And then when all the bits are off, we're done.
+[00:03:40.120 -> 00:03:44.200]  So let's go ahead and execute that.
+[00:03:46.680 -> 00:03:47.700]  Control B.
+[00:03:52.060 -> 00:03:53.920]  So you saw an example.
+[00:03:54.080 -> 00:03:56.000]  This is actually an example of.
+[00:03:56.140 -> 00:04:09.220]  Anyway, so if you look at this, we're doing 4 million task swaps per core.
+[00:04:10.160 -> 00:04:23.820]  So if you think about this, on other operating systems where you have to save the address map and restore a new address map and flush caches and stuff like that.
+[00:04:24.040 -> 00:04:25.600]  Flush, translate, look, side buffer.
+[00:04:25.800 -> 00:04:26.120]  I don't know.
+[00:04:26.120 -> 00:04:41.400]  Anyway, on other processors, on other operating systems, it takes much longer than, this is a quarter of a microsecond.
+[00:04:41.720 -> 00:04:43.240]  4 million a second.
+[00:04:43.580 -> 00:04:45.940]  I can do 4 million a second.
+[00:04:48.640 -> 00:04:54.240]  So what that means is I have a new programming style that only I can do.
+[00:04:54.240 -> 00:04:59.800]  Other people, they can do 4,000, not 4 million.
+[00:05:00.180 -> 00:05:01.960]  So it's wasteful.
+[00:05:02.320 -> 00:05:08.220]  Anyway, mine is for home usage like playing video games.
+[00:05:08.420 -> 00:05:15.540]  So if you look at the number of tasks, actually the scheduler goes around on each core.
+[00:05:19.500 -> 00:05:22.960]  We should only look at how many tasks on core zero.
+[00:05:22.960 -> 00:05:30.100]  So right now we have the window manager, this task rep, the auto complete is a task.
+[00:05:30.240 -> 00:05:31.540]  That's this window.
+[00:05:31.820 -> 00:05:34.120]  And then the atom task.
+[00:05:34.380 -> 00:05:40.920]  So what happens is, let's suppose we yield when we wait for disk IO.
+[00:05:40.920 -> 00:05:41.860]  Okay.
+[00:05:42.760 -> 00:05:45.500]  What I'm going to show you is my disk IO.
+[00:05:50.720 -> 00:05:51.280]  Oops.
+[00:05:53.180 -> 00:06:01.280]  So we're going to go to, what we do is we read a port and then we yield.
+[00:06:02.260 -> 00:06:04.820]  Then we read a port and we yield.
+[00:06:05.500 -> 00:06:11.540]  So we're waiting for a disk IO to complete.
+[00:06:12.140 -> 00:06:17.800]  So when we yield, it goes from one task to the next task to the next task.
+[00:06:18.200 -> 00:06:22.380]  Now, usually these other tasks are not ready.
+[00:06:22.380 -> 00:06:24.400]  So it doesn't even swap them in.
+[00:06:24.600 -> 00:06:29.860]  So what happens is, it goes in the circle and then it comes back to the top of the circle.
+[00:06:30.320 -> 00:06:33.260]  And it swaps us back in and we check it.
+[00:06:33.820 -> 00:06:34.540]  Or this one.
+[00:06:34.640 -> 00:06:37.000]  This one is the current task.
+[00:06:37.400 -> 00:06:38.120]  This one.
+[00:06:38.120 -> 00:06:51.480]  So what happens is, it goes in a circle and it can do that four million times a second, go in a circle.
+[00:06:51.740 -> 00:06:53.400]  If there's only one task running.
+[00:06:56.380 -> 00:07:01.180]  So that's a new, you know, the funny part, you know what's hilarious.
+[00:07:01.540 -> 00:07:03.240]  I find this really funny.
+[00:07:05.600 -> 00:07:11.700]  An in instruction takes longer than changing tasks.
+[00:07:13.940 -> 00:07:16.240]  Do you want to see that?
+[00:07:16.460 -> 00:07:27.680]  Let's go ahead and just for fun do import in U8 0x21 is a safe port to read.
+[00:07:27.940 -> 00:07:29.860]  That's the interrupt mask.
+[00:07:31.580 -> 00:07:33.640]  So this is going to lock it up.
+[00:07:35.060 -> 00:07:36.320]  Let's do a yield.
+[00:07:39.400 -> 00:07:45.020]  And so if we do this.
+[00:07:51.520 -> 00:07:52.860]  So here we go.
+[00:07:53.020 -> 00:07:55.060]  Let's see how much this slows it down.
+[00:07:57.240 -> 00:07:58.840]  We can only do.
+[00:07:58.980 -> 00:08:01.780]  So the in instruction is.
+[00:08:04.940 -> 00:08:09.000]  We're doing one in instruction and one task swap.
+[00:08:10.720 -> 00:08:12.040]  So what is that?
+[00:08:14.600 -> 00:08:18.600]  Half or two microseconds compared to.
+[00:08:19.680 -> 00:08:20.680]  Okay.
+[00:08:21.000 -> 00:08:21.020]  Okay.
+[00:08:21.080 -> 00:08:22.160]  So the ISA.
+[00:08:22.320 -> 00:08:23.700]  ISA is the.
+[00:08:26.280 -> 00:08:27.240]  Old fashioned.
+[00:08:29.980 -> 00:08:32.080]  In the early days.
+[00:08:33.460 -> 00:08:34.840]  These were.
+[00:08:35.420 -> 00:08:35.980]  I guess.
+[00:08:36.380 -> 00:08:36.380]  
+[00:08:37.280 -> 00:08:39.000]  Two microsecond.
+[00:08:39.660 -> 00:08:40.040]  500.
+[00:08:47.180 -> 00:08:47.900]  500.
+[00:08:48.220 -> 00:08:48.340]  500 hertz.
+[00:08:49.280 -> 00:08:50.760]  500,000 hertz.
+[00:08:51.300 -> 00:08:55.140]  What I mean is 500 kilohertz.
+[00:08:55.360 -> 00:08:55.780]  Anyway.
+[00:08:56.480 -> 00:08:58.360]  So the funny part is.
+[00:08:58.640 -> 00:09:02.520]  Reading a port takes longer than changing tasks.
+[00:09:02.880 -> 00:09:04.100]  I think that's hilarious.
+[00:09:04.840 -> 00:09:05.040]  Anyway.
+[00:09:05.040 -> 00:09:12.120]  so let's analyze the spin locks we're doing here so we're yielding okay so now
+[00:09:12.120 -> 00:09:19.680]  what's what's the performance somebody might think if we didn't yield it would
+[00:09:19.680 -> 00:09:25.400]  use up the whole CPU this uses up the whole CPU but it has no effect on
+[00:09:25.400 -> 00:09:36.840]  performance in other words if we have two tasks and let's let's analyze this um
+[00:09:37.580 -> 00:09:42.020]  okay I've never done this before
+[00:09:44.100 -> 00:10:12.000]  use zero count I 64 and I 64i for I equals one I less than less than or equal and I plus I'm just
+[00:10:12.000 -> 00:10:27.900]  okay so I say count to a million okay so that took 1.9 seconds 1.9 seconds count to a million
+[00:10:27.900 -> 00:10:36.400]  okay I've never done this before so I could embarrass myself I don't think so 1.9 seconds 1.8 seconds
+[00:10:36.400 -> 00:10:49.060]  okay so let's see what happens when we run this task at the same time okay so we kick this on
+[00:10:50.420 -> 00:10:58.080]  and if we look over here if we look over here we're doing four million and then if we come over here
+[00:10:58.080 -> 00:11:08.760]  this is 1.8 let's see what happens I'm excited count 100 oh what do you think it's going to be
+[00:11:12.100 -> 00:11:25.020]  from 1.9 to 2 okay so uh um that's pretty impressive isn't it we're using up an awful lot of
+[00:11:25.020 -> 00:11:37.780]  that's with all cores pegged um using memory bus cycles and stuff so uh now what happens if we run that
+[00:11:37.780 -> 00:11:52.220]  same task multiple well anyway okay so uh so let's let's analyze our spin locks uh so in the disk group in the
+[00:11:52.220 -> 00:12:12.340]  disk code um when I lock a device um if I'm the owner I don't have to relock it uh otherwise we do a lock
+[00:12:12.340 -> 00:12:21.440]  okay we're using two different terms lock and lock this is a uh this lock bit test and set is an assembly
+[00:12:21.440 -> 00:12:29.280]  instruction that lock that uses a bus lock you you use bus locks if you're doing multi-core otherwise you can
+[00:12:29.280 -> 00:12:37.920]  just use the atomic bit test and set anyway um so we're yielding so this is doing that thing that takes a
+[00:12:37.920 -> 00:12:45.800]  quarter of a quarter of a microsecond so uh let's analyze this uh
+[00:12:46.720 -> 00:12:47.600]  uh
+[00:12:50.540 -> 00:12:56.980]  this lock forwarding um I used to allow a partition within a partition
+[00:12:58.520 -> 00:13:02.780]  um I think what this is is uh anyway uh
+[00:13:04.720 -> 00:13:11.300]  I'll have to check to see if that's still being still being used um anyway uh
+[00:13:13.120 -> 00:13:14.440]  uh so uh
+[00:13:14.440 -> 00:13:14.780]  uh
+[00:13:18.080 -> 00:13:19.300]  if you uh
+[00:13:20.540 -> 00:13:21.240]  uh
+[00:13:23.960 -> 00:13:36.240]  if you do a uh cli and then oh well not okay let's go back to sorry for not
+[00:13:40.060 -> 00:13:43.140]  so there's a pause instruction um
+[00:13:45.200 -> 00:13:46.840]  when doing uh
+[00:13:50.540 -> 00:13:58.400]  cli what that does is that locks out that means uh one task on this core
+[00:13:59.440 -> 00:14:02.240]  that means we're the only task on this core
+[00:14:02.240 -> 00:14:09.780]  that it that is accessing this code we are the only task on this core that is accessing this code
+[00:14:09.780 -> 00:14:14.820]  we will um that this this makes um us the only task
+[00:14:16.120 -> 00:14:18.280]  this this uh
+[00:14:18.280 -> 00:14:24.080]  uh is for multi-core um we lock it uh with a pause
+[00:14:25.060 -> 00:14:28.580]  um the reason we don't do yield is uh
+[00:14:30.660 -> 00:14:37.180]  this is a that locking excluding other tasks is completely free
+[00:14:37.180 -> 00:14:47.440]  if we do push cli we we start spending a little bit if we have a other cores accessing
+[00:14:48.060 -> 00:14:57.640]  um the normal situation is uh i never have locks being fought over i have like five tasks and
+[00:14:57.640 -> 00:15:02.080]  none of them really i never find an application where i'm fighting over a lock
+[00:15:02.860 -> 00:15:10.860]  now if if multiple cores were trying to fight over this then this would um this might be a problem
+[00:15:10.860 -> 00:15:17.440]  um kind of wasteful but since the normal is for it for it to immediately have access
+[00:15:18.840 -> 00:15:25.840]  here's an example uh the atom task has a heap it's kind of like kernel memory um and
+[00:15:26.780 -> 00:15:36.460]  all tasks might find a situation where they want some atom memory and so uh what i would do is i would do a cli
+[00:15:36.460 -> 00:15:44.440]  and that would lock out uh other other uh in the heap code as a matter of fact all the heaps have
+[00:15:45.280 -> 00:15:49.680]  the partitions have locks the heaps have locks
+[00:15:49.680 -> 00:15:59.440]  locks and uh pretty much everything you can imagine has locks so on malloc what we do is a uh
+[00:16:00.480 -> 00:16:08.300]  each heap has a lock each block pool has a lock here we are the cli immediately gives us
+[00:16:08.960 -> 00:16:14.200]  most most everything is on core zero to be quite honest so we we
+[00:16:14.920 -> 00:16:23.020]  the cli is this cli is completely free nobody's going to maloc until we come back maloc maloc is
+[00:16:23.560 -> 00:16:34.040]  ours for the taking no one's going to mess with maloc or free free is also cli locked so maloc is ours we
+[00:16:34.040 -> 00:16:42.160]  we own it and what this does is it locks it if there's other cores so this is an expensive spin
+[00:16:42.920 -> 00:16:49.400]  but we never have other cores fighting for atom's heap if multiple cores were fighting for atom's heap
+[00:16:49.400 -> 00:16:57.840]  um this approach would be uh bad you wouldn't want to do a server with this but if you're just doing video
+[00:16:57.840 -> 00:17:07.900]  video games um you're not going to have a problem my vision is a commodore 64 not a mainframe so uh
+[00:17:10.240 -> 00:17:18.520]  um where in a video game are you gonna maybe maybe you use multiple cores anyway so that's the story uh
+[00:17:18.520 -> 00:17:24.540]  pause is a um i don't know what it is exactly but in a spin loop you use pause um
+[00:17:25.660 -> 00:17:31.800]  anyway uh it's it's that voodoo stuff of cpu timing uh anyway uh
+[00:17:33.660 -> 00:17:41.720]  so you lock the bus for uh or you lock i don't know what this this does a lock you have to do for
+[00:17:41.720 -> 00:17:48.660]  multi-core stuff and it has to be one per cache line but i don't really check for that but it's not
+[00:17:48.660 -> 00:17:56.200]  i don't it would never i get it would never happen to in a cache line anyway uh so what other what other
+[00:17:56.200 -> 00:18:04.640]  locks are there so some of them have ownership uh like i showed you the partition and block device
+[00:18:04.640 -> 00:18:13.220]  block device is a lower level than a partition lock um a block device is a disk a partition might be
+[00:18:13.220 -> 00:18:20.120]  might be multiple partitions on a disk anyway so i have partition locks and block device locks
+[00:18:20.120 -> 00:18:29.820]  i have a heap heap locks and then each heap draws from a block pool there's a pool of memory that um
+[00:18:30.840 -> 00:18:38.800]  that each each heap draws from so when the heap bites off a chunk and then the heap uh bites off
+[00:18:38.800 -> 00:18:46.520]  another chunk from the block pool and those black pools have locks and heaps have locks multi-core safe
+[00:18:46.520 -> 00:18:56.420]  locks documents have locks uh if you go to the doll docs um when it updates the screen it locks the um
+[00:18:56.420 -> 00:19:07.160]  the screen document um it turns out that uh the uh when it's updating the screen when it comes to your
+[00:19:07.160 -> 00:19:14.460]  window if the window manager can't the window manager tries 10 times and if it's not able to get the lock
+[00:19:14.460 -> 00:19:20.280]  it gives up and you have a flicker so um on this
+[00:19:21.000 -> 00:19:21.560]  um
+[00:20:06.500 -> 00:20:14.360]  waiting for the bird so uh so the jiffy frequency is one one kilohertz so we take a thousand
+[00:20:14.360 -> 00:20:22.140]  divided by uh so i don't know where i came i just invented that number um so it it checks if it
+[00:20:22.140 -> 00:20:32.140]  times out and it tries to get a lock and if it times out uh if it doesn't get the lock then it uh it just
+[00:20:32.140 -> 00:20:42.600]  has a a flicker cycle for that window so documents have locks um when um the document is a big deal
+[00:20:42.600 -> 00:20:50.100]  that you're you will find yourself using the document um structure anyway so how about that
+[00:20:50.100 -> 00:20:50.240]  All right.

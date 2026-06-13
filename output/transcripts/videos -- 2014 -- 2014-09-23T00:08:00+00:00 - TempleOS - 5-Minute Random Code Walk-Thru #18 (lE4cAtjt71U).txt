@@ -1,0 +1,99 @@
+========================================================================
+FILE        : videos/2014/2014-09-23T00:08:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #18 (lE4cAtjt71U).mp4
+SOURCE URL : https://archive.org/download/TerryADavis_TempleOS_Archive/videos/2014/2014-09-23T00:08:00+00:00 - TempleOS - 5-Minute Random Code Walk-Thru #18 (lE4cAtjt71U).mp4
+FORMAT      : MPEG4
+SIZE        : 46,652,703 bytes
+LANGUAGE    : en
+MODEL       : mlx-community/whisper-large-v3-turbo
+DURATION    : 00:11:31.420
+TRANSCRIBED: 2026-05-10T16:14:47.452868+00:00
+========================================================================
+
+── FULL TRANSCRIPT ─────────────────────────────────────────────────────
+This is Temple OS 5-Minute Random Code Walkthrough, Episode 18, and I'm your host, Terry Davis. So let's see where God sends us. Alt B. We are in Weblog. Okay, this is where I generate my website report. If you want to see what my report looks like, well, let's go to the, I'm going to go to the, my version is a little bit expanded. But on the distribution disk, there's a, in the demo directory, there's a weblog example. This is almost identical to my version. So it has a couple data files, which are weblog files. And it has, I scrambled the data files so that nobody's IP would be reported, IP address. So this is the index report. Okay. So what this, what this program does is generates a weblog report that has hits during the hours and how many hits. Those are single hits. This is the source of the, where, for hits on my index page. This tells where it came from. And then I have downloads reported. So this is, each one of these is a download. And then it keeps track of duplicate people who download it twice. It gives me a duplicate report. And then this tells where the person who downloaded came from. Okay. So, um, the first thing you have to, the first thing we have to do is, uh, parse log files. It makes a, uh, a queue of, uh, log structs. Log struct is, is it circular doubly linked queue? That's with the next and last. Then, um, it has, uh, a tree. Um, I, I, I went ahead and, um, made it so that I can put it into a tree left and right for the IP number. Um, it has the IP number. It has, um, what is code? I don't remember. It has the size. This is the size of the download. so sometimes you get a partial download and I want to filter those out I only want complete download so this tells so if you look in the log if you look in the log file it tells I don't know what this code is maybe that's what I save I save that code I don't know what it is I can look it up I guess this is the this is the number of bytes that they downloaded and this is the source oh this is this is the file they my this is my website file that they download it downloaded that's my ISO file this is how many bytes and so let's focus on the things that are unique to pimple OS so parse single log file so we use the document framework we we read a document we the name then we want plain text with tabs that means has backslash t so tab is not a separate command a document is this is also a circular linked list doubly linked list and we want to double dollar signs so that they show up right so when we're parsing this is on we go through the whole file starting at the the root or the head of the queue the head of the queue and when we're we process all the document this is the document entries and if it's a text entry not a carriage return that's the only other one carriage return then we allocate one of those log structures that we just prepared and now we source is going to point to the the text of the log entry and we we convert the we convert this is like string to unsigned log long in the seed library string to i64 and it gives the end pointer and if it's not a dot we skip it and we do the next one so this is the four byte IP address and do okay if it hits the end we throw an exception otherwise we we wait until we hit the bracket bracket then we do the date and string to unsigned okay so the date is a is a multiple uh entry um we have to set the month day hour minute second then when we get all done we uh so i convert it to one of my date times um structure to date structure to date will convert a date structure to one of my uh i use a 64 bit um date time the low 32 is the time of day the upper 32 is is the day since christ since it's it's anyway um it's an integer so uh then we parse the get and uh we we go ahead and allocate into the um log structure node we allocate a string for the uh file then we allocate a string string for the uh the the link where the person came from then we insert it into the queue and uh we process the whole document and um this process is if we have multiple files um then this process is multiple files it does a find files in the current directory searching for a certain mask and uh then it it processes all the entries in the list and then deletes the list of files and uh when when we're cleaning up we we delete um um we delete all the here here's how we delete a um a log we delete the allocated file the allocated link and then the node itself um so this this deletes all those i have certain i block my own ip address i don't include it in my statistics i i think i make a uh i make a queue of blocked ips is blocked searches the queue just as linear search because it's just a couple numbers these are my own ip addresses i guess um anyway i've changed a couple times over the years i i don't i haven't updated it anyway so uh uh it filters out robot um entries and uh it uh removes the blocked ip ip numbers it goes through the list and if it's one of the blocked ones this checks if it's a if it's a download i want to record statistics on how many downloads and this checks if it's greater than my file threat file size threshold i want to throw sometimes you get a hundred little tiny download nibbles i just i i filter those out i just want full downloads i make a tree for the ip numbers um so that i uh get rid of duplicates um so i record non-duplicate ips um then i make a tree a binary tree of the uh the the the source location for when they clicked on getting to my web page this is where they came from i make a tree that uh it sorts um link compares one link to another link when it's adding to the tree it goes to the left tree or the right tree to finish and if it's if it's found its correct spot then it um inserts a new tree link entry you have to be careful because uh with this is a recursive call and the recursive call stack is uh limited size so um i think i put a uh if we run out of stack i'd throw an exception we only have i think 128k of stack i i did it kind of small i guess anyway um that's because we don't use paging so this will traverse the links and print the tree um this uh download report so this reports the downloads it it um goes through the uh checks the date times they're in date time order i when you run the program it asks you for the um a range that you want to display so this checks if it's in the range and if it's a download and it displays it it counts up uh anyway so that's this program it's um
+
+── TIMESTAMPED SEGMENTS ────────────────────────────────────────────────
+[00:00:00.000 -> 00:00:07.500]  This is Temple OS 5-Minute Random Code Walkthrough, Episode 18, and I'm your host, Terry Davis.
+[00:00:07.980 -> 00:00:09.900]  So let's see where God sends us.
+[00:00:10.080 -> 00:00:17.980]  Alt B. We are in Weblog.
+[00:00:18.400 -> 00:00:25.020]  Okay, this is where I generate my website report.
+[00:00:27.700 -> 00:00:39.860]  If you want to see what my report looks like, well, let's go to the, I'm going to go to the, my version is a little bit expanded.
+[00:00:40.220 -> 00:00:47.700]  But on the distribution disk, there's a, in the demo directory, there's a weblog example.
+[00:00:48.040 -> 00:00:50.320]  This is almost identical to my version.
+[00:00:50.320 -> 00:00:55.260]  So it has a couple data files, which are weblog files.
+[00:00:56.520 -> 00:01:06.440]  And it has, I scrambled the data files so that nobody's IP would be reported, IP address.
+[00:01:07.480 -> 00:01:15.380]  So this is the index report.
+[00:01:15.380 -> 00:01:16.500]  Okay.
+[00:01:18.220 -> 00:01:35.040]  So what this, what this program does is generates a weblog report that has hits during the hours and how many hits.
+[00:01:35.360 -> 00:01:36.600]  Those are single hits.
+[00:01:36.600 -> 00:01:48.040]  This is the source of the, where, for hits on my index page.
+[00:01:48.260 -> 00:01:49.920]  This tells where it came from.
+[00:01:51.180 -> 00:01:54.760]  And then I have downloads reported.
+[00:01:54.760 -> 00:01:58.900]  So this is, each one of these is a download.
+[00:02:00.220 -> 00:02:07.660]  And then it keeps track of duplicate people who download it twice.
+[00:02:07.660 -> 00:02:09.900]  It gives me a duplicate report.
+[00:02:10.800 -> 00:02:18.420]  And then this tells where the person who downloaded came from.
+[00:02:18.420 -> 00:02:19.460]  Okay.
+[00:02:19.760 -> 00:02:27.200]  So, um, the first thing you have to, the first thing we have to do is, uh, parse log files.
+[00:02:27.200 -> 00:02:34.200]  It makes a, uh, a queue of, uh, log structs.
+[00:02:37.480 -> 00:02:41.760]  Log struct is, is it circular doubly linked queue?
+[00:02:42.280 -> 00:02:43.820]  That's with the next and last.
+[00:02:44.820 -> 00:02:49.580]  Then, um, it has, uh, a tree.
+[00:02:50.220 -> 00:02:58.160]  Um, I, I, I went ahead and, um, made it so that I can put it into a tree left and right for the IP number.
+[00:02:58.740 -> 00:03:00.660]  Um, it has the IP number.
+[00:03:00.660 -> 00:03:03.780]  It has, um, what is code?
+[00:03:04.900 -> 00:03:05.820]  I don't remember.
+[00:03:06.120 -> 00:03:07.340]  It has the size.
+[00:03:08.280 -> 00:03:10.060]  This is the size of the download.
+[00:03:10.060 -> 00:03:16.260]  so sometimes you get a partial download and I want to filter those out I only
+[00:03:16.260 -> 00:03:25.260]  want complete download so this tells so if you look in the log if you look in the
+[00:03:25.260 -> 00:03:31.140]  log file it tells
+[00:03:37.700 -> 00:03:41.680]  I don't know what this code is maybe that's what I save I save that code I
+[00:03:41.680 -> 00:03:48.740]  don't know what it is I can look it up I guess this is the this is the number of
+[00:03:48.740 -> 00:03:58.540]  bytes that they downloaded and this is the source oh this is this is the file
+[00:03:58.540 -> 00:04:05.160]  they my this is my website file that they download it downloaded that's my ISO
+[00:04:05.160 -> 00:04:14.560]  file this is how many bytes and so let's focus on the things that are unique to
+[00:04:14.560 -> 00:04:24.360]  pimple OS so parse single log file so we use the document framework we we read a
+[00:04:24.360 -> 00:04:35.040]  document we the name then we want plain text with tabs that means has backslash t so
+[00:04:35.040 -> 00:04:41.780]  tab is not a separate command a document is this is also a circular linked list
+[00:04:41.780 -> 00:04:50.860]  doubly linked list and we want to double dollar signs so that they show up right
+[00:04:50.860 -> 00:04:57.660]  so when we're parsing this is on we go through the whole file starting at the
+[00:04:57.660 -> 00:05:03.400]  the root or the head of the queue the head of the queue and when we're we process all
+[00:05:03.400 -> 00:05:09.660]  the document this is the document entries and if it's a text entry not a carriage
+[00:05:09.660 -> 00:05:15.200]  return that's the only other one carriage return then we allocate one of those log
+[00:05:15.200 -> 00:05:29.540]  structures that we just prepared and now we source is going to point to the the text of the log entry and we we
+[00:05:29.540 -> 00:05:40.920]  convert the we convert this is like string to unsigned log long in the seed library string to i64 and it gives the
+[00:05:40.920 -> 00:05:48.300]  end pointer and if it's not a dot we skip it and we do the next one so this is the
+[00:05:48.300 -> 00:06:05.320]  four byte IP address and do okay if it hits the end we throw an exception otherwise we we wait until we hit the
+[00:06:05.320 -> 00:06:11.040]  bracket bracket then we do the date and string to unsigned
+[00:06:16.860 -> 00:06:29.220]  okay so the date is a is a multiple uh entry um we have to set the month day hour minute second then
+[00:06:29.220 -> 00:06:39.200]  when we get all done we uh so i convert it to one of my date times um structure to date
+[00:06:39.200 -> 00:06:50.020]  structure to date will convert a date structure to one of my uh i use a 64 bit um date time
+[00:06:50.020 -> 00:07:03.060]  the low 32 is the time of day the upper 32 is is the day since christ since it's it's anyway um it's an integer
+[00:07:03.060 -> 00:07:17.080]  so uh then we parse the get and uh we we go ahead and allocate into the um log structure node we allocate a
+[00:07:17.080 -> 00:07:28.440]  string for the uh file then we allocate a string string for the uh the the link where the person came from
+[00:07:30.060 -> 00:07:39.820]  then we insert it into the queue and uh we process the whole document and um this process is if we have
+[00:07:39.820 -> 00:07:47.900]  multiple files um then this process is multiple files it does a find files in the current directory
+[00:07:48.700 -> 00:07:55.760]  searching for a certain mask and uh then it it processes all the entries in the list and then
+[00:07:56.300 -> 00:08:05.180]  deletes the list of files and uh when when we're cleaning up we we delete um
+[00:08:05.180 -> 00:08:17.420]  um we delete all the here here's how we delete a um a log we delete the allocated file the allocated link
+[00:08:17.420 -> 00:08:27.380]  and then the node itself um so this this deletes all those i have certain i block my own ip address i don't
+[00:08:27.380 -> 00:08:36.640]  include it in my statistics i i think i make a uh i make a queue of blocked ips is blocked searches the queue
+[00:08:36.640 -> 00:08:44.460]  just as linear search because it's just a couple numbers these are my own ip addresses i guess um
+[00:08:44.460 -> 00:08:51.780]  anyway i've changed a couple times over the years i i don't i haven't updated it anyway so uh
+[00:08:51.780 -> 00:09:08.120]  uh it filters out robot um entries and uh it uh removes the blocked ip ip numbers it goes through
+[00:09:08.120 -> 00:09:15.120]  the list and if it's one of the blocked ones this checks if it's a if it's a download i want to record
+[00:09:15.120 -> 00:09:21.760]  statistics on how many downloads and this checks if it's greater than my file threat file size
+[00:09:21.780 -> 00:09:30.640]  threshold i want to throw sometimes you get a hundred little tiny download nibbles i just i
+[00:09:30.640 -> 00:09:41.280]  i filter those out i just want full downloads i make a tree for the ip numbers um so that i uh get rid of
+[00:09:41.280 -> 00:09:57.960]  duplicates um so i record non-duplicate ips um then i make a tree a binary tree of the uh the the the source
+[00:09:57.960 -> 00:10:04.760]  location for when they clicked on getting to my web page this is where they came from i make a tree
+[00:10:05.520 -> 00:10:13.460]  that uh it sorts um link compares one link to another link when it's adding to the tree
+[00:10:13.460 -> 00:10:20.460]  it goes to the left tree or the right tree to finish and if it's if it's found its correct spot then it
+[00:10:20.460 -> 00:10:31.400]  um inserts a new tree link entry you have to be careful because uh with this is a recursive call and
+[00:10:31.400 -> 00:10:41.360]  the recursive call stack is uh limited size so um i think i put a uh if we run out of stack i'd throw an exception
+[00:10:42.100 -> 00:10:50.080]  we only have i think 128k of stack i i did it kind of small i guess anyway um that's because we don't use paging
+[00:10:51.300 -> 00:11:01.360]  so this will traverse the links and print the tree um this uh download report so this reports the downloads it it um
+[00:11:06.500 -> 00:11:15.020]  goes through the uh checks the date times they're in date time order i when you run the program it asks
+[00:11:15.020 -> 00:11:23.420]  you for the um a range that you want to display so this checks if it's in the range and if it's a download
+[00:11:24.200 -> 00:11:31.420]  and it displays it it counts up uh anyway so that's this program it's um
