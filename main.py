@@ -7,12 +7,12 @@ and transcribes each one using Whisper.
 
 Backend selection (automatic, in priority order)
 -------------------------------------------------
-  1. mlx-whisper          — Apple Silicon Mac (M1/M2/M3/M4)
+  1. mlx-whisper          - Apple Silicon Mac (M1/M2/M3/M4)
                             pip install mlx-whisper
-  2. faster-whisper       — Any platform with NVIDIA CUDA GPU, or CPU fallback
+  2. faster-whisper       - Any platform with NVIDIA CUDA GPU, or CPU fallback
                             pip install faster-whisper
                             (on Linux/Windows this is the primary path)
-  3. openai-whisper       — Pure-CPU fallback if neither of the above is found
+  3. openai-whisper       - Pure-CPU fallback if neither of the above is found
                             pip install openai-whisper
 
 The active backend is printed at startup and recorded in every transcript.
@@ -21,7 +21,7 @@ Audio strategy (no full video download)
 ----------------------------------------
 Instead of downloading entire video files, this script streams audio directly
 from archive.org using ffmpeg's HTTP input capability.  ffmpeg reads only the
-bytes it needs from the remote stream to decode audio — no video data is ever
+bytes it needs from the remote stream to decode audio - no video data is ever
 written to disk.
 
 Fallback tiers, in order
@@ -35,11 +35,11 @@ Recovery of corrupt sources
 Some archive uploads are truncated mid-recording (the MP4 moov index, written
 last, never made it).  Normal streaming can't decode them, so before giving up
 the script tries, in order:
-  1. Full download + local decode   — fixes failures that were only about HTTP seeking
-  2. untrunc                          — rebuilds the missing moov from a healthy,
+  1. Full download + local decode   - fixes failures that were only about HTTP seeking
+  2. untrunc                          - rebuilds the missing moov from a healthy,
                                         brand-matched archive file used as reference
                                         (recovers ~all of the surviving audio)
-  3. yt-dlp                           — re-fetches the original from YouTube when the
+  3. yt-dlp                           - re-fetches the original from YouTube when the
                                         filename still carries a video id
 Recovered transcripts are flagged ("recovered_via" / "partial_recovery") since
 only the bytes that survived truncation can be transcribed.  Whatever still can't
@@ -48,14 +48,14 @@ links for hand investigation.
 
 Features
 --------
-  • Fully resumable — state machine persisted to disk (debounced writes).
+  • Fully resumable - state machine persisted to disk (debounced writes).
   • Hash verification at every stage (SHA-256 for audio/transcript).
   • Disk-safe: WAV deleted right after transcription; no video ever touches disk.
     Extraction runs ahead of transcription, so a bounded handful of WAVs
-    (≈ workers + queue depth) can exist at once — never the whole archive.
+    (≈ workers + queue depth) can exist at once - never the whole archive.
   • Parallel audio extractions feed a single GPU transcription worker that uses
     faster-whisper batched inference for a large speedup.
-  • Distinguishes transient failures (network resets, 5xx, timeouts — retried
+  • Distinguishes transient failures (network resets, 5xx, timeouts - retried
     with backoff) from permanent ones.  Permanent failures fail fast, attempt
     recovery, and otherwise settle as "corrupt" (skipped on later runs; force a
     retry with --retry-corrupt) or "no_audio" (the source has no audio track at
@@ -144,7 +144,7 @@ STREAM_THROTTLE_SECS       = 1.0
 STREAM_BACKOFF_BASE        = 5
 STREAM_BACKOFF_MAX         = 120
 
-# Transcription tuning — override via env vars or the CLI flags parsed in main().
+# Transcription tuning - override via env vars or the CLI flags parsed in main().
 WHISPER_MODEL_OVERRIDE = os.environ.get("WHISPER_MODEL")             # e.g. large-v3-turbo
 BEAM_SIZE              = int(os.environ.get("WHISPER_BEAM_SIZE",  "5"))   # 1 = greedy/fast
 BATCH_SIZE             = int(os.environ.get("WHISPER_BATCH_SIZE", "8"))   # 1 disables batching
@@ -156,9 +156,9 @@ S_PENDING     = "pending"
 S_EXTRACTED   = "extracted"
 S_TRANSCRIBED = "transcribed"
 S_DONE        = "done"
-S_ERROR       = "error"       # transient failure — reset to pending and retried each run
-S_CORRUPT     = "corrupt"     # decode failed; recovery also failed — skipped (see --retry-corrupt)
-S_NO_AUDIO    = "no_audio"    # source has no audio track — nothing to transcribe; never a 1:1 gap
+S_ERROR       = "error"       # transient failure - reset to pending and retried each run
+S_CORRUPT     = "corrupt"     # decode failed; recovery also failed - skipped (see --retry-corrupt)
+S_NO_AUDIO    = "no_audio"    # source has no audio track - nothing to transcribe; never a 1:1 gap
 
 # Terminal states for a source we will not turn into a transcript on normal reruns.
 _UNRECOVERABLE_STATES = (S_CORRUPT, S_NO_AUDIO)
@@ -196,9 +196,9 @@ def _detect_backend() -> str:
     Return the name of the Whisper backend to use.
 
     Priority:
-      mlx_whisper    — Apple Silicon only
-      faster_whisper — NVIDIA CUDA or CPU (any OS)
-      openai_whisper — pure CPU fallback
+      mlx_whisper    - Apple Silicon only
+      faster_whisper - NVIDIA CUDA or CPU (any OS)
+      openai_whisper - pure CPU fallback
     """
     # MLX only works on Apple Silicon.
     if platform.system() == "Darwin" and platform.machine() == "arm64":
@@ -361,7 +361,7 @@ class ProgressStore:
     dirty and the JSON is rewritten at most once per PROGRESS_FLUSH_INTERVAL
     seconds (plus a forced flush at process exit).  This removes the O(n²) write
     amplification of rewriting the whole file on every single transition.  Losing
-    the last couple of seconds of state on a crash is harmless — those files are
+    the last couple of seconds of state on a crash is harmless - those files are
     simply re-processed on the next run.
     """
 
@@ -463,7 +463,7 @@ def _archive_url(path: str) -> str:
     Build an archive.org download URL with the path percent-encoded.
 
     Without this, filenames containing '#', '+', '?' or spaces corrupt the
-    request — most importantly a literal '#' (e.g. "Psalmody #3") is read as a
+    request - most importantly a literal '#' (e.g. "Psalmody #3") is read as a
     URL fragment, so ffmpeg/curl truncate the URL there and the server returns
     404.  Encoding makes every filename resolve (verified: raw 404/500 → 200).
     """
@@ -531,7 +531,7 @@ def _stream_timeout_for(size_bytes: int) -> int:
 
 
 # ffmpeg failure fingerprints.  A *permanent* failure is a deterministic decode
-# problem — the bytes archive.org served are not a decodable A/V stream, so every
+# problem - the bytes archive.org served are not a decodable A/V stream, so every
 # retry of the identical request fails identically (truncated upload with no moov
 # index, a 0-byte file, or a video with no audio track).  A *transient* failure is
 # a network/IO hiccup (reset, timeout, 5xx, premature EOF) that a retry may clear.
@@ -544,7 +544,7 @@ _TRANSIENT_FINGERPRINTS = (
     "timed out", "end of file", "will reconnect", "http error",
 )
 _PERMANENT_FINGERPRINTS = (
-    "moov atom not found",            # MP4 index absent — truncated/incomplete upload
+    "moov atom not found",            # MP4 index absent - truncated/incomplete upload
     "does not contain any stream",    # after -vn: source has no audio track at all
     "could not find codec parameters",
     "invalid data found when processing input",
@@ -558,7 +558,7 @@ def _classify_ffmpeg_failure(stderr: str, timed_out: bool) -> tuple[str, str]:
     Network markers are checked *first* so a transient read error that also
     happens to print "Invalid data" is still retried; only a clean, deterministic
     container failure with no network noise is treated as permanent.  (ffmpeg is
-    run with ``-hide_banner`` so its build-config line — which contains "gnutls" —
+    run with ``-hide_banner`` so its build-config line - which contains "gnutls" -
     can't masquerade as a TLS network error here.)
     """
     if timed_out:
@@ -590,7 +590,7 @@ def _run_ffmpeg_stream(input_url: str, audio_path: Path,
         # Long streams off archive.org routinely hit transient TLS resets,
         # premature EOF, and HTTP 5xx.  Bare -reconnect only retries on a clean
         # EOF, so also reconnect on network/http errors with a longer give-up
-        # window.  (These are http-protocol options — invalid for local inputs,
+        # window.  (These are http-protocol options - invalid for local inputs,
         # so they're only added when the source is actually an HTTP(S) URL.)
         cmd += [
             "-reconnect",                  "1",
@@ -600,7 +600,7 @@ def _run_ffmpeg_stream(input_url: str, audio_path: Path,
             "-reconnect_delay_max",        "60",
         ]
     # Local paths may contain ':' (timestamps) which ffmpeg would read as a
-    # protocol — the file: prefix forces literal-filename handling.
+    # protocol - the file: prefix forces literal-filename handling.
     ffmpeg_input = input_url if is_remote else f"file:{input_url}"
     cmd += [
         "-i",  ffmpeg_input,
@@ -625,7 +625,7 @@ def _run_ffmpeg_stream(input_url: str, audio_path: Path,
             return False, kind, reason
         if audio_path.exists() and audio_path.stat().st_size > 0:
             return True, "", ""
-        # Clean exit but no audio produced — treat as transient (retry) since
+        # Clean exit but no audio produced - treat as transient (retry) since
         # a genuine "no audio track" surfaces as a non-zero exit handled above.
         return False, "transient", "empty output"
     except subprocess.TimeoutExpired:
@@ -674,7 +674,7 @@ def _download_full(url: str, dest: Path, max_mb: int) -> bool:
             while chunk := r.read(1 << 20):
                 total += len(chunk)
                 if total > cap:
-                    log.warning("[RECOVERY] %s exceeds %d MB cap — aborting download",
+                    log.warning("[RECOVERY] %s exceeds %d MB cap - aborting download",
                                 url, max_mb)
                     dest.unlink(missing_ok=True)
                     return False
@@ -713,8 +713,8 @@ def _mp4_brand_remote(url: str) -> str | None:
 def _reference_is_usable(path: Path) -> bool:
     """
     A usable untrunc reference must itself decode: have a real moov index *and* an
-    audio track.  A truncated file — e.g. a source we only partially *recovered*
-    (still truncated on archive.org) — has neither and would make untrunc fail or
+    audio track.  A truncated file - e.g. a source we only partially *recovered*
+    (still truncated on archive.org) - has neither and would make untrunc fail or
     emit garbage, so such files must never be used as references.
     """
     try:
@@ -787,7 +787,7 @@ def _get_reference(name_ext: str, brand: str | None, min_size: int = 0) -> Path 
                     f"({fi['size']/1_048_576:.1f} MB): {Path(fi['name']).name}")
             if not _download_full(fi["source_url"], dest, RECOVERY_MAX_DOWNLOAD_MB):
                 continue
-            if not _reference_is_usable(dest):        # itself truncated/broken — skip
+            if not _reference_is_usable(dest):        # itself truncated/broken - skip
                 log.info("[RECOVERY] candidate reference unusable, trying next: %s",
                          fi["name"])
                 dest.unlink(missing_ok=True)
@@ -853,9 +853,9 @@ def _attempt_recovery(file_info: dict, audio_path: Path, reason: str) -> tuple[b
     Best-effort recovery after normal streaming gave a permanent decode failure.
 
     Ladder (cheapest first, skipping steps that can't apply):
-      1. full download + local decode   — fixes HTTP-seek-only failures
-      2. untrunc                          — rebuilds a truncated MP4's moov index
-      3. yt-dlp                           — re-fetches the original from YouTube
+      1. full download + local decode   - fixes HTTP-seek-only failures
+      2. untrunc                          - rebuilds a truncated MP4's moov index
+      3. yt-dlp                           - re-fetches the original from YouTube
 
     Returns ``(ok, method)``.
     """
@@ -867,7 +867,7 @@ def _attempt_recovery(file_info: dict, audio_path: Path, reason: str) -> tuple[b
     no_audio = (reason == "does not contain any stream")
 
     # Local recovery needs the file's bytes and only helps when there is audio
-    # data to recover — a genuine "no audio track" can't be fixed locally.
+    # data to recover - a genuine "no audio track" can't be fixed locally.
     if not no_audio and size_mb <= RECOVERY_MAX_DOWNLOAD_MB:
         local = RECOVERY_DIR / (_stem(name) + ext)
         local.unlink(missing_ok=True)
@@ -942,7 +942,7 @@ def _extract_audio_with_retry(file_info: dict,
         last_reason = reason or last_reason
 
         # A deterministic decode failure on the authoritative video stream means
-        # the bytes themselves are undecodable — retrying the identical request
+        # the bytes themselves are undecodable - retrying the identical request
         # only wastes minutes of backoff.  Try harder recovery methods, then,
         # failing those, give up now and skip it on reruns.
         if kind == "permanent" and tier == "video-stream":
@@ -959,7 +959,7 @@ def _extract_audio_with_retry(file_info: dict,
 
         if attempt < STREAM_RETRIES:
             backoff = min(STREAM_BACKOFF_BASE * (2 ** (attempt - 1)), STREAM_BACKOFF_MAX)
-            log.warning("Audio extraction attempt %d/%d failed (%s) for %s — sleeping %ds",
+            log.warning("Audio extraction attempt %d/%d failed (%s) for %s - sleeping %ds",
                         attempt, STREAM_RETRIES, reason, name, backoff)
             _status("⏳", "yellow",
                     f"Attempt {attempt}/{STREAM_RETRIES} failed ({reason}), "
@@ -971,7 +971,7 @@ def _extract_audio_with_retry(file_info: dict,
     return False, False, last_reason, ""
 
 
-# ── Transcription — backend dispatch ──────────────────────────────────────────
+# ── Transcription - backend dispatch ──────────────────────────────────────────
 
 def _determine_compute_device() -> tuple[str, str]:
     """
@@ -1162,10 +1162,10 @@ class _FasterWhisperModelHolder:
 
                     if is_oom and self._batched is not None and self._batch_size > 1:
                         new_bs = max(1, self._batch_size // 2)
-                        log.warning("CUDA OOM on %s — batch_size %d→%d, retrying.",
+                        log.warning("CUDA OOM on %s - batch_size %d→%d, retrying.",
                                     audio_path.name, self._batch_size, new_bs)
                         _status("⚠️", "yellow",
-                                f"CUDA OOM — reducing batch_size to {new_bs} and retrying…")
+                                f"CUDA OOM - reducing batch_size to {new_bs} and retrying…")
                         self._batch_size = new_bs
                         if new_bs <= 1:
                             self._batched = None     # batching fully disabled now
@@ -1178,7 +1178,7 @@ class _FasterWhisperModelHolder:
 
                     if is_oom and self._device != "cpu":
                         _status("⚠️", "yellow",
-                                f"CUDA OOM on {audio_path.name} — reloading on CPU…")
+                                f"CUDA OOM on {audio_path.name} - reloading on CPU…")
                         if self._reload_cpu_fallback():
                             continue
 
@@ -1244,10 +1244,10 @@ def _transcribe(audio_path: Path, file_info: dict,
             "id":             seg.get("id"),
             "start":          round(float(seg.get("start", 0.0)), 3),
             "end":            round(float(seg.get("end",   0.0)), 3),
-            "text":           (seg.get("text") or "").strip(),
+            "text":           (seg.get("text") or "").strip().replace(chr(8212), "-"),
             "words": [
                 {
-                    "word":        (w.get("word") or "").strip(),
+                    "word":        (w.get("word") or "").strip().replace(chr(8212), "-"),
                     "start":       round(float(w.get("start", 0.0)), 3),
                     "end":         round(float(w.get("end",   0.0)), 3),
                     "probability": round(float(w.get("probability", 0.0)), 4),
@@ -1277,11 +1277,11 @@ def _transcribe(audio_path: Path, file_info: dict,
             "platform":           platform.system(),
             "machine":            platform.machine(),
             # When set, the source was corrupt and this audio was reconstructed
-            # (e.g. via untrunc) — likely only a partial recovery of the original.
+            # (e.g. via untrunc) - likely only a partial recovery of the original.
             "recovered_via":      recovered_via or None,
             "partial_recovery":   bool(recovered_via),
         },
-        "full_text": raw.get("text", "").strip(),
+        "full_text": raw.get("text", "").strip().replace(chr(8212), "-"),
         "segments":  segments_out,
     }
 
@@ -1306,7 +1306,7 @@ def _save_transcript(transcript: dict, stem_name: str) -> Path:
         "=" * 72,
         f"FILE        : {src['filename']}",
         f"SOURCE URL  : {src['source_url']}",
-        f"DERIVATIVE  : {src.get('derivative_url') or '(none — streamed from video)'}",
+        f"DERIVATIVE  : {src.get('derivative_url') or '(none - streamed from video)'}",
         f"FORMAT      : {src['file_format']}",
         f"SIZE        : {src['file_size_bytes']:,} bytes",
         f"LANGUAGE    : {meta['language_detected']}",
@@ -1315,7 +1315,7 @@ def _save_transcript(transcript: dict, stem_name: str) -> Path:
         f"PLATFORM    : {meta['platform']} / {meta['machine']}",
         f"DURATION    : {_fmt_ts(meta['duration_seconds'])}",
         f"TRANSCRIBED : {meta['transcribed_at_utc']}",
-        *( [f"RECOVERED   : partial — source was corrupt, rebuilt via "
+        *( [f"RECOVERED   : partial - source was corrupt, rebuilt via "
             f"{meta['recovered_via']}"] if meta.get("recovered_via") else [] ),
         "=" * 72, "",
         "── FULL TRANSCRIPT " + "─" * 53,
@@ -1345,7 +1345,7 @@ def extraction_stage(file_info: dict, store: ProgressStore) -> dict:
     status = entry.get("status", S_PENDING)
     t_ex   = 0.0
 
-    # No audio track: nothing to transcribe, ever — always skip (cheap, no network).
+    # No audio track: nothing to transcribe, ever - always skip (cheap, no network).
     if status == S_NO_AUDIO:
         return {"file_info": file_info, "status": S_NO_AUDIO, "elapsed_extract": 0.0}
 
@@ -1395,7 +1395,7 @@ def extraction_stage(file_info: dict, store: ProgressStore) -> dict:
         if not permanent:
             new_status = S_ERROR
         elif reason == "does not contain any stream":
-            new_status = S_NO_AUDIO          # no audio track — not a 1:1 gap
+            new_status = S_NO_AUDIO          # no audio track - not a 1:1 gap
         else:
             new_status = S_CORRUPT           # truncated / undecodable
         msg = reason or "audio extraction failed after all retries"
@@ -1538,7 +1538,7 @@ def verify_transcripts(video_list: list, store: ProgressStore,
     Sanity-check completed transcripts and reset any that are broken.
 
     Fast path (default): confirm the .json and .txt exist and, for legacy
-    entries lacking a stored hash, that the JSON is structurally valid — an
+    entries lacking a stored hash, that the JSON is structurally valid - an
     O(files) stat pass.  Pass *deep* (``--verify-hashes``) to additionally
     re-compute every SHA-256, which is O(total bytes) and grows with the
     archive, so it is opt-in rather than run on every startup.
@@ -1619,7 +1619,7 @@ def verify_transcripts(video_list: list, store: ProgressStore,
             f"be re-transcribed:[/bold yellow]"
         )
         for short, reason in issues:
-            console.print(f"     [red]•[/red] [dim]{short}[/dim]  —  {reason}")
+            console.print(f"     [red]•[/red] [dim]{short}[/dim]  -  {reason}")
     if no_hash_count:
         console.print(f"  [dim]{no_hash_count} entry/entries had no stored hash.[/dim]")
     console.print()
@@ -1765,7 +1765,7 @@ def main() -> None:
         try:
             _faster_whisper_holder.load(dev, ct)
         except Exception as exc:
-            # GPU load failed — try CPU int8 before giving up.
+            # GPU load failed - try CPU int8 before giving up.
             log.warning("Model load on %s failed (%s); retrying on CPU int8.", dev, exc)
             _status("⚠️", "yellow",
                     f"Model load failed on {dev} ({exc}); retrying on CPU int8…")
@@ -1791,7 +1791,7 @@ def main() -> None:
         bits.append("[green]yt-dlp[/green]" if _HAVE_YTDLP else "[dim]yt-dlp:off[/dim]")
         console.print(f"[bold]Recovery        :[/bold] " + "  ".join(bits))
         if not _HAVE_UNTRUNC:
-            console.print("  [dim]untrunc disabled — install it or build the "
+            console.print("  [dim]untrunc disabled - install it or build the "
                           "'untrunc-local' docker image to recover truncated MP4s.[/dim]")
 
     store      = ProgressStore(PROGRESS_FILE)
@@ -1845,10 +1845,10 @@ def main() -> None:
         gap = transcribable - already_done
         if gap <= 0:
             console.print(
-                f"[bold green]1:1 complete — all {transcribable} videos with audio "
+                f"[bold green]1:1 complete - all {transcribable} videos with audio "
                 f"are transcribed.[/bold green]"
                 + (f"  [dim]({n_no_audio} have no audio; "
-                   f"{n_corrupt} unrecoverable — see "
+                   f"{n_corrupt} unrecoverable - see "
                    f"{UNRECOVERABLE_REPORT}.)[/dim]" if (n_no_audio or n_corrupt) else "")
             )
         else:
@@ -1865,7 +1865,7 @@ def main() -> None:
     #                                              │
     #                                        results_queue
     #                                              │
-    #                                    [main thread — progress bar]
+    #                                    [main thread - progress bar]
 
     ex_queue:      queue.Queue = queue.Queue(maxsize=MAX_CONCURRENT_EXTRACTIONS + 2)
     results_queue: queue.Queue = queue.Queue()
@@ -1945,11 +1945,11 @@ def main() -> None:
                 _status("✅", "green", "  ".join(parts))
             elif status == S_NO_AUDIO:
                 run_no_audio += 1
-                _status("🔇", "blue", f"[{seen + 1}/{total}] {short}  — no audio track")
+                _status("🔇", "blue", f"[{seen + 1}/{total}] {short}  - no audio track")
             elif status == S_CORRUPT:
                 run_corrupt += 1
                 _status("🚫", "magenta",
-                        f"[{seen + 1}/{total}] {short}  — unrecoverable source")
+                        f"[{seen + 1}/{total}] {short}  - unrecoverable source")
             else:
                 run_errors += 1
                 _status("❌", "red", f"[{seen + 1}/{total}] {short}")
@@ -1993,5 +1993,5 @@ if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        console.print("\n[yellow]Interrupted — progress saved; rerun to resume.[/yellow]")
+        console.print("\n[yellow]Interrupted - progress saved; rerun to resume.[/yellow]")
         sys.exit(130)
